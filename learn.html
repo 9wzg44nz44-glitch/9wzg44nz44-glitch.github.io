@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learn · SLW Hub</title>
+<meta name="description" content="Nikolova–Zimmerman vs Hively vs Meyl briefing with accurate citations.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+
+<p class="kicker">Learn</p>
+<h1>Briefing: three vocabularies for “not TEM”</h1>
+<p class="lede">Nikolova–Zimmerman, Hively, and Meyl do not say the same thing. They start from different missing terms, build different hardware, and should be cited separately. This page is a map, not a verdict.</p>
+<div class="banner-edu">SLW / longitudinal-A / potential-vortex claims are active research and fringe relative to textbook CED. Treat every number below as literature or illustration unless you measure it.</div>
+
+<nav class="toc card">
+  <strong>On this page</strong>
+  <a href="#baseline">Classical baseline</a>
+  <a href="#three">Three programs</a>
+  <a href="#detectors">How the detectors are supposed to work</a>
+  <a href="#qex">Zimmerman 2011 hardware (1296 MHz)</a>
+  <a href="#citations">Papers &amp; patents</a>
+</nav>
+
+<h2 id="baseline">Classical baseline (what they all say is incomplete)</h2>
+<p>Textbook Maxwell–Heaviside in SI:</p>
+<p class="eq">∇·D = ρ &nbsp;&nbsp; ∇·B = 0 &nbsp;&nbsp; ∇×E = −∂B/∂t &nbsp;&nbsp; ∇×H = J + ∂D/∂t</p>
+<p>Potentials that automatically satisfy the homogeneous pair:</p>
+<p class="eq">B = ∇×A &nbsp;&nbsp; E = −∇Φ − ∂A/∂t</p>
+<p>The Lorenz leftover, usually set to zero as a gauge condition rather than as a Maxwell equation:</p>
+<p class="eq">C ≡ ∇·A + (1/c²) ∂Φ/∂t &nbsp;&nbsp; (Lorenz gauge: C = 0)</p>
+<p>Free-space communications waves are TEM: E ⊥ k, H ⊥ k, S = E×H ∥ k. A metal wall attenuates TEM over a skin depth</p>
+<p class="eq">δ = 1 / √(π f μ σ) &nbsp;&nbsp; copper σ ≈ 5.8×10⁷ S/m, μ = μ₀</p>
+<p>At 1.300&nbsp;GHz, δ_Cu ≈ 1.833&nbsp;µm. At 8&nbsp;GHz, δ_Cu ≈ 0.739&nbsp;µm. Faraday cages work for TEM when walls are many skin depths and holes ≪ λ. Whether a longitudinal / potential channel ignores that attenuation is the experimental question — not a theorem of this webpage.</p>
+
+<h2 id="three">Three programs</h2>
+<div class="grid-3">
+  <article class="card nz">
+    <span class="tag nz">N–Z</span>
+    <h3>Physical A, TM<sub>01</sub> launch</h3>
+    <p>Engineers treat A as auxiliary; this line treats longitudinal A as measurable (macroscopic Aharonov–Bohm). Tx: monopole in a circular waveguide below TEM cutoff (TM<sub>01</sub>-like). Rx: DC-biased plasma / fluorescent U-tube aligned with k. Signature: reversing bias reverses RF phase. Detected RF power is argued to come from the local bias supply, not TEM Poynting flux.</p>
+    <p class="eq" style="font-size:.95rem">A<sub>m</sub> = μ₀ I<sub>m</sub> / (2π k₀ r)<br>I<sub>RMS</sub> = R · A<sub>m</sub>/√2<br>R ≈ 1.86×10⁵–2.64×10⁵ m/H</p>
+  </article>
+  <article class="card hively">
+    <span class="tag hively">Hively</span>
+    <h3>Keep C; B≈0 SLW</h3>
+    <p>Does not throw out E and B. Promotes C to a dynamical field. SLW: B≈0, C≠0, longitudinal E along ∇C. Tx: linear monopole + λ/4 skirt balun forcing irrotational (gradient-driven) current J<sub>L</sub>=∇κ. Rx: bifilar pancake, adjacent turns opposing, net B≈0, face-on to E<sub>L</sub>. Patent claim: unconstrained by classical skin effect.</p>
+    <p class="eq" style="font-size:.95rem">P<sub>rad</sub> = I²/(4π) · √(μ/ε)<br>= I² Z / (4π) &nbsp;&nbsp;(US 9,306,527 Eq. 15)</p>
+  </article>
+  <article class="card meyl">
+    <span class="tag meyl">Meyl</span>
+    <h3>Potential vortex τ₂</h3>
+    <p>Starts from Faraday and adds a relaxation term B/τ₂. “Scalar wave” here is a longitudinal E-structure whose speed is not locked at c in his reading. Hardware: paired Tesla pancakes, spheres, LED-in-a-box kits. Bruhn (JSE) argued the scalar-wave condition plus source-free Maxwell leaves no oscillating wave. Over-unity and v&gt;c are <em>claims</em>, not defaults in this hub.</p>
+  </article>
+</div>
+
+<h3>What each says Maxwell is missing</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th></th><th>Nikolova–Zimmerman</th><th>Hively EED / SLW</th><th>Meyl</th></tr></thead>
+<tbody>
+<tr><td>Incomplete piece</td><td>Treating A as gauge fiction</td><td>Forcing Lorenz leftover C=0</td><td>Irrotational-E axiom; ∇·B=0</td></tr>
+<tr><td>New object</td><td>Longitudinal A∥ (TM<sub>01</sub>-like)</td><td>C as a field; E<sub>L</sub>, J<sub>L</sub></td><td>Potential vortex; τ₂</td></tr>
+<tr><td>Wave</td><td>A∥ e<sup>jωt</sup> k̂, speed c</td><td>B=0, C≠0, E∥∇C, speed c</td><td>Longitudinal E-structure, speed free (claimed)</td></tr>
+<tr><td>Cage / metal</td><td>Ordinary metals miss A∥; plasma sees momentum kick</td><td>No classical skin δ for SLW (hypothesis)</td><td>Fast vortices “tunnel”</td></tr>
+<tr><td>Energy at RX</td><td>From detector bias, not TEM Poynting</td><td>Extra CE terms; continuity may fail briefly</td><td>Can exceed TX (claimed; not used here)</td></tr>
+<tr><td>Typical hardware</td><td>~1.3 GHz coax/circular TM<sub>01</sub>, neon/CFL</td><td>Monopole + skirt, bifilar, VNA S<sub>21</sub></td><td>Tesla pancakes, spheres, LED boards</td></tr>
+<tr><td>Mainstream status</td><td>QEX + JAP exist; interpretation disputed</td><td>Patent issued; Physics Essays / IARD; not IEEE EMC</td><td>University restrictions; kit literature</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="detectors">How the detectors are supposed to work</h2>
+<div class="grid-2">
+  <article class="card nz">
+    <h3>Plasma U-tube (N–Z)</h3>
+    <p>Core sentence from the original explainer: free electrons in a low-pressure plasma have high mobility; an incident longitudinal A<sub>L</sub> couples to kinetic momentum and modulates drift velocity along the tube, producing RF current on the bias circuit.</p>
+    <p class="eq">p<sub>mech</sub> = mv = p<sub>can</sub> − qA</p>
+    <p>In metal, induced RF velocity is argued to be millimetres per second; in a fluorescent plasma, tens of metres per second. Orient the long axis ∥ k. Reverse DC bias → reverse RF phase. Because B=∇×A<sub>L</sub>=0 for a pure longitudinal wave, a metal loop has no classical induction to work with.</p>
+    <p class="footnote">Zimmerman QEX 2011; J. Appl. Phys. 114, 044907 (2013); plasma responsivity cited ≈ 4.2×10⁵ A per Wb/m (2011 §5) or 1.86–2.64×10⁵ m/H (CEM-R-46 modeled).</p>
+  </article>
+  <article class="card hively">
+    <h3>Bifilar pancake (Hively)</h3>
+    <p>The coil is geometrically matched to irrotational (gradient-driven) fields. Adjacent turns carry opposing current → net B≈0 and near-zero inductance. What remains is a gradient response: E<sub>L</sub> or −∂A<sub>L</sub>/∂t drives a coherent irrotational current to the terminals.</p>
+    <p class="eq">J<sub>L</sub> ≈ σ E<sub>L</sub> &nbsp;&nbsp; E<sub>L</sub> = −∇Φ − ∂A<sub>L</sub>/∂t</p>
+    <p>Do not parallel the two wires. Series-opposing (outer of A to inner of B) is the non-inductive connection. Face-on maximizes projected area (~78.5&nbsp;cm² for a 10&nbsp;cm palm coil in the SNR toys).</p>
+    <p class="footnote">US 9,306,527 B1; Hively &amp; Land, J. Phys.: Conf. Ser. 1956 012011 (2021).</p>
+  </article>
+</div>
+
+<h2 id="qex">Zimmerman 2011 hardware — 1296 MHz circular waveguide</h2>
+<p>First-class amateur-radio source (scan in the <a href="library.html">Library</a>): Robert K. Zimmerman, NP4B / VE3RKZ, “Transmission and Reception of Longitudinally-Polarized Momentum Waves,” <cite>QEX</cite> July/August 2011, p.&nbsp;31+. TEM vs vector-potential comparison <em>and</em> a 1296&nbsp;MHz TM<sub>01</sub> transmitter:</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Item</th><th>As published / scanned</th></tr></thead>
+<tbody>
+<tr><td>Band</td><td>1296 MHz (23 cm amateur calling frequency)</td></tr>
+<tr><td>Waveguide</td><td>7-inch galvanized stovepipe, TM<sub>01</sub></td></tr>
+<tr><td>Cutoff</td><td>λ<sub>cut</sub> ≈ 23.23 cm</td></tr>
+<tr><td>Guide length</td><td>69 cm guide + 69 cm longitudinal probe</td></tr>
+<tr><td>Choke</td><td>5.8 cm choke collar</td></tr>
+<tr><td>Feed</td><td>Type N + 3 dB pad</td></tr>
+<tr><td>Detector</td><td>U-shaped fluorescent plasma tube</td></tr>
+<tr><td>TEM vs VP (author’s table)</td><td>Both Maxwell, both speed c, both ~1/R amplitude; VP called longitudinal, momentum-carrying, not seen by ordinary metal antennas</td></tr>
+</tbody>
+</table>
+</div>
+<p>This is the natural N–Z-style transmitter to sit <em>alongside</em> the Hively RG-405 stub + skirt in the <a href="lab.html">1.3&nbsp;GHz lab</a>. It is still an experimental interpretation: a TM<sub>01</sub> launcher plus a plasma detector does not, by itself, prove a new free-space channel.</p>
+
+<h2 id="citations">Papers, patents, reports</h2>
+<p>Patent numbers are exact. Use Google Patents; do not rely on this page as legal text.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Citation</th><th>What it is</th><th>Link</th></tr></thead>
+<tbody>
+<tr><td>US 8,165,531 B2 (2012). Nikolova, N.K. &amp; Zimmerman, R.K. Jr. <em>Electromagnetic wave-potential communication system and method.</em> Assigned to McMaster University.</td><td>Vector-potential / momentum-wave communications patent. Parabolic + longitudinal dipole embodiments.</td><td><a href="https://patents.google.com/patent/US8165531B2">Google Patents US8165531B2</a></td></tr>
+<tr><td>US 9,306,527 B1 (2016). Hively, L.M. <em>Systems, apparatuses, and methods for generating and/or utilizing scalar-longitudinal waves.</em></td><td>SLW patent: irrotational current, monopole + skirt, bifilar. Eq. 15 for P<sub>rad</sub>.</td><td><a href="https://patents.google.com/patent/US9306527B1">Google Patents US9306527B1</a></td></tr>
+<tr><td>Zimmerman, R.K. (2011). “Transmission and Reception of Longitudinally-Polarized Momentum Waves.” <cite>QEX</cite> Jul/Aug 2011, pp. 31–35.</td><td>1296 MHz TM<sub>01</sub> stovepipe + plasma Rx. Local scan in Library.</td><td><a href="papers/Zimmerman-2011-QEX-Longitudinally-Polarized-Momentum-Waves.pdf">PDF (scan)</a></td></tr>
+<tr><td>Nikolova, N.K. &amp; Zimmerman, R.K. (Nov 2007). <em>Detection of the Time-dependent Electromagnetic Potential at 1.3 GHz.</em> McMaster CEM-R-46.</td><td>1.3 GHz plasma detection of time-dependent 4-potential.</td><td>McMaster report CEM-R-46</td></tr>
+<tr><td>Zimmerman, R.K. (2013). <cite>J. Appl. Phys.</cite> 114, 044907.</td><td>Plasma reception of longitudinal A.</td><td>JAP 114, 044907</td></tr>
+<tr><td>Hively, L.M. &amp; Loebl, A.S. (2019). “Classical and extended electrodynamics.” <cite>Physics Essays</cite> 32(1), 112–126.</td><td>EED exposition; copper-penetration discussion.</td><td>Physics Essays 32(1)</td></tr>
+<tr><td>Hively, L.M. (2020). IARD 2020 presentation / paper.</td><td>~8 GHz monopole + skirt, copper Faraday tests, 1/r², isotropic claim.</td><td><a href="https://v2020.iard-relativity.org/assets/articles/Hively_IARD2020.pdf">IARD 2020 PDF</a></td></tr>
+<tr><td>Hively, L.M. &amp; Land, M. (2021). “Extended electrodynamics and SHP theory.” <cite>J. Phys.: Conf. Ser.</cite> 1956 012011.</td><td>EED + patent hardware language used in the SNR toys.</td><td>JPCS 1956 012011</td></tr>
+<tr><td>Alexander, D.S. (Apr 2005). NASA/CR-2005-213749. <em>Advanced Energetics for Aeronautical Applications, Vol. II.</em></td><td>Contractor survey (Steinmetz, Tesla vs Hertz, Valone, Puthoff US 5,845,220, Meyl). Institutional map, not NASA endorsement of over-unity.</td><td><a href="papers/NASA-CR-2005-213749-Alexander-Advanced-Energetics-Vol-II.pdf">PDF</a></td></tr>
+<tr><td>Meyl, K. Scalar-wave lectures / “Scalar Waves: Theory and Experiments” (2001, 2004).</td><td>Potential-vortex program. See also Bruhn, <cite>J. Scientific Exploration</cite> 15(2).</td><td>INDEL / JSE</td></tr>
+</tbody>
+</table>
+</div>
+<p class="footnote">Adjacent literature (AHE phonons, bagel-coil anecdote, laser-plasma vortices, company newsletter) lives on the <a href="library.html">Library</a> page with explicit genre labels. Those items are not SLW hardware manuals.</p>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Providence, RI / Lady Lake, FL · ARRL member · experimental-physics enthusiast<br>
+      Built with prior Grok (xAI) pages at
+      <a href="https://github.com/9wzg44nz44-glitch">github.com/9wzg44nz44-glitch</a>.
+    </div>
+    <div>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics and are not IEEE-standard antenna theory.
+      No medical, free-energy, over-unity, or operational communications claims. Do not use these models for engineering, regulatory, or safety decisions.
+      Licensed 23&nbsp;cm operation requires a valid amateur radio license. No magnetron source in this hub’s lab protocol.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+
+</body>
+</html>

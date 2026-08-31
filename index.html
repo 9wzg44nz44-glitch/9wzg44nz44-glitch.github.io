@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home · SLW Hub</title>
+<meta name="description" content="Educational hub unifying Dan Britton's SLW GitHub Pages plus a 1.3 GHz Faraday-cage lab.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+
+<section class="hero">
+  <div>
+    <p class="kicker">Educational briefing hub</p>
+    <h1>Scalar longitudinal waves — one desk, many notebooks</h1>
+    <p class="lede">This site unifies Dan Britton’s GitHub Pages on Nikolova–Zimmerman vector-potential experiments, Hively Extended Electrodynamics (SLW), and Meyl’s potential-vortex reading of Maxwell. It is a study aid for patents, papers, and a <strong>1.3&nbsp;GHz Faraday-cage lab</strong> — not a claim that SLW is established physics.</p>
+    <div class="ctrl-row">
+      <a class="btn primary" href="learn.html">Start with the briefing</a>
+      <a class="btn" href="lab.html">Open the 1.3 GHz lab</a>
+      <a class="btn" href="library.html">Papers library</a>
+    </div>
+  </div>
+  <aside class="hero-panel">
+    <dl>
+      <dt>Author</dt><dd>Dan Britton</dd>
+      <dt>Contact</dt><dd><a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a></dd>
+      <dt>Source repos</dt><dd><a href="https://github.com/9wzg44nz44-glitch">9wzg44nz44-glitch</a></dd>
+      <dt>Lab frequency</dt><dd>1.300 GHz (23 cm band) — not 8 GHz</dd>
+      <dt>Tone</dt><dd>Academic, warm, skeptical</dd>
+    </dl>
+  </aside>
+</section>
+
+<div class="banner-edu">Educational only. Models are illustrative. Mainstream CED treats free-space radio as TEM; longitudinal / potential channels remain disputed. Cite the originals; replicate with controls.</div>
+
+<h2>Who this is for</h2>
+<p>Licensed amateur-radio experimenters, students of classical electrodynamics who want a map of the “missing-term” literature, and anyone trying to read US&nbsp;8,165,531 and US&nbsp;9,306,527 without drowning in twenty-six separate GitHub Pages. It is <em>not</em> for medical devices, “free energy,” or unlicensed transmitters.</p>
+
+<div class="grid-3">
+  <article class="card nz">
+    <span class="tag nz">Nikolova–Zimmerman</span>
+    <h3>Longitudinal A, plasma detector</h3>
+    <p>McMaster CEM-R-46 (2007), Zimmerman QEX Jul/Aug 2011, US 8,165,531 B2. 1.296&nbsp;GHz TM<sub>01</sub> waveguide launch; U-shaped fluorescent tube as a differential Aharonov–Bohm detector. Claimed ~1.5&nbsp;km link.</p>
+  </article>
+  <article class="card hively">
+    <span class="tag hively">Hively EED</span>
+    <h3>SLW, bifilar, Faraday copper</h3>
+    <p>US 9,306,527 B1 (2016), Physics Essays 2019, IARD 2020. Irrotational current, dynamical scalar C, B≈0, skirt-balun monopole and bifilar pancake. Original tests near 8&nbsp;GHz; this hub scales the replication to 1.3&nbsp;GHz.</p>
+  </article>
+  <article class="card meyl">
+    <span class="tag meyl">Meyl</span>
+    <h3>Potential vortices</h3>
+    <p>Extended Faraday law with τ<sub>2</sub>. Mapped here as a third vocabulary, not as a foundation for the lab. Over-unity and superluminal claims are recorded as claims and are <em>not</em> used in any energy budget.</p>
+  </article>
+</div>
+
+<h2>How the hub is organized</h2>
+<div class="grid-2">
+  <article class="card">
+    <h3>Learn</h3>
+    <p>Side-by-side physics, hardware, citations with Google Patents links, Zimmerman’s 1296&nbsp;MHz stovepipe TM<sub>01</sub> transmitter, and how the two detectors are supposed to work.</p>
+  </article>
+  <article class="card">
+    <h3>Compare</h3>
+    <p>Comparison table plus the briefing’s interactive SNR toy — clearly labeled <em>illustrative</em> — with the paper/patent formulas shown beside it.</p>
+  </article>
+  <article class="card">
+    <h3>Tools</h3>
+    <p>Hively-style bifilar pancake calculator defaulted to <strong>1.300&nbsp;GHz</strong> (presets 1296&nbsp;MHz and 1.30&nbsp;GHz), RG-405 stub + skirt balun, AWG table, winding polarity.</p>
+  </article>
+  <article class="card">
+    <h3>Lab</h3>
+    <p>1.3&nbsp;GHz Faraday-cage replication of Hively US&nbsp;9,306,527. HAM legal box, copper skin-depth table, BOM, controls, CSV log, publishing checklist, safety. Licensed 23&nbsp;cm source. <strong>No magnetron.</strong></p>
+  </article>
+</div>
+
+<h2>Original GitHub Pages</h2>
+<p class="footnote">Live pages were fetched 31 Aug 2026. Four repo names 404’d as GitHub Pages; their GitHub repos remain linked. Duplicate “How-the-Nikolova-Zimmerman-Plasma-tube-Detector-Works” listed once.</p>
+<div class="repo-list">
+<p><a href="https://9wzg44nz44-glitch.github.io/Educational-Briefing-of-Scalar-Longitudinal-Wave-Topic-Nikolova-Zimmerman-and-Hively/">Educational briefing</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Hively-Style-SLW-Bifilar-Pancake-Coil-Calculator/">Bifilar pancake calculator</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Interactive-SNR-SLW-Webpage/">Interactive SNR webpage</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Combined-SNR-plot-for-both-Hively-and-Nikolova-Zimmerman/">Combined SNR plot</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Cross-Sectional-SLW-SNR-estimator/">Cross-sectional SNR estimator</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Hively-SNR-Simulator/">Hively SNR simulator</a></p>
+<p><a href="https://github.com/9wzg44nz44-glitch/3D-Field-Patterns-of-SLW-for-Nikolova-Zimmerman-and-Hively">3D field patterns (Pages 404)</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Different-Antenna-Types-for-the-Hively-or-Nikolova-Zimmerman-configurations-mixed-and-matched/">Mix-and-match antennas</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/How-the-Nikolova-Zimmerman-Plasma-tube-Detector-Works/">Plasma-tube detector</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Why-does-Hively-bifilar-coil-detector-interact-with-SLW/">Why the bifilar interacts</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/No-Skin-effect-3D-plots/">No-skin-effect simulator (defaults 1.3 GHz)</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Make-a-Balun-skirt-for-the-RG-405U-transmitting-cable-at-the-radiating-end/">RG-405 skirt balun (1.3 / 2.45 / 8 GHz presets)</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Nikolova-Zimmerman_SLW_Simulation_2007_Paper/">CEM-R-46 2007 simulator</a></p>
+<p><a href="https://github.com/9wzg44nz44-glitch">Fluorescent / light-bulb Pages (404)</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Meyl-Hively-Nikolova-Zimmerman/">Meyl–Hively–N–Z map</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Meryl-Theory-Detailed-then-Compared-with-Nikolova-Zimmerman-and-Hively-/">Meyl from the ground up</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Linearly-Resistive-Media-submerged-to-outer-space/">Linearly resistive media</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Proposed-Experiment---Hively-and-Microwave-Oven/">Proposed oven experiment (historical; this hub does not use a magnetron)</a></p>
+</div>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Providence, RI / Lady Lake, FL · ARRL member · experimental-physics enthusiast<br>
+      Built with prior Grok (xAI) pages at
+      <a href="https://github.com/9wzg44nz44-glitch">github.com/9wzg44nz44-glitch</a>.
+    </div>
+    <div>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics and are not IEEE-standard antenna theory.
+      No medical, free-energy, over-unity, or operational communications claims. Do not use these models for engineering, regulatory, or safety decisions.
+      Licensed 23&nbsp;cm operation requires a valid amateur radio license. No magnetron source in this hub’s lab protocol.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+
+</body>
+</html>

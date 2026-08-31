@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare · SLW Hub</title>
+<meta name="description" content="Side-by-side SLW comparison table and illustrative SNR model.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+
+<p class="kicker">Compare · illustrative</p>
+<h1>Side-by-side table and an educational SNR toy</h1>
+<p class="lede">Numbers move so you can see which assumption matters. They are <strong>not</strong> a validated link budget. The top model is the briefing-deck scaling. The lower strip shows the paper/patent formulas used on the original simulators.</p>
+<div class="banner-edu">Illustrative educational model. Noise floors, radiation resistance, 50% coil efficiency, and plasma responsivity are literature-inspired parameters, not calibrated lab values. Do not use for engineering or regulatory decisions.</div>
+
+<h2>Comparison at a glance</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Aspect</th><th>Nikolova–Zimmerman</th><th>Hively (EED)</th></tr></thead>
+<tbody>
+<tr><td>Primary emphasis</td><td>Vector potential A + momentum waves</td><td>Longitudinal E + scalar C (SLW)</td></tr>
+<tr><td>Tx hardware</td><td>Waveguide / TM<sub>01</sub> (1296 MHz stovepipe) or folded dipole</td><td>Monopole + skirt balun; bifilar pancake; original tests ~8 GHz</td></tr>
+<tr><td>Rx hardware</td><td>Biased plasma / fluorescent U-tube</td><td>Bifilar pancake (face-on) or matching monopole</td></tr>
+<tr><td>Scaling used in toys</td><td>|A| ∝ I/r ; I<sub>det</sub> ∝ I/r</td><td>P ∝ I², S ∝ 1/r² ; briefing uses a slightly slower field falloff</td></tr>
+<tr><td>Demonstrated / claimed range</td><td>~1.5 km experimental (1296 MHz)</td><td>Table-top copper penetration at ~8 GHz (IARD 2020); long range is theoretical in the toys</td></tr>
+<tr><td>Core references</td><td>US 8,165,531; QEX 2011; CEM-R-46</td><td>US 9,306,527; Physics Essays 2019; IARD 2020</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Interactive briefing model</h2>
+<p class="footnote">Adapted from the Educational Briefing slide 07 and the Combined SNR page. Presets include the N–Z 2&nbsp;A @ 1.5&nbsp;km anecdote.</p>
+<div class="grid-2">
+  <div class="card">
+    <div class="ctrl">
+      <label>Transmit current I<sub>tx</sub> <span id="itxVal">5.00 A</span></label>
+      <input id="itx" type="range" min="0.1" max="10" step="0.1" value="5">
+    </div>
+    <div class="ctrl">
+      <label>Distance r <span id="rkmVal">50.0 km</span></label>
+      <input id="rkm" type="range" min="1" max="500" step="0.5" value="50">
+    </div>
+    <div class="ctrl-row">
+      <button type="button" data-preset="2,1.5">2 A @ 1.5 km (N–Z exp.)</button>
+      <button type="button" data-preset="5,50">5 A @ 50 km</button>
+      <button type="button" data-preset="8,250">8 A @ 250 km</button>
+      <button type="button" data-preset="5,400">5 A @ 400 km</button>
+    </div>
+    <canvas class="plot" id="snrPlot" aria-label="SNR versus range, log r"></canvas>
+    <p class="footnote">Emerald = N–Z briefing SNR. Amber = Hively briefing SNR. Vertical dashed line = current r.</p>
+  </div>
+  <div>
+    <article class="card nz">
+      <span class="tag nz">N–Z · vector potential</span>
+      <div class="metrics">
+        <div class="metric"><div class="l">Tx power (illust.)</div><div class="v" id="nzPower">—</div></div>
+        <div class="metric"><div class="l">|A| amplitude</div><div class="v" id="nzA">—</div></div>
+        <div class="metric"><div class="l">Detector I</div><div class="v" id="nzIdet">—</div></div>
+        <div class="metric"><div class="l">SNR</div><div class="v" id="nzSnr">—</div></div>
+      </div>
+    </article>
+    <article class="card hively" style="margin-top:12px">
+      <span class="tag hively">Hively · longitudinal E</span>
+      <div class="metrics">
+        <div class="metric"><div class="l">Tx power (illust.)</div><div class="v" id="hPower">—</div></div>
+        <div class="metric"><div class="l">|E<sub>long</sub>|</div><div class="v" id="hE">—</div></div>
+        <div class="metric"><div class="l">Detector I</div><div class="v" id="hIdet">—</div></div>
+        <div class="metric"><div class="l">SNR</div><div class="v" id="hSnr">—</div></div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<h2>Paper / patent strip (same I and r)</h2>
+<p>These use the Combined-SNR and Hively-simulator formulas, still educational:</p>
+<p class="eq">N–Z: A<sub>m</sub> = μ₀ I<sub>m</sub> / (2π k₀ r) at 1.3 GHz, R ≈ 264030 m/H, I<sub>RMS</sub> = R A<sub>m</sub>/√2</p>
+<p class="eq">Hively: P<sub>rad</sub> = I² Z₀ / (4π), S = P<sub>rad</sub>/(4π r²), A<sub>eff</sub> = 78.5 cm², η = 50%, I<sub>out</sub> = √(S A<sub>eff</sub> η / 50 Ω)</p>
+<div class="grid-4">
+  <div class="metric"><div class="l">N–Z |A<sub>m</sub>|</div><div class="v" id="paperAm">—</div></div>
+  <div class="metric"><div class="l">N–Z I<sub>RMS</sub></div><div class="v" id="paperIrms">—</div></div>
+  <div class="metric"><div class="l">Hively P<sub>rad</sub></div><div class="v" id="paperPrad">—</div></div>
+  <div class="metric"><div class="l">Hively S(r)</div><div class="v" id="paperS">—</div></div>
+</div>
+<p class="footnote">P<sub>rad</sub> at 5 A is ~749 W with Z₀ ≈ 376.73 Ω — a large current for a stub, which is why the toys look optimistic. Real 23&nbsp;cm amateur power is far lower; see the Lab legal box.</p>
+
+<h2>Mix-and-match antennas (from the original page)</h2>
+<p>Purity factor ≈ fraction of power in the irrotational / longitudinal-potential mode. Hively bifilar aims near 1; a conventional dipole is much lower. Plasma detectors primarily sense time-varying A; bifilar coils convert longitudinal E into gradient current. Path loss in that simulator was a generalized 1/r<sup>n</sup> (default n=2) plus optional medium dB/km — again a cartoon.</p>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Providence, RI / Lady Lake, FL · ARRL member · experimental-physics enthusiast<br>
+      Built with prior Grok (xAI) pages at
+      <a href="https://github.com/9wzg44nz44-glitch">github.com/9wzg44nz44-glitch</a>.
+    </div>
+    <div>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics and are not IEEE-standard antenna theory.
+      No medical, free-energy, over-unity, or operational communications claims. Do not use these models for engineering, regulatory, or safety decisions.
+      Licensed 23&nbsp;cm operation requires a valid amateur radio license. No magnetron source in this hub’s lab protocol.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+<script src="js/compare.js"></script>
+</body>
+</html>

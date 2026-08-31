@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab · SLW Hub</title>
+<meta name="description" content="1.3 GHz Faraday-cage replication of Hively US 9,306,527 with HAM legal box and CSV log.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+
+<p class="kicker">Lab · 1.3 GHz · not 8 GHz</p>
+<h1>Faraday-cage replication of Hively US 9,306,527 at 1.3 GHz</h1>
+<p class="lede">Scale the IARD 2020 copper-enclosure idea down in frequency to the 23&nbsp;cm amateur band, where a licensed operator can use a legal source. The hypothesis under test is whether a bifilar (or plasma) detector outside a copper box still sees a coherent tone when TEM leakage is beaten down by many skin depths. A null is a successful experiment.</p>
+
+<div class="banner-legal">
+  <strong>HAM legal box — 23 cm (1240–1300 MHz).</strong>
+  Transmitting in this band requires a valid amateur radio license and compliance with Part 97 (US) or your administration’s rules: identification, band edges, power, spurious emissions, and coordination. <strong>1296 MHz is the weak-signal calling frequency</strong> — do not park a continuous unattended carrier there. Prefer a quiet segment, identify, and listen first. This lab uses a <em>licensed 23 cm source</em> into RG-405 — <strong>no magnetron, no microwave oven, no 8 GHz TWT as the primary source.</strong>
+</div>
+
+<nav class="toc card">
+  <strong>Protocol map</strong>
+  <a href="#skin">Copper skin-depth table</a>
+  <a href="#bom">Hand-wind BOM and steps</a>
+  <a href="#tx">Transmitter (stub + skirt; optional TM<sub>01</sub>)</a>
+  <a href="#controls">Controls</a>
+  <a href="#log">CSV schema and in-page log</a>
+  <a href="#publish">Publishing checklist</a>
+  <a href="#safety">Safety</a>
+</nav>
+
+<h2 id="skin">Copper skin-depth table</h2>
+<p class="eq">δ = 1 / √(π f μ σ) &nbsp;&nbsp; μ = μ₀ = 4π×10⁻⁷ H/m &nbsp;&nbsp; σ_Cu ≈ 5.8×10⁷ S/m</p>
+<p>Computed (not copied). 2885 skin depths is a “many δ” Faraday target used on earlier Britton pages; ⅛ in (3.175 mm) copper is ~1733 δ at 1.3 GHz and ~4297 δ at 8 GHz.</p>
+<p class="footnote">Live δ at slider frequency: <span id="labDelta" class="mono">—</span>. Lab default 1.300 GHz.
+  <label style="display:inline">f
+    <input id="labF" type="range" min="0.4" max="10" step="0.001" value="1.3" style="width:12rem;vertical-align:middle">
+  </label>
+</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+  <th>Frequency</th>
+  <th class="num">δ (copper)</th>
+  <th class="num">10 δ</th>
+  <th class="num">100 δ</th>
+  <th class="num">1000 δ</th>
+  <th class="num">2885 δ</th>
+</tr>
+</thead>
+<tbody id="skinBody"></tbody>
+</table>
+</div>
+<p class="footnote">Classical TEM power attenuation through a wall is on the order of e<sup>−2t/δ</sup> (plus aperture leakage). If a detector still hears the tone through a sealed, many-δ box <em>and</em> the TEM-antenna negative control is quiet, you have an anomaly worth publishing. If it does not, that is also worth publishing.</p>
+
+<h2 id="bom">Hand-wind BOM</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Item</th><th>Qty / notes</th></tr></thead>
+<tbody>
+<tr><td>RG-405/U semi-rigid + SMA or Type N</td><td>1 feed; stub + skirt at radiating end. See <a href="tools.html">Tools</a> for 1.300 GHz lengths (λ ≈ 230.61 mm; λ/4 stub ≈ 57.65 mm; VF 0.95 skirt ≈ 54.77 mm).</td></tr>
+<tr><td>Copper/brass thin-wall tube for skirt</td><td>ID clears 0.086″</td></tr>
+<tr><td>Magnet wire 22 AWG (18–26 OK)</td><td>Two equal lengths; buy the calculator’s “two wires + 12%”</td></tr>
+<tr><td>Non-magnetic former (acrylic / PLA / PVC)</td><td>Pancake OD ≈ 0.15 λ ≈ 35 mm at 1.3 GHz, or a larger palm coil (~10 cm) if you prefer the SNR-toy geometry</td></tr>
+<tr><td>Copper box / tube + lids</td><td>Wall ≥ 1 mm preferred (≈ 546 δ at 1.3 GHz). ⅛ in is luxurious. All seams soldered or RF-gasketed. Feed-through only via filtered bulkhead.</td></tr>
+<tr><td>Licensed 23 cm source</td><td>Transverter, brick, or amateur radio; attenuators; directional coupler. Identify on air if the stub radiates outside the box.</td></tr>
+<tr><td>Dummy load 50 Ω, 23 cm rated</td><td>Negative control</td></tr>
+<tr><td>TEM reference antenna</td><td>Small dipole or loop outside the box — the “should go away when sealed” channel</td></tr>
+<tr><td>Optional N–Z detector</td><td>U-shaped CFL / neon + isolated DC bias, axis ∥ expected k</td></tr>
+<tr><td>Optional N–Z Tx</td><td>7-inch galvanized stovepipe TM<sub>01</sub>, 69 cm guide + 69 cm probe, 5.8 cm choke, Type N + 3 dB pad (QEX 2011)</td></tr>
+<tr><td>SA / VNA / SDR, LNA, 1:1 balun</td><td>Record RBW, NF, averaging</td></tr>
+<tr><td>Leakage / field probe</td><td>Confirm TEM is actually down when the lid is on</td></tr>
+</tbody>
+</table>
+</div>
+<ol class="steps">
+  <li>Build the coil (Tools → series-opposing). Photograph leads.</li>
+  <li>Build the stub + skirt at 1.300 GHz (or 1296 MHz if that is your licensed calling plan). Photograph solder fillet of the shorted end.</li>
+  <li>Fit a bulkhead through the copper box; keep the skirt <em>inside</em> the box. Lid closed = “sealed.”</li>
+  <li>Place the bifilar face-on, outside, on-axis with the stub. Distance r measured to the stub tip.</li>
+  <li>Run the control matrix below. Log every row. Do not peek only at the “interesting” condition.</li>
+</ol>
+
+<h2 id="tx">Transmitter</h2>
+<div class="grid-2">
+  <article class="card hively">
+    <h3>Hively-style (primary for this lab)</h3>
+    <p>RG-405 exposed center-conductor stub + skirt balun, driven by a <strong>licensed 23 cm source</strong>. Goal of the skirt: choke common-mode TEM on the outer shield so residual radiation is dominated by the stub current. Whether that current is “irrotational SLW” is the hypothesis, not the construction step.</p>
+  </article>
+  <article class="card nz">
+    <h3>N–Z-style (optional companion)</h3>
+    <p>Zimmerman QEX 2011: 7-inch stovepipe TM<sub>01</sub>, λ<sub>cut</sub> ≈ 23.23 cm, 69 cm guide + 69 cm longitudinal probe, 5.8 cm choke collar, Type N + 3 dB pad, U-tube fluorescent detector. Same frequency family, different launch. Do not mix data sets without labeling Tx type.</p>
+  </article>
+</div>
+
+<h2 id="controls">Control matrix (run all of them)</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Code</th><th>Configuration</th><th>What it is for</th></tr></thead>
+<tbody>
+<tr><td><code>open</code></td><td>Box open or lid off; stub visible</td><td>Positive TEM+whatever baseline</td></tr>
+<tr><td><code>slotted</code></td><td>Lid on but a defined slot / incomplete seam</td><td>Aperture leakage scaling</td></tr>
+<tr><td><code>sealed</code></td><td>Lid on, seams RF-tight, only filtered feed-through</td><td>The actual Faraday test</td></tr>
+<tr><td><code>dummy_load</code></td><td>Source into a 50 Ω load instead of the stub (same cables, same box)</td><td>Kills the antenna; leftover = conducted / pickup</td></tr>
+<tr><td><code>90deg</code></td><td>Detector rotated 90° (coil edge-on, or plasma axis ⊥ k)</td><td>Orientation / polarization control</td></tr>
+<tr><td><code>tem_negative</code></td><td>Ordinary small dipole/loop in place of the bifilar/plasma, same r, same sealed box</td><td>If TEM antenna is dead and bifilar is live, you have a fork in the data; if both live, you have a leak</td></tr>
+</tbody>
+</table>
+</div>
+<p>Also record: source off; modulation off; detector disconnected (terminate); 90° box rotation; distance sweep. Prefer lock-in or a known AM/CW ID so you are not integrating birdies.</p>
+
+<h2 id="log">CSV schema and in-page log</h2>
+<p>Columns (stable): <code>timestamp, run_id, config, f_MHz, P_dBm, r_m, orientation_deg, cage_state, detector, reading_dBm, notes</code>.</p>
+<p><code>config</code> and <code>cage_state</code> should use the codes above. <code>detector</code>: <code>bifilar</code> | <code>plasma</code> | <code>tem_dipole</code> | <code>tem_loop</code>. Stored in this browser until you export.</p>
+<div class="card">
+  <div class="grid-2">
+    <label>run_id <input id="f_run_id" type="text" placeholder="2026-08-31-a"></label>
+    <label>config
+      <select id="f_config">
+        <option>open</option><option>slotted</option><option>sealed</option>
+        <option>dummy_load</option><option>90deg</option><option>tem_negative</option>
+      </select>
+    </label>
+    <label>f_MHz <input id="f_f_MHz" type="number" value="1300" step="0.001"></label>
+    <label>P_dBm <input id="f_P_dBm" type="number" value="0" step="0.1"></label>
+    <label>r_m <input id="f_r_m" type="number" value="0.5" step="0.01"></label>
+    <label>orientation_deg <input id="f_orientation_deg" type="number" value="0" step="1"></label>
+    <label>cage_state
+      <select id="f_cage_state">
+        <option>open</option><option>slotted</option><option>sealed</option>
+      </select>
+    </label>
+    <label>detector
+      <select id="f_detector">
+        <option>bifilar</option><option>plasma</option><option>tem_dipole</option><option>tem_loop</option>
+      </select>
+    </label>
+    <label>reading_dBm <input id="f_reading_dBm" type="number" step="0.1" placeholder="-120"></label>
+    <label>notes <input id="f_notes" type="text" placeholder="RBW, ID, lid torque…"></label>
+  </div>
+  <div class="ctrl-row">
+    <button type="button" class="primary" id="addRow">Add row</button>
+    <button type="button" id="exportCsv">Export CSV</button>
+    <button type="button" id="clearLog">Clear log</button>
+  </div>
+  <div class="table-wrap">
+    <table class="log-table">
+      <thead>
+        <tr><th>#</th><th>timestamp</th><th>run_id</th><th>config</th><th>f_MHz</th><th>P_dBm</th><th>r_m</th><th>deg</th><th>cage</th><th>detector</th><th>reading</th><th>notes</th><th></th></tr>
+      </thead>
+      <tbody id="logBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<h2 id="publish">Publishing checklist</h2>
+<ul class="check-list">
+  <li>License class, call sign, frequency, and that 1296 calling was not occupied by an unidentified carrier.</li>
+  <li>Photographs of stub length, skirt length, coil polarity connection, and box seams.</li>
+  <li>VNA S<sub>11</sub> of stub+skirt; outer-conductor current with skirt on vs off.</li>
+  <li>Complete control matrix, not a highlight reel. Source-off and dummy-load rows.</li>
+  <li>TEM-antenna negative control at the same r and RBW.</li>
+  <li>Distance sweep (even 0.3–3 m) plotted; state whether it looks like 1/r or a leak resonance.</li>
+  <li>Box wall thickness in mm and in skin depths at the operating frequency (use the table).</li>
+  <li>Raw CSV plus instrument screenshots with timestamps.</li>
+  <li>A one-sentence claim that matches the data: “sealed − dummy ≥ X dB” or “no excess above dummy.”</li>
+  <li>Cite US 9,306,527, IARD 2020, and (if used) Zimmerman QEX 2011. State that SLW is not settled physics.</li>
+</ul>
+
+<h2 id="safety">Safety</h2>
+<div class="banner-warn">
+  <strong>RF:</strong> 23 cm can cook eyes and fingers at surprisingly modest power in the near field. Know your ERP, use attenuators, keep people out of the stub’s near zone, and never look into an open waveguide. <strong>Soldering:</strong> flux fumes, lead (if any), hot copper boxes. <strong>Do not cook a sealed cage:</strong> a driven antenna inside a closed conducting box dissipates power in the walls and the feed. Watch temperature; do not apply oven-like power; provide a load path (dummy-load control exists for a reason). No magnetron. No modified microwave oven in this protocol. GFCI on mains instruments. Discharge bias supplies on plasma tubes before handling.
+</div>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Providence, RI / Lady Lake, FL · ARRL member · experimental-physics enthusiast<br>
+      Built with prior Grok (xAI) pages at
+      <a href="https://github.com/9wzg44nz44-glitch">github.com/9wzg44nz44-glitch</a>.
+    </div>
+    <div>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics and are not IEEE-standard antenna theory.
+      No medical, free-energy, over-unity, or operational communications claims. Do not use these models for engineering, regulatory, or safety decisions.
+      Licensed 23&nbsp;cm operation requires a valid amateur radio license. No magnetron source in this hub’s lab protocol.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+<script src="js/lab.js"></script>
+</body>
+</html>

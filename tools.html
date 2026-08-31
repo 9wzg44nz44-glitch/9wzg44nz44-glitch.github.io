@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tools · SLW Hub</title>
+<meta name="description" content="1.3 GHz bifilar pancake coil calculator, RG-405 stub and skirt balun.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+
+<p class="kicker">Tools · 1.300 GHz default</p>
+<h1>Bifilar pancake, RG-405 stub, and skirt balun</h1>
+<p class="lede">Merged from the Hively-style coil calculator and the RG-405 skirt-balun page. All linear dimensions track 1/f. Default is the hub lab frequency, not 2.45 or 8 GHz.</p>
+<div class="banner-edu">Design aid only. A skirt balun is ordinary RF practice; calling the stub an “SLW launcher” is the disputed part. Verify with a VNA (S<sub>11</sub>, outer-conductor current) before any on-air use.</div>
+
+<div class="ctrl-row">
+  <button type="button" class="primary" data-freq="1.3">1.30 GHz</button>
+  <button type="button" data-freq="1.296">1296 MHz</button>
+  <button type="button" data-freq="2.45">2.45 GHz</button>
+  <button type="button" data-freq="8">8 GHz (IARD ref.)</button>
+</div>
+
+<div class="grid-2">
+  <section class="card copper">
+    <h2 style="margin-top:0">1. Operating frequency</h2>
+    <div class="ctrl">
+      <label>Transmit frequency <span id="fLabel">1.300 GHz</span></label>
+      <input id="fGHz" type="range" min="0.4" max="10" step="0.001" value="1.3">
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="l">Wavelength λ = c/f</div><div class="v" id="lamMm">—</div></div>
+      <div class="metric"><div class="l">Copper skin depth</div><div class="v" id="deltaUm">—</div></div>
+    </div>
+    <p class="footnote">c = 299 792 458 m/s. δ = 1/√(π f μ₀ σ), σ_Cu ≈ 5.8×10⁷ S/m.</p>
+  </section>
+  <section class="card">
+    <h2 style="margin-top:0">Near / far field (classical)</h2>
+    <p class="footnote">Reactive NF ≈ 0.62 √(D³/λ). Far field (Fraunhofer) r &gt; 2 D²/λ. Electrically small rule of thumb r ≈ λ/(2π).</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Structure</th><th class="num">D</th><th class="num">Reactive NF ends</th><th class="num">Far field begins</th><th class="num">λ/(2π)</th></tr></thead>
+        <tbody>
+          <tr id="nfTx"></tr>
+          <tr id="nfRx"></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<h2>2. Transmitter: RG-405/U exposed center conductor</h2>
+<div class="grid-2">
+  <article class="card">
+    <p>RG-405/U (0.086″ semi-rigid) fixed data:</p>
+    <ul>
+      <li>Center conductor: 0.020 in (0.51 mm) silver-plated copper-clad steel</li>
+      <li>Dielectric (PTFE) OD ≈ 0.066 in (1.68 mm)</li>
+      <li>Outer conductor OD ≈ 0.0865 in (2.20 mm)</li>
+    </ul>
+    <div class="ctrl">
+      <label>Exposed stub length <span id="stubFracVal">0.25 λ</span></label>
+      <input id="stubFrac" type="range" min="0.05" max="0.35" step="0.01" value="0.25">
+    </div>
+    <div class="metric"><div class="l">Recommended stub</div><div class="v" id="stubMm">—</div></div>
+    <p class="footnote">Hively-style notes often use λ/10–λ/4. Spherical wavefront originates near the tip. Short stub, not a magnetron probe.</p>
+  </article>
+  <article class="card hively">
+    <h3>3. Skirt (sleeve / bazooka) balun</h3>
+    <p>Conductive sleeve over the outer conductor, <strong>shorted at the antenna end</strong>, open at the far end. At electrical λ/4 the open end is a high common-mode impedance.</p>
+    <p class="eq">Z<sub>in</sub> = j Z₀ tan(βL) &nbsp;→&nbsp; infinite when L = λ<sub>g</sub>/4</p>
+    <div class="ctrl">
+      <label>Velocity factor (air ~0.95–1.00) <span id="vfVal">0.95</span></label>
+      <input id="vf" type="range" min="0.7" max="1.0" step="0.01" value="0.95">
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="l">Electrical λ/4</div><div class="v" id="elecQtr">—</div></div>
+      <div class="metric"><div class="l">Physical skirt L = (λ/4)×VF</div><div class="v" id="skirtMm">—</div></div>
+    </div>
+    <p class="footnote">At 1.3 GHz the skirt is ~6× longer than at 8 GHz. Length <em>must</em> track 1/f.</p>
+  </article>
+</div>
+
+<h3>Balun construction (from the original page)</h3>
+<ol class="steps">
+  <li>Install SMA (or Type N) on the source end of RG-405/U in the ordinary way. No special balun connection at the connector.</li>
+  <li>Strip outer copper and PTFE for the calculated stub length. Leave a clean, straight center conductor. Deburr.</li>
+  <li>Cut thin-wall copper/brass tubing (or foil tube) slightly longer than the physical skirt. ID must clear 0.086″ with an air gap or thin dielectric.</li>
+  <li>Slide the sleeve to the dielectric cut-back plane. Solder the near end all around to the RG-405 outer. Leave the far end open — no solder bridges.</li>
+  <li>Optional: thin PTFE or tape between coax and skirt to lower VF (shorter physical length).</li>
+  <li>Confirm choking: S<sub>11</sub> and a field probe on the outer conductor at the design frequency.</li>
+</ol>
+
+<h2>4. Bifilar pancake coil</h2>
+<p>For a pancake facing a spherical wavefront from a small stub, a partial-wavelength OD (typically 0.1–0.3 λ) is preferred. Full-λ diameters get large and are less matched to near-zone curvature.</p>
+<div class="grid-2">
+  <article class="card">
+    <div class="ctrl">
+      <label>Outer diameter <span id="odFracVal">0.15 λ</span></label>
+      <input id="odFrac" type="range" min="0.08" max="0.5" step="0.01" value="0.15">
+    </div>
+    <label>Magnet wire gauge
+      <select id="awg">
+        <option value="18">18 AWG</option>
+        <option value="20">20 AWG</option>
+        <option value="22" selected>22 AWG</option>
+        <option value="24">24 AWG</option>
+        <option value="26">26 AWG</option>
+        <option value="28">28 AWG</option>
+      </select>
+    </label>
+    <div class="ctrl">
+      <label>Bifilar turns (each turn is a pair) <span id="turnsVal">20 turns</span></label>
+      <input id="turns" type="range" min="8" max="60" step="1" value="20">
+    </div>
+  </article>
+  <article class="card">
+    <div class="table-wrap">
+      <table>
+        <tbody>
+          <tr><th>Outer diameter</th><td id="odMm">—</td></tr>
+          <tr><th>Approx. inner diameter</th><td id="idMm">—</td></tr>
+          <tr><th>Wire OD (single-build approx.)</th><td id="wireOd">—</td></tr>
+          <tr><th>Radial build (two wires / turn)</th><td id="radialBuild">—</td></tr>
+          <tr><th>Length per individual wire</th><td id="lenEach">—</td></tr>
+          <tr><th>Buy (two wires + ~12%)</th><td id="lenTotal">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="footnote">You need <strong>two</strong> equal lengths. Do not simply parallel them.</p>
+  </article>
+</div>
+
+<h3>AWG quick reference (approx. single-build film)</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>AWG</th><th class="num">Bare diam.</th><th class="num">Typical OD</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>18</td><td class="num">0.0403 in / 1.024 mm</td><td class="num">~0.043 in</td><td>Heavy; original “table-top” notes</td></tr>
+<tr><td>20</td><td class="num">0.0320 in / 0.812 mm</td><td class="num">~0.035 in</td><td>Robust</td></tr>
+<tr><td>22</td><td class="num">0.0253 in / 0.643 mm</td><td class="num">~0.027–0.029 in</td><td>Easier to handle (default)</td></tr>
+<tr><td>24</td><td class="num">0.0201 in / 0.511 mm</td><td class="num">~0.022–0.024 in</td><td>Good compromise</td></tr>
+<tr><td>26</td><td class="num">0.0159 in / 0.404 mm</td><td class="num">~0.017–0.019 in</td><td>More turns</td></tr>
+<tr><td>28</td><td class="num">0.0126 in / 0.320 mm</td><td class="num">~0.014–0.016 in</td><td>Fine; handle carefully</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>5. Winding + series-opposing polarity</h2>
+<ol class="steps">
+  <li>Cut two equal lengths (Wire A, Wire B). Optionally twist lightly every few cm for handling, but keep them parallel and side-by-side while winding.</li>
+  <li>Start at the center. Secure both inner ends — these are two of the four leads. Label them A-inner, B-inner.</li>
+  <li>Wind a flat spiral. Each “turn” is A then B (or B then A) alternating radially — Hively’s adjacent-conductor geometry.</li>
+  <li>Stop at the target OD. Leave two outer leads: A-outer, B-outer.</li>
+  <li><strong>Series opposing (required):</strong> connect A-outer to B-inner (or A-inner to B-outer). The two remaining free ends are the differential port.</li>
+  <li>When a longitudinal E drives charge, current goes out one lead and returns on the other, so neighboring turns have opposite current → magnetic fields cancel. Net inductance ≈ 0.</li>
+</ol>
+<div class="banner-warn">Do not parallel the two wires. That reinforces B and defeats the gradient filter. Keep interconnects short and shielded. For weak signals, a differential LNA at the coil; then a 1:1 balun into 50 Ω coax to the analyzer.</div>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Providence, RI / Lady Lake, FL · ARRL member · experimental-physics enthusiast<br>
+      Built with prior Grok (xAI) pages at
+      <a href="https://github.com/9wzg44nz44-glitch">github.com/9wzg44nz44-glitch</a>.
+    </div>
+    <div>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics and are not IEEE-standard antenna theory.
+      No medical, free-energy, over-unity, or operational communications claims. Do not use these models for engineering, regulatory, or safety decisions.
+      Licensed 23&nbsp;cm operation requires a valid amateur radio license. No magnetron source in this hub’s lab protocol.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+<script src="js/tools.js"></script>
+</body>
+</html>
