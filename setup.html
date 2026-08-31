@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setup · SLW Hub</title>
+<meta name="description" content="Bench setup for the 1.3 GHz Hively Faraday-cage replication, including Cricut-style sticky-mat bifilar pancake winding.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="setup.html">Setup</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+
+<p class="kicker">Setup · 1.3 GHz (1296 MHz) · not 8 GHz · not 1.3 Hz</p>
+<h1>How to set up the Hively replication on the bench</h1>
+<p class="lede">A walk-through for Dan’s first article: wind a series-opposing bifilar pancake on a Cricut-style sticky “gummy” mat so 22 or 24 AWG magnet wire stays put, then stack the RG-405 stub, skirt balun, copper cage, and licensed 23&nbsp;cm source. Numbers match the <a href="lab.html">lab protocol</a> and <a href="tools.html">coil calculator</a>.</p>
+
+<div class="banner-edu">This is 1.3 <strong>GHz</strong> (23 cm amateur band, build on <strong>1296.000 MHz</strong>). 1.3 Hz would be audio / near-DC and is a different experiment. Licensed amateur radio only. No magnetron.</div>
+
+<nav class="toc card">
+  <strong>On this page</strong>
+  <a href="#picture">What you are building</a>
+  <a href="#mat">Why the sticky gummy board</a>
+  <a href="#awg">22 vs 24 AWG</a>
+  <a href="#wind">Winding the pancake</a>
+  <a href="#connect">Series-opposing connection</a>
+  <a href="#stack">Cage, stub, and first measurements</a>
+  <a href="#checklist">Printable checklist</a>
+</nav>
+
+<h2 id="picture">What you are building</h2>
+<p>Two copper Faraday cans face each other on a wooden/plastic rail. Inside each can: an RG-405/U feed, a λ/4 skirt balun, and either a short exposed-center stub (TX) or the bifilar pancake (RX). The only intended hole is the coax outer soldered 360° into an end cap.</p>
+
+<figure class="figure" role="img" aria-label="Two facing copper cages on a bench rail">
+<svg viewBox="0 0 760 280" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace" font-size="11" fill="#f3ead8">
+  <rect x="8" y="8" width="744" height="264" rx="12" fill="#0c0b09" stroke="#3a3328"/>
+  <!-- rail -->
+  <rect x="60" y="210" width="640" height="14" rx="3" fill="#5a4e3c"/>
+  <text x="380" y="250" text-anchor="middle" fill="#b7ab95">non-metallic spacing rail — measure r from stub tip to pancake face</text>
+  <!-- TX cage -->
+  <ellipse cx="190" cy="130" rx="28" ry="70" fill="none" stroke="#c47a3a" stroke-width="3"/>
+  <rect x="190" y="60" width="130" height="140" fill="#1f1b15" stroke="#c47a3a" stroke-width="3"/>
+  <ellipse cx="320" cy="130" rx="28" ry="70" fill="#181510" stroke="#c47a3a" stroke-width="3"/>
+  <line x1="40" y1="130" x2="190" y2="130" stroke="#d4b483" stroke-width="3"/>
+  <text x="50" y="120" fill="#d4b483">RG-405</text>
+  <rect x="248" y="118" width="18" height="24" fill="none" stroke="#d4923a"/>
+  <line x1="266" y1="130" x2="310" y2="130" stroke="#f3ead8" stroke-width="2"/>
+  <text x="215" y="50" fill="#d4923a">TX cage · stub + skirt</text>
+  <!-- RX cage -->
+  <ellipse cx="470" cy="130" rx="28" ry="70" fill="#181510" stroke="#c47a3a" stroke-width="3"/>
+  <rect x="470" y="60" width="130" height="140" fill="#1f1b15" stroke="#c47a3a" stroke-width="3"/>
+  <ellipse cx="600" cy="130" rx="28" ry="70" fill="none" stroke="#c47a3a" stroke-width="3"/>
+  <circle cx="500" cy="130" r="28" fill="none" stroke="#4a9b88" stroke-width="2"/>
+  <circle cx="500" cy="130" r="18" fill="none" stroke="#4a9b88"/>
+  <circle cx="500" cy="130" r="8" fill="none" stroke="#4a9b88"/>
+  <line x1="600" y1="130" x2="720" y2="130" stroke="#d4b483" stroke-width="3"/>
+  <text x="490" y="50" fill="#4a9b88">RX cage · bifilar pancake</text>
+  <text x="380" y="100" text-anchor="middle" fill="#7d7363">r</text>
+  <line x1="348" y1="130" x2="442" y2="130" stroke="#7d7363" stroke-dasharray="4 3"/>
+</svg>
+<figcaption>Hively-style facing cans at 1296 MHz. Same idea as the 8 GHz patent, scaled ~6.15×. Optional Zimmerman stovepipe TX is a separate control, not this drawing.</figcaption>
+</figure>
+
+<div class="grid-3">
+  <article class="card hively"><h3>TX</h3><p>RG-405 stub λ/10 = <strong>23.1 mm</strong> first article (λ/4 = 57.8 mm as TEM-ish control). Skirt balun <strong>57.8 mm</strong> back along the cable. Licensed 23 cm source, milliwatts to start.</p></article>
+  <article class="card"><h3>Cage</h3><p>Copper pipe + end caps, seams soldered. Wall ≥ 1 mm is already hundreds of skin depths at 1.3 GHz. Outer of RG-405 soldered 360° to the cap.</p></article>
+  <article class="card nz"><h3>RX</h3><p>Bifilar pancake, OD ≈ <strong>35 mm (0.15 λ)</strong>, AWG 22 or 24, <strong>series-opposing</strong>. Face-on, on axis. Aiding twin is the coil control.</p></article>
+</div>
+
+<h2 id="mat">The Cricket / Cricut sticky gummy board</h2>
+<p>A Cricut cutting mat (often nicknamed a Cricket mat or gummy board) is a plastic sheet with a tacky adhesive. For a pancake coil it is a <em>winding jig</em>: each turn sticks where you put it, so 22/24 AWG cannot spring off and knot itself. You are not cutting anything. You are not putting the coil in the Cricut machine.</p>
+
+<div class="callout-mat">
+  <strong>Which mat.</strong> Green <em>StandardGrip</em> is the one to use. Blue LightGrip if a new green mat is so sticky it wants to peel enamel. Skip purple StrongGrip — that adhesive is for chipboard and leather, and it will fight you when you lift the finished pancake.
+</div>
+
+<figure class="figure" role="img" aria-label="Sticky mat jig with two magnet-wire spools">
+<svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace" font-size="11" fill="#f3ead8">
+  <rect x="8" y="8" width="744" height="324" rx="12" fill="#0c0b09" stroke="#3a3328"/>
+  <!-- cardboard -->
+  <rect x="210" y="70" width="340" height="220" rx="6" fill="#3a3328"/>
+  <text x="380" y="92" text-anchor="middle" fill="#b7ab95">corrugated cardboard backup</text>
+  <!-- mat -->
+  <rect x="230" y="100" width="300" height="180" rx="8" fill="#1c4a2c" stroke="#3a9b58" stroke-width="2"/>
+  <text x="380" y="122" text-anchor="middle" fill="#8fd4a0">Cricut StandardGrip (green) 12×12</text>
+  <!-- masked area -->
+  <rect x="245" y="128" width="270" height="138" fill="#0c0b09" opacity=".35"/>
+  <text x="380" y="148" text-anchor="middle" fill="#7d7363">parchment mask — only the circle is gummy</text>
+  <!-- winding circle -->
+  <circle cx="380" cy="210" r="52" fill="#2a6b40" stroke="#8fd4a0" stroke-width="2"/>
+  <circle cx="380" cy="210" r="52" fill="none" stroke="#d4b483" stroke-dasharray="3 3"/>
+  <circle cx="380" cy="210" r="10" fill="#110f0c" stroke="#d4923a"/>
+  <line x1="380" y1="198" x2="380" y2="222" stroke="#d4923a" stroke-width="2"/>
+  <text x="380" y="268" text-anchor="middle" fill="#d4b483">OD 35 mm · ID 6 mm · center pin</text>
+  <!-- spools -->
+  <ellipse cx="90" cy="180" rx="42" ry="50" fill="#1f1b15" stroke="#c47a3a" stroke-width="2"/>
+  <ellipse cx="90" cy="168" rx="42" ry="14" fill="#262117" stroke="#c47a3a"/>
+  <text x="90" y="250" text-anchor="middle" fill="#d4923a">spool A</text>
+  <ellipse cx="670" cy="180" rx="42" ry="50" fill="#1f1b15" stroke="#4a9b88" stroke-width="2"/>
+  <ellipse cx="670" cy="168" rx="42" ry="14" fill="#262117" stroke="#4a9b88"/>
+  <text x="670" y="250" text-anchor="middle" fill="#4a9b88">spool B</text>
+  <path d="M132 180 C 200 180, 260 210, 328 210" fill="none" stroke="#c47a3a" stroke-width="2"/>
+  <path d="M628 180 C 560 180, 500 210, 432 210" fill="none" stroke="#4a9b88" stroke-width="2"/>
+</svg>
+<figcaption>Two spools on opposite sides of the table. Mask the unused adhesive. Only a ~50 mm circle of gummy is exposed. A pin through the hub into cardboard stops the mat from sliding.</figcaption>
+</figure>
+
+<h3>Prepare the jig (5 minutes)</h3>
+<ol class="steps">
+  <li>Lay a 12×12 (or 12×24) green StandardGrip mat face-up on a piece of corrugated cardboard. The cardboard is the backup so a center pin has something to bite.</li>
+  <li>If the mat is brand-new and grabby, press a clean cotton T-shirt onto it once and peel. Crafters do this to knock a new mat down from “glue trap” to “tacky.” You want tacky.</li>
+  <li>Cover everything except a ~50 mm circle in the middle with baking parchment or the mat’s own clear film, taped at the edges. Magnet wire that wanders onto unused adhesive is how tangles start.</li>
+  <li>Draw two circles on the exposed gummy with a compass and a fine marker: <strong>ID 6 mm</strong> and <strong>OD 35 mm</strong> (0.15 λ at 1296 MHz). That is the first-article size from the lab protocol. A 58 mm (0.25 λ) circle is the optional larger coil.</li>
+  <li>Push a plastic push-pin, wooden skewer, or nylon 4-40 through the exact center, into the cardboard. This is the hub. Do not use a steel nail as a permanent former — fine for marking, pull it before RF tests.</li>
+  <li>Put spool A on the left in a mug or on a saucer so it can rotate. Spool B on the right. Opposite sides means the two wires meet at the hub without crossing behind your hands.</li>
+</ol>
+
+<h2 id="awg">22 vs 24 AWG</h2>
+<p>Both work. 24 AWG is what the protocol starts with (pair pitch ~1.15 mm, ~12.5 pair-turns to 35 mm). 22 AWG is stiffer, less tangle-prone, slightly fewer turns. If the 24 wants to bird-nest even on the gummy mat, switch to 22 for article 1 and log it.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>AWG</th><th>Bare Ø</th><th>Typical enamel OD</th><th>Feel on a gummy mat</th><th>35 mm pancake</th></tr></thead>
+<tbody>
+<tr><td>22</td><td>0.643 mm</td><td>~0.70 mm</td><td>Stiff. Sits where you stick it. Easier first coil.</td><td>Fewer pair-turns, pair pitch ~1.4 mm</td></tr>
+<tr><td>24</td><td>0.511 mm</td><td>~0.57 mm</td><td>Springier. This is why the mat exists.</td><td>Protocol default. ~12.5 pair-turns, pitch ~1.15 mm</td></tr>
+<tr><td>26 / 28</td><td>finer</td><td>—</td><td>Tangling risk goes up. Save for later articles.</td><td>More turns, longer wire</td></tr>
+</tbody>
+</table>
+</div>
+<p class="footnote">Buy two equal lengths, about <strong>1.0 m each</strong> for the 35 mm coil (extra for leads). Two enamel colours (red + natural) if you can find them. Same colour: Sharpie-stripe wire A every 5 cm.</p>
+
+<h2 id="wind">Winding the pancake</h2>
+<ol class="steps">
+  <li><strong>Pair, don’t twist (first article).</strong> Lay A and B side-by-side so enamel touches. Tape them as a flat pair for the first 2 cm. A gentle twist (~1 turn per 3 cm) is allowed if the pair keeps splitting; photograph it and write it in the log. Do not braid.</li>
+  <li><strong>Inner leads.</strong> Leave ~80 mm of pair as the hub leads. Poke them down through the center hole (or tape them to the back of the cardboard). These two inner ends will later be soldered to each other for series-opposing.</li>
+  <li><strong>Stick the first pair-turn</strong> onto the gummy at the 6 mm ID, both wires in one layer, flat. Press lightly with a fingernail — you want them parked, not buried in adhesive.</li>
+  <li><strong>Wind outward</strong> as a flat spiral, both wires at once, like laying a two-lane road. Each new pair-turn should kiss the previous one with no overlap and no daylight you can see. The gummy holds the last turn while you bring in the next. Count <em>pair</em>-turns out loud (1, 2, 3…).</li>
+  <li><strong>Stop at the 35 mm mark.</strong> Caliper the OD. Photograph against a ruler. Leave ~80 mm of pair as outer leads.</li>
+  <li><strong>Lift.</strong> Slide a thin plastic card (old gift card) under the pancake, then peel the mat away. Do not yank. If a turn lifts, press it back on a scrap of parchment and tape the pancake to a PTFE / acrylic disc of the same OD.</li>
+  <li><strong>Residue.</strong> If the enamel looks dull with adhesive, wipe with isopropyl on a cloth. No acetone (some polyurethane enamels hate it). No sandpaper on the spiral — only scrape enamel at the four lead ends.</li>
+</ol>
+<p>Wind a <strong>second coil identical except series-aiding</strong> (see next section). Label it AIDING CONTROL. Same mat, same AWG, same OD. That coil is how you prove the first one is actually opposing.</p>
+
+<h2 id="connect">Series-opposing — this is the experiment</h2>
+<p>Hively Fig. 7: adjacent turns carry opposite current so B cancels. Get this wrong and you built a loop.</p>
+<figure class="figure" role="img" aria-label="Series-opposing vs paralleled vs aiding">
+<svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace" font-size="12" fill="#f3ead8">
+  <rect x="8" y="8" width="744" height="204" rx="12" fill="#0c0b09" stroke="#3a3328"/>
+  <!-- opposing -->
+  <rect x="24" y="28" width="220" height="160" rx="10" fill="#1f1b15" stroke="#6aaa6a"/>
+  <text x="134" y="52" text-anchor="middle" fill="#6aaa6a">CORRECT · opposing</text>
+  <text x="134" y="80" text-anchor="middle" fill="#b7ab95">inner A ──┐</text>
+  <text x="134" y="100" text-anchor="middle" fill="#b7ab95">inner B ──┘ solder</text>
+  <text x="134" y="128" text-anchor="middle">outer A → coax center</text>
+  <text x="134" y="148" text-anchor="middle">outer B → coax outer</text>
+  <text x="134" y="172" text-anchor="middle" fill="#6aaa6a">low L</text>
+  <!-- parallel -->
+  <rect x="270" y="28" width="220" height="160" rx="10" fill="#1f1b15" stroke="#c45c4a"/>
+  <text x="380" y="52" text-anchor="middle" fill="#c45c4a">WRONG · paralleled</text>
+  <text x="380" y="90" text-anchor="middle" fill="#b7ab95">both inners together</text>
+  <text x="380" y="110" text-anchor="middle" fill="#b7ab95">both outers together</text>
+  <text x="380" y="148" text-anchor="middle">co-going current</text>
+  <text x="380" y="172" text-anchor="middle" fill="#c45c4a">thick single-filar</text>
+  <!-- aiding -->
+  <rect x="516" y="28" width="220" height="160" rx="10" fill="#1f1b15" stroke="#d4923a"/>
+  <text x="626" y="52" text-anchor="middle" fill="#d4923a">CONTROL · aiding</text>
+  <text x="626" y="90" text-anchor="middle" fill="#b7ab95">inner A to outer B</text>
+  <text x="626" y="110" text-anchor="middle" fill="#b7ab95">(or reverse one wire)</text>
+  <text x="626" y="148" text-anchor="middle">same wind, parallel I</text>
+  <text x="626" y="172" text-anchor="middle" fill="#d4923a">high L · TEM loop</text>
+</svg>
+<figcaption>Recommended joint for the experiment coil: scrape, tin, and solder inner-A to inner-B at the hub. The two outer ends are the RF terminals. Leads from OD to the coax joint &lt; 15 mm or you have added a TEM dipole.</figcaption>
+</figure>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>QC</th><th>Opposing (keep)</th><th>You built the wrong coil</th></tr></thead>
+<tbody>
+<tr><td>DMM outer-A to outer-B after hub joint</td><td>~1–3 Ω for AWG 24, ~1.6 m series</td><td>Open = bad joint. ~0.5 Ω → you paralleled</td></tr>
+<tr><td>L at 100 kHz–1 MHz</td><td>≪ 1 µH, much lower than the aiding twin</td><td>Same L as aiding → connection is wrong</td></tr>
+<tr><td>Photo of hub joint</td><td>Inner-to-inner readable</td><td>Unreadable = rewind</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="stack">Cage, stub, and first measurements</h2>
+<p>After the pancake exists and passes QC, the rest of the first afternoon is plumbing and milliwatts. Full numbers live on <a href="lab.html">Lab</a>; this is the order of operations so the coil does not sit in a drawer.</p>
+<ol class="steps">
+  <li>Strip RG-405: exposed center <strong>23.1 mm</strong> (λ/10). Skirt tube <strong>57.8 mm</strong>, soldered to the outer at the stub end, open at the back. Use the 1.3 GHz preset on <a href="tools.html">Tools</a> and the <a href="https://9wzg44nz44-glitch.github.io/Make-a-Balun-skirt-for-the-RG-405U-transmitting-cable-at-the-radiating-end/">skirt calculator</a>.</li>
+  <li>Drill the copper cap snug on RG-405 outer (~2.2 mm). Stub + skirt <em>inside</em> the can. Solder the outer 360° on the outside of the cap. DMM: center-to-cap open, outer-to-cap 0 Ω.</li>
+  <li>Mount the pancake on axis, plane perpendicular to the pipe axis, face toward the other can. Photograph.</li>
+  <li>Licensed 1296 MHz source → bandpass → step attenuator (start 40–70 dB in) → cage. Identify. Do not camp on 1296.100.</li>
+  <li>Run the control matrix on Lab before you get excited: <code>open</code>, <code>slotted</code>, <code>sealed</code>, <code>dummy_load</code>, <code>90deg</code>, <code>tem_negative</code>, plus the aiding coil. Log CSV.</li>
+</ol>
+<div class="banner-legal"><strong>Decision rule.</strong> A leftover tone through a leak-hunted sealed can that dies when you dummy-load the feedthrough is leakage. A leftover tone that beats the TEM-antenna and aiding-coil floors, and survives cable reseating, is the result you publish — whatever it is.</div>
+
+<h2 id="checklist">Printable checklist</h2>
+<ul class="check-list">
+  <li>Green StandardGrip mat on cardboard, parchment mask, 6 mm / 35 mm circles, center pin</li>
+  <li>Two 1.0 m lengths, AWG 22 or 24, A marked</li>
+  <li>Spools left and right, pair side-by-side, inner leads through the hub</li>
+  <li>Flat spiral, one layer, stop at 35 ± 1 mm, photo with ruler</li>
+  <li>Peel with a plastic card; isopropyl if gummy residue</li>
+  <li>Inner-A soldered to inner-B; outer ends are terminals; leads &lt; 15 mm</li>
+  <li>DMM + L vs aiding twin; label OPPOSING and AIDING</li>
+  <li>Stub 23.1 mm, skirt 57.8 mm, 360° cap fillet</li>
+  <li>License, ident, milliwatts, control matrix, CSV export</li>
+</ul>
+<p class="footnote">More geometry, skin-depth tables, and the CSV logger: <a href="lab.html">Lab</a>. Lengths: <a href="tools.html">Tools</a>. Papers: <a href="library.html">Library</a> (Hively US 9,306,527, IARD 2020 slides, CEM-R-46).</p>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Providence, RI / Lady Lake, FL · ARRL member · experimental-physics enthusiast<br>
+      Built with prior Grok (xAI) pages at
+      <a href="https://github.com/9wzg44nz44-glitch">github.com/9wzg44nz44-glitch</a>.
+    </div>
+    <div>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics and are not IEEE-standard antenna theory.
+      Licensed 23&nbsp;cm operation requires a valid amateur radio license. No magnetron source in this hub’s lab protocol.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+</body>
+</html>
