@@ -10,7 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <style>
-  #viz { width: 100%; height: min(62vh, 520px); background: #0b1020; border-radius: 8px; }
+  #viz { width: 100%; height: min(52vh, 420px); background: #0b1020; border-radius: 8px; }
+  #viz canvas { width: 100%; height: 100%; display: block; }
   .controls { display: grid; gap: .6rem 1.2rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 1rem 0; }
   .controls label { display: block; font-size: .9rem; }
   .controls output { font-family: "IBM Plex Mono", monospace; }
@@ -44,7 +45,7 @@
   <p class="lede">Educational cartoon of expected <strong>transverse (TEM)</strong> vs <strong>longitudinal / scalar (SLW)</strong> patterns for Dan’s 23&nbsp;cm HAM bench: TinySA Ultra 406 in square-wave / mixer region at <strong>1296.000 MHz</strong>, Hively skirt-balun stub, optional female-SMA leak, two RadioScreen mesh tents. Mainstream classical electrodynamics (CED) is TEM. SLW / extended electrodynamics is <em>not</em> settled physics. Numbers are the same toys as the older SNR pages, driven here by TinySA dBm instead of a 5&nbsp;A slider.</p>
   <div class="banner-legal"><strong>Not a measurement.</strong> Square-wave drive is full of harmonics and mixer spurs — not a clean sine. Sealed mesh is quoted <strong>50–60 dB</strong> RadioScreen, not Hively’s copper-pipe 25,000 dB. Licensed milliwatts on 23&nbsp;cm only. No magnetron.</div>
 
-  <div id="viz" role="img" aria-label="3D schematic of stub, SMA, TEM lobes and SLW cloud"></div>
+  <div id="viz" role="img" aria-label="2D schematic of stub, SMA, TEM lobes and SLW pattern"><canvas id="vizCanvas"></canvas></div>
   <div class="controls card">
     <label>P<sub>tx</sub> TinySA generator (dBm)
       <input id="ptx" type="range" min="-30" max="10" step="0.5" value="-10">
@@ -143,7 +144,6 @@ open 0 dB · slotted 25 dB · sealed 55 dB (inside 50–60 dB RadioScreen quote)
     </div>
   </div>
 </footer>
-<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/fields.js"></script>
 </body>

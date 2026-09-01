@@ -15,7 +15,7 @@
   const $ = (id) => document.getElementById(id);
   const ptx = $("ptx"), rEl = $("r"), cage = $("cage"), mode = $("mode");
   const smaLeak = $("smaLeak"), lna = $("lna");
-  if (!ptx || typeof THREE === "undefined") return;
+  if (!ptx) return;
   function wattsFromDbm(dbm) { return Math.pow(10, (dbm - 30) / 10); }
   function dbmFromWatts(w) { return w <= 0 ? -999 : 10 * Math.log10(w * 1000); }
   function meshPower(attEach) { return Math.pow(10, (-2 * attEach) / 10); }
@@ -56,66 +56,87 @@
     $("temOut").innerHTML = "I<sub>rms</sub> = " + fmt(s.Irms, 3) + " A \u00b7 P<sub>rx</sub> (mesh) = " + fmtN(dbmFromWatts(s.PrxTem), 1) + " dBm<br>SNR<sub>TEM</sub> \u2248 <strong>" + fmtN(s.snrTem, 1) + " dB</strong> (B=100 kHz, NF=" + s.nf + " dB" + (s.lnaGain ? ", LNA +20 dB" : "") + ")." + nearNote;
     $("slwOut").innerHTML = "P<sub>rad</sub> (Eq. 15) = " + fmt(s.Prad, 3) + " W \u00b7 S = " + fmt(s.S, 3) + " W/m\u00b2<br>A<sub>m</sub>(r) = " + fmt(s.Am, 3) + " Wb/m \u00b7 A<sub>z</sub>(r) = " + fmt(s.Az, 3) + " Wb/m<br>SNR<sub>Hively</sub> \u2248 <strong>" + fmtN(s.snrH, 1) + " dB</strong> \u00b7 P<sub>sig,NZ</sub> " + fmtN(dbmFromWatts(s.Pnz), 1) + " dBm \u00b7 P<sub>sig,Z</sub> " + fmtN(dbmFromWatts(s.Pz), 1) + " dBm<br>Two tents \u00d7 " + s.att + " dB \u2192 power \u00d7 " + fmt(s.mP, 2) + ".";
   }
-  const host = $("viz");
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0b1020);
-  const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 50);
-  camera.position.set(0.35, 0.22, 0.55);
-  camera.lookAt(0, 0.05, 0);
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  host.appendChild(renderer.domElement);
-  const light = new THREE.DirectionalLight(0xffffff, 1.1);
-  light.position.set(1, 2, 2);
-  scene.add(light, new THREE.AmbientLight(0x6688aa, 0.4));
-  function cyl(rad, h, color, y) {
-    const m = new THREE.Mesh(new THREE.CylinderGeometry(rad, rad, h, 24), new THREE.MeshPhongMaterial({ color: color, transparent: true, opacity: 0.95 }));
-    m.position.y = y;
-    return m;
+
+  const canvas = $("vizCanvas");
+  const ctx = canvas.getContext("2d");
+  function sizeCanvas() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = canvas.parentElement.clientWidth;
+    const h = canvas.parentElement.clientHeight;
+    canvas.width = Math.max(1, w * dpr);
+    canvas.height = Math.max(1, h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { w: w, h: h };
   }
-  const stub = cyl(0.003, 0.058, 0xc4a574, 0.029);
-  const skirt = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.058, 24, 1, true), new THREE.MeshPhongMaterial({ color: 0x88aacc, side: THREE.DoubleSide, transparent: true, opacity: 0.7 }));
-  skirt.position.y = -0.01;
-  const sma = new THREE.Group();
-  sma.add(cyl(0.0045, 0.012, 0xdddddd, 0.08));
-  sma.add(cyl(0.0012, 0.01, 0xf0c14b, 0.09));
-  sma.visible = false;
-  sma.position.set(0.08, 0, 0);
-  scene.add(stub, skirt, sma);
-  const temLobe = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshPhongMaterial({ color: 0x3dd6c6, transparent: true, opacity: 0.28, side: THREE.DoubleSide }));
-  temLobe.scale.set(0.12, 0.18, 0.12);
-  temLobe.position.y = 0.08;
-  const slwCloud = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 16), new THREE.MeshPhongMaterial({ color: 0xf0a030, transparent: true, opacity: 0.18 }));
-  scene.add(temLobe, slwCloud);
-  const pancake = new THREE.Mesh(new THREE.TorusGeometry(0.03, 0.004, 8, 32), new THREE.MeshPhongMaterial({ color: 0xcc8844 }));
-  pancake.rotation.x = Math.PI / 2;
-  scene.add(pancake);
-  function resize() {
-    const w = host.clientWidth, h = host.clientHeight;
-    renderer.setSize(w, h, false);
-    camera.aspect = w / Math.max(h, 1);
-    camera.updateProjectionMatrix();
-  }
-  window.addEventListener("resize", resize);
-  resize();
-  function updateViz(s) {
-    const scale = Math.max(0.04, Math.min(0.35, 0.12 + 0.04 * (s.Ptx_dBm + 20) / 20));
-    const attFade = Math.pow(10, (-s.att) / 40);
-    const rScale = Math.max(0.15, Math.min(1.2, s.r));
-    pancake.position.set(0, 0.04, -rScale * 0.35);
-    temLobe.visible = mode.value !== "slw";
-    slwCloud.visible = mode.value !== "tem";
-    temLobe.scale.set(scale * 0.9, scale * 1.4, scale * 0.9);
-    temLobe.material.opacity = 0.12 + 0.25 * attFade;
-    slwCloud.scale.setScalar(scale * 1.6 * (0.5 + 0.5 / Math.max(s.r, 0.05)));
-    slwCloud.material.opacity = 0.08 + 0.22 * attFade;
-    sma.visible = smaLeak.checked;
+  function draw(s) {
+    const { w, h } = sizeCanvas();
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "#0b1020";
+    ctx.fillRect(0, 0, w, h);
+    const fade = Math.pow(10, (-s.att) / 40);
+    const x0 = w * 0.22, y0 = h * 0.55;
+    const x1 = w * (0.35 + 0.45 * Math.min(s.r / 3, 1));
+    const y1 = h * 0.55;
+    const pScale = 8 + 0.6 * (s.Ptx_dBm + 30);
+    if (mode.value !== "slw") {
+      ctx.fillStyle = "rgba(61,214,198," + (0.15 + 0.35 * fade) + ")";
+      ctx.beginPath();
+      ctx.ellipse(x0, y0 - 18, pScale * 0.55, pScale * 1.15, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#8fd";
+      ctx.fillText("TEM lobes", x0 - 24, y0 - pScale * 1.2 - 8);
+    }
+    if (mode.value !== "tem") {
+      ctx.strokeStyle = "rgba(240,160,48," + (0.25 + 0.5 * fade) + ")";
+      ctx.lineWidth = 2;
+      for (let i = 1; i <= 4; i++) {
+        ctx.beginPath();
+        ctx.arc(x0, y0, (pScale * 0.7) * i * (0.4 + 0.15 / Math.max(s.r, 0.08)), 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.fillStyle = "#fc8";
+      ctx.fillText("SLW ~ 1/r", x0 - 20, y0 + pScale * 2.2);
+    }
+    ctx.fillStyle = "#c4a574";
+    ctx.fillRect(x0 - 3, y0 - 40, 6, 50);
+    ctx.strokeStyle = "#88aacc";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(x0 - 14, y0 + 2, 28, 18);
+    ctx.fillStyle = "#ccc";
+    ctx.font = "12px sans-serif";
+    ctx.fillText("stub+skirt", x0 - 28, y0 + 38);
+    ctx.beginPath();
+    ctx.arc(x1, y1, 16, 0, Math.PI * 2);
+    ctx.fillStyle = "#cc8844";
+    ctx.fill();
+    ctx.fillStyle = "#eee";
+    ctx.fillText("pancake", x1 - 22, y1 + 32);
+    ctx.strokeStyle = "#667";
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = "#9ab";
+    ctx.fillText("r = " + s.r.toFixed(2) + " m", (x0 + x1) / 2 - 30, y0 - 10);
+    if (smaLeak.checked) {
+      ctx.fillStyle = "#ddd";
+      ctx.fillRect(x0 + 28, y0 - 8, 18, 10);
+      ctx.fillStyle = "#f0c14b";
+      ctx.fillRect(x0 + 44, y0 - 5, 8, 4);
+      ctx.fillStyle = "#eee";
+      ctx.fillText("SMA leak", x0 + 28, y0 - 14);
+    }
+    ctx.fillStyle = "#8aa";
+    ctx.fillText("1296 MHz square-wave (spurs) · mesh " + s.att + " dB/tent", 12, 20);
   }
   function tick() {
     const s = compute();
     renderText(s);
-    updateViz(s);
-    renderer.render(scene, camera);
+    draw(s);
     requestAnimationFrame(tick);
   }
+  window.addEventListener("resize", function () { draw(compute()); });
   tick();
 })();
