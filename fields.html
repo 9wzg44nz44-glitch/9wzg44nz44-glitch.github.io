@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fields · 1296 MHz TEM vs SLW · SLW Hub</title>
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  #viz { width: 100%; height: min(62vh, 520px); background: #0b1020; border-radius: 8px; }
+  .controls { display: grid; gap: .6rem 1.2rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 1rem 0; }
+  .controls label { display: block; font-size: .9rem; }
+  .controls output { font-family: "IBM Plex Mono", monospace; }
+  .snr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 700px) { .snr-grid { grid-template-columns: 1fr; } }
+  .eq { overflow-x: auto; font-family: "IBM Plex Mono", monospace; font-size: .85rem; background: rgba(0,0,0,.04); padding: .8rem 1rem; }
+  iframe.wolfram { width: 100%; min-height: 480px; border: 0; background: #111; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/mark.svg" alt=""> SLW Hub</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="fields.html" aria-current="page">Fields</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="setup.html">Setup</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <p class="kicker">Illustrative · 1296.000 MHz · TinySA Ultra 406</p>
+  <h1>Radiated fields: skirt-balun stub vs SMA end</h1>
+  <p class="lede">Educational cartoon of expected <strong>transverse (TEM)</strong> vs <strong>longitudinal / scalar (SLW)</strong> patterns for Dan’s 23&nbsp;cm HAM bench: TinySA Ultra 406 in square-wave / mixer region at <strong>1296.000 MHz</strong>, Hively skirt-balun stub, optional female-SMA leak, two RadioScreen mesh tents. Mainstream classical electrodynamics (CED) is TEM. SLW / extended electrodynamics is <em>not</em> settled physics. Numbers are the same toys as the older SNR pages, driven here by TinySA dBm instead of a 5&nbsp;A slider.</p>
+  <div class="banner-legal"><strong>Not a measurement.</strong> Square-wave drive is full of harmonics and mixer spurs — not a clean sine. Sealed mesh is quoted <strong>50–60 dB</strong> RadioScreen, not Hively’s copper-pipe 25,000 dB. Licensed milliwatts on 23&nbsp;cm only. No magnetron.</div>
+
+  <div id="viz" role="img" aria-label="3D schematic of stub, SMA, TEM lobes and SLW cloud"></div>
+  <div class="controls card">
+    <label>P<sub>tx</sub> TinySA generator (dBm)
+      <input id="ptx" type="range" min="-30" max="10" step="0.5" value="-10">
+      <output id="ptxOut"></output>
+    </label>
+    <label>r stub-tip → pancake (m)
+      <input id="r" type="range" min="0.05" max="3" step="0.01" value="0.5">
+      <output id="rOut"></output>
+    </label>
+    <label>Cage (both tents)
+      <select id="cage">
+        <option value="open">open (0 dB / tent)</option>
+        <option value="slotted">slotted (~25 dB / tent)</option>
+        <option value="sealed" selected>sealed (55 dB / tent, RadioScreen)</option>
+      </select>
+    </label>
+    <label>Show
+      <select id="mode">
+        <option value="both" selected>TEM + SLW</option>
+        <option value="tem">TEM only</option>
+        <option value="slw">SLW only</option>
+      </select>
+    </label>
+    <label><input id="smaLeak" type="checkbox"> SMA-end leak on</label>
+    <label><input id="lna" type="checkbox"> Detector LNA (~20 dB, NF ≈ 5 dB)</label>
+  </div>
+  <p class="footnote">Default sealed = 55 dB per tent, two tents so power is down 110 dB if you apply both. That is still a mesh screen, not 2885 copper skin depths. Near-field: lab <em>r</em> is often inside 2D²/λ for a small stub — Friis is a far-field estimate, labeled as such.</p>
+
+  <h2 id="snr">Illustrative SNR at the TinySA detector</h2>
+  <div class="snr-grid">
+    <article class="card">
+      <h3>TEM (Friis, far-field caveat)</h3>
+      <p id="temOut"></p>
+    </article>
+    <article class="card">
+      <h3>SLW / Hively (patent Eq. 15 chain)</h3>
+      <p id="slwOut"></p>
+    </article>
+  </div>
+  <p class="footnote">Assumptions stated in the equations section: 50&nbsp;Ω, RBW B = 100&nbsp;kHz (log the real RBW), thermal floor N<sub>0</sub> = −174 dBm/Hz at 290&nbsp;K, Hively NF = 3&nbsp;dB unless LNA on (NF ≈ 5&nbsp;dB, +20&nbsp;dB gain on P<sub>sig</sub> only — still illustrative). TinySA input is 50&nbsp;Ω when internal atten ≥ 10&nbsp;dB.</p>
+
+  <h2 id="eq">Equations on this page (as coded)</h2>
+  <p>f = 1.296×10<sup>9</sup> Hz, c = 299792458 m/s, μ<sub>0</sub> = 4π×10<sup>−7</sup>, Z<sub>0</sub> = 376.73031346177 Ω, R<sub>L</sub> = 50 Ω.</p>
+  <h3>TinySA → current</h3>
+  <pre class="eq">P = 10^((P_tx,dBm − 30)/10)   W into 50 Ω
+I_rms = sqrt(P / 50)
+I_peak = I_rms * sqrt(2)</pre>
+  <h3>TEM received (Friis, far-field; honest near-field caveat)</h3>
+  <pre class="eq">G_tx ≈ 1.5  (short monopole, linear, not dBi marketing)
+A_eff,TEM = 3λ² / (8π)     (same short-monopole estimate)
+P_rx,TEM = P_tx * G_tx * A_eff,TEM / (4 π r²)   [far field]
+P_rx,mesh = P_rx * 10^(−Att_dB / 10)   per tent; two tents when sealed
+SNR_TEM,dB = P_rx,dBm − (−174 + 10 log10(B) + NF)
+B = 100 kHz   NF = 3 dB (5 dB if LNA box checked)
+Near-field flags when r &lt; 2 D²/λ with D ≈ λ/4 stub, or r &lt; λ/(2π).</pre>
+  <h3>Hively SLW (US 9,306,527 Eq. 15 — same JS as Hively-SNR-Simulator)</h3>
+  <pre class="eq">P_rad = I_peak² Z_0 / (4π)     (patent Eq. 15; isotropic SLW cartoon)
+S(r) = P_rad / (4π r²)
+A_eff = π (0.05)² = 7.854×10⁻³ m²   (10 cm palm coil, η = 0.50)
+P_load = S A_eff η * 10^(−Att_dB/10) per tent
+SNR_Hively,dB = P_load,dBm − (−174 + 10 log10(B) + NF)</pre>
+  <p class="footnote">Old HTML sliders used I ≈ 5 A (P_rad ≈ 749 W). This page uses TinySA milliwatts, so P_rad is tiny. The <em>shape</em> of S∝1/r² is the toy; do not treat 5 A as a TinySA number.</p>
+  <h3>Nikolova–Zimmerman analytic A(r) (CEM-R-46 2007)</h3>
+  <pre class="eq">k_0 = 2π f / c
+A_m(r) = μ_0 I_peak / (2π k_0 r)     Wb/m   (peak)
+R = 264030 m/H
+I_RMS = (R / √2) A_m
+P_sig,NZ = I_RMS² * 50 * mesh_power</pre>
+  <h3>Zimmerman 2011 lab-anchored A_z(r)</h3>
+  <pre class="eq">A_z = 10⁻¹⁰ * (I_peak / 0.028) * (1.5 / r) * (1.3 / f_GHz)   Wb/m
+       (anchor: 10⁻¹⁰ Wb/m at 1.5 m, 10 mW, I_ref = 28 mA)
+I_rms,Z = 420000 * A_z
+P_sig,Z = I_rms,Z² * 50 * mesh_power</pre>
+  <h3>Mesh</h3>
+  <pre class="eq">Field × 10^(−Att_dB/20)    Power × 10^(−Att_dB/10)
+Two tents: Att_total,dB = 2 * Att_per_tent
+open 0 dB · slotted 25 dB · sealed 55 dB (inside 50–60 dB RadioScreen quote)</pre>
+
+  <h2 id="wolfram">Wolfram Cloud Manipulate</h2>
+  <p>Same controls in a CloudPublished <code>Manipulate</code> (uses Dan’s Wolfram Cloud credits). Iframe appears when the public <code>wolframcloud.com/obj/…</code> URL is set.</p>
+  <!-- WOLFRAM_IFRAME_SRC -->
+  <div id="wolfram-iframe"></div>
+
+  <h2>Citations (read the originals)</h2>
+  <ul>
+    <li>Hively, US 9,306,527 B1 (2016); Physics Essays 2019; IARD 2020.</li>
+    <li>Nikolova &amp; Zimmerman, McMaster CEM-R-46 (2007); Zimmerman, QEX Jul/Aug 2011; US 8,165,531 B2.</li>
+    <li>Bench: <a href="setup.html">setup</a>, <a href="lab.html">lab</a>. Older SNR toys (now private repos) supplied the JS chains above.</li>
+  </ul>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/fields.js"></script>
+</body>
+</html>
