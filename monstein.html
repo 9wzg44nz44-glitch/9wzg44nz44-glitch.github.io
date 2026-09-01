@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monstein–Wesley 2002 brass-rod polarizer · SLW Hub</title>
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  #ucurve { width: 100%; max-width: 640px; height: 280px; background: #0b1020; border-radius: 8px; }
+  .eq { overflow-x: auto; font-family: "IBM Plex Mono", monospace; font-size: .85rem; background: rgba(0,0,0,.04); padding: .8rem 1rem; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/mark.svg" alt=""> SLW Hub</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="fields.html">Fields</a>
+      <a href="monstein.html" aria-current="page">Monstein</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="setup.html">Setup</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <p class="kicker">Educational briefing · Europhys. Lett. 59, 514 (2002) · not settled physics</p>
+  <h1>Monstein &amp; Wesley 2002: brass-rod polarizer for a claimed longitudinal <em>E</em></h1>
+  <p class="lede">C. Monstein and J.P. Wesley reported a 433.59&nbsp;MHz ball-antenna experiment they titled “Observation of scalar longitudinal electrodynamic waves.” This page is a study aid: what they built, the formulas in the paper, how later authors read it, and how it does <em>and does not</em> connect to Hively Faraday-cage SLW work, Nikolova–Zimmerman <em>A</em>(<em>r</em>), Meyl, and Puthoff polarizable-vacuum notes. Mainstream CED treats free-space radio as TEM. Longitudinal / “scalar” channels remain disputed.</p>
+  <div class="banner-legal"><strong>Authors’ claim, not a verdict.</strong> We do not host the IOP/EPLA PDF. Cite <a href="https://doi.org/10.1209/epl/i2002-00136-9">doi:10.1209/epl/i2002-00136-9</a>. An author-side copy is sometimes posted on J.P. Wesley’s site; treat that as their posting, not this hub republishing the journal. Licensed 23&nbsp;cm (1296&nbsp;MHz) or 13&nbsp;cm (2.45&nbsp;GHz ISM / ham segments) only if you replicate. No magnetron protocol.</div>
+
+  <nav class="toc card">
+    <a href="#expt">The 2002 setup</a>
+    <a href="#eq">Formulas</a>
+    <a href="#ucurve-sec">Rotation / U-curve</a>
+    <a href="#critique">Comments and reconstructions</a>
+    <a href="#hively">Hively 2026 distinction</a>
+    <a href="#map">Connectable dots</a>
+    <a href="#repl">1296 / 2.45 GHz notes</a>
+  </nav>
+
+  <h2 id="expt">What they built</h2>
+  <ul>
+    <li><strong>Frequency.</strong> 433.59&nbsp;MHz. λ = c/f ≈ 0.692&nbsp;m. λ/2 = 34.6&nbsp;cm (the rod length they quote).</li>
+    <li><strong>Source / detector.</strong> Identical aluminium ball antennas, 6&nbsp;cm diameter, coax fed to the inside of the sphere (outer conductor as shield). Heights: source 4.0&nbsp;m above ground, receiver 4.4&nbsp;m.</li>
+    <li><strong>Polarizer-analyzer.</strong> Cubic array of <strong>nine</strong> brass λ/2 rods on a rotatable mount (hand or turntable). Absorb when rods are <em>parallel</em> to the claimed propagation direction; transmit when <em>perpendicular</em>. Two crossed arrays were proposed as a TEM filter.</li>
+    <li><strong>Range.</strong> Signal vs distance, including two interference minima they attribute to an Earth image source. They argue only a wave (not a near-zone quasi-static field) can show that plus ~1/r².</li>
+  </ul>
+  <p>Redrawn in words: TX ball → (optional rod cube at angle φ) → RX ball, both balls well above a ground plane. That is a polarizer test for the <em>direction of E</em>, not a Faraday-cage skin-depth test and not a bifilar pancake.</p>
+
+  <h2 id="eq">Formulas as written in the 2002 letter</h2>
+  <p>Gaussian units in the original. They start from a retarded scalar potential (their eq. 1; typesetting of the d’Alembertian is as printed):</p>
+  <pre class="eq">∇²Φ − (1/c²) ∂²Φ/∂t² = −4πρ                          (1)
+ρ = q δ(r − r′) sin(ωt)                                 (3)
+Φ = q sin(kr − ωt) / r                                  (4)
+E = ∇Φ = [k q cos(kr − ωt)/r − q sin(kr − ωt)/r²] ê_r   (5)
+⟨S⟩_t = (k ω q / (2 r²)) ê_r                            (6)</pre>
+  <p>Ohmic loss in a rod of conductivity σ and cross-section A, only the component E₀ cos φ along the wire (φ = angle between rods and the TX–RX line):</p>
+  <pre class="eq">δP = −σ A E₀² cos²(φ) δL                                (7)
+T = exp[ −κ cos²(φ) ]                                   (9)
+κ_fit = 4.4   (their fig. 3 best fit; κ ∝ L)</pre>
+  <p>Ground-image sketch: observed field as superposition of amplitude A from the source at height y and B from an image at y′ (they place the reflecting surface λ/2 = 34.6&nbsp;cm below the actual earth). Energy ~1/r² with interference minima. We do not reproduce their fitted A, B tables; read eqs. (12)–(15) in the letter.</p>
+  <p class="footnote">CED reading: a spherically fed ball is <em>not</em> a proof that ∇·A = 0 forbids TEM. Feed cables, the ground, and the rod array all break spherical symmetry. Bray &amp; Britton (EPL 2004) and Rębilas (EPL 2008) press that point. This hub lists MW’s equations so you can see what they claimed, not so you treat them as Maxwell.</p>
+
+  <h2 id="ucurve-sec">Rotation curve (the U)</h2>
+  <p>If T = exp[−κ cos² φ] and you rotate the cube through 180° or 360°, transmission is high near φ = 90° (rods across the path) and low near φ = 0°/180° (rods along the path). That is a U (or two dips per full turn). MW’s κ = 4.4 is an ohmic-brass fit, not a magnetic-hysteresis fit.</p>
+  <canvas id="ucurve" width="640" height="280" aria-label="Transmission vs rod angle"></canvas>
+  <p class="footnote">Blue: MW eq. (9) with κ = 4.4. Orange dashed: cartoon of a <em>deeper</em> U if a high-hysteresis rod replaced brass (not measured here — see Hively note below).</p>
+
+  <h2 id="critique">Later public literature (short)</h2>
+  <ul>
+    <li>Bray J.R. &amp; Britton M.C., EPL <strong>66</strong>, 153 (2004), <a href="https://doi.org/10.1209/epl/i2003-10144-9">doi:10.1209/epl/i2003-10144-9</a> — comment on the theory.</li>
+    <li>Monstein &amp; Wesley reply, EPL <strong>66</strong>, 155 (2004), <a href="https://doi.org/10.1209/epl/i2003-10145-8">doi:10.1209/epl/i2003-10145-8</a>.</li>
+    <li>Rębilas K., EPL <strong>83</strong>, 60007 (2008), <a href="https://doi.org/10.1209/0295-5075/83/60007">doi:10.1209/0295-5075/83/60007</a> — argues the detected E along the line of sight is still classical TEM launched by earth currents from the ball feed, not a free-space Φ-wave.</li>
+    <li>Butterworth et al., <em>J. Scientific Exploration</em> <strong>27</strong>(1) (2013), <a href="https://journalofscientificexploration.org/index.php/jse/article/view/477">reconstruction</a> — duplicated hardware; pattern interesting; they reject MW’s Maxwell reading and also found Rębilas’ ground-plasma model a poor match. They leave the mechanism unidentified.</li>
+  </ul>
+
+  <h2 id="hively">Hively’s scientific distinction (2026, personal communication)</h2>
+  <p>Paraphrase only. Not a quotation. Not an endorsement that the 2002 result is settled.</p>
+  <ol>
+    <li>Monstein–Wesley showed an <strong>electric field along the direction of propagation</strong> using brass rods as a polarizer. That is a statement about <em>E</em>∥k, not about a dynamical scalar <em>C</em>.</li>
+    <li>They did <strong>not</strong> detect Hively’s scalar field (the EED <em>C</em> = ∇·<em>A</em> + c⁻² ∂Φ/∂t that appears with the SLW in US 9,306,527).</li>
+    <li><strong>Suggested follow-on</strong> (unpublished method; attribute: L.M. Hively, 2026, personal communication). Keep the same geometry and protocol, but replace brass with <strong>high-magnetic-hysteresis</strong> rods. Rotate the dipole array through <strong>360°</strong> and look for a <strong>U-shaped attenuation</strong> vs angle. If that curve appears, he offered to help shape a publishable paper. This hub does not claim that experiment has been done.</li>
+    <li>2014–15 Hively hardware is <strong>gone</strong>. Replication notes from that era: <strong>sleeve balun, not skirt</strong>; all TX electronics in one Faraday enclosure and all RX in a second; time-stamp TX power droop, RX (Signal Hound class), and positioner together. Scatter on 1/r² was blamed on <strong>cabling outside the Faraday enclosures</strong>. Scale the λ/4 balun and center conductor to <strong>1.296&nbsp;GHz</strong> or <strong>2.45&nbsp;GHz</strong>.</li>
+    <li>Google Scholar: author <code>LM Hively</code> plus keyword <code>electrodynamics</code>. The old title “Implications of a New Electrodynamic Theory” is <strong>obsolete</strong>; use the later EED / US 9,306,527 / Physics Essays / IARD chain on this hub.</li>
+  </ol>
+  <div class="banner-edu">No private email is reproduced here. Hively is not a GitHub collaborator on this repo. This is an educational map, not a coauthored paper.</div>
+
+  <h2 id="map">What actually connects (and what does not)</h2>
+  <table class="plain">
+    <thead><tr><th>Thread</th><th>Connectable?</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>MW 2002 brass rods</td><td>E∥k polarizer</td><td>Ohmic T(φ). CED can still read this as TEM + feed/ground. Disputed.</td></tr>
+      <tr><td>Hively US 9,306,527 Eq. 15</td><td>Partial</td><td>P_rad = I_pk² Z₀ / (4π), Faraday-cage SLW, bifilar / skirt or sleeve monopole. Different antenna and a claimed <em>C</em> field MW did not measure.</td></tr>
+      <tr><td>Nikolova–Zimmerman A(r)</td><td>Loose</td><td>A_m = μ₀ I / (2π k₀ r) (CEM-R-46 / hub fields page). Vector potential along a TM₀₁ / plasma-detector story, not brass-rod polarizer.</td></tr>
+      <tr><td>Meyl potential vortices</td><td>Vocabulary only</td><td>Third language on this hub. Do not import over-unity or superluminal claims into a Monstein budget.</td></tr>
+      <tr><td>Puthoff polarizable vacuum</td><td>Weak / analogical</td><td>PV treats ε, μ of vacuum as a GR heuristic (Dicke/Wilson/Puthoff). NASA-era ZPF/BPP notes are not a 433&nbsp;MHz rod experiment and are not a Faraday-cage SLW paper. Do not collapse them into one “penetrating scalar” headline.</td></tr>
+    </tbody>
+  </table>
+  <p>Same lab language as <a href="fields.html">fields</a>: CED = TEM. SLW / longitudinal Φ-waves = disputed. Quote mesh dB or polarizer T(φ), not 25,000&nbsp;dB copper myths, when you go to 1.3&nbsp;GHz tents.</p>
+
+  <h2 id="repl">If someone replicates under Part 97</h2>
+  <ul>
+    <li>Scale λ/4 sleeve (not skirt) and center conductor to <strong>1296.000&nbsp;MHz</strong> (23&nbsp;cm, licensed) or a legal <strong>2.45&nbsp;GHz</strong> allocation. Identify; milliwatts; do not camp on a calling frequency.</li>
+    <li>Two Faraday enclosures: TX stack in one, RX (Signal Hound class or TinySA Ultra 406) in the other. No cables out on a “sealed” run. Time-stamp TX power, RX, and rotator angle on one clock.</li>
+    <li>Brass-rod baseline: nine λ/2 rods, 360° rotation, log T(φ). Optional second article: high-hysteresis rods, same geometry, look for a U. That second article is Hively’s unpublished suggestion, not a MW figure.</li>
+    <li>See <a href="setup.html">setup</a> / <a href="lab.html">lab</a> for RadioScreen tents and packing. Different antenna family than the pancake unless you mix them on purpose and say so.</li>
+  </ul>
+  <p class="footnote">DOI: Monstein &amp; Wesley, EPL 59, 514 (2002). This page © 2026 Dan Britton, educational use. Scalar / longitudinal claims are not IEEE-standard antenna theory.</p>
+</main>
+<footer class="site"><div class="wrap"><strong>Dan Britton</strong> · educational only · licensed 23&nbsp;cm / legal 13&nbsp;cm only</div></footer>
+<script src="js/app.js"></script>
+<script>
+(function () {
+  const c = document.getElementById("ucurve");
+  if (!c || !c.getContext) return;
+  const ctx = c.getContext("2d");
+  const W = c.width, H = c.height;
+  function T(phi, k) { return Math.exp(-k * Math.cos(phi) * Math.cos(phi)); }
+  ctx.fillStyle = "#0b1020"; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle = "#445"; ctx.beginPath(); ctx.moveTo(40, H-30); ctx.lineTo(W-16, H-30); ctx.moveTo(40, 20); ctx.lineTo(40, H-30); ctx.stroke();
+  ctx.fillStyle = "#9ab"; ctx.font = "12px sans-serif";
+  ctx.fillText("φ (deg)", W/2-20, H-8); ctx.fillText("T", 8, 24);
+  function plot(k, color, dash) {
+    ctx.strokeStyle = color; ctx.setLineDash(dash || []); ctx.beginPath();
+    for (let i = 0; i <= 360; i++) {
+      const x = 40 + i/360 * (W-60);
+      const y = (H-30) - T(i*Math.PI/180, k) * (H-60);
+      if (i === 0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+  }
+  plot(4.4, "#3dd6c6");
+  plot(8, "#f0a030", [6,4]);
+  ctx.setLineDash([]); ctx.fillStyle = "#3dd6c6"; ctx.fillText("κ=4.4 brass (MW)", 50, 40);
+  ctx.fillStyle = "#f0a030"; ctx.fillText("κ=8 cartoon hysteresis", 50, 58);
+})();
+</script>
+</body>
+</html>
