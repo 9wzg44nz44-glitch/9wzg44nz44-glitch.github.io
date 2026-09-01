@@ -47,9 +47,10 @@
 <nav class="toc card">
   <strong>Protocol map</strong>
   <a href="#skin">Copper skin-depth table</a>
-  <a href="setup.html">Sticky-mat winding (Setup)</a>
+  <a href="setup.html">Sticky-mat winding, lift-off, fixtures, packing (Setup)</a>
   <a href="#bom">Hand-wind BOM and steps</a>
   <a href="#tx">Transmitter (stub + skirt; optional TM<sub>01</sub>)</a>
+  <a href="setup.html#pack">Travel kit: Lady Lake → Middletown</a>
   <a href="#controls">Controls</a>
   <a href="#log">CSV schema and in-page log</a>
   <a href="#publish">Publishing checklist</a>
@@ -88,8 +89,8 @@
 <tbody>
 <tr><td>RG-405/U semi-rigid + SMA or Type N</td><td>1 feed; stub + skirt at radiating end. See <a href="tools.html">Tools</a> for 1.300 GHz lengths (λ ≈ 230.61 mm; λ/4 stub ≈ 57.65 mm; VF 0.95 skirt ≈ 54.77 mm).</td></tr>
 <tr><td>Copper/brass thin-wall tube for skirt</td><td>ID clears 0.086″</td></tr>
-<tr><td>Magnet wire 22 AWG (18–26 OK)</td><td>Two equal lengths; buy the calculator’s “two wires + 12%”</td></tr>
-<tr><td>Non-magnetic former (acrylic / PLA / PVC)</td><td>Pancake OD ≈ 0.15 λ ≈ 35 mm at 1.3 GHz, or a larger palm coil (~10 cm) if you prefer the SNR-toy geometry</td></tr>
+<tr><td>Magnet wire 22 AWG (18–26 OK)</td><td>First article is <em>one</em> strand folded in half (22 or 24 AWG, ~2.2 m) — not two separately cut legs. See <a href="setup.html#fold">Setup winding</a>. For an aiding control, a second single-filar pancake. Calculator “two wires + 12%” still sizes the classical pair.</td></tr>
+<tr><td>Non-magnetic former (acrylic / PLA / PVC)</td><td>Pancake OD ≈ 0.15 λ ≈ 35 mm at 1.3 GHz, or a larger palm coil (~10 cm) if you prefer the SNR-toy geometry. First article: wind on a Cricut StandardGrip mat, then lift onto this former — <a href="setup.html">Setup</a>.</td></tr>
 <tr><td>Copper box / tube + lids</td><td>Wall ≥ 1 mm preferred (≈ 546 δ at 1.3 GHz). ⅛ in is luxurious. All seams soldered or RF-gasketed. Feed-through only via filtered bulkhead.</td></tr>
 <tr><td>Licensed 23 cm source</td><td>Transverter, brick, or amateur radio; attenuators; directional coupler. Identify on air if the stub radiates outside the box.</td></tr>
 <tr><td>Dummy load 50 Ω, 23 cm rated</td><td>Negative control</td></tr>
@@ -102,11 +103,12 @@
 </table>
 </div>
 <ol class="steps">
-  <li>Build the coil (<a href="setup.html">Setup: sticky-mat winding</a>, then Tools → series-opposing). Photograph leads.</li>
-  <li>Build the stub + skirt at 1.300 GHz (or 1296 MHz if that is your licensed calling plan). Photograph solder fillet of the shorted end.</li>
-  <li>Fit a bulkhead through the copper box; keep the skirt <em>inside</em> the box. Lid closed = “sealed.”</li>
-  <li>Place the bifilar face-on, outside, on-axis with the stub. Distance r measured to the stub tip.</li>
-  <li>Run the control matrix below. Log every row. Do not peek only at the “interesting” condition.</li>
+  <li>Build the coil on the Cricut mat (<a href="setup.html#fold">Setup: fold-in-half winding</a>). Do not fork that story here.</li>
+  <li>Lift the pancake with a plastic card, IPA the residue, DMM again, photo — then mount it planar on a non-metallic plate with a &lt; 10 cm SMA pigtail (<a href="setup.html#lift">lift-off</a>, <a href="setup.html#fixture">RX fixture</a>).</li>
+  <li>Build the stub + skirt at 1.300 GHz (or 1296 MHz if that is your licensed calling plan). Photograph solder fillet of the shorted end. Put stub + skirt + generator on a matching portable sled (<a href="setup.html#tx-fixture">TX fixture</a>).</li>
+  <li>Mesh-tent article: RadioScreen cages as in <a href="setup.html#mesh">Setup</a> — removable flap seals (conductive hook-and-loop / clips / magnets), not a permanent copper-tape weld. Copper-box article: fit a bulkhead; skirt inside; lid closed = “sealed.” Do not mix those two cage types in one CSV without labeling.</li>
+  <li>Place the bifilar face-on, on-axis with the stub (fixture inside the RX tent, or outside a copper box). Distance r measured to the stub tip.</li>
+  <li>Run the control matrix below. Log every row. Do not peek only at the “interesting” condition. Pack the same kit for Lady Lake, FL then Middletown, RI (<a href="setup.html#pack">packing checklist</a>).</li>
 </ol>
 
 <h2 id="tx">Transmitter</h2>
@@ -184,7 +186,7 @@
 <h2 id="publish">Publishing checklist</h2>
 <ul class="check-list">
   <li>License class, call sign, frequency, and that 1296 calling was not occupied by an unidentified carrier.</li>
-  <li>Photographs of stub length, skirt length, coil polarity connection, and box seams.</li>
+  <li>Photographs of stub length, skirt length, coil polarity connection, box/mesh seams, pancake on its fixture, and DMM continuity after lift-off.</li>
   <li>VNA S<sub>11</sub> of stub+skirt; outer-conductor current with skirt on vs off.</li>
   <li>Complete control matrix, not a highlight reel. Source-off and dummy-load rows.</li>
   <li>TEM-antenna negative control at the same r and RBW.</li>

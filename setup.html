@@ -46,10 +46,14 @@
   <a href="#picture">What you are building</a>
   <a href="#mat">Sticky gummy board</a>
   <a href="#fold">Fold-in-half winding</a>
+  <a href="#lift">Lift off the sticky mat</a>
   <a href="#dmm">Expected resistance and open-circuit check</a>
   <a href="#tinysa">TinySA Ultra 406 and impedance</a>
+  <a href="#fixture">RX pancake fixture</a>
+  <a href="#tx-fixture">TX stub fixture</a>
   <a href="#mesh">RadioScreen mesh Faraday cages</a>
   <a href="#stack">Order of first measurements</a>
+  <a href="#pack">Packing for Lady Lake and Middletown</a>
   <a href="#checklist">Printable checklist</a>
 </nav>
 
@@ -127,9 +131,25 @@
   <li>Tape the pair flat for 2 cm just outside the fold. No braid. A light twist (~1 / 3 cm) only if the pair splits; log it.</li>
   <li>Park the fold at the 6 mm hub on the gummy mat. Stick the first pair-turn. Wind outward, both legs at once, one layer, no daylight between turns. Count pair-turns.</li>
   <li>Stop at 35 ± 1 mm. Photo against a ruler. Leave ~80 mm free ends.</li>
-  <li>Lift with a plastic card. Isopropyl on a cloth if gummy residue. Scrape enamel <em>only</em> on the two free ends, never on the fold or the spiral.</li>
+  <li>Stop. Photograph the pancake still on the mat, ruler in frame. Then lift it off as its own procedure — <a href="#lift">lift off the sticky mat</a> — so the fold does not spring open.</li>
 </ol>
 <p>The fold method makes <strong>series-opposing only</strong>. For an aiding / transverse-electromagnetic-loop control, wind a second pancake as a <em>single-filar</em> of similar OD, or two wires paralleled. Label them.</p>
+
+
+<h2 id="lift">Lift the fold-in-half pancake off the Cricut StandardGrip mat</h2>
+<p>Winding is done. The gummy board did its job: 22/24 AWG stayed planar and did not knot. Now you have to get the coil <em>off</em> the mat without spring-out, enamel cracks, or opening the hub fold. This is a handling step, not a new winding method.</p>
+<div class="callout-mat">
+  <strong>Do not peel from a free end or from the fold.</strong> A yanked lead will telescope the spiral; a yanked fold can crack copper the digital multimeter already said was continuous.
+</div>
+<ol class="steps">
+  <li>Leave the mat on the cardboard. Do not flex the mat first — bending the gummy board stores spring that dumps into the pancake.</li>
+  <li>Slide a plastic card (old gift card, scraper, or Cricut spatula) under a <em>mid-radius</em> pair-turn, not under the hub and not under the outer free ends. Keep the card almost parallel to the mat.</li>
+  <li>Work around the spiral in short arcs. The pair should release as a flat disk. If a turn jumps, park it with a fingertip and resume from the opposite side — do not chase it with tweezers.</li>
+  <li>When the disk is free, lift it as a plate: two fingers under opposite outer turns, fold still a gentle U. Do not open the fold, do not flatten it into a crease, do not let the two legs scissor.</li>
+  <li>Isopropyl alcohol (IPA) on a lint-free cloth: wipe adhesive residue off the enamel. Do not soak the fold. Do not scrape enamel on the spiral or the hub — scrape only the two free ends, and only after the pancake is on its fixture.</li>
+  <li>Digital-multimeter continuity again, free-end to free-end, leads zeroed. Same pass band as the table below. Flex the fold gently; OL (open circuit) means rewind. Photograph the meter with the pancake in frame. That photo is the “survived lift-off” check.</li>
+</ol>
+<p class="footnote">If the mat still grabs, a drop of IPA at the card edge can release a turn. Wait for the alcohol to flash off before the next radio-frequency run so you are not measuring wet polyester adhesive.</p>
 
 <h2 id="dmm">Expected resistance and open-circuit check</h2>
 <p>Copper resistivity at 20 °C: AWG 22 ≈ 0.0530 Ω/m, AWG 24 ≈ 0.0842 Ω/m. Current walks the <em>entire</em> 2.2 m (out one leg, through the fold, back the other).</p>
@@ -174,6 +194,29 @@
 </div>
 <p>Keep the SMA jumper from pancake to TinySA under 10 cm. Ferrite on that jumper if you see cable-pickup that dummy-loading does not kill.</p>
 
+
+<h2 id="fixture">Mount the pancake on a semi-permanent non-metallic fixture</h2>
+<p>The coil does not live on the Cricut mat for radio-frequency work, and it should not sit loose in the mesh tent. Give it a rigid, non-metallic plate that keeps the pancake planar, carries a short SMA pigtail, and can be lifted in and out of the RadioScreen tent without crushing seams.</p>
+<ol class="steps">
+  <li><strong>Plate.</strong> Acrylic, HDPE, plywood, or a 3D-printed PLA/PETG disk/rectangle larger than 35 mm (something like 80–100 mm across). No copper-clad, no steel washers in the RF path. The pancake stays one layer, face-on, not warped into a dish.</li>
+  <li><strong>Hold-downs.</strong> Nylon screws, plastic clips, Kapton, or hot-glue dots at a few outer points. Do not cinch steel hardware through the hub. Do not use the fold as a mounting loop.</li>
+  <li><strong>SMA pigtail.</strong> Shortest practical jumper from the two scraped free ends to the TinySA Ultra 406 — <strong>under 10 cm</strong>. Strain-relieve the coax on the plate so a tug hits the fixture, not the enamel. No 51 Ω series resistor on this detector (see TinySA section).</li>
+  <li><strong>TinySA on the same sled (optional but tidy).</strong> Velcro or a plastic cradle so the 406 and the pancake move as one assembly. Screen still faces a mesh wall so you can read it from outside.</li>
+  <li><strong>Inside the tent.</strong> Slide the fixture in through the flap; do not stuff it through a seam. The mesh must close with a 50 mm overlap. The plate must not tent the cloth or pinch a corner. The fixture is <em>removable</em>: out for continuity checks, packing, and photos; in for sweeps.</li>
+  <li><strong>Fasteners in the cage.</strong> Nylon/plastic only on the sled. Clothes-pins, wood battens, or plastic clamps for the flap. No steel binder-skeleton sitting next to the pancake if you can help it — keep ferrous hardware off the RF path.</li>
+</ol>
+<p class="footnote">Continuity one more time after the SMA is on the plate. Log “pancake on fixture, pigtail &lt; 10 cm, nylon hardware.” Photograph the assembly next to a ruler before the first sealed run.</p>
+
+<h2 id="tx-fixture">Matching TX fixture (stub + skirt + generator)</h2>
+<p>Do the same idea on the transmitter side so the two tents are portable twins, not a permanent bench sculpture. The TX tent still holds the stub + skirt and the generator; they just ride a second non-metallic sled.</p>
+<ol class="steps">
+  <li>Non-metallic plate or small wood block sized for the RG-405 stub, the 57.8 mm skirt, and the generator (TinySA in generator mode, brick, or transverter). Nylon/plastic fasteners only in the RF path.</li>
+  <li>Stub tip remains the range origin: when you measure tent-to-tent distance, it is still stub tip to pancake face. Mark that axis on the rail.</li>
+  <li>Short SMA / semi-rigid on the generator. If the Ultra 406 is the source: 23 cm filter, log square-wave / mixer-region output, optional 47 Ω only at the <em>transmitter</em> SMA. Licensed milliwatts; no magnetron.</li>
+  <li>Slide the TX fixture into its RadioScreen tent the same way as the RX sled: flap open, fixture in, overlap closed, no crushed seams, no USB cable out on a sealed run.</li>
+  <li>The TX fixture is removable for dummy-load swaps, photos of the 23.1 mm stub, and packing. Do not hard-tape the generator to the mesh.</li>
+</ol>
+
 <h2 id="mesh">RadioScreen mesh Faraday cages (Less EMF)</h2>
 <p>Product: <a href="https://lessemf.com/product/radioscreen-mesh/">RadioScreen Mesh</a>, Less EMF (electromagnetic field products) part 1124-0. Nickel over copper on polyester (23.4% copper, 10.9% nickel, 65.7% polyester), 130 threads/inch, 0.09 mm, 54 in wide. Dan’s piece: <strong>4 feet, $83.80</strong>. Lab-quoted attenuation: about <strong>50–60 dB from 10 MHz–1 GHz</strong>, still &gt;25 dB into the fifth-generation (5G) cellular bands. Surface resistivity &lt; 0.1 Ω/sq. See-through, which is why the TinySA display can be read from outside.</p>
 <div class="banner-legal">
@@ -182,8 +225,8 @@
 <h3>Best practices for this cloth</h3>
 <ol class="steps">
   <li><strong>Two tents from 4 ft × 54 in.</strong> Cut two ~2 ft lengths. Each wraps a cardboard or wood frame (~30×30×30 cm is enough for a TinySA + pancake or generator + stub). Overlap the closing flap by at least 50 mm.</li>
-  <li><strong>Seams, not the weave, are the leak.</strong> 130 threads-per-inch openings are ~0.2 mm (≪ λ/100 at 1296 MHz). Bind overlaps with <em>conductive</em> copper tape (adhesive that actually conducts — 3M 1181 or similar). Clothes-pins or wood battens to clamp the flap. No steel wool “maybe.”</li>
-  <li><strong>You cannot easily solder this mesh</strong> (polyester core). Tape, clamp, or sew with conductive thread. Grounding: Less EMF wants the mesh grounded for household use. For two experiment cages, <em>bond each tent to itself</em>; do not run a long ground wire between tents (that wire is a dipole). Optional single-point earth, logged.</li>
+  <li><strong>Seams, not the weave, are the leak.</strong> 130 threads-per-inch openings are ~0.2 mm (≪ λ/100 at 1296 MHz). The <em>closing flap</em> is a removable seal: conductive hook-and-loop, binder clips on a wood/plastic batten, or magnets on a non-metallic strip — 50 mm overlap, then clamp. Do <em>not</em> make the flap a permanent 3M 1181 / conductive-fabric-tape weld; you need to open this tent every run and pack it. Clothes-pins or wood battens still count. No steel wool “maybe.”</li>
+  <li><strong>You cannot easily solder this mesh</strong> (polyester core). Clamp, sew with conductive thread, or use removable conductive hook-and-loop. Grounding: Less EMF wants the mesh grounded for household use. For two experiment cages, <em>bond each tent to itself</em>; do not run a long ground wire between tents (that wire is a dipole). Optional single-point earth, logged.</li>
   <li><strong>No cables out during a “sealed” run.</strong> A Universal Serial Bus Type-C (USB-C) cable to a laptop is an antenna. Run the TinySA on battery. No charging cable. If you must have a cable, it is a <code>slotted</code> / leaky config, not <code>sealed</code>.</li>
   <li><strong>Instruments inside.</strong> Transmitter generator in the transmitter tent (contains its own transverse-electromagnetic leakage). TinySA in the receiver tent, screen facing a mesh wall so you can read it. The TinySA’s local oscillator also radiates — that is now <em>inside</em> the detector cage. Log “spectrum analyzer inside” as the default; one control run with the TinySA <em>outside</em> and a short feedthrough tells you whether the local oscillator (LO) is talking to the pancake.</li>
   <li><strong>Looking through the mesh is allowed</strong> and is the point of RadioScreen. Don’t press your face into a gap. Don’t unzip to peek “just for a second” mid-sweep.</li>
@@ -195,9 +238,33 @@
 <ol class="steps">
   <li>Stub 23.1 mm, skirt 57.8 mm, generator in the TX tent. TinySA in the RX tent, Ultra mode, atten ≥ 10 dB, pancake on the shortest SMA.</li>
   <li>License, identify, milliwatts (or TinySA generator with a 23 cm filter). Do not camp on 1296.100.</li>
-  <li>Control matrix: <code>open</code> (flap up), <code>slotted</code> (flap half-lapped), <code>sealed</code> (50 mm overlap, taped), <code>dummy_load</code> (SMA dummy instead of stub), <code>90deg</code>, <code>tem_negative</code> (small loop in place of the pancake), plus the single-filar control coil. comma-separated values (CSV) log on <a href="lab.html">Lab</a>.</li>
+  <li>Control matrix: <code>open</code> (flap up), <code>slotted</code> (flap half-lapped), <code>sealed</code> (50 mm overlap, clamped / hook-and-loop — not a permanent copper-tape weld), <code>dummy_load</code> (SMA dummy instead of stub), <code>90deg</code>, <code>tem_negative</code> (small loop in place of the pancake), plus the single-filar control coil. comma-separated values (CSV) log on <a href="lab.html">Lab</a>.</li>
 </ol>
 <div class="banner-legal"><strong>Decision rule.</strong> A leftover tone that dies when you dummy-load the transmitter is leakage or pickup. A leftover tone that beats the TEM-loop and single-filar floors, with both flaps sealed and no USB cables, is the result you publish — whatever it is. Quote mesh attenuation in decibels, not copper skin depths.</div>
+
+
+<h2 id="pack">Packing and shipping: Lady Lake, FL then Middletown, RI</h2>
+<p>The whole experiment should pack as one kit: both RadioScreen tents, TX fixture, RX/coil fixture, TinySA Ultra 406, generator, cables, and clips. First destination is bench time in Lady Lake, Florida; later the same bags go to a demo in Middletown, Rhode Island. Build so you can zip it, fly or drive it, and put the rail back together without rewinding the pancake.</p>
+<ol class="steps">
+  <li><strong>Mesh.</strong> Open the tents, pull the fixtures out, then <em>roll</em> the RadioScreen (Less EMF: do not crease — a fold is a permanent leak line). Slip each roll into a labeled bag or tube. Keep leftover cloth rolled with the tents.</li>
+  <li><strong>Pancake.</strong> Leave it on its rigid plate. Nest the plate in foam (closed-cell or tool-case pick-and-pluck) so nothing can spring the fold or mash the OD. Do not put the coil back on the Cricut mat for travel; the mat is a winding jig, not a shipping tray.</li>
+  <li><strong>TinySA Ultra 406</strong> in its own case. Cap the SMA. <strong>No USB cables left attached</strong> — not to the TinySA, not dangling from a power bank, not “already plugged in for the next site.” Same rule for the generator.</li>
+  <li><strong>TX sled.</strong> Stub + skirt stay on their plate if the solder joints are happy; foam around the 23.1 mm stub so it cannot get bent. Dummy load rides in the same bag.</li>
+  <li><strong>Labeled bags.</strong> Suggested split: <code>RX-coil+fixture</code>, <code>TX-stub+gen</code>, <code>mesh-tents</code>, <code>TinySA-406</code>, <code>cables+clips</code>, <code>DMM+IPA+card</code>. Print a paper inventory in the outer case.</li>
+  <li><strong>Flap hardware in the clips bag:</strong> conductive hook-and-loop, binder clips, wood/plastic battens, magnets for removable seals. Clothes-pins. Measuring tape for tent-to-tent <em>r</em>. The Cricut StandardGrip mat only if you expect to rewind; otherwise leave it home.</li>
+</ol>
+<div class="banner-edu">Removable flap seals travel; a copper-tape weld does not. Do not pack by wrapping the tents in 3M 1181 or conductive fabric tape “so they stay shut.”</div>
+<ul class="check-list">
+  <li>Both tents rolled (not creased), two frames or cartons if you use them</li>
+  <li>RX pancake still on rigid plate, in foam; DMM photo from last lift/mount in the log</li>
+  <li>TX fixture + stub/skirt + dummy load padded</li>
+  <li>TinySA Ultra 406 in case, SMA capped, battery charged, USB disconnected</li>
+  <li>Generator / filter / attenuators bagged and labeled</li>
+  <li>SMA pigtails (&lt; 10 cm on the detector), ferrites, nylon hardware</li>
+  <li>Conductive hook-and-loop, binder clips, magnets, clothes-pins — flap kit</li>
+  <li>License, ID plan, CSV log / notebook, ruler, IPA, plastic card</li>
+  <li>Inventory sheet: Lady Lake, FL bench first; Middletown, RI demo later — same kit</li>
+</ul>
 
 <h2 id="checklist">Printable checklist</h2>
 <ul class="check-list">
@@ -206,12 +273,16 @@
   <li>Digital-multimeter free-end to free-end before winding: ~0.2 Ω, not OL / open circuit (photo)</li>
   <li>Flat pair from the fold out to 35 ± 1 mm; photo with ruler</li>
   <li>Digital multimeter again after winding and after mounting; flex the fold</li>
+  <li>Plastic-card lift off StandardGrip; IPA residue; pancake stays folded; DMM again + photo</li>
   <li>Scrape only the two free ends; SMA pigtail &lt; 10 cm; no 51 Ω on the detector</li>
+  <li>Pancake on rigid non-metallic plate, nylon/plastic fasteners, removable from the RX tent</li>
   <li>TinySA Ultra 406: spectrum-analyzer / Ultra mode, attenuation ≥ 10 dB, battery, no USB cable; low-noise amplifier on and off logged</li>
   <li>If Ultra 406 is also the generator: 23 cm filter, log square-wave mode, optional 47 Ω at the <em>transmitter</em> SMA connector only</li>
-  <li>Two RadioScreen tents, 50 mm overlaps, conductive copper tape, no cables out when sealed</li>
+  <li>TX stub + skirt + generator on a matching portable fixture in the TX tent</li>
+  <li>Two RadioScreen tents, 50 mm overlaps, removable flap seals (hook-and-loop / clips / magnets — not permanent copper tape), no cables out when sealed</li>
   <li>Read the 4″ display through the mesh; don’t open the flap mid-sweep</li>
   <li>Control matrix + comma-separated-values log; license and identify on the air</li>
+  <li>Pack kit for Lady Lake, FL then Middletown, RI: roll mesh, coil on plate in foam, TinySA in case, USB off</li>
 </ul>
 <p class="footnote">Skin-depth tables and CSV logger: <a href="lab.html">Lab</a>. Lengths: <a href="tools.html">Tools</a>. Mesh: <a href="https://lessemf.com/product/radioscreen-mesh/">lessemf.com/product/radioscreen-mesh</a>. TinySA specs: <a href="https://tinysa.org/wiki/pmwiki.php?n=TinySA4.Specification">tinysa.org Ultra specification</a>.</p>
 
