@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>2.50″ Al sphere vs MW Fig. 1 ball antenna · SLW Hub</title>
-<meta name="description" content="Educational comparison: procurable K-Mac 2.50″ 3003 Aluminum hollow aluminium sphere plus SMA bulkhead versus Monstein &amp; Wesley 2002 Fig. 1 machined 6 cm ball antennas. Experiment B, 433.59 MHz.">
+<title>Fig. 1 vs catalog spheres — cost/decision sheet · SLW Hub</title>
+<meta name="description" content="Cost and decision sheet for Dan, then Steve Morris (human tech), then Hively: Monstein &amp; Wesley 2002 Fig. 1 hardware versus catalog substitutes versus dollars. Experiment B, 433.59 MHz. Educational comparison.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,20 +37,29 @@
   </div>
 </header>
 <main id="main" class="wrap">
-  <p class="kicker">Experiment B · 433.59 MHz · 70 cm Technician-legal · not settled physics</p>
-  <h1>Is a catalog 2.50″ hollow 3003 Aluminum sphere an acceptable Fig.&nbsp;1 substitute?</h1>
-  <p class="lede">This page is a correspondence aid for Dan Britton to send to L.M. Hively. It asks whether a procurable hollow aluminium ball plus an SMA bulkhead can stand in for the machined 6&nbsp;cm ball antennas in Monstein &amp; Wesley, <em>Europhys. Lett.</em> <strong>59</strong>, 514 (2002), Fig.&nbsp;1. Educational comparison only.</p>
-
+  <p class="kicker">Experiment B · 433.59 MHz · 70 cm Technician-legal · cost/decision sheet · not settled physics</p>
+  <h1>Exact 2002 Fig.&nbsp;1 hardware vs catalog substitutes vs dollars</h1>
+  <p class="lede">Correspondence aid for <strong>Dan</strong> first (what to spend), then <strong>Steve Morris</strong> (human tech: SKUs, cut lengths, already-purchased bulkheads), then <strong>L.M. Hively</strong> (is the catalog hollow 3003 Aluminum ball + SMA bulkhead an acceptable Fig.&nbsp;1 substitute?). Educational comparison only — not a claim that SLW is settled. Experiment B only (433.59&nbsp;MHz polarizer bench); not the 1296&nbsp;MHz cage on setup/lab/fields.</p>
 
   <nav class="toc card">
+    <a href="#who">Dan → Steve → Hively</a>
     <a href="#question">The question for Hively</a>
     <a href="#fig1">Fig. 1 (MW 2002)</a>
     <a href="#proposed">Proposed catalog parts</a>
     <a href="#table">Comparison table</a>
+    <a href="#cost">Procurement / dollars</a>
+    <a href="#shop">Exact Fig. 1 machine-shop path</a>
     <a href="#ka">Electrically small (ka ≪ 1)</a>
     <a href="#feed">Feed / bulkhead notes</a>
     <a href="#parts-back">Back to the 433 MHz parts list</a>
   </nav>
+
+  <h2 id="who">Who this sheet is for (in that order)</h2>
+  <ol>
+    <li><strong>Dan</strong> — two paths: buy catalog hollow balls and stock brass/coax, or send Fig.&nbsp;1 out for a real qty-2 quote. Catalog path is about a <strong>$400 class</strong> before shipping/tax/cutting. Exact Fig.&nbsp;1 CNC is almost certainly more; we do not have a firm shop bid.</li>
+    <li><strong>Steve Morris</strong> (human tech) — four 36″ × 1/8″ brass sticks, cut to 346&nbsp;mm; two SMA-M/M RG-316 jumpers (or the TinySA Ultra kit jumpers); 901-9875 bulkheads already purchased; optional W1 four-pack for the hysteresis follow-on.</li>
+    <li><strong>Hively</strong> — electrical question below: hollow 2.50″ 3003 Aluminum + 901-9875 vs machined 60.0&nbsp;mm ball with 10H7/3H7 bore.</li>
+  </ol>
 
   <h2 id="question">The question, stated plainly</h2>
   <div class="card hively">
@@ -66,6 +75,7 @@
     <li><strong>18&nbsp;mm</strong> shaft into the ball.</li>
     <li><strong>34&nbsp;mm</strong> base.</li>
     <li>Centrally fed; outer of the ball as shield.</li>
+    <li>Two pieces as printed (turned ball + feed/base).</li>
   </ul>
   <figure class="figure">
     <img src="img/fig1-ball-antenna-page.png" alt="Monstein and Wesley 2002 Figure 1: sketch of aluminium ball antennas with R30, 10H7/3H7 coax bore, 18 mm shaft, and 34 mm base. Dimensions in millimetres.">
@@ -143,6 +153,65 @@
     </table>
   </div>
 
+  <h2 id="cost">Procurement table (catalog prices ~Sep 2026)</h2>
+  <p>Prices as labeled on vendor pages around <strong>Sep 2026</strong>. <strong>Exclude shipping</strong> unless a line notes otherwise. Not a shop quote. Bulkheads already purchased; TinySA Ultra kit jumpers may replace the RG-316 M/M pair.</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>What to buy / already have</th>
+          <th>Catalog $ (ex-ship)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Aluminium spheres (3003 Aluminum)</td>
+          <td>2 × K-Mac <strong>KB-2016</strong> 2.50″ hollow 3003 Aluminum, ¼″ hole. <a href="http://k-mac-plastics.com/balls/hollow-metal-balls.htm">k-mac-plastics.com/balls/hollow-metal-balls.htm</a></td>
+          <td>$126.96 × 2 = <strong>$253.92</strong></td>
+        </tr>
+        <tr>
+          <td>SMA bulkheads</td>
+          <td>Already purchased: 2 × Amphenol <strong>901-9875</strong> (crimp for RG-316 if they terminate raw coax instead of using M/M jumpers). $11.90 each.</td>
+          <td>$11.90 × 2 = <strong>$23.80</strong> (paid)</td>
+        </tr>
+        <tr>
+          <td>Coax jumpers</td>
+          <td>Amphenol <strong>135101-01-12</strong>, 12″ RG-316 SMA-M to SMA-M, 50&nbsp;Ω. RF Parts <a href="https://www.rfparts.com/135101-01-12.html">135101-01-12.html</a> $16.90 each, qty 2. TinySA Ultra kit already includes two ~30&nbsp;cm SMA-M/M jumpers — those can be used instead.</td>
+          <td>$16.90 × 2 = <strong>$33.80</strong> (or $0 if kit jumpers)</td>
+        </tr>
+        <tr>
+          <td>Brass rods (first polarizer)</td>
+          <td>Need four 36″ sticks of 1/8″ round brass (9 × 34.6&nbsp;cm = 3.11&nbsp;m). Home Depot Everbilt 1/8&nbsp;in × 3&nbsp;ft solid brass, model 0301, ~$6.93: <a href="https://www.homedepot.com/p/Everbilt-1-8-in-x-3-ft-Brass-Solid-Round-Rod-0301/332732794">Everbilt 0301</a> → ~$28 for four. Prefer 360 alloy if they can: McMaster <a href="https://www.mcmaster.com/8953K101/">8953K101</a> (price on McMaster at checkout). Steve: <strong>cut to 346&nbsp;mm</strong>.</td>
+          <td>~<strong>$28</strong> (four Home Depot sticks)</td>
+        </tr>
+        <tr>
+          <td>W1 hysteresis follow-on</td>
+          <td>Same 9 × 34.6&nbsp;cm geometry. Speedy Metals 1/8″ × 36″ W1: <a href="https://www.speedymetals.com/p-3635-18-rd-w-1-drill-rod.aspx">1/8 RD W-1</a>, $11.11 × 4. Not a claim this is Hively’s exact alloy.</td>
+          <td>$11.11 × 4 = <strong>$44.44</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Catalog path subtotal</strong> (balls + 2 bulkheads + 2 RG-316 jumpers + brass four-pack + W1 four-pack) ≈ $254 + $24 + $34 + $28 + $44 ≈ <strong>$384</strong> before shipping/tax/cutting. Call it an <strong>about $400 class</strong> — not a fake precise total.</p>
+
+  <h2 id="shop">Exact Fig.&nbsp;1 machine-shop path (no vendor bid)</h2>
+  <p>We do <strong>not</strong> have a firm shop quote. Do not treat the band below as a bid from a named shop.</p>
+  <ul>
+    <li>Fig.&nbsp;1 is a turned 60.0&nbsp;mm Al ball (R30) with 10H7/3H7 coax bore, 18&nbsp;mm shaft, 34&nbsp;mm base, two pieces, millimetre dimensions as printed.</li>
+    <li>Qty-2 custom US prototype CNC (spherical turn + H7 ream/inspect) is typically in the <strong>$500–$1,500 per pair</strong> band because programming/setup dominate; aluminium bar stock itself is only tens of dollars (e.g. 2½″ 6061 round, All Metals ~$13.64 for a short cut — <a href="https://allmetalsinc.com/products/aluminum-round-bar-2-1-2-grade-6061">allmetalsinc.com 2½″ 6061</a> — not the finished antenna).</li>
+    <li>So yes: two exact Fig.&nbsp;1 spheres are almost certainly <strong>more</strong> than two hollow KB-2016s (~$254). Material is cheap; the shop hours are not.</li>
+  </ul>
+  <h3>Request-quote checklist (next step for a real number)</h3>
+  <p>Send the Fig.&nbsp;1 PDF to a local FL/RI shop or Xometry/Protolabs. Ask for a quote; do not invent one here.</p>
+  <ul>
+    <li>Quantity: <strong>2</strong> (TX + RX).</li>
+    <li>Material: <strong>6061-T6</strong> aluminium (or shop-equivalent machining alloy; Fig.&nbsp;1 does not name 3003).</li>
+    <li>Geometry: millimetre dimensions as printed on Fig.&nbsp;1 — 60.0&nbsp;mm ball (R30), 10H7/3H7 on the coax bore, 18&nbsp;mm shaft, 34&nbsp;mm base, two pieces.</li>
+    <li>Inspect: H7 on the bore.</li>
+    <li>Attach: Fig.&nbsp;1 page (doi:10.1209/epl/i2002-00136-9 / author PDF linked above).</li>
+  </ul>
+
   <h2 id="ka">Still electrically small</h2>
   <p>At 433.59&nbsp;MHz, λ = c/f ≈ 0.692&nbsp;m. The MW ball has a/λ ≈ 0.043; the 2.50″ ball has a/λ ≈ 0.046. Both are ka ≪ 1 (k = 2π/λ). The open question is not “is it a 6&nbsp;cm dipole at UHF?” — it is whether dropping the internal coaxial shaft/bore, using a thin 3003 Aluminum wall, and feeding through a stock SMA bulkhead still counts as Fig.&nbsp;1’s “centrally fed, outer as shield” geometry.</p>
 
@@ -154,7 +223,7 @@
   </ul>
 
   <h2 id="parts-back">Back to the 433&nbsp;MHz parts list</h2>
-  <p>Balls, rods, cables, and bulkhead SKUs for Experiment B live on the Monstein page: <a href="monstein.html#parts">monstein.html#parts</a> and <a href="monstein.html#bulkhead">#bulkhead</a>. This page only asks whether the catalog 2.50″ 3003 Aluminum + 901-9875 pair is electrically close enough to Fig.&nbsp;1 to buy. Rods for the polarizer (brass 1/8″ 360 first; optional W1 follow-on) are listed on <a href="monstein.html#parts">monstein.html#parts</a>.</p>
+  <p>Balls, rods, cables, and bulkhead SKUs for Experiment B live on the Monstein page: <a href="monstein.html#parts">monstein.html#parts</a> and <a href="monstein.html#bulkhead">#bulkhead</a>. Dollars and the shop-vs-catalog decision are this page’s <a href="#cost">#cost</a> table. This page asks whether the catalog 2.50″ 3003 Aluminum + 901-9875 pair is electrically close enough to Fig.&nbsp;1 to buy. Rods for the polarizer (brass 1/8″ 360 first; optional W1 follow-on) are listed on <a href="monstein.html#parts">monstein.html#parts</a>.</p>
   <p class="footnote">DOI: Monstein &amp; Wesley, EPL 59, 514 (2002), <a href="https://doi.org/10.1209/epl/i2002-00136-9">doi:10.1209/epl/i2002-00136-9</a>. This page © 2026 Dan Britton, educational use. Scalar / longitudinal claims are not IEEE-standard antenna theory.</p>
 </main>
 <footer class="site"><div class="wrap"><strong>Dan Britton</strong> · educational only · 70&nbsp;cm Technician-legal (Experiment B) · licensed 23&nbsp;cm / legal 13&nbsp;cm only on other benches</div></footer>
