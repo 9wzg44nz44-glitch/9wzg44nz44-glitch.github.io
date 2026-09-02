@@ -182,7 +182,7 @@
 <h2 id="tinysa">TinySA Ultra 406 and impedance — skip the matching resistor on the detector</h2>
 <p>The TinySA Ultra+ ZS406 (4″ screen, SubMiniature version A (SMA) connector, 50 ohm) is a 2-in-1: spectrum analyzer and signal generator. The spectrum-analyzer input is specified <strong>50 Ω when internal attenuation is ≥ 10 dB</strong>. Frequency: 100 kilohertz (kHz)–900 MHz normal, Ultra mode to ~5.4–6 GHz — so <strong>1296 MHz receive is in Ultra mode</strong>, which is fine.</p>
 <div class="banner-warn">
-  <strong>Generator caveat.</strong> Clean sine output is only specified to ~800–900 MHz. At 1296 MHz the Ultra 406 generator is in the square-wave / mixer region (harmonics and spurs). If it is the transmitter source, enable Ultra, add a 23 cm bandpass after the SMA connector (<a href="#bpf">buy list: ZX75BP-1307-S+ or DEM-BPF</a>), log that it is not a clean sine, and stay licensed. One TX-path filter is enough; the RX TinySA does not need this BPF unless you add a second later. A 23 cm transverter or brick is the cleaner transmitter; the TinySA is the better <em>detector</em>.
+  <strong>Generator caveat.</strong> Clean sine output is only specified to ~800–900 MHz. At 1296 MHz the Ultra 406 generator is in the square-wave / mixer region (harmonics and spurs). If it is the transmitter source, enable Ultra, add a 23 cm bandpass after the SMA connector (<a href="#bpf">buy list: ZX75BP-1307-S+ or DEM-BPF</a>), log that it is not a clean sine, and stay licensed. Ultra RF is SMA-F even though the brass threads are on the outside; you screw an SMA-M plug onto those threads. One TX-path filter is enough; the RX TinySA does not need this BPF unless you add a second later. A 23 cm transverter or brick is the cleaner transmitter; the TinySA is the better <em>detector</em>.
 </div>
 <p><strong>Do not put a 47–51 Ω resistor in series with the bifilar on the detector.</strong> The pancake is ~0.2 Ω of copper. A 51 Ω series resistor in front of a 50 Ω TinySA is a ~6 dB (factor-of-four in power) pad that throws away the already-tiny detected voltage. Hively’s “match the coil resistance to the source” is a <em>transmit</em> remark for a coil whose R was designed near 50 Ω. This 35 mm fold-in-half article is not that coil.</p>
 <div class="table-wrap">
@@ -305,7 +305,7 @@
     <a href="https://www.minicircuits.com/WebStore/dashboard.html?model=ZX75BP-1307-S%2B" target="_blank" rel="noopener">Mini-Circuits ZX75BP-1307-S+ ceramic BPF, 1215–1400 MHz, 50 Ω</a>
     (<a href="https://www.minicircuits.com/pdfs/ZX75BP-1307-S+.pdf" target="_blank" rel="noopener">datasheet PDF</a>).
     Connectors: INPUT SMA-MALE, OUTPUT SMA-FEMALE.
-    TinySA Ultra RF jack is SMA-FEMALE (not male). Chain: Ultra SMA-F → filter SMA-M → filter SMA-F → SMA-M stub (short SMA/semi-rigid).
+    TinySA Ultra RF jack is SMA-FEMALE (not male). Ultra RF is SMA-F even though the brass threads are on the outside; you screw an SMA-M plug onto those threads. Chain: Ultra SMA-F → filter SMA-M → filter SMA-F → SMA-M stub (short SMA/semi-rigid).
     Cheaper ham option, Live Oak, FL, $40, 1–2 weeks (low-level / milliwatt class, matches TinySA):
     <a href="https://www.downeastmicrowave.com/Band-Pass-Filter-p/dem-bpf.htm" target="_blank" rel="noopener">Down East Microwave DEM-BPF</a>
     — select Frequency 1296 MHz and Connector SMA. May be SMA-F both ends; then a short SMA-M/M barrel or pigtail to the Ultra.</li>
