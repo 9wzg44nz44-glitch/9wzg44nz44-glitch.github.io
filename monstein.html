@@ -46,6 +46,7 @@
     <a href="#critique">Comments and reconstructions</a>
     <a href="#hively">Hively 2026 distinction</a>
     <a href="#map">Connectable dots</a>
+    <a href="#parts">Parts for this bench</a>
     <a href="#meyl-kit">Meyl kit?</a>
     <a href="#repl">1296 / 2.45 GHz notes</a>
   </nav>
@@ -112,6 +113,54 @@ T = exp[ −κ cos²(φ) ]                                   (9)
   <p>Same lab language as <a href="fields.html">fields</a>: CED = TEM. SLW / longitudinal Φ-waves = disputed. Quote mesh dB or polarizer T(φ), not 25,000&nbsp;dB copper myths, when you go to 1.3&nbsp;GHz tents.</p>
 
   
+
+  <h2 id="parts">Parts for this bench (not the pancake cage)</h2>
+  <p>This list is for the Monstein–Wesley 433.59&nbsp;MHz ball + rod polarizer (and the 2026 personal-communication hysteresis-rod swap). It is <strong>not</strong> the 1296&nbsp;MHz RadioScreen pancake protocol on <a href="setup.html">setup.html</a>. Different bench. Do not kit RadioScreen mesh, Pelican 1200, a Cricut mat, or the bifilar pancake here.</p>
+  <p>433.59&nbsp;MHz is in the US 70&nbsp;cm amateur band (λ ≈ 69.2&nbsp;cm; λ/2 = 34.6&nbsp;cm). Technician-class operators may use it under Part 97 with a valid license, identification, and band-edge rules. It is <em>not</em> the EU 433&nbsp;MHz Part-15 / SRD ISM allocation when you transmit in the US. Educational only; SLW / longitudinal <em>E</em> is not settled physics. Shop pages (McMaster, K-Mac, Speedy Metals, Amidon, VXB, DigiKey) are often JavaScript-heavy — open the catalog in a full browser if a fetch looks empty.</p>
+
+  <h3>Aluminium spheres (need two)</h3>
+  <p>MW 2002 used 6&nbsp;cm aluminium balls with coax into the sphere (outer conductor as shield). Butterworth’s reconstruction used ~3″ aluminium. Closest catalog hollow aluminium with a ¼″ hole already in the ball (fits an SMA bulkhead):</p>
+  <ul>
+    <li>K-Mac Plastics 3003 aluminium hollow balls, catalog <a href="http://k-mac-plastics.com/balls/hollow-metal-balls.htm">k-mac-plastics.com/balls/hollow-metal-balls.htm</a> (JS-heavy). ¼″ hole is already there.
+      <ul>
+        <li>2.50″ (63.5&nbsp;mm) KB-2016 ~$127 each — closest to MW 6&nbsp;cm.</li>
+        <li>2.00″ KB-2014 ~$60 each — smaller, cheaper.</li>
+        <li>3.00″ KB-2015 ~$132 each — Butterworth-ish ~3″.</li>
+      </ul>
+    </li>
+  </ul>
+  <p>Do <strong>not</strong> buy Meyl stainless 60&nbsp;mm balls as the primary spheres. Last-resort cheap 60&nbsp;mm stainless stair-cap only: <a href="https://www.amazon.com/uxcell-Stainless-Hollow-Spheres-Handrail/dp/B07R4735PQ">Amazon uxcell 2-pack (B07R4735PQ)</a> — wrong metal, gold coat, not a 50&nbsp;Ω feed.</p>
+
+  <h3>Brass rods (need nine × 34.6&nbsp;cm) — MW baseline polarizer</h3>
+  <p>Ohmic <em>E</em>∥k polarizer. 1/8″ diameter is a convenient polarizer size; MW did not freeze a unique gauge.</p>
+  <ul>
+    <li>McMaster 360 brass round, 1/8″ dia, family <a href="https://www.mcmaster.com/8953K101/">8953K101</a>. Buy 3&nbsp;ft (or 2&nbsp;ft) sticks; nine × 34.6&nbsp;cm ≈ 3.12&nbsp;m, so four 3-ft rods. Cut to 34.6&nbsp;cm.</li>
+    <li>Alternate catalog: <a href="https://www.mcmaster.com/products/brass-alloy-360-rods/">McMaster brass alloy 360 rods</a>.</li>
+  </ul>
+
+  <h3>High-hysteresis rods (need nine, same geometry) — optional second article</h3>
+  <p>Hively’s unpublished method (L.M. Hively, 2026, personal communication; not a MW figure; no private email is reproduced). Keep the same 3×3 cube and 34.6&nbsp;cm length. Rotate 360° and look for a U-curve. Not mu-metal (low hysteresis). This hub does not claim the swap has been run.</p>
+  <ul>
+    <li>Same 1/8″ × 36″ W1 water-hardening drill rod (high-carbon; large B–H loop after optional harden): <a href="https://www.speedymetals.com/p-3635-18-rd-w-1-drill-rod.aspx">Speedy Metals 1/8 RD W-1 drill rod</a>. Cut to 34.6&nbsp;cm. Qty: four 36″ sticks.</li>
+    <li>Ferrite is a second, lossier UHF option and is <strong>not</strong> sold in 34.6&nbsp;cm sticks — do not claim ferrite ≡ Hively’s unspecified alloy.
+      <ul>
+        <li>Amidon R61-050-400 0.5″×4″: <a href="https://www.amidoncorp.com/r61-050-400/">amidoncorp.com/r61-050-400</a></li>
+        <li>12&nbsp;mm × 200&nbsp;mm 5-pack: <a href="https://vxb.com/products/ferrite-rods-set-5-pieces-12mm-x-200mm-for-am-crys">VXB ferrite rods 12&nbsp;mm × 200&nbsp;mm</a> — would need end-to-end stacking to approach 34.6&nbsp;cm; say so in the log.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>Cables (TinySA Ultra SMA female → sphere)</h3>
+  <p>The TinySA Ultra RF port is SMA female, so the instrument end needs an SMA plug (male). Keep each jumper <em>inside</em> its Faraday enclosure; no jumper between TX and RX boxes (Hively scatter note: cabling outside the enclosures). Qty 2 (TX + RX).</p>
+  <ul>
+    <li>Verified DigiKey 12″ RG-316 50&nbsp;Ω SMA: Amphenol <a href="https://www.digikey.com/en/products/detail/amphenol-rf/135111-01-12-00/2003969">135111-01-12.00</a> (RA plug to SMA). Straight-plug twin is Amphenol 135101-01-12.00 (same family; search DigiKey if the right-angle 135111 is awkward).</li>
+    <li>Better for the ball: Amphenol 135110-01-12.00 SMA straight plug to SMA bulkhead jack on RG-316 (mount the jack in the sphere’s ¼″ hole). Search DigiKey/Mouser for <code>135110-01-12.00</code> rather than a guessed product URL. Qty 2.</li>
+    <li>The Ultra kit already includes two ~30&nbsp;cm SMA cables; those can be used if they are SMA-M both ends — still add bulkhead jacks on the balls.</li>
+  </ul>
+
+  <h3>Feed (one sentence + diagram in words)</h3>
+  <p>Use the existing ¼″ hole; SMA bulkhead jack; PTFE or nylon insulating washers if you need the shield isolated from the shell; center conductor to a short post or the inner wall as in MW “centrally fed, outer as shield.” Non-metallic rotator for the 3×3 cube: HDPE/acrylic plate stock already listed on <a href="setup.html#shop">setup.html#shop</a> is shared hardware, not the same bench. Sleeve balun, not skirt.</p>
+
   <h2 id="meyl-kit">Will a Meyl ball-antenna kit do Hively’s protocol?</h2>
   <p><strong>No</strong> as a kit. <strong>Partial</strong> only if you scavenge the two spheres and rebuild everything else at UHF. Do not treat Meyl potential-vortex / over-unity language as Hively’s <em>C</em> field.</p>
   <p>What <a href="https://meyl.eu/go/indexb830.html">meyl.eu</a> actually sells (Demo / Experimental kits): Tesla <em>pancake</em> coils with two spherical electrodes on plastic columns, a low-impedance waveform generator, cables, LEDs, optional frequency counter. Demo generator about <strong>4–8 MHz</strong>; Experimental historically <strong>~0.2–14 MHz</strong> analog or <strong>DDS to ~8–10 MHz</strong> after 2014. Coil types quoted ~<strong>3.5 / 7 / 14 MHz</strong>. Typical bench distance in the manual is tens of centimetres with a ground strap between pancake outer turns. That is HF Tesla-coil-plus-ball, not a 433 MHz ball feed and not a 23 cm lab.</p>
@@ -131,7 +180,7 @@ T = exp[ −κ cos²(φ) ]                                   (9)
     <li>Scale λ/4 sleeve (not skirt) and center conductor to <strong>1296.000&nbsp;MHz</strong> (23&nbsp;cm, licensed) or a legal <strong>2.45&nbsp;GHz</strong> allocation. Identify; milliwatts; do not camp on a calling frequency.</li>
     <li>Two Faraday enclosures: TX stack in one, RX (Signal Hound class or TinySA Ultra 406) in the other. No cables out on a “sealed” run. Time-stamp TX power, RX, and rotator angle on one clock.</li>
     <li>Brass-rod baseline: nine λ/2 rods, 360° rotation, log T(φ). Optional second article: high-hysteresis rods, same geometry, look for a U. That second article is Hively’s unpublished suggestion, not a MW figure.</li>
-    <li>See <a href="setup.html">setup</a> / <a href="lab.html">lab</a> for RadioScreen tents and packing. Different antenna family than the pancake unless you mix them on purpose and say so.</li>
+    <li>Hively’s suggested follow-on stays on <em>this</em> bench (Experiment B): two Faraday enclosures + sleeve-balun monopole + rod cube — not the pancake / RadioScreen shopping list. The 1296&nbsp;MHz bifilar pancake cage is a different bench: <a href="setup.html">setup.html</a>.</li>
   </ul>
   <p class="footnote">DOI: Monstein &amp; Wesley, EPL 59, 514 (2002). This page © 2026 Dan Britton, educational use. Scalar / longitudinal claims are not IEEE-standard antenna theory.</p>
 </main>
