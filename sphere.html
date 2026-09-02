@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.50″ Al sphere vs MW Fig. 1 ball antenna · SLW Hub</title>
+<meta name="description" content="Educational comparison: procurable K-Mac 2.50″ 3003 hollow aluminium sphere plus SMA bulkhead versus Monstein &amp; Wesley 2002 Fig. 1 machined 6 cm ball antennas. Experiment B, 433.59 MHz.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="fields.html">Fields</a>
+      <a href="monstein.html">Monstein</a>
+      <a href="sphere.html" aria-current="page">Sphere</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="setup.html">Setup</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <p class="kicker">Experiment B · 433.59 MHz · 70 cm Technician-legal · not settled physics</p>
+  <h1>Is a catalog 2.50″ hollow 3003 sphere an acceptable Fig.&nbsp;1 substitute?</h1>
+  <p class="lede">This page is a correspondence aid for Dan Britton to send to L.M. Hively. It asks whether a procurable hollow aluminium ball plus an SMA bulkhead can stand in for the machined 6&nbsp;cm ball antennas in Monstein &amp; Wesley, <em>Europhys. Lett.</em> <strong>59</strong>, 514 (2002), Fig.&nbsp;1. Educational comparison only. We do not host the IOP/EPLA PDF. Cite <a href="https://doi.org/10.1209/epl/i2002-00136-9">doi:10.1209/epl/i2002-00136-9</a>.</p>
+
+  <div class="banner-legal"><strong>Authors’ claim, not a verdict.</strong> Mainstream CED treats free-space radio as TEM. Longitudinal / “scalar” channels remain disputed. This is Experiment B (Monstein 433.59&nbsp;MHz ball + rod polarizer), not the 1296&nbsp;MHz Faraday-cage pancake bench (different experiment). Sleeve balun, not skirt. Not a Meyl kit. US 70&nbsp;cm amateur band is Technician-legal under Part 97 with a valid license; it is not the EU 433&nbsp;MHz SRD / Part-15 ISM allocation when you transmit in the US.</div>
+
+  <nav class="toc card">
+    <a href="#question">The question for Hively</a>
+    <a href="#fig1">Fig. 1 (MW 2002)</a>
+    <a href="#proposed">Proposed catalog parts</a>
+    <a href="#table">Comparison table</a>
+    <a href="#ka">Electrically small (ka ≪ 1)</a>
+    <a href="#feed">Feed / bulkhead notes</a>
+    <a href="#parts-back">Back to the 433 MHz parts list</a>
+  </nav>
+
+  <h2 id="question">The question, stated plainly</h2>
+  <div class="card hively">
+    <p>Is this hollow 2.50″ 3003 aluminium sphere (K-Mac KB-2016, existing ¼″ hole) plus an Amphenol <strong>901-9875</strong> SMA-F bulkhead through that hole an <strong>acceptable substitute</strong> for Fig.&nbsp;1’s machined 60&nbsp;mm aluminium ball with a 10H7/3H7 coaxial cavity, or does the missing internal shaft/bore / the 3.35&nbsp;mm wall / the 3003 alloy change the feed (outer as shield vs center conductor) enough that you would <strong>not</strong> treat them as equivalent for a 433.59&nbsp;MHz ball-antenna polarizer bench?</p>
+    <p class="footnote">No private email is reproduced here. Hively is not a GitHub collaborator on this repo. This page is an educational comparison for that correspondence, not a claim that SLW is settled physics and not a coauthored paper.</p>
+  </div>
+
+  <h2 id="fig1">What Fig.&nbsp;1 actually shows</h2>
+  <p>Monstein &amp; Wesley used identical aluminium ball antennas, 6&nbsp;cm diameter, coax fed to the inside of the sphere with the outer conductor as shield. Fig.&nbsp;1 of the 2002 letter is a machine-shop sketch (dimensions in millimetres):</p>
+  <ul>
+    <li><strong>R30</strong> — 60&nbsp;mm outside diameter (radius 30&nbsp;mm).</li>
+    <li><strong>10H7 / 3H7</strong> coax bore (outer / inner fits on the coaxial cavity).</li>
+    <li><strong>18&nbsp;mm</strong> shaft into the ball.</li>
+    <li><strong>34&nbsp;mm</strong> base.</li>
+    <li>Centrally fed; outer of the ball as shield.</li>
+  </ul>
+  <figure class="figure">
+    <img src="img/fig1-ball-antenna-page.png" alt="Monstein and Wesley 2002 Figure 1: sketch of aluminium ball antennas with R30, 10H7/3H7 coax bore, 18 mm shaft, and 34 mm base. Dimensions in millimetres.">
+    <figcaption>Monstein &amp; Wesley EPL 59, 514 (2002) Fig. 1. Sketch of the aluminium ball antennas. All given dimensions are in mm. Educational comparison only. doi:10.1209/epl/i2002-00136-9</figcaption>
+  </figure>
+  <p class="footnote">We do not host the IOP/EPLA PDF. Author-hosted copy (filename typo “electroydnamic”): <a href="https://www.jamespaulwesley.org/Document_Files/Observation_of_scalar_longitudinal_electroydnamic_waves.pdf">jamespaulwesley.org</a>. Full Experiment B briefing: <a href="monstein.html">monstein.html</a>.</p>
+
+  <h2 id="proposed">Proposed procurable substitute</h2>
+  <p>Instead of machining Fig.&nbsp;1 from solid aluminium, the catalog path is a hollow 3003 ball that already has a ¼″ hole, plus a stock SMA bulkhead through that hole.</p>
+
+  <h3>K-Mac 2.50″ hollow 3003</h3>
+  <figure class="figure">
+    <img src="img/kmac-alum-hollow.jpg" alt="K-Mac Plastics hollow aluminium balls catalog photo, 3003 alloy.">
+    <figcaption>Vendor: <a href="http://k-mac-plastics.com/balls/hollow-metal-balls.htm">k-mac-plastics.com/balls/hollow-metal-balls.htm</a> · KB-2016 2.50″ 3003 Al, wall 0.132″, ¼″ hole, ~$127. Closest catalog OD to MW’s 60&nbsp;mm.</figcaption>
+  </figure>
+  <ul>
+    <li>2.50″ (63.5&nbsp;mm) OD — 3.5&nbsp;mm larger than Fig.&nbsp;1’s 60.0&nbsp;mm.</li>
+    <li>3003 aluminium, hollow, wall 0.132″ (3.35&nbsp;mm).</li>
+    <li>Existing ¼″ hole — intended for the SMA bulkhead, not a 10H7/3H7 internal coax cavity.</li>
+    <li>Need two (TX + RX). Same vendor also lists 2.00″ KB-2014 and 3.00″ KB-2015; Butterworth’s reconstruction used ~3″ Al.</li>
+  </ul>
+
+  <h3>Amphenol 901-9875 SMA-F bulkhead</h3>
+  <figure class="figure">
+    <img src="img/901-9875.jpg" alt="Amphenol 901-9875 SMA female bulkhead connector, catalog photo.">
+    <figcaption>Amphenol SMA-F bulkhead, RF Parts <a href="https://www.rfparts.com/901-9875.html">rfparts.com/901-9875.html</a> (same SKU at <a href="https://www.testequity.com/product/57482-1-901-9875">TestEquity 57482-1-901-9875</a> if one shop is out). Crimp for RG-316, 50&nbsp;Ω. Qty 2.</figcaption>
+  </figure>
+  <div class="banner-edu">SMA bulkhead as purchased — photo from Dan, coming.</div>
+  <p>Gender chain on this bench: TinySA Ultra RF port is SMA-F (hole). Jumper is SMA-M/M (pin both ends). Bulkhead through the ¼″ hole is SMA-F on the outside so the cable pin screws on. Prefer 901-9875 as the “coax into the interior” part (crimp RG-316, center soldered inside the sphere). See <a href="monstein.html#bulkhead">monstein.html#bulkhead</a>.</p>
+
+  <h2 id="table">Side-by-side</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>MW 2002 Fig. 1</th>
+          <th>Proposed catalog build</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Outside diameter</td>
+          <td>60.0&nbsp;mm (R30)</td>
+          <td>63.5&nbsp;mm (2.50″)</td>
+        </tr>
+        <tr>
+          <td>Construction</td>
+          <td>Machined aluminium ball</td>
+          <td>Hollow 3003 aluminium, wall 3.35&nbsp;mm (0.132″)</td>
+        </tr>
+        <tr>
+          <td>Feed cavity</td>
+          <td>Internal coax cavity 10H7 / 3H7; 18&nbsp;mm shaft; 34&nbsp;mm base; center feed; outer as shield</td>
+          <td>Existing ¼″ hole + 901-9875 SMA-F bulkhead; no machined 10H7/3H7 bore or 18&nbsp;mm shaft</td>
+        </tr>
+        <tr>
+          <td>Frequency</td>
+          <td>433.59&nbsp;MHz (λ ≈ 0.692&nbsp;m)</td>
+          <td>Same (Experiment B, 70&nbsp;cm Technician-legal)</td>
+        </tr>
+        <tr>
+          <td>a/λ at 433.59&nbsp;MHz</td>
+          <td>≈ 0.043 (a = 30&nbsp;mm)</td>
+          <td>≈ 0.046 (a = 31.75&nbsp;mm); both ka ≪ 1</td>
+        </tr>
+        <tr>
+          <td>Prior reconstruction</td>
+          <td>—</td>
+          <td>Butterworth et al. used ~3″ aluminium (not this SKU)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="ka">Still electrically small</h2>
+  <p>At 433.59&nbsp;MHz, λ = c/f ≈ 0.692&nbsp;m. The MW ball has a/λ ≈ 0.043; the 2.50″ ball has a/λ ≈ 0.046. Both are ka ≪ 1 (k = 2π/λ). The open question is not “is it a 6&nbsp;cm dipole at UHF?” — it is whether dropping the internal coaxial shaft/bore, using a thin 3003 wall, and feeding through a stock SMA bulkhead still counts as Fig.&nbsp;1’s “centrally fed, outer as shield” geometry.</p>
+
+  <h2 id="feed">What this page is not</h2>
+  <ul>
+    <li><strong>Not a Meyl kit.</strong> Meyl Demo / Experimental kits are HF Tesla pancakes with spherical electrodes (kHz–low MHz). Do not treat them as a 433&nbsp;MHz ball feed. See <a href="monstein.html#meyl-kit">monstein.html#meyl-kit</a>.</li>
+    <li><strong>Sleeve balun, not skirt</strong> on any follow-on monopole work Hively suggested for this same Experiment B geometry.</li>
+    <li>Different experiment (not this polarizer): 1296&nbsp;MHz Faraday-cage TEM vs SLW — <a href="setup.html">setup.html</a> / <a href="fields.html">fields.html</a>.</li>
+  </ul>
+
+  <h2 id="parts-back">Back to the 433&nbsp;MHz parts list</h2>
+  <p>Balls, rods, cables, and bulkhead SKUs for Experiment B live on the Monstein page: <a href="monstein.html#parts">monstein.html#parts</a> and <a href="monstein.html#bulkhead">#bulkhead</a>. This page only asks whether the catalog 2.50″ 3003 + 901-9875 pair is electrically close enough to Fig.&nbsp;1 to buy.</p>
+  <p class="footnote">DOI: Monstein &amp; Wesley, EPL 59, 514 (2002), <a href="https://doi.org/10.1209/epl/i2002-00136-9">doi:10.1209/epl/i2002-00136-9</a>. This page © 2026 Dan Britton, educational use. Scalar / longitudinal claims are not IEEE-standard antenna theory.</p>
+</main>
+<footer class="site"><div class="wrap"><strong>Dan Britton</strong> · educational only · 70&nbsp;cm Technician-legal (Experiment B) · licensed 23&nbsp;cm / legal 13&nbsp;cm only on other benches</div></footer>
+<script src="js/app.js"></script>
+</body>
+</html>
