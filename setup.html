@@ -182,7 +182,7 @@
 <h2 id="tinysa">TinySA Ultra 406 and impedance — skip the matching resistor on the detector</h2>
 <p>The TinySA Ultra+ ZS406 (4″ screen, SubMiniature version A (SMA) connector, 50 ohm) is a 2-in-1: spectrum analyzer and signal generator. The spectrum-analyzer input is specified <strong>50 Ω when internal attenuation is ≥ 10 dB</strong>. Frequency: 100 kilohertz (kHz)–900 MHz normal, Ultra mode to ~5.4–6 GHz — so <strong>1296 MHz receive is in Ultra mode</strong>, which is fine.</p>
 <div class="banner-warn">
-  <strong>Generator caveat.</strong> Clean sine output is only specified to ~800–900 MHz. At 1296 MHz the Ultra 406 generator is in the square-wave / mixer region (harmonics and spurs). If it is the transmitter source, enable Ultra, add a 23 cm bandpass or low-pass after the SMA connector, log that it is not a clean sine, and stay licensed. A 23 cm transverter or brick is the cleaner transmitter; the TinySA is the better <em>detector</em>.
+  <strong>Generator caveat.</strong> Clean sine output is only specified to ~800–900 MHz. At 1296 MHz the Ultra 406 generator is in the square-wave / mixer region (harmonics and spurs). If it is the transmitter source, enable Ultra, add a 23 cm bandpass after the SMA connector (<a href="#bpf">buy list: ZX75BP-1307-S+ or DEM-BPF</a>), log that it is not a clean sine, and stay licensed. One TX-path filter is enough; the RX TinySA does not need this BPF unless you add a second later. A 23 cm transverter or brick is the cleaner transmitter; the TinySA is the better <em>detector</em>.
 </div>
 <p><strong>Do not put a 47–51 Ω resistor in series with the bifilar on the detector.</strong> The pancake is ~0.2 Ω of copper. A 51 Ω series resistor in front of a 50 Ω TinySA is a ~6 dB (factor-of-four in power) pad that throws away the already-tiny detected voltage. Hively’s “match the coil resistance to the source” is a <em>transmit</em> remark for a coil whose R was designed near 50 Ω. This 35 mm fold-in-half article is not that coil.</p>
 <div class="table-wrap">
@@ -218,7 +218,7 @@
 <ol class="steps">
   <li>Non-metallic plate or small wood block sized for the RG-405 stub, the 57.8 mm skirt, and the generator (TinySA in generator mode, brick, or transverter). Nylon/plastic fasteners only in the RF path.</li>
   <li>Stub tip remains the range origin: when you measure tent-to-tent distance, it is still stub tip to pancake face. Mark that axis on the rail.</li>
-  <li>Short SMA / semi-rigid on the generator. If the Ultra 406 is the source: 23 cm filter, log square-wave / mixer-region output, optional 47 Ω only at the <em>transmitter</em> SMA. Licensed milliwatts; no magnetron.</li>
+  <li>Short SMA / semi-rigid on the generator. If the Ultra 406 is the source: 23 cm bandpass between the Ultra and the SMA-cable TX stub (<a href="#bpf">#bpf</a> — SKUs stay in the shopping list). Chain stays inside the TX Faraday enclosure: Ultra SMA-F → filter SMA-M → filter SMA-F → SMA-M stub. Log square-wave / mixer-region output, optional 47 Ω only at the <em>transmitter</em> SMA. Licensed milliwatts; no magnetron.</li>
   <li>Slide the TX fixture into its RadioScreen tent the same way as the RX sled: flap open, fixture in, overlap closed, no crushed seams, no USB cable out on a sealed run.</li>
   <li>The TX fixture is removable for dummy-load swaps, photos of the 23.1 mm stub, and packing. Do not hard-tape the generator to the mesh.</li>
 </ol>
@@ -299,6 +299,16 @@
     <a href="https://lessemf.com/product/radioscreen-mesh/" target="_blank" rel="noopener">Less EMF RadioScreen mesh</a>.</li>
   <li><strong>Travel foam for the coil plate / clips.</strong>
     <a href="https://specialtycases.com/pelican-1200-small-case-with-pick-n-pluck-foam.html" target="_blank" rel="noopener">Pelican 1200 with pick-n-pluck foam</a>.</li>
+  <li id="bpf"><strong>23 cm bandpass — TX path only (TinySA Ultra as generator).</strong>
+    Drop-in SMA ceramic BPF between the Ultra generator and the SMA-cable TX stub. Purpose: kill square-wave harmonics/spurs from the Ultra at 1296 MHz. Keep the whole string inside the TX Faraday enclosure. One filter on the TX path is enough; the RX TinySA does not need this unless you add a second later. Licensed milliwatts; no magnetron.
+    Primary (drop-in SMA, ~$108, stock on Mini-Circuits):
+    <a href="https://www.minicircuits.com/WebStore/dashboard.html?model=ZX75BP-1307-S%2B" target="_blank" rel="noopener">Mini-Circuits ZX75BP-1307-S+ ceramic BPF, 1215–1400 MHz, 50 Ω</a>
+    (<a href="https://www.minicircuits.com/pdfs/ZX75BP-1307-S+.pdf" target="_blank" rel="noopener">datasheet PDF</a>).
+    Connectors: INPUT SMA-MALE, OUTPUT SMA-FEMALE.
+    TinySA Ultra RF jack is SMA-FEMALE (not male). Chain: Ultra SMA-F → filter SMA-M → filter SMA-F → SMA-M stub (short SMA/semi-rigid).
+    Cheaper ham option, Live Oak, FL, $40, 1–2 weeks (low-level / milliwatt class, matches TinySA):
+    <a href="https://www.downeastmicrowave.com/Band-Pass-Filter-p/dem-bpf.htm" target="_blank" rel="noopener">Down East Microwave DEM-BPF</a>
+    — select Frequency 1296 MHz and Connector SMA. May be SMA-F both ends; then a short SMA-M/M barrel or pigtail to the Ultra.</li>
 </ul>
 <p class="footnote">Keep USB cables in the cables bag, not attached. Roll RadioScreen; nest the pancake on the rigid plate in the Pelican foam. Flap seals are hook-and-loop / clips / magnets — not 3M 1181 welded shut. Different experiment (not this cage): polarizer spheres/rods shopping list is on <a href="monstein.html#parts">monstein.html#parts</a> — not the pancake kit.</p>
 
@@ -318,13 +328,13 @@
   <li>Scrape only the two free ends; SMA pigtail &lt; 10 cm; no 51 Ω on the detector</li>
   <li>Pancake on rigid non-metallic plate, nylon/plastic fasteners, removable from the RX tent</li>
   <li>TinySA Ultra 406: spectrum-analyzer / Ultra mode, attenuation ≥ 10 dB, battery, no USB cable; low-noise amplifier on and off logged</li>
-  <li>If Ultra 406 is also the generator: 23 cm filter, log square-wave mode, optional 47 Ω at the <em>transmitter</em> SMA connector only</li>
+  <li>If Ultra 406 is also the generator: 23 cm filter (<a href="#bpf">#bpf</a>), log square-wave mode, optional 47 Ω at the <em>transmitter</em> SMA connector only</li>
   <li>TX stub + skirt + generator on a matching portable fixture in the TX tent</li>
   <li>Two RadioScreen tents, 50 mm overlaps, removable flap seals (hook-and-loop / clips / magnets — not permanent copper tape), no cables out when sealed</li>
   <li>Read the 4″ display through the mesh; don’t open the flap mid-sweep</li>
   <li>Control matrix + comma-separated-values log; license and identify on the air</li>
   <li>Pack kit for Lady Lake, FL then Middletown, RI: roll mesh, coil on plate in foam, TinySA in case, USB off</li>
-  <li>Shopping list SKUs on this page: plates, nylon, SMA pigtail, bulkhead, hook-and-loop, RadioScreen, Pelican 1200</li>
+  <li>Shopping list SKUs on this page: plates, nylon, SMA pigtail, bulkhead, hook-and-loop, RadioScreen, Pelican 1200, 23 cm BPF</li>
 </ul>
 <p class="footnote">Skin-depth tables and CSV logger: <a href="lab.html">Lab</a>. Lengths: <a href="tools.html">Tools</a>. Mesh: <a href="https://lessemf.com/product/radioscreen-mesh/">lessemf.com/product/radioscreen-mesh</a>. TinySA specs: <a href="https://tinysa.org/wiki/pmwiki.php?n=TinySA4.Specification">tinysa.org Ultra specification</a>.</p>
 
