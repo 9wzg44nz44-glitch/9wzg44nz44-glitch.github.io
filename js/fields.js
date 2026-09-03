@@ -104,7 +104,7 @@
     ctx.strokeRect(x0 - 14, y0 + 2, 28, 18);
     ctx.fillStyle = "#ccc";
     ctx.font = "12px sans-serif";
-    ctx.fillText("stub+skirt", x0 - 28, y0 + 38);
+    ctx.fillText("sleeve-stub", x0 - 28, y0 + 38);
     ctx.beginPath();
     ctx.arc(x1, y1, 16, 0, Math.PI * 2);
     ctx.fillStyle = "#cc8844";

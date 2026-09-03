@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shared field kit · SLW Hub</title>
+<meta name="description" content="Planned shared submersible field kit: one TX Pelican cube for both antennas, lid-open RX case, sequential TinySA use, ballast, IP67 depth honesty. Not a claim it has been built.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="fields.html">Fields</a>
+      <a href="monstein.html">Monstein</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="setup.html">Setup</a>
+      <a href="kit.html">Kit</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<nav class="expt-strip" aria-label="Two experiments">
+  <a href="index.html#expt-a"><span class="expt-k">A</span> 1296 MHz cage</a>
+  <a href="setup.html">setup</a>
+  <a href="fields.html">fields</a>
+  <span class="sep">·</span>
+  <a href="index.html#expt-b"><span class="expt-k">B</span> 433 MHz balls+rods</a>
+  <a href="monstein.html">monstein</a>
+  <a href="sphere.html">sphere</a>
+  <span class="sep">·</span>
+  <a href="index.html#kit" aria-current="page">Kit</a>
+</nav>
+<main id="main" class="wrap">
+<p class="kicker">Shared field kit · planned end-state · not yet built</p>
+<h1>One TX Pelican, one RX case, two electrically separate antennas</h1>
+<p class="lede">Cargo plan for taking Experiment A (1296&nbsp;MHz sleeve-stub + pancake) and Experiment B (433.59&nbsp;MHz balls + rods) into the field. Plastic cube = hydrostatic shell. RadioScreen = Faraday. The antennas share a box, <strong>not</strong> an RF feed. <strong>This page is not a claim the hull has been bought, ballasted, or dunked.</strong></p>
+<div class="banner-edu">Pelican 1200 on <a href="setup.html#shop">setup.html#shop</a> stays the <em>small</em> TinySA / coil travel case. It is not this submersible TX hull. Cage pancake protocol stays on setup.html. 433 parts stay on monstein.html / sphere.html.</div>
+<nav class="toc card">
+  <strong>On this page</strong>
+  <a href="#tx">TX cube</a>
+  <a href="#rx">RX case (lid open)</a>
+  <a href="#seq">Sequential vs simultaneous</a>
+  <a href="#harmonics">Harmonic warning</a>
+  <a href="#ballast">Ballast (do not drill)</a>
+  <a href="#depth">Depth honesty</a>
+  <a href="#cases">Case SKUs (~Sep 2026)</a>
+</nav>
+
+<h2 id="tx">TX: one cubical watertight case</h2>
+<p>One cube. Cutout foam holds the <strong>1296 sleeve-stub sled</strong> <em>and</em> the <strong>433 TX sphere</strong> in <em>separate wells</em>. The whole inner pack is wrapped in RadioScreen. Plastic Pelican = hydrostatic shell; mesh = Faraday. Flat sides of the cube are for aiming the stub axis; do not rely on a round case for that.</p>
+<ul>
+  <li>Antennas are cargo in one Faraday wrap — they keep their own feeds. Do not tee 1296 and 433 onto one coax.</li>
+  <li>23&nbsp;cm BPF stays in the 1296 TX chain inside the wrap (<a href="setup.html#bpf">setup.html#bpf</a>).</li>
+  <li>Experiment B ball: coax into the sphere, outer as shield, <strong>no balun</strong> (<a href="monstein.html#parts">monstein.html#parts</a>).</li>
+</ul>
+
+<h2 id="rx">RX: second case, usually lid open</h2>
+<p>The receiver case is <strong>not</strong> the submerged article. Leave the <strong>lid open</strong>. Drape a RadioScreen mesh tent over the instruments so Dan can read <em>two</em> TinySA screens (one at 1296, one at 433) through the see-through mesh. Same “no USB out on a sealed run” honesty as the bench tents: if a cable is out, it is a leaky config.</p>
+
+<h2 id="seq">Sequential is the default</h2>
+<p>Dan has <strong>three</strong> TinySA Ultra units now. Sequential (one experiment at a time) is the default.</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Mode</th><th>TinySA count</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Sequential TX+RX</td><td><strong>2</strong></td><td>One pair. Switch the antennas / wells between A and B. Default.</td></tr>
+<tr><td>Sequential with a spare</td><td>3 (what he has)</td><td>Two dedicated to the live experiment; third as spare or a switched TX.</td></tr>
+<tr><td>Simultaneous dedicated</td><td><strong>4</strong></td><td>TX1296, TX433, RX1296, RX433. Only if they don’t interfere <em>and</em> a 4th Ultra is bought. With 3, one TX is switched or shared.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Simultaneous is optional later, not the first field plan.</p>
+
+<h2 id="harmonics">Harmonic warning (why sequential first)</h2>
+<p>1296 / 3 = <strong>432 MHz</strong>, only <strong>1.59 MHz</strong> from 433.59. 433.59 × 3 = <strong>1300.77 MHz</strong> vs 1296. Square-wave / mixer-region TinySA drive is already harmonic-rich. If you ever run both transmitters at once you need:</p>
+<ul>
+  <li>23&nbsp;cm BPF on the 1296 TX (already in the A chain)</li>
+  <li>a 70&nbsp;cm BPF on the 433 TX</li>
+  <li>separate foam wells</li>
+  <li>both antennas still inside the mesh</li>
+</ul>
+<p>Do sequential first. Do not treat a simultaneous dunk as the first article.</p>
+
+<h2 id="ballast">Ballast — the empty cube floats</h2>
+<p>Pelican 0340 buoyancy is <strong>220.46 lb</strong> (~100 kg). The empty cube <strong>floats</strong>. Do <strong>not</strong> drill the hull (that kills IP67). External webbing harness + stainless D-rings / pad eyes <em>around</em> the case; lead or steel shot bags on the harness, not inside a hole you put in the shell.</p>
+
+<h2 id="depth">Depth honesty</h2>
+<p>IP67 = <strong>1 m / 30 min</strong>, not continuous seawater. First tests: pool / shallow Florida. Later seawater is a separate, logged step — different risk, different log row, not implied by buying a cube.</p>
+<p>A metal case is optional later (Faraday + hull in one) but corrosion, no see-through, and true subsea boxes (Slayson IP68 aluminum, Blue Robotics watertight-box class) are small and expensive. First buy: plastic cube + internal mesh. Those metal/subsea boxes are “too small / later,” not the first SKU.</p>
+
+<h2 id="cases">Case SKUs (vendor pages ~Sep 2026)</h2>
+<p class="footnote">Prices are what the vendor pages showed around Sep 2026. Confirm before you buy. Not an endorsement beyond “this is the SKU we checked.”</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Case</th><th>Role</th><th>Notes</th></tr></thead>
+<tbody>
+<tr>
+  <td>Pelican 0340 Protector Cube<br>
+  SKU 0340-000-110<br>
+  <a href="https://www.pelican.com/us/en/product/cases/0340?sku=0340-000-110">pelican.com 0340?sku=0340-000-110</a><br>
+  also <a href="https://www.pelican.com/us/en/product/cases/0340">pelican.com/…/cases/0340</a></td>
+  <td>First-buy TX hull (and a second cube if you want a matching RX shell to leave lid-open)</td>
+  <td>~$479.95. Interior 18×18×18 in (some dealers say wheel wells cut usable height to ~16.5 in). Exterior 20.5×20.5×19.25 in. IP67. Polypropylene. Pick N Pluck. Buoyancy 220.46 lb. Weight with foam 29.76 lb.</td>
+</tr>
+<tr>
+  <td>Pelican 0350 Cube<br>
+  <a href="https://www.pelican.com/us/en/product/cases/0350">pelican.com/…/cases/0350</a></td>
+  <td>Larger cube if 0340 wells feel tight</td>
+  <td>~$489.95 (~$490 class). Interior 20×20×20 in. Exterior 22.5×22.43×21.25 in. IP67. Weight with foam 32.01 lb. Buoyancy 268.96 lb. Same plastic-cube + internal-mesh idea.</td>
+</tr>
+<tr>
+  <td>Pelican 1200 with pick-n-pluck foam<br>
+  (link stays on <a href="setup.html#shop">setup.html#shop</a>)</td>
+  <td>Small TinySA / coil travel case</td>
+  <td><strong>Not the submersible TX hull.</strong> Do not rebrand the 1200 as the cube.</td>
+</tr>
+<tr>
+  <td>Slayson IP68 aluminum / Blue Robotics watertight box class</td>
+  <td>Too small / later</td>
+  <td>True subsea boxes. Corrosion, no see-through, expensive, small. Not the first SKU.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Summary on the master page: <a href="index.html#kit">index.html#kit</a>.</p>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+</body>
+</html>
