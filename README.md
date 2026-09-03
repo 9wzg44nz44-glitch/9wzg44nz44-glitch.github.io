@@ -20,12 +20,16 @@ This is vanilla HTML/CSS/JS. No build step.
 
 | File | Contents |
 |---|---|
-| `index.html` | Master two-experiment page (hash tabs `#expt-a` `#expt-b` `#kit`) |
-| `kit.html` | Shared field kit (TX/RX cubes, sequential, harmonics, ballast, depth, Pelican SKUs) |
+| `index.html` | Master two-experiment page (JS tabs `#expt-a` `#expt-b` `#kit`) |
+| `kit.html` | Shared field kit (TX/RX cubes, sequential, harmonics, ballast, depth, Pelican 0340/0350/0370) |
+| `setup.html` | Experiment A bench: pancake, mesh tents, **sleeve (not skirt)** how-to `#sleeve` |
+| `fields.html` | 1296 MHz TEM vs SLW cartoon (sleeve-balun stub) |
+| `lab.html` | Experiment A Faraday protocol, HAM legal box, skin-depth table, BOM, controls, CSV log, safety |
+| `monstein.html` | Experiment B: 433.59 MHz balls + rods, **no balun** |
+| `sphere.html` | Fig. 1 vs catalog spheres; **no balun** |
 | `learn.html` | Briefing (N–Z vs Hively vs Meyl), detectors, Zimmerman 1296 MHz TM01 hardware, patents |
 | `compare.html` | Side-by-side table + illustrative SNR toy |
-| `tools.html` | Bifilar pancake + RG-405 stub/skirt calculator, **default 1.300 GHz**, presets 1296 MHz and 1.30 GHz |
-| `lab.html` | Experiment A Faraday protocol, HAM legal box, skin-depth table, BOM, controls, CSV log, safety |
+| `tools.html` | Bifilar pancake calculator, **default 1.300 GHz**; 1.3 GHz *build* is a sleeve, see `setup.html#sleeve` |
 | `library.html` | Six bundled PDFs with genre labels |
 | `papers/` | Verbatim PDFs (not rewritten) |
 | `css/style.css`, `js/*.js`, `assets/mark.svg` | Chrome |
