@@ -12,7 +12,7 @@
 <style>
   #ucurve, #bench { width: 100%; max-width: 640px; background: #0b1020; border-radius: 8px; display: block; }
   #ucurve { height: 280px; }
-  #bench { height: 200px; margin-top: .6rem; }
+  #bench { height: 280px; margin-top: .6rem; }
   .controls { display: grid; gap: .6rem 1.2rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 1rem 0; }
   .controls label { display: block; font-size: .9rem; }
   .controls output { font-family: "IBM Plex Mono", monospace; }
@@ -48,6 +48,7 @@
   <nav class="toc card">
     <a href="#expt">The 2002 setup</a>
     <a href="#eq">Formulas</a>
+    <a href="#rod-length">Rod length (why not λ/4?)</a>
     <a href="#ucurve-sec">Rotation / U-curve</a>
     <a href="#critique">Comments and reconstructions</a>
     <a href="#hively">Hively 2026 distinction</a>
@@ -81,6 +82,20 @@ T = exp[ −κ cos²(φ) ]                                   (9)
   <p>Ground-image sketch: observed field as superposition of amplitude A from the source at height y and B from an image at y′ (they place the reflecting surface λ/2 = 34.6&nbsp;cm below the actual earth). Energy ~1/r² with interference minima. We do not reproduce their fitted A, B tables; read eqs. (12)–(15) in the letter.</p>
   <p class="footnote">CED reading: a spherically fed ball is <em>not</em> a proof that ∇·A = 0 forbids TEM. Feed cables, the ground, and the rod array all break spherical symmetry. Bray &amp; Britton (EPL 2004) and Rębilas (EPL 2008) press that point. This hub lists MW’s equations so you can see what they claimed, not so you treat them as Maxwell.</p>
 
+  <h2 id="rod-length">Why the rods are λ/2, not λ/4</h2>
+  <p>Steve Morris asked a fair novice question: <em>aren’t antennas supposed to be a quarter-wavelength?</em> These brass (and optional W1) rods are <strong>not driven antennas</strong>. The two aluminium balls are the TX and RX. The nine rods are a <strong>parasitic polarizer-analyzer</strong>: they absorb when the electric field has a component along the wire.</p>
+  <p>A thin isolated wire is a resonant <strong>half-wave dipole</strong> when L ≈ λ/2. Induced current (and ohmic loss) peaks there. Monstein &amp; Wesley 2002 cut the rods to λ/2 so the cube is a resonant absorber for E∥k.</p>
+  <p>Numbers at 433.59&nbsp;MHz:</p>
+  <pre class="eq">λ = c/f = 299792458 / 433.59e6 ≈ 0.691 m (69.1 cm)
+λ/2 ≈ 34.6 cm   (MW’s rod length)
+λ/4 ≈ 17.3 cm</pre>
+  <p>λ/4 is the classic <strong>monopole over a ground plane</strong> (a driven antenna: one λ/4 arm plus its image). The polarizer has <em>no</em> ground plane and is <em>not</em> fed, so λ/2 — two λ/4 arms, a full dipole — is the right resonant length. Steve’s λ/4 instinct is correct for a stub/monopole, wrong for these floating rods.</p>
+  <p>MW eq. (7) δP = −σ A E₀² cos²φ δL and (9) T = exp[−κ cos²φ] with κ ∝ L and κ_fit = 4.4 is the brass λ/2 fit. Off-resonance, that DC-ohmic picture is incomplete: current has nodes, so a longer rod is not automatically a stronger polarizer.</p>
+  <h3>If they do not cut the 3&nbsp;ft (91.4&nbsp;cm ≈ 1.32 λ) store-bought sticks</h3>
+  <p><strong>Negatives.</strong> Off-resonance, so a shallower U / weaker T(φ) contrast. The 3×3 cube becomes ~0.9&nbsp;m on a side instead of ~0.35&nbsp;m — hard to rotate, more diffraction. It is not a 2002 replication. Hively’s hysteresis swap also specified the same 34.6&nbsp;cm geometry.</p>
+  <p><strong>Positives.</strong> No cutting; cheaper first look. Some E∥ vs E⊥ contrast can still appear (anisotropic loss). MW’s κ∝L formula would naively predict more attenuation — do <em>not</em> treat that as a prediction at 1.32 λ.</p>
+  <p><strong>Recommendation.</strong> Cut brass (and W1) to 34.6&nbsp;cm for the replication. Log uncut only as a named deviation.</p>
+
   <h2 id="ucurve-sec">Rotation curve (the U)</h2>
   <p>If T = exp[−κ cos² φ] and you rotate the cube through 360°, transmission is high near φ = 90° / 270° (rods across the path) and low near φ = 0° / 180° (rods along the path). That is a U (two dips per full turn). MW’s κ = 4.4 is an ohmic-brass fit, not a magnetic-hysteresis fit. This is an educational JS canvas, not settled physics and not a Wolfram Cloud player.</p>
   <p class="footnote">Different experiment (not this polarizer): 1296 MHz Faraday-cage TEM vs SLW — <a href="setup.html">setup.html</a> / <a href="fields.html#viz">fields.html</a>.</p>
@@ -94,10 +109,15 @@ T = exp[ −κ cos²(φ) ]                                   (9)
       <input id="kappa" type="range" min="0.5" max="8" step="0.1" value="4.4">
       <output id="kappaOut"></output>
     </label>
+    <label>TX–RX distance r (m)
+      <input id="r" type="range" min="3" max="25" step="0.5" value="12">
+      <output id="rOut"></output>
+    </label>
     <label><input id="hyst" type="checkbox"> Cartoon higher-κ hysteresis (educational; Hively 2026 pers. comm., unpublished — not a MW figure)</label>
-    <label><input id="showBench" type="checkbox" checked> Show TX ball / rod cube / RX ball cartoon (2D)</label>
     </div>
-  <canvas id="bench" width="640" height="200" aria-label="2D cartoon of TX ball, rotatable rod cube, RX ball"></canvas>
+  <p class="footnote">Lady Lake house: garage (TX) to living room / lanai (RX), typical ~12 m (about 40 ft). Not a survey.</p>
+  <p id="tOut" class="footnote" aria-live="polite"></p>
+  <canvas id="bench" width="640" height="280" aria-label="2D cartoon of TX ball, 3 by 3 rod cube, RX ball, floor, and range r"></canvas>
   <p class="footnote">Teal: MW eq. (9) T = exp[−κ cos²φ] with the κ slider (default 4.4). Orange dashed: optional cartoon at κ = 12 — <em>not</em> measured, not a Monstein–Wesley figure. Marker follows the φ slider. 2D schematic is a teaching cartoon, not a 3D solver.</p>
 
   <h2 id="critique">Later public literature (short)</h2>
@@ -212,7 +232,14 @@ T = exp[ −κ cos²(φ) ]                                   (9)
   </ul>
   <p class="footnote">DOI: Monstein &amp; Wesley, EPL 59, 514 (2002). This page © 2026 Dan Britton, educational use. Scalar / longitudinal claims are not IEEE-standard antenna theory.</p>
 </main>
-<footer class="site"><div class="wrap"><strong>Dan Britton</strong> · educational only · licensed 23&nbsp;cm / legal 13&nbsp;cm only</div></footer>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
 <script src="js/app.js"></script>
 <script src="js/monstein.js"></script>
 </body>
