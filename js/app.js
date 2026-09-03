@@ -15,6 +15,23 @@
       a.setAttribute("aria-current", "page");
     }
   });
+  const exptMap = {
+    "setup.html": "a",
+    "fields.html": "a",
+    "lab.html": "a",
+    "monstein.html": "b",
+    "sphere.html": "b",
+    "kit.html": "kit"
+  };
+  const which = exptMap[path];
+  document.querySelectorAll(".expt-nav a").forEach((a) => {
+    const href = a.getAttribute("href") || "";
+    if (which === "a" && href.indexOf("#expt-a") >= 0) a.setAttribute("aria-current", "true");
+    if (which === "b" && href.indexOf("#expt-b") >= 0) a.setAttribute("aria-current", "true");
+    if (which === "kit" && (href.indexOf("kit.html") >= 0 || href.indexOf("#kit") >= 0)) {
+      a.setAttribute("aria-current", "true");
+    }
+  });
 })();
 
 const C = 299792458;
@@ -40,46 +57,3 @@ function downloadText(filename, text, mime) {
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 500);
 }
-
-
-/* Hash-deep-linkable experiment tabs on index.html */
-(function () {
-  const list = document.querySelector("[data-expt-tabs]");
-  if (!list) return;
-  const tabs = [...list.querySelectorAll("[role=tab]")];
-  const panels = tabs.map((t) => document.getElementById(t.getAttribute("aria-controls")));
-  const hashes = { "expt-a": 0, "expt-b": 1, kit: 2 };
-
-  function select(i, pushHash) {
-    tabs.forEach((t, n) => {
-      const on = n === i;
-      t.setAttribute("aria-selected", on ? "true" : "false");
-      t.tabIndex = on ? 0 : -1;
-      if (panels[n]) panels[n].hidden = !on;
-    });
-    const id = tabs[i] && tabs[i].dataset.hash;
-    if (pushHash && id) {
-      history.replaceState(null, "", "#" + id);
-    }
-    const on = tabs[i];
-    if (on) on.focus({ preventScroll: true });
-  }
-
-  function fromHash() {
-    const h = (location.hash || "").replace(/^#/, "").toLowerCase();
-    if (h in hashes) select(hashes[h], false);
-  }
-
-  tabs.forEach((t, i) => {
-    t.addEventListener("click", () => select(i, true));
-    t.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-        e.preventDefault();
-        const dir = e.key === "ArrowRight" ? 1 : -1;
-        select((i + dir + tabs.length) % tabs.length, true);
-      }
-    });
-  });
-  window.addEventListener("hashchange", fromHash);
-  fromHash();
-})();

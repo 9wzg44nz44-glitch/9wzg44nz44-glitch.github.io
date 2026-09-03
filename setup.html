@@ -36,18 +36,11 @@
     </nav>
   </div>
 </header>
-<nav class="expt-strip" aria-label="Two experiments">
-  <a href="index.html#expt-a" aria-current="page"><span class="expt-k">A</span> 1296 MHz cage</a>
-  <a href="setup.html" aria-current="page">setup</a>
-  <a href="fields.html">fields</a>
-  <span class="sep">·</span>
-  <a href="index.html#expt-b"><span class="expt-k">B</span> 433 MHz balls+rods</a>
-  <a href="monstein.html">monstein</a>
-  <a href="sphere.html">sphere</a>
-  <span class="sep">·</span>
+<nav class="expt-nav" aria-label="Two experiments and shared kit">
+  <a href="index.html#expt-a">A 1296 cage</a>
+  <a href="index.html#expt-b">B 433 balls+rods</a>
   <a href="index.html#kit">Kit</a>
 </nav>
-
 <main id="main" class="wrap">
 
 <p class="kicker">Setup · 1.3 gigahertz (GHz) / 1296 megahertz (MHz) · not 8 GHz</p>
@@ -60,14 +53,14 @@
 <nav class="toc card">
   <strong>On this page</strong>
   <a href="#picture">What you are building</a>
+  <a href="#sleeve">Sleeve balun (not a skirt)</a>
   <a href="#mat">Sticky gummy board</a>
   <a href="#fold">Fold-in-half winding</a>
   <a href="#lift">Lift off the sticky mat</a>
   <a href="#dmm">Expected resistance and open-circuit check</a>
   <a href="#tinysa">TinySA Ultra 406 and impedance</a>
   <a href="#fixture">RX pancake fixture</a>
-  <a href="#sleeve">Sleeve balun (not skirt)</a>
-  <a href="#tx-fixture">TX sleeve-stub fixture</a>
+  <a href="#tx-fixture">TX stub fixture</a>
   <a href="#mesh">RadioScreen mesh Faraday cages</a>
   <a href="#stack">Order of first measurements</a>
   <a href="#pack">Packing for Lady Lake and Middletown</a>
@@ -77,7 +70,7 @@
 </nav>
 
 <h2 id="picture">What you are building</h2>
-<p>Two mesh Faraday tents face each other on a wooden/plastic rail. The transmitter (TX) tent holds the sleeve-balun stub and the signal generator. The receiver (RX) tent holds the folded bifilar pancake and the TinySA Ultra 406, which you read through the see-through mesh. No coaxial cable (coax) between tents if you can help it — a cable is a leak.</p>
+<p>Two mesh Faraday tents face each other on a wooden/plastic rail. The transmitter (TX) tent holds the stub + sleeve balun and the signal generator. The receiver (RX) tent holds the folded bifilar pancake and the TinySA Ultra 406, which you read through the see-through mesh. No coaxial cable (coax) between tents if you can help it — a cable is a leak.</p>
 
 <figure class="figure" role="img" aria-label="Two facing mesh Faraday tents">
 <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace" font-size="11" fill="#f3ead8">
@@ -108,10 +101,62 @@
 </figure>
 
 <div class="grid-3">
-  <article class="card hively"><h3>Transmitter (TX)</h3><p>RG-405/U coaxial stub, one-tenth of a wavelength (λ/10) = <strong>23.1 mm</strong> (one-quarter wavelength, λ/4 = 57.8 mm, as a transverse-electromagnetic (TEM) style control). Close-fitting sleeve <strong>57.8 mm</strong> (not a patent skirt). Generator <em>inside</em> the TX tent. Licensed 23 cm; milliwatts.</p></article>
+  <article class="card hively"><h3>Transmitter (TX)</h3><p>RG-405/U or SMA pigtail. First-article stub λ/10 = <strong>23.1 mm</strong> of center conductor (λ/4 = 57.8 mm is a TEM-style control stub). Close-fitting <strong>sleeve</strong> λ/4 = <strong>57.8 mm</strong> air (trim if VF &lt; 1). Not a fat annular skirt. Generator <em>inside</em> the TX tent. Licensed 23 cm; milliwatts. <a href="#sleeve">Sleeve how-to</a>.</p></article>
   <article class="card"><h3>Cage</h3><p><a href="https://lessemf.com/product/radioscreen-mesh/">RadioScreen Mesh</a> (Less EMF #1124-0, nickel over copper on polyester, 130 threads per inch (TPI), 4 ft × 54 in). Two tents from one piece.</p></article>
   <article class="card nz"><h3>Receiver (RX)</h3><p>One strand folded in half, outside diameter (OD) ≈ <strong>35 mm</strong>, AWG 22 or 24. TinySA Ultra 406 in spectrum-analyzer (SA) / Ultra mode <em>inside</em> the RX tent.</p></article>
 </div>
+
+
+<h2 id="sleeve">Sleeve balun (bazooka) — not a skirt</h2>
+<p>Build a <strong>sleeve</strong> balun for 1.3&nbsp;GHz. Patent history is a different drawing: US 9,306,527 Fig. 2A is an annular <em>skirt</em> (larger than the coax, extends <em>backward</em>, outer tied to the <em>top</em> of the skirt; λ/4 cancel + counterpoise). A fat skirt can launch extra TEM. Hively 2026 pers. comm. (paraphrase, no email): for 1.3&nbsp;GHz, build a sleeve balun, not a skirt.</p>
+<p>Sleeve / bazooka: a <em>close-fitting</em> λ/4 tube over the jacket, soldered to the shield at the end <strong>away from the stub tip</strong>, <strong>open at the feed</strong>. Same choke (λ/4 shorted line → high-Z common-mode) without a large radiating skirt. RG-405/U or SMA pigtail. Brass/copper tube snug on the jacket. 23&nbsp;cm BPF still in the TX chain inside the Faraday wrap (<a href="#bpf">#bpf</a>). <strong>No 3λ ground disk.</strong></p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>At 1296.000 MHz</th><th>Length</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td>Free-space λ</td><td class="num">231.3 mm</td><td>c / 1296.000 MHz</td></tr>
+<tr><td>λ/4 sleeve (air)</td><td class="num">57.8 mm</td><td>Choke. Trim shorter if velocity factor &lt; 1.</td></tr>
+<tr><td>First-article stub (λ/10)</td><td class="num">23.1 mm</td><td>Exposed center conductor</td></tr>
+<tr><td>TEM-control stub (λ/4)</td><td class="num">57.8 mm</td><td>Optional later article, not the first stub</td></tr>
+</tbody>
+</table>
+</div>
+<figure class="figure" role="img" aria-label="Side view of sleeve balun and stub">
+<svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace" font-size="11" fill="#f3ead8">
+  <rect x="8" y="8" width="744" height="204" rx="12" fill="#0c0b09" stroke="#3a3328"/>
+  <!-- coax jacket -->
+  <rect x="40" y="88" width="220" height="28" rx="2" fill="#262117" stroke="#d4b483"/>
+  <text x="150" y="80" text-anchor="middle" fill="#b7ab95">RG-405 / SMA pigtail (jacket)</text>
+  <!-- center conductor through -->
+  <line x1="40" y1="102" x2="620" y2="102" stroke="#d4b483" stroke-width="3"/>
+  <!-- solder ring at cold end -->
+  <rect x="248" y="78" width="14" height="48" fill="#c47a3a"/>
+  <text x="255" y="70" text-anchor="middle" fill="#d4923a">solder</text>
+  <!-- sleeve over jacket -->
+  <rect x="262" y="74" width="210" height="56" fill="none" stroke="#4a9b88" stroke-width="3"/>
+  <text x="367" y="64" text-anchor="middle" fill="#4a9b88">57.8 mm sleeve (open at feed)</text>
+  <!-- open at feed -->
+  <text x="478" y="150" text-anchor="middle" fill="#4a9b88">open</text>
+  <!-- stub -->
+  <line x1="472" y1="102" x2="560" y2="102" stroke="#d4b483" stroke-width="3"/>
+  <text x="516" y="88" text-anchor="middle" fill="#d4b483">23.1 mm stub</text>
+  <!-- dimension bars -->
+  <line x1="262" y1="180" x2="472" y2="180" stroke="#7d7363"/>
+  <text x="367" y="198" text-anchor="middle" fill="#7d7363">λ/4 sleeve · snug on jacket</text>
+  <line x1="472" y1="168" x2="560" y2="168" stroke="#7d7363"/>
+  <text x="516" y="160" text-anchor="middle" fill="#7d7363">λ/10</text>
+  <text x="150" y="150" text-anchor="middle" fill="#b7ab95">cold end (away from tip)</text>
+</svg>
+<figcaption>Novice side view: coax → solder ring at the cold end (away from the stub tip) → 57.8 mm close-fitting sleeve → open at the feed → 23.1 mm center-conductor stub. Not a fat skirt hanging off the coax.</figcaption>
+</figure>
+<ol class="steps">
+  <li>Strip the jacket so you can solder to the outer shield at the <em>cold</em> end — the end farther from the stub tip. Leave the feed end of the sleeve unsoldered (open).</li>
+  <li>Slide a brass or copper tube that is snug on the RG-405 jacket (0.086″ class). Cut 57.8 mm in air; trim if the dielectric / VF makes the electrical λ/4 shorter. Photograph the length against a ruler.</li>
+  <li>Solder a ring (or a tight collar) from tube to shield at that cold end only. Do not solder the feed end. Do not flare a large annular skirt.</li>
+  <li>Trim the exposed center conductor to 23.1 mm for the first article (λ/10). The 57.8 mm λ/4 stub is a TEM control, not the first radiating length.</li>
+  <li>Keep the 23 cm BPF in the TX chain inside the Faraday wrap. No 3λ ground disk. Dummy-load the SMA to check that leftover tone dies with the antenna.</li>
+</ol>
+<p class="footnote">Experiment B (433.59 MHz balls) has <strong>no balun</strong> — do not copy these sleeve steps onto the sphere feed. See <a href="index.html#expt-b">index.html#expt-b</a>.</p>
 
 <h2 id="mat">The Cricket / Cricut sticky gummy board</h2>
 <p>A Cricut cutting mat (Cricket mat, gummy board) is the winding jig: each turn sticks, so 22/24 AWG magnet wire cannot spring off and knot. You are not cutting anything and you are not putting the coil in the machine.</p>
@@ -226,61 +271,10 @@
 </ol>
 <p class="footnote">Continuity one more time after the SMA is on the plate. Log “pancake on fixture, pigtail &lt; 10 cm, nylon hardware.” Photograph the assembly next to a ruler before the first sealed run.</p>
 
-
-<h2 id="sleeve">Sleeve balun (not a skirt) — novice how-to</h2>
-<p>This is the Experiment A <em>build</em> at <strong>1296.000 MHz</strong>. Patent language may stay historical; the hardware you solder is a close-fitting sleeve, not US 9,306,527 Fig.&nbsp;2A’s fat skirt.</p>
-<div class="banner-legal">
-  <strong>Patent (historical).</strong> Fig.&nbsp;2A is an annular <em>skirt</em> balun: larger diameter than the coax outer, extends <em>backward</em> from the feed, outer conductor tied to the <em>top</em> of the skirt. The patent says that λ/4 path cancels return current on the outside of the tubular second conductor and also acts as a small ground-plane/counterpoise (currents on the center conductor and the outside of the skirt both +Z). That fat skirt can launch extra TEM.
-  <strong>Build (this hub).</strong> Hively 2026 personal communication (paraphrase only; no private email): build a <strong>sleeve</strong> balun, not a skirt, for the 1.3&nbsp;GHz replication. Sleeve (bazooka choke): close-fitting λ/4 conductive tube over the coax jacket, soldered to the shield at the end <em>away</em> from the stub tip, <em>open</em> at the feed/tip. Same choke physics (λ/4 shorted line → high Z for common-mode), but it does <em>not</em> add a large-diameter radiating skirt. No 3λ ground disk. Experiment B’s 433&nbsp;MHz balls use <em>no</em> balun — do not copy these steps onto <a href="monstein.html">monstein.html</a>.
-</div>
-<p>Numbers: λ = <strong>231.3 mm</strong>; λ/4 sleeve = <strong>57.8 mm</strong> in air (trim if the sleeve–jacket gap has VF &lt; 1); first-article stub = λ/10 = <strong>23.1 mm</strong> of center conductor (λ/4 = 57.8 mm remains the TEM-style control stub). RG-405/U or SMA pigtail. Brass/copper tube snug over the jacket. 23&nbsp;cm BPF still in the TX chain inside the Faraday wrap (<a href="#bpf">#bpf</a>).</p>
-<figure class="figure sleeve-fig" role="img" aria-label="Side view of coax, solder ring, 57.8 mm sleeve, open feed, 23.1 mm stub">
-<svg viewBox="0 0 780 260" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace" font-size="12" fill="#f3ead8">
-  <rect x="8" y="8" width="764" height="244" rx="12" fill="#0c0b09" stroke="#3a3328"/>
-  <!-- coax jacket -->
-  <rect x="40" y="108" width="160" height="28" fill="#5a4e3c" stroke="#d4b483"/>
-  <text x="120" y="96" text-anchor="middle" fill="#b7ab95">RG-405/U jacket</text>
-  <!-- solder ring -->
-  <rect x="200" y="100" width="18" height="44" rx="3" fill="#c47a3a" stroke="#e0a060"/>
-  <text x="209" y="86" text-anchor="middle" fill="#d4923a">solder</text>
-  <!-- sleeve tube -->
-  <rect x="218" y="96" width="220" height="52" fill="none" stroke="#d4923a" stroke-width="3"/>
-  <text x="328" y="86" text-anchor="middle" fill="#d4923a">57.8 mm λ/4 sleeve (snug)</text>
-  <!-- dielectric / center through sleeve -->
-  <rect x="218" y="114" width="220" height="16" fill="#262117"/>
-  <line x1="218" y1="122" x2="520" y2="122" stroke="#f3ead8" stroke-width="3"/>
-  <!-- open gap label -->
-  <text x="450" y="86" text-anchor="middle" fill="#4a9b88">OPEN at feed</text>
-  <!-- stub -->
-  <line x1="438" y1="122" x2="528" y2="122" stroke="#f3ead8" stroke-width="3"/>
-  <text x="548" y="126" fill="#f3ead8">23.1 mm stub</text>
-  <!-- dimension ticks -->
-  <line x1="218" y1="168" x2="438" y2="168" stroke="#7d7363"/>
-  <line x1="218" y1="162" x2="218" y2="174" stroke="#7d7363"/>
-  <line x1="438" y1="162" x2="438" y2="174" stroke="#7d7363"/>
-  <text x="328" y="186" text-anchor="middle" fill="#b7ab95">57.8 mm sleeve</text>
-  <line x1="438" y1="200" x2="528" y2="200" stroke="#7d7363"/>
-  <line x1="438" y1="194" x2="438" y2="206" stroke="#7d7363"/>
-  <line x1="528" y1="194" x2="528" y2="206" stroke="#7d7363"/>
-  <text x="483" y="218" text-anchor="middle" fill="#b7ab95">λ/10 = 23.1 mm</text>
-  <text x="209" y="236" text-anchor="middle" fill="#b7ab95">cold end</text>
-  <text x="40" y="56" fill="#7d7363">coax → solder ring (shield, AWAY from tip) → sleeve → open → stub</text>
-</svg>
-<figcaption>Side view: coax → solder ring at the cold end of the sleeve → 57.8 mm sleeve → open at the feed → 23.1 mm stub. Tube is snug over the jacket, not a fat radiating skirt.</figcaption>
-</figure>
+<h2 id="tx-fixture">Matching TX fixture (stub + sleeve + generator)</h2>
+<p>Do the same idea on the transmitter side so the two tents are portable twins, not a permanent bench sculpture. The TX tent still holds the stub + sleeve and the generator; they just ride a second non-metallic sled.</p>
 <ol class="steps">
-  <li>Install SMA (or use an SMA pigtail) on the generator end of RG-405/U in the ordinary way.</li>
-  <li>Cut a brass/copper tube that is a snug slide over the jacket, a little longer than 57.8 mm so you can trim. ID clears 0.086″ with only a thin gap — this is a sleeve, not a large-diameter skirt.</li>
-  <li>Strip the jacket so 23.1 mm of center conductor is the first-article stub (or 57.8 mm if you are running the TEM-style λ/4 control stub). Do not add a 3λ ground disk.</li>
-  <li>Slide the tube on. Solder a ring to the shield at the <strong>cold</strong> end (away from the stub tip). Leave the feed/tip end of the sleeve <strong>open</strong> — no solder bridges there.</li>
-  <li>If the sleeve–jacket gap has VF &lt; 1, trim shorter than 57.8 mm. Photograph the fillet and the open end next to a ruler.</li>
-  <li>23 cm BPF still in the TX chain inside the Faraday wrap: Ultra SMA-F → filter SMA-M → filter SMA-F → SMA-M stub (<a href="#bpf">#bpf</a>).</li>
-</ol>
-<p class="footnote">Mount this assembly on the TX sled below. Packing: foam around the 23.1 mm stub so it cannot get bent. Shared submersible cube (later) is <a href="kit.html">kit.html</a>; Pelican 1200 remains the small travel case.</p>
-<h2 id="tx-fixture">Matching TX fixture (sleeve-balun stub + generator)</h2>
-<p>Do the same idea on the transmitter side so the two tents are portable twins, not a permanent bench sculpture. The TX tent still holds the sleeve-balun stub and the generator; they just ride a second non-metallic sled.</p>
-<ol class="steps">
-  <li>Non-metallic plate or small wood block sized for the RG-405 sleeve-balun stub, the 57.8 mm sleeve, and the generator (TinySA in generator mode, brick, or transverter). Nylon/plastic fasteners only in the RF path.</li>
+  <li>Non-metallic plate or small wood block sized for the RG-405 stub, the 57.8 mm sleeve, and the generator (TinySA in generator mode, brick, or transverter). Nylon/plastic fasteners only in the RF path.</li>
   <li>Stub tip remains the range origin: when you measure tent-to-tent distance, it is still stub tip to pancake face. Mark that axis on the rail.</li>
   <li>Short SMA / semi-rigid on the generator. If the Ultra 406 is the source: 23 cm bandpass between the Ultra and the SMA-cable TX stub (<a href="#bpf">#bpf</a> — SKUs stay in the shopping list). Chain stays inside the TX Faraday enclosure: Ultra SMA-F → filter SMA-M → filter SMA-F → SMA-M stub. Log square-wave / mixer-region output, optional 47 Ω only at the <em>transmitter</em> SMA. Licensed milliwatts; no magnetron.</li>
   <li>Slide the TX fixture into its RadioScreen tent the same way as the RX sled: flap open, fixture in, overlap closed, no crushed seams, no USB cable out on a sealed run.</li>
@@ -306,7 +300,7 @@
 
 <h2 id="stack">Order of first measurements</h2>
 <ol class="steps">
-  <li>Stub 23.1 mm, sleeve 57.8 mm, generator in the TX tent. TinySA in the RX tent, Ultra mode, atten ≥ 10 dB, pancake on the shortest SMA.</li>
+  <li>Stub 23.1 mm, sleeve 57.8 mm (open at the feed), generator in the TX tent. TinySA in the RX tent, Ultra mode, atten ≥ 10 dB, pancake on the shortest SMA.</li>
   <li>License, identify, milliwatts (or TinySA generator with a 23 cm filter). Do not camp on 1296.100.</li>
   <li>Control matrix: <code>open</code> (flap up), <code>slotted</code> (flap half-lapped), <code>sealed</code> (50 mm overlap, clamped / hook-and-loop — not a permanent copper-tape weld), <code>dummy_load</code> (SMA dummy instead of stub), <code>90deg</code>, <code>tem_negative</code> (small loop in place of the pancake), plus the single-filar control coil. comma-separated values (CSV) log on <a href="lab.html">Lab</a>.</li>
 </ol>
@@ -319,7 +313,7 @@
   <li><strong>Mesh.</strong> Open the tents, pull the fixtures out, then <em>roll</em> the RadioScreen (Less EMF: do not crease — a fold is a permanent leak line). Slip each roll into a labeled bag or tube. Keep leftover cloth rolled with the tents.</li>
   <li><strong>Pancake.</strong> Leave it on its rigid plate. Nest the plate in foam (closed-cell or tool-case pick-and-pluck) so nothing can spring the fold or mash the OD. Do not put the coil back on the Cricut mat for travel; the mat is a winding jig, not a shipping tray.</li>
   <li><strong>TinySA Ultra 406</strong> in its own case. Cap the SMA. <strong>No USB cables left attached</strong> — not to the TinySA, not dangling from a power bank, not “already plugged in for the next site.” Same rule for the generator. A small pick-and-pluck case (Pelican 1200 class; see <a href="#shop">shopping list</a>) holds the RX plate in foam plus the flap clips if you want one outer shell.</li>
-  <li><strong>TX sled.</strong> Sleeve-balun stub stays on its plate if the solder joints are happy; foam around the 23.1 mm stub so it cannot get bent. Dummy load rides in the same bag.</li>
+  <li><strong>TX sled.</strong> Stub + sleeve stay on their plate if the solder joints are happy; foam around the 23.1 mm stub so it cannot get bent. Dummy load rides in the same bag.</li>
   <li><strong>Labeled bags.</strong> Suggested split: <code>RX-coil+fixture</code>, <code>TX-stub+gen</code>, <code>mesh-tents</code>, <code>TinySA-406</code>, <code>cables+clips</code>, <code>DMM+IPA+card</code>. Print a paper inventory in the outer case.</li>
   <li><strong>Flap hardware in the clips bag:</strong> conductive hook-and-loop, binder clips, wood/plastic battens, magnets for removable seals. Clothes-pins. Measuring tape for tent-to-tent <em>r</em>. The Cricut StandardGrip mat only if you expect to rewind; otherwise leave it home.</li>
 </ol>
@@ -327,7 +321,7 @@
 <ul class="check-list">
   <li>Both tents rolled (not creased), two frames or cartons if you use them</li>
   <li>RX pancake still on rigid plate, in foam; DMM photo from last lift/mount in the log</li>
-  <li>TX fixture + sleeve-stub + dummy load padded</li>
+  <li>TX fixture + stub/sleeve + dummy load padded</li>
   <li>TinySA Ultra 406 in case, SMA capped, battery charged, USB disconnected</li>
   <li>Generator / filter / attenuators bagged and labeled</li>
   <li>SMA pigtails (&lt; 10 cm on the detector), ferrites, nylon hardware</li>
@@ -362,8 +356,7 @@
   <li><strong>RadioScreen mesh (two tents from one piece).</strong>
     <a href="https://lessemf.com/product/radioscreen-mesh/" target="_blank" rel="noopener">Less EMF RadioScreen mesh</a>.</li>
   <li><strong>Travel foam for the coil plate / clips.</strong>
-    <a href="https://specialtycases.com/pelican-1200-small-case-with-pick-n-pluck-foam.html" target="_blank" rel="noopener">Pelican 1200 with pick-n-pluck foam</a>
-    — small TinySA / coil travel case, <strong>not</strong> the submersible TX hull. The cube hull is on <a href="kit.html">kit.html</a>.</li>
+    <a href="https://specialtycases.com/pelican-1200-small-case-with-pick-n-pluck-foam.html" target="_blank" rel="noopener">Pelican 1200 with pick-n-pluck foam</a> — <strong>small TinySA / coil-plate travel case, not the watertight hull</strong>. Hull (Pelican 0340 cube) is <a href="kit.html#cases">kit.html#cases</a>.</li>
   <li id="bpf"><strong>23 cm bandpass — TX path only (TinySA Ultra as generator).</strong>
     Drop-in SMA ceramic BPF between the Ultra generator and the SMA-cable TX stub. Purpose: kill square-wave harmonics/spurs from the Ultra at 1296 MHz. Keep the whole string inside the TX Faraday enclosure. One filter on the TX path is enough; the RX TinySA does not need this unless you add a second later. Licensed milliwatts; no magnetron.
     Primary (drop-in SMA, ~$108, stock on Mini-Circuits):
@@ -393,12 +386,12 @@
   <li>Pancake on rigid non-metallic plate, nylon/plastic fasteners, removable from the RX tent</li>
   <li>TinySA Ultra 406: spectrum-analyzer / Ultra mode, attenuation ≥ 10 dB, battery, no USB cable; low-noise amplifier on and off logged</li>
   <li>If Ultra 406 is also the generator: 23 cm filter (<a href="#bpf">#bpf</a>), log square-wave mode, optional 47 Ω at the <em>transmitter</em> SMA connector only</li>
-  <li>TX sleeve-balun stub + generator on a matching portable fixture in the TX tent</li>
+  <li>TX stub + sleeve + generator on a matching portable fixture in the TX tent (<a href="#sleeve">#sleeve</a>)</li>
   <li>Two RadioScreen tents, 50 mm overlaps, removable flap seals (hook-and-loop / clips / magnets — not permanent copper tape), no cables out when sealed</li>
   <li>Read the 4″ display through the mesh; don’t open the flap mid-sweep</li>
   <li>Control matrix + comma-separated-values log; license and identify on the air</li>
   <li>Pack kit for Lady Lake, FL then Middletown, RI: roll mesh, coil on plate in foam, TinySA in case, USB off</li>
-  <li>Shopping list SKUs on this page: plates, nylon, SMA pigtail, bulkhead, hook-and-loop, RadioScreen, Pelican 1200 (small travel case, not the submersible hull), 23 cm BPF</li>
+  <li>Shopping list SKUs on this page: plates, nylon, SMA pigtail, bulkhead, hook-and-loop, RadioScreen, Pelican 1200 (small travel case, not the hull), 23 cm BPF. Hull: <a href="kit.html#cases">kit.html#cases</a></li>
 </ul>
 <p class="footnote">Skin-depth tables and CSV logger: <a href="lab.html">Lab</a>. Lengths: <a href="tools.html">Tools</a>. Mesh: <a href="https://lessemf.com/product/radioscreen-mesh/">lessemf.com/product/radioscreen-mesh</a>. TinySA specs: <a href="https://tinysa.org/wiki/pmwiki.php?n=TinySA4.Specification">tinysa.org Ultra specification</a>.</p>
 

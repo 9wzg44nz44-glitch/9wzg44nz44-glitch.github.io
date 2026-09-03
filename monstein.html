@@ -40,23 +40,16 @@
     </nav>
   </div>
 </header>
-<nav class="expt-strip" aria-label="Two experiments">
-  <a href="index.html#expt-a"><span class="expt-k">A</span> 1296 MHz cage</a>
-  <a href="setup.html">setup</a>
-  <a href="fields.html">fields</a>
-  <span class="sep">·</span>
-  <a href="index.html#expt-b" aria-current="page"><span class="expt-k">B</span> 433 MHz balls+rods</a>
-  <a href="monstein.html" aria-current="page">monstein</a>
-  <a href="sphere.html">sphere</a>
-  <span class="sep">·</span>
+<nav class="expt-nav" aria-label="Two experiments and shared kit">
+  <a href="index.html#expt-a">A 1296 cage</a>
+  <a href="index.html#expt-b">B 433 balls+rods</a>
   <a href="index.html#kit">Kit</a>
 </nav>
-
 <main id="main" class="wrap">
   <p class="kicker">Educational briefing · Europhys. Lett. 59, 514 (2002) · not settled physics</p>
   <h1>Monstein &amp; Wesley 2002: brass-rod polarizer for a claimed longitudinal <em>E</em></h1>
   <p class="lede">C. Monstein and J.P. Wesley reported a 433.59&nbsp;MHz ball-antenna experiment they titled “Observation of scalar longitudinal electrodynamic waves.” This page is a study aid: what they built, the formulas in the paper, how later authors read it, and how it does <em>and does not</em> connect to Hively Faraday-cage SLW work, Nikolova–Zimmerman <em>A</em>(<em>r</em>), Meyl, and Puthoff polarizable-vacuum notes.</p>
-  <div class="banner-legal"><strong>Experiment B — no balun of any type.</strong> Coax into the ball, outer conductor as shield (MW Fig.&nbsp;1 / Amphenol 901-9875). Not a sleeve, not a skirt, not a bazooka. Sleeve-build steps live only on <a href="setup.html#sleeve">setup.html#sleeve</a> (Experiment A, 1296&nbsp;MHz). Do not merge this page with the Faraday-cage pancake protocol.</div>
+  <div class="banner-legal"><strong>Experiment B — no balun.</strong> Coax into the ball, outer conductor as shield (MW Fig. 1 / Amphenol 901-9875). Do not add a sleeve or a skirt to this feed. The 1296 MHz sleeve-balun Faraday cage is Experiment&nbsp;A: <a href="index.html#expt-a">index.html#expt-a</a> · <a href="setup.html#sleeve">setup.html#sleeve</a>.</div>
   <div class="banner-legal">Author-hosted PDF (filename typo “electroydnamic”): <a href="https://www.jamespaulwesley.org/Document_Files/Observation_of_scalar_longitudinal_electroydnamic_waves.pdf">jamespaulwesley.org copy</a>. Licensed 23&nbsp;cm (1296&nbsp;MHz) or 13&nbsp;cm (2.45&nbsp;GHz ISM / ham segments) only if you replicate. No magnetron protocol.</div>
 
   <nav class="toc card">
@@ -148,7 +141,7 @@ T = exp[ −κ cos²(φ) ]                                   (9)
     <li>Monstein–Wesley showed an <strong>electric field along the direction of propagation</strong> using brass rods as a polarizer. That is a statement about <em>E</em>∥k, not about a dynamical scalar <em>C</em>.</li>
     <li>They did <strong>not</strong> detect Hively’s scalar field (the EED <em>C</em> = ∇·<em>A</em> + c⁻² ∂Φ/∂t that appears with the SLW in US 9,306,527).</li>
     <li><strong>Suggested follow-on</strong> (unpublished method; attribute: L.M. Hively, 2026, personal communication). Keep the same geometry and protocol, but replace brass with <strong>high-magnetic-hysteresis</strong> rods. Rotate the dipole array through <strong>360°</strong> and look for a <strong>U-shaped attenuation</strong> vs angle. If that curve appears, he offered to help shape a publishable paper. This hub does not claim that experiment has been done.</li>
-    <li>2014–15 Hively hardware is <strong>gone</strong>. Metrology notes from that era that still apply here: all TX electronics in one Faraday enclosure and all RX in a second; time-stamp TX power droop, RX (Signal Hound class), and positioner together. Scatter on 1/r² was blamed on <strong>cabling outside the Faraday enclosures</strong>. The “sleeve balun, not skirt” note from that era belongs to the 1.3&nbsp;GHz monopole/cage (Experiment A, <a href="setup.html#sleeve">setup.html#sleeve</a>), <em>not</em> to this 433.59&nbsp;MHz ball feed — Experiment B has <strong>no balun</strong>.</li>
+    <li>2014–15 Hively hardware is <strong>gone</strong>. Those Faraday-cage replication notes (sleeve balun, not skirt; TX in one enclosure, RX in a second; cabling outside blamed for 1/r² scatter) belong to <strong>Experiment A</strong> at 1.296&nbsp;GHz — see <a href="setup.html#sleeve">setup.html#sleeve</a>. They are <em>not</em> a build step for these 433.59&nbsp;MHz balls. This bench (B) is coax into the ball, outer as shield, <strong>no balun</strong>.</li>
     <li>Google Scholar: author <code>LM Hively</code> plus keyword <code>electrodynamics</code>. The old title “Implications of a New Electrodynamic Theory” is <strong>obsolete</strong>; use the later EED / US 9,306,527 / Physics Essays / IARD chain on this hub.</li>
   </ol>
 
@@ -157,7 +150,7 @@ T = exp[ −κ cos²(φ) ]                                   (9)
     <thead><tr><th>Thread</th><th>Connectable?</th><th>Why</th></tr></thead>
     <tbody>
       <tr><td>MW 2002 brass rods</td><td>E∥k polarizer</td><td>Ohmic T(φ). CED can still read this as TEM + feed/ground. Disputed.</td></tr>
-      <tr><td>Hively US 9,306,527 Eq. 15</td><td>Partial</td><td>P_rad = I_pk² Z₀ / (4π), Faraday-cage SLW, bifilar + sleeve-stub (Experiment A; patent Fig. 2A skirt is historical). Different antenna and a claimed <em>C</em> field MW did not measure.</td></tr>
+      <tr><td>Hively US 9,306,527 Eq. 15</td><td>Partial</td><td>P_rad = I_pk² Z₀ / (4π), Faraday-cage SLW, bifilar + sleeve-balun stub (Experiment A; patent Fig. 2A was a skirt). Different antenna and a claimed <em>C</em> field MW did not measure.</td></tr>
       <tr><td>Nikolova–Zimmerman A(r)</td><td>Loose</td><td>A_m = μ₀ I / (2π k₀ r) (CEM-R-46 / hub fields page). Vector potential along a TM₀₁ / plasma-detector story, not brass-rod polarizer.</td></tr>
       <tr><td>Meyl potential vortices</td><td>Vocabulary only</td><td>Third language on this hub. Do not import over-unity or superluminal claims into a Monstein budget.</td></tr>
       <tr><td>Puthoff 2005 PV / Levi-Civita</td><td>Not the same experiment</td><td><a href="https://doi.org/10.1007/s10714-005-0037-8">Gen. Rel. Grav. 37, 483 (2005)</a> is polarizable-vacuum GR (Levi-Civita), not a NASA SEW / underwater TM paper. Shield / dense-media claims sit in <a href="https://patents.google.com/patent/US5845220A">US 5,845,220</a> and later EarthTech patents — different lineage from MW rods.</td></tr>
@@ -221,7 +214,7 @@ T = exp[ −κ cos²(φ) ]                                   (9)
     <li>Qty 2 purchased 2 Sep 2026 (RF Parts) — Amphenol <strong><a href="https://www.rfparts.com/901-9875.html">901-9875</a></strong>, SMA jack/female, bulkhead, crimp for RG-316 / LMR-100A (cable group B), 50&nbsp;Ω, $11.90 each: <a href="https://www.rfparts.com/901-9875.html">RF Parts <a href="https://www.rfparts.com/901-9875.html">901-9875</a></a>. Gold-plated brass body, BeCu gold center, PTFE. Prefer this SKU as the “coax into the interior” part (crimp RG-316, center soldered inside the sphere). Same SKU also listed at TestEquity if a spare is needed later.</li>
     <li>Jack–jack pass-through alternative (hole on both sides of the ball wall): Amphenol <strong>901-9209-A</strong> SMA bulkhead F–F, ¼-36. Search DigiKey/Mouser for <code>901-9209-A</code> rather than a guessed product URL. Then still SMA-M/M Ultra to the outside; inside the ball you either solder a short post to the inner contact or use a tiny SMA-M pigtail. <a href="https://www.rfparts.com/901-9875.html">901-9875</a> remains the better interior-coax part.</li>
   </ul>
-  <p>Use the existing ¼″ hole. PTFE or nylon insulating washers if the shield should not bond to the whole shell. Center conductor to a short post or the inner wall as in MW “centrally fed, outer as shield.” Non-metallic rotator for the 3×3 cube: HDPE/acrylic plate stock already listed on <a href="setup.html#shop">setup.html#shop</a> is shared hardware, not the same bench. <strong>No balun of any type</strong> on this 433.59&nbsp;MHz ball feed — coax into the ball, outer as shield (MW Fig.&nbsp;1 / 901-9875). Sleeve how-to is Experiment A only.</p>
+  <p>Use the existing ¼″ hole. PTFE or nylon insulating washers if the shield should not bond to the whole shell. Center conductor to a short post or the inner wall as in MW “centrally fed, outer as shield.” Non-metallic rotator for the 3×3 cube: HDPE/acrylic plate stock already listed on <a href="setup.html#shop">setup.html#shop</a> is shared hardware, not the same bench. <strong>No balun</strong> on this ball feed — no sleeve steps, no skirt.</p>
 
   <h2 id="meyl-kit">Will a Meyl ball-antenna kit do Hively’s protocol?</h2>
   <p><strong>No</strong> as a kit. <strong>Partial</strong> only if you scavenge the two spheres and rebuild everything else at UHF. Do not treat Meyl potential-vortex / over-unity language as Hively’s <em>C</em> field.</p>
@@ -230,7 +223,7 @@ T = exp[ −κ cos²(φ) ]                                   (9)
     <thead><tr><th></th><th>Monstein–Wesley 2002</th><th>Hively follow-on (2026, pers. comm.)</th><th>Meyl kit</th></tr></thead>
     <tbody>
       <tr><td>Frequency</td><td>433.59 MHz (λ ≈ 69 cm)</td><td>1.296 GHz or 2.45 GHz</td><td>kHz–low MHz (λ tens of metres)</td></tr>
-      <tr><td>TX/RX</td><td>6 cm aluminium balls, coax into the sphere, <strong>no balun</strong></td><td>Same 433.59&nbsp;MHz balls, still <strong>no balun</strong>; TX in one Faraday enclosure, RX in another. Sleeve-stub is Experiment A, not this feed.</td><td>Pancake coil + ball; open bench, LED load</td></tr>
+      <tr><td>TX/RX</td><td>6 cm aluminium balls, coax into the sphere, outer as shield, <strong>no balun</strong></td><td>Same balls + rods; optional high-hysteresis rods, 360° U-curve. Faraday enclosures optional for cabling hygiene — still <strong>no balun</strong> on the ball</td><td>Pancake coil + ball; open bench, LED load</td></tr>
       <tr><td>Polarizer</td><td>Nine λ/2 brass rods (34.6 cm), rotate for T(φ)</td><td>Same geometry, then high-hysteresis rods, 360° U-curve</td><td>None</td></tr>
       <tr><td>Metrology</td><td>Distance + image interference</td><td>Time-stamp TX droop, Signal Hound-class RX, positioner; no cables outside the FEs</td><td>Resonance vs ball size / spacing</td></tr>
     </tbody>
@@ -239,10 +232,10 @@ T = exp[ −κ cos²(φ) ]                                   (9)
 
   <h2 id="repl">If someone replicates under Part 97</h2>
   <ul>
-    <li>Keep the MW ball feed: coax into the sphere, outer as shield, <strong>no balun</strong>. Identify; milliwatts; 70&nbsp;cm Technician-legal. If you ever scale the <em>polarizer rods</em> to 1296 or 2.45&nbsp;GHz that is still this geometry (balls + rods), not a sleeve-stub. The 1296 Faraday-cage sleeve lives on <a href="setup.html#sleeve">setup.html#sleeve</a>.</li>
+    <li>This polarizer bench stays at <strong>433.59&nbsp;MHz</strong> (70&nbsp;cm, licensed Technician). Identify; milliwatts; do not camp on a calling frequency. The 1296 MHz sleeve-stub cage is a <em>different</em> experiment: <a href="setup.html#sleeve">setup.html#sleeve</a>.</li>
     <li>Two Faraday enclosures: TX stack in one, RX (Signal Hound class or TinySA Ultra 406) in the other. No cables out on a “sealed” run. Time-stamp TX power, RX, and rotator angle on one clock.</li>
     <li>Brass-rod baseline: nine λ/2 rods, 360° rotation, log T(φ). Optional second article: high-hysteresis rods, same geometry, look for a U. That second article is Hively’s unpublished suggestion, not a MW figure.</li>
-    <li>Hively’s suggested follow-on stays on <em>this</em> bench (Experiment B): two Faraday enclosures + 433.59&nbsp;MHz balls with <strong>no balun</strong> + rod cube — not the pancake / RadioScreen shopping list and not a sleeve-build. The 1296&nbsp;MHz bifilar pancake cage is a different bench: <a href="setup.html">setup.html</a>.</li>
+    <li>Hively’s suggested hysteresis follow-on stays on <em>this</em> bench (Experiment B): same 3×3 cube, high-hysteresis rods, 360° U-curve, still <strong>no balun</strong> on the balls — not the pancake / RadioScreen shopping list. The 1296&nbsp;MHz bifilar pancake cage is Experiment A: <a href="setup.html">setup.html</a>.</li>
   </ul>
   <p class="footnote">DOI: Monstein &amp; Wesley, EPL 59, 514 (2002). This page © 2026 Dan Britton, educational use. Scalar / longitudinal claims are not IEEE-standard antenna theory.</p>
 </main>

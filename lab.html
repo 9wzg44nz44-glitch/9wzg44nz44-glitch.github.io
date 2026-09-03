@@ -36,18 +36,11 @@
     </nav>
   </div>
 </header>
-<nav class="expt-strip" aria-label="Two experiments">
-  <a href="index.html#expt-a" aria-current="page"><span class="expt-k">A</span> 1296 MHz cage</a>
-  <a href="setup.html">setup</a>
-  <a href="fields.html">fields</a>
-  <span class="sep">·</span>
-  <a href="index.html#expt-b"><span class="expt-k">B</span> 433 MHz balls+rods</a>
-  <a href="monstein.html">monstein</a>
-  <a href="sphere.html">sphere</a>
-  <span class="sep">·</span>
+<nav class="expt-nav" aria-label="Two experiments and shared kit">
+  <a href="index.html#expt-a">A 1296 cage</a>
+  <a href="index.html#expt-b">B 433 balls+rods</a>
   <a href="index.html#kit">Kit</a>
 </nav>
-
 <main id="main" class="wrap">
 
 <p class="kicker">Lab · 1.3 GHz · not 8 GHz</p>
@@ -65,7 +58,7 @@
   <a href="#skin">Copper skin-depth table</a>
   <a href="setup.html">Sticky-mat winding, lift-off, fixtures, packing (Setup)</a>
   <a href="#bom">Hand-wind BOM and steps</a>
-  <a href="#tx">Transmitter (sleeve-balun stub; optional TM<sub>01</sub>)</a>
+  <a href="#tx">Transmitter (stub + sleeve; optional TM<sub>01</sub>)</a>
   <a href="setup.html#pack">Travel kit: Lady Lake → Middletown</a>
   <a href="setup.html#shop">Shopping list (Setup)</a>
   <a href="#controls">Controls</a>
@@ -104,8 +97,8 @@
 <table>
 <thead><tr><th>Item</th><th>Qty / notes</th></tr></thead>
 <tbody>
-<tr><td>RG-405/U semi-rigid + SMA or Type N</td><td>1 feed; sleeve-balun stub at radiating end (not a patent skirt). First-article at 1296.000 MHz: λ = 231.3 mm, λ/4 sleeve = 57.8 mm in air, stub λ/10 = 23.1 mm (λ/4 = 57.8 mm TEM-style control). Build: <a href="setup.html#sleeve">setup.html#sleeve</a>.</td></tr>
-<tr><td>Copper/brass thin-wall tube for <em>sleeve</em> (snug over the jacket, not a fat skirt)</td><td>ID clears 0.086″ with only a thin gap</td></tr>
+<tr><td>RG-405/U semi-rigid + SMA or Type N</td><td>1 feed; stub + <strong>sleeve</strong> balun at the radiating end (not a fat skirt). See <a href="setup.html#sleeve">setup.html#sleeve</a> for 1296.000 MHz: λ = 231.3 mm; λ/4 sleeve = 57.8 mm air (trim if VF &lt; 1); first-article stub λ/10 = 23.1 mm. λ/4 = 57.8 mm is a TEM-control stub.</td></tr>
+<tr><td>Copper/brass thin-wall tube for <em>sleeve</em></td><td>Snug on the RG-405 jacket (0.086″ class). Close-fitting bazooka, not a large annular skirt. Solder at the cold end only; open at the feed.</td></tr>
 <tr><td>Magnet wire 22 AWG (18–26 OK)</td><td>First article is <em>one</em> strand folded in half (22 or 24 AWG, ~2.2 m) — not two separately cut legs. See <a href="setup.html#fold">Setup winding</a>. For an aiding control, a second single-filar pancake. Calculator “two wires + 12%” still sizes the classical pair.</td></tr>
 <tr><td>Non-magnetic former (acrylic / PLA / PVC)</td><td>Pancake OD ≈ 0.15 λ ≈ 35 mm at 1.3 GHz, or a larger palm coil (~10 cm) if you prefer the SNR-toy geometry. First article: wind on a Cricut StandardGrip mat, then lift onto this former — <a href="setup.html">Setup</a>.</td></tr>
 <tr><td>Copper box / tube + lids</td><td>Wall ≥ 1 mm preferred (≈ 546 δ at 1.3 GHz). ⅛ in is luxurious. All seams soldered or RF-gasketed. Feed-through only via filtered bulkhead.</td></tr>
@@ -123,7 +116,7 @@
 <ol class="steps">
   <li>Build the coil on the Cricut mat (<a href="setup.html#fold">Setup: fold-in-half winding</a>). Do not fork that story here.</li>
   <li>Lift the pancake with a plastic card, IPA the residue, DMM again, photo — then mount it planar on a non-metallic plate with a &lt; 10 cm SMA pigtail (<a href="setup.html#lift">lift-off</a>, <a href="setup.html#fixture">RX fixture</a>).</li>
-  <li>Build the sleeve-balun stub at 1296.000 MHz (or 1.300 GHz if that is your licensed plan). Photograph the cold-end solder ring and the open feed. Put sleeve-stub + generator on a matching portable sled (<a href="setup.html#sleeve">sleeve</a>, <a href="setup.html#tx-fixture">TX fixture</a>).</li>
+  <li>Build the stub + sleeve at 1296.000 MHz (or 1.300 GHz if that is your licensed plan). Photograph the cold-end solder fillet (away from the stub tip). Put stub + sleeve + generator on a matching portable sled (<a href="setup.html#tx-fixture">TX fixture</a>, <a href="setup.html#sleeve">sleeve how-to</a>).</li>
   <li>Mesh-tent article: RadioScreen cages as in <a href="setup.html#mesh">Setup</a> — removable flap seals (conductive hook-and-loop / clips / magnets), not a permanent copper-tape weld. Copper-box article: fit a bulkhead; sleeve-stub inside; lid closed = “sealed.” Do not mix those two cage types in one CSV without labeling.</li>
   <li>Place the bifilar face-on, on-axis with the stub (fixture inside the RX tent, or outside a copper box). Distance r measured to the stub tip.</li>
   <li>Run the control matrix below. Log every row. Do not peek only at the “interesting” condition. Pack the same kit for Lady Lake, FL then Middletown, RI (<a href="setup.html#pack">packing checklist</a>).</li>
@@ -133,7 +126,7 @@
 <div class="grid-2">
   <article class="card hively">
     <h3>Hively-style (primary for this lab)</h3>
-    <p>RG-405 exposed center-conductor stub + <strong>sleeve</strong> balun (close-fitting bazooka choke — not the patent Fig.&nbsp;2A skirt), driven by a <strong>licensed 23 cm source</strong>. Goal of the sleeve: choke common-mode TEM on the outer shield so residual radiation is dominated by the stub current, without adding a large-diameter radiating skirt. Whether that current is “irrotational SLW” is the hypothesis, not the construction step. How-to: <a href="setup.html#sleeve">setup.html#sleeve</a>.</p>
+    <p>RG-405 exposed center-conductor stub + <strong>sleeve (bazooka) balun</strong>, driven by a <strong>licensed 23 cm source</strong>. Goal of the sleeve: choke common-mode TEM on the outer shield (λ/4 shorted line → high-Z) so residual radiation is dominated by the stub current — without a large radiating skirt. US 9,306,527 Fig. 2A is the historical annular skirt; this lab builds a close-fitting sleeve. Whether that current is “irrotational SLW” is the hypothesis, not the construction step.</p>
   </article>
   <article class="card nz">
     <h3>N–Z-style (optional companion)</h3>
@@ -205,7 +198,7 @@
 <ul class="check-list">
   <li>License class, call sign, frequency, and that 1296 calling was not occupied by an unidentified carrier.</li>
   <li>Photographs of stub length, sleeve length, coil polarity connection, box/mesh seams, pancake on its fixture, and DMM continuity after lift-off.</li>
-  <li>VNA S<sub>11</sub> of sleeve-stub; outer-conductor current with sleeve on vs off.</li>
+  <li>VNA S<sub>11</sub> of stub+sleeve; outer-conductor current with sleeve on vs off.</li>
   <li>Complete control matrix, not a highlight reel. Source-off and dummy-load rows.</li>
   <li>TEM-antenna negative control at the same r and RBW.</li>
   <li>Distance sweep (even 0.3–3 m) plotted; state whether it looks like 1/r or a leak resonance.</li>

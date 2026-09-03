@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home · two experiments · SLW Hub</title>
-<meta name="description" content="Educational hub: Experiment A 1296 MHz Faraday-cage sleeve-balun stub plus bifilar pancake; Experiment B 433.59 MHz balls plus polarizer rods (no balun); shared submersible field kit.">
+<title>Two experiments · SLW Hub</title>
+<meta name="description" content="Educational hub: Experiment A 1296 MHz Faraday-cage sleeve-balun stub + bifilar pancake; Experiment B 433.59 MHz balls + polarizer rods (no balun); shared field kit.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +23,7 @@
     </a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="primary" id="nav">
-      <a href="index.html">Home</a>
+      <a href="index.html" aria-current="page">Home</a>
       <a href="learn.html">Learn</a>
       <a href="compare.html">Compare</a>
       <a href="fields.html">Fields</a>
@@ -36,127 +36,135 @@
     </nav>
   </div>
 </header>
+<nav class="expt-nav" aria-label="Two experiments and shared kit">
+  <a href="index.html#expt-a">A 1296 cage</a>
+  <a href="index.html#expt-b">B 433 balls+rods</a>
+  <a href="index.html#kit">Kit</a>
+</nav>
 <main id="main" class="wrap">
 
 <section class="hero">
   <div>
-    <p class="kicker">Educational briefing hub · two electrically separate experiments</p>
-    <h1>Scalar longitudinal waves — two benches, one shared field kit</h1>
-    <p class="lede">Study aid for patents, papers, and two <strong>electrically separate</strong> amateur-radio benches: a <strong>1296&nbsp;MHz Faraday-cage</strong> sleeve-balun stub + bifilar pancake, and a <strong>433.59&nbsp;MHz</strong> ball + polarizer-rod test with <em>no balun</em>. Not a claim that SLW is established physics.</p>
+    <p class="kicker">Two experiments · one shared field kit</p>
+    <h1>A Faraday cage at 1296 MHz, and a ball-and-rod polarizer at 433.59 MHz</h1>
+    <p class="lede">This hub is a study aid for two <em>separate</em> benches. Do not merge them into one scroll. Experiment&nbsp;A is the 23&nbsp;cm Faraday-cage replication (sleeve-balun stub + bifilar pancake). Experiment&nbsp;B is the Monstein–Wesley 70&nbsp;cm balls + polarizer rods — <strong>no balun</strong>. The third tab is the shared watertight field kit (end-state, not built). Scalar-longitudinal-wave claims are not settled physics.</p>
     <div class="ctrl-row">
-      <a class="btn primary" href="#expt-a">Experiment A · 1296 MHz</a>
-      <a class="btn" href="#expt-b">Experiment B · 433 MHz</a>
-      <a class="btn" href="#kit">Shared kit</a>
-      <a class="btn" href="learn.html">Briefing</a>
-      <a class="btn" href="library.html">Library</a>
+      <a class="btn primary" href="#expt-a">Experiment A</a>
+      <a class="btn" href="#expt-b">Experiment B</a>
+      <a class="btn" href="kit.html">Full kit write-up</a>
     </div>
   </div>
   <aside class="hero-panel">
     <dl>
       <dt>Author</dt><dd>Dan Britton</dd>
       <dt>Contact</dt><dd><a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a></dd>
-      <dt>Source repos</dt><dd><a href="https://github.com/9wzg44nz44-glitch">9wzg44nz44-glitch</a></dd>
-      <dt>A</dt><dd>1296.000 MHz · 23 cm · sleeve, not skirt</dd>
-      <dt>B</dt><dd>433.59 MHz · 70 cm · balls + rods · no balun</dd>
+      <dt>A · 1296 MHz</dt><dd>Sleeve-balun stub + pancake cage</dd>
+      <dt>B · 433.59 MHz</dt><dd>Balls + rods · no balun</dd>
       <dt>Tone</dt><dd>Academic, warm, skeptical</dd>
     </dl>
   </aside>
 </section>
 
-<div class="banner-edu">Educational only. Models are illustrative. Mainstream CED treats free-space radio as TEM; longitudinal / potential channels remain disputed. Cite the originals; replicate with controls. The two experiments do not share an RF feed.</div>
+<div class="banner-edu">Educational only. Models are illustrative. Mainstream CED treats free-space radio as TEM; longitudinal / potential channels remain disputed. Cite the originals; replicate with controls. Licensed amateur radio on 23&nbsp;cm and 70&nbsp;cm. No magnetron.</div>
 
-<p>Licensed amateur-radio experimenters and students mapping the “missing-term” literature. <em>Not</em> for medical devices, “free energy,” or unlicensed transmitters. Briefing, comparison table, and paper library stay in the site nav: <a href="learn.html">Learn</a> · <a href="compare.html">Compare</a> · <a href="library.html">Library</a>.</p>
-
-<div class="grid-3">
-  <article class="card nz">
-    <span class="tag nz">Nikolova–Zimmerman</span>
-    <h3>Longitudinal A, plasma detector</h3>
-    <p>McMaster CEM-R-46 (2007), Zimmerman QEX Jul/Aug 2011, US 8,165,531 B2. Vocabulary on this hub; not the 433&nbsp;MHz ball feed.</p>
-  </article>
-  <article class="card hively">
-    <span class="tag hively">Hively EED</span>
-    <h3>SLW, bifilar, Faraday copper</h3>
-    <p>US 9,306,527 B1 (2016). Patent Fig. 2A is a fat annular <em>skirt</em> balun (historical). The 1.3&nbsp;GHz <strong>build</strong> is a close-fitting <strong>sleeve</strong> (bazooka choke), not that skirt.</p>
-  </article>
-  <article class="card meyl">
-    <span class="tag meyl">Meyl</span>
-    <h3>Potential vortices</h3>
-    <p>Third vocabulary only. Over-unity and superluminal claims are recorded as claims and are <em>not</em> used in any energy budget.</p>
-  </article>
+<div class="tablist" role="tablist" aria-label="Experiments and kit" id="tabs">
+  <button type="button" role="tab" id="tab-expt-a" aria-controls="expt-a" aria-selected="true">A · 1296 cage</button>
+  <button type="button" role="tab" id="tab-expt-b" aria-controls="expt-b" aria-selected="false">B · 433 balls+rods</button>
+  <button type="button" role="tab" id="tab-kit" aria-controls="kit" aria-selected="false">Kit · shared field pack</button>
 </div>
 
-<div role="tablist" class="tablist" data-expt-tabs aria-label="Two experiments and shared kit">
-  <button type="button" role="tab" id="tab-expt-a" aria-controls="panel-expt-a" aria-selected="true" data-hash="expt-a" tabindex="0">1 · Experiment A · 1296 MHz cage</button>
-  <button type="button" role="tab" id="tab-expt-b" aria-controls="panel-expt-b" aria-selected="false" data-hash="expt-b" tabindex="-1">2 · Experiment B · 433 MHz balls</button>
-  <button type="button" role="tab" id="tab-kit" aria-controls="panel-kit" aria-selected="false" data-hash="kit" tabindex="-1">3 · Shared field kit</button>
-</div>
-
-<section id="panel-expt-a" class="tab-panel" role="tabpanel" aria-labelledby="tab-expt-a" data-hash="expt-a">
-  <h2 id="expt-a">Experiment A — 1296 MHz Faraday-cage</h2>
-  <p>Sleeve-balun stub + bifilar pancake, two RadioScreen mesh tents. Licensed 23&nbsp;cm. This is the Hively-style cage replication at <strong>1296.000&nbsp;MHz</strong> (λ = 231.3&nbsp;mm). Electrically separate from Experiment B: do not mix the 433&nbsp;MHz ball feed into this coax.</p>
-  <div class="banner-legal"><strong>Sleeve, not skirt, for the build.</strong> US 9,306,527 Fig. 2A is an annular <em>skirt</em> balun: larger diameter than the coax outer, extending <em>backward</em> from the feed, outer conductor tied to the <em>top</em> of the skirt. The patent says that λ/4 path cancels return current on the outside of the tubular second conductor and also acts as a small ground-plane/counterpoise (currents on the center conductor and the outside of the skirt both +Z). That fat skirt can launch extra TEM. For this 1.3&nbsp;GHz replication, build a close-fitting <strong>sleeve</strong> (bazooka choke), not that skirt — paraphrase of Hively 2026 personal communication; no private email is reproduced. Same choke physics (λ/4 shorted line → high Z for common-mode) without a large-diameter radiating skirt. No 3λ ground disk.</div>
-  <div class="grid-2">
+<section class="tabpanel" role="tabpanel" id="expt-a" aria-labelledby="tab-expt-a">
+  <p class="kicker">Experiment A · 1296.000 MHz · 23 cm</p>
+  <h2>Faraday-cage: sleeve-balun stub + bifilar pancake</h2>
+  <p>Two RadioScreen mesh tents. TX tent: licensed 23&nbsp;cm source, 23&nbsp;cm BPF still in the TX chain inside the Faraday wrap (<a href="setup.html#bpf">setup.html#bpf</a>), RG-405/U or SMA pigtail with a <strong>sleeve (bazooka) balun</strong> and a short center-conductor stub. RX tent: fold-in-half bifilar pancake and TinySA Ultra 406. No coax between tents on a sealed run.</p>
+  <div class="grid-3">
     <article class="card hively">
-      <h3>First-article numbers (1296.000 MHz)</h3>
-      <p>λ = <strong>231.3 mm</strong>. λ/4 sleeve = <strong>57.8 mm</strong> in air (trim if the sleeve–jacket gap has VF &lt; 1). First-article stub = λ/10 = <strong>23.1 mm</strong> of center conductor (λ/4 = 57.8 mm remains the TEM-style control stub). RG-405/U or SMA pigtail. Brass/copper tube snug over the jacket, soldered to the shield at the <em>cold</em> end (away from the stub tip), <em>open</em> at the feed/tip. 23&nbsp;cm BPF still in the TX chain inside the Faraday wrap (<a href="setup.html#bpf">setup.html#bpf</a>).</p>
+      <span class="tag hively">Build this</span>
+      <h3>Sleeve balun, not a skirt</h3>
+      <p>Close-fitting λ/4 tube over the jacket, soldered to the shield at the end <em>away</em> from the stub tip, <strong>open at the feed</strong>. Same choke (λ/4 shorted line → high-Z common-mode) without a large radiating skirt. How-to + side view: <a href="setup.html#sleeve">setup.html#sleeve</a>.</p>
     </article>
     <article class="card">
-      <h3>Deep pages (keep working)</h3>
-      <ul>
-        <li><a href="setup.html">setup.html</a> — pancake protocol, mesh tents, shopping list, novice sleeve how-to (<a href="setup.html#sleeve">#sleeve</a>)</li>
-        <li><a href="fields.html">fields.html</a> — TEM vs SLW cartoon at 1296 MHz</li>
-        <li><a href="lab.html">lab.html</a> — optional protocol, skin-depth table, CSV log</li>
-      </ul>
-      <p class="footnote">Pelican 1200 on the setup shopping list is the <em>small</em> TinySA/coil travel case, not a submersible hull. The cube hull is on <a href="kit.html">kit.html</a>.</p>
+      <span class="tag">1296.000 MHz</span>
+      <h3>First-article lengths</h3>
+      <p>λ = <strong>231.3 mm</strong>. λ/4 sleeve = <strong>57.8 mm</strong> in air (trim if VF &lt; 1). First-article stub λ/10 = <strong>23.1 mm</strong> of center conductor. λ/4 = 57.8 mm is a TEM-control stub, not the first article. Brass/copper tube snug on the jacket. <strong>No 3λ ground disk.</strong></p>
     </article>
-  </div>
-</section>
-
-<section id="panel-expt-b" class="tab-panel" role="tabpanel" aria-labelledby="tab-expt-b" hidden data-hash="expt-b">
-  <h2 id="expt-b">Experiment B — 433.59 MHz balls + polarizer rods</h2>
-  <p>Monstein and Wesley 2002 geometry: aluminium ball antennas, brass (then optional hysteresis) λ/2 rods as a polarizer. <strong>No balun of any type</strong> — not a sleeve, not a skirt, not a bazooka. Coax into the ball, outer conductor as shield (MW Fig.&nbsp;1 / Amphenol 901-9875). Do not put Experiment A sleeve-build steps on this bench.</p>
-  <div class="banner-legal"><strong>No balun.</strong> The 433.59&nbsp;MHz sphere feed is MW “centrally fed, outer as shield.” Experiment A’s λ/4 sleeve lives on RG-405 at 1296&nbsp;MHz, not on this ball. Keep the RF feeds electrically separate even if both antennas later ride in one Pelican as cargo.</div>
-  <div class="grid-2">
     <article class="card nz">
-      <h3>What this bench is</h3>
-      <p>TX ball → optional 3×3 rod cube at angle φ → RX ball. Polarizer test for the direction of <em>E</em>, not a Faraday-cage skin-depth test and not a bifilar pancake. 70&nbsp;cm Technician-legal with a license. Educational; longitudinal <em>E</em> is not settled physics.</p>
-    </article>
-    <article class="card">
-      <h3>Deep pages (keep working)</h3>
-      <ul>
-        <li><a href="monstein.html">monstein.html</a> — 2002 setup, formulas, parts, feed notes</li>
-        <li><a href="sphere.html">sphere.html</a> — Fig.&nbsp;1 vs catalog 2.50″ 3003 Aluminum + 901-9875</li>
-      </ul>
-      <p class="footnote">433 parts stay on those two pages. The shared kit may list both antennas as cargo; it does not mix their RF feeds.</p>
+      <span class="tag nz">Patent history</span>
+      <h3>Fig. 2A is a skirt</h3>
+      <p>US 9,306,527 Fig. 2A is an annular <em>skirt</em>: larger than the coax, extends <em>backward</em>, outer tied to the <em>top</em> of the skirt; λ/4 cancel + counterpoise. A fat skirt can launch extra TEM. Hively 2026 pers. comm. (paraphrase, no email): for 1.3&nbsp;GHz, build a <strong>sleeve</strong> balun, not a skirt.</p>
     </article>
   </div>
+  <p><strong>Deep links (A stays on its own pages — do not merge with B):</strong></p>
+  <ul>
+    <li><a href="setup.html">setup.html</a> — winding, lift-off, mesh tents, sleeve how-to, 23&nbsp;cm BPF, Pelican 1200 as the <em>small</em> TinySA/coil travel case (not the hull).</li>
+    <li><a href="fields.html">fields.html</a> — 1296 MHz TEM vs SLW cartoon (sleeve-balun stub vs SMA end).</li>
+    <li><a href="lab.html">lab.html</a> — HAM legal box, skin-depth table, control matrix, CSV log.</li>
+  </ul>
 </section>
 
-<section id="panel-kit" class="tab-panel" role="tabpanel" aria-labelledby="tab-kit" hidden data-hash="kit">
-  <h2 id="kit">Shared field kit — one TX Pelican, one RX case</h2>
-  <p>Planned end-state for taking <em>both</em> experiments into the field. <strong>Not a claim the cube has been built, ballasted, or dunked.</strong> Plastic Pelican = hydrostatic shell; RadioScreen mesh = Faraday. Sequential is the default. Full write-up with SKUs and anchors: <a href="kit.html">kit.html</a>.</p>
+<section class="tabpanel" role="tabpanel" id="expt-b" aria-labelledby="tab-expt-b" hidden>
+  <p class="kicker">Experiment B · 433.59 MHz · 70 cm</p>
+  <h2>Balls + polarizer rods — no balun</h2>
+  <p>Monstein &amp; Wesley 2002: identical aluminium ball antennas, coax fed to the inside of the sphere with the <strong>outer conductor as shield</strong> (Fig. 1). Nine λ/2 brass rods as a rotatable polarizer-analyzer. Optional unpublished Hively hysteresis-rod swap uses the <em>same</em> cube geometry.</p>
+  <div class="banner-legal"><strong>No balun on B.</strong> Do not add a sleeve or a skirt to the ball feed. Coax into the ball, outer as shield — MW Fig. 1 / Amphenol <a href="https://www.rfparts.com/901-9875.html">901-9875</a> already purchased. Sleeve-balun steps live only on Experiment&nbsp;A (<a href="setup.html#sleeve">setup.html#sleeve</a>).</div>
   <div class="grid-2">
-    <article class="card copper">
-      <h3>In one sentence</h3>
-      <p>One cubical watertight TX case (1296 sleeve-stub sled <em>and</em> 433 TX sphere in separate foam wells, whole inner pack in RadioScreen). Second case for RX, usually <strong>lid open</strong>, mesh tent over the instruments so two TinySA screens stay readable. Not submerged. Pelican 1200 remains the small coil/TinySA travel case on <a href="setup.html#shop">setup.html#shop</a> — it is not this hull.</p>
-    </article>
     <article class="card">
-      <h3>Jump the long page</h3>
-      <ul>
-        <li><a href="kit.html#tx">#tx</a> — TX cube, foam wells, mesh wrap</li>
-        <li><a href="kit.html#rx">#rx</a> — lid-open RX case</li>
-        <li><a href="kit.html#seq">#seq</a> — sequential vs simultaneous, TinySA count</li>
-        <li><a href="kit.html#harmonics">#harmonics</a> — 1296/3 vs 433.59 warning</li>
-        <li><a href="kit.html#ballast">#ballast</a> — 220 lb buoyancy; do not drill the hull</li>
-        <li><a href="kit.html#depth">#depth</a> — IP67 honesty (1 m / 30 min)</li>
-        <li><a href="kit.html#cases">#cases</a> — Pelican 0340 / 0350 SKUs (~Sep 2026)</li>
-      </ul>
+      <h3>What B is</h3>
+      <p>433.59&nbsp;MHz (λ ≈ 69.1 cm; λ/2 rods = 34.6 cm). Technician-legal 70&nbsp;cm in the US with a valid license. Polarizer test for the direction of <em>E</em>, not a Faraday-cage skin-depth test and not a bifilar pancake.</p>
+    </article>
+    <article class="card hively">
+      <h3>Feed</h3>
+      <p>Coax into the ball; outer as shield. Catalog path: 2.50″ 3003 Aluminum hollow + SMA bulkhead through the existing ¼″ hole. No sleeve steps on this bench.</p>
     </article>
   </div>
+  <p><strong>Deep links (B stays on its own pages — do not merge with A):</strong></p>
+  <ul>
+    <li><a href="monstein.html">monstein.html</a> — 2002 setup, formulas, rod length, U-curve, parts (balls, nine rods, bulkheads).</li>
+    <li><a href="sphere.html">sphere.html</a> — Fig. 1 vs catalog 2.50″ 3003 + 901-9875 cost/decision sheet.</li>
+  </ul>
 </section>
+
+<section class="tabpanel" role="tabpanel" id="kit" aria-labelledby="tab-kit" hidden>
+  <p class="kicker">Shared field kit · end-state, not built</p>
+  <h2>One TX cube, one RX cube, sequential default</h2>
+  <p>The kit carries <em>both</em> antennas as cargo — 1296 sleeve-stub sled <em>and</em> 433 TX sphere in the TX case; two TinySA screens in the RX case. It does <strong>not</strong> mix RF feeds. Pancake protocol stays on <a href="setup.html">setup.html</a>. 433 parts stay on <a href="monstein.html">monstein.html</a> / <a href="sphere.html">sphere.html</a>. Full write-up: <a href="kit.html">kit.html</a>.</p>
+  <div class="grid-3">
+    <article class="card hively">
+      <h3><a href="kit.html#tx">TX cube</a></h3>
+      <p>One cubical watertight Pelican. Foam holds the 1296 sleeve-stub sled <em>and</em> the 433 TX sphere. Inner pack wrapped in RadioScreen. Plastic hull = hydrostatic shell; mesh = Faraday. Flat sides for aiming the stub axis.</p>
+    </article>
+    <article class="card nz">
+      <h3><a href="kit.html#rx">RX cube</a></h3>
+      <p>Second case, usually <strong>lid open</strong>, mesh tent so two TinySA screens stay readable (1296 and 433). Not submerged.</p>
+    </article>
+    <article class="card">
+      <h3><a href="kit.html#seq">Sequential first</a></h3>
+      <p>Default is sequential. Simultaneous only if no interference <em>and</em> a 4th TinySA Ultra is bought (three on hand). Sequential TX+RX = 2 instruments; simultaneous dedicated = 4. With 3, one TX is switched/shared.</p>
+    </article>
+  </div>
+  <ul>
+    <li><a href="kit.html#harmonics">Harmonics</a> — 1296/3 = 432 MHz, 1.59 MHz from 433.59; 433.59×3 = 1300.77 vs 1296. Simultaneous needs 23&nbsp;cm BPF on 1296 TX and 70&nbsp;cm BPF on 433 TX, separate foam wells, both antennas inside mesh.</li>
+    <li><a href="kit.html#ballast">Ballast</a> — 0340 buoyancy 220 lb: empty cube <strong>floats</strong>. Do not drill the hull. NRS 1″ HD cam straps through the four fold-down handles + shot bags. No VHB pad-eyes as the primary seawater path.</li>
+    <li><a href="kit.html#depth">Depth</a> — IP67 = 1 m / 30 min, not continuous seawater. First: pool / shallow FL. Later seawater is a logged separate step.</li>
+    <li><a href="kit.html#cases">Cases</a> — <strong>First buy: Pelican 0340</strong> (18×18×18 in interior). Pelican <strong>1200 is not the hull</strong> — it stays the small TinySA/coil travel case on <a href="setup.html#shop">setup.html#shop</a>.</li>
+  </ul>
+  <p class="footnote"><strong>Not first buy</strong> (one-liners): Nanuk 960 ~$375 rectangle; SKB 3i-2217-12; B&amp;W Type 5500 cheaper near-cube; Zarges K470 aluminum IP54 on US 40564 / IP67 EU 380366 — metal cages RF unless antennas sit outside on glands; Blue Robotics WTE is a cylinder; Hammond 1554 / Hoffman Al too small or not 6P. Metal Faraday+hull later (corrosion, no see-through; Slayson/Blue Robotics small/expensive). First buy: plastic cube + internal mesh.</p>
+</section>
+
+<h2>Other hub pages</h2>
+<div class="grid-2">
+  <article class="card">
+    <h3>Learn / Compare / Tools</h3>
+    <p><a href="learn.html">Learn</a> is the N–Z vs Hively vs Meyl briefing. <a href="compare.html">Compare</a> is the illustrative SNR toy. <a href="tools.html">Tools</a> is the bifilar pancake calculator (default 1.300 GHz).</p>
+  </article>
+  <article class="card">
+    <h3>Library</h3>
+    <p>Bundled public PDFs and Google Patents links: <a href="library.html">library.html</a>. Cite the originals.</p>
+  </article>
+</div>
 
 <h2>Original GitHub Pages</h2>
-<p class="footnote">Live pages were fetched 31 Aug 2026. Four repo names 404’d as GitHub Pages; their GitHub repos remain linked. Duplicate “How-the-Nikolova-Zimmerman-Plasma-tube-Detector-Works” listed once. The old “RG-405 skirt balun” calculator is historical; the 1.3&nbsp;GHz <em>build</em> is a sleeve — <a href="setup.html#sleeve">setup.html#sleeve</a>.</p>
+<p class="footnote">Live pages were fetched 31 Aug 2026. Four repo names 404’d as GitHub Pages; their GitHub repos remain linked. Duplicate “How-the-Nikolova-Zimmerman-Plasma-tube-Detector-Works” listed once.</p>
 <div class="repo-list">
 <p><a href="https://9wzg44nz44-glitch.github.io/Educational-Briefing-of-Scalar-Longitudinal-Wave-Topic-Nikolova-Zimmerman-and-Hively/">Educational briefing</a></p>
 <p><a href="https://9wzg44nz44-glitch.github.io/Hively-Style-SLW-Bifilar-Pancake-Coil-Calculator/">Bifilar pancake calculator</a></p>
@@ -169,7 +177,7 @@
 <p><a href="https://9wzg44nz44-glitch.github.io/How-the-Nikolova-Zimmerman-Plasma-tube-Detector-Works/">Plasma-tube detector</a></p>
 <p><a href="https://9wzg44nz44-glitch.github.io/Why-does-Hively-bifilar-coil-detector-interact-with-SLW/">Why the bifilar interacts</a></p>
 <p><a href="https://9wzg44nz44-glitch.github.io/No-Skin-effect-3D-plots/">No-skin-effect simulator (defaults 1.3 GHz)</a></p>
-<p><a href="https://9wzg44nz44-glitch.github.io/Make-a-Balun-skirt-for-the-RG-405U-transmitting-cable-at-the-radiating-end/">RG-405 skirt balun (historical calculator; 1.3 GHz build is a sleeve)</a></p>
+<p><a href="https://9wzg44nz44-glitch.github.io/Make-a-Balun-skirt-for-the-RG-405U-transmitting-cable-at-the-radiating-end/">RG-405 skirt balun (1.3 / 2.45 / 8 GHz presets)</a></p>
 <p><a href="https://9wzg44nz44-glitch.github.io/Nikolova-Zimmerman_SLW_Simulation_2007_Paper/">CEM-R-46 2007 simulator</a></p>
 <p><a href="https://github.com/9wzg44nz44-glitch">Fluorescent / light-bulb Pages (404)</a></p>
 <p><a href="https://9wzg44nz44-glitch.github.io/Meyl-Hively-Nikolova-Zimmerman/">Meyl–Hively–N–Z map</a></p>
@@ -188,5 +196,36 @@
   </div>
 </footer>
 <script src="js/app.js"></script>
+<script>
+(function () {
+  const valid = ["expt-a", "expt-b", "kit"];
+  const tabs = document.querySelectorAll('.tablist [role="tab"]');
+  const panels = document.querySelectorAll(".tabpanel");
+  function show(id, push) {
+    if (valid.indexOf(id) < 0) id = "expt-a";
+    tabs.forEach(function (t) {
+      const on = t.getAttribute("aria-controls") === id;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+    });
+    panels.forEach(function (p) { p.hidden = p.id !== id; });
+    const hash = "#" + id;
+    if (push) {
+      if (location.hash !== hash) history.pushState(null, "", hash);
+    } else if (location.hash !== hash) {
+      history.replaceState(null, "", hash);
+    }
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener("click", function () { show(t.getAttribute("aria-controls"), true); });
+  });
+  function fromHash() {
+    const h = (location.hash || "#expt-a").replace(/^#/, "");
+    show(h, false);
+  }
+  window.addEventListener("hashchange", fromHash);
+  fromHash();
+})();
+</script>
 </body>
 </html>
