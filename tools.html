@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tools · SLW Hub</title>
-<meta name="description" content="1.3 GHz bifilar pancake coil calculator, RG-405 stub and skirt balun.">
+<meta name="description" content="1.3 GHz bifilar pancake coil calculator, RG-405 stub and sleeve balun.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,9 +38,9 @@
 <main id="main" class="wrap">
 
 <p class="kicker">Tools · 1.300 GHz default</p>
-<h1>Bifilar pancake, RG-405 stub, and skirt balun</h1>
-<p class="lede">Merged from the Hively-style coil calculator and the RG-405 skirt-balun page. All linear dimensions track 1/f. Default is the hub lab frequency, not 2.45 or 8 GHz.</p>
-<div class="banner-edu">Design aid only. A skirt balun is ordinary RF practice; calling the stub an “SLW launcher” is the disputed part. Verify with a VNA (S<sub>11</sub>, outer-conductor current) before any on-air use.</div>
+<h1>Bifilar pancake, RG-405 stub, and sleeve balun</h1>
+<p class="lede">Merged from the Hively-style coil calculator and the RG-405 sleeve-balun page. Experiment A build is a close-fitting sleeve, not US 9,306,527 Fig. 2A skirt. All linear dimensions track 1/f. Default is the hub lab frequency, not 2.45 or 8 GHz.</p>
+<div class="banner-edu">Design aid only. A sleeve (bazooka) choke is ordinary RF practice; calling the stub an “SLW launcher” is the disputed part. Do not build the patent skirt. Verify with a VNA (S<sub>11</sub>, outer-conductor current) before any on-air use.</div>
 
 <div class="ctrl-row">
   <button type="button" class="primary" data-freq="1.3">1.30 GHz</button>
@@ -94,7 +94,7 @@
     <p class="footnote">Hively-style notes often use λ/10–λ/4. Spherical wavefront originates near the tip. Short stub, not a magnetron probe.</p>
   </article>
   <article class="card hively">
-    <h3>3. Skirt (sleeve / bazooka) balun</h3>
+    <h3>3. Sleeve (bazooka choke), not a patent skirt</h3>
     <p>Conductive sleeve over the outer conductor, <strong>shorted at the antenna end</strong>, open at the far end. At electrical λ/4 the open end is a high common-mode impedance.</p>
     <p class="eq">Z<sub>in</sub> = j Z₀ tan(βL) &nbsp;→&nbsp; infinite when L = λ<sub>g</sub>/4</p>
     <div class="ctrl">
@@ -103,9 +103,9 @@
     </div>
     <div class="metrics">
       <div class="metric"><div class="l">Electrical λ/4</div><div class="v" id="elecQtr">—</div></div>
-      <div class="metric"><div class="l">Physical skirt L = (λ/4)×VF</div><div class="v" id="skirtMm">—</div></div>
+      <div class="metric"><div class="l">Physical sleeve L = (λ/4)×VF</div><div class="v" id="skirtMm">—</div></div>
     </div>
-    <p class="footnote">At 1.3 GHz the skirt is ~6× longer than at 8 GHz. Length <em>must</em> track 1/f.</p>
+    <p class="footnote">At 1.3 GHz the sleeve is ~6× longer than at 8 GHz. Length <em>must</em> track 1/f.</p>
   </article>
 </div>
 
@@ -113,9 +113,9 @@
 <ol class="steps">
   <li>Install SMA (or Type N) on the source end of RG-405/U in the ordinary way. No special balun connection at the connector.</li>
   <li>Strip outer copper and PTFE for the calculated stub length. Leave a clean, straight center conductor. Deburr.</li>
-  <li>Cut thin-wall copper/brass tubing (or foil tube) slightly longer than the physical skirt. ID must clear 0.086″ with an air gap or thin dielectric.</li>
+  <li>Cut thin-wall copper/brass tubing (or foil tube) slightly longer than the physical sleeve. ID must clear 0.086″ with an air gap or thin dielectric.</li>
   <li>Slide the sleeve to the dielectric cut-back plane. Solder the near end all around to the RG-405 outer. Leave the far end open — no solder bridges.</li>
-  <li>Optional: thin PTFE or tape between coax and skirt to lower VF (shorter physical length).</li>
+  <li>Optional: thin PTFE or tape between coax and sleeve to lower VF (shorter physical length).</li>
   <li>Confirm choking: S<sub>11</sub> and a field probe on the outer conductor at the design frequency.</li>
 </ol>
 
@@ -150,12 +150,12 @@
           <tr><th>Approx. inner diameter</th><td id="idMm">—</td></tr>
           <tr><th>Wire OD (single-build approx.)</th><td id="wireOd">—</td></tr>
           <tr><th>Radial build (two wires / turn)</th><td id="radialBuild">—</td></tr>
-          <tr><th>Length per individual wire</th><td id="lenEach">—</td></tr>
-          <tr><th>Buy (two wires + ~12%)</th><td id="lenTotal">—</td></tr>
+          <tr><th>Length of one leg (fold to free end)</th><td id="lenEach">—</td></tr>
+          <tr><th>Buy one strand (both legs + ~12%)</th><td id="lenTotal">—</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="footnote">You need <strong>two</strong> equal lengths. Do not simply parallel them.</p>
+    <p class="footnote">Buy <strong>one</strong> long strand (~2.2&nbsp;m first article). Fold it in half — the fold is the hub. Do not cut two separate wires and do not parallel the legs.</p>
   </article>
 </div>
 
@@ -174,16 +174,16 @@
 </table>
 </div>
 
-<h2>5. Winding + series-opposing polarity</h2>
+<h2>5. Winding — fold first, fold is the center</h2>
 <ol class="steps">
-  <li>Cut two equal lengths (Wire A, Wire B). Optionally twist lightly every few cm for handling, but keep them parallel and side-by-side while winding.</li>
-  <li>Start at the center. Secure both inner ends — these are two of the four leads. Label them A-inner, B-inner.</li>
-  <li>Wind a flat spiral. Each “turn” is A then B (or B then A) alternating radially — Hively’s adjacent-conductor geometry.</li>
-  <li>Stop at the target OD. Leave two outer leads: A-outer, B-outer.</li>
-  <li><strong>Series opposing (required):</strong> connect A-outer to B-inner (or A-inner to B-outer). The two remaining free ends are the differential port.</li>
-  <li>When a longitudinal E drives charge, current goes out one lead and returns on the other, so neighboring turns have opposite current → magnetic fields cancel. Net inductance ≈ 0.</li>
+  <li>Cut <strong>one</strong> long strand of 22 or 24 AWG, about <strong>2.2&nbsp;m</strong> (not two separate wires).</li>
+  <li>Fold it in half with a gentle U, not a crease. That fold <em>is</em> the center/hub (series-opposing). No hub solder. You never scrape the midpoint.</li>
+  <li>Park the fold at the 6&nbsp;mm hub on a Cricut / Cricket StandardGrip sticky mat.</li>
+  <li>Wind both legs outward together as a pair to OD 35&nbsp;mm. Same geometry as <a href="setup.html#fold">setup.html#fold</a>.</li>
+  <li>The two free ends are the RF terminals (TinySA center and ground). Do not cut the fold open.</li>
+  <li>When a longitudinal E drives charge, current goes out one free end and returns on the other, so neighboring turns have opposite current and magnetic fields cancel. Net inductance ≈ 0.</li>
 </ol>
-<div class="banner-warn">Do not parallel the two wires. That reinforces B and defeats the gradient filter. Keep interconnects short and shielded. For weak signals, a differential LNA at the coil; then a 1:1 balun into 50 Ω coax to the analyzer.</div>
+<div class="banner-warn">Do not cut two wires and solder a hub. Do not parallel the two legs. Keep interconnects short. Bench protocol lives on <a href="setup.html#fold">setup.html#fold</a>.</div>
 
 </main>
 <footer class="site">
