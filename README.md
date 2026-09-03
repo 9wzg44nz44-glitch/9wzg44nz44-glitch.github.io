@@ -20,10 +20,15 @@ This is vanilla HTML/CSS/JS. No build step.
 
 | File | Contents |
 |---|---|
-| `index.html` | Home: what the hub is, who it is for, links to original Pages |
+| `index.html` | Master two-experiment page (JS tabs `#expt-a` `#expt-b` `#kit`) |
 | `learn.html` | Briefing (N–Z vs Hively vs Meyl), detectors, Zimmerman 1296 MHz TM01 hardware, patents |
 | `compare.html` | Side-by-side table + illustrative SNR toy |
-| `tools.html` | Bifilar pancake + RG-405 stub/skirt calculator, **default 1.300 GHz**, presets 1296 MHz and 1.30 GHz |
+| `tools.html` | Bifilar pancake + RG-405 length calculator, **default 1.300 GHz**; 1.3 GHz *build* is a sleeve, see `setup.html#sleeve` |
+| `setup.html` | Experiment A bench: pancake, mesh tents, **sleeve (not skirt)** how-to `#sleeve` |
+| `fields.html` | 1296 MHz TEM vs SLW cartoon |
+| `monstein.html` | Experiment B: 433.59 MHz balls + rods, **no balun** |
+| `sphere.html` | Fig. 1 vs catalog spheres; **no balun** |
+| `kit.html` | Shared submersible field kit (planned; not a claim it has been built) |
 | `lab.html` | 1.3 GHz Faraday protocol, HAM legal box, skin-depth table, BOM, controls, CSV log, safety |
 | `library.html` | Six bundled PDFs with genre labels |
 | `papers/` | Verbatim PDFs (not rewritten) |
@@ -33,7 +38,7 @@ This is vanilla HTML/CSS/JS. No build step.
 
 Skin depth **δ = 1 / √(π f μ σ)** with **σ_Cu ≈ 5.8×10⁷ S/m**, **μ = μ₀**.  
 At 1.300 GHz, δ ≈ **1.833 µm**; at 8 GHz, δ ≈ **0.739 µm**.  
-λ(1.300 GHz) ≈ 230.61 mm; λ/4 ≈ 57.65 mm; VF 0.95 skirt ≈ 54.77 mm.  
+At 1296.000 MHz, λ ≈ 231.3 mm; λ/4 sleeve ≈ 57.8 mm in air; first-article stub λ/10 ≈ 23.1 mm. Patent Fig. 2A skirt is historical; the 1.3 GHz build is a close-fitting sleeve.  
 Patent Eq. 15: P_rad = I² Z₀ / (4π) with Z₀ ≈ 376.73 Ω.
 
 ## Tone
