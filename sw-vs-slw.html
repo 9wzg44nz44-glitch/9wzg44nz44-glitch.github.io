@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SW vs SLW · detection gap · SLW Hub</title>
+<meta name="description" content="Why this bench is adequate for Hively SLW and not for SW.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="sw-vs-slw.html" aria-current="page">SW vs SLW</a>
+      <a href="fields.html">Fields</a>
+      <a href="monstein.html">Monstein</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="setup.html">Setup</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+<section class="hero"><div>
+<p class="kicker">Lab note Â· 2026-09-04 Â· Hively EED</p>
+<h1>Why this bench is adequate for SLW and not for SW</h1>
+<p class="lede">Scope: Hively EED split between scalar-longitudinal wave (SLW) and scalar wave (SW). This page does <strong>not</strong> claim SW has been detected here. Simulator pages stay separate.</p>
+</div></section>
+<div class="banner-edu"><strong>Public summary (do not strengthen):</strong> This repositoryâs hardware and the published Hively/Loebl cage tests are SLW-class: they launch and receive a gradient-driven channel with suppressed <strong>B</strong> and a non-zero longitudinal <strong>E</strong>. That is sufficient to study SLW attenuation, Faraday penetration, and seawater loss. It is not sufficient to claim detection of Hivelyâs SW (<em>E</em>=<em>B</em>=0, <em>C</em>â 0). No public, replicated, modulated SW-only link through seawater and steel exists. Hull-transparent signalling remains a theoretical SW advantage, not a result of this bench.</div>
+<div class="banner-warn"><strong>Core lock-in:</strong> this setup couples to (<em>C</em>, <strong>E</strong><sub>L</sub>), so it can stress-test SLW skin-effect claims. SW needs <strong>E</strong>=<strong>B</strong>=0 at the receiver. That needs a loop + E-probe + bifilar triad, a conductor that kills the first two, and a tone that remains on the third. <em>This bench does not log that triad.</em></div>
+<h2>The distinction that matters</h2>
+<p>Hivelyâs EED promotes the Lorenz leftover to a physical field</p>
+<p class="eq">C = âÂ·A + (1/cÂ²) âÎ¦/ât</p>
+<div class="table-wrap"><table>
+<thead><tr><th></th><th>SLW</th><th>SW</th></tr></thead>
+<tbody>
+<tr><td>Fields</td><td><strong>B</strong>=0, <em>C</em>â 0, longitudinal <strong>E</strong>â¥â<em>C</em></td><td><strong>B</strong>=0, <strong>E</strong>=0, <em>C</em>â 0</td></tr>
+<tr><td>Energy</td><td>~Îµ<em>E</em>Â²/2 + <em>C</em>Â²/2Î¼</td><td>~<em>C</em>Â²/2Î¼</td></tr>
+<tr><td>Momentum</td><td>~ â<em>C</em><strong>E</strong>/Î¼</td><td>none (pressure only)</td></tr>
+<tr><td>Source</td><td>irrotational / gradient-driven current <strong>J</strong>=âÎº</td><td>charge-fluctuation mismatch on short timescales</td></tr>
+<tr><td>Ohmic loss in a conductor</td><td><strong>J</strong>=Ï<strong>E</strong> is available</td><td>no <strong>E</strong> â no Ï<em>E</em>Â² Joule term</td></tr>
+</tbody></table></div>
+<p>Both are claimed to avoid the <em>classical skin effect</em> (no circulating <strong>B</strong>, so no Faraday eddy currents). Only the SLW still has a longitudinal <strong>E</strong> that can drive conduction current in seawater or steel. Long-range hull-transparent signalling is a stronger <em>theoretical</em> SW candidate than SLW â the two must not be treated as the same measurement.</p>
+<h2>What this bench actually measures</h2>
+<p>The working apparatus is an SLW-class launcher/receiver:</p>
+<ul>
+<li>balun monopole (1296&nbsp;MHz build: close-fitting <em>sleeve</em> / bazooka; patent Fig.&nbsp;2A skirt is historical) and/or bifilar pancake</li>
+<li>TinySA / conventional RF chain</li>
+<li>Faraday-cage and seawater-cell attenuation runs</li>
+<li>PMT / optical side channel as a <em>downstream effect</em> sensor, not a first-principles <em>C</em> meter</li>
+</ul>
+<p>Those antennas couple to the pair (<em>C</em>, <strong>E</strong><sub>L</sub>). They can support SLW-class statements about gradient-driven channels, Faraday penetration vs TEM skin estimates, and seawater loss on a channel that still has <strong>E</strong><sub>L</sub>. They cannot support âthe surviving tone is a pure SW.â Cage penetration and PMT response are <strong>not</strong> SW proof.</p>
+<h2>Why the same bench is not an SW detector</h2>
+<ol>
+<li><strong>No E-null at the receiver.</strong> Bifilar or balun monopole still responds to residual longitudinal <strong>E</strong>.</li>
+<li><strong>No independent field inventory.</strong> SW needs three simultaneous channels: loop â <strong>B</strong>; short dipole / E-probe â <strong>E</strong><sub>L</sub>; bifilar / second balun monopole â <em>C</em> + residual <strong>E</strong><sub>L</sub>. SW is only when the first two die in a conductor and the third remains. This bench does not log that triad.</li>
+<li><strong>No field-free potential sensor</strong> (Josephson/SQUID or Puthoff-class AâÎ¦ <em>architecture</em>) in the current RF chain. Naming an architecture is not evidence a test was run.</li>
+<li><strong>No isolated information channel.</strong> Public EED work shows CW/swept tones through cages, not a modulated payload that exists only in <em>C</em>. Zimmerman plasma-tube work is a different ontology. Meyl kits are not used as evidence here.</li>
+</ol>
+<h2>What âfine for SLWâ means</h2>
+<ul>
+<li>launcher family: gradient-driven, <strong>B</strong> suppressed</li>
+<li>cage and seawater cells: right stress tests for no-classical-skin-effect claims</li>
+<li>PMT / decay-rate side channels: optional SLW <em>effects</em>, not SW proof</li>
+<li>label results SLW (or âSLW-like, <em>E</em><sub>L</sub> not excludedâ)</li>
+</ul>
+<p>SLW still has <strong>E</strong><sub>L</sub>, so Ï<em>E</em>Â² loss in seawater is expected even if eddy-current skin effect is not.</p>
+<h2>What would have to be added for an SW claim</h2>
+<ol>
+<li>Launch with the existing gradient-driven source.</li>
+<li>Receive on the three-channel set (loop / E-probe / bifilar).</li>
+<li>Insert conductivity (seawater cell, then steel plate/can).</li>
+<li>Require: loop and E-probe die; bifilar tone remains; TEM leakage paths closed.</li>
+<li>AM or slow FSK on the drive; recover the same spectrum on the surviving channel.</li>
+</ol>
+<p><strong>Repo stance:</strong> SLW-class hardware; SW requires <em>E</em>=<em>B</em>=0 isolation, a three-channel (<strong>B</strong> / <strong>E</strong><sub>L</sub> / <em>C</em>) conductor test, and a modulated payload on the surviving <em>C</em> channel.</p>
+<div class="banner-legal"><strong>Maintainers:</strong> Keep SLW <a href="tools.html">simulator</a> / Original Pages SNR tools separate from this page. Do not cite Meyl over-unity / superluminal demos or unclassified âclassified testâ remarks as SW evidence.</div>
+<p class="footnote">Source: SW-vs-SLW-detection-gap.md (2026-09-04). <a href="learn.html">Learn</a> Â· <a href="lab.html">Lab</a> Â· <a href="setup.html">Setup</a>.</p>
+</main>
+<footer class="site"><div class="wrap"><div>
+<strong>Dan Britton</strong> Â· <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+Educational use only. No SW detection claim on this page.
+</div></div></footer>
+<script src="js/app.js"></script>
+</body></html>
