@@ -18,7 +18,7 @@
 <script>
 document.addEventListener('DOMContentLoaded',function(){
 if(window.renderMathInElement){renderMathInElement(document.body,{delimiters:[
-{left:'\$\$',right:'\$\$',display:true},{left:'\$',right:'\$',display:false}],throwOnError:false});
+{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});
 });
 </script>
 </head>
@@ -85,7 +85,67 @@ $$
 </ul>
 <p>The table row <em>Ohmic / Joule loss in a conductor</em> already encodes that split. Cage and seawater runs on this bench therefore stress-test SLW claims; they do not by themselves demonstrate SW transparency.</p>
 
-<figure class="card" id="mw2002-fig5">
-  <img src="img/mw2002-fig5-power-vs-distance.png" alt="Monstein and Wesley 2002 Fig. 5: received power in dB versus TX–RX distance x" loading="lazy">
-  <figcaption><strong>Monstein &amp; Wesley, <cite>Europhys. Lett.</cite> 59, 514 (2002), Fig.&nbsp;5</strong> — received power (dB) vs TX–RX distance <em>x</em>. The authors note that beyond ~100&nbsp;m the signal falls faster than $1/r^{2}$ (about a $1/e$ drop in 145&nbsp;m), which they attribute to Ohmic losses from the longitudinal $\mathbf{E}$ inducing currents in the Earth. On this hub that is an SLW-class Joule ($\sigma E^{2}$) implication — residual $\mathbf{E}_{L}$ in a conductor — <strong>not</strong> SW proof (SW would lack that $E$-driven Ohmic term). doi:<a href="https://doi.org/10.1209/epl/i2002-00136-9">10.1209/epl/i2002-00136-9</a>; educational fair-use excerpt.</figcaption>
+<figure class="card">
+  <img src="img/monstein2002-fig5-range.png" alt="Monstein and Wesley 2002 Fig. 5: received power in dB versus TX–RX distance on a log scale, data points falling faster than 1/r² theory beyond about 100 m" width="900" height="770" loading="lazy">
+  <figcaption><strong>Monstein &amp; Wesley 2002, Fig.&nbsp;5</strong> — received power (dB) vs TX–RX distance at 433.59&nbsp;MHz (GPS-ranged). Beyond ~100&nbsp;m the measured tone falls faster than the authors’ inverse-square + Earth-image curve. That extra long-range loss is consistent with Joule dissipation $\sigma E^{2}$ from a residual longitudinal $\mathbf{E}_{L}$ (an SLW-class channel), not proof of Hively SW ($E=B=0$). Source: <cite>Europhys. Lett.</cite> 59 (2002) 514–520; local copy on <a href="monstein.html">Monstein</a>.</figcaption>
 </figure>
+
+<h2>What this bench actually measures</h2>
+<p>The working apparatus is an SLW-class launcher/receiver:</p>
+<ul>
+<li>balun monopole (1296&nbsp;MHz build: close-fitting <em>sleeve</em> / bazooka; patent Fig.&nbsp;2A skirt is historical) and/or bifilar pancake</li>
+<li>TinySA / conventional RF chain</li>
+<li>Faraday-cage and seawater-cell attenuation runs</li>
+<li>PMT / optical side channel as a <em>downstream effect</em> sensor, not a first-principles <em>C</em> meter</li>
+</ul>
+<p>Those antennas couple to the pair ($C$, $\mathbf{E}_{L}$). They can support SLW-class statements about gradient-driven channels, Faraday penetration vs TEM skin estimates, and seawater loss on a channel that still has $\mathbf{E}_{L}$. They cannot support “the surviving tone is a pure SW.” Cage penetration and PMT response are <strong>not</strong> SW proof.</p>
+
+<h2>Why the same bench is not an SW detector</h2>
+<ol>
+<li><strong>No E-null at the receiver.</strong> Bifilar or balun monopole still responds to residual longitudinal <strong>E</strong>.</li>
+<li><strong>No independent field inventory.</strong> SW needs three simultaneous channels: loop → $\mathbf{B}$; short dipole / E-probe → $\mathbf{E}_{L}$; bifilar / second balun monopole → $C$ + residual $\mathbf{E}_{L}$. SW is only when the first two die in a conductor and the third remains. This bench does not log that triad.</li>
+<li><strong>No field-free potential sensor</strong> (Josephson/SQUID or Puthoff-class $A$–$\Phi$ <em>architecture</em>) in the current RF chain. Naming an architecture is not evidence a test was run.</li>
+<li><strong>No isolated information channel.</strong> Public EED work shows CW/swept tones through cages, not a modulated payload that exists only in $C$. Zimmerman plasma-tube work is a different ontology. Meyl kits are not used as evidence here.</li>
+</ol>
+
+<h2 id="puthoff">Puthoff potential communication (NASA/CR-2005-213749 §3.4.2.2)</h2>
+<p>The MSE Technology Applications survey for NASA Langley, <cite>Advanced Energetics for Aeronautical Applications: Volume&nbsp;II</cite> (NASA/CR-2005-213749, Alexander, April 2005), §3.4.2.2, summarizes Harold&nbsp;E. Puthoff’s U.S. Patent <strong>US&nbsp;5,845,220</strong>, titled <em>Communication Method and Apparatus with Signals Comprising Scalar and Vector Potentials without Electromagnetic Fields</em>.</p>
+<ul>
+<li>Transmit framing (as reported): a time-varying signal of scalar and vector potentials without accompanying electromagnetic fields.</li>
+<li>Receive framing (as reported): an electromagnetically shielded, cryogenic Josephson Junction converts the penetrating scalar/vector potentials into conventional EM that an ordinary radio can detect.</li>
+<li>MSE reportage of Puthoff’s answers: only potential is transmitted and received; no energy is transferred as shielded $E$/$B$; and the system was built and tested “as part of a classified project” (quoted here only as NASA contractor survey reportage).</li>
+</ul>
+<p><strong>Mapping to this page:</strong> the patent’s “potentials without EM fields” framing sits closer to Hively’s <strong>SW</strong> ($E=B=0$, $C\neq 0$) than to <strong>SLW</strong> (which keeps $\mathbf{E}_{L}$ and therefore the $\sigma E^{2}$ Joule term). That is an ontology map, not a replication claim.</p>
+<div class="banner-legal"><strong>Not public SW evidence for this bench:</strong> the classified-project remark in the NASA survey is <em>not</em> treated here as a public, replicated, modulated SW-only link through seawater and steel. It does not move the Core lock-in or the Public summary. Do not cite it (or Meyl demos) as SW evidence on these pages.</div>
+<p>Local copy: <a href="papers/NASA-CR-2005-213749-Alexander-Advanced-Energetics-Vol-II.pdf">NASA/CR-2005-213749 PDF</a> · catalogued on <a href="library.html">Library</a>.</p>
+
+<h2>What “fine for SLW” means</h2>
+<ul>
+<li>launcher family: gradient-driven, <strong>B</strong> suppressed</li>
+<li>cage and seawater cells: right stress tests for no-classical-skin-effect claims</li>
+<li>PMT / decay-rate side channels: optional SLW <em>effects</em>, not SW proof</li>
+<li>label results SLW (or “SLW-like, $E_{L}$ not excluded”)</li>
+</ul>
+<p>SLW still has $\mathbf{E}_{L}$, so $\sigma E^{2}$ loss in seawater is expected even if eddy-current skin effect is not.</p>
+
+<h2>What would have to be added for an SW claim</h2>
+<ol>
+<li>Launch with the existing gradient-driven source.</li>
+<li>Receive on the three-channel set (loop / E-probe / bifilar).</li>
+<li>Insert conductivity (seawater cell, then steel plate/can).</li>
+<li>Require: loop and E-probe die; bifilar tone remains; TEM leakage paths closed.</li>
+<li>AM or slow FSK on the drive; recover the same spectrum on the surviving channel.</li>
+</ol>
+<p><strong>Repo stance:</strong> SLW-class hardware; SW requires $E=B=0$ isolation, a three-channel ($\mathbf{B}$ / $\mathbf{E}_{L}$ / $C$) conductor test, and a modulated payload on the surviving $C$ channel.</p>
+
+<div class="banner-legal"><strong>Maintainers:</strong> Keep SLW <a href="tools.html">simulator</a> / Original Pages SNR tools separate from this page. Do not cite Meyl over-unity / superluminal demos or unclassified “classified test” remarks as SW evidence.</div>
+<p class="footnote">Source: SW-vs-SLW-detection-gap.md (2026-09-04); Puthoff mapping from NASA/CR-2005-213749 §3.4.2.2; range figure from Monstein &amp; Wesley 2002 Fig.&nbsp;5. <a href="learn.html">Learn</a> · <a href="lab.html">Lab</a> · <a href="setup.html">Setup</a> · <a href="library.html">Library</a> · <a href="monstein.html">Monstein</a>.</p>
+</main>
+<footer class="site"><div class="wrap"><div>
+<strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+Educational use only. No SW detection claim on this page.
+</div></div></footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
