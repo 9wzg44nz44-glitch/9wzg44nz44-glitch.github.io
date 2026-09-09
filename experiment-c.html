@@ -58,7 +58,7 @@
 <main id="main" class="wrap">
   <p class="kicker">Experiment C · v1 draft · 9 Sep 2026 · educational / predicted channel · not a completed Hively spectroscopy result</p>
   <h1>Experiment C — Faraday-caged SLW/SW source with atomic 1S–2S optical-UV readout</h1>
-  <p class="lede">A third bench, separate from the 1296&nbsp;MHz cage (A) and the 433&nbsp;MHz balls+rods (B). Goal: ask whether a Faraday-caged scalar-longitudinal / scalar-wave source can move population on a dipole-forbidden S–S interval (hydrogen 1S–2S, or a documented clock-atom S–S), with ordinary TEM fields vetoed at the atom, while dual solar-blind PMTs count later TEM UV at <strong>243&nbsp;nm</strong> and <strong>121.6&nbsp;nm</strong>. Theory and patent context: Hively US&nbsp;9,306,527, Hively/Reed EED, Navy SLW antenna work. Atomic optical readout is a <em>predicted</em> channel.</p>
+  <p class="lede">A third bench, separate from the 1296&nbsp;MHz cage (A) and the 433&nbsp;MHz balls+rods (B). Goal: ask whether a Faraday-caged scalar-longitudinal / scalar-wave source can move population on a dipole-forbidden S–S interval (hydrogen 1S–2S, or a documented clock-atom S–S), with ordinary TEM fields vetoed at the atom, while dual solar-blind PMTs count later TEM UV at <strong>243&nbsp;nm</strong> and <strong>121.6&nbsp;nm</strong>. Theory and patent context: Hively US&nbsp;9,306,527, Hively/Reed EED, Navy SLW antenna work. Atomic optical readout is a <em>predicted</em> channel. TX and detector banks below list stub / sphere / bifilar / NZ-style plasma and PMT + side transducers; the SNR companion includes SLW Ohmic path loss.</p>
 
   <div class="banner-legal"><strong>Do not treat 8&nbsp;GHz as a 10.2&nbsp;eV photon.</strong> An RF SLW launcher (GHz class) is not a single quantum that bridges the 1S–2S gap. See <a href="#freq">§ Frequency plan</a>. The PMT does not hear the C-wave; it hears later TEM UV after the atom returns by an allowed channel.</div>
   <div class="banner-edu"><strong>Master page:</strong> <a href="index.html#expt-c">index.html#expt-c</a>. Field dictionary / SW vs SLW: <a href="sw-vs-slw.html">sw-vs-slw.html</a>. Cage hardware lineage: <a href="setup.html">setup.html</a> (Experiment A). Library: <a href="library.html">Hively patent &amp; EED papers</a>. Adjacent nuclei focus (different claim): <a href="c-nuclei.html">c-nuclei.html</a>.</div>
@@ -69,10 +69,15 @@
     <a href="#freq">Frequency plan</a>
     <a href="#block">Block diagram</a>
     <a href="#chain">How C/SLW becomes a PMT count</a>
+    <a href="#tx">Transmitter bank</a>
+    <a href="#det">Detector bank</a>
+    <a href="#ohmic">SLW Ohmic / propagation loss</a>
+    <a href="#snr">SNR calculator</a>
     <a href="#parts">Parts list</a>
     <a href="#safety">Safety</a>
     <a href="#passfail">Pass / fail</a>
     <a href="#protocol">v1 run outline</a>
+    <a href="#future">Related future page (decay)</a>
     <a href="#not">What this is not</a>
   </nav>
 
@@ -224,6 +229,57 @@ RF cage lineage (this hub / Hively tests): ~1.3 GHz (Expt A) or ~8×10⁹ Hz cla
     </tbody>
   </table>
 
+
+  <h2 id="tx">Transmitter bank (pick one RF arm at a time)</h2>
+  <p>v1 cages <em>one</em> launcher so the TEM-null budget is readable. Later runs can swap TX without changing the optical arm. Electrically separate from Experiments A and B feeds even if hardware looks similar.</p>
+  <table class="passfail">
+    <thead><tr><th>TX option</th><th>Lineage</th><th>What it is supposed to launch</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Sleeve / skirt-balun stub (monopole)</td><td>Hively US&nbsp;9,306,527; Experiment&nbsp;A practice</td><td>SLW (C + E∥); gradient-driven J</td><td>This hub’s build is a <em>sleeve</em> choke at 1296&nbsp;MHz — see <a href="setup.html#sleeve">setup.html#sleeve</a></td></tr>
+      <tr><td>Counter-wound bifilar pancake</td><td>Hively bifilar</td><td>SLW; B cancel, gradient current</td><td>Same cage discipline as A; not the optical PMT</td></tr>
+      <tr><td>Ball / sphere antenna</td><td>Monstein–Wesley / Experiment&nbsp;B geometry</td><td>Claimed longitudinal E / SLW-class</td><td>No balun on the 433&nbsp;MHz MW feed; different freq plan than A</td></tr>
+      <tr><td>Ag–Hg or neon / plasma lamp</td><td>Nikolova–Zimmerman style (longitudinal A / plasma)</td><td>Potential / A-channel vocabulary; may couple differently than Hively SLW</td><td>Label as NZ-lineage; do not silently equate to Hively C</td></tr>
+      <tr><td>Future: SW-leaning launcher</td><td>E=0, C≠0 special case</td><td>Pure SW (energy, no momentum, <strong>no Ohmic</strong>)</td><td>Hard; only claim if E∥ monitors are truly null — see SNR page</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="det">Detector bank (co-located at the atom end)</h2>
+  <p>Primary optical chain is mandatory for the 1S–2S claim. Park secondary SLW/SW transducers <em>near</em> the cell (same Faraday / TEM-null volume when possible) so a single TX AM can be cross-checked on several receivers. The PMT still only counts TEM UV after the atom returns by an allowed channel.</p>
+  <table class="passfail">
+    <thead><tr><th>Detector</th><th>Couples to</th><th>Role on this bench</th></tr></thead>
+    <tbody>
+      <tr><td>H (or clock-atom) cell / beam</td><td>C and/or E∥ on S–S (predicted)</td><td><strong>Primary transducer</strong> — population on 1S–2S</td></tr>
+      <tr><td>Solar-blind PMT + 243&nbsp;nm BP</td><td>TEM UV (two-photon / 2S dump)</td><td>Calibration + count channel</td></tr>
+      <tr><td>Solar-blind PMT + 121.6&nbsp;nm BP</td><td>TEM Lyman-α / claimed single-quantum</td><td>Quench discriminator channel</td></tr>
+      <tr><td>Optional ion collector</td><td>2S photoionization</td><td>Classic 1S–2S metrology</td></tr>
+      <tr><td>Bifilar receive coil</td><td>SLW (gradient J)</td><td>RF-side corroboration; not proof of S–S</td></tr>
+      <tr><td>Ar–Hg / neon lamp (biased)</td><td>NZ / plasma A-channel vocabulary</td><td>Side-by-side with optical; label lineage</td></tr>
+      <tr><td>Josephson / SQUID-class phase sensor</td><td>Predicted C / irrotational-A pickup</td><td>Stretch SW/C sensor; cryogenics heavy for garage v1</td></tr>
+      <tr><td>TEM-null dipole + loop (or TinySA)</td><td>E⊥, B</td><td><strong>Veto</strong> — must stay in budget</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="ohmic">SLW Ohmic / propagation loss (do not forget)</h2>
+  <div class="banner-legal"><strong>SLW is not lossless.</strong> No eddy / no classical skin pile-up (B=0), but longitudinal E still drives J=σE and local Joule density <strong>σE∥²</strong>. Pure SW (E=0) has no σE² term. Do not say “SLW has no losses.”</div>
+  <ul>
+    <li><strong>Local Ohmic density (CED + EED agree on the form):</strong> <code>p_Joule = J·E = σ E∥²</code>.</li>
+    <li><strong>Hively US&nbsp;9,306,527:</strong> with J=σE, the SLW E equation admits a transient <code>E ∝ exp(−ε t / σ)</code> (patent EQN.&nbsp;12 family) and table item that <em>E, C, and J exchange energy in conductive media</em> (EQNs&nbsp;11–17). Free-space radiated power cartoon is isotropic <code>P_OUT</code> (patent EQN.&nbsp;15 / JPCS Eq.&nbsp;22) falling as <strong>1/r²</strong> — that is geometric spreading, not Ohmic.</li>
+    <li><strong>JPCS 2021:</strong> SLW impedance Z uses JL=σEL and loss tangent <code>tan δε = ε″/ε′</code> (their Eq.&nbsp;21); still no eddy skin term.</li>
+    <li><strong>SNR implication:</strong> path through air ≈ geometric 1/r²; path through seawater / metal / lossy dielectric must include an extra Ohmic attenuation for <em>SLW</em>. For a pure <em>SW</em> trial set Ohmic α→0 (theoretical) and demand E∥ monitors stay null.</li>
+  </ul>
+  <p>Worked slider form lives on the companion calculator: <a href="experiment-c-snr.html">experiment-c-snr.html</a>.</p>
+
+  <h2 id="snr">SNR calculator (Experiment C companion)</h2>
+  <p>Experiment A/B use TinySA dBm toys on <a href="fields.html#snr">fields.html#snr</a>. Experiment C needs an <em>equivalent</em> that tracks:</p>
+  <ol>
+    <li>TX choice → estimated <code>P_OUT</code> (SLW isotropic cartoon from Hively EQN.&nbsp;15 / JPCS&nbsp;22).</li>
+    <li>Range → geometric <code>S(r) ∝ 1/r²</code>.</li>
+    <li><strong>Ohmic path factor</strong> for SLW (<code>exp(−α_ohm L)</code> / dB) with α tied to σ / loss-tangent story; SW switch forces α_ohm=0.</li>
+    <li>Energy / interaction at the atom (free coupling η until a measured cross-section exists).</li>
+    <li>Expected PMT counts at 243 and 121.6&nbsp;nm vs dark, plus optional bifilar / NZ-lamp / Josephson “same AM” checkboxes.</li>
+  </ol>
+  <p><a class="btn primary" href="experiment-c-snr.html">Open Experiment C SNR calculator (v0)</a></p>
+
   <h2 id="protocol">v1 run outline</h2>
   <ol>
     <li>Commission optical arm alone: 243&nbsp;nm line, PMT dark counts, bandpass check.</li>
@@ -235,11 +291,15 @@ RF cage lineage (this hub / Hively tests): ~1.3 GHz (Expt A) or ~8×10⁹ Hz cla
     <li>Write results against the pass/fail table; do not upgrade language past what the discriminators allow.</li>
   </ol>
 
+
+  <h2 id="future">Related future page — radioactive decay (not this experiment)</h2>
+  <div class="banner-edu"><strong>Experiment D (planned, separate page):</strong> chemical-form / EC decay-rate channel (Hively correspondence + <a href="c-nuclei.html">c-nuclei Channel&nbsp;E</a>). Same EED conversation family, <em>different</em> observable. It will get its own webpage and its own SNR/statistics tools — do not fold decay counters into this 1S–2S optical page.</div>
+
   <h2 id="not">What this is not</h2>
   <ul>
     <li>Not Experiment A’s bifilar SNR claim by itself, and not Experiment B’s brass-rod polarizer.</li>
     <li>Not a claim that US&nbsp;9,306,527 already contains a finished 1S–2S beam result — the patent <em>mentions</em> S–S as an application.</li>
-    <li>Not Channel&nbsp;E nuclei / EC chemistry on <a href="c-nuclei.html">c-nuclei.html</a> (related EED conversation, different observable).</li>
+    <li>Not Channel&nbsp;E nuclei / EC chemistry on <a href="c-nuclei.html">c-nuclei.html</a>, and not the planned separate <strong>Experiment&nbsp;D</strong> decay page (related EED conversation, different observable).</li>
     <li>Not permission to radiate unlicensed 8&nbsp;GHz or to skip UV/H₂/HV safety.</li>
   </ul>
 
