@@ -74,6 +74,8 @@
     <a href="#ohmic">SLW Ohmic / propagation loss</a>
     <a href="#snr">SNR calculator</a>
     <a href="#parts">Parts list</a>
+    <a href="#buy">Buy list (optical + TinySA chain)</a>
+    <a href="#tinysa">PMT → TinySA Ultra path</a>
     <a href="#safety">Safety</a>
     <a href="#passfail">Pass / fail</a>
     <a href="#protocol">v1 run outline</a>
@@ -179,9 +181,91 @@ RF cage lineage (this hub / Hively tests): ~1.3 GHz (Expt A) or ~8×10⁹ Hz cla
   <ul>
     <li>243&nbsp;nm two-photon stack (or commercial clock laser for the chosen atom) for source-dark line scan and PMT calibration.</li>
   </ul>
-  <p class="footnote">Model numbers and SKUs will be filled after a buy pass; this list is the discriminator-complete class list from the 9&nbsp;Sep&nbsp;2026 brief.</p>
+  <p class="footnote">Class list from the 9&nbsp;Sep&nbsp;2026 brief. Concrete optical / TinySA-chain SKUs: <a href="#buy">§ Buy list</a> and <a href="#tinysa">§ PMT → TinySA</a>.</p>
 
-  <h2 id="safety">Safety</h2>
+  
+  <h2 id="buy">Buy list — optical detectors, filters, H<sub>2</sub>, fixtures</h2>
+  <div class="banner-edu"><strong>Not an order yet.</strong> Class list with real vendor families. Prices move; confirm datasheets before PO. Wavelength note: the 1S–2S two-photon diagnostic is <strong>243&nbsp;nm</strong> (you wrote 234 — treated as 243 unless you meant a different line). Lyman-α / claimed dump is <strong>121.6&nbsp;nm</strong> (~122&nbsp;nm filter catalogs).</div>
+
+  <h3>Photomultipliers (solar-blind / VUV)</h3>
+  <table class="passfail">
+    <thead><tr><th>Part</th><th>Role</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Hamamatsu <strong>R8487</strong> (Cs-I, MgF<sub>2</sub>, 28&nbsp;mm side-on)</td><td>121.6&nbsp;nm channel</td><td>Solar-blind VUV; QE peaking near Lyman-α; 115–195&nbsp;nm</td></tr>
+      <tr><td>Hamamatsu <strong>R8486</strong> (Cs-Te, MgF<sub>2</sub>, 28&nbsp;mm side-on)</td><td>243&nbsp;nm channel (also sees ~254)</td><td>115–320&nbsp;nm; better for mid-UV / two-photon diagnostic</td></tr>
+      <tr><td>Hamamatsu <strong>R1081</strong> (Cs-I, 13&nbsp;mm head-on)</td><td>Compact 121.6&nbsp;nm option</td><td>Smaller solar-blind head-on; pair with matching socket</td></tr>
+      <tr><td>Hamamatsu <strong>R13194</strong> / <strong>R10454</strong></td><td>Alt Cs-I Lyman-α</td><td>Strong 121.6/300&nbsp;nm solar-blind ratio</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Solid-state UV:</strong> SiC / GaN photodiodes and UV-enhanced Si work for <em>~200–400&nbsp;nm</em> (possible 243&nbsp;nm path with a bandpass) but are a poor substitute for Cs-I + MgF<sub>2</sub> at <strong>121.6&nbsp;nm</strong>. Keep a PMT for Lyman-α; optionally add a SiC diode on the 243&nbsp;nm arm later for cost/ruggedness.</p>
+
+  <h3>Bandpass filters</h3>
+  <table class="passfail">
+    <thead><tr><th>Part family</th><th>λ</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Teledyne Acton / Pelham Research Optical VUV NB (e.g. FN122-*-1D, 122-NB*-1D)</td><td>~122&nbsp;nm Lyman-α</td><td>MgF<sub>2</sub> substrate; Oriel/Newport catalog is <em>not</em> the usual stock house for true 121.6&nbsp;nm — use Acton/Pelham/eSource</td></tr>
+      <tr><td>Newport Oriel Argon-Gap UV BPF — closest stock <strong>10BPF10-239</strong> (239±2&nbsp;nm) or <strong>10BPF10-250</strong>; custom/Acton <strong>240-NB</strong> / ask for <strong>243&nbsp;nm</strong></td><td>~243&nbsp;nm</td><td>Air path OK; fused silica. Prefer true 243&nbsp;nm custom if budget allows</td></tr>
+      <tr><td>Filter mounts ∅1″ (Thorlabs / Newport)</td><td>—</td><td>Hold filters ahead of PMT window; light-tight</td></tr>
+    </tbody>
+  </table>
+
+  <h3>PMT power, sockets, fixtures</h3>
+  <ul>
+    <li>Hamamatsu <strong>C12597-01</strong> DP socket + HV assembly for 28&nbsp;mm side-on (R8486/R8487 class): needs +15&nbsp;V; programs −200 to −1250&nbsp;V. Socket <strong>E678-11A</strong> if using discrete divider + external HV.</li>
+    <li>Bench +15&nbsp;V supply (or Hamamatsu module PSU family such as C10709 where a module is used).</li>
+    <li>Light-tight PMT housing / cage (Hamamatsu or Thorlabs ∅1″ tube + blackout); magnetic shield if near RF.</li>
+    <li>MgF<sub>2</sub> or LiF window on the 121.6&nbsp;nm path; N<sub>2</sub>/Ar purge or vacuum between cell and filter (air kills Lyman-α in mm).</li>
+  </ul>
+
+  <h3>Hydrogen — tube vs container (important)</h3>
+  <div class="banner-legal"><strong>A sealed H<sub>2</sub> bottle or “just a container” does not emit 243/121.6&nbsp;nm by itself</strong> and does not put atomic 1S population in front of the PMT. You need either (1) an atomic-H source the SLW/SW is supposed to excite, or (2) a powered lamp only for <em>calibrating</em> the optical chain.</div>
+  <table class="passfail">
+    <thead><tr><th>Option</th><th>Needs power?</th><th>What it gives you</th><th>v1 use</th></tr></thead>
+    <tbody>
+      <tr><td>Sealed H<sub>2</sub> / D<sub>2</sub> gas cell (fused silica)</td><td>No (gas only)</td><td>Molecular H<sub>2</sub>; not a free 1S atom beam</td><td>Weak stand-in; not sufficient for a serious 1S–2S claim</td></tr>
+      <tr><td>RF/microwave dissociator or atomic beam</td><td>Yes</td><td>Ground-state H atoms for S–S</td><td><strong>Real interaction volume</strong> (harder; later)</td></tr>
+      <tr><td>H<sub>2</sub> discharge / Lyman lamp (MgF<sub>2</sub> window)</td><td>Yes</td><td>121.6&nbsp;nm + H<sub>2</sub> bands for PMT/filter checkout</td><td><strong>Calibration source</strong>, not the SLW claim</td></tr>
+      <tr><td>Classroom H/D spectral lamp (glass)</td><td>Yes</td><td>Balmer lines (visible); glass blocks VUV</td><td>Not useful for 121.6; skip for VUV</td></tr>
+      <tr><td>243&nbsp;nm two-photon laser / clock stack</td><td>Yes</td><td>Standard 1S–2S diagnostic</td><td>Optical arm per <a href="#freq">frequency plan</a></td></tr>
+    </tbody>
+  </table>
+  <p>v1 recommendation: buy the <strong>PMT + filters + purge path</strong> first; use a small VUV H<sub>2</sub> lamp (or Acton/Pelham cal path) to prove 121.6 counts; use Newport ~239–250&nbsp;nm BPF + R8486 to prove the mid-UV arm; defer a full atomic-H beam until the RF/TEM budget works.</p>
+
+  <h2 id="tinysa">PMT → TinySA Ultra signal path (modulated information)</h2>
+  <p>Goal: recover the TX AM envelope on the optical counts and display that tone on the same <strong>TinySA Ultra</strong> family already in the A/B kit (Model-406). TinySA Ultra’s useful RF span starts near <strong>~100&nbsp;kHz</strong> — so set the SLW/SW TX amplitude-modulation rate <strong>f<sub>mod</sub> ≥ 100&nbsp;kHz</strong> (e.g. 100–500&nbsp;kHz), not audio 1&nbsp;kHz, if TinySA is the readout. (Audio AM → lock-in / scope instead.)</p>
+  <pre class="block-diagram">RF synth --AM(f_mod)--> SLW/SW TX (caged)
+                              |
+                         atom / cell
+                              |
+                    PMT (R8486 / R8487)
+                              |
+              C12597-01 socket (HV + divider)
+                              |
+         anode → transimpedance / voltage amp (50 Ω out)
+                              |
+            SMA coax + attenuator (protect TinySA)
+                              |
+                    TinySA Ultra (look at f_mod)
+         optional: sample TX AM → TinySA CH2 / marker ref</pre>
+  <h3>Electronics buy list for that path</h3>
+  <table class="passfail">
+    <thead><tr><th>Item</th><th>Example class</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td>PMT socket + HV</td><td>Hamamatsu C12597-01 (+15&nbsp;V brick)</td><td>Bias tube; anode out</td></tr>
+      <tr><td>Transimpedance / PMT amp</td><td>Hamamatsu C9663-series class, or SRS SR570 / similar; or discrete TIA → 50&nbsp;Ω driver</td><td>Convert anode current to voltage; bandwidth &gt; f<sub>mod</sub></td></tr>
+      <tr><td>Optional pulse amp + rate-to-voltage</td><td>Ortec / Hamamatsu photon-counting chain</td><td>If running photon counting instead of analog current</td></tr>
+      <tr><td>50&nbsp;Ω SMA coax, DC block / bias tee as needed</td><td>RG-316 / good SMA jumpers</td><td>Amp → TinySA</td></tr>
+      <tr><td>In-line attenuator 10–30&nbsp;dB</td><td>SMA attenuator kit</td><td>Protect TinySA input (max ~+10&nbsp;dBm; stay well below)</td></tr>
+      <tr><td>TinySA Ultra (existing)</td><td>Model-406 already owned</td><td>Spectrum of recovered f<sub>mod</sub>; also TEM-null RF monitor</td></tr>
+      <tr><td>AM source / function generator</td><td>Tied to RF synth AM port or bias-tee on drive</td><td>Known f<sub>mod</sub> for lock / SNR</td></tr>
+      <tr><td>Optional second TinySA or splitter</td><td>—</td><td>One on optical recovered tone, one on cage TEM leak</td></tr>
+      <tr><td>Optional lock-in</td><td>SRS SR830 class</td><td>If you ever drop f<sub>mod</sub> below ~100&nbsp;kHz</td></tr>
+    </tbody>
+  </table>
+  <div class="banner-legal"><strong>Do not</strong> connect a raw PMT anode to the TinySA SMA. Always HV-socket → amp → attenuator → analyzer. Keep the optical amp outside the Faraday mesh or feedthrough-filtered so you do not re-inject TEM into the cage.</div>
+  <p>Pass criterion (with <a href="#passfail">§ pass/fail</a>): with RF AM on and TEM budget held, TinySA shows a line at f<sub>mod</sub> on the optical channel that tracks AM depth and disappears in source-dark / quench-mapped nulls.</p>
+
+<h2 id="safety">Safety</h2>
   <ul>
     <li><strong>UV-C / VUV:</strong> 243&nbsp;nm and especially 121.6&nbsp;nm — eye and skin hazard; no direct viewing; enclosed beam paths; interlocks where practical. Ozone generation near VUV — ventilation.</li>
     <li><strong>PMT HV:</strong> ~kV supplies; treat as lethal; bleed resistors; never probe dynodes live.</li>
