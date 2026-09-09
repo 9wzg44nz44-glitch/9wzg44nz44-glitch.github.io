@@ -51,11 +51,16 @@ code, .mono { font-family: var(--font-mono); font-size: .92em; }
 .skip:focus { left: 12px; top: 12px; background: var(--paper); padding: 8px 12px; z-index: 99; }
 
 /* Header */
-.site-header {
+header.site-header, header.site {
   position: sticky; top: 0; z-index: 40;
   backdrop-filter: blur(14px);
-  background: rgba(17,15,12,.82);
+  background: rgba(17,15,12,.92);
   border-bottom: 1px solid var(--rule);
+}
+header.site .wrap, header.site .header-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 22px;
 }
 .header-inner {
   max-width: var(--max); margin: 0 auto;
@@ -280,6 +285,55 @@ footer.site strong { color: var(--ink-muted); }
   border-left: 3px solid #3a9b58;
   background: rgba(58,155,88,.08);
   padding: 12px 16px; border-radius: 0 10px 10px 0; margin: 16px 0;
+}
+
+/* Global sticky A/B/C jump — always one tap from any deep page */
+.expt-abc {
+  position: sticky; top: 56px; z-index: 45;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px;
+  padding: 10px 22px;
+  border-bottom: 2px solid var(--copper);
+  background: #1a1510;
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+}
+.expt-abc .expt-abc-label {
+  font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+  color: #f3ead8; font-weight: 700; margin-right: 4px;
+}
+.expt-abc a.expt-abc-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; font-weight: 700; font-size: .95rem;
+  color: #0a0804; background: #f4e6c8;
+  border: 2px solid #c47a3a; border-radius: 999px;
+  padding: 8px 14px; line-height: 1.2;
+}
+.expt-abc a.expt-abc-btn:hover {
+  background: #fff6e4; color: #000; border-color: #e0a050;
+}
+.expt-abc a.expt-abc-btn[aria-current="page"],
+.expt-abc a.expt-abc-btn.is-active {
+  background: #c47a3a; color: #fff; border-color: #f0c090;
+}
+.expt-abc a.expt-abc-btn .k {
+  font-family: var(--font-mono); font-size: .78rem;
+  background: #0a0804; color: #f4e6c8;
+  border-radius: 999px; padding: 2px 7px;
+}
+.expt-abc a.expt-abc-btn[aria-current="page"] .k,
+.expt-abc a.expt-abc-btn.is-active .k {
+  background: #fff; color: #0a0804;
+}
+.expt-abc a.expt-abc-sub {
+  color: #f3ead8; text-decoration: none; font-size: .88rem;
+  padding: 6px 10px; border-radius: 8px; border: 1px solid transparent;
+}
+.expt-abc a.expt-abc-sub:hover { background: rgba(255,255,255,.08); color: #fff; }
+.expt-abc a.expt-abc-sub[aria-current="page"] {
+  border-color: #c47a3a; background: rgba(196,122,58,.25); color: #fff;
+}
+@media (max-width: 860px) {
+  .expt-abc { padding: 8px 14px; gap: 6px; }
+  .expt-abc a.expt-abc-btn { font-size: .88rem; padding: 7px 11px; }
 }
 
 /* Two-experiment strip (persistent on A/B/kit pages) */
