@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experiment C · Faraday-caged SLW/SW → atomic 1S–2S optical readout · SLW Hub</title>
+<meta name="description" content="Experiment C (v1 draft): Faraday-caged SLW/SW launcher, hydrogen or clock-atom 1S–2S readout, dual PMT bandpass at 243 nm and 121.6 nm, TEM-null monitors, quench-control discriminator. 8 GHz is not a 10.2 eV photon.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .block-diagram { font-family: "IBM Plex Mono", monospace; font-size: .82rem; line-height: 1.45; background: #0b1020; color: #d7e0f2; padding: 1rem 1.1rem; border-radius: 8px; overflow-x: auto; white-space: pre; }
+  table.passfail { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  table.passfail th, table.passfail td { border: 1px solid rgba(0,0,0,.12); padding: .55rem .65rem; text-align: left; vertical-align: top; }
+  table.passfail th { background: rgba(0,0,0,.04); }
+  .freq-box { font-family: "IBM Plex Mono", monospace; font-size: .88rem; background: rgba(0,0,0,.04); padding: .9rem 1rem; border-radius: 8px; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/mark.svg" alt=""> SLW Hub</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="c-nuclei.html">C×nuclei</a>
+      <a href="fields.html">Fields</a>
+      <a href="monstein.html">Monstein</a>
+      <a href="experiment-c.html" aria-current="page">Expt C</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="setup.html">Setup</a>
+      <a href="kit.html">Kit</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<nav class="expt-strip" aria-label="Three experiments">
+  <a href="index.html#expt-a"><span class="expt-k">A</span> 1296 MHz cage</a>
+  <a href="setup.html">setup</a>
+  <span class="sep">·</span>
+  <a href="index.html#expt-b"><span class="expt-k">B</span> 433 MHz balls+rods</a>
+  <a href="monstein.html">monstein</a>
+  <span class="sep">·</span>
+  <a href="index.html#expt-c" aria-current="page"><span class="expt-k">C</span> atomic 1S–2S</a>
+  <a href="experiment-c.html" aria-current="page">this page</a>
+  <span class="sep">·</span>
+  <a href="index.html#kit">Kit</a>
+</nav>
+
+<main id="main" class="wrap">
+  <p class="kicker">Experiment C · v1 draft · 9 Sep 2026 · educational / predicted channel · not a completed Hively spectroscopy result</p>
+  <h1>Experiment C — Faraday-caged SLW/SW source with atomic 1S–2S optical-UV readout</h1>
+  <p class="lede">A third bench, separate from the 1296&nbsp;MHz cage (A) and the 433&nbsp;MHz balls+rods (B). Goal: ask whether a Faraday-caged scalar-longitudinal / scalar-wave source can move population on a dipole-forbidden S–S interval (hydrogen 1S–2S, or a documented clock-atom S–S), with ordinary TEM fields vetoed at the atom, while dual solar-blind PMTs count later TEM UV at <strong>243&nbsp;nm</strong> and <strong>121.6&nbsp;nm</strong>. Theory and patent context: Hively US&nbsp;9,306,527, Hively/Reed EED, Navy SLW antenna work. Atomic optical readout is a <em>predicted</em> channel.</p>
+
+  <div class="banner-legal"><strong>Do not treat 8&nbsp;GHz as a 10.2&nbsp;eV photon.</strong> An RF SLW launcher (GHz class) is not a single quantum that bridges the 1S–2S gap. See <a href="#freq">§ Frequency plan</a>. The PMT does not hear the C-wave; it hears later TEM UV after the atom returns by an allowed channel.</div>
+  <div class="banner-edu"><strong>Master page:</strong> <a href="index.html#expt-c">index.html#expt-c</a>. Field dictionary / SW vs SLW: <a href="sw-vs-slw.html">sw-vs-slw.html</a>. Cage hardware lineage: <a href="setup.html">setup.html</a> (Experiment A). Library: <a href="library.html">Hively patent &amp; EED papers</a>. Adjacent nuclei focus (different claim): <a href="c-nuclei.html">c-nuclei.html</a>.</div>
+
+  <nav class="toc card">
+    <a href="#claim">Claim under test</a>
+    <a href="#dict">Field dictionary</a>
+    <a href="#freq">Frequency plan</a>
+    <a href="#block">Block diagram</a>
+    <a href="#chain">How C/SLW becomes a PMT count</a>
+    <a href="#parts">Parts list</a>
+    <a href="#safety">Safety</a>
+    <a href="#passfail">Pass / fail</a>
+    <a href="#protocol">v1 run outline</a>
+    <a href="#not">What this is not</a>
+  </nav>
+
+  <h2 id="claim">Exact claim under test</h2>
+  <div class="banner-legal">
+    <p style="margin:0"><strong>Claim (v1):</strong> A Faraday-caged SLW/SW source transfers population on the 1S–2S interval of hydrogen (or a documented clock-atom S–S), <em>or</em> modulates that interval in a lock-in sense, while companion TEM-null sensors show E⊥ and B below a pre-registered TEM leakage budget at the atom location.</p>
+  </div>
+  <ul>
+    <li><strong>Pass is not</strong> “we saw some UV.” Pass requires modulation transfer + TEM veto + quench discriminator (below).</li>
+    <li><strong>243&nbsp;nm alone</strong> is the known two-photon diagnostic — not proof of SLW.</li>
+    <li><strong>121.6&nbsp;nm with quench on</strong> is ordinary Lyman-α from 2S→2P mixing. The interesting channel is 121.6&nbsp;nm that tracks the SLW/SW modulator with quench <em>off</em> (and TEM budget held).</li>
+  </ul>
+
+  <h2 id="dict">Field dictionary (do not mix)</h2>
+  <table class="passfail">
+    <thead>
+      <tr><th>Mode</th><th>Fields</th><th>Energy / momentum</th><th>Eddy / skin</th><th>Ohmic (Joule)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>TEM</td><td>E⊥, B</td><td>yes / yes (E×B)</td><td>yes</td><td>yes</td></tr>
+      <tr><td><strong>SLW</strong></td><td>B=0, C≠0, <strong>E∥ ≠ 0</strong></td><td>yes / yes (C E / μ)</td><td><strong>no</strong></td><td><strong>yes</strong> (J=σE∥)</td></tr>
+      <tr><td><strong>SW</strong></td><td>B=0, <strong>E=0</strong>, C≠0</td><td>yes (C²/2μ) / <strong>no</strong></td><td><strong>no</strong></td><td><strong>no</strong></td></tr>
+    </tbody>
+  </table>
+  <p>Do not say “SLW has no losses.” Say: no eddy / no classical skin barrier; SLW still has linear Ohmic loss; SW has neither. Hively: SLW from irrotational / gradient current J=∇κ; SW is the E=0 special case of C = ∇·A + εμ ∂Φ/∂t.</p>
+
+  <h2 id="freq">Frequency plan (explicit)</h2>
+  <div class="freq-box">
+1S–2S gap ≈ 10.2 eV
+  two-photon diagnostic: 243 nm ≈ 1.23×10¹⁵ Hz = 1.23 PHz
+  full gap as one quantum / Lyman-α λ: 121.6 nm ≈ 2.47×10¹⁵ Hz = 2.47 PHz
+
+RF cage lineage (this hub / Hively tests): ~1.3 GHz (Expt A) or ~8×10⁹ Hz class
+  8 GHz / 1.23 PHz ≈ 6.5×10⁻⁶  →  not a direct pump
+  </div>
+  <p><strong>v1 architecture (chosen): RF SLW/SW as modulator / gate, not as the 10.2&nbsp;eV photon.</strong></p>
+  <ol>
+    <li><strong>Optical clock / calibration arm (TEM, known physics).</strong> A 243&nbsp;nm two-photon source (or a commercial clock-laser stack for a chosen S–S atom) establishes the line, calibrates the PMTs, and provides a source-dark baseline. This arm is ordinary CED/QED.</li>
+    <li><strong>RF SLW/SW arm (contested).</strong> Faraday-caged skirt-balun monopole and/or bifilar coil at a licensed / lab-safe RF (reuse Experiment&nbsp;A 1296&nbsp;MHz cage practice, or an 8&nbsp;GHz-class launcher if licensed gear exists). Amplitude-modulate the RF. Inside the shield at the atom: TEM-null dipole + loop (or TinySA) prove E⊥, B below budget.</li>
+    <li><strong>Coupling hypothesis under test.</strong> C(t) and/or E∥(t) either (a) move population on the S–S interval, or (b) Stark-like / phase-modulate the interval so the optical count-rate envelope locks to the RF AM. The PMT still only sees TEM UV after the atom returns by an allowed channel.</li>
+    <li><strong>Not in v1.</strong> Claiming the RF quantum itself is 10.2&nbsp;eV; claiming a garage nano-antenna &gt;1&nbsp;THz is ready; treating Navy US&nbsp;12,525,711 as a PMT document (it is RF launch/receive).</li>
+  </ol>
+  <p>If a future revision uses a real VUV / optical-scale C-coupled source as the pump, rewrite this section — do not silently re-label GHz RF as PHz.</p>
+
+  <h2 id="block">Block diagram</h2>
+  <pre class="block-diagram">┌──────────────── RF / SLW–SW SOURCE (caged) ────────────────┐
+│  Synth / amp  →  skirt-balun monopole  and/or  bifilar     │
+│       │                 (AM modulation)                      │
+│       └────────── Faraday mesh / tent / enclosure ──────────│
+└───────────────────────────┬─────────────────────────────────┘
+                            │  C(t), E∥(t)  [claimed]
+                            ▼
+              ┌── ATOM CELL / BEAM ──┐
+              │  H 1S–2S  or clock   │◄── optional DC E (quench 2S↔2P)
+              │  S–S interval        │
+              └──────────┬───────────┘
+         ┌───────────────┼───────────────┐
+         ▼               ▼               ▼
+   TEM-null monitors   Bandpass 243 nm  Bandpass 121.6 nm
+   small dipole+loop   solar-blind PMT  solar-blind PMT
+   (E⊥, B budget)      (2γ diagnostic)  (Lyman-α / claim)
+         │               │               │
+         └───────────────┴───────┬───────┘
+                                 ▼
+                    Lock-in / DAQ vs RF AM
+                    (+ optional 2S ion collector)</pre>
+  <p>Incoming SW/SLW is <em>not</em> the photon the PMT sees. Navy SLW antenna patents do not put a PMT on the launcher — the PMT belongs only on the atomic optical readout.</p>
+
+  <h2 id="chain">How C or SLW becomes a PMT count</h2>
+  <ol>
+    <li>C(t) and/or E∥(t) interact with the atom (scalar monopole term qC/εμ and/or longitudinal E).</li>
+    <li>Population moves on the forbidden S–S interval (prediction).</li>
+    <li>Atom returns by an <strong>allowed TEM</strong> channel: two-photon 2S→1S at <strong>243&nbsp;nm</strong>, or quench 2S→2P→1S <strong>Lyman-α 121.6&nbsp;nm</strong>.</li>
+    <li>PMT + bandpass counts that ordinary UV. Lock-in: UV count-rate envelope should track AM of C² or |E∥|² (and CE cross term on SLW).</li>
+  </ol>
+  <p><strong>Why 121.6&nbsp;nm was called “hypothesized”:</strong> the <em>line</em> is real (Lyman-α). Ordinary origin = 2S mixed to 2P then 2P→1S (proves n=2 only). Direct same-parity single-quantum 2S→1S is the EED claim — only interesting if 2S–2P mixing is vetoed and the rate tracks the modulator.</p>
+
+  <h2 id="parts">Parts list (v1 class — not a shopping cart yet)</h2>
+  <h3>Optical / vacuum</h3>
+  <ul>
+    <li>Hydrogen cell or beam, <em>or</em> a clock atom with a documented S–S interval if H is too hard for v1.</li>
+    <li>MgF₂ or LiF window on the 121.6&nbsp;nm path; vacuum or N₂/Ar purge (air kills Lyman-α in millimeters). 243&nbsp;nm can run in air with a suitable window.</li>
+    <li>Optional: ion collector for classic 2S photoionization readout.</li>
+  </ul>
+  <h3>Detectors</h3>
+  <ul>
+    <li>Solar-blind PMT class: CsI photocathode preferred for 121.6&nbsp;nm; Cs-Te (or similar) for 243&nbsp;nm. Solar-blind ≠ substitute for a bandpass.</li>
+    <li>Bandpass filter 1: ~243&nbsp;nm. Bandpass filter 2: ~121.6&nbsp;nm.</li>
+    <li>HV supply for PMT (~kV class); counting / lock-in electronics.</li>
+  </ul>
+  <h3>RF / SLW side</h3>
+  <ul>
+    <li>Faraday cage / RadioScreen tents (reuse Experiment&nbsp;A practice on <a href="setup.html">setup.html</a>).</li>
+    <li>Skirt-balun monopole and/or counter-wound bifilar coil (Hively / Navy geometry). Licensed frequency — do not invent an unlicensed 8&nbsp;GHz radiator.</li>
+    <li>TEM-null: small dipole + loop inside the shield at the atom, or TinySA Ultra as a residual E/B monitor (same kit language as A/B).</li>
+    <li>AM modulator + reference to DAQ.</li>
+  </ul>
+  <h3>Optical clock arm</h3>
+  <ul>
+    <li>243&nbsp;nm two-photon stack (or commercial clock laser for the chosen atom) for source-dark line scan and PMT calibration.</li>
+  </ul>
+  <p class="footnote">Model numbers and SKUs will be filled after a buy pass; this list is the discriminator-complete class list from the 9&nbsp;Sep&nbsp;2026 brief.</p>
+
+  <h2 id="safety">Safety</h2>
+  <ul>
+    <li><strong>UV-C / VUV:</strong> 243&nbsp;nm and especially 121.6&nbsp;nm — eye and skin hazard; no direct viewing; enclosed beam paths; interlocks where practical. Ozone generation near VUV — ventilation.</li>
+    <li><strong>PMT HV:</strong> ~kV supplies; treat as lethal; bleed resistors; never probe dynodes live.</li>
+    <li><strong>Hydrogen:</strong> flammable; leak check; no ignition sources; follow compressed-gas SOP. Prefer sealed cell over open flow for v1 if possible.</li>
+    <li><strong>RF:</strong> licensed amateur / ISM only; Faraday wrap for experimenters as well as the claim; no magnetron protocol (same hub rule as A).</li>
+    <li><strong>Educational disclaimer:</strong> contested physics; not for medical, free-energy, or operational communications claims.</li>
+  </ul>
+
+  <h2 id="passfail">Pass / fail table (discriminators)</h2>
+  <table class="passfail">
+    <thead>
+      <tr><th>#</th><th>Test</th><th>Pass</th><th>Fail / abort</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>TEM leakage budget</td>
+        <td>Cage attenuation vs measured dipole/loop residuals at the atom meet the pre-registered budget while RF is on</td>
+        <td>Residuals above budget — any optical correlation is TEM-contaminated</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Quench control</td>
+        <td>Apply / remove small DC E to mix 2S–2P. 121.6&nbsp;nm that <em>only</em> appears with quench = ordinary Lyman-α (document, not claim). 121.6&nbsp;nm that tracks SLW/SW AM with quench <strong>off</strong> = interesting channel</td>
+        <td>No quench map; or “121.6 always on” with uncontrolled stray E</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Source-dark 243&nbsp;nm</td>
+        <td>Two-photon scan finds the line; PMT calibration holds with RF off</td>
+        <td>No line / dead PMT / wrong bandpass — stop before RF claims</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Modulation transfer</td>
+        <td>Lock-in on source AM; optical counts follow RF AM envelope above null runs</td>
+        <td>Counts ignore AM; or follow lab TEM artifacts that also AM with the amp</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>E∥ vs C separation (hard, stretch goal)</td>
+        <td>A mode with E=0 (SW) still moves the atom → pure-C coupling evidence</td>
+        <td>Only modes with measurable E∥ work — consistent with SLW Ohmic/longitudinal-E story, not proof of pure SW</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 id="protocol">v1 run outline</h2>
+  <ol>
+    <li>Commission optical arm alone: 243&nbsp;nm line, PMT dark counts, bandpass check.</li>
+    <li>Commission cage + TEM-null budget with RF on, atom cell empty or blocked.</li>
+    <li>Load atom; RF off; repeat 243&nbsp;nm baseline.</li>
+    <li>RF AM on; quench off; lock-in 243 and 121.6 channels vs AM.</li>
+    <li>Quench on/off map at fixed RF AM.</li>
+    <li>Nulls: RF off, detuned RF, intentional TEM leak (open mesh flap) as negative controls.</li>
+    <li>Write results against the pass/fail table; do not upgrade language past what the discriminators allow.</li>
+  </ol>
+
+  <h2 id="not">What this is not</h2>
+  <ul>
+    <li>Not Experiment A’s bifilar SNR claim by itself, and not Experiment B’s brass-rod polarizer.</li>
+    <li>Not a claim that US&nbsp;9,306,527 already contains a finished 1S–2S beam result — the patent <em>mentions</em> S–S as an application.</li>
+    <li>Not Channel&nbsp;E nuclei / EC chemistry on <a href="c-nuclei.html">c-nuclei.html</a> (related EED conversation, different observable).</li>
+    <li>Not permission to radiate unlicensed 8&nbsp;GHz or to skip UV/H₂/HV safety.</li>
+  </ul>
+
+  <p class="footnote">Brief source: <code>SLW_SW_atomic_experiment_brief_2026-09-09.md</code> (Dan Britton, 9&nbsp;Sep&nbsp;2026). Hub page v1 drafted by Chief of Staff the same day. Contested vs Maxwell/CED; inclusion is not endorsement.</p>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Middletown, RI / Lady Lake, FL · ARRL member · experimental-physics enthusiast<br>
+      Built with prior Grok (xAI) pages at
+      <a href="https://github.com/9wzg44nz44-glitch">github.com/9wzg44nz44-glitch</a>.
+    </div>
+    <div>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics and are not IEEE-standard antenna theory.
+      No medical, free-energy, over-unity, or operational communications claims.
+      UV-C / VUV, PMT high voltage, and hydrogen require real lab controls — this page is not a safety manual substitute.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+</body>
+</html>
