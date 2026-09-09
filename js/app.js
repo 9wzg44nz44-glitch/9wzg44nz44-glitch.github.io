@@ -48,7 +48,7 @@ function downloadText(filename, text, mime) {
   if (!list) return;
   const tabs = [...list.querySelectorAll("[role=tab]")];
   const panels = tabs.map((t) => document.getElementById(t.getAttribute("aria-controls")));
-  const hashes = { "expt-a": 0, "expt-b": 1, kit: 2 };
+  const hashes = { "expt-a": 0, "expt-b": 1, "expt-c": 2, kit: 3 };
 
   function select(i, pushHash) {
     tabs.forEach((t, n) => {
