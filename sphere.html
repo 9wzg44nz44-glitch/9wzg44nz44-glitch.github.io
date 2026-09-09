@@ -39,7 +39,20 @@
     </nav>
   </div>
 </header>
-<nav class="expt-strip" aria-label="Two experiments">
+<nav id="expt-abc" class="expt-abc" aria-label="Jump to Experiment A, B, or C">
+  <span class="expt-abc-label">Experiments</span>
+  <a class="expt-abc-btn" data-expt="a" href="index.html#expt-a"><span class="k">A</span> 1296 MHz cage</a>
+  <a class="expt-abc-btn" data-expt="b" href="index.html#expt-b"><span class="k">B</span> 433 MHz</a>
+  <a class="expt-abc-btn" data-expt="c" href="experiment-c.html"><span class="k">C</span> atomic 1S–2S</a>
+  <a class="expt-abc-sub" href="setup.html">A setup</a>
+  <a class="expt-abc-sub" href="monstein.html">B monstein</a>
+  <a class="expt-abc-sub" href="experiment-c.html">C protocol</a>
+  <a class="expt-abc-sub" href="experiment-c-snr.html">C SNR</a>
+  <a class="expt-abc-sub" href="kit.html">Kit</a>
+  <a class="expt-abc-sub" href="index.html">Home</a>
+</nav>
+
+<nav class="expt-strip" aria-label="Experiments A · B · C">
   <a href="index.html#expt-a"><span class="expt-k">A</span> 1296 MHz cage</a>
   <a href="setup.html">setup</a>
   <a href="fields.html">fields</a>
@@ -48,6 +61,10 @@
   <a href="monstein.html">monstein</a>
   <a href="sphere.html" aria-current="page">sphere</a>
   <span class="sep">·</span>
+    <span class="sep">·</span>
+  <a href="index.html#expt-c"><span class="expt-k">C</span> atomic 1S–2S</a>
+  <a href="experiment-c.html">protocol</a>
+  <a href="experiment-c-snr.html">SNR</a>
   <a href="index.html#kit">Kit</a>
 </nav>
 
