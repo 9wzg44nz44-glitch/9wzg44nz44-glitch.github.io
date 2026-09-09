@@ -25,6 +25,9 @@
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="primary" id="nav">
       <a href="index.html">Home</a>
+      <a href="index.html#expt-a">Expt A</a>
+      <a href="index.html#expt-b">Expt B</a>
+      <a href="experiment-c.html">Expt C</a>
       <a href="learn.html">Learn</a>
       <a href="compare.html">Compare</a>
       <a href="c-nuclei.html">C×nuclei</a>
@@ -38,6 +41,18 @@
     </nav>
   </div>
 </header>
+<nav id="expt-abc" class="expt-abc" aria-label="Jump to Experiment A, B, or C">
+  <span class="expt-abc-label">Experiments</span>
+  <a class="expt-abc-btn" data-expt="a" href="#expt-a"><span class="k">A</span> 1296 MHz cage</a>
+  <a class="expt-abc-btn" data-expt="b" href="#expt-b"><span class="k">B</span> 433 MHz</a>
+  <a class="expt-abc-btn" data-expt="c" href="experiment-c.html"><span class="k">C</span> atomic 1S–2S</a>
+  <a class="expt-abc-sub" href="setup.html">A setup</a>
+  <a class="expt-abc-sub" href="monstein.html">B monstein</a>
+  <a class="expt-abc-sub" href="experiment-c.html">C protocol</a>
+  <a class="expt-abc-sub" href="experiment-c-snr.html">C SNR</a>
+  <a class="expt-abc-sub" href="kit.html">Kit</a>
+</nav>
+
 <main id="main" class="wrap">
 
 <section class="hero">
