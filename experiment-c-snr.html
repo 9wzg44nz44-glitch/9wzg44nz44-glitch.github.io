@@ -1,243 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="format-detection" content="telephone=no">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Experiment C SNR · SLW P_OUT, Ohmic path, atom / PMT · SLW Hub</title>
-<meta name="description" content="Illustrative Experiment C SNR: Hively P_OUT isotropic cartoon, geometric 1/r², SLW Ohmic σE² path loss, optional SW α=0, atom coupling η, dual PMT count estimates.">
-<meta name="author" content="Dan Britton">
-<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="format-detection" content="telephone=no"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Experiment C SNR · graphical SLW path + PMT current · SLW Hub</title>
+<meta name="description" content="Graphical Experiment C SNR: SLW P_OUT, geometric 1/r², Ohmic loss, atom interaction, PMT cathode/anode current and recovered AM tone.">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css">
 <style>
-  .controls { display: grid; gap: .7rem 1.2rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 1rem 0; }
-  .controls label { display: block; font-size: .9rem; }
-  .controls output, .mono { font-family: "IBM Plex Mono", monospace; }
-  .eq { overflow-x: auto; font-family: "IBM Plex Mono", monospace; font-size: .82rem; background: rgba(0,0,0,.04); padding: .8rem 1rem; border-radius: 8px; white-space: pre-wrap; }
-  .readout { background: #0b1020; color: #d7e0f2; padding: 1rem 1.1rem; border-radius: 8px; font-family: "IBM Plex Mono", monospace; font-size: .85rem; line-height: 1.5; }
-  table.passfail { width: 100%; border-collapse: collapse; font-size: .92rem; }
-  table.passfail th, table.passfail td { border: 1px solid rgba(0,0,0,.12); padding: .5rem .6rem; text-align: left; vertical-align: top; }
-  table.passfail th { background: rgba(0,0,0,.04); }
-</style>
-</head>
-<body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="site">
-  <div class="wrap">
-    <a class="brand" href="index.html"><img src="assets/mark.svg" alt=""> SLW Hub</a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
-    <nav class="primary" id="nav">
-      <a href="index.html">Home</a>
-      <a href="experiment-c.html">Expt C</a>
-      <a href="experiment-c-snr.html" aria-current="page">C · SNR</a>
-      <a href="fields.html">Fields</a>
-      <a href="sw-vs-slw.html">SW vs SLW</a>
-      <a href="library.html">Library</a>
-    </nav>
-  </div>
-</header>
-<nav class="expt-strip" aria-label="Three experiments">
-  <a href="index.html#expt-a"><span class="expt-k">A</span> 1296</a>
-  <a href="index.html#expt-b"><span class="expt-k">B</span> 433</a>
-  <a href="index.html#expt-c" aria-current="page"><span class="expt-k">C</span> atomic 1S–2S</a>
-  <a href="experiment-c.html">protocol</a>
-  <a href="experiment-c-snr.html" aria-current="page">SNR</a>
-</nav>
-
+.controls{display:grid;gap:.7rem 1.2rem;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));margin:1rem 0}.controls label{display:block;font-size:.9rem}.controls output,.mono{font-family:"IBM Plex Mono",monospace}.eq{overflow-x:auto;font-family:"IBM Plex Mono",monospace;font-size:.8rem;background:rgba(0,0,0,.04);padding:.8rem 1rem;border-radius:8px;white-space:pre-wrap}.readout{background:#0b1020;color:#d7e0f2;padding:1rem 1.1rem;border-radius:8px;font-family:"IBM Plex Mono",monospace;font-size:.84rem;line-height:1.5;white-space:pre-wrap}.plots{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1rem;margin:1rem 0}.plot-card{background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:10px;padding:.75rem}.plot-card h3{margin:.1rem 0 .4rem}.plot-card canvas{width:100%;height:260px;display:block;background:#0b1020;border-radius:7px}.plot-card p{font-size:.85rem;margin:.5rem 0 0}.meter{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem;margin:1rem 0}.meter>div{background:#0b1020;color:#d7e0f2;border-radius:8px;padding:.7rem}.meter strong{display:block;font:600 1.1rem "IBM Plex Mono",monospace;color:#55d6be}.chain{overflow-x:auto;background:#f5f7fb;padding:.7rem;border-radius:8px;font-family:"IBM Plex Mono",monospace;font-size:.8rem}input[type=range]{width:100%}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a><header class="site"><div class="wrap"><a class="brand" href="index.html"><img src="assets/mark.svg" alt=""> SLW Hub</a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button><nav class="primary" id="nav"><a href="index.html">Home</a><a href="experiment-c.html">Expt C</a><a href="experiment-c-snr.html" aria-current="page">C · SNR</a><a href="experiment-c-cart.html">C · cart</a><a href="fields.html">Fields</a><a href="sw-vs-slw.html">SW vs SLW</a><a href="library.html">Library</a></nav></div></header>
+<nav class="expt-strip" aria-label="Experiment C"><a href="index.html#expt-c"><span class="expt-k">C</span> atomic 1S–2S</a><a href="experiment-c.html">protocol</a><a href="experiment-c-snr.html" aria-current="page">SNR graphs</a><a href="experiment-c-cart.html">cart</a></nav>
 <main id="main" class="wrap">
-  <p class="kicker">Experiment C · SNR companion v0 · illustrative · not a measurement</p>
-  <h1>SLW P<sub>OUT</sub>, Ohmic path loss, and atom / PMT SNR</h1>
-  <p class="lede">Toy for sizing how much longitudinal SLW power leaves the transmitter, how geometric + <strong>Ohmic</strong> path loss eat it before a distant hydrogen (or clock) atom, and whether a dual-band PMT could recover an AM information envelope. Parent protocol: <a href="experiment-c.html">experiment-c.html</a>. Contested physics — numbers are educational cartoons.</p>
-  <div class="banner-legal"><strong>Do not forget Ohmic loss on SLW.</strong> B=0 ⇒ no eddy / classical skin pile-up, but E∥ ≠ 0 ⇒ J=σE and p<sub>Joule</sub>=σE∥². Pure SW (E=0) has no σE² term — toggle below. 8&nbsp;GHz RF is still not a 10.2&nbsp;eV photon; η<sub>atom</sub> is a free coupling until measured.</div>
+<p class="kicker">Experiment C · graphical SNR v1 · illustrative · not a measurement</p><h1>From SLW transmitter to PMT current — a picture you can tune</h1>
+<p class="lede">Move the sliders and watch four windows update: <strong>whole signal chain</strong>, <strong>power density vs distance</strong>, <strong>Ohmic loss vs conductor path</strong>, and <strong>PMT anode current / recovered AM</strong>. Parent: <a href="experiment-c.html">Experiment C</a>. Cart: <a href="experiment-c-cart.html">parts + rough $</a>.</p>
+<div class="banner-legal"><strong>Illustrative only.</strong> Hively <code>P_OUT</code> + 1/r² are theory cartoons; α<sub>ohm</sub> and η<sub>atom</sub> are unknown until measured. SLW: E∥≠0 → σE² loss. SW: E=0 → α forced 0. 8&nbsp;GHz is not a 10.2&nbsp;eV photon.</div>
 
-  <h2 id="eq">Equations (as coded)</h2>
-  <pre class="eq">Hively / JPCS isotropic SLW cartoon (patent EQN. 15 · JPCS Eq. 22 shape):
-  P_OUT = I_peak² · Z0 / (4π)          Z0 ≈ 376.73 Ω   [or drive from P_RF · η_launch]
-  S_geom(r) = P_OUT / (4π r²)          free-space geometric spreading
+<h2 id="controls">Main sliders</h2><div class="controls">
+<label>TX<select id="tx"><option>Hively stub</option><option>Bifilar pancake</option><option>Sphere</option><option>Ag–Hg / neon (NZ)</option></select></label>
+<label>Mode<select id="mode"><option value="slw">SLW (Ohmic on)</option><option value="sw">SW (Ohmic off)</option></select></label>
+<label>I_peak <output id="oI"></output><input id="I" type="range" min="0.001" max="2" step="0.001" value="0.05"></label>
+<label>P_RF feed <output id="oPrf"></output><input id="Prf" type="range" min="-10" max="40" step=".5" value="10"></label>
+<label>Use P_RF·η<input id="usePrf" type="checkbox"></label>
+<label>η_launch <output id="oEtaL"></output><input id="etaL" type="range" min=".001" max="1" step=".001" value=".1"></label>
+<label>Range r <output id="oR"></output><input id="r" type="range" min=".05" max="50" step=".05" value="1"></label>
+<label>Ohmic path L <output id="oL"></output><input id="L" type="range" min="0" max="20" step=".01" value="1"></label>
+<label>α_ohm (power Np/m) <output id="oA"></output><input id="alpha" type="range" min="0" max="5" step=".01" value=".05"></label>
+<label>A_atom <output id="oAa"></output><input id="AaExp" type="range" min="-22" max="-8" step=".1" value="-18"></label>
+<label>η_atom <output id="oEtaA"></output><input id="etaAExp" type="range" min="-15" max="-1" step=".1" value="-6"></label>
+</div>
 
-Ohmic (SLW only — Hively EQNs 11–17 energy exchange; local Joule):
-  p_Joule = σ E∥²
-  transient patent form: E ∝ exp(−ε t / σ)     (EQN. 12 family)
-  path toy:  Att_ohm_dB = 8.686 · α_ohm · L     (α_ohm = 0 for SW mode)
-  S(r) = S_geom(r) · 10^(−Att_ohm_dB/10)
+<h2 id="pmt">PMT / electronics sliders</h2><div class="controls">
+<label>PMT channel<select id="pmt"><option value="243">R8486 · 243 nm</option><option value="122">R8487 · 121.6 nm</option></select></label>
+<label>Photocathode QE <output id="oQE"></output><input id="qe" type="range" min=".001" max=".4" step=".001" value=".05"></label>
+<label>Optics transmission <output id="oT"></output><input id="T" type="range" min=".001" max="1" step=".001" value=".12"></label>
+<label>PMT gain M <output id="oGain"></output><input id="gainExp" type="range" min="3" max="7" step=".1" value="6"></label>
+<label>Dark current <output id="oIdark"></output><input id="idarkExp" type="range" min="-13" max="-7" step=".1" value="-10"></label>
+<label>C9663 transimpedance <output id="oZt"></output><input id="zt" type="range" min="100" max="10000" step="100" value="4000"></label>
+<label>AM depth m <output id="oM"></output><input id="m" type="range" min="0" max="1" step=".01" value=".5"></label>
+<label>f_mod <output id="oF"></output><input id="fmod" type="range" min="100" max="1000" step="10" value="200"></label>
+<label>RBW <output id="oRBW"></output><input id="rbw" type="range" min="1" max="100" step="1" value="10"></label>
+</div>
 
-At the atom (placeholder until a cross-section exists):
-  P_interact ≈ S(r) · A_atom · η_atom
-  R_signal ≈ (P_interact / E_gap) · QE · T_optics · duty     E_gap = 10.2 eV
-  SNR_counts ≈ R_signal / sqrt(R_signal + R_dark)   (Poisson, 1 s gate)</pre>
-  <p class="footnote">JPCS also writes SLW impedance with JL=σEL and tan δε=ε″/ε′ (Eq.&nbsp;21). This page’s α_ohm slider is the experimenter-facing stand-in for that conductive-media Ohmic exchange until a medium-specific α(σ,ω) table is filled. Geometric 1/r² alone is <em>not</em> Ohmic.</p>
+<div class="meter">
+<div>SLW/SW P_OUT<strong id="mPout">—</strong></div><div>At atom: S<strong id="mS">—</strong></div><div>PMT cathode current<strong id="mIk">—</strong></div><div>PMT anode current<strong id="mIa">—</strong></div><div>AM current swing<strong id="mIam">—</strong></div><div>C9663 output<strong id="mV">—</strong></div><div>TinySA tone<strong id="mDbm">—</strong></div><div>Count SNR (1 s)<strong id="mSnr">—</strong></div>
+</div>
 
-  <h2 id="calc">Calculator</h2>
-  <div class="controls">
-    <label>TX type
-      <select id="tx">
-        <option value="stub">Hively sleeve/skirt stub</option>
-        <option value="bifilar">Hively bifilar pancake</option>
-        <option value="sphere">Ball / sphere (MW-style)</option>
-        <option value="plasma">Ag–Hg / neon lamp (NZ-style)</option>
-      </select>
-    </label>
-    <label>Mode
-      <select id="mode">
-        <option value="slw">SLW (C + E∥) — Ohmic on</option>
-        <option value="sw">SW (E=0) — Ohmic α forced 0</option>
-      </select>
-    </label>
-    <label>Drive: I_peak (A) <output id="oI"></output>
-      <input id="I" type="range" min="0.001" max="2" step="0.001" value="0.05">
-    </label>
-    <label>Or P_RF at feed (dBm) <output id="oPrf"></output>
-      <input id="Prf" type="range" min="-10" max="40" step="0.5" value="10">
-    </label>
-    <label>Launch fraction η_launch to SLW/SW channel <output id="oEtaL"></output>
-      <input id="etaL" type="range" min="0.001" max="1" step="0.001" value="0.1">
-    </label>
-    <label>Use P_RF·η instead of I² cartoon
-      <input id="usePrf" type="checkbox">
-    </label>
-    <label>Range r (m) <output id="oR"></output>
-      <input id="r" type="range" min="0.05" max="50" step="0.05" value="1">
-    </label>
-    <label>Ohmic path length L (m) <output id="oL"></output>
-      <input id="L" type="range" min="0" max="20" step="0.01" value="0">
-    </label>
-    <label>α_ohm (Np/m) for SLW <output id="oA"></output>
-      <input id="alpha" type="range" min="0" max="5" step="0.01" value="0.05">
-    </label>
-    <label>Atom effective area A_atom (m²) <output id="oAa"></output>
-      <input id="Aa" type="range" min="1e-20" max="1e-10" step="1e-20" value="1e-18">
-    </label>
-    <label>Coupling η_atom (free) <output id="oEtaA"></output>
-      <input id="etaA" type="range" min="1e-12" max="1e-2" step="1e-12" value="1e-6">
-    </label>
-    <label>PMT QE × optics T <output id="oQE"></output>
-      <input id="qe" type="range" min="0.001" max="0.4" step="0.001" value="0.05">
-    </label>
-    <label>Dark rate (counts/s) <output id="oDark"></output>
-      <input id="dark" type="range" min="1" max="1e5" step="1" value="200">
-    </label>
-    <label>AM depth m <output id="oM"></output>
-      <input id="m" type="range" min="0" max="1" step="0.01" value="0.5">
-    </label>
-  </div>
+<div class="chain" id="chain">TX → P_OUT → 1/r² → Ohmic path → atom → photons → PMT cathode → gain → anode current → C9663 → attenuator → TinySA</div>
 
-  <div class="readout" id="out" aria-live="polite"></div>
+<h2>Graph windows</h2><div class="plots">
+<article class="plot-card"><h3>1 · Whole chain (dB budget)</h3><canvas id="chainPlot"></canvas><p>Bars show each stage’s power/current proxy on a common dB ladder. Use as a human picture, not calibration.</p></article>
+<article class="plot-card"><h3>2 · Power density vs range</h3><canvas id="rangePlot"></canvas><p>Teal = geometric 1/r²; orange = after current Ohmic path factor.</p></article>
+<article class="plot-card"><h3>3 · Ohmic survival vs path length</h3><canvas id="ohmicPlot"></canvas><p>SLW falls as exp(−αL) in this power-loss toy. SW stays flat (α=0).</p></article>
+<article class="plot-card"><h3>4 · PMT anode current + recovered AM</h3><canvas id="pmtPlot"></canvas><p>Current waveform at f_mod. Dashed line = PMT dark current. TinySA reads the AM tone after C9663.</p></article>
+</div>
 
-  <h2 id="det">Side detectors (same AM — qualitative)</h2>
-  <p>Check what else sits next to the cell. This block does not invent their SNRs yet; it only reminds you to log them against the same TX AM as the PMT.</p>
-  <ul>
-    <li><label><input type="checkbox" id="dBif" checked> Bifilar receive coil (SLW)</label></li>
-    <li><label><input type="checkbox" id="dNz"> Ar–Hg / neon lamp (NZ-style)</label></li>
-    <li><label><input type="checkbox" id="dJj"> Josephson / phase sensor (C / SW stretch)</label></li>
-    <li><label><input type="checkbox" id="dTem" checked> TEM-null dipole + loop (veto)</label></li>
-  </ul>
-  <p class="mono" id="sideNote"></p>
-
-  <h2 id="refs">Sources for the loss terms</h2>
-  <ul>
-    <li>Hively, US&nbsp;9,306,527 B1 — EQN.&nbsp;12 family (E∝exp(−εt/σ) with J=σE); EQNs&nbsp;11–17 energy exchange in conductors; EQN.&nbsp;15 P<sub>OUT</sub>; free-space attenuation ∝1/r².</li>
-    <li>Hively &amp; Land, <cite>J. Phys.: Conf. Ser.</cite> 1956 012011 (2021) — Eqs.&nbsp;20–22 (EL, Z with tan δε, P<sub>OUT</sub>).</li>
-    <li>Hub dictionary: <a href="sw-vs-slw.html">sw-vs-slw.html</a> (σE² vs SW no-Joule).</li>
-    <li>Experiment A TinySA toys (different observable): <a href="fields.html#snr">fields.html#snr</a>.</li>
-  </ul>
-  <p class="footnote">v0 · 9&nbsp;Sep&nbsp;2026. Replace η_atom and α_ohm with measured / medium tables as Experiment&nbsp;C matures. Decay-rate SNR belongs on the future Experiment&nbsp;D page, not here.</p>
-</main>
-<footer class="site">
-  <div class="wrap">
-    <div><strong>Dan Britton</strong> · educational SLW hub</div>
-    <div>Illustrative only. Not settled physics. Not a safety manual.</div>
-  </div>
-</footer>
-<script src="js/app.js"></script>
+<h2 id="readout">Detailed readout</h2><div class="readout" id="out"></div>
+<h2 id="eq">Equations</h2><pre class="eq">P_OUT = η_launch · I_peak² Z0/(4π)    (or η_launch · P_RF)
+S_geom = P_OUT/(4πr²) ;  S = S_geom exp(−α_ohm L)
+P_interact = S A_atom η_atom
+photon rate = P_interact/E_gap ; E_gap = 10.2 eV
+I_cathode = e · photon_rate · QE · T_optics
+I_anode = M · I_cathode + I_dark
+ΔI_AM = m · M · I_cathode
+V_C9663 = ΔI_AM · Z_transimpedance
+P_50Ω = V_rms²/50 ; TinySA tone = 10 log10(P/1mW)</pre>
+<p class="footnote">PMT output-current model is a first-order average-current / sinusoidal-envelope picture. Real single-photon work uses pulse height, discriminator, dead time, and count statistics. Keep anode average below the tube’s rated current; never raw anode to TinySA. v1 · 9 Sep 2026.</p>
+</main><footer class="site"><div class="wrap"><div><strong>Dan Britton</strong> · Experiment C graphical SNR</div><div>Educational, contested, illustrative.</div></div></footer><script src="js/app.js"></script>
 <script>
-(function () {
-  const Z0 = 376.730313461;
-  const E_GAP = 10.2 * 1.602176634e-19; // J
-  const $ = (id) => document.getElementById(id);
-  const ids = ["tx","mode","I","Prf","etaL","usePrf","r","L","alpha","Aa","etaA","qe","dark","m","dBif","dNz","dJj","dTem"];
-  function num(id) { return parseFloat($(id).value); }
-  function fmt(x, d) {
-    if (!isFinite(x)) return "—";
-    if (Math.abs(x) > 0 && (Math.abs(x) < 1e-3 || Math.abs(x) >= 1e4)) return x.toExponential(d);
-    return x.toPrecision(d);
-  }
-  function syncLabels() {
-    $("oI").textContent = num("I").toFixed(3) + " A";
-    $("oPrf").textContent = num("Prf").toFixed(1) + " dBm";
-    $("oEtaL").textContent = num("etaL").toPrecision(3);
-    $("oR").textContent = num("r").toFixed(2) + " m";
-    $("oL").textContent = num("L").toFixed(2) + " m";
-    $("oA").textContent = num("alpha").toFixed(2) + " Np/m";
-    $("oAa").textContent = num("Aa").toExponential(2) + " m²";
-    $("oEtaA").textContent = num("etaA").toExponential(2);
-    $("oQE").textContent = num("qe").toPrecision(3);
-    $("oDark").textContent = Math.round(num("dark")) + " /s";
-    $("oM").textContent = num("m").toFixed(2);
-  }
-  function recalc() {
-    syncLabels();
-    const mode = $("mode").value;
-    const sw = mode === "sw";
-    $("alpha").disabled = sw;
-    const I = num("I");
-    const etaL = num("etaL");
-    let Pout;
-    if ($("usePrf").checked) {
-      const Prf_W = Math.pow(10, (num("Prf") - 30) / 10);
-      Pout = Prf_W * etaL;
-    } else {
-      Pout = (I * I * Z0) / (4 * Math.PI); // patent EQN 15 shape
-      Pout *= etaL; // allow imperfect launch into SLW channel
-    }
-    const r = Math.max(num("r"), 1e-6);
-    const Sgeom = Pout / (4 * Math.PI * r * r);
-    const alpha = sw ? 0 : num("alpha");
-    const L = num("L");
-    const AttNp = alpha * L;
-    const Att_dB = 8.686 * AttNp;
-    const S = Sgeom * Math.exp(-2 * AttNp); // power ~ |E|²; α on amplitude → 2α on power; use Att on power via exp(-α_power L) with α_power=2α if α is field Np — document: we treat α_ohm as power Np/m for experimenter simplicity
-    // Re-read: Att_ohm_dB = 8.686*α*L with α in Np/m usually field. For power use 2α.
-    // Educational: define slider as POWER nepers/m so S *= exp(-α L) and Att_dB = 8.686*α*L
-    const S_power = Sgeom * Math.exp(-AttNp);
-    const Att_dB_power = 8.686 * AttNp;
-
-    const Pint = S_power * num("Aa") * num("etaA");
-    const Rsig = (Pint / E_GAP) * num("qe");
-    const Rdark = num("dark");
-    const snr = Rsig / Math.sqrt(Rsig + Rdark + 1e-30);
-    const m = num("m");
-    const Rmod = Rsig * m; // AM sideband scale toy
-
-    const tx = $("tx").selectedOptions[0].text;
-    $("out").textContent =
-`TX: ${tx} · mode: ${sw ? "SW (α_ohm forced 0)" : "SLW (Ohmic on)"}
-P_OUT (channel)     = ${fmt(Pout, 4)} W   (${fmt(10*Math.log10(Pout*1000)+30, 4)} dBm)
-S_geom(r)           = ${fmt(Sgeom, 4)} W/m²
-Att_ohm (power toy) = ${Att_dB_power.toFixed(2)} dB over L=${L.toFixed(2)} m  (α=${alpha.toFixed(3)} Np/m)
-S after Ohmic       = ${fmt(S_power, 4)} W/m²
-P_interact          = ${fmt(Pint, 4)} W
-R_signal (counts/s) = ${fmt(Rsig, 4)}
-R_dark              = ${fmt(Rdark, 4)} /s
-AM depth m          = ${m.toFixed(2)} → ΔR ≈ ${fmt(Rmod, 4)} /s
-SNR (1 s Poisson)   = ${fmt(snr, 4)}
-E_gap fixed 10.2 eV · RF frequency is NOT this gap (see experiment-c.html#freq)`;
-
-    const sides = [];
-    if ($("dBif").checked) sides.push("bifilar RX");
-    if ($("dNz").checked) sides.push("NZ lamp");
-    if ($("dJj").checked) sides.push("Josephson/phase");
-    if ($("dTem").checked) sides.push("TEM-null veto");
-    $("sideNote").textContent = sides.length
-      ? "Log vs same TX AM: " + sides.join(", ") + "."
-      : "No side detectors selected.";
-  }
-  ids.forEach((id) => $(id).addEventListener("input", recalc));
-  ids.forEach((id) => $(id).addEventListener("change", recalc));
-  recalc();
-})();
-</script>
-</body>
-</html>
+(()=>{const $=id=>document.getElementById(id),Z0=376.730313461,e=1.602176634e-19,Egap=10.2*e,ids=["tx","mode","I","Prf","usePrf","etaL","r","L","alpha","AaExp","etaAExp","pmt","qe","T","gainExp","idarkExp","zt","m","fmod","rbw"];
+const num=id=>+$ (id).value, pow10=x=>10**x, fmt=(x,u="")=>{if(!isFinite(x))return"—";return (Math.abs(x)&& (Math.abs(x)<1e-3||Math.abs(x)>=1e4)?x.toExponential(2):x.toPrecision(3))+u};
+function canvas(id){const c=$(id),d=devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;c.width=w*d;c.height=h*d;const x=c.getContext("2d");x.setTransform(d,0,0,d,0,0);return{x,w,h}};
+function axes(g,titleX,titleY){let{x,w,h}=g;x.strokeStyle="#75839e";x.lineWidth=1;x.beginPath();x.moveTo(46,15);x.lineTo(46,h-34);x.lineTo(w-12,h-34);x.stroke();x.fillStyle="#a9b7cc";x.font="11px IBM Plex Mono";x.fillText(titleY,6,13);x.fillText(titleX,w-100,h-10)}
+function plotLine(g,pts,minY,maxY,color){let{x,w,h}=g,L=46,R=w-12,T=18,B=h-34;x.strokeStyle=color;x.lineWidth=2;x.beginPath();pts.forEach((v,i)=>{let px=L+i*(R-L)/(pts.length-1),py=B-(v-minY)/(maxY-minY)*(B-T);i?x.lineTo(px,py):x.moveTo(px,py)});x.stroke()}
+function labels(g,minY,maxY){let{x,w,h}=g;x.fillStyle="#a9b7cc";x.font="10px IBM Plex Mono";for(let i=0;i<=4;i++){let v=minY+i*(maxY-minY)/4,py=h-34-i*(h-52)/4;x.fillText(v.toFixed(1),5,py+3);x.strokeStyle="rgba(255,255,255,.08)";x.beginPath();x.moveTo(46,py);x.lineTo(w-12,py);x.stroke()}}
+function recalc(){let sw=$("mode").value==="sw";$("alpha").disabled=sw;let etaL=num("etaL"),Pout=$("usePrf").checked?pow10((num("Prf")-30)/10)*etaL:num("I")**2*Z0/(4*Math.PI)*etaL,r=num("r"),alpha=sw?0:num("alpha"),L=num("L"),Sg=Pout/(4*Math.PI*r*r),S=Sg*Math.exp(-alpha*L),Aa=pow10(num("AaExp")),etaA=pow10(num("etaAExp")),Pint=S*Aa*etaA,phot=Pint/Egap,QE=num("qe"),T=num("T"),Rpe=phot*QE*T,Ik=e*Rpe,M=pow10(num("gainExp")),Isig=Ik*M,Idark=pow10(num("idarkExp")),Ia=Isig+Idark,di=Isig*num("m"),Zt=num("zt"),Vpk=di*Zt,Vrms=Vpk/Math.sqrt(2),P50=Vrms*Vrms/50,dbm=P50>0?10*Math.log10(P50/.001):-Infinity,Rdark=Idark/(e*M),snr=Rpe/Math.sqrt(Rpe+Rdark+1e-30);
+$("oI").textContent=num("I").toFixed(3)+" A";$("oPrf").textContent=num("Prf").toFixed(1)+" dBm";$("oEtaL").textContent=etaL.toFixed(3);$("oR").textContent=r.toFixed(2)+" m";$("oL").textContent=L.toFixed(2)+" m";$("oA").textContent=alpha.toFixed(2)+" Np/m";$("oAa").textContent=Aa.toExponential(1)+" m²";$("oEtaA").textContent=etaA.toExponential(1);$("oQE").textContent=QE.toFixed(3);$("oT").textContent=T.toFixed(3);$("oGain").textContent=M.toExponential(1);$("oIdark").textContent=Idark.toExponential(1)+" A";$("oZt").textContent=Zt.toFixed(0)+" V/A";$("oM").textContent=num("m").toFixed(2);$("oF").textContent=num("fmod").toFixed(0)+" kHz";$("oRBW").textContent=num("rbw").toFixed(0)+" kHz";
+$("mPout").textContent=fmt(Pout," W");$("mS").textContent=fmt(S," W/m²");$("mIk").textContent=fmt(Ik," A");$("mIa").textContent=fmt(Ia," A");$("mIam").textContent=fmt(di," A pk");$("mV").textContent=fmt(Vpk," V pk");$("mDbm").textContent=isFinite(dbm)?dbm.toFixed(1)+" dBm":"off";$("mSnr").textContent=fmt(snr);
+$("chain").textContent=`${$("tx").value} → P_OUT ${fmt(Pout," W")} → r=${r.toFixed(2)} m → Ohmic ${ (4.343*alpha*L).toFixed(2)} dB → atom ${fmt(Pint," W")} → ${fmt(Rpe," pe/s")} → PMT M=${M.toExponential(1)} → ΔI=${fmt(di," A")} → C9663 ${fmt(Vpk," Vpk")} → TinySA ${isFinite(dbm)?dbm.toFixed(1)+" dBm":"off"}`;
+$("out").textContent=`TX: ${$("tx").value}; mode: ${sw?"SW (α=0)":"SLW"}\nP_OUT = ${fmt(Pout," W")}\nS_geom = ${fmt(Sg," W/m²")}\nOhmic survival = ${(100*Math.exp(-alpha*L)).toFixed(2)}% (${(4.343*alpha*L).toFixed(2)} dB)\nS at atom = ${fmt(S," W/m²")}\nP_interact = ${fmt(Pint," W")}\nincident quanta/s = ${fmt(phot)}\nphotoelectrons/s = ${fmt(Rpe)}\nI_cathode = ${fmt(Ik," A")}\nPMT gain M = ${M.toExponential(2)}\nI_signal,anode = ${fmt(Isig," A")}\nI_dark = ${fmt(Idark," A")}\nI_anode,total = ${fmt(Ia," A")}\nAM current pk = ${fmt(di," A")}\nC9663 output pk = ${fmt(Vpk," V")}\nTinySA f_mod=${num("fmod").toFixed(0)} kHz tone ≈ ${isFinite(dbm)?dbm.toFixed(2)+" dBm":"off"}\nPoisson count SNR (1 s) = ${fmt(snr)}\nRBW selected ${num("rbw").toFixed(0)} kHz (narrower is better if f_mod stable)`;
+// range plot dB W/m2
+let gp=canvas("rangePlot"),N=120,a=[],b=[];for(let i=0;i<N;i++){let rr=.05+i*(50-.05)/(N-1),gg=Pout/(4*Math.PI*rr*rr);a.push(10*Math.log10(gg));b.push(10*Math.log10(gg*Math.exp(-alpha*L)))}let mn=Math.min(...b)-3,mx=Math.max(...a)+3;axes(gp,"range →","dB W/m²");labels(gp,mn,mx);plotLine(gp,a,mn,mx,"#55d6be");plotLine(gp,b,mn,mx,"#ff9f43");
+// ohmic survival
+let go=canvas("ohmicPlot"),oh=[];for(let i=0;i<N;i++){let ll=20*i/(N-1);oh.push(100*Math.exp(-alpha*ll))}axes(go,"path L →","% survives");labels(go,0,100);plotLine(go,oh,0,100,sw?"#55d6be":"#ff9f43");
+// pmt waveform in nA on adaptive scale
+let gm=canvas("pmtPlot"),wave=[];for(let i=0;i<N;i++){let ph=2*Math.PI*i/(N-1)*3;wave.push((Ia+di*Math.sin(ph))*1e9)}let wm=Math.min(...wave,Idark*1e9),wx=Math.max(...wave,Idark*1e9);if(wx-wm<1e-9){wx=wm+1}axes(gm,"3 AM cycles →","anode nA");labels(gm,wm,wx);plotLine(gm,wave,wm,wx,"#55d6be");let dark=Array(N).fill(Idark*1e9);plotLine(gm,dark,wm,wx,"#ff9f43");
+// chain bars dB normalized proxies
+let gc=canvas("chainPlot"),vals=[10*Math.log10(Pout+1e-300),10*Math.log10(S+1e-300),10*Math.log10(Pint+1e-300),10*Math.log10(Ik*Ik+1e-300),10*Math.log10(Ia*Ia+1e-300),dbm-30],labs=["Pout","S","atom","Ik²","Ia²","50Ω"],finite=vals.map(v=>isFinite(v)?v:-300),cmn=Math.min(...finite)-5,cmx=Math.max(...finite)+5;axes(gc,"stages →","dB proxy");labels(gc,cmn,cmx);let{x,w,h}=gc,B=h-34,Tp=18,bw=(w-70)/vals.length*.65;vals.forEach((v,i)=>{let px=55+i*(w-70)/vals.length,py=B-(finite[i]-cmn)/(cmx-cmn)*(B-Tp);x.fillStyle=i<3?"#55d6be":"#a979ff";x.fillRect(px,py,bw,B-py);x.fillStyle="#a9b7cc";x.font="10px IBM Plex Mono";x.fillText(labs[i],px,h-18)});
+}
+ids.forEach(id=>{$(id).addEventListener("input",recalc);$(id).addEventListener("change",recalc)});window.addEventListener("resize",recalc);recalc()})();
+</script></body></html>
