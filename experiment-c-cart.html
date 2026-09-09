@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experiment C · cart shortlist (optical + TinySA chain) · SLW Hub</title>
+<meta name="description" content="Rough USD shortlist for Experiment C PMT, filters, HV/amp, TinySA Ultra signal chain. Not a live cart; quote before PO.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  table.cart { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  table.cart th, table.cart td { border: 1px solid rgba(0,0,0,.12); padding: .5rem .55rem; text-align: left; vertical-align: top; }
+  table.cart th { background: rgba(0,0,0,.04); }
+  table.cart .usd { font-family: "IBM Plex Mono", monospace; white-space: nowrap; }
+  table.cart .sum { font-weight: 600; background: rgba(0,0,0,.03); }
+  .tier { margin: 1.2rem 0; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/mark.svg" alt=""> SLW Hub</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="experiment-c.html">Expt C</a>
+      <a href="experiment-c-snr.html">C · SNR</a>
+      <a href="experiment-c-cart.html" aria-current="page">C · cart</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<nav class="expt-strip" aria-label="Experiment C">
+  <a href="index.html#expt-c"><span class="expt-k">C</span> atomic 1S–2S</a>
+  <a href="experiment-c.html">protocol</a>
+  <a href="experiment-c.html#buy">buy notes</a>
+  <a href="experiment-c.html#tinysa">TinySA path</a>
+  <a href="experiment-c-cart.html" aria-current="page">cart $</a>
+</nav>
+
+<main id="main" class="wrap">
+  <p class="kicker">Experiment C · cart shortlist · rough USD · 9 Sep 2026 · not an order</p>
+  <h1>Optical + TinySA Ultra chain — shortlist with rough $</h1>
+  <p class="lede">One-page cart for the PMT → amp → TinySA Ultra recovery path plus the minimum optics to see <strong>243&nbsp;nm</strong> and <strong>121.6&nbsp;nm</strong>. Uses your existing TinySA Ultra (Model-406). <strong>Not a live checkout</strong> — Hamamatsu VUV tubes are quote-only; numbers below are educational ranges from public list prices where known, else industry ballparks. Confirm before PO.</p>
+  <div class="banner-legal">Prices are <strong>rough USD</strong>, one-of, no tax/shipping. “List” = public web price seen Sep&nbsp;2026. “Est.” = estimate / quote required. TinySA already owned → $0 incremental.</div>
+
+  <h2 id="min">Tier A — minimum path (one mid-UV PMT → TinySA)</h2>
+  <p>Prove the electronics chain and ~243&nbsp;nm arm first. Defer Lyman-α PMT + VUV filter until the AM tone shows on TinySA.</p>
+  <table class="cart">
+    <thead>
+      <tr><th>Qty</th><th>Item</th><th>Vendor / PN</th><th>Rough $</th><th>Note</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>PMT Cs-Te MgF<sub>2</sub> (243 arm)</td><td>Hamamatsu <strong>R8486</strong></td><td class="usd">Est. 2,500–5,000</td><td>Quote; solar-blind-ish mid-UV</td></tr>
+      <tr><td>1</td><td>HV socket assembly</td><td>Hamamatsu <strong>C12597-01</strong></td><td class="usd">Est. 400–900</td><td>+15&nbsp;V in; −200…−1250&nbsp;V</td></tr>
+      <tr><td>1</td><td>+15&nbsp;V bench supply</td><td>Mean Well / Keysight class</td><td class="usd">List ~80–200</td><td>For C12597</td></tr>
+      <tr><td>1</td><td>Wideband PMT amp → 50&nbsp;Ω</td><td>Hamamatsu <strong>C9663</strong></td><td class="usd">Est. 800–1,800</td><td>DC–150&nbsp;MHz; covers f<sub>mod</sub></td></tr>
+      <tr><td>—</td><td><em>Alt amp (pricier, quieter)</em></td><td>SRS <strong>SR570</strong></td><td class="usd">List 3,395</td><td>Use instead of C9663 if preferred</td></tr>
+      <tr><td>1</td><td>UV bandpass ~243&nbsp;nm</td><td>Newport <strong>10BPF10-239</strong></td><td class="usd">List 389</td><td>Closest stock; or custom 243</td></tr>
+      <tr><td>1</td><td>∅1″ filter mount + cage bits</td><td>Thorlabs / Newport</td><td class="usd">List ~80–200</td><td>Light-tight to PMT</td></tr>
+      <tr><td>1</td><td>PMT housing / blackout tube</td><td>Hamamatsu or DIY Thorlabs</td><td class="usd">Est. 200–800</td><td></td></tr>
+      <tr><td>1</td><td>SMA coax + 10–30&nbsp;dB attenuator</td><td>Mini-Circuits / Amazon kit</td><td class="usd">List ~60–150</td><td>Protect TinySA</td></tr>
+      <tr><td>1</td><td>±5&nbsp;V for C9663 (if used)</td><td>Small dual supply</td><td class="usd">List ~50–120</td><td></td></tr>
+      <tr><td>0</td><td>TinySA Ultra</td><td>Model-406 (owned)</td><td class="usd">0</td><td>Look at f<sub>mod</sub> ≥ 100&nbsp;kHz</td></tr>
+      <tr><td>1</td><td>AM / function gen for f<sub>mod</sub></td><td>FeelTech / Siglent class</td><td class="usd">List ~150–500</td><td>Skip if RF synth already AMs</td></tr>
+      <tr class="sum"><td></td><td colspan="2">Tier A subtotal (with C9663, no SR570)</td><td class="usd">~4.7k–10k</td><td>Dominated by R8486 quote</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="full">Tier B — add Lyman-α channel (121.6&nbsp;nm)</h2>
+  <table class="cart">
+    <thead>
+      <tr><th>Qty</th><th>Item</th><th>Vendor / PN</th><th>Rough $</th><th>Note</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>PMT Cs-I MgF<sub>2</sub></td><td>Hamamatsu <strong>R8487</strong></td><td class="usd">Est. 2,500–6,000</td><td>Quote; 115–195&nbsp;nm</td></tr>
+      <tr><td>1</td><td>Second C12597-01 (+15&nbsp;V already in A)</td><td>Hamamatsu</td><td class="usd">Est. 400–900</td><td>Or share HV carefully — better separate</td></tr>
+      <tr><td>1</td><td>Lyman-α bandpass ~122&nbsp;nm</td><td>eSource / Acton / Pelham (e.g. 25122FXB class)</td><td class="usd">List ~1,800–2,700</td><td>eSource public list ~$2.1–2.7k for 1″</td></tr>
+      <tr><td>1</td><td>MgF<sub>2</sub> window + N<sub>2</sub>/Ar purge plumbing</td><td>Vac / Thorlabs VUV</td><td class="usd">Est. 300–1,200</td><td>Air kills 121.6 in mm</td></tr>
+      <tr><td>1</td><td>VUV H<sub>2</sub> cal lamp (optional)</td><td>Resonance / Opthos-class discharge</td><td class="usd">Est. 1,500–5,000</td><td>Calibration only; needs power</td></tr>
+      <tr class="sum"><td></td><td colspan="2">Tier B add-on</td><td class="usd">~6.5k–16k</td><td></td></tr>
+      <tr class="sum"><td></td><td colspan="2">A + B combined</td><td class="usd">~11k–26k</td><td>Before atomic-H beam / 243&nbsp;nm laser</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="not-yet">Not in this cart (later / separate $)</h2>
+  <ul>
+    <li>Full <strong>243&nbsp;nm two-photon laser</strong> stack (often tens of k$+) — frequency-plan optical arm.</li>
+    <li>Atomic hydrogen beam / RF dissociator (real 1S population).</li>
+    <li>Josephson / SQUID C-sensor, NZ plasma lamps, second bifilar RX (detector bank on <a href="experiment-c.html#det">protocol</a>).</li>
+    <li>Experiment D decay counters — own page later.</li>
+  </ul>
+
+  <h2 id="tinysa-reminder">TinySA wiring reminder</h2>
+  <p>PMT → C12597 → C9663 (50&nbsp;Ω) → attenuator → TinySA Ultra SMA. Set TX AM to <strong>f<sub>mod</sub> ≥ 100&nbsp;kHz</strong>. Never raw anode. Details: <a href="experiment-c.html#tinysa">experiment-c.html#tinysa</a>.</p>
+
+  <h2 id="next">Suggested buy order</h2>
+  <ol>
+    <li>Amp + attenuator + coax + confirm TinySA sees a test tone from a function gen (electronics dry-run, &lt;$500).</li>
+    <li>Quote Hamamatsu R8486 + C12597-01; order Newport 10BPF10-239 + mounts.</li>
+    <li>Integrate optical mid-UV → TinySA with RF AM on the cage TX.</li>
+    <li>Quote R8487 + 122&nbsp;nm filter + purge; add Lyman-α channel.</li>
+    <li>Only then: atomic-H source and/or 243&nbsp;nm clock laser.</li>
+  </ol>
+
+  <p class="footnote">Sources for list prices: Newport.com 10BPF10-239 ($389); thinkSRS.com SR570 (from $3395); eSource Optics VUV 122&nbsp;nm filters (~$1.8–2.7k public). Hamamatsu R8486/R8487/C12597/C9663 = request quote. Cart page v0 · 9&nbsp;Sep&nbsp;2026 · Dan Britton educational hub.</p>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div><strong>Dan Britton</strong> · not a purchase authorization</div>
+    <div>Rough dollars only. Confirm quotes, lead times, and export rules before PO.</div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+</body>
+</html>
