@@ -5,7 +5,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Home · two experiments · SLW Hub</title>
-<meta name="description" content="Educational hub: Experiment A 1296 MHz Faraday-cage sleeve-balun stub plus bifilar pancake; Experiment B 433.59 MHz balls plus polarizer rods (no balun); shared submersible field kit.">
+<meta name="description" content="Educational hub: Experiment A 1296 MHz Faraday-cage; Experiment B 433.59 MHz balls plus polarizer rods; Experiment C Faraday-caged SLW/SW atomic 1S–2S optical readout (v1); shared field kit.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,12 +42,13 @@
 
 <section class="hero">
   <div>
-    <p class="kicker">Educational briefing hub · two electrically separate experiments</p>
-    <h1>Scalar longitudinal waves — two benches, one shared field kit</h1>
-    <p class="lede">Study aid for patents, papers, and two <strong>electrically separate</strong> amateur-radio benches: a <strong>1296&nbsp;MHz Faraday-cage</strong> sleeve-balun stub + bifilar pancake, and a <strong>433.59&nbsp;MHz</strong> ball + polarizer-rod test with <em>no balun</em>. Not a claim that SLW is established physics.</p>
+    <p class="kicker">Educational briefing hub · three electrically separate experiments</p>
+    <h1>Scalar longitudinal waves — three benches, one shared field kit</h1>
+    <p class="lede">Study aid for patents, papers, and <strong>electrically separate</strong> benches: a <strong>1296&nbsp;MHz Faraday-cage</strong> sleeve-balun stub + bifilar pancake (A), a <strong>433.59&nbsp;MHz</strong> ball + polarizer-rod test with <em>no balun</em> (B), and a <strong>Faraday-caged SLW/SW → atomic 1S–2S optical readout</strong> draft (C). Not a claim that SLW is established physics.</p>
     <div class="ctrl-row">
       <a class="btn primary" href="#expt-a">Experiment A · 1296 MHz</a>
       <a class="btn" href="#expt-b">Experiment B · 433 MHz</a>
+      <a class="btn" href="#expt-c">Experiment C · atomic 1S–2S</a>
       <a class="btn" href="#kit">Shared kit</a>
       <a class="btn" href="learn.html">Briefing</a>
       <a class="btn" href="library.html">Library</a>
@@ -60,6 +61,7 @@
       <dt>Source repos</dt><dd><a href="https://github.com/9wzg44nz44-glitch">9wzg44nz44-glitch</a></dd>
       <dt>A</dt><dd>1296.000 MHz · 23 cm · sleeve, not skirt</dd>
       <dt>B</dt><dd>433.59 MHz · 70 cm · balls + rods · no balun</dd>
+      <dt>C</dt><dd>Caged SLW/SW · 1S–2S optical UV · v1 draft</dd>
       <dt>Tone</dt><dd>Academic, warm, skeptical</dd>
     </dl>
   </aside>
@@ -87,10 +89,11 @@
   </article>
 </div>
 
-<div role="tablist" class="tablist" data-expt-tabs aria-label="Two experiments and shared kit">
+<div role="tablist" class="tablist" data-expt-tabs aria-label="Three experiments and shared kit">
   <button type="button" role="tab" id="tab-expt-a" aria-controls="panel-expt-a" aria-selected="true" data-hash="expt-a" tabindex="0">1 · Experiment A · 1296 MHz cage</button>
   <button type="button" role="tab" id="tab-expt-b" aria-controls="panel-expt-b" aria-selected="false" data-hash="expt-b" tabindex="-1">2 · Experiment B · 433 MHz balls</button>
-  <button type="button" role="tab" id="tab-kit" aria-controls="panel-kit" aria-selected="false" data-hash="kit" tabindex="-1">3 · Shared field kit</button>
+  <button type="button" role="tab" id="tab-expt-c" aria-controls="panel-expt-c" aria-selected="false" data-hash="expt-c" tabindex="-1">3 · Experiment C · atomic 1S–2S</button>
+  <button type="button" role="tab" id="tab-kit" aria-controls="panel-kit" aria-selected="false" data-hash="kit" tabindex="-1">4 · Shared field kit</button>
 </div>
 
 <section id="panel-expt-a" class="tab-panel" role="tabpanel" aria-labelledby="tab-expt-a" data-hash="expt-a">
@@ -130,6 +133,28 @@
         <li><a href="sphere.html">sphere.html</a> — Fig.&nbsp;1 vs catalog 2.50″ 3003 Aluminum + 901-9875</li>
       </ul>
       <p class="footnote">433 parts stay on those two pages. The shared kit may list both antennas as cargo; it does not mix their RF feeds.</p>
+    </article>
+  </div>
+</section>
+
+
+<section id="panel-expt-c" class="tab-panel" role="tabpanel" aria-labelledby="tab-expt-c" hidden data-hash="expt-c">
+  <h2 id="expt-c">Experiment C — Faraday-caged SLW/SW → atomic 1S–2S optical readout</h2>
+  <p>v1 draft (9&nbsp;Sep&nbsp;2026). Faraday-caged SLW/SW launcher, hydrogen or clock-atom 1S–2S readout, dual solar-blind PMT bandpass at <strong>243&nbsp;nm</strong> and <strong>121.6&nbsp;nm</strong>, TEM-null monitors, quench-control discriminator. Electrically and conceptually separate from A and B: the PMT is on the <em>atomic optical</em> arm, not the RF launcher.</p>
+  <div class="banner-legal"><strong>8&nbsp;GHz ≠ 10.2&nbsp;eV.</strong> RF SLW is a modulator / gate in v1, not a direct 1S–2S photon. Frequency plan and pass/fail live on the deep page.</div>
+  <div class="grid-2">
+    <article class="card hively">
+      <h3>Claim under test</h3>
+      <p>A Faraday-caged SLW/SW source transfers population on 1S–2S (or modulates that interval) with E⊥ and B below a pre-registered TEM budget at the atom.</p>
+    </article>
+    <article class="card">
+      <h3>Deep page</h3>
+      <ul>
+        <li><a href="experiment-c.html">experiment-c.html</a> — block diagram, frequency plan, parts, safety, pass/fail</li>
+        <li><a href="sw-vs-slw.html">sw-vs-slw.html</a> — SLW vs SW dictionary</li>
+        <li><a href="setup.html">setup.html</a> — cage / sleeve lineage reused for the RF arm</li>
+        <li><a href="library.html">library.html</a> — US 9,306,527 / EED papers</li>
+      </ul>
     </article>
   </div>
 </section>
