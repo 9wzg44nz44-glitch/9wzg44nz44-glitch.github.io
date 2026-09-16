@@ -86,6 +86,7 @@
   <a href="#sma-shop-a">SMA bulkhead machine-shop work order</a>
   <a href="shop-drawing.html">Printable shop drawings (A + B)</a>
   <a href="#picture">What you are building (mesh tents)</a>
+  <a href="#ranging-a">Precision TX–RX distance (Exp A)</a>
   <a href="#archive-bifilar">Archived — Cricket/Cricut sticky mat + bifilar + sleeve</a>
   <a href="#mesh">RadioScreen mesh Faraday tents</a>
   <a href="#stack">Order of first measurements</a>
@@ -173,7 +174,19 @@ CONDITIONAL TAP PATH (only if wall or a welded/soldered boss supports ≥2–3 f
 </div>
 
 <h2 id="picture">What you are building</h2>
-<p>Two mesh Faraday tents face each other on a wooden/plastic rail. <strong>First article:</strong> both tents hold a matching ¾″ <code>KB-1820</code> sphere + Amphenol <code>901-9875</code> SMA bulkhead — generator in the TX tent, TinySA Ultra 406 in the RX tent (read through the see-through mesh). No coaxial cable (coax) between tents if you can help it — a cable is a leak. Range <em>r</em> is sphere-to-sphere (or bulkhead tip to bulkhead tip). Cricket/Cricut sticky-mat + bifilar + sleeve-stub are <strong>archived</strong> under <a href="#archive-bifilar">#archive-bifilar</a>.</p>
+<p>Two mesh Faraday tents face each other on a wooden/plastic rail. <strong>First article:</strong> both tents hold a matching ¾″ <code>KB-1820</code> sphere + Amphenol <code>901-9875</code> SMA bulkhead — generator in the TX tent, TinySA Ultra 406 in the RX tent (read through the see-through mesh). No coaxial cable (coax) between tents if you can help it — a cable is a leak. Range <em>r</em> is sphere-to-sphere (or bulkhead tip to bulkhead tip). <strong>Precision ranging:</strong> <a href="#ranging-a">#ranging-a</a> (Hively ask — keep RX out of the TX near field). Cricket/Cricut sticky-mat + bifilar + sleeve-stub are <strong>archived</strong> under <a href="#archive-bifilar">#archive-bifilar</a>.</p>
+
+<h2 id="ranging-a">Precision TX–RX distance control (Experiment A)</h2>
+<p>Hively wants a means of <strong>precision distance control</strong> for TX–RX separation. Experiment A uses matching ¾″ spheres in mesh tents — <strong>no polarizer rods</strong> (rods are Experiment B only).</p>
+<div class="banner-legal"><strong>Near-field floors @ 1296.000 MHz</strong> (λ = 231.3 mm): reactive near field ≈ λ/(2π) ≈ <strong>37 mm</strong>. For these electrically small balls, <code>2D²/λ</code> is only a few millimetres and is not a useful floor. Conservative start for logged runs: <strong>≳ 1–2 λ ≈ 0.25–0.5 m</strong> (about 10–20 in). Do not park RX inside the reactive zone. Paint hard marks on the rail at λ/(2π), 1λ, and 2λ.</div>
+<ul>
+  <li><strong>Rail:</strong> non-metallic (wood / fiberglass / HDPE). Fixed TX stop; sliding RX sled. No steel optical rail in the aperture between tents.</li>
+  <li><strong>Readout:</strong> engraved or taped mm/inch scale on the rail, and/or a handheld <strong>laser rangefinder</strong> (optical — does not put conductor between antennas). Log <em>r</em> every run (sphere-to-sphere or bulkhead tip to tip).</li>
+  <li><strong>Fine adjust:</strong> leadscrew or rack under the RX sled (±1 mm is plenty at these ranges).</li>
+  <li><strong>Do not:</strong> bridge TX–RX with coax on a “sealed” run; leave people in the stub/sphere near zone at elevated power.</li>
+</ul>
+<p class="footnote">Shared ranging philosophy with Exp B (longer baseline): <a href="shop-drawing.html#sheet-ranging">shop-drawing.html#sheet-ranging</a> · Exp B polarizer support (rods): <a href="shop-drawing.html#sheet-support">#sheet-support</a>.</p>
+
 
 <figure class="figure" role="img" aria-label="Two facing mesh Faraday tents">
 <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace" font-size="11" fill="#f3ead8">
