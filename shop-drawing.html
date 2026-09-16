@@ -58,6 +58,7 @@
   <a class="expt-abc-btn" href="#sheet-b"><span class="k">B</span> 2.50″ KB-2016</a>
   <a class="expt-abc-btn" href="#sheet-rods"><span class="k">B</span> rods cut/deburr</a>
   <a class="expt-abc-btn" href="#sheet-support"><span class="k">B</span> support + rotator</a>
+  <a class="expt-abc-btn" href="#sheet-ranging"><span class="k">A+B</span> precision ranging</a>
   <a class="expt-abc-sub" href="setup.html#sma-shop-a">A work order</a>
   <a class="expt-abc-sub" href="sphere.html#sma-install">B install</a>
   <a class="expt-abc-sub" href="monstein.html#parts">B rods parts</a>
@@ -73,6 +74,7 @@
     <a class="btn" href="sphere.html#sma-install">B sphere install</a>
     <a class="btn" href="#sheet-rods">B rods cut/deburr</a>
     <a class="btn" href="#sheet-support">B support + rotator</a>
+    <a class="btn" href="#sheet-ranging">A+B precision ranging</a>
   </div>
 
   <div class="banner-legal"><strong>Hole facts:</strong> Exp&nbsp;A <code>KB-1820</code> (¾″) <strong>ships with no hole</strong> — shop drills from solid. Exp&nbsp;B <code>KB-2016</code> (2.50″) <strong>ships with a pre-drilled ¼″ hole</strong> — do <em>not</em> tap that hole as a 1/4-36 tap drill. Preferred clearance for both: <strong>6.5&nbsp;mm (≈&nbsp;0.256″)</strong>.</div>
@@ -483,6 +485,41 @@ Material: HDPE or acrylic plate, ≈ 380 × 380 × 50–75 mm (15″ × 15″ ×
   </section>
 
 
+
+  <section class="shop-sheet" id="sheet-ranging">
+    <h2>Sheet ranging — precision TX–RX distance (Exp A and Exp B)</h2>
+    <p class="lede">Hively ask: means of <strong>precision distance control</strong> for TX–RX separation on <strong>both</strong> benches, while keeping the receiver out of the transmitter near field. <strong>Polarizer rods are Experiment B only</strong> — Exp A is spheres in mesh tents, no rod cube.</p>
+    <dl class="titleblock">
+      <dt>Exp A</dt><dd>1296.000 MHz · λ = 231.3 mm · ¾″ spheres · non-metallic rail between RadioScreen tents</dd>
+      <dt>Exp B</dt><dd>433.59 MHz · λ ≈ 692 mm · 2.50″ balls · longer baseline; optional 3×3 rod cube on separate stand</dd>
+      <dt>Readout</dt><dd>Rail scale (mm/in) and/or optical laser rangefinder · log <em>r</em> every run</dd>
+      <dt>Material</dt><dd>Wood / fiberglass / HDPE track — no steel optical rail in the aperture</dd>
+    </dl>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>Exp A (1296 MHz)</th><th>Exp B (433.59 MHz)</th></tr></thead>
+        <tbody>
+          <tr><td>λ</td><td>231.3 mm (9.11″)</td><td>≈ 692 mm (27.2″ / 2 ft 3.2 in)</td></tr>
+          <tr><td>Reactive NF ≈ λ/(2π)</td><td>≈ 37 mm (1.5″)</td><td>≈ 110 mm (4.3″)</td></tr>
+          <tr><td>Conservative min <em>r</em></td><td>≳ 1–2 λ ≈ 0.25–0.5 m (10–20″)</td><td>≳ 2–3 λ ≈ 1.4–2.1 m (4.5–7 ft)</td></tr>
+          <tr><td>Practical hardware</td><td>Bench-length non-metallic rail; ±1 mm fine adjust</td><td>Garage/outdoor baseline; tape + laser; ±5–10 mm OK</td></tr>
+          <tr><td>Rods / polarizer</td><td><strong>None</strong> (Exp B only)</td><td>Optional cube ~0.35 m; keep ≳ λ/(2π) from either ball</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="notes-grid">
+      <div class="card">
+        <h3>Exp A rail</h3>
+        <p>Fixed TX tent/sled; sliding RX; hard paint marks at λ/(2π), 1λ, 2λ. Measure sphere-to-sphere or bulkhead tip to tip. Detail: <a href="setup.html#ranging-a">setup.html#ranging-a</a>.</p>
+      </div>
+      <div class="card">
+        <h3>Exp B baseline</h3>
+        <p>Longer than A. Ball-to-ball <em>r</em>; rod support/rotator on <a href="#sheet-support">#sheet-support</a>. Detail: <a href="monstein.html#ranging-b">monstein.html#ranging-b</a>.</p>
+      </div>
+    </div>
+    <p class="footnote">Friis / far-field caveats also on <a href="fields.html">fields.html</a>. Educational; licensed amateur RF only.</p>
+  </section>
+
   <h2 id="summary">Quick reference</h2>
   <div class="table-wrap">
     <table>
@@ -496,7 +533,8 @@ Material: HDPE or acrylic plate, ≈ 380 × 380 × 50–75 mm (15″ × 15″ ×
         <tr><td>Preferred mount</td><td>Exterior flange + bond</td><td>Clearance + locknut</td></tr>
         <tr><td>Conditional tap</td><td colspan="2">Boss only · #3 (0.2130″) usual · 1/4-36 UNEF 2B · shop confirms chart</td></tr>
         <tr><td>Polarizer rods</td><td colspan="2">See <a href="#sheet-rods">#sheet-rods</a>: 9 × <strong>346 mm</strong> × Ø1/8″ brass (first); optional 9 × same in W1; cut from 5×36″ sticks; deburr both ends</td></tr>
-        <tr><td>Polarizer support + rotator</td><td colspan="2">See <a href="#sheet-support">#sheet-support</a>: ≈380 mm (15″ / 1 ft 3 in) HDPE/acrylic block · 173 mm (6.81″) pitch · manual turntable first; optional stepper under base</td></tr>
+        <tr><td>Polarizer support + rotator</td><td colspan="2">See <a href="#sheet-support">#sheet-support</a>: ≈380 mm (15″ / 1 ft 3 in) HDPE/acrylic block · 173 mm (6.81″) pitch · manual turntable first; optional stepper under base · <strong>Exp B rods only</strong></td></tr>
+        <tr><td>Precision TX–RX ranging</td><td colspan="2">See <a href="#sheet-ranging">#sheet-ranging</a>: A rail + B long baseline; NF floors; rods B-only</td></tr>
       </tbody>
     </table>
   </div>
