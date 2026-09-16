@@ -82,9 +82,10 @@
 <nav class="toc card">
   <strong>Protocol map</strong>
   <a href="#skin">Copper skin-depth table</a>
-  <a href="setup.html">Sticky-mat winding, lift-off, fixtures, packing (Setup)</a>
-  <a href="#bom">Hand-wind BOM and steps</a>
-  <a href="#tx">Transmitter (sleeve-balun stub; optional TM<sub>01</sub>)</a>
+  <a href="setup.html#archive-bifilar">Archived Cricket/bifilar/sleeve control (Setup)</a>
+  <a href="setup.html#sphere-a">¾″ sphere first article (Setup)</a>
+  <a href="#bom">BOM and steps (sphere first; bifilar archived)</a>
+  <a href="#tx">Transmitter (¾″ sphere primary; sleeve archived; optional TM<sub>01</sub>)</a>
   <a href="setup.html#pack">Travel kit: Lady Lake → Middletown</a>
   <a href="setup.html#shop">Shopping list (Setup)</a>
   <a href="#controls">Controls</a>
@@ -123,10 +124,11 @@
 <table>
 <thead><tr><th>Item</th><th>Qty / notes</th></tr></thead>
 <tbody>
-<tr><td>RG-405/U semi-rigid + SMA or Type N</td><td>1 feed; sleeve-balun stub at radiating end (not a patent skirt). First-article at 1296.000 MHz: λ = 231.3 mm, λ/4 sleeve = 57.8 mm in air, stub λ/10 = 23.1 mm (λ/4 = 57.8 mm TEM-style control). Build: <a href="setup.html#sleeve">setup.html#sleeve</a>.</td></tr>
-<tr><td>Copper/brass thin-wall tube for <em>sleeve</em> (snug over the jacket, not a fat skirt)</td><td>ID clears 0.086″ with only a thin gap</td></tr>
-<tr><td>Magnet wire 22 AWG (18–26 OK)</td><td>First article is <em>one</em> strand folded in half (22 or 24 AWG, ~2.2 m) — not two separately cut legs. See <a href="setup.html#fold">Setup winding</a>. For an aiding control, a second single-filar pancake. Calculator “two wires + 12%” still sizes the classical pair.</td></tr>
-<tr><td>Non-magnetic former (acrylic / PLA / PVC)</td><td>Pancake OD ≈ 0.15 λ ≈ 35 mm at 1.3 GHz, or a larger palm coil (~10 cm) if you prefer the SNR-toy geometry. First article: wind on a Cricut StandardGrip mat, then lift onto this former — <a href="setup.html">Setup</a>.</td></tr>
+<tr><td>K-Mac <code>KB-1820</code> ¾″ Al hollow sphere + Amphenol <code>901-9875</code> SMA bulkhead</td><td><strong>First-article</strong> radiator/detector at 1296.000 MHz (coax into the ball, outer as shield). Ships with no hole — shop drills. See <a href="setup.html#sphere-a">setup.html#sphere-a</a> · <a href="setup.html#sma-shop-a">#sma-shop-a</a>.</td></tr>
+<tr><td>RG-405/U semi-rigid + SMA or Type N (archived control)</td><td>Optional sleeve-balun stub path only — <a href="setup.html#archive-bifilar">setup.html#archive-bifilar</a> / <a href="setup.html#sleeve">#sleeve</a>. λ = 231.3 mm; λ/4 sleeve = 57.8 mm; stub λ/10 = 23.1 mm.</td></tr>
+<tr><td>Copper/brass thin-wall tube for <em>sleeve</em> (archived)</td><td>Optional control only; ID clears 0.086″ with only a thin gap</td></tr>
+<tr><td>Magnet wire 22 AWG (18–26 OK) (archived bifilar)</td><td>Optional control: one strand folded in half (~2.2 m). See <a href="setup.html#archive-bifilar">#archive-bifilar</a>. Not the first article.</td></tr>
+<tr><td>Non-magnetic former (acrylic / PLA / PVC) (archived)</td><td>Optional pancake former ≈ 35 mm OD. Cricut StandardGrip winding jig is archived — <a href="setup.html#archive-bifilar">#archive-bifilar</a>.</td></tr>
 <tr><td>Copper box / tube + lids</td><td>Wall ≥ 1 mm preferred (≈ 546 δ at 1.3 GHz). ⅛ in is luxurious. All seams soldered or RF-gasketed. Feed-through only via filtered bulkhead.</td></tr>
 <tr><td>Licensed 23 cm source</td><td>Transverter, brick, or amateur radio; attenuators; directional coupler. Identify on air if the stub radiates outside the box.</td></tr>
 <tr><td>Dummy load 50 Ω, 23 cm rated</td><td>Negative control</td></tr>
@@ -140,19 +142,18 @@
 </table>
 </div>
 <ol class="steps">
-  <li>Build the coil on the Cricut mat (<a href="setup.html#fold">Setup: fold-in-half winding</a>). Do not fork that story here.</li>
-  <li>Lift the pancake with a plastic card, IPA the residue, DMM again, photo — then mount it planar on a non-metallic plate with a &lt; 10 cm SMA pigtail (<a href="setup.html#lift">lift-off</a>, <a href="setup.html#fixture">RX fixture</a>).</li>
-  <li>Build the sleeve-balun stub at 1296.000 MHz (or 1.300 GHz if that is your licensed plan). Photograph the cold-end solder ring and the open feed. Put sleeve-stub + generator on a matching portable sled (<a href="setup.html#sleeve">sleeve</a>, <a href="setup.html#tx-fixture">TX fixture</a>).</li>
-  <li>Mesh-tent article: RadioScreen cages as in <a href="setup.html#mesh">Setup</a> — removable flap seals (conductive hook-and-loop / clips / magnets), not a permanent copper-tape weld. Copper-box article: fit a bulkhead; sleeve-stub inside; lid closed = “sealed.” Do not mix those two cage types in one CSV without labeling.</li>
-  <li>Place the bifilar face-on, on-axis with the stub (fixture inside the RX tent, or outside a copper box). Distance r measured to the stub tip.</li>
+  <li><strong>First article:</strong> mount Amphenol <code>901-9875</code> SMA bulkheads on two K-Mac <code>KB-1820</code> ¾″ spheres (shop clearance — ships with no hole). <a href="setup.html#sphere-a">setup.html#sphere-a</a> · <a href="setup.html#sma-shop-a">#sma-shop-a</a>.</li>
+  <li>Place matching spheres in TX and RX RadioScreen tents (or copper-box article: bulkhead into the box). Distance <em>r</em> = sphere-to-sphere or bulkhead tip to tip.</li>
+  <li>Mesh-tent article: RadioScreen cages as in <a href="setup.html#mesh">Setup</a> — removable flap seals (conductive hook-and-loop / clips / magnets), not a permanent copper-tape weld. Do not mix mesh vs copper-box cage types in one CSV without labeling.</li>
+  <li><strong>Archived optional control</strong> (not first article): Cricket/Cricut sticky-mat bifilar + sleeve-stub — <a href="setup.html#archive-bifilar">setup.html#archive-bifilar</a>. If used, label detector <code>bifilar</code> and keep that path out of the primary sphere log rows.</li>
   <li>Run the control matrix below. Log every row. Do not peek only at the “interesting” condition. Pack the same kit for Lady Lake, FL then Middletown, RI (<a href="setup.html#pack">packing checklist</a>).</li>
 </ol>
 
 <h2 id="tx">Transmitter</h2>
 <div class="grid-2">
   <article class="card hively">
-    <h3>Hively-style (primary for this lab)</h3>
-    <p>RG-405 exposed center-conductor stub + <strong>sleeve</strong> balun (close-fitting bazooka choke — not the patent Fig.&nbsp;2A skirt), driven by a <strong>licensed 23 cm source</strong>. Goal of the sleeve: choke common-mode TEM on the outer shield so residual radiation is dominated by the stub current, without adding a large-diameter radiating skirt. Whether that current is “irrotational SLW” is the hypothesis, not the construction step. How-to: <a href="setup.html#sleeve">setup.html#sleeve</a>.</p>
+    <h3>¾″ sphere (primary for this lab)</h3>
+    <p>K-Mac <code>KB-1820</code> ¾″ Al hollow sphere + Amphenol <code>901-9875</code> SMA bulkhead, driven by a <strong>licensed 23 cm source</strong>. Coax into the ball, outer conductor as shield — same feed philosophy as Experiment B, at 1296.000&nbsp;MHz. Build: <a href="setup.html#sphere-a">setup.html#sphere-a</a>. <strong>Archived control:</strong> RG-405 sleeve-balun stub — <a href="setup.html#archive-bifilar">#archive-bifilar</a> / <a href="setup.html#sleeve">#sleeve</a> (patent education kept; not the first article).</p>
   </article>
   <article class="card nz">
     <h3>N–Z-style (optional companion)</h3>
@@ -170,7 +171,7 @@
 <tr><td><code>sealed</code></td><td>Lid on, seams RF-tight, only filtered feed-through</td><td>The actual Faraday test</td></tr>
 <tr><td><code>dummy_load</code></td><td>Source into a 50 Ω load instead of the stub (same cables, same box)</td><td>Kills the antenna; leftover = conducted / pickup</td></tr>
 <tr><td><code>90deg</code></td><td>Detector rotated 90° (coil edge-on, or plasma axis ⊥ k)</td><td>Orientation / polarization control</td></tr>
-<tr><td><code>tem_negative</code></td><td>Ordinary small dipole/loop in place of the bifilar/plasma, same r, same sealed box</td><td>If TEM antenna is dead and bifilar is live, you have a fork in the data; if both live, you have a leak</td></tr>
+<tr><td><code>tem_negative</code></td><td>Ordinary small dipole/loop in place of the sphere (or archived bifilar/plasma), same r, same sealed box</td><td>If TEM antenna is dead and sphere (or bifilar) is live, you have a fork in the data; if both live, you have a leak</td></tr>
 </tbody>
 </table>
 </div>
@@ -178,7 +179,7 @@
 
 <h2 id="log">CSV schema and in-page log</h2>
 <p>Columns (stable): <code>timestamp, run_id, config, f_MHz, P_dBm, r_m, orientation_deg, cage_state, detector, reading_dBm, notes</code>.</p>
-<p><code>config</code> and <code>cage_state</code> should use the codes above. <code>detector</code>: <code>bifilar</code> | <code>plasma</code> | <code>tem_dipole</code> | <code>tem_loop</code>. Stored in this browser until you export.</p>
+<p><code>config</code> and <code>cage_state</code> should use the codes above. <code>detector</code>: <code>sphere</code> (first article) | <code>bifilar</code> (archived control) | <code>plasma</code> | <code>tem_dipole</code> | <code>tem_loop</code>. Stored in this browser until you export.</p>
 <div class="card">
   <div class="grid-2">
     <label>run_id <input id="f_run_id" type="text" placeholder="2026-08-31-a"></label>
@@ -199,7 +200,7 @@
     </label>
     <label>detector
       <select id="f_detector">
-        <option>bifilar</option><option>plasma</option><option>tem_dipole</option><option>tem_loop</option>
+        <option>sphere</option><option>bifilar</option><option>plasma</option><option>tem_dipole</option><option>tem_loop</option>
       </select>
     </label>
     <label>reading_dBm <input id="f_reading_dBm" type="number" step="0.1" placeholder="-120"></label>
@@ -223,8 +224,8 @@
 <h2 id="publish">Publishing checklist</h2>
 <ul class="check-list">
   <li>License class, call sign, frequency, and that 1296 calling was not occupied by an unidentified carrier.</li>
-  <li>Photographs of stub length, sleeve length, coil polarity connection, box/mesh seams, pancake on its fixture, and DMM continuity after lift-off.</li>
-  <li>VNA S<sub>11</sub> of sleeve-stub; outer-conductor current with sleeve on vs off.</li>
+  <li>Photographs of sphere + SMA install, box/mesh seams, and (if used) archived sleeve/pancake fixtures.</li>
+  <li>VNA S<sub>11</sub> of sphere feed (and archived sleeve-stub if run); note detector type in the CSV.</li>
   <li>Complete control matrix, not a highlight reel. Source-off and dummy-load rows.</li>
   <li>TEM-antenna negative control at the same r and RBW.</li>
   <li>Distance sweep (even 0.3–3 m) plotted; state whether it looks like 1/r or a leak resonance.</li>
