@@ -44,7 +44,7 @@
 </header>
 <nav id="expt-abc" class="expt-abc" aria-label="Jump to Experiment A, B, or C">
   <span class="expt-abc-label">Experiments</span>
-  <a class="expt-abc-btn" data-expt="a" href="index.html#expt-a"><span class="k">A</span> 1296 MHz cage</a>
+  <a class="expt-abc-btn" data-expt="a" href="index.html#expt-a"><span class="k">A</span> 1296 MHz sphere</a>
   <a class="expt-abc-btn" data-expt="b" href="index.html#expt-b"><span class="k">B</span> 433 MHz</a>
   <a class="expt-abc-btn" data-expt="c" href="experiment-c.html"><span class="k">C</span> atomic 1S–2S</a>
   <a class="expt-abc-sub" href="setup.html">A setup</a>
@@ -56,7 +56,7 @@
 </nav>
 
 <nav class="expt-strip" aria-label="Experiments A · B · C">
-  <a href="index.html#expt-a"><span class="expt-k">A</span> 1296 MHz cage</a>
+  <a href="index.html#expt-a"><span class="expt-k">A</span> 1296 MHz sphere</a>
   <a href="setup.html">setup</a>
   <a href="fields.html">fields</a>
   <span class="sep">·</span>
@@ -75,7 +75,7 @@
   <p class="kicker">Educational briefing · Europhys. Lett. 59, 514 (2002) · not settled physics</p>
   <h1>Monstein &amp; Wesley 2002: brass-rod polarizer for a claimed longitudinal <em>E</em></h1>
   <p class="lede">C. Monstein and J.P. Wesley reported a 433.59&nbsp;MHz ball-antenna experiment they titled “Observation of scalar longitudinal electrodynamic waves.” This page is a study aid: what they built, the formulas in the paper, how later authors read it, and how it does <em>and does not</em> connect to Hively Faraday-cage SLW work, Nikolova–Zimmerman <em>A</em>(<em>r</em>), Meyl, and Puthoff polarizable-vacuum notes.</p>
-  <div class="banner-legal"><strong>Experiment B — no balun of any type.</strong> Coax into the ball, outer conductor as shield (MW Fig.&nbsp;1 / Amphenol 901-9875). Not a sleeve, not a skirt, not a bazooka. Sleeve-build steps live only on <a href="setup.html#sleeve">setup.html#sleeve</a> (Experiment A, 1296&nbsp;MHz). Do not merge this page with the Faraday-cage pancake protocol.</div>
+  <div class="banner-legal"><strong>Experiment B — no balun of any type.</strong> Coax into the ball, outer conductor as shield (MW Fig.&nbsp;1 / Amphenol 901-9875). Not a sleeve, not a skirt, not a bazooka. Experiment A’s first article is now a ¾″ sphere too (<a href="setup.html#sphere-a">setup.html#sphere-a</a>); keep RF feeds electrically separate. Optional A sleeve/bifilar control still on <a href="setup.html#sleeve">setup.html#sleeve</a>. Do not merge this page with the 1296 mesh-tent protocol.</div>
   <div class="banner-legal">Paper in the <a href="library.html#monstein-wesley-2002">Library</a>. Author-hosted PDF (filename typo “electroydnamic”): <a href="https://www.jamespaulwesley.org/Document_Files/Observation_of_scalar_longitudinal_electroydnamic_waves.pdf">jamespaulwesley.org copy</a> · hub mirror <a href="papers/Monstein-Wesley-2002-EPL-Scalar-Longitudinal-Waves.pdf">papers/…</a>. Licensed 23&nbsp;cm (1296&nbsp;MHz) or 13&nbsp;cm (2.45&nbsp;GHz ISM / ham segments) only if you replicate. No magnetron protocol.</div>
 
   <nav class="toc card">
@@ -234,13 +234,21 @@ T = exp[ −κ cos²(φ) ]                                   (9)
   </ul>
 
   <h3 id="bulkhead">SMA bulkhead (¼″ hole in each Al sphere)</h3>
-  <p>Feed geometry vs Fig.&nbsp;1 (machined 10H7/3H7 cavity): see <a href="sphere.html">sphere.html</a>.</p>
-  <p>Novice gender chain (keep SMA genders correct): the TinySA Ultra RF port is a <strong>hole</strong> (SMA-F). The jumper cable has a <strong>pin</strong> on each end (SMA-M/M). The bulkhead is the fitting through the ¼″ hole in the aluminium sphere; the outside of the bulkhead is also a hole so the cable pin screws on. Qty 2 (TX ball + RX ball). Not a Meyl part. This is the 433.59&nbsp;MHz / 70&nbsp;cm Technician ball feed, not the 1296 pancake cage on <a href="setup.html">setup.html</a>.</p>
+  <p>Feed geometry vs Fig.&nbsp;1 (machined 10H7/3H7 cavity): see <a href="sphere.html">sphere.html</a>. Full install notes: <a href="sphere.html#sma-install">sphere.html#sma-install</a>.</p>
+  <p>Novice gender chain (keep SMA genders correct): the TinySA Ultra RF port is a <strong>hole</strong> (SMA-F). The jumper cable has a <strong>pin</strong> on each end (SMA-M/M). The bulkhead is the fitting through the ¼″ hole in the aluminium sphere; the outside of the bulkhead is also a hole so the cable pin screws on. Qty 2 (TX ball + RX ball). Not a Meyl part. This is the 433.59&nbsp;MHz / 70&nbsp;cm Technician ball feed, not the 1296 mesh-tent bench on <a href="setup.html">setup.html</a>.</p>
   <ul>
-    <li>Qty 2 purchased 2 Sep 2026 (RF Parts) — Amphenol <strong><a href="https://www.rfparts.com/901-9875.html">901-9875</a></strong>, SMA jack/female, bulkhead, crimp for RG-316 / LMR-100A (cable group B), 50&nbsp;Ω, $11.90 each: <a href="https://www.rfparts.com/901-9875.html">RF Parts <a href="https://www.rfparts.com/901-9875.html">901-9875</a></a>. Gold-plated brass body, BeCu gold center, PTFE. Prefer this SKU as the “coax into the interior” part (crimp RG-316, center soldered inside the sphere). Same SKU also listed at TestEquity if a spare is needed later.</li>
-    <li>Jack–jack pass-through alternative (hole on both sides of the ball wall): Amphenol <strong>901-9209-A</strong> SMA bulkhead F–F, ¼-36. Search DigiKey/Mouser for <code>901-9209-A</code> rather than a guessed product URL. Then still SMA-M/M Ultra to the outside; inside the ball you either solder a short post to the inner contact or use a tiny SMA-M pigtail. <a href="https://www.rfparts.com/901-9875.html">901-9875</a> remains the better interior-coax part.</li>
+    <li>Qty 2 purchased 2 Sep 2026 (RF Parts) — Amphenol <strong><a href="https://www.rfparts.com/901-9875.html">901-9875</a></strong>, SMA jack/female, bulkhead, crimp for RG-316 / LMR-100A (cable group B), 50&nbsp;Ω, $11.90 each: <a href="https://www.rfparts.com/901-9875.html">RF Parts 901-9875</a>. Gold-plated brass body, BeCu gold center, PTFE. Prefer this SKU as the “coax into the interior” part (crimp RG-316, center soldered inside the sphere). Same SKU also listed at TestEquity if a spare is needed later. Thread: <strong>1/4-36 UNEF</strong> (¼″-36 Unified Extra Fine).</li>
+    <li>Jack–jack pass-through alternative (hole on both sides of the ball wall): Amphenol <strong>901-9209-A</strong> SMA bulkhead F–F, ¼-36. Search DigiKey/Mouser for <code>901-9209-A</code> rather than a guessed product URL. Then still SMA-M/M Ultra to the outside; inside the ball you either solder a short post to the inner contact or use a tiny SMA-M pigtail. <code>901-9875</code> remains the better interior-coax part.</li>
   </ul>
-  <p>Use the existing ¼″ hole. PTFE or nylon insulating washers if the shield should not bond to the whole shell. Center conductor to a short post or the inner wall as in MW “centrally fed, outer as shield.” Non-metallic rotator for the 3×3 cube: HDPE/acrylic plate stock already listed on <a href="setup.html#shop">setup.html#shop</a> is shared hardware, not the same bench. <strong>No balun of any type</strong> on this 433.59&nbsp;MHz ball feed — coax into the ball, outer as shield (MW Fig.&nbsp;1 / 901-9875). Sleeve how-to is Experiment A only.</p>
+
+  <h4 id="sma-shop-b">Machine-shop / install — is ¼″ proper for tapping?</h4>
+  <p><strong>No.</strong> The existing ¼″ (0.250″) hole is <em>not</em> a tap drill for 1/4-36 UNEF — it is essentially the thread major diameter, so there is little/no material left to cut threads. Do <strong>not</strong> recommend tapping that hole as the primary plan. Thin hollow-ball walls usually cannot take a reliable tapped thread without a boss or other thickening.</p>
+  <ul>
+    <li><strong>Preferred:</strong> clearance + locknut/washer. Recommended clearance / panel hole <strong>6.5&nbsp;mm (≈ 0.256″)</strong> (window ~6.3–6.6&nbsp;mm). If the bulkhead will not slide in the stock ¼″ hole, ream carefully to 6.5&nbsp;mm / letter <strong>F</strong> (≈ 0.257″). Deburr for O-ring/flange seating.</li>
+    <li><strong>Mate <code>901-9875</code>:</strong> feed coax into the interior; bond outer conductor / bulkhead body to the ball shell (MW outer-as-shield). Center to a short post or inner contact. <strong>No balun.</strong></li>
+    <li><strong>If the nut will not fit:</strong> exterior flange/solder fillet + conductive bond; or solder/weld a boss then tap 1/4-36 UNEF 2B into the boss only (≥2–3 full pitches); tap drill #3 (0.2130″) usual, or #2 (0.2210″) sometimes in Al — confirm shop chart + datasheet. Temporary access for nutting is another option.</li>
+  </ul>
+  <p>PTFE or nylon insulating washers only if you intentionally do <em>not</em> want the shield bonded to the whole shell (default MW framing bonds outer as shield). Non-metallic rotator for the 3×3 cube: HDPE/acrylic plate stock on <a href="setup.html#shop">setup.html#shop</a> is shared hardware, not the same bench. Parallel thread facts for Experiment A’s ¾″ ball: <a href="setup.html#sma-shop-a">setup.html#sma-shop-a</a>.</p>
 
   <h2 id="meyl-kit">Will a Meyl ball-antenna kit do Hively’s protocol?</h2>
   <p><strong>No</strong> as a kit. <strong>Partial</strong> only if you scavenge the two spheres and rebuild everything else at UHF. Do not treat Meyl potential-vortex / over-unity language as Hively’s <em>C</em> field.</p>
@@ -261,7 +269,7 @@ T = exp[ −κ cos²(φ) ]                                   (9)
     <li>Keep the MW ball feed: coax into the sphere, outer as shield, <strong>no balun</strong>. Identify; milliwatts; 70&nbsp;cm Technician-legal. If you ever scale the <em>polarizer rods</em> to 1296 or 2.45&nbsp;GHz that is still this geometry (balls + rods), not a sleeve-stub. The 1296 Faraday-cage sleeve lives on <a href="setup.html#sleeve">setup.html#sleeve</a>.</li>
     <li>Two Faraday enclosures: TX stack in one, RX (Signal Hound class or TinySA Ultra 406) in the other. No cables out on a “sealed” run. Time-stamp TX power, RX, and rotator angle on one clock.</li>
     <li>Brass-rod baseline: nine λ/2 rods, 360° rotation, log T(φ). Optional second article: high-hysteresis rods, same geometry, look for a U. That second article is Hively’s unpublished suggestion, not a MW figure.</li>
-    <li>Hively’s suggested follow-on stays on <em>this</em> bench (Experiment B): two Faraday enclosures + 433.59&nbsp;MHz balls with <strong>no balun</strong> + rod cube — not the pancake / RadioScreen shopping list and not a sleeve-build. The 1296&nbsp;MHz bifilar pancake cage is a different bench: <a href="setup.html">setup.html</a>.</li>
+    <li>Hively’s suggested follow-on stays on <em>this</em> bench (Experiment B): two Faraday enclosures + 433.59&nbsp;MHz balls with <strong>no balun</strong> + rod cube — not the pancake / RadioScreen shopping list and not a sleeve-build. The 1296&nbsp;MHz sphere / mesh-tent bench (¾″ <code>KB-1820</code> first article; bifilar optional) is a different bench: <a href="setup.html#sphere-a">setup.html#sphere-a</a>.</li>
   </ul>
   <p class="footnote">DOI: Monstein &amp; Wesley, EPL 59, 514 (2002). This page © 2026 Dan Britton, educational use. Scalar / longitudinal claims are not IEEE-standard antenna theory.</p>
 </main>
