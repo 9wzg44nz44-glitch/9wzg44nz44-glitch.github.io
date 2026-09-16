@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SMA sphere shop drawings · Exp A &amp; B · SLW Hub</title>
-<meta name="description" content="Machine-shop drawings: KB-1820 ¾″ (no hole) and KB-2016 2.50″ (stock ¼″) aluminum hollow spheres + Amphenol 901-9875 SMA bulkhead — clearance, flange, and conditional tap.">
+<title>SMA spheres + Exp B rods · shop drawings · SLW Hub</title>
+<meta name="description" content="Machine-shop drawings: Exp A/B SMA spheres + Exp B brass &amp; W1 polarizer rods (cut 34.6 cm, deburr).">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,8 +56,10 @@
   <span class="expt-abc-label">Shop drawings</span>
   <a class="expt-abc-btn" href="#sheet-a"><span class="k">A</span> ¾″ KB-1820</a>
   <a class="expt-abc-btn" href="#sheet-b"><span class="k">B</span> 2.50″ KB-2016</a>
+  <a class="expt-abc-btn" href="#sheet-rods"><span class="k">B</span> rods cut/deburr</a>
   <a class="expt-abc-sub" href="setup.html#sma-shop-a">A work order</a>
   <a class="expt-abc-sub" href="sphere.html#sma-install">B install</a>
+  <a class="expt-abc-sub" href="monstein.html#parts">B rods parts</a>
 </nav>
 
 <main id="main" class="wrap">
@@ -65,9 +67,10 @@
   <p class="lede">Printable sheets for mounting Amphenol <code>901-9875</code> (SMA-F bulkhead, <strong>1/4-36 UNEF</strong>) on catalog 3003 aluminum hollow balls. Feed philosophy: coax into the interior; bulkhead body / outer conductor bonded to the shell as shield (Monstein–Wesley style). Educational; licensed amateur RF only.</p>
 
   <div class="print-bar">
-    <button class="btn primary" type="button" onclick="window.print()">Print both sheets</button>
+    <button class="btn primary" type="button" onclick="window.print()">Print all sheets</button>
     <a class="btn" href="setup.html#sma-shop-a">A text work order</a>
-    <a class="btn" href="sphere.html#sma-install">B install notes</a>
+    <a class="btn" href="sphere.html#sma-install">B sphere install</a>
+    <a class="btn" href="#sheet-rods">B rods cut/deburr</a>
   </div>
 
   <div class="banner-legal"><strong>Hole facts:</strong> Exp&nbsp;A <code>KB-1820</code> (¾″) <strong>ships with no hole</strong> — shop drills from solid. Exp&nbsp;B <code>KB-2016</code> (2.50″) <strong>ships with a pre-drilled ¼″ hole</strong> — do <em>not</em> tap that hole as a 1/4-36 tap drill. Preferred clearance for both: <strong>6.5&nbsp;mm (≈&nbsp;0.256″)</strong>.</div>
@@ -242,7 +245,108 @@
     </div>
   </section>
 
-  <h2 id="summary">Quick reference (both sheets)</h2>
+
+  <!-- ========== SHEET RODS ========== -->
+  <section class="shop-sheet" id="sheet-rods">
+    <h2>Sheet B-rods — Experiment B · polarizer rods · cut &amp; deburr</h2>
+    <dl class="titleblock">
+      <dt>Project</dt><dd>SLW Hub Exp B · Monstein–Wesley 3×3 λ/2 polarizer · 433.59 MHz</dd>
+      <dt>Date</dt><dd>2026-09-16</dd>
+      <dt>Finished length</dt><dd><strong>346 mm (34.6 cm)</strong> = λ/2 at 433.59 MHz · tolerance ±1 mm preferred</dd>
+      <dt>Diameter</dt><dd><strong>1/8″ (3.175 mm)</strong> round stock</dd>
+      <dt>Qty first article</dt><dd><strong>9</strong> brass rods (360 alloy preferred)</dd>
+      <dt>Qty optional</dt><dd><strong>9</strong> W1 water-hardening drill rod (same geometry; hysteresis follow-on)</dd>
+      <dt>Stock in</dt><dd>Five × 36″ (91.4 cm) sticks per material → two finished rods per stick + ~22 cm leftover (do <strong>not</strong> splice leftovers)</dd>
+    </dl>
+
+    <svg class="dwg" viewBox="0 0 860 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Shop drawing cut and deburr Experiment B polarizer rods 346 mm by 1/8 inch">
+      <rect width="860" height="560" fill="#f7f3ea"/>
+      <text x="430" y="26" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600" fill="#111">EXP B — ROD CUT &amp; DEBURR (BRASS 360 FIRST; W1 OPTIONAL SAME GEOMETRY)</text>
+      <text x="430" y="46" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#444">Parasitic λ/2 polarizer rods — not driven monopoles · educational shop sketch</text>
+
+      <!-- stock stick -->
+      <text x="40" y="78" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#111">1. STOCK STICK (36″ = 914 mm)</text>
+      <rect x="40" y="90" width="520" height="28" fill="#d4c4a8" stroke="#111" stroke-width="2"/>
+      <line x1="300" y1="90" x2="300" y2="118" stroke="#c45c26" stroke-width="2" stroke-dasharray="4 2"/>
+      <line x1="560" y1="90" x2="560" y2="118" stroke="#c45c26" stroke-width="2" stroke-dasharray="4 2"/>
+      <text x="170" y="140" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#111">CUT ① → 346 mm</text>
+      <text x="430" y="140" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#111">CUT ② → 346 mm</text>
+      <text x="650" y="110" font-family="IBM Plex Mono, monospace" font-size="11" fill="#555">leftover ≈ 222 mm</text>
+      <text x="650" y="126" font-family="IBM Plex Mono, monospace" font-size="10" fill="#c45c26">DO NOT SPLICE</text>
+
+      <!-- dimension line for stick -->
+      <line x1="40" y1="155" x2="560" y2="155" stroke="#111" stroke-width="1"/>
+      <text x="300" y="170" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">914 mm (36″)</text>
+
+      <!-- finished rod -->
+      <text x="40" y="210" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#111">2. FINISHED ROD (×9 per material)</text>
+      <rect x="80" y="225" width="400" height="22" fill="#c9a227" stroke="#111" stroke-width="2"/>
+      <!-- end detail callouts -->
+      <circle cx="80" cy="236" r="8" fill="none" stroke="#c45c26" stroke-width="1.5"/>
+      <circle cx="480" cy="236" r="8" fill="none" stroke="#c45c26" stroke-width="1.5"/>
+      <line x1="80" y1="210" x2="480" y2="210" stroke="#111" stroke-width="1"/>
+      <line x1="80" y1="205" x2="80" y2="215" stroke="#111"/>
+      <line x1="480" y1="205" x2="480" y2="215" stroke="#111"/>
+      <text x="280" y="205" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#111">L = 346 mm (34.6 cm) ±1 mm</text>
+      <text x="520" y="242" font-family="IBM Plex Mono, monospace" font-size="11" fill="#111">Ø 1/8″ (3.175 mm)</text>
+
+      <!-- end detail zoom -->
+      <text x="40" y="290" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#111">3. END DETAIL — DEBURR BOTH ENDS</text>
+      <!-- bad -->
+      <rect x="60" y="310" width="140" height="70" fill="#fff" stroke="#111"/>
+      <line x1="80" y1="345" x2="180" y2="345" stroke="#888" stroke-width="6"/>
+      <polygon points="80,345 70,335 70,355" fill="#c45c26"/>
+      <text x="130" y="325" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#c45c26">NO — burr / mushroom</text>
+      <text x="130" y="370" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#555">file/saw burr left on</text>
+      <!-- good -->
+      <rect x="230" y="310" width="160" height="70" fill="#fff" stroke="#111"/>
+      <line x1="250" y1="345" x2="370" y2="345" stroke="#c9a227" stroke-width="6"/>
+      <path d="M250 345 L258 345" stroke="#111" stroke-width="2"/>
+      <circle cx="250" cy="345" r="4" fill="none" stroke="#2a7a4b" stroke-width="1.5"/>
+      <text x="310" y="325" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#2a7a4b">YES — light chamfer</text>
+      <text x="310" y="370" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#555">break sharp edge ~0.2–0.5 mm</text>
+      <!-- square end note -->
+      <rect x="420" y="310" width="200" height="70" fill="#fff" stroke="#111"/>
+      <text x="520" y="340" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">Square cut preferred</text>
+      <text x="520" y="356" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">(bandsaw / cold saw / lathe)</text>
+      <text x="520" y="372" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#555">then deburr; no heavy radius</text>
+
+      <!-- ops panel -->
+      <rect x="40" y="400" width="780" height="140" fill="#fff" stroke="#111" stroke-width="1.5"/>
+      <text x="55" y="422" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#111">OPERATIONS</text>
+      <text x="55" y="442" font-family="IBM Plex Mono, monospace" font-size="11" fill="#111">1. Mark 346 mm from one end; cut #1. Mark 346 mm on remaining; cut #2. Scrap leftover (~222 mm).</text>
+      <text x="55" y="460" font-family="IBM Plex Mono, monospace" font-size="11" fill="#111">2. Repeat on five sticks → 10 blanks; keep best 9; one spare OK. Same process for brass and for W1 (separate bags).</text>
+      <text x="55" y="478" font-family="IBM Plex Mono, monospace" font-size="11" fill="#111">3. Deburr both ends: remove saw burr; light chamfer 0.2–0.5 mm. Do not round ends into bullets. Wipe clean.</text>
+      <text x="55" y="496" font-family="IBM Plex Mono, monospace" font-size="11" fill="#111">4. Check length 346 ±1 mm with steel rule/calipers. Label bag: BRASS 360 · 9×346 mm · Ø1/8″  (or W1 · …).</text>
+      <text x="55" y="514" font-family="IBM Plex Mono, monospace" font-size="11" fill="#111">5. No plating, no paint, no heat-treat required for first article. W1: leave as-received hardness unless shop notes otherwise.</text>
+      <text x="55" y="532" font-family="IBM Plex Mono, monospace" font-size="11" fill="#c45c26">DO NOT: splice leftovers · cut to λ/4 (173 mm) · mix brass and W1 in one cube without logging · leave sharp burrs</text>
+    </svg>
+
+    <div class="notes-grid">
+      <div class="card">
+        <h3>Brass (first article)</h3>
+        <p>1/8″ round 360 brass (McMaster family <code>8953K101</code> or Everbilt 0301 alternate). Five 36″ sticks → nine finished 346&nbsp;mm rods. Ohmic MW polarizer baseline. Why 34.6&nbsp;cm not λ/4: <a href="monstein.html#rod-length">monstein.html#rod-length</a>.</p>
+      </div>
+      <div class="card">
+        <h3>W1 tool steel (optional)</h3>
+        <p>Same cut list: Speedy Metals 1/8″ × 36″ W1 water-hardening drill rod. Nine × 346&nbsp;mm for Hively hysteresis follow-on — procurable stand-in, not a claim of his exact alloy. Keep brass and W1 in separate labeled bags.</p>
+      </div>
+    </div>
+
+    <h3>Cut list summary</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Material</th><th>Stock</th><th>Cut</th><th>Finished</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Brass 360 (or Everbilt brass)</td><td>5 × 36″ × 1/8″</td><td>10 × 346 mm</td><td>9 (+1 spare)</td><td>First polarizer article</td></tr>
+          <tr><td>W1 drill rod</td><td>5 × 36″ × 1/8″</td><td>10 × 346 mm</td><td>9 (+1 spare)</td><td>Optional second article</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <h2 id="summary">Quick reference</h2>
   <div class="table-wrap">
     <table>
       <thead><tr><th>Item</th><th>Exp A (¾″)</th><th>Exp B (2.50″)</th></tr></thead>
@@ -254,11 +358,12 @@
         <tr><td>Tap stock hole?</td><td>N/A (no hole)</td><td><strong>No</strong></td></tr>
         <tr><td>Preferred mount</td><td>Exterior flange + bond</td><td>Clearance + locknut</td></tr>
         <tr><td>Conditional tap</td><td colspan="2">Boss only · #3 (0.2130″) usual · 1/4-36 UNEF 2B · shop confirms chart</td></tr>
+        <tr><td>Polarizer rods</td><td colspan="2">See <a href="#sheet-rods">#sheet-rods</a>: 9 × <strong>346 mm</strong> × Ø1/8″ brass (first); optional 9 × same in W1; cut from 5×36″ sticks; deburr both ends</td></tr>
       </tbody>
     </table>
   </div>
 
-  <p class="footnote">Related: <a href="setup.html#sma-shop-a">setup.html#sma-shop-a</a> · <a href="sphere.html#sma-install">sphere.html#sma-install</a> · <a href="monstein.html#sma-shop-b">monstein.html#sma-shop-b</a> · MW EPL 59, 514 (2002) Fig.&nbsp;1 educational analogy only. Drawn for machine shop use · Dan Britton · 2026-09-16.</p>
+  <p class="footnote">Related: <a href="setup.html#sma-shop-a">setup.html#sma-shop-a</a> · <a href="sphere.html#sma-install">sphere.html#sma-install</a> · <a href="monstein.html#sma-shop-b">monstein.html#sma-shop-b</a> · <a href="monstein.html#parts">monstein.html#parts</a> (rods) · MW EPL 59, 514 (2002) educational analogy only. Drawn for machine shop use · Dan Britton · 2026-09-16.</p>
 </main>
 <footer class="site">
   <div class="wrap">
