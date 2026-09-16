@@ -5,7 +5,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Setup · SLW Hub</title>
-<meta name="description" content="1.3 GHz Hively replication: fold-in-half bifilar pancake on a Cricut gummy mat, TinySA Ultra 406, Less EMF RadioScreen mesh cages.">
+<meta name="description" content="1.3 GHz Hively replication: KB-1820 ¾″ Al hollow sphere + SMA bulkhead first article; bifilar pancake optional control; TinySA Ultra 406; RadioScreen mesh cages.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +40,7 @@
 </header>
 <nav id="expt-abc" class="expt-abc" aria-label="Jump to Experiment A, B, or C">
   <span class="expt-abc-label">Experiments</span>
-  <a class="expt-abc-btn" data-expt="a" href="index.html#expt-a"><span class="k">A</span> 1296 MHz cage</a>
+  <a class="expt-abc-btn" data-expt="a" href="index.html#expt-a"><span class="k">A</span> 1296 MHz sphere</a>
   <a class="expt-abc-btn" data-expt="b" href="index.html#expt-b"><span class="k">B</span> 433 MHz</a>
   <a class="expt-abc-btn" data-expt="c" href="experiment-c.html"><span class="k">C</span> atomic 1S–2S</a>
   <a class="expt-abc-sub" href="setup.html">A setup</a>
@@ -52,7 +52,7 @@
 </nav>
 
 <nav class="expt-strip" aria-label="Experiments A · B · C">
-  <a href="index.html#expt-a" aria-current="page"><span class="expt-k">A</span> 1296 MHz cage</a>
+  <a href="index.html#expt-a" aria-current="page"><span class="expt-k">A</span> 1296 MHz sphere</a>
   <a href="setup.html" aria-current="page">setup</a>
   <a href="fields.html">fields</a>
   <span class="sep">·</span>
@@ -71,23 +71,29 @@
 
 <p class="kicker">Setup · 1.3 gigahertz (GHz) / 1296 megahertz (MHz) · not 8 GHz</p>
 <h1>How to set up the Hively replication on the bench</h1>
-<p class="footnote">Different experiment (not this cage): Monstein–Wesley 2002 brass-rod polarizer — <a href="monstein.html">monstein.html</a>.</p>
-<p class="lede"><a href="fields.html">Interactive 1296 MHz TEM vs SLW fields</a> · First article for this Scalar Longitudinal Wave (SLW) hub. First article for Dan: one long strand of 22 or 24 American Wire Gauge (AWG) folded in half (no hub solder), wound as a bifilar pancake on a Cricut-style sticky mat, then two <a href="https://lessemf.com/product/radioscreen-mesh/">Less EMF RadioScreen</a> mesh cages — TinySA Ultra 406 spectrum analyzer / signal generator inside the detector cage, generator inside the transmitter cage. Numbers match the <a href="lab.html">lab protocol</a> and <a href="tools.html">coil calculator</a>.</p>
+<p class="footnote">Different experiment (not this mesh tent): Monstein–Wesley 2002 brass-rod polarizer — <a href="monstein.html">monstein.html</a>.</p>
+<p class="lede"><a href="fields.html">Interactive 1296 MHz TEM vs SLW fields</a> · First article for this Scalar Longitudinal Wave (SLW) hub. <strong>Primary radiator:</strong> K-Mac <code>KB-1820</code> 0.750″ (¾″) 3003 aluminum hollow sphere + Amphenol <code>901-9875</code> SMA bulkhead (coax into the ball, outer as shield), inside two <a href="https://lessemf.com/product/radioscreen-mesh/">Less EMF RadioScreen</a> mesh tents — TinySA Ultra 406 spectrum analyzer / signal generator in the detector tent, generator in the transmitter tent. Bifilar-pancake winding below is kept as a <em>historical / optional control</em>. Numbers still match the <a href="lab.html">lab protocol</a> and <a href="tools.html">coil calculator</a> for that control path.</p>
+
+<div class="banner-warn">
+  <strong>Antenna shift (first article).</strong> Experiment A’s first-article antenna is shifting to a K-Mac <code>KB-1820</code> <strong>0.750″ (¾″)</strong> aluminum hollow sphere + Amphenol <code>901-9875</code> SMA-F (SubMiniature version A, female) bulkhead. Same feed philosophy as Experiment B (coax into the ball, outer conductor as shield), but at <strong>1296.000&nbsp;MHz</strong> / 23&nbsp;cm. Bifilar-pancake sections on this page are now <em>historical / optional control</em> — clearly labeled. Shop notes: <a href="#sphere-a">#sphere-a</a> · <a href="#sma-shop-a">#sma-shop-a</a>. Electrically separate from B.
+</div>
 
 <div class="banner-edu">23 cm amateur band, build on <strong>1296.000 MHz</strong>. Licensed amateur radio only. No magnetron.</div>
 
 <nav class="toc card">
   <strong>On this page</strong>
-  <a href="#picture">What you are building</a>
-  <a href="#mat">Sticky gummy board</a>
-  <a href="#fold">Fold-in-half winding</a>
-  <a href="#lift">Lift off the sticky mat</a>
+  <a href="#sphere-a">¾″ sphere first article (KB-1820)</a>
+  <a href="#sma-shop-a">SMA bulkhead machine-shop work order</a>
+  <a href="#picture">What you are building (mesh tents)</a>
+  <a href="#mat">Sticky gummy board <em>(optional control)</em></a>
+  <a href="#fold">Fold-in-half winding <em>(optional control)</em></a>
+  <a href="#lift">Lift off the sticky mat <em>(optional control)</em></a>
   <a href="#dmm">Expected resistance and open-circuit check</a>
   <a href="#tinysa">TinySA Ultra 406 and impedance</a>
-  <a href="#fixture">RX pancake fixture</a>
-  <a href="#sleeve">Sleeve balun (not skirt)</a>
-  <a href="#tx-fixture">TX sleeve-stub fixture</a>
-  <a href="#mesh">RadioScreen mesh Faraday cages</a>
+  <a href="#fixture">RX pancake fixture <em>(optional control)</em></a>
+  <a href="#sleeve">Sleeve balun (not skirt) <em>(optional control)</em></a>
+  <a href="#tx-fixture">TX sleeve-stub fixture <em>(optional control)</em></a>
+  <a href="#mesh">RadioScreen mesh Faraday tents</a>
   <a href="#stack">Order of first measurements</a>
   <a href="#pack">Packing for Lady Lake and Middletown</a>
   <a href="fields.html#viz">2D TEM / SLW fields (JS canvas)</a>
@@ -95,8 +101,81 @@
   <a href="#checklist">Printable checklist</a>
 </nav>
 
+
+<h2 id="sphere-a">Experiment A first article — K-Mac <code>KB-1820</code> 0.750″ hollow sphere</h2>
+<p>Shift from bifilar pancake to a small aluminum Faraday ball at <strong>1296.000&nbsp;MHz</strong>. Feed philosophy matches Experiment B: coax into the interior, outer conductor bonded to the shell as shield. Band and mesh tents stay Experiment A; do <em>not</em> share RF feed with the 433.59&nbsp;MHz bench.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Role</th><th>Part</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Radiator / shield shell</td>
+      <td>K-Mac <code>KB-1820</code></td>
+      <td>3003 alloy aluminum hollow balls, 10-pack, unpolished, <strong>0.750″ (¾″)</strong> diameter. ~$36.40 / pack (user quote). Catalog: <a href="http://k-mac-plastics.com/balls/hollow-metal-balls.htm">k-mac-plastics.com/balls/hollow-metal-balls.htm</a>.</td>
+    </tr>
+    <tr>
+      <td>SMA bulkhead</td>
+      <td>Amphenol <code>901-9875</code></td>
+      <td>SMA-F bulkhead crimp for RG-316 / LMR-100A (cable group B), 50&nbsp;Ω. Already on the hub (RF Parts). Thread: <strong>1/4-36 UNEF</strong> (¼″-36 Unified Extra Fine); major diameter ≈ 0.250″ (6.35&nbsp;mm).</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>¾″ interior access is very tight</strong> for an interior locknut. Recommend the shop plan: (1) clearance hole + exterior flange / solder fillet + conductive bond to the shell, or (2) solder/weld a small boss then tap 1/4-36 UNEF into the boss (only if the boss is thick enough for ≥2–3 full pitches), or (3) use a bulkhead that can be nutted if they cut a temporary access. Thin hollow-ball walls usually <strong>cannot</strong> take a reliable tapped thread by themselves — say so plainly to the shop.</p>
+
+<p class="footnote">Bifilar-pancake winding, lift-off, and sleeve-stub fixtures further down this page are <em>historical / optional control</em> paths. Keep them labeled in the log if you still run them.</p>
+
+<h2 id="sma-shop-a">Machine-shop / install — SMA bulkhead on the ¾″ ball (copyable work order)</h2>
+<p>Applies to Amphenol <code>901-9875</code> and typical SMA panel bulkheads with <strong>1/4-36 UNEF</strong> threads. Same thread facts also inform Experiment B’s 2.50″ ball (<a href="sphere.html#sma-install">sphere.html#sma-install</a> · <a href="monstein.html#bulkhead">monstein.html#bulkhead</a>), but A’s ¾″ ID makes nut access harder.</p>
+
+<div class="banner-legal"><strong>Preferred mount on hollow aluminum spheres:</strong> clearance hole through the wall + locknut/washer (nut-clamp), <em>not</em> tapping the thin stamped wall. Existing ¼″ (0.250″) is <em>not</em> a tap drill for 1/4-36 — it is essentially the thread major diameter, so there is little/no material left to cut threads. It is also slightly <em>tight</em> as a clearance for the threaded body; if the bulkhead will not slide, ream carefully to <strong>6.5&nbsp;mm / 0.256″</strong> (often a letter <strong>F</strong> drill ≈ 0.257″). Deburr so the O-ring/flange seats.</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Item</th><th>Value</th><th>Comment</th></tr></thead>
+  <tbody>
+    <tr><td>Thread</td><td><strong>1/4-36 UNEF</strong></td><td>¼″-36 Unified Extra Fine; major ≈ 0.250″ (6.35&nbsp;mm)</td></tr>
+    <tr><td>Preferred panel hole</td><td><strong>6.5&nbsp;mm (≈ 0.256″)</strong></td><td>Acceptable window ~6.3–6.6&nbsp;mm; clearance + nut-clamp</td></tr>
+    <tr><td>If bulkhead will not slide in ¼″</td><td>Ream to 6.5&nbsp;mm / letter F (~0.257″)</td><td>Do not force; protect plating and O-ring face</td></tr>
+    <tr><td>Tap (conditional only)</td><td><strong>1/4-36 UNEF 2B</strong></td><td>Only if wall or a welded/soldered boss is thick enough for ≥2–3 full pitches</td></tr>
+    <tr><td>Tap drill (conditional)</td><td><strong>#3 (0.2130″)</strong> usual ~75% chart; some shops use <strong>#2 (0.2210″)</strong> in aluminum</td><td>Confirm against the shop’s chart and the connector datasheet. Do <em>not</em> treat 0.250″ as the tap drill.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="card">
+  <h3>Copy-paste work order (Experiment A · <code>KB-1820</code>)</h3>
+  <pre style="white-space:pre-wrap;font-family:var(--mono, 'IBM Plex Mono', monospace);font-size:0.9rem;line-height:1.45;margin:0">WORK ORDER — Experiment A SMA bulkhead on K-Mac KB-1820 0.750″ 3003 Al hollow ball
+
+Part: Amphenol 901-9875 SMA-F bulkhead (1/4-36 UNEF), RG-316 / LMR-100A crimp.
+Goal: coax into interior; outer conductor / bulkhead body bonded to ball shell as shield.
+Frequency context: 1296.000 MHz / 23 cm (shop: mechanical only).
+
+PREFERRED (do this unless you add a thick boss):
+1. Drill / ream a clearance hole through the wall: 6.5 mm (≈0.256″); window 6.3–6.6 mm.
+   If a ¼″ (0.250″) hole already exists and the threaded body will not slide, ream carefully
+   to 6.5 mm / letter F (~0.257″). Deburr both sides so flange/O-ring seats.
+2. Nut-clamp: locknut + washer from the accessible side. On a ¾″ ball the interior nut is
+   VERY tight — prefer exterior flange/solder fillet + conductive bond to the shell, or cut
+   temporary access, or weld/solder a small boss first.
+3. Bond: ensure RF-conductive bond between bulkhead body (outer) and aluminum shell.
+   Feed: center conductor / crimped coax into the interior; shell is the outer/shield.
+
+DO NOT:
+- Tap the thin stamped hollow-ball wall as the primary plan.
+- Treat the existing ¼″ hole as a 1/4-36 tap drill (it is ~major diameter; little/no material).
+
+CONDITIONAL TAP PATH (only if wall or a welded/soldered boss supports ≥2–3 full pitches):
+- Tap: 1/4-36 UNEF 2B
+- Tap drill: #3 (0.2130″) usual ~75% thread; #2 (0.2210″) sometimes used in Al for easier tapping.
+  Confirm with shop chart + 901-9875 datasheet.
+- Thin hollow-ball walls alone usually cannot take a reliable tapped thread — say so plainly.</pre>
+</div>
+
 <h2 id="picture">What you are building</h2>
-<p>Two mesh Faraday tents face each other on a wooden/plastic rail. The transmitter (TX) tent holds the sleeve-balun stub and the signal generator. The receiver (RX) tent holds the folded bifilar pancake and the TinySA Ultra 406, which you read through the see-through mesh. No coaxial cable (coax) between tents if you can help it — a cable is a leak.</p>
+<p>Two mesh Faraday tents face each other on a wooden/plastic rail. <strong>First article:</strong> the transmitter (TX) tent holds the ¾″ <code>KB-1820</code> sphere + SMA bulkhead and the signal generator; the receiver (RX) tent holds a matching sphere (or the optional bifilar control) and the TinySA Ultra 406, which you read through the see-through mesh. No coaxial cable (coax) between tents if you can help it — a cable is a leak. Bifilar pancake + sleeve-stub remain documented below as an optional control path.</p>
 
 <figure class="figure" role="img" aria-label="Two facing mesh Faraday tents">
 <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace" font-size="11" fill="#f3ead8">
@@ -132,7 +211,7 @@
   <article class="card nz"><h3>Receiver (RX)</h3><p>One strand folded in half, outside diameter (OD) ≈ <strong>35 mm</strong>, AWG 22 or 24. TinySA Ultra 406 in spectrum-analyzer (SA) / Ultra mode <em>inside</em> the RX tent.</p></article>
 </div>
 
-<h2 id="mat">The Cricket / Cricut sticky gummy board</h2>
+<h2 id="mat">The Cricket / Cricut sticky gummy board <span class="footnote">(optional control — bifilar path)</span></h2>
 <p>A Cricut cutting mat (Cricket mat, gummy board) is the winding jig: each turn sticks, so 22/24 AWG magnet wire cannot spring off and knot. You are not cutting anything and you are not putting the coil in the machine.</p>
 <div class="callout-mat">
   <strong>Which mat.</strong> Green <em>StandardGrip</em>. Blue LightGrip if a new green mat wants to peel enamel. Skip purple StrongGrip.
@@ -146,7 +225,7 @@
   <li>One spool in a mug to the side so it can rotate. You only need one spool now.</li>
 </ol>
 
-<h2 id="fold">Fold-in-half winding (no hub solder)</h2>
+<h2 id="fold">Fold-in-half winding (no hub solder) <span class="footnote">— optional control</span></h2>
 <p><strong>Fold first.</strong> Cut <strong>one</strong> piece of 22 or 24 AWG magnet wire about <strong>2.2 m</strong> (that is ~1.0 m per leg plus extra for leads). Fold it in half (gentle U, not a crease). The <em>fold is the center</em> — series-opposing, no hub solder. Park that fold at the 6&nbsp;mm hub on the Cricut StandardGrip sticky mat, then <strong>wind both legs out</strong> together as a pair to OD 35&nbsp;mm. The two free ends are the RF terminals. You never scrape or solder the midpoint. Not two separate wires.</p>
 <figure class="figure" role="img" aria-label="One wire folded in half becomes a bifilar pair">
 <svg viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace" font-size="12" fill="#f3ead8">
@@ -174,7 +253,7 @@
 <p>The fold method makes <strong>series-opposing only</strong>. For an aiding / transverse-electromagnetic-loop control, wind a second pancake as a <em>single-filar</em> of similar OD, or two wires paralleled. Label them.</p>
 
 
-<h2 id="lift">Lift the fold-in-half pancake off the Cricut StandardGrip mat</h2>
+<h2 id="lift">Lift the fold-in-half pancake off the Cricut StandardGrip mat <span class="footnote">— optional control</span></h2>
 <p>Winding is done. The gummy board did its job: 22/24 AWG stayed planar and did not knot. Now you have to get the coil <em>off</em> the mat without spring-out, enamel cracks, or opening the hub fold. This is a handling step, not a new winding method.</p>
 <div class="callout-mat">
   <strong>Do not peel from a free end or from the fold.</strong> A yanked lead will telescope the spiral; a yanked fold can crack copper the digital multimeter already said was continuous.
@@ -233,7 +312,7 @@
 <p>Keep the SMA jumper from pancake to TinySA under 10 cm. Ferrite on that jumper if you see cable-pickup that dummy-loading does not kill.</p>
 
 
-<h2 id="fixture">Mount the pancake on a semi-permanent non-metallic fixture</h2>
+<h2 id="fixture">Mount the pancake on a semi-permanent non-metallic fixture <span class="footnote">— optional control</span></h2>
 <p>The coil does not live on the Cricut mat for radio-frequency work, and it should not sit loose in the mesh tent. Give it a rigid, non-metallic plate that keeps the pancake planar, carries a short SMA pigtail, and can be lifted in and out of the RadioScreen tent without crushing seams.</p>
 <ol class="steps">
   <li><strong>Plate.</strong> Acrylic, HDPE, plywood, or a 3D-printed PLA/PETG disk/rectangle larger than 35 mm (something like 80–100 mm across). No copper-clad, no steel washers in the RF path. The pancake stays one layer, face-on, not warped into a dish.</li>
@@ -246,7 +325,7 @@
 <p class="footnote">Continuity one more time after the SMA is on the plate. Log “pancake on fixture, pigtail &lt; 10 cm, nylon hardware.” Photograph the assembly next to a ruler before the first sealed run.</p>
 
 
-<h2 id="sleeve">Sleeve balun (not a skirt) — novice how-to</h2>
+<h2 id="sleeve">Sleeve balun (not a skirt) — novice how-to <span class="footnote">— optional control</span></h2>
 <p>This is the Experiment A <em>build</em> at <strong>1296.000 MHz</strong>. Patent language may stay historical; the hardware you solder is a close-fitting sleeve, not US 9,306,527 Fig.&nbsp;2A’s fat skirt.</p>
 <div class="banner-legal">
   <strong>Patent (historical).</strong> Fig.&nbsp;2A is an annular <em>skirt</em> balun: larger diameter than the coax outer, extends <em>backward</em> from the feed, outer conductor tied to the <em>top</em> of the skirt. The patent says that λ/4 path cancels return current on the outside of the tubular second conductor and also acts as a small ground-plane/counterpoise (currents on the center conductor and the outside of the skirt both +Z). That fat skirt can launch extra TEM.
@@ -357,9 +436,13 @@
 
 
 <h2 id="shop">Short shopping list (verified links)</h2>
-<p>Exact product pages used to kit the fixture and travel case. Open in a new tab. Do not treat this as an endorsement beyond “this is the SKU we checked.” Licensed 23 cm / 1296 MHz only.</p>
+<p>Exact product pages used to kit the fixture and travel case. Open in a new tab. Do not treat this as an endorsement beyond “this is the SKU we checked.” Licensed 23 cm / 1296 MHz only. <strong>First-article radiator:</strong> <code>KB-1820</code> sphere — see <a href="#sphere-a">#sphere-a</a>.</p>
 <ul>
-  <li><strong>Coil / TX plates (pick one family).</strong>
+  <li><strong>¾″ Al hollow spheres (first article).</strong>
+    K-Mac <code>KB-1820</code> 0.750″ 3003 aluminum hollow, 10-pack unpolished (~$36.40 / pack, user quote):
+    <a href="http://k-mac-plastics.com/balls/hollow-metal-balls.htm" target="_blank" rel="noopener">k-mac-plastics.com/balls/hollow-metal-balls.htm</a>.
+    Machine-shop clearance / tap notes: <a href="#sma-shop-a">#sma-shop-a</a>.</li>
+  <li><strong>Coil / TX plates (pick one family; optional bifilar control).</strong>
     Amazon 6×6×1/8″ acrylic:
     <a href="https://www.amazon.com/dp/B0B4BKRJT5" target="_blank" rel="noopener">Amazon 6×6×1/8 acrylic (B0B4BKRJT5)</a>;
     6-pack:
@@ -394,7 +477,7 @@
     <a href="https://www.downeastmicrowave.com/Band-Pass-Filter-p/dem-bpf.htm" target="_blank" rel="noopener">Down East Microwave DEM-BPF</a>
     — select Frequency 1296 MHz and Connector SMA. May be SMA-F both ends; then a short SMA-M/M barrel or pigtail to the Ultra.</li>
 </ul>
-<p class="footnote">Keep USB cables in the cables bag, not attached. Roll RadioScreen; nest the pancake on the rigid plate in the Pelican foam. Flap seals are hook-and-loop / clips / magnets — not 3M 1181 welded shut. Different experiment (not this cage): polarizer spheres/rods shopping list is on <a href="monstein.html#parts">monstein.html#parts</a> — not the pancake kit.</p>
+<p class="footnote">Keep USB cables in the cables bag, not attached. Roll RadioScreen; nest the ¾″ sphere (and optional pancake plate) in the Pelican foam. Flap seals are hook-and-loop / clips / magnets — not 3M 1181 welded shut. Different experiment (not this mesh tent): 433&nbsp;MHz polarizer spheres/rods shopping list is on <a href="monstein.html#parts">monstein.html#parts</a> — not the Experiment A kit.</p>
 
 
 <h2 id="wolfram">Interactive TEM vs SLW (JS canvas)</h2>
