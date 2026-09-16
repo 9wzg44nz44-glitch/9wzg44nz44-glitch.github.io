@@ -57,6 +57,7 @@
   <a class="expt-abc-btn" href="#sheet-a"><span class="k">A</span> ¾″ KB-1820</a>
   <a class="expt-abc-btn" href="#sheet-b"><span class="k">B</span> 2.50″ KB-2016</a>
   <a class="expt-abc-btn" href="#sheet-rods"><span class="k">B</span> rods cut/deburr</a>
+  <a class="expt-abc-btn" href="#sheet-support"><span class="k">B</span> support + rotator</a>
   <a class="expt-abc-sub" href="setup.html#sma-shop-a">A work order</a>
   <a class="expt-abc-sub" href="sphere.html#sma-install">B install</a>
   <a class="expt-abc-sub" href="monstein.html#parts">B rods parts</a>
@@ -71,6 +72,7 @@
     <a class="btn" href="setup.html#sma-shop-a">A text work order</a>
     <a class="btn" href="sphere.html#sma-install">B sphere install</a>
     <a class="btn" href="#sheet-rods">B rods cut/deburr</a>
+    <a class="btn" href="#sheet-support">B support + rotator</a>
   </div>
 
   <div class="banner-legal"><strong>Hole facts:</strong> Exp&nbsp;A <code>KB-1820</code> (¾″) <strong>ships with no hole</strong> — shop drills from solid. Exp&nbsp;B <code>KB-2016</code> (2.50″) <strong>ships with a pre-drilled ¼″ hole</strong> — do <em>not</em> tap that hole as a 1/4-36 tap drill. Preferred clearance for both: <strong>6.5&nbsp;mm (≈&nbsp;0.256″)</strong>.</div>
@@ -346,6 +348,141 @@
   </section>
 
 
+
+  <!-- ========== SHEET SUPPORT + ROTATOR ========== -->
+  <section class="shop-sheet" id="sheet-support">
+    <h2>Sheet B-support — polarizer block + rotation jig (manual / optional motor)</h2>
+    <dl class="titleblock">
+      <dt>Project</dt><dd>SLW Hub Exp B · 3×3 λ/2 rod polarizer · 433.59 MHz · rotatable mount</dd>
+      <dt>Date</dt><dd>2026-09-16</dd>
+      <dt>Grid</dt><dd>9 holes · pitch <strong>173 mm</strong> (≈ λ/4) · outer centers span <strong>346 mm</strong></dd>
+      <dt>Block envelope</dt><dd>≈ <strong>380 × 380 × 50–75 mm</strong> (≈ 15″ × 15″ × 2–3″) — starting values; shop may trim</dd>
+      <dt>Hole size</dt><dd>Ø <strong>3.2 mm</strong> (≈ 0.126″) for snug 1/8″ rod; or Ø 3.0 mm then ream to fit</dd>
+      <dt>Preferred material</dt><dd><strong>HDPE</strong> or <strong>acrylic</strong> (non-metallic). Wood / rigid foam-core OK. Styrofoam = mock-up only.</dd>
+    </dl>
+
+    <div class="banner-legal"><strong>Material for the experiment:</strong> Support and rotator must be <em>non-metallic</em> in the RF path (no steel fasteners next to the rods if you can help it — nylon/plastic). <strong>Preferred:</strong> HDPE sheet or acrylic plate. Acceptable: dry plywood / MDF with plastic bushings. <strong>Styrofoam (EPS/XPS):</strong> electrically usually fine at 433 MHz (low εᵣ), but too soft for a logged 360° rotator — use only for a static dry-fit mock-up. Hub prior note: HDPE/acrylic for the non-metallic rotator (<a href="monstein.html#bulkhead">monstein</a> / setup shop list).</div>
+
+    <svg class="dwg" viewBox="0 0 860 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Shop drawing Exp B polarizer support block hole pattern and rotation jig">
+      <rect width="860" height="620" fill="#f7f3ea"/>
+      <text x="430" y="24" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#111">EXP B — SUPPORT BLOCK (TOP VIEW) + ROTATION JIG</text>
+      <text x="430" y="42" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#444">Recommended starting dims · educational · not a frozen MW shop print</text>
+
+      <!-- top view block -->
+      <rect x="40" y="60" width="360" height="360" fill="#e8e0d0" stroke="#111" stroke-width="2"/>
+      <!-- 3x3 holes: centers at margin 17 from left of 346 span... 
+           block 380, grid span 346, margin (380-346)/2 = 17 mm each side
+           In SVG: block 360px maps to 380mm → scale 360/380 = 0.947
+           Use pixel coords for clarity: left margin 20px, pitch 107px (173mm), holes at 20+0,20+107,20+214 from block origin... 
+           block x=40,y=60 size 360. Inner margin = (360 - 2*107)/2 wait 3 holes need 2 pitches.
+           pitch_px = 107; start = 40 + (360 - 2*107)/2 = 40 + 73 = 113
+           holes at 113, 220, 327 for both x and y (y: 60+73=133, 240, 347)
+      -->
+      <!-- grid lines light -->
+      <g stroke="#bbb" stroke-width="1" stroke-dasharray="3 3">
+        <line x1="113" y1="60" x2="113" y2="420"/>
+        <line x1="220" y1="60" x2="220" y2="420"/>
+        <line x1="327" y1="60" x2="327" y2="420"/>
+        <line x1="40" y1="133" x2="400" y2="133"/>
+        <line x1="40" y1="240" x2="400" y2="240"/>
+        <line x1="40" y1="347" x2="400" y2="347"/>
+      </g>
+      <g fill="#111">
+        <circle cx="113" cy="133" r="5"/>
+        <circle cx="220" cy="133" r="5"/>
+        <circle cx="327" cy="133" r="5"/>
+        <circle cx="113" cy="240" r="5"/>
+        <circle cx="220" cy="240" r="5"/>
+        <circle cx="327" cy="240" r="5"/>
+        <circle cx="113" cy="347" r="5"/>
+        <circle cx="220" cy="347" r="5"/>
+        <circle cx="327" cy="347" r="5"/>
+      </g>
+      <!-- pitch dimension -->
+      <line x1="113" y1="445" x2="220" y2="445" stroke="#c45c26" stroke-width="1.5"/>
+      <line x1="113" y1="440" x2="113" y2="450" stroke="#c45c26"/>
+      <line x1="220" y1="440" x2="220" y2="450" stroke="#c45c26"/>
+      <text x="166" y="462" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#c45c26">173 mm pitch</text>
+      <line x1="40" y1="480" x2="400" y2="480" stroke="#111" stroke-width="1"/>
+      <text x="220" y="496" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#111">≈ 380 mm (15″) overall</text>
+      <text x="220" y="512" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#555">9 × Ø≈3.2 mm thru (1/8″ rods) · HDPE / acrylic</text>
+
+      <!-- side thickness callout -->
+      <rect x="40" y="530" width="50" height="70" fill="#d4c4a8" stroke="#111" stroke-width="2"/>
+      <text x="120" y="560" font-family="IBM Plex Mono, monospace" font-size="11" fill="#111">thk 50–75 mm</text>
+      <text x="120" y="576" font-family="IBM Plex Mono, monospace" font-size="10" fill="#555">(2–3″) keeps rods parallel</text>
+
+      <!-- right panel: rotator -->
+      <rect x="440" y="60" width="390" height="340" fill="#fff" stroke="#111" stroke-width="1.5"/>
+      <text x="455" y="85" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#111">ROTATION JIG</text>
+      <text x="455" y="108" font-family="IBM Plex Mono, monospace" font-size="11" fill="#111">A. MANUAL (first article)</text>
+      <text x="455" y="126" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">• Lazy-Susan / turntable bearing under</text>
+      <text x="455" y="140" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">  the block (plastic or sealed bearing OK</text>
+      <text x="455" y="154" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">  if metal is small and below the rods)</text>
+      <text x="455" y="168" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">• Angle scale 0–360° on base (marker +</text>
+      <text x="455" y="182" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">  protractor ring or printed degree tape)</text>
+      <text x="455" y="196" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">• Hand-rotate; log φ each T(φ) point</text>
+      <text x="455" y="210" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">• Nylon screws / wood dowels only near rods</text>
+
+      <text x="455" y="238" font-family="IBM Plex Mono, monospace" font-size="11" fill="#111">B. OPTIONAL MOTORIZED</text>
+      <text x="455" y="256" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">• NEMA-17 stepper + driver (or geared</text>
+      <text x="455" y="270" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">  DC + pot) under the turntable</text>
+      <text x="455" y="284" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">• Absolute angle: marked dial, or 10-turn</text>
+      <text x="455" y="298" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">  pot / mag encoder on shaft</text>
+      <text x="455" y="312" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">• Step in 5–10° increments; pause for SA</text>
+      <text x="455" y="326" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">  reading (TinySA / Signal Hound)</text>
+      <text x="455" y="340" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">• Keep motor + metal gearing BELOW the</text>
+      <text x="455" y="354" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">  rod plane; battery supply; no long</text>
+      <text x="455" y="368" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">  USB whip into the RF path mid-sweep</text>
+      <text x="455" y="386" font-family="IBM Plex Mono, monospace" font-size="10" fill="#c45c26">Motorized = optional convenience, not required</text>
+
+      <!-- stack side view small -->
+      <text x="440" y="430" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="#111">SIDE STACK (schematic)</text>
+      <rect x="480" y="445" width="120" height="18" fill="#c9a227" stroke="#111"/>
+      <text x="540" y="458" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#111">rods (346 mm)</text>
+      <rect x="500" y="468" width="80" height="28" fill="#d4c4a8" stroke="#111"/>
+      <text x="540" y="486" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#111">HDPE block</text>
+      <rect x="510" y="500" width="60" height="12" fill="#888" stroke="#111"/>
+      <text x="540" y="510" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#fff">bearing</text>
+      <rect x="490" y="516" width="100" height="20" fill="#e8e0d0" stroke="#111"/>
+      <text x="540" y="530" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#111">base + ° scale</text>
+      <text x="640" y="480" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">optional:</text>
+      <text x="640" y="496" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">stepper below</text>
+      <text x="640" y="512" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">base (not in</text>
+      <text x="640" y="528" font-family="IBM Plex Mono, monospace" font-size="10" fill="#111">rod aperture)</text>
+
+      <text x="430" y="580" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#555">φ = 0°: rods parallel to TX–RX line (absorb) · φ = 90°: rods across path (transmit) · log T(φ)</text>
+      <text x="430" y="598" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#666">Spacing from MW / Butterworth: λ/2 rods, ≈ λ/4 apart · block size = recommended starting values</text>
+    </svg>
+
+    <div class="notes-grid">
+      <div class="card">
+        <h3>Preferred materials</h3>
+        <ul>
+          <li><strong>HDPE</strong> sheet (best all-around: tough, low RF fuss, easy drill)</li>
+          <li><strong>Acrylic / polycarbonate</strong> plate (stiffer; watch cracking when drilling)</li>
+          <li>Dry plywood + nylon bushings (acceptable if dry and logged)</li>
+          <li><strong>Styrofoam:</strong> mock-up / alignment only — not for the logged rotator</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Manual vs motorized</h3>
+        <p><strong>Start manual:</strong> lazy-Susan + degree ring is enough for brass baseline T(φ). <strong>Motorize later</strong> if you want denser angle steps or hands-off sweeps — stepper under the base with angle readout; keep motors/metal below the rod plane. Not required for a valid first article.</p>
+      </div>
+    </div>
+
+    <h3>Work order (support + jig)</h3>
+    <pre style="white-space:pre-wrap;font-family:var(--mono,'IBM Plex Mono',monospace);font-size:0.9rem;line-height:1.45;background:#0c0b09;color:#f3ead8;padding:1rem;border-radius:6px">WORK ORDER — Exp B polarizer support + rotator
+Material: HDPE or acrylic plate, ≈ 380 × 380 × 50–75 mm (starting).
+1. Layout 3×3 grid: pitch 173 mm; outer centers 346 mm apart; center hole on block center.
+2. Drill 9 × Ø≈3.2 mm thru (fit 1/8″ rods snug). Deburr holes. Dry-fit all 9 rods parallel.
+3. Mount block on non-metallic (or low-profile) turntable / lazy-Susan.
+4. Affix 0–360° scale on fixed base; pointer on rotating block. Define φ=0 = rods ∥ TX–RX.
+5. Optional motor: couple stepper under base; verify angle vs scale; park motor mass below rods.
+6. Log material, pitch, thk, manual vs motor in CSV with T(φ).</pre>
+  </section>
+
+
   <h2 id="summary">Quick reference</h2>
   <div class="table-wrap">
     <table>
@@ -359,11 +496,12 @@
         <tr><td>Preferred mount</td><td>Exterior flange + bond</td><td>Clearance + locknut</td></tr>
         <tr><td>Conditional tap</td><td colspan="2">Boss only · #3 (0.2130″) usual · 1/4-36 UNEF 2B · shop confirms chart</td></tr>
         <tr><td>Polarizer rods</td><td colspan="2">See <a href="#sheet-rods">#sheet-rods</a>: 9 × <strong>346 mm</strong> × Ø1/8″ brass (first); optional 9 × same in W1; cut from 5×36″ sticks; deburr both ends</td></tr>
+        <tr><td>Polarizer support + rotator</td><td colspan="2">See <a href="#sheet-support">#sheet-support</a>: ≈380 mm HDPE/acrylic block · 173 mm pitch · manual turntable first; optional stepper under base</td></tr>
       </tbody>
     </table>
   </div>
 
-  <p class="footnote">Related: <a href="setup.html#sma-shop-a">setup.html#sma-shop-a</a> · <a href="sphere.html#sma-install">sphere.html#sma-install</a> · <a href="monstein.html#sma-shop-b">monstein.html#sma-shop-b</a> · <a href="monstein.html#parts">monstein.html#parts</a> (rods) · MW EPL 59, 514 (2002) educational analogy only. Drawn for machine shop use · Dan Britton · 2026-09-16.</p>
+  <p class="footnote">Related: <a href="setup.html#sma-shop-a">setup.html#sma-shop-a</a> · <a href="sphere.html#sma-install">sphere.html#sma-install</a> · <a href="monstein.html#sma-shop-b">monstein.html#sma-shop-b</a> · <a href="monstein.html#parts">monstein.html#parts</a> (rods) · <a href="#sheet-support">#sheet-support</a> · MW EPL 59, 514 (2002) educational analogy only. Drawn for machine shop use · Dan Britton · 2026-09-16.</p>
 </main>
 <footer class="site">
   <div class="wrap">
