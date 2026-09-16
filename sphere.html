@@ -41,7 +41,7 @@
 </header>
 <nav id="expt-abc" class="expt-abc" aria-label="Jump to Experiment A, B, or C">
   <span class="expt-abc-label">Experiments</span>
-  <a class="expt-abc-btn" data-expt="a" href="index.html#expt-a"><span class="k">A</span> 1296 MHz cage</a>
+  <a class="expt-abc-btn" data-expt="a" href="index.html#expt-a"><span class="k">A</span> 1296 MHz sphere</a>
   <a class="expt-abc-btn" data-expt="b" href="index.html#expt-b"><span class="k">B</span> 433 MHz</a>
   <a class="expt-abc-btn" data-expt="c" href="experiment-c.html"><span class="k">C</span> atomic 1S–2S</a>
   <a class="expt-abc-sub" href="setup.html">A setup</a>
@@ -53,7 +53,7 @@
 </nav>
 
 <nav class="expt-strip" aria-label="Experiments A · B · C">
-  <a href="index.html#expt-a"><span class="expt-k">A</span> 1296 MHz cage</a>
+  <a href="index.html#expt-a"><span class="expt-k">A</span> 1296 MHz sphere</a>
   <a href="setup.html">setup</a>
   <a href="fields.html">fields</a>
   <span class="sep">·</span>
@@ -71,7 +71,7 @@
 <main id="main" class="wrap">
   <p class="kicker">433.59 MHz ball-and-rod polarizer · 70 cm Technician-legal · cost/decision sheet</p>
   <h1>Exact 2002 Fig.&nbsp;1 hardware vs catalog substitutes vs dollars</h1>
-  <p class="lede">Correspondence aid for <strong>Dan</strong> first (what to spend), then <strong>Steve Morris</strong> (human tech: SKUs, cut lengths, already-purchased bulkheads), then <strong>L.M. Hively</strong> (is the catalog hollow 3003 Aluminum ball + SMA bulkhead an acceptable Fig.&nbsp;1 substitute?). This sheet is the <strong>433.59&nbsp;MHz</strong> Monstein ball-and-rod polarizer (this page and <a href="monstein.html">monstein.html</a>). The other category on the hub is the <strong>1.3&nbsp;GHz</strong> Faraday-cage pancake (<a href="setup.html">setup</a> / <a href="lab.html">lab</a> / <a href="fields.html">fields</a>) — different frequency, different antennas, different shopping list.</p>
+  <p class="lede">Correspondence aid for <strong>Dan</strong> first (what to spend), then <strong>Steve Morris</strong> (human tech: SKUs, cut lengths, already-purchased bulkheads), then <strong>L.M. Hively</strong> (is the catalog hollow 3003 Aluminum ball + SMA bulkhead an acceptable Fig.&nbsp;1 substitute?). This sheet is the <strong>433.59&nbsp;MHz</strong> Monstein ball-and-rod polarizer (this page and <a href="monstein.html">monstein.html</a>). The other category on the hub is the <strong>1.3&nbsp;GHz</strong> Faraday-cage bench with a <strong>¾″ <code>KB-1820</code> sphere</strong> first article (<a href="setup.html#sphere-a">setup#sphere-a</a> / <a href="lab.html">lab</a> / <a href="fields.html">fields</a>; bifilar optional) — different frequency, different antennas, different shopping list.</p>
   <div class="banner-legal"><strong>No balun.</strong> Experiment B feed is MW Fig.&nbsp;1 / 901-9875: coax into the ball, outer as shield. Not a sleeve, not a skirt.</div>
 
   <nav class="toc card">
@@ -83,6 +83,7 @@
     <a href="#cost">Procurement / dollars</a>
     <a href="#shop">Exact Fig. 1 machine-shop path</a>
     <a href="#ka">Electrically small (ka ≪ 1)</a>
+    <a href="#sma-install">Machine-shop / install (¼″ → SMA)</a>
     <a href="#feed">Feed / bulkhead notes</a>
     <a href="#parts-back">Back to the 433 MHz parts list</a>
   </nav>
@@ -126,7 +127,7 @@
   <ul>
     <li>2.50″ (63.5&nbsp;mm) OD — 3.5&nbsp;mm larger than Fig.&nbsp;1’s 60.0&nbsp;mm.</li>
     <li>3003 Aluminum, hollow, wall 0.132″ (3.35&nbsp;mm).</li>
-    <li>Existing ¼″ hole — intended for the SMA bulkhead, not a 10H7/3H7 internal coax cavity.</li>
+    <li>Existing ¼″ hole — intended for the SMA bulkhead (clearance + nut; <strong>not</strong> a 1/4-36 tap drill), not a 10H7/3H7 internal coax cavity. See <a href="#sma-install">#sma-install</a>.</li>
     <li>Need two (TX + RX): catalog <strong>$126.96</strong> each, ≈ <strong>$253.92</strong> before shipping. Same vendor also lists 2.00″ KB-2014 and 3.00″ KB-2015; Butterworth’s reconstruction used ~3″ Al.</li>
   </ul>
 
@@ -135,8 +136,8 @@
 
   <h3>Amphenol <a href="https://www.rfparts.com/901-9875.html">901-9875</a> SMA-F bulkhead</h3>
   <figure class="figure">
-    <img src="img/901-9875.jpg" alt="Amphenol <a href="https://www.rfparts.com/901-9875.html">901-9875</a> SMA female bulkhead connector, catalog photo.">
-    <figcaption>Amphenol <a href="https://www.rfparts.com/901-9875.html">901-9875</a> SMA female bulkhead crimp, RF Parts <a href="https://www.rfparts.com/901-9875.html">rfparts.com/<a href="https://www.rfparts.com/901-9875.html">901-9875</a>.html</a>. Gold-plated brass body, BeCu gold center, PTFE; cable group B (RG-316 / LMR-100A), 50&nbsp;Ω. $11.90 each; qty 2 purchased 2 Sep 2026.</figcaption>
+    <img src="img/901-9875.jpg" alt="Amphenol 901-9875 SMA female bulkhead connector, catalog photo.">
+    <figcaption>Amphenol <a href="https://www.rfparts.com/901-9875.html">901-9875</a> SMA female bulkhead crimp, RF Parts <a href="https://www.rfparts.com/901-9875.html">rfparts.com/901-9875.html</a>. Gold-plated brass body, BeCu gold center, PTFE; cable group B (RG-316 / LMR-100A), 50&nbsp;Ω. $11.90 each; qty 2 purchased 2 Sep 2026.</figcaption>
   </figure>
   <p>Gender chain on this bench: TinySA Ultra RF port is SMA-F (hole). Jumper is SMA-M/M (pin both ends). Bulkhead through the ¼″ hole is SMA-F on the outside so the cable pin screws on. Prefer <a href="https://www.rfparts.com/901-9875.html">901-9875</a> as the “coax into the interior” part (crimp RG-316, center soldered inside the sphere). See <a href="monstein.html#bulkhead">monstein.html#bulkhead</a>.</p>
 
@@ -247,6 +248,28 @@
 
   <h2 id="ka">Still electrically small</h2>
   <p>At 433.59&nbsp;MHz, λ = c/f ≈ 0.692&nbsp;m. The MW ball has a/λ ≈ 0.043; the 2.50″ ball has a/λ ≈ 0.046. Both are ka ≪ 1 (k = 2π/λ). The open question is not “is it a 6&nbsp;cm dipole at UHF?” — it is whether dropping the internal coaxial shaft/bore, using a thin 3003 Aluminum wall, and feeding through a stock SMA bulkhead still counts as Fig.&nbsp;1’s “centrally fed, outer as shield” geometry.</p>
+
+
+  <h2 id="sma-install">Machine-shop / install — mating <code>901-9875</code> to the existing ¼″ hole</h2>
+  <p>K-Mac <code>KB-2016</code> already has a <strong>¼″ (0.250″)</strong> hole. That hole is <strong>not</strong> the correct tap drill for the bulkhead thread, and this hub does <strong>not</strong> recommend tapping the existing ¼″ hole.</p>
+
+  <div class="banner-legal"><strong>Thread facts (Amphenol <code>901-9875</code> / typical SMA panel bulkheads):</strong> thread is <strong>1/4-36 UNEF</strong> (¼″-36 Unified Extra Fine), major diameter ≈ 0.250″ (6.35&nbsp;mm). An existing ¼″ hole is essentially the thread major diameter — little/no material left to cut threads — and is also slightly <em>tight</em> as a clearance for the threaded body.</div>
+
+  <h3>Preferred path — clearance + nut-clamp</h3>
+  <ol>
+    <li><strong>Clearance hole:</strong> recommended panel hole <strong>6.5&nbsp;mm (≈ 0.256″)</strong>; acceptable window ~6.3–6.6&nbsp;mm. If the bulkhead will not slide through the stock ¼″ hole, ream carefully to 6.5&nbsp;mm / letter <strong>F</strong> drill (≈ 0.257″). Deburr so the O-ring/flange seats.</li>
+    <li><strong>Mount:</strong> nut-clamp with locknut/washer through the wall — <em>not</em> tapping the thin stamped hollow-ball wall. Wall on <code>KB-2016</code> is ~0.132″ (3.35&nbsp;mm); that is still thin for a reliable tapped thread.</li>
+    <li><strong>Mate the feed:</strong> crimp RG-316 / LMR-100A on <code>901-9875</code>; feed coax <em>into the interior</em>; bond the bulkhead body / outer conductor to the aluminum shell (MW “centrally fed, outer as shield”). Center to a short interior post or contact as your shop plan allows. <strong>No balun</strong> on this bench.</li>
+  </ol>
+
+  <h3>If the interior nut will not fit</h3>
+  <ul>
+    <li>Exterior flange / solder fillet + conductive bond to the shell (same idea as Experiment A’s tight ¾″ access notes on <a href="setup.html#sma-shop-a">setup.html#sma-shop-a</a>).</li>
+    <li>Solder/weld a small boss, then tap <strong>1/4-36 UNEF 2B</strong> into the boss only if it is thick enough for ≥2–3 full pitches. Tap drill if needed: <strong>#3 (0.2130″)</strong> usual ~75% chart; some shops use <strong>#2 (0.2210″)</strong> for easier tapping in aluminum — confirm against the shop chart and datasheet.</li>
+    <li>Temporary access cut for nutting, then close/bond the access carefully (RF continuity of the shell matters).</li>
+  </ul>
+
+  <p><strong>Do not</strong> recommend tapping the existing ¼″ hole as if it were a tap drill. Thin hollow-ball walls usually cannot take a reliable tapped thread without a boss or other thickening.</p>
 
   <h2 id="feed">What this page is not</h2>
   <ul>
