@@ -396,3 +396,25 @@ footer.site strong { color: var(--ink-muted); }
 @media (max-width: 860px) {
   .expt-strip { padding: 8px 14px; }
 }
+
+
+/* Archived Cricket/bifilar/sleeve path on setup.html */
+details.archive-block {
+  margin: 1.5rem 0 2rem;
+  padding: 0.75rem 1rem 1rem;
+  border: 1px dashed var(--rule-bright, #5a4e3c);
+  border-radius: var(--radius, 10px);
+  background: rgba(0,0,0,0.18);
+}
+details.archive-block > summary {
+  cursor: pointer;
+  list-style: disclosure-closed;
+  color: var(--ink-muted, #b7ab95);
+  line-height: 1.45;
+  padding: 0.35rem 0;
+}
+details.archive-block[open] > summary {
+  margin-bottom: 0.75rem;
+  list-style: disclosure-open;
+}
+details.archive-block > summary a { pointer-events: auto; }
