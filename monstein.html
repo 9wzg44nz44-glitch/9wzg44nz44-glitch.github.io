@@ -82,6 +82,7 @@
     <a href="#expt">The 2002 setup</a>
     <a href="#eq">Formulas</a>
     <a href="#rod-length">Rod length (why not λ/4?)</a>
+    <a href="#ranging-b">Precision TX–RX distance (Exp B)</a>
     <a href="shop-drawing.html#sheet-rods">Shop drawing — cut &amp; deburr rods</a>
     <a href="#ucurve-sec">Rotation / U-curve</a>
     <a href="#critique">Comments and reconstructions</a>
@@ -115,6 +116,16 @@ T = exp[ −κ cos²(φ) ]                                   (9)
 κ_fit = 4.4   (their fig. 3 best fit; κ ∝ L)</pre>
   <p>Ground-image sketch: observed field as superposition of amplitude A from the source at height y and B from an image at y′ (they place the reflecting surface λ/2 = 34.6&nbsp;cm below the actual earth). Energy ~1/r² with interference minima. We do not reproduce their fitted A, B tables; read eqs. (12)–(15) in the letter.</p>
   <p class="footnote">CED reading: a spherically fed ball is <em>not</em> a proof that ∇·A = 0 forbids TEM. Feed cables, the ground, and the rod array all break spherical symmetry. Bray &amp; Britton (EPL 2004) and Rębilas (EPL 2008) press that point. This hub lists MW’s equations so you can see what they claimed, not so you treat them as Maxwell.</p>
+
+  <h2 id="ranging-b">Precision TX–RX distance control (Experiment B)</h2>
+  <p>Hively wants <strong>precision distance control</strong> for TX–RX separation on this bench too. Polarizer <strong>rods are Experiment B only</strong> (not used on the 1296 MHz Exp A sphere/mesh bench).</p>
+  <div class="banner-legal"><strong>Near-field floors @ 433.59 MHz</strong> (λ ≈ 0.692 m): reactive near field ≈ λ/(2π) ≈ <strong>110 mm (4.3″)</strong>. Conservative logged start: <strong>≳ 2–3 λ ≈ 1.4–2.1 m</strong> (about 4.5–7 ft); MW-style outdoor/garage baselines are meters. Do not park RX (or the ~0.35 m rod cube) inside ~λ/(2π) of either ball.</div>
+  <ul>
+    <li><strong>Baseline:</strong> longer than Exp A — garage / driveway / outdoors. Fixed TX ball stand; movable RX; optional rod cube on its <em>own</em> non-metallic stand between them (log cube position separately).</li>
+    <li><strong>Readout:</strong> surveyor's tape or marked floor tape + laser rangefinder. Log <em>r</em> ball-to-ball (and cube station if used).</li>
+    <li><strong>Hardware:</strong> non-metallic track or fiducial marks; keep steel rails and long coax out of the aperture. Support/rotator for rods: <a href="shop-drawing.html#sheet-support">shop-drawing.html#sheet-support</a>.</li>
+  </ul>
+  <p class="footnote">Exp A bench ranging (shorter rail): <a href="setup.html#ranging-a">setup.html#ranging-a</a> · combined sheet: <a href="shop-drawing.html#sheet-ranging">shop-drawing.html#sheet-ranging</a>.</p>
 
   <h2 id="rod-length">Why the rods are λ/2, not λ/4</h2>
   <p>Steve Morris asked a fair novice question: <em>aren’t antennas supposed to be a quarter-wavelength?</em> These brass (and optional W1) rods are <strong>not driven antennas</strong>. The two aluminium balls are the TX and RX. The nine rods are a <strong>parasitic polarizer-analyzer</strong>: they absorb when the electric field has a component along the wire.</p>
@@ -208,6 +219,7 @@ T = exp[ −κ cos²(φ) ]                                   (9)
   <p>Do <strong>not</strong> buy Meyl stainless 60&nbsp;mm balls as the primary spheres. Last-resort cheap 60&nbsp;mm stainless stair-cap only: <a href="https://www.amazon.com/uxcell-Stainless-Hollow-Spheres-Handrail/dp/B07R4735PQ">Amazon uxcell 2-pack (B07R4735PQ)</a> — wrong metal, gold coat, not a 50&nbsp;Ω feed.</p>
 
   <h3>Brass rods (need nine × 34.6&nbsp;cm) — MW baseline polarizer</h3>
+  <p class="footnote"><strong>Experiment B only.</strong> These rods are not part of Experiment A (1296 MHz ¾″ sphere / mesh tents).</p>
   <p><a class="btn primary" href="shop-drawing.html#sheet-rods">Printable shop drawing — cut &amp; deburr</a>
   <a class="btn" href="shop-drawing.html#sheet-support">Support block + rotator jig</a></p>
 
