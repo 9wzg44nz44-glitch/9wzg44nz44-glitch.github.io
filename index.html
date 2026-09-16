@@ -5,7 +5,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Home · Experiments A–F · SLW Hub</title>
-<meta name="description" content="Educational hub: Experiments A–F — 1296 MHz cage; 433 MHz balls; atomic 1S–2S; hypersonic plasma shear; Exodus capacitors; hydrogen pure Scalar Wave; shared field kit.">
+<meta name="description" content="Educational hub: Experiments A–F — 1296 MHz ¾″ sphere; 433 MHz balls; atomic 1S–2S; hypersonic plasma shear; Exodus capacitors; hydrogen pure Scalar Wave; shared field kit.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,7 +65,7 @@
   <div>
     <p class="kicker">Educational briefing hub · Experiments A–F</p>
     <h1>Scalar longitudinal waves — three benches, one shared field kit</h1>
-    <p class="lede">Study aid for patents, papers, and <strong>electrically separate</strong> benches: a <strong>1296&nbsp;MHz Faraday-cage</strong> sleeve-balun stub + bifilar pancake (A), a <strong>433.59&nbsp;MHz</strong> ball + polarizer-rod test with <em>no balun</em> (B), and a <strong>Faraday-caged SLW/SW → atomic 1S–2S optical readout</strong> draft (C). Not a claim that SLW is established physics.</p>
+    <p class="lede">Study aid for patents, papers, and <strong>electrically separate</strong> benches: a <strong>1296&nbsp;MHz Faraday-cage</strong> with a <strong>¾″ aluminum hollow sphere</strong> + SMA bulkhead (A; bifilar pancake is historical/optional control), a <strong>433.59&nbsp;MHz</strong> ball + polarizer-rod test with <em>no balun</em> (B), and a <strong>Faraday-caged SLW/SW → atomic 1S–2S optical readout</strong> draft (C). Not a claim that SLW is established physics.</p>
     <div class="ctrl-row">
       <a class="btn primary" href="#expt-a">A · 1296 MHz</a>
       <a class="btn" href="#expt-b">B · 433 MHz</a>
@@ -83,7 +83,7 @@
       <dt>Author</dt><dd>Dan Britton</dd>
       <dt>Contact</dt><dd><a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a></dd>
       <dt>Source repos</dt><dd><a href="https://github.com/9wzg44nz44-glitch">9wzg44nz44-glitch</a></dd>
-      <dt>A</dt><dd>1296.000 MHz · 23 cm · sleeve, not skirt</dd>
+      <dt>A</dt><dd>1296.000 MHz · 23 cm · ¾″ KB-1820 sphere</dd>
       <dt>B</dt><dd>433.59 MHz · 70 cm · balls + rods · no balun</dd>
       <dt>C</dt><dd>Caged SLW/SW · 1S–2S optical UV · v1 draft</dd>
       <dt>Tone</dt><dd>Academic, warm, skeptical</dd>
@@ -114,7 +114,7 @@
 </div>
 
 <div role="tablist" class="tablist" data-expt-tabs aria-label="Experiments A through F and shared kit">
-  <button type="button" role="tab" id="tab-expt-a" aria-controls="panel-expt-a" aria-selected="true" data-hash="expt-a" tabindex="0">1 · A · 1296 MHz cage</button>
+  <button type="button" role="tab" id="tab-expt-a" aria-controls="panel-expt-a" aria-selected="true" data-hash="expt-a" tabindex="0">1 · A · 1296 MHz sphere</button>
   <button type="button" role="tab" id="tab-expt-b" aria-controls="panel-expt-b" aria-selected="false" data-hash="expt-b" tabindex="-1">2 · B · 433 MHz balls</button>
   <button type="button" role="tab" id="tab-expt-c" aria-controls="panel-expt-c" aria-selected="false" data-hash="expt-c" tabindex="-1">3 · C · atomic 1S–2S</button>
   <button type="button" role="tab" id="tab-expt-d" aria-controls="panel-expt-d" aria-selected="false" data-hash="expt-d" tabindex="-1">4 · D · hypersonic plasma</button>
@@ -124,19 +124,19 @@
 </div>
 
 <section id="panel-expt-a" class="tab-panel" role="tabpanel" aria-labelledby="tab-expt-a" data-hash="expt-a">
-  <h2 id="expt-a">Experiment A — 1296 MHz Faraday-cage</h2>
-  <p>Sleeve-balun stub + bifilar pancake, two RadioScreen mesh tents. Licensed 23&nbsp;cm. This is the Hively-style cage replication at <strong>1296.000&nbsp;MHz</strong> (λ = 231.3&nbsp;mm). Electrically separate from Experiment B: do not mix the 433&nbsp;MHz ball feed into this coax.</p>
-  <div class="banner-legal"><strong>Sleeve, not skirt, for the build.</strong> US 9,306,527 Fig. 2A is an annular <em>skirt</em> balun: larger diameter than the coax outer, extending <em>backward</em> from the feed, outer conductor tied to the <em>top</em> of the skirt. The patent says that λ/4 path cancels return current on the outside of the tubular second conductor and also acts as a small ground-plane/counterpoise (currents on the center conductor and the outside of the skirt both +Z). That fat skirt can launch extra TEM. For this 1.3&nbsp;GHz replication, build a close-fitting <strong>sleeve</strong> (bazooka choke), not that skirt — paraphrase of Hively 2026 personal communication; no private email is reproduced. Same choke physics (λ/4 shorted line → high Z for common-mode) without a large-diameter radiating skirt. No 3λ ground disk.</div>
+  <h2 id="expt-a">Experiment A — 1296 MHz Faraday-cage · ¾″ sphere</h2>
+  <p>First-article antenna is a <strong>K-Mac <code>KB-1820</code></strong> 0.750″ (¾″) 3003 aluminum hollow sphere with an Amphenol <code>901-9875</code> SMA (SubMiniature version A) bulkhead — coax into the ball, outer conductor as shield — same feed philosophy as Experiment B, but at <strong>1296.000&nbsp;MHz</strong> / 23&nbsp;cm (λ = 231.3&nbsp;mm). Two RadioScreen mesh tents keep the Faraday-cage context. <strong>Electrically separate from Experiment B:</strong> do not mix the 433&nbsp;MHz ball feed into this coax. Bifilar-pancake + sleeve-stub sections remain as a <em>historical / optional control</em>, not the primary first article.</p>
+  <div class="banner-legal"><strong>Sphere first, sleeve optional.</strong> Machine shop drills (and may conditionally tap) for the SMA bulkhead — preferred path is clearance hole + locknut/washer, not tapping the thin stamped wall. Copy-ready shop notes: <a href="setup.html#sphere-a">setup.html#sphere-a</a> · <a href="setup.html#sma-shop-a">#sma-shop-a</a>. The old US 9,306,527 sleeve/skirt language still lives under <a href="setup.html#sleeve">setup.html#sleeve</a> for the optional control stub.</div>
   <div class="grid-2">
     <article class="card hively">
-      <h3>First-article numbers (1296.000 MHz)</h3>
-      <p>λ = <strong>231.3 mm</strong>. λ/4 sleeve = <strong>57.8 mm</strong> in air (trim if the sleeve–jacket gap has VF &lt; 1). First-article stub = λ/10 = <strong>23.1 mm</strong> of center conductor (λ/4 = 57.8 mm remains the TEM-style control stub). RG-405/U or SMA pigtail. Brass/copper tube snug over the jacket, soldered to the shield at the <em>cold</em> end (away from the stub tip), <em>open</em> at the feed/tip. 23&nbsp;cm BPF still in the TX chain inside the Faraday wrap (<a href="setup.html#bpf">setup.html#bpf</a>).</p>
+      <h3>First-article radiator (1296.000 MHz)</h3>
+      <p><strong>K-Mac <code>KB-1820</code></strong> — 3003 alloy aluminum hollow balls, 10-pack, unpolished, <strong>0.750″ (¾″)</strong> diameter (~$36.40 / pack, user quote). Catalog: <a href="http://k-mac-plastics.com/balls/hollow-metal-balls.htm">k-mac-plastics.com/balls/hollow-metal-balls.htm</a>. Feed: Amphenol <code>901-9875</code> SMA-F bulkhead crimp for RG-316 / LMR-100A (already on the hub). 23&nbsp;cm BPF still in the TX chain inside the Faraday wrap (<a href="setup.html#bpf">setup.html#bpf</a>).</p>
     </article>
     <article class="card">
       <h3>Deep pages (keep working)</h3>
       <ul>
-        <li><a href="setup.html">setup.html</a> — pancake protocol, mesh tents, shopping list, novice sleeve how-to (<a href="setup.html#sleeve">#sleeve</a>)</li>
-        <li><a href="fields.html">fields.html</a> — TEM vs SLW cartoon at 1296 MHz</li>
+        <li><a href="setup.html">setup.html</a> — sphere first article (<a href="setup.html#sphere-a">#sphere-a</a>), SMA shop work order (<a href="setup.html#sma-shop-a">#sma-shop-a</a>), mesh tents; bifilar/sleeve as optional control</li>
+        <li><a href="fields.html">fields.html</a> — TEM vs SLW cartoon at 1296 MHz (A radiator now the ¾″ sphere)</li>
         <li><a href="lab.html">lab.html</a> — optional protocol, skin-depth table, CSV log</li>
       </ul>
       <p class="footnote">Pelican 1200 on the setup shopping list is the <em>small</em> TinySA/coil travel case, not a submersible hull. The cube hull is on <a href="kit.html">kit.html</a>.</p>
@@ -247,7 +247,7 @@
   <div class="grid-2">
     <article class="card copper">
       <h3>In one sentence</h3>
-      <p>One cubical watertight TX case (1296 sleeve-stub sled <em>and</em> 433 TX sphere in separate foam wells, whole inner pack in RadioScreen). Second case for RX, usually <strong>lid open</strong>, mesh tent over the instruments so two TinySA screens stay readable. Not submerged. Pelican 1200 remains the small coil/TinySA travel case on <a href="setup.html#shop">setup.html#shop</a> — it is not this hull.</p>
+      <p>One cubical watertight TX case (1296 ¾″ sphere sled <em>and</em> 433 TX sphere in separate foam wells, whole inner pack in RadioScreen). Second case for RX, usually <strong>lid open</strong>, mesh tent over the instruments so two TinySA screens stay readable. Not submerged. Pelican 1200 remains the small coil/TinySA travel case on <a href="setup.html#shop">setup.html#shop</a> — it is not this hull.</p>
     </article>
     <article class="card">
       <h3>Jump the long page</h3>
