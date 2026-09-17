@@ -194,10 +194,29 @@
 <div class="banner-edu"><strong>Related kit page:</strong> <a href="kit.html#depth">kit.html · Depth honesty / later seawater</a>. Educational field-experiment citation from Hively’s close-hold manuscript (p.&nbsp;31) — <em>not</em> a 1.3&nbsp;GHz Faraday-cage bifilar protocol and not a claim this hub has replicated a marine link.</div>
 
 <article class="card" id="tomilin-2021">
-  <span class="tag">Seawater / SLW-adjacent · cited by Hively · not lab hardware</span>
+  <span class="tag">Seawater / SLW-adjacent · cited by Hively · Exp A/B later-marine gap list</span>
   <h2>Tomilin, A.K., Lukin, A.F. &amp; Gulkov, A.N. (2021). An Experiment to Form a Radio Communication Channel in a Marine Environment.</h2>
-  <p><cite>Technical Physics Letters</cite> 47(8):577–579. DOI <a href="https://doi.org/10.1134/S1063785021060146">10.1134/S1063785021060146</a>. Russian serial: <cite>Письма в ЖТФ</cite> 2021 т.47 №11 с.48–50. Field report of a radio channel through ~470&nbsp;m of seawater; authors report ~195&nbsp;dB/m loss for transverse EM at 27.4&nbsp;MHz and hypothesize longitudinal / electro-scalar waves via spherical antennas — contested against ordinary Maxwell seawater attenuation. Cited on p.&nbsp;31 of Hively’s close-hold manuscript. Maps to this hub’s Experiment&nbsp;A/B <a href="kit.html#depth">submersible / later-seawater narrative</a> on kit.html. Educational inclusion only; Springer 2021 is not open access; PDF mirrored from the Hively email set.</p>
-  <p><a class="btn primary" href="papers/Tomilin-Lukin-Gulkov-2021-TechPhysLett-Marine-Radio-Channel.pdf">Download PDF</a>
+  <p><cite>Technical Physics Letters</cite> 47(8):577–579. DOI <a href="https://doi.org/10.1134/S1063785021060146">10.1134/S1063785021060146</a>. Russian serial: <cite>Письма в ЖТФ</cite> 2021 т.47 №11 с.48–50. Field report (Novik Bay, 27&nbsp;Oct&nbsp;2020): short-wave modulated link through seawater using spherical antennas; authors cite ~195&nbsp;dB/m transverse loss at 27.4&nbsp;MHz and hypothesize longitudinal / electro-scalar waves — contested vs ordinary Maxwell seawater attenuation. Cited on p.&nbsp;31 of Hively’s close-hold manuscript. Educational; not a claim this hub has replicated a marine link.</p>
+  <h3>What Tomilin actually built (hardware / method)</h3>
+  <ul>
+    <li><strong>Frequency:</strong> 27.4&nbsp;MHz (HF), tone-call AM ~498–511&nbsp;Hz; Shturman-882M radio; TX power ≈ 1.17&nbsp;W; ~45&nbsp;V HF on the sphere after Tesla step-up.</li>
+    <li><strong>Antenna:</strong> copper sphere Ø&nbsp;60&nbsp;mm + Tesla flat spiral (Ø&nbsp;320&nbsp;mm, 27 turns of Ø&nbsp;2&nbsp;mm Cu); center of coil tied to sphere by a metal rod. Entire antenna stack insulated with a dielectric layer from seawater.</li>
+    <li><strong>Electronics box:</strong> sealed metal box (radio + batteries) rigidly connected to the antenna; RX similar, headphone out → Olympus LS-12 voice recorder in the sealed box.</li>
+    <li><strong>Marine ops:</strong> nylon ropes only (no metal parts); RX on moored buoy at 6&nbsp;m depth (sea floor 13&nbsp;m); TX towed at ~4&nbsp;m depth; GPS range 20 → 470.7&nbsp;m; seawater σ ≈ 4.77&nbsp;S/m, T ≈ +8&nbsp;°C. Spectral analysis of recorder audio (MS vs noise).</li>
+    <li><strong>Also claimed:</strong> water↔air interface hops (few metres in each medium) with large MS/NP margin.</li>
+  </ul>
+  <h3>Gap vs this hub’s Experiment A / B (land first articles)</h3>
+  <p>Limit of this note: Experiments <strong>A</strong> (1296&nbsp;MHz ¾″ sphere / mesh) and <strong>B</strong> (433.59&nbsp;MHz balls + rods). Polarizer <strong>rods are B only</strong>. Dan’s Nanuk / Pelican outdoor cases are <strong>land</strong> hulls — not Tomilin-class continuous seawater enclosures.</p>
+  <ul>
+    <li><strong>Frequency &amp; band:</strong> Tomilin 27.4&nbsp;MHz ≠ A 1296&nbsp;MHz ≠ B 433&nbsp;MHz. A Tomilin-like marine article needs its own licensed HF path (or a deliberate scale study) — not a drop-in of the TinySA 23&nbsp;cm / 70&nbsp;cm benches.</li>
+    <li><strong>Launcher:</strong> Tomilin’s core is Tesla spiral + rod + sphere. Exp A/B use coax SMA into a hollow Al ball (outer as shield). Missing for a Tomilin replica: spiral coil, rod feed, dielectric seawater jacket, HF radio front-end.</li>
+    <li><strong>Sphere size:</strong> Tomilin Cu Ø&nbsp;60&nbsp;mm. Exp B’s 2.50″ (63.5&nbsp;mm) Al is closest in OD; Exp A’s ¾″ is much smaller and is a Faraday-cage land article, not a marine Tesla feed.</li>
+    <li><strong>Enclosures:</strong> Tomilin = sealed metal box + dielectric-clad antenna, fully immersed, EM-autonomous. Nanuk / Pelican IP67 land cases (and the planned kit.html plastic cube) are <strong>not</strong> continuous-seawater / multi-metre-depth certified. Later marine hulls need true pressure-rated wet-mate glands, dielectric outer jacket on the sphere/coil, and no metal suspension lines.</li>
+    <li><strong>Ranging &amp; depth:</strong> Tomilin used GPS while towing + fixed buoy depth. Hub now has land precision-ranging notes (<a href="setup.html#ranging-a">A</a> · <a href="monstein.html#ranging-b">B</a> · <a href="shop-drawing.html#sheet-ranging">sheet</a>); at-sea still needs GPS/log, depth sensors, and nylon buoy/tow geometry.</li>
+    <li><strong>Metrology:</strong> Tomilin recorded audio from the radio headphone jack and did spectral MS/NP. Exp A/B log TinySA / SA tones on land. A marine replica needs submerged recorder or waterproof RF telemetry — not an open USB laptop on the boat as the only path.</li>
+    <li><strong>Exp B rods:</strong> MW polarizer rods are a <em>land</em> E∥k test. They are <strong>not</strong> part of Tomilin’s underwater Tesla–sphere channel. Do not kit rods into the seawater article unless running a separate B-on-boat control.</li>
+  </ul>
+  <p>Discussion / kit mapping: <a href="kit.html#tomilin-gaps">kit.html#tomilin-gaps</a>. PDF: <a class="btn primary" href="papers/Tomilin-Lukin-Gulkov-2021-TechPhysLett-Marine-Radio-Channel.pdf">Download PDF</a>
      <a class="btn" href="https://doi.org/10.1134/S1063785021060146">DOI (Springer)</a>
      <a class="btn" href="https://journals.ioffe.ru/articles/51009">Ioffe abstract</a></p>
   <p><em>Follow-up note.</em> (May be OA-flagged; no valid local PDF yet): Lukin, Tomilin, Gulkov &amp; Krems (2022), <cite>Technical Physics</cite> — DOI <a href="https://doi.org/10.21883/TP.2022.09.54688.43-22">10.21883/TP.2022.09.54688.43-22</a>; Ioffe <a href="https://journals.ioffe.ru/articles/54688">articles/54688</a>.</p>
