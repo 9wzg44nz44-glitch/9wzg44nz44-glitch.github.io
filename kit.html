@@ -83,6 +83,7 @@
   <a href="#tomilin-gaps">Tomilin vs A/B gaps (later seawater)</a>
   <a href="#cases">Case SKUs (~Sep 2026)</a>
   <a href="#garage">Lady Lake garage instruments</a>
+  <a href="#vna6000">NanoRFE VNA6000-A (uses by experiment)</a>
 </nav>
 
 <h2 id="tx">TX: one cubical watertight case</h2>
@@ -189,6 +190,25 @@
 <p><strong>Not first buy</strong> (one-liners): Nanuk 960 ~$375 rectangle; SKB 3i-2217-12; B&amp;W Type 5500 cheaper near-cube; Zarges K470 aluminum is IP54 on the US 40564 SKU / IP67 EU 380366 — metal cages the RF unless antennas are outside on glands; Blue Robotics WTE is a cylinder; Hammond 1554 / Hoffman Al too small or not 6P.</p>
 <p>Summary on the master page: <a href="index.html#kit">index.html#kit</a>.</p>
 
+
+<h2 id="vna6000">NanoRFE VNA6000-A — shared VNA (on hand)</h2>
+<p>Dan bought a <strong>NanoRFE VNA6000-A</strong> (50&nbsp;kHz–6&nbsp;GHz two-port VNA, ~95&nbsp;dB dynamic range class, TDR ~6&nbsp;mm resolution, ~300&nbsp;g, NanoVNA-QT / NanoVNA-Saver). Product: <a href="https://nanorfe.com/vna6000.html">nanorfe.com/vna6000.html</a>. Complements the TinySA Ultras (SA / generator) — use the VNA for <strong>S-parameters and TDR</strong>, not as the primary spectrum monitor.</p>
+<div class="banner-edu"><strong>Cal first.</strong> SOLT (or whatever kit you have) at the reference plane you care about (bulkhead flange, SMA of the BPF, cable end). Export S2P when a result matters. Battery / USB discipline same honesty as TinySA: a USB cable into a “sealed” Faraday run is a leak.</div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Experiment</th><th>Suggested VNA uses</th></tr></thead>
+  <tbody>
+    <tr><td><strong>A</strong> · 1296 MHz ¾″ sphere / mesh</td><td>S<sub>11</sub> of <code>KB-1820</code> + <code>901-9875</code> feed; S<sub>21</sub> of 23&nbsp;cm BPF; TDR of RG-316 / pigtails; optional archived sleeve-stub S<sub>11</sub>. Confirm match before sealed mesh runs.</td></tr>
+    <tr><td><strong>B</strong> · 433.59 MHz balls + rods</td><td>S<sub>11</sub> of each <code>KB-2016</code> ball feed; TDR / electrical length of jumpers; sanity-check that the polarizer cube is <em>not</em> a 2-port DUT — rods stay a land T(φ) article. Log S<sub>11</sub> vs frequency around 433.59&nbsp;MHz.</td></tr>
+    <tr><td><strong>C</strong> · atomic 1S–2S RF arm</td><td>S<sub>11</sub> of any stub / sphere / bifilar RF launcher reused from A practice; cable/filter check before optical runs. Not a substitute for PMT dark counts.</td></tr>
+    <tr><td><strong>D</strong> · hypersonic plasma shear</td><td>Characterize any RF probe / antenna / coupling path on the D page before claiming SLW/SW pickup; TDR of long cables in the field kit.</td></tr>
+    <tr><td><strong>E</strong> · Exodus capacitor SLW/SW</td><td>S<sub>11</sub> / impedance of detector SMA paths and any TX feed; verify Pelican A/B detector cables. Capacitor DUT itself is not a classic 50&nbsp;Ω antenna — log what plane you calibrated to.</td></tr>
+    <tr><td><strong>F</strong> · Hydrogen / pure SW</td><td>Same as C/E for any RF or bifilar / ball transmitter arm; keep VNA off the optical/VUV path. Use before Josephson exploratory RF bias lines if those appear.</td></tr>
+    <tr><td><strong>Shared kit / later seawater</strong></td><td>TDR glands and pigtails; S<sub>11</sub> of marine antennas <em>before</em> dunk (land dry). Not a submerged instrument unless in its own rated housing.</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="footnote">TinySA remains the on-air SA / milliwatt generator. VNA6000-A is the characterization tool. Specs: <a href="https://nanorfe.com/vna6000.html">NanoRFE VNA6000</a>.</p>
 <h2 id="garage">Lady Lake garage instruments (on hand / Amazon-shared · Sep 2026)</h2>
 <p>Inventory Dan emailed to himself from Amazon (and related kit). Photos for Steve. Nuclear meters labeled honestly for Channel&nbsp;E vs RF benches. Detail: <a href="c-nuclei.html#kit">c-nuclei.html#kit</a>.</p>
 <style>
@@ -198,6 +218,13 @@
 <table>
 <thead><tr><th>Photo</th><th>Instrument</th><th>Qty / status</th><th>Role on this hub</th><th>Link</th></tr></thead>
 <tbody>
+<tr id="vna6000-row">
+  <td>—</td>
+  <td><strong>NanoRFE VNA6000-A</strong> (NanoVNA V3)</td>
+  <td><strong>1 on hand</strong> (bought 2026-09-17)</td>
+  <td>2-port VNA · 50&nbsp;kHz–6&nbsp;GHz · ~95&nbsp;dB DR · TDR ~6&nbsp;mm. S<sub>11</sub>/S<sub>21</sub> for antennas, BPF, cables — see <a href="#vna6000">#vna6000</a>.</td>
+  <td><a href="https://nanorfe.com/vna6000.html">nanorfe.com/vna6000</a></td>
+</tr>
 <tr>
   <td><img class="kit-thumb" src="img/kit/tinysa-ultra.jpg" alt="TinySA Ultra+"></td>
   <td><strong>SeeSii TinySA Ultra+ ZS406</strong></td>
