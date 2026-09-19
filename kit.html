@@ -224,7 +224,7 @@
 <h3 id="b-null-protocol">B-null protocol (anytime measuring for SLW / SW)</h3>
 <ol>
   <li>Run the sphere listen (TinySA Ultra on Exp&nbsp;A and/or B SMA) and mark the candidate frequency / time window.</li>
-  <li>Without changing the RF scene, connect <strong>H20</strong> (then H10/H5 if needed) via SMB→SMA to the same TinySA (or a second Ultra). Optional TBWA2 preamp if you have one — log gain.</li>
+  <li>Without changing the RF scene, connect <strong>H20</strong> (then H10/H5 if needed) via SMB→SMA to the same TinySA (or a second Ultra). Use a ~21&nbsp;dB TinySA LNA (or TBWA2) when the bare reading is near the noise floor — log gain. Expected levels: <a href="#tinysa-expected">#tinysa-expected</a>.</li>
   <li>Hold the H-loop <strong>near the receiving sphere</strong> (and scan orientations: loop plane parallel / perpendicular to expected B). Keep hands off the shield; Tekbox loops are designed to reject common-mode from the hand.</li>
   <li><strong>Interpret (educational):</strong>
     <ul>
@@ -235,7 +235,69 @@
   </li>
   <li>Log probe model, orientation, distance to sphere, TinySA RBW/LNA, and whether polarizing rods were present (Exp&nbsp;B). For Exodus / Faraday-cage listens, see Experiment&nbsp;E <a href="https://9wzg44nz44-glitch.github.io/Experiment-E-Exodus-Capacitor-SLW-SW/#listen-check">listen checklist</a>.</li>
 </ol>
-<p class="footnote">Store the paper certificate/plots with the case. Probes are EMC pre-compliance tools — absolute µT conversion needs the manufacturer coupling curves, not a casual dBm reading.</p>
+<h3 id="tinysa-expected">Expected TinySA Ultra response (order-of-magnitude)</h3>
+<p>
+  Use Tekbox’s <strong>absolute</strong> curves (manual Picture&nbsp;2 /&nbsp;3), not the faint certificate “coupling loss” VNA prints:
+  H-probes are <strong>output power [dBm] at 1&nbsp;µT</strong>; E5 is <strong>output power [dBm] at 1&nbsp;V/m</strong>.
+  That dBm is what TinySA Ultra shows into 50&nbsp;Ω (before cable loss). Numbers below are eyeballed from the manual (±~5&nbsp;dB).
+  Certificate serial for this kit: <code>TBPS0121231</code> (cal 05&nbsp;Aug&nbsp;2026) — good as “this set passed,” poor for digitizing faint traces.
+</p>
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Probe</th>
+      <th>~433&nbsp;MHz (bare)</th>
+      <th>~1.3&nbsp;GHz (bare)</th>
+      <th>+ ~21&nbsp;dB TinySA amp @433</th>
+      <th>+ ~21&nbsp;dB amp @1.3&nbsp;GHz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>H20</strong> @ 1&nbsp;µT</td>
+      <td>about −5 to 0&nbsp;dBm</td>
+      <td>about −15 to −25&nbsp;dBm (H20 dip near ~1.2&nbsp;GHz)</td>
+      <td>+16 to +21&nbsp;dBm</td>
+      <td>−4 to +6&nbsp;dBm</td>
+    </tr>
+    <tr>
+      <td><strong>H10</strong> @ 1&nbsp;µT</td>
+      <td>about −15 to −20&nbsp;dBm</td>
+      <td>about −5 to −12&nbsp;dBm</td>
+      <td>+1 to +6&nbsp;dBm</td>
+      <td>+9 to +16&nbsp;dBm</td>
+    </tr>
+    <tr>
+      <td><strong>H5</strong> @ 1&nbsp;µT</td>
+      <td>about −28 to −35&nbsp;dBm</td>
+      <td>about −15 to −22&nbsp;dBm</td>
+      <td>−7 to −14&nbsp;dBm</td>
+      <td>−1 to +6&nbsp;dBm</td>
+    </tr>
+    <tr>
+      <td><strong>E5</strong> @ 1&nbsp;V/m</td>
+      <td>about −55 to −65&nbsp;dBm</td>
+      <td>about −45 to −55&nbsp;dBm</td>
+      <td>−34 to −44&nbsp;dBm</td>
+      <td>−24 to −34&nbsp;dBm</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="banner-edu" id="tekbox-cautions">
+  <strong>Caution notes.</strong>
+  <ul style="margin:0.4rem 0 0;padding-left:1.2rem">
+    <li><strong>Voltage:</strong> Tekbox warning — do <em>not</em> use these probes on conductors above <strong>75&nbsp;V&nbsp;DC</strong> or <strong>50&nbsp;V&nbsp;AC</strong>. Fine beside a Faraday case for B-null; not for poking a 600&nbsp;V capacitor stack.</li>
+    <li><strong>Real fields are often weaker:</strong> table assumes 1&nbsp;µT / 1&nbsp;V/m at the tip. Cage leakage is often ≪ that, so TinySA may sit near the noise floor even with the amp.</li>
+    <li><strong>Amp:</strong> Dan’s TinySA Ultra ~21&nbsp;dB LNAs (three on hand) slide every reading up by ~21&nbsp;dB. Use when bare probe @433 is below about −80 to −90&nbsp;dBm; log LNA on/off. Optional Tekbox TBWA2 if present — same idea, log gain.</li>
+    <li><strong>Cable:</strong> subtract ~1–2&nbsp;dB for a short SMA jumper.</li>
+    <li><strong>Certificate vs manual:</strong> certificate = faint S21 coupling-loss plots (relative). Manual Picture&nbsp;2/3 = absolute dBm vs frequency — use those for TinySA expectations.
+      Manual PDF: <a href="https://www.tekbox.com/product/TBPS01_TBWA2_Manual.pdf">TBPS01 / TBWA2</a>.</li>
+    <li><strong>Interpretation:</strong> probes are EMC pre-compliance tools — absolute µT conversion needs manufacturer curves, not a casual dBm reading alone.</li>
+  </ul>
+</div>
+<p class="footnote">Store the paper certificate/plots with the wooden case. For Exodus / Faraday-cage listens, see Experiment&nbsp;E <a href="https://9wzg44nz44-glitch.github.io/Experiment-E-Exodus-Capacitor-SLW-SW/#listen-check">listen checklist</a>.</p>
 
 <h2 id="vna6000">NanoRFE VNA6000-A — shared VNA (on hand)</h2>
 <p>Dan bought a <strong>NanoRFE VNA6000-A</strong> (50&nbsp;kHz–6&nbsp;GHz two-port VNA, ~95&nbsp;dB dynamic range class, TDR ~6&nbsp;mm resolution, ~300&nbsp;g, NanoVNA-QT / NanoVNA-Saver). Product: <a href="https://nanorfe.com/vna6000.html">nanorfe.com/vna6000.html</a>. Complements the TinySA Ultras (SA / generator) — use the VNA for <strong>S-parameters and TDR</strong>, not as the primary spectrum monitor.</p>
