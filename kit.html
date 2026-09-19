@@ -84,6 +84,7 @@
   <a href="#cases">Case SKUs (~Sep 2026)</a>
   <a href="#garage">Lady Lake garage instruments</a>
   <a href="#vna6000">NanoRFE VNA6000-A (uses by experiment)</a>
+  <a href="#tekbox">Tekbox TBPS01 H/E near-field probes (B-null)</a>
 </nav>
 
 <h2 id="tx">TX: one cubical watertight case</h2>
@@ -191,6 +192,51 @@
 <p>Summary on the master page: <a href="index.html#kit">index.html#kit</a>.</p>
 
 
+
+<h2 id="tekbox">Tekbox TBPS01 · H20 / H10 / H5 / E5 near-field probes (on hand · Sep 2026)</h2>
+<p>
+  Dan’s set (often labeled “TEXBOX” on the box) is the <strong>Tekbox TBPS01</strong> EMC near-field probe kit:
+  magnetic-field loops <strong>H20</strong> (20&nbsp;mm), <strong>H10</strong> (10&nbsp;mm), <strong>H5</strong> (5&nbsp;mm), and electric tip <strong>E5</strong> (5&nbsp;mm),
+  SMB connectors, ~75&nbsp;cm SMB→SMA cable, coupling plots, and a <strong>certificate / measurement plots</strong> (keep with the wooden case).
+  Official manual: <a href="https://www.tekbox.com/product/TBPS01_TBWA2_Manual.pdf">TBPS01 / TBWA2 manual (PDF)</a> · Dan’s scanned copy: <a href="papers/Tekbox-TBPS01-manual-user-scan.pdf">papers/Tekbox-TBPS01-manual-user-scan.pdf</a> ·
+  product: <a href="https://www.tekbox.com/product/tekbox-tbps01-emc-near-field-probes/">tekbox.com TBPS01</a>.
+  Frequency class: coupling characterized roughly <strong>30&nbsp;kHz–6&nbsp;GHz</strong> (see probe plots; H20 has noted resonances near ~1.3&nbsp;GHz and ~4&nbsp;GHz).
+</p>
+<div class="banner-edu" id="b-null">
+  <strong>Hively B-field null (required for SLW/SW vs TEM language).</strong>
+  Dr.&nbsp;Hively’s guidance (and IARD_2020 / earlier notes, including the 2016 patent-era configurations where B was not found):
+  when a sphere (Exp&nbsp;A or&nbsp;B) or other detector shows a candidate Scalar Longitudinal Wave (SLW) or Scalar Wave (SW) signature,
+  place a <strong>magnetic-field (H) probe</strong> near the receiver and look for the <strong>presence or absence of B</strong> at the same time / band.
+  A credible “we detected SLW or SW, not TEM” claim needs that B knowledge — TEM carries a magnetic field; ideal SLW (B=0, E∥k, C≠0) and SW (E=B=0, C≠0) bookkeeping do not.
+  Warm skepticism: a quiet H-probe is <em>necessary supporting evidence</em>, not by itself a proof of SLW/SW.
+</div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Probe</th><th>Type</th><th>Tip / loop</th><th>Use on this hub</th></tr></thead>
+  <tbody>
+    <tr><td><strong>H20</strong></td><td>H-field</td><td>20&nbsp;mm loop</td><td>First B-null survey near Exp&nbsp;A/B spheres (most sensitive of the three H tips)</td></tr>
+    <tr><td><strong>H10</strong></td><td>H-field</td><td>10&nbsp;mm loop</td><td>Narrower localization if H20 sees something</td></tr>
+    <tr><td><strong>H5</strong></td><td>H-field</td><td>5&nbsp;mm loop</td><td>Finest localization / PCB-scale; also useful near SMA bulkheads</td></tr>
+    <tr><td><strong>E5</strong></td><td>E-field</td><td>5&nbsp;mm tip</td><td>Corroborate electric pickup near the sphere; not a substitute for the H-null</td></tr>
+  </tbody>
+</table>
+</div>
+<h3 id="b-null-protocol">B-null protocol (anytime measuring for SLW / SW)</h3>
+<ol>
+  <li>Run the sphere listen (TinySA Ultra on Exp&nbsp;A and/or B SMA) and mark the candidate frequency / time window.</li>
+  <li>Without changing the RF scene, connect <strong>H20</strong> (then H10/H5 if needed) via SMB→SMA to the same TinySA (or a second Ultra). Optional TBWA2 preamp if you have one — log gain.</li>
+  <li>Hold the H-loop <strong>near the receiving sphere</strong> (and scan orientations: loop plane parallel / perpendicular to expected B). Keep hands off the shield; Tekbox loops are designed to reject common-mode from the hand.</li>
+  <li><strong>Interpret (educational):</strong>
+    <ul>
+      <li><strong>Sphere excess + H-probe at noise</strong> → consistent with non-TEM / weak-B hypothesis (SLW/SW language still needs full null suite).</li>
+      <li><strong>Sphere excess + clear H-probe line</strong> → treat as TEM or mixed; do <em>not</em> claim pure SLW/SW.</li>
+      <li><strong>Neither</strong> → no detection claim.</li>
+    </ul>
+  </li>
+  <li>Log probe model, orientation, distance to sphere, TinySA RBW/LNA, and whether polarizing rods were present (Exp&nbsp;B). For Exodus / Faraday-cage listens, see Experiment&nbsp;E <a href="https://9wzg44nz44-glitch.github.io/Experiment-E-Exodus-Capacitor-SLW-SW/#listen-check">listen checklist</a>.</li>
+</ol>
+<p class="footnote">Store the paper certificate/plots with the case. Probes are EMC pre-compliance tools — absolute µT conversion needs the manufacturer coupling curves, not a casual dBm reading.</p>
+
 <h2 id="vna6000">NanoRFE VNA6000-A — shared VNA (on hand)</h2>
 <p>Dan bought a <strong>NanoRFE VNA6000-A</strong> (50&nbsp;kHz–6&nbsp;GHz two-port VNA, ~95&nbsp;dB dynamic range class, TDR ~6&nbsp;mm resolution, ~300&nbsp;g, NanoVNA-QT / NanoVNA-Saver). Product: <a href="https://nanorfe.com/vna6000.html">nanorfe.com/vna6000.html</a>. Complements the TinySA Ultras (SA / generator) — use the VNA for <strong>S-parameters and TDR</strong>, not as the primary spectrum monitor.</p>
 <div class="banner-edu"><strong>Cal first.</strong> SOLT (or whatever kit you have) at the reference plane you care about (bulkhead flange, SMA of the BPF, cable end). Export S2P when a result matters. Battery / USB discipline same honesty as TinySA: a USB cable into a “sealed” Faraday run is a leak.</div>
@@ -198,11 +244,11 @@
 <table>
   <thead><tr><th>Experiment</th><th>Suggested VNA uses</th></tr></thead>
   <tbody>
-    <tr><td><strong>A</strong> · 1296 MHz ¾″ sphere / mesh</td><td>S<sub>11</sub> of <code>KB-1820</code> + <code>901-9875</code> feed; S<sub>21</sub> of 23&nbsp;cm BPF; TDR of RG-316 / pigtails; optional archived sleeve-stub S<sub>11</sub>. Confirm match before sealed mesh runs.</td></tr>
-    <tr><td><strong>B</strong> · 433.59 MHz balls + rods</td><td>S<sub>11</sub> of each <code>KB-2016</code> ball feed; TDR / electrical length of jumpers; sanity-check that the polarizer cube is <em>not</em> a 2-port DUT — rods stay a land T(φ) article. Log S<sub>11</sub> vs frequency around 433.59&nbsp;MHz.</td></tr>
+    <tr><td><strong>A</strong> · 1296 MHz ¾″ sphere / mesh</td><td>S<sub>11</sub> of <code>KB-1820</code> + <code>901-9875</code> feed; S<sub>21</sub> of 23&nbsp;cm BPF; TDR of RG-316 / pigtails; optional archived sleeve-stub S<sub>11</sub>. Confirm match before sealed mesh runs. Any SLW/SW claim: Tekbox H-probe <strong>B-null</strong> near the RX sphere (<a href="#tekbox">#tekbox</a>).</td></tr>
+    <tr><td><strong>B</strong> · 433.59 MHz balls + rods</td><td>S<sub>11</sub> of each <code>KB-2016</code> ball feed; TDR / electrical length of jumpers; sanity-check that the polarizer cube is <em>not</em> a 2-port DUT — rods stay a land T(φ) article. Log S<sub>11</sub> vs frequency around 433.59&nbsp;MHz. SLW/SW language: H-probe <strong>B-null</strong> near the RX sphere even when rods are not used (<a href="#tekbox">#tekbox</a>).</td></tr>
     <tr><td><strong>C</strong> · atomic 1S–2S RF arm</td><td>S<sub>11</sub> of any stub / sphere / bifilar RF launcher reused from A practice; cable/filter check before optical runs. Not a substitute for PMT dark counts.</td></tr>
     <tr><td><strong>D</strong> · hypersonic plasma shear</td><td>Characterize any RF probe / antenna / coupling path on the D page before claiming SLW/SW pickup; TDR of long cables in the field kit.</td></tr>
-    <tr><td><strong>E</strong> · Exodus capacitor SLW/SW</td><td>S<sub>11</sub> / impedance of detector SMA paths and any TX feed; verify Pelican A/B detector cables. Capacitor DUT itself is not a classic 50&nbsp;Ω antenna — log what plane you calibrated to.</td></tr>
+    <tr><td><strong>E</strong> · Exodus capacitor SLW/SW</td><td>S<sub>11</sub> / impedance of detector SMA paths and any TX feed; verify Pelican A/B detector cables. Capacitor DUT itself is not a classic 50&nbsp;Ω antenna — log what plane you calibrated to. Pair every candidate listen with Tekbox <strong>H-probe B-null</strong> (<a href="#tekbox">#tekbox</a>).</td></tr>
     <tr><td><strong>F</strong> · Hydrogen / pure SW</td><td>Same as C/E for any RF or bifilar / ball transmitter arm; keep VNA off the optical/VUV path. Use before Josephson exploratory RF bias lines if those appear.</td></tr>
     <tr><td><strong>Shared kit / later seawater</strong></td><td>TDR glands and pigtails; S<sub>11</sub> of marine antennas <em>before</em> dunk (land dry). Not a submerged instrument unless in its own rated housing.</td></tr>
   </tbody>
@@ -218,6 +264,13 @@
 <table>
 <thead><tr><th>Photo</th><th>Instrument</th><th>Qty / status</th><th>Role on this hub</th><th>Link</th></tr></thead>
 <tbody>
+<tr id="tekbox-row">
+  <td>—</td>
+  <td><strong>Tekbox TBPS01</strong> (H20, H10, H5, E5)</td>
+  <td><strong>1 kit on hand</strong> (arrived 2026-09-19) · certificate/plots in case</td>
+  <td>Near-field H/E probes for <strong>B-null</strong> beside Exp&nbsp;A/B sphere listens — see <a href="#tekbox">#tekbox</a>.</td>
+  <td><a href="https://www.tekbox.com/product/tekbox-tbps01-emc-near-field-probes/">tekbox.com</a></td>
+</tr>
 <tr id="vna6000-row">
   <td>—</td>
   <td><strong>NanoRFE VNA6000-A</strong> (NanoVNA V3)</td>
