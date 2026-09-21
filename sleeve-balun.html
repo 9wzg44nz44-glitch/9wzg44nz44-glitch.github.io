@@ -5,7 +5,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sleeve balun manufacturing guide · SLW Hub</title>
-<meta name="description" content="Manufacturing guide for a close-fitting λ/4 sleeve (bazooka) balun on RG-405/U at 1296 MHz — not the US 9,306,527 Fig. 2A skirt. BOM photos, cut lengths, solder steps.">
+<meta name="description" content="Sleeve (Keyport-style) balun manufacturing guide: frequency–wavelength table for Experiment A 1296 MHz, Experiment B 433.59 MHz, and 8 GHz; RG-405 BOM; not the Hively skirt.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,7 +54,8 @@
 <nav id="expt-abc" class="expt-abc" aria-label="Sleeve balun manufacturing">
   <span class="expt-abc-label">Sleeve balun</span>
   <a class="expt-abc-btn" href="#geometry"><span class="k">1</span> Sleeve ≠ skirt</a>
-  <a class="expt-abc-btn" href="#dims"><span class="k">2</span> 1296 lengths</a>
+  <a class="expt-abc-btn" href="#freq-table"><span class="k">2</span> A · B · 8 GHz</a>
+  <a class="expt-abc-btn" href="#dims"><span class="k">2b</span> 1296 detail</a>
   <a class="expt-abc-btn" href="#bom"><span class="k">3</span> BOM on hand</a>
   <a class="expt-abc-btn" href="#build"><span class="k">4</span> Build steps</a>
   <a class="expt-abc-btn" href="#verify"><span class="k">5</span> Verify</a>
@@ -65,13 +66,13 @@
 
 <main id="main" class="wrap">
 
-<p class="kicker">Manufacturing guide · Experiment A archived control · 1296.000 MHz</p>
+<p class="kicker">Manufacturing guide · Keyport-style sleeve · A · B · 8&nbsp;GHz</p>
 <h1>Sleeve balun on RG-405/U — cut, solder, verify</h1>
-<p class="lede">Shop page for building a <strong>close-fitting λ/4 sleeve (bazooka) balun</strong> on Pasternack RG-405/U semi-rigid, with the copper-tube sleeve and lengths for the hub’s <strong>1296.000&nbsp;MHz</strong> (23&nbsp;cm) Faraday-cage control path. This is <em>not</em> US&nbsp;9,306,527 Fig.&nbsp;2A’s fat annular <em>skirt</em>. Primary first article on the hub remains the ¾″ sphere — <a href="setup.html#sphere-a">setup.html#sphere-a</a>. Sleeve-stub is archived / optional control — <a href="setup.html#archive-bifilar">#archive-bifilar</a>.</p>
+<p class="lede">Shop page for building a <strong>close-fitting λ/4 sleeve balun</strong> (Navy Keyport / US&nbsp;12,525,711 geometry — open end toward the tip/sphere), <em>not</em> Hively US&nbsp;9,306,527 Fig.&nbsp;2A’s fat annular <em>skirt</em>. Cut lengths track 1/f for <strong>Experiment&nbsp;A</strong> (1296&nbsp;MHz), <strong>Experiment&nbsp;B</strong> (433.59&nbsp;MHz), and an optional <strong>8&nbsp;GHz</strong> Hively-class build. Live slider calculator: <a href="tools.html">tools.html</a>.</p>
 
-<div class="banner-edu">Educational RF construction only. A sleeve choke is ordinary amateur practice; calling the stub an “SLW launcher” is the disputed physics, not the metalwork. Licensed 23&nbsp;cm operation required for on-air use. No private emails are reproduced on this page — geometry is paraphrased from public patents and published talks.</div>
+<div class="banner-edu">Educational RF construction only. A sleeve choke is ordinary amateur practice; calling the stub an “SLW launcher” is the disputed physics, not the metalwork. Use a licensed band for on-air work (23&nbsp;cm for A; 70&nbsp;cm for B). 8&nbsp;GHz needs appropriate licensed / lab gear — do not invent an unlicensed radiator. Geometry paraphrased from public patents and Dr.&nbsp;Hively’s published talks / clarifying email (no private dump).</div>
 
-<div class="banner-legal"><strong>Do not put this build on Experiment B.</strong> The 433.59&nbsp;MHz ball feed has <strong>no balun</strong> (Monstein–Wesley coax-into-sphere). Sleeve steps stay on Experiment&nbsp;A / this page.</div>
+<div class="banner-legal"><strong>Experiment B note.</strong> The original Monstein–Wesley 433.59&nbsp;MHz ball page used <em>no</em> balun. This shop order <strong>adds</strong> Keyport-style sleeves for A and B (and maybe 8&nbsp;GHz later). Keep B’s sphere feed philosophy (coax into the ball, outer as shield); the sleeve sits on the coax behind the ball.</div>
 
 <h2 id="geometry">1. Sleeve ≠ skirt (geometry that matters when you solder)</h2>
 <p>Both structures are λ/4 conductive tubes around the coax outer. The difference is <strong>which end is open</strong> and <strong>where the tube is bonded to the shield</strong>:</p>
@@ -101,7 +102,95 @@
 </pre>
 <p class="footnote">ASCII is schematic. Real tube is snug on the 0.086″ jacket — not a fat radiating skirt. Interactive lengths: <a href="tools.html">tools.html</a>. Side-view SVG on setup: <a href="setup.html#sleeve">setup.html#sleeve</a>.</p>
 
-<h2 id="dims">2. First-article lengths at 1296.000 MHz</h2>
+
+<h2 id="freq-table">2. Frequency → wavelength table (A · B · 8&nbsp;GHz)</h2>
+<p>c = 299&nbsp;792&nbsp;458&nbsp;m/s. Free-space λ = c/f. Sleeve and stub scale as 1/f. Physical sleeve length ≈ (λ/4)×VF when the coax–tube gap has dielectric (tape); start at VF≈1 (air) and trim short if needed.</p>
+<div class="table-wrap">
+<table class="dim-table" id="ab8-table">
+<thead>
+<tr>
+  <th>Build</th>
+  <th class="num">f</th>
+  <th class="num">λ</th>
+  <th class="num">λ/4 sleeve</th>
+  <th class="num">λ/10 stub</th>
+  <th class="num">λ/4 stub (TEM ctrl)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Experiment B</strong> · 70&nbsp;cm balls</td>
+  <td class="num">433.59&nbsp;MHz</td>
+  <td class="num">691.4&nbsp;mm</td>
+  <td class="num">172.9&nbsp;mm</td>
+  <td class="num">69.1&nbsp;mm</td>
+  <td class="num">172.9&nbsp;mm</td>
+</tr>
+<tr>
+  <td><strong>Experiment A</strong> · 23&nbsp;cm cage / sphere</td>
+  <td class="num">1296.000&nbsp;MHz</td>
+  <td class="num">231.3&nbsp;mm</td>
+  <td class="num">57.8&nbsp;mm</td>
+  <td class="num">23.1&nbsp;mm</td>
+  <td class="num">57.8&nbsp;mm</td>
+</tr>
+<tr>
+  <td><strong>8&nbsp;GHz</strong> · Hively / IARD class</td>
+  <td class="num">8.000&nbsp;GHz</td>
+  <td class="num">37.5&nbsp;mm</td>
+  <td class="num">9.4&nbsp;mm</td>
+  <td class="num">3.7&nbsp;mm</td>
+  <td class="num">9.4&nbsp;mm</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="footnote">433.59&nbsp;MHz is the Monstein–Wesley ball frequency on this hub. 1296.000&nbsp;MHz is Experiment&nbsp;A. 8&nbsp;GHz matches the IARD 2020 skirt-tuning band (historical skirt hardware; we still cut a <em>sleeve</em> if we build at 8&nbsp;GHz). Interactive VF / custom f: <a href="tools.html">tools.html</a>.</p>
+
+<section class="card" id="mini-calc" style="margin:1.25rem 0">
+  <h3 style="margin-top:0">Quick calculator (same formulas)</h3>
+  <div class="ctrl-row" style="display:flex;flex-wrap:wrap;gap:.5rem;margin:.75rem 0">
+    <button type="button" class="primary" data-preset="433.59">Exp B · 433.59 MHz</button>
+    <button type="button" data-preset="1296">Exp A · 1296 MHz</button>
+    <button type="button" data-preset="8000">8 GHz</button>
+  </div>
+  <label>Frequency (MHz) <input id="fMHz" type="number" min="100" max="20000" step="0.01" value="1296" style="width:8rem;margin-left:.5rem"></label>
+  <label style="margin-left:1rem">VF <input id="vfIn" type="number" min="0.7" max="1" step="0.01" value="1.00" style="width:4.5rem;margin-left:.5rem"></label>
+  <div class="metrics" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));gap:.75rem;margin-top:1rem">
+    <div class="metric"><div class="l">λ</div><div class="v" id="outLam">—</div></div>
+    <div class="metric"><div class="l">λ/4 sleeve (physical)</div><div class="v" id="outSleeve">—</div></div>
+    <div class="metric"><div class="l">λ/10 stub</div><div class="v" id="outStub10">—</div></div>
+    <div class="metric"><div class="l">λ/4 stub</div><div class="v" id="outStub4">—</div></div>
+  </div>
+  <p class="footnote" style="margin-bottom:0">Physical sleeve = (c/f)/4 × VF. Tube ID must still clear RG-405 (0.086″).</p>
+</section>
+<script>
+(function () {
+  var c = 299792458;
+  function mm(x) { return (x * 1000).toFixed(1) + " mm"; }
+  function recalc() {
+    var fMHz = parseFloat(document.getElementById("fMHz").value);
+    var vf = parseFloat(document.getElementById("vfIn").value);
+    if (!(fMHz > 0) || !(vf > 0)) return;
+    var lam = c / (fMHz * 1e6);
+    document.getElementById("outLam").textContent = mm(lam);
+    document.getElementById("outSleeve").textContent = mm((lam / 4) * vf);
+    document.getElementById("outStub10").textContent = mm(lam / 10);
+    document.getElementById("outStub4").textContent = mm(lam / 4);
+  }
+  document.getElementById("fMHz").addEventListener("input", recalc);
+  document.getElementById("vfIn").addEventListener("input", recalc);
+  document.querySelectorAll("[data-preset]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      document.getElementById("fMHz").value = btn.getAttribute("data-preset");
+      recalc();
+    });
+  });
+  recalc();
+})();
+</script>
+
+<h2 id="dims">2b. Experiment A detail — first-article lengths at 1296.000 MHz</h2>
 <p>c = 299&nbsp;792&nbsp;458&nbsp;m/s. Free-space λ = c / 1.296×10⁹ ≈ <strong>231.3&nbsp;mm</strong>.</p>
 <div class="table-wrap">
 <table class="dim-table">
@@ -174,8 +263,8 @@
   <li><strong>Log</strong> — frequency, physical sleeve length, stub length, solder photos, S<sub>11</sub> export. Label CSV rows as archived sleeve-control if the primary run is the ¾″ sphere.</li>
 </ul>
 
-<h2 id="iard-ref">6. Historical reference — IARD 2020 (8 GHz), not the 1296 cut list</h2>
-<p>Hively &amp; Land, “Evidence for Scalar-Longitudinal Photons,” IARD 2020 slides. Useful for context and for why balun resonance matters. <strong>Do not cut 1296 hardware to these 8&nbsp;GHz numbers.</strong></p>
+<h2 id="iard-ref">6. Historical reference — IARD 2020 (~8 GHz skirt tuning)</h2>
+<p>Hively &amp; Land, “Evidence for Scalar-Longitudinal Photons,” IARD 2020 slides. Slide 18 shows historical <em>skirt</em> balun tuning near 8&nbsp;GHz. If we build at 8&nbsp;GHz we still use <strong>sleeve</strong> geometry (Keyport / open-toward-tip); cut from the table above (~9.4&nbsp;mm λ/4), not by copying the old skirt hardware photos. Slide 19 is Faraday-tube dims, not the balun tube.</p>
 
 <div class="grid-2 ref-slides">
   <figure>
