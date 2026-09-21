@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sleeve balun manufacturing guide · SLW Hub</title>
+<meta name="description" content="Manufacturing guide for a close-fitting λ/4 sleeve (bazooka) balun on RG-405/U at 1296 MHz — not the US 9,306,527 Fig. 2A skirt. BOM photos, cut lengths, solder steps.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .bom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1.25rem 0; }
+  @media (max-width: 800px) { .bom-grid { grid-template-columns: 1fr; } }
+  .bom-card figure { margin: 0.5rem 0 0; }
+  .bom-card img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--rule, #3a3328); display: block; }
+  .dim-table td.num, .dim-table th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: "IBM Plex Mono", monospace; }
+  .ascii-balun {
+    font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; line-height: 1.35;
+    background: #0c0b09; color: #d4b483; padding: 1rem; border-radius: 8px;
+    overflow-x: auto; white-space: pre; border: 1px solid #3a3328;
+  }
+  .ref-slides img { width: 100%; max-width: 720px; height: auto; border-radius: 8px; border: 1px solid #3a3328; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="c-nuclei.html">C×nuclei</a>
+      <a href="fields.html">Fields</a>
+      <a href="monstein.html">Monstein</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="setup.html">Setup</a>
+      <a href="kit.html">Kit</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<nav id="expt-abc" class="expt-abc" aria-label="Sleeve balun manufacturing">
+  <span class="expt-abc-label">Sleeve balun</span>
+  <a class="expt-abc-btn" href="#geometry"><span class="k">1</span> Sleeve ≠ skirt</a>
+  <a class="expt-abc-btn" href="#dims"><span class="k">2</span> 1296 lengths</a>
+  <a class="expt-abc-btn" href="#bom"><span class="k">3</span> BOM on hand</a>
+  <a class="expt-abc-btn" href="#build"><span class="k">4</span> Build steps</a>
+  <a class="expt-abc-btn" href="#verify"><span class="k">5</span> Verify</a>
+  <a class="expt-abc-sub" href="setup.html#sleeve">Setup #sleeve</a>
+  <a class="expt-abc-sub" href="tools.html">Tools calculator</a>
+  <a class="expt-abc-sub" href="papers/US12525711-Navy-SLW-Antenna.pdf">Navy US 12,525,711</a>
+</nav>
+
+<main id="main" class="wrap">
+
+<p class="kicker">Manufacturing guide · Experiment A archived control · 1296.000 MHz</p>
+<h1>Sleeve balun on RG-405/U — cut, solder, verify</h1>
+<p class="lede">Shop page for building a <strong>close-fitting λ/4 sleeve (bazooka) balun</strong> on Pasternack RG-405/U semi-rigid, with the copper-tube sleeve and lengths for the hub’s <strong>1296.000&nbsp;MHz</strong> (23&nbsp;cm) Faraday-cage control path. This is <em>not</em> US&nbsp;9,306,527 Fig.&nbsp;2A’s fat annular <em>skirt</em>. Primary first article on the hub remains the ¾″ sphere — <a href="setup.html#sphere-a">setup.html#sphere-a</a>. Sleeve-stub is archived / optional control — <a href="setup.html#archive-bifilar">#archive-bifilar</a>.</p>
+
+<div class="banner-edu">Educational RF construction only. A sleeve choke is ordinary amateur practice; calling the stub an “SLW launcher” is the disputed physics, not the metalwork. Licensed 23&nbsp;cm operation required for on-air use. No private emails are reproduced on this page — geometry is paraphrased from public patents and published talks.</div>
+
+<div class="banner-legal"><strong>Do not put this build on Experiment B.</strong> The 433.59&nbsp;MHz ball feed has <strong>no balun</strong> (Monstein–Wesley coax-into-sphere). Sleeve steps stay on Experiment&nbsp;A / this page.</div>
+
+<h2 id="geometry">1. Sleeve ≠ skirt (geometry that matters when you solder)</h2>
+<p>Both structures are λ/4 conductive tubes around the coax outer. The difference is <strong>which end is open</strong> and <strong>where the tube is bonded to the shield</strong>:</p>
+<div class="grid-2">
+  <article class="card hively">
+    <h3>Sleeve (build this)</h3>
+    <p>Open end <strong>toward</strong> the exposed center-conductor stub. Electrical bond to the outer conductor is λ/4 <em>back</em> from that open end (the “cold” end, away from the tip). Looks like a sleeve pulled over the jacket when the stub points up. Preferred for nulling displacement / common-mode current on the shield (Navy US&nbsp;12,525,711 style; hub how-to).</p>
+  </article>
+  <article class="card">
+    <h3>Skirt (do not build for 1296)</h3>
+    <p>Open end <strong>away</strong> from the stub; bond near the feed / tip end. Looks like a skirt hanging down when the stub points up. US&nbsp;9,306,527 Fig.&nbsp;2A is a larger-diameter annular skirt that can also act as a counterpoise and can launch extra TEM. Historical patent geometry — not this shop order.</p>
+  </article>
+</div>
+
+<p>In both cases the gap between coax outer and tube is filled with insulator (two layers of electrical tape is a common bench filler). Silver solder (or ordinary electronics solder with a clean fillet) bonds tube ↔ shield at the shorted end only. Strip any outer jacket so the bond lands on bare outer conductor to within about 1&nbsp;mm of the tube end.</p>
+
+<pre class="ascii-balun" aria-label="ASCII cross-section of sleeve balun">
+  cold end (solder ring)          open at feed              stub tip
+         |                              |                      |
+         v                              v                      v
+   ======+==============================|                      |
+   coax  |######## SLEEVE (λ/4) ########|   PTFE cut back      |
+   outer |########                    ##|======= center =======*
+   ======+==============================|
+         ^
+         bond tube to shield here only; leave feed end unsoldered
+</pre>
+<p class="footnote">ASCII is schematic. Real tube is snug on the 0.086″ jacket — not a fat radiating skirt. Interactive lengths: <a href="tools.html">tools.html</a>. Side-view SVG on setup: <a href="setup.html#sleeve">setup.html#sleeve</a>.</p>
+
+<h2 id="dims">2. First-article lengths at 1296.000 MHz</h2>
+<p>c = 299&nbsp;792&nbsp;458&nbsp;m/s. Free-space λ = c / 1.296×10⁹ ≈ <strong>231.3&nbsp;mm</strong>.</p>
+<div class="table-wrap">
+<table class="dim-table">
+<thead><tr><th>Feature</th><th class="num">Length</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Free-space λ</td><td class="num">231.3 mm</td><td>1296.000 MHz</td></tr>
+<tr><td>λ/4 sleeve (air, VF≈1)</td><td class="num">57.8 mm</td><td>Cut long; trim if gap dielectric lowers VF</td></tr>
+<tr><td>First-article stub (λ/10)</td><td class="num">23.1 mm</td><td>Exposed center conductor</td></tr>
+<tr><td>TEM-control stub (λ/4)</td><td class="num">57.8 mm</td><td>Optional later article, not first</td></tr>
+<tr><td>RG-405/U outer OD</td><td class="num">0.086″ (2.18 mm)</td><td>Solid copper outer</td></tr>
+<tr><td>Center conductor</td><td class="num">0.020″ (0.51 mm)</td><td>SPC / CCS</td></tr>
+</tbody>
+</table>
+</div>
+<p class="footnote">At 1.3&nbsp;GHz the sleeve is ~6× longer than the 8&nbsp;GHz IARD reference hardware below. Length <em>must</em> track 1/f. No 3λ ground disk.</p>
+
+<h2 id="bom">3. BOM on hand (Aug 2026 receipts)</h2>
+<p>Parts photographed as received in Lady Lake, FL. Use these SKUs when reordering; confirm tube ID before cutting the sleeve.</p>
+
+<div class="bom-grid">
+  <article class="card bom-card">
+    <h3>Pasternack RG405/U-BULK</h3>
+    <p><strong>3&nbsp;ft</strong> of 0.086″ semi-rigid coax, copper outer. Packing slip WPE398212 (11&nbsp;Aug&nbsp;2026). Enough for several stub assemblies plus scrap.</p>
+    <ul>
+      <li>Item: <code>RG405/U-BULK</code></li>
+      <li>HTS / ECCN: 8544.20.0000 / EAR99</li>
+      <li><a href="https://www.pasternack.com/" target="_blank" rel="noopener">pasternack.com</a> (search RG-405/U)</li>
+    </ul>
+    <figure>
+      <img src="assets/sleeve-balun/pasternack-rg405u-3ft.jpg" alt="Pasternack packing slip and coiled RG-405/U 3 ft copper semi-rigid coax" width="1600" height="1200" loading="lazy">
+      <figcaption>Received: 3&nbsp;ft RG-405/U semi-rigid (Pasternack packing slip WPE398212).</figcaption>
+    </figure>
+  </article>
+  <article class="card bom-card">
+    <h3>McMaster 8965K22 copper tube</h3>
+    <p><strong>Two</strong> × 1&nbsp;ft sticks of 101 copper tube, <strong>1/8″ OD × 0.032″ wall</strong> (order 3691836-01, 8&nbsp;Aug&nbsp;2026). TinySA Ultra in frame for scale.</p>
+    <ul>
+      <li>PN: <a href="https://www.mcmaster.com/8965K22/" target="_blank" rel="noopener">8965K22</a></li>
+      <li>Computed ID ≈ 0.125 − 2×0.032 = <strong>0.061″</strong></li>
+      <li>RG-405 jacket OD = <strong>0.086″</strong> → this ID does <em>not</em> clear the jacket</li>
+    </ul>
+    <div class="banner-legal" style="margin:0.75rem 0"><strong>Fit note.</strong> 8965K22 is useful practice stock / scrap, but it will not slide over RG-405. For a snug sleeve over the jacket, reorder thin-wall copper or brass with <strong>ID ≳ 0.090″</strong> (small air gap or two wraps of tape). Alternate: form copper foil into a tube and solder the seam. Do not force 8965K22 onto the coax.</div>
+    <figure>
+      <img src="assets/sleeve-balun/mcmaster-8965K22-copper-tubes-tinysa.jpg" alt="McMaster packing list 8965K22 two copper tubes and TinySA Ultra" width="1600" height="1200" loading="lazy">
+      <figcaption>Received: two 8965K22 tubes + TinySA Ultra (packing list PO 0808DBRITTON).</figcaption>
+    </figure>
+  </article>
+</div>
+
+<p>Also on the bench for this control path (already on <a href="kit.html">kit.html</a> / <a href="setup.html">setup.html</a>): SMA connectors for RG-405, 23&nbsp;cm BPF in the TX chain, TinySA Ultra / NanoRFE VNA6000-A, silver-bearing solder, electrical tape for the sleeve–jacket gap, non-metallic TX sled.</p>
+
+<h2 id="build">4. Build steps (cold-end solder, open at feed)</h2>
+<ol class="steps">
+  <li><strong>Connector end.</strong> Cut RG-405 to overall length. Install SMA (or Type&nbsp;N) on the generator end in the ordinary way — no special balun connection at the connector.</li>
+  <li><strong>Choose sleeve stock.</strong> Use a tube whose ID clears 0.086″ with only a thin gap (or foil). Cut a little longer than 57.8&nbsp;mm so you can trim. Deburr inside and out.</li>
+  <li><strong>Insulator in the gap.</strong> Two layers of electrical tape (or thin PTFE) over the jacket where the sleeve will sit. This sets VF &lt; 1 if thick — plan to trim the physical length.</li>
+  <li><strong>Strip the tip.</strong> Remove outer conductor and dielectric so <strong>23.1&nbsp;mm</strong> of center conductor remains as the first-article stub (or 57.8&nbsp;mm for the TEM-control stub). Keep the stub straight; photograph against a ruler.</li>
+  <li><strong>Slide and locate.</strong> Slide the sleeve on from the stub end until the <em>open</em> end sits at (or a millimetre behind) the dielectric cut-back. The opposite end is the cold end.</li>
+  <li><strong>Solder the cold end only.</strong> Bond tube ↔ bare outer conductor all around at the cold end (away from the stub). Leave the feed/tip end of the sleeve <strong>open</strong> — no solder bridges. Silver solder OK if you have it.</li>
+  <li><strong>Trim for VF.</strong> If the gap dielectric is significant, shorten toward electrical λ/4. Log physical length, VF estimate, and photos of fillet + open end.</li>
+  <li><strong>Protect.</strong> Optional heat-shrink over the cold-end fillet. Keep the open end clear. Foam around the stub on the TX sled so it cannot bend in the bag.</li>
+  <li><strong>TX chain.</strong> Keep the 23&nbsp;cm BPF inside the Faraday wrap: Ultra SMA-F → filter → stub (<a href="setup.html#bpf">setup.html#bpf</a>). No 3λ ground disk.</li>
+</ol>
+
+<h2 id="verify">5. Verify before any on-air claim</h2>
+<ul>
+  <li><strong>VNA6000-A</strong> — S<sub>11</sub> of the sleeve-stub; optional TDR of the pigtail. See <a href="kit.html#vna6000">kit.html#vna6000</a>.</li>
+  <li><strong>Common-mode check</strong> — compare outer-conductor current / near-field probe with sleeve on vs a bare stub (same length). A working λ/4 sleeve should raise common-mode impedance at the design frequency.</li>
+  <li><strong>Dummy load</strong> — leftover tone should die when the antenna is replaced by a load (leak hunt).</li>
+  <li><strong>Log</strong> — frequency, physical sleeve length, stub length, solder photos, S<sub>11</sub> export. Label CSV rows as archived sleeve-control if the primary run is the ¾″ sphere.</li>
+</ul>
+
+<h2 id="iard-ref">6. Historical reference — IARD 2020 (8 GHz), not the 1296 cut list</h2>
+<p>Hively &amp; Land, “Evidence for Scalar-Longitudinal Photons,” IARD 2020 slides. Useful for context and for why balun resonance matters. <strong>Do not cut 1296 hardware to these 8&nbsp;GHz numbers.</strong></p>
+
+<div class="grid-2 ref-slides">
+  <figure>
+    <img src="assets/sleeve-balun/iard2020-slide18-skirt-balun-tuning.png" alt="IARD 2020 slide 18: skirt balun antenna return loss and balun attenuation near 8 GHz" width="1500" height="1125" loading="lazy">
+    <figcaption>Slide 18 — antenna return loss vs balun effectiveness near 8&nbsp;GHz (historical skirt-balun tuning). Scale lengths ×(8/1.296)≈6.2 for a rough 1296 starting point, then measure.</figcaption>
+  </figure>
+  <figure>
+    <img src="assets/sleeve-balun/iard2020-slide19-faraday-tube-dims.png" alt="IARD 2020 slide 19: Faraday enclosure copper tube and cap dimensions" width="1500" height="1125" loading="lazy">
+    <figcaption>Slide 19 — solid-copper Faraday <em>enclosure</em> tube/cap dims from the 8&nbsp;GHz dynamic-range test (ID 14.34&nbsp;mm, length 28.89&nbsp;mm). That is a cage part, not the RG-405 sleeve OD.</figcaption>
+  </figure>
+</div>
+<p class="footnote">Full slide deck stays off this page (large). Patent / Navy sleeve language: <a href="papers/US12525711-Navy-SLW-Antenna.pdf">US 12,525,711</a> · historical skirt patent: <a href="papers/Hively-US9306527B1-Scalar-Longitudinal-Waves.pdf">US 9,306,527</a> · library cards: <a href="library.html">library.html</a>.</p>
+
+<h2>Related hub pages</h2>
+<ul>
+  <li><a href="setup.html#sleeve">setup.html#sleeve</a> — novice side-view SVG inside the archived Cricket/bifilar block</li>
+  <li><a href="tools.html">tools.html</a> — live λ / stub / sleeve calculator (VF slider)</li>
+  <li><a href="lab.html">lab.html</a> — optional protocol / CSV columns</li>
+  <li><a href="kit.html">kit.html</a> — VNA6000-A and field packing</li>
+  <li><a href="shop-drawing.html">shop-drawing.html</a> — sphere shop drawings (different antenna family)</li>
+</ul>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+</body>
+</html>
