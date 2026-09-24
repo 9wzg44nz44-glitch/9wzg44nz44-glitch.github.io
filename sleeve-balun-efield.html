@@ -5,7 +5,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sleeve-balun E∥ field maps · Keyport + LAB spheres · SLW Hub</title>
-<meta name="description" content="HYP/illustrative 2D color-shaded E∥≈√(S·Z0) cartoons around Navy Keyport sleeve + LAB Al spheres (KB-2016 @ 433.59 MHz; KB-1820 @ 1.296 &amp; 2.45 GHz). Markers λ/(2π), λ, 2D²/λ, 2λ. Educational — not a measurement.">
+<meta name="description" content="HYP/illustrative 2D E∥≈√(S·Z0) maps (CoS Mathematica PNGs + optional canvas) around Navy Keyport sleeve + LAB Al spheres KB-2016 / KB-1820. Style nod US 9,306,527 FIG. 2B; geometry ≠ patent skirt+monopole. Educational.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,6 +13,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <style>
+.efield-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:1rem 0}
+.efield-gallery figure{margin:0;background:#0b1020;border-radius:10px;padding:.55rem;border:1px solid rgba(0,0,0,.2);color:#d7e0f2}
+.efield-gallery img{width:100%;height:auto;display:block;border-radius:6px;background:#111}
+.efield-gallery figcaption{font-size:.82rem;margin-top:.45rem;line-height:1.35;opacity:.92}
+.efield-combined{margin:1rem 0}
+.efield-combined img{width:100%;max-width:1100px;height:auto;border-radius:10px;border:1px solid rgba(0,0,0,.2);background:#0b1020}
 .efield-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,0.9fr);gap:1rem;margin:1rem 0}
 @media(max-width:900px){.efield-layout{grid-template-columns:1fr}}
 .efield-canvas-wrap{background:#0b1020;border:1px solid rgba(0,0,0,.25);border-radius:10px;padding:.5rem;color:#d7e0f2}
@@ -31,6 +37,9 @@
 .marker-key span{display:inline-block;width:.7rem;height:.7rem;border-radius:2px;margin-right:.3rem;vertical-align:middle}
 .mk-reac{background:#c084fc}.mk-fres{background:#4ade80}.mk-frau{background:#f87171}.mk-2lam{background:#d4a373}
 select#bandSelect{font:500 1rem "Source Sans 3",sans-serif;padding:.35rem .5rem;border-radius:6px;max-width:100%}
+.lockbox{font-family:"IBM Plex Mono",monospace;font-size:.82rem;background:#0b1020;color:#d7e0f2;border-radius:8px;padding:.8rem 1rem;margin:1rem 0}
+details.canvas-opt{margin:1.25rem 0;border:1px solid rgba(0,0,0,.18);border-radius:10px;padding:.6rem 1rem}
+details.canvas-opt>summary{cursor:pointer;font-weight:600}
 </style>
 </head>
 <body>
@@ -84,97 +93,132 @@ select#bandSelect{font:500 1rem "Source Sans 3",sans-serif;padding:.35rem .5rem;
 </nav>
 
 <main id="main" class="wrap">
-  <p class="kicker">HYP / illustrative · efield-maps-v0 · <span id="outVersion">snr-dual-sim-params-v0.1</span></p>
+  <p class="kicker">HYP / illustrative · efield-maps-v0 · snr-dual-sim-params-v0.1.1</p>
   <h1>Sleeve + sphere TX — 2D E∥ color maps</h1>
-  <p class="lede">Canvas cartoons of <strong>illustrative</strong> <em>E</em>∥ ≈ √(<em>S</em>·<em>Z</em><sub>0</sub>) around a <strong>Navy Keyport-style λ/4 sleeve</strong> (US&nbsp;12,525,711 — open toward tip; <em>not</em> Hively fat skirt) feeding identical <span class="labtag">LAB</span> aluminum spheres: <code>KB-2016</code> 2.50″ at 433.59&nbsp;MHz; <code>KB-1820</code> ¾″ at 1.296&nbsp;GHz and 2.45&nbsp;GHz. Drive locked to TinySA Ultra <strong>−19&nbsp;dBm</strong> → <em>I</em> into 50&nbsp;Ω. Physics lock: <a href="physics-constants.json"><code>physics-constants.json</code></a> · sibling SNR: <a href="sleeve-balun-snr.html">sleeve-balun-snr.html</a>.</p>
+  <p class="lede">CoS Mathematica exports (primary) plus an optional hub canvas using the same locked formulas. Assemblies: <strong>Navy Keyport-style λ/4 sleeve</strong> (US&nbsp;12,525,711 — open toward tip) + <span class="labtag">LAB</span> aluminum spheres <code>KB-2016</code> 2.50″ @ 433.59&nbsp;MHz and <code>KB-1820</code> ¾″ @ 1.296&nbsp;/&nbsp;2.45&nbsp;GHz. Drive: TinySA Ultra <strong>−19&nbsp;dBm</strong>. Physics: <a href="physics-constants.json"><code>physics-constants.json</code></a> · SNR sibling: <a href="sleeve-balun-snr.html">sleeve-balun-snr.html</a> · Cloud: <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunEFieldMaps">SleeveBalunEFieldMaps</a>.</p>
 
   <div class="banner-edu" style="margin:1rem 0">
     <strong class="hyp">HYP / toy / illustrative — not a measurement.</strong>
-    Isotropic far-field <em>magnitude</em> cartoon from hub Hively Eq.15 → <em>S</em>(<em>r</em>) → √(<em>S</em>·<em>Z</em><sub>0</sub>).
-    <strong>Not</strong> a full Maxwell near-field solution; no invented media transmission factors; SLW is not settled physics.
-    <span class="patenttag">PATENT</span> optional sphere (radius&nbsp;=&nbsp;λ/4) is a different scale — maps use <span class="labtag">LAB</span> SKUs only.
+    Cartoon <em>E</em>∥ ≈ √(<em>S</em>·<em>Z</em><sub>0</sub>) from hub Hively Eq.15 → <em>S</em>(<em>r</em>). <strong>Not</strong> a full Maxwell near-field solution; SLW is not settled physics.
+    <br><strong>Style nod:</strong> US&nbsp;9,306,527&nbsp;B1 <strong>FIG.&nbsp;2B</strong> / Loebl–Hively 2019 FIG.&nbsp;2 constant |E| vibe —
+    but that patent figure is <span class="patenttag">PATENT</span> <em>skirt balun + linear monopole</em> (~8&nbsp;GHz).
+    These panels draw <span class="labtag">LAB</span> <em>Keyport sleeve + KB spheres</em> — different mechanical layout. Do not equate.
   </div>
 
-  <label for="bandSelect"><strong>Band / assembly</strong></label>
-  <select id="bandSelect" aria-label="Select frequency band">
-    <option value="expB_433">Exp B · 433.59 MHz · KB-2016 2.50″</option>
-    <option value="expA_1296" selected>Exp A · 1.296 GHz · KB-1820 ¾″</option>
-    <option value="ism_2450">ISM · 2.45 GHz · KB-1820 ¾″</option>
-  </select>
-  <div class="band-btns" role="group" aria-label="Quick band select">
-    <button type="button" data-band="expB_433" aria-pressed="false">433.59 MHz</button>
-    <button type="button" data-band="expA_1296" aria-pressed="true">1.296 GHz</button>
-    <button type="button" data-band="ism_2450" aria-pressed="false">2.45 GHz</button>
+  <div class="lockbox" aria-label="Lock numbers at −19 dBm">
+    <strong>Lock @ −19 dBm (JS ↔ WL)</strong><br>
+    E∥(10&nbsp;m) = <strong>2.127×10<sup>−3</sup></strong> V/m (all bands)<br>
+    E∥(λ) = <strong>3.077×10<sup>−2</sup></strong> / <strong>9.197×10<sup>−2</sup></strong> / <strong>1.739×10<sup>−1</sup></strong> V/m
+    &nbsp;·&nbsp; 433.59&nbsp;MHz / 1.296&nbsp;GHz / 2.45&nbsp;GHz<br>
+    Source: <a href="img/efield/efield_summary.json" style="color:#55d6be"><code>img/efield/efield_summary.json</code></a>
+    · Cloud <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunEFieldMaps" style="color:#55d6be">Manipulate</a>
   </div>
 
-  <div class="efield-layout">
-    <div class="efield-canvas-wrap">
-      <canvas id="efieldCanvas" width="720" height="660" aria-label="Color-shaded E parallel field map"></canvas>
-      <p style="font-size:.85rem;margin:.4rem .2rem 0;opacity:.85">Hover for local <em>r</em> and E∥. Metal (sphere + RG-405/U coax + sleeve wall) masked. Window ±2.5&nbsp;λ. Legend: log₁₀ E∥ (V/m).</p>
+  <h2>CoS Mathematica panels (primary)</h2>
+  <p>Exported PNGs from <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunEFieldMaps">Wolfram Cloud · SleeveBalunEFieldMaps</a>. Legend: log V/m. Markers: λ/(2π), λ, 2D²/λ (D = sphere OD), plus educational 2λ / ~3λ.</p>
+
+  <div class="efield-gallery">
+    <figure>
+      <a href="img/efield/efield_433MHz_KB2016.png"><img src="img/efield/efield_433MHz_KB2016.png" alt="E parallel color map Exp B 433.59 MHz KB-2016" width="1100" height="1100" loading="lazy"></a>
+      <figcaption><strong>Exp B · 433.59 MHz · KB-2016 2.50″</strong><br>Sleeve λ/4 ≈ 172.9 mm · E∥(λ)≈3.077×10<sup>−2</sup> V/m</figcaption>
+    </figure>
+    <figure>
+      <a href="img/efield/efield_1296MHz_KB1820.png"><img src="img/efield/efield_1296MHz_KB1820.png" alt="E parallel color map Exp A 1.296 GHz KB-1820" width="1100" height="1100" loading="lazy"></a>
+      <figcaption><strong>Exp A · 1.296 GHz · KB-1820 ¾″</strong><br>Sleeve λ/4 ≈ 57.8 mm · E∥(λ)≈9.197×10<sup>−2</sup> V/m</figcaption>
+    </figure>
+    <figure>
+      <a href="img/efield/efield_2450MHz_KB1820.png"><img src="img/efield/efield_2450MHz_KB1820.png" alt="E parallel color map 2.45 GHz KB-1820" width="1100" height="1100" loading="lazy"></a>
+      <figcaption><strong>ISM · 2.45 GHz · KB-1820 ¾″</strong><br>Sleeve λ/4 ≈ 30.6 mm · E∥(λ)≈1.739×10<sup>−1</sup> V/m</figcaption>
+    </figure>
+  </div>
+
+  <figure class="efield-combined">
+    <a href="img/efield/efield_three_bands_combined.png"><img src="img/efield/efield_three_bands_combined.png" alt="Combined three-band E parallel field maps" width="3600" height="1200" loading="lazy"></a>
+    <figcaption style="font-size:.85rem;margin-top:.4rem">Three-band combined export · <a href="img/efield/efield_three_bands_combined.png">full PNG</a></figcaption>
+  </figure>
+
+  <details class="canvas-opt" id="canvas">
+    <summary>Optional interactive canvas (same formulas — hover for local E∥)</summary>
+    <p style="font-size:.9rem;margin:.5rem 0">Browser raster of the isotropic 1/r cartoon for parity with other hub sims. Prefer CoS PNGs above for publication-quality FIG.&nbsp;2B-style shading.</p>
+    <label for="bandSelect"><strong>Band / assembly</strong></label>
+    <select id="bandSelect" aria-label="Select frequency band">
+      <option value="expB_433">Exp B · 433.59 MHz · KB-2016 2.50″</option>
+      <option value="expA_1296" selected>Exp A · 1.296 GHz · KB-1820 ¾″</option>
+      <option value="ism_2450">ISM · 2.45 GHz · KB-1820 ¾″</option>
+    </select>
+    <div class="band-btns" role="group" aria-label="Quick band select">
+      <button type="button" data-band="expB_433" aria-pressed="false">433.59 MHz</button>
+      <button type="button" data-band="expA_1296" aria-pressed="true">1.296 GHz</button>
+      <button type="button" data-band="ism_2450" aria-pressed="false">2.45 GHz</button>
     </div>
-    <div class="efield-side">
-      <div class="meter">
-        <div><span>Assembly</span><strong id="outLabel">—</strong></div>
-        <div><span>f</span><strong id="outF">—</strong></div>
-        <div><span>λ</span><strong id="outLam">—</strong></div>
-        <div><span>λ/4 sleeve (hub VF=1)</span><strong id="outSleeve">—</strong></div>
-        <div><span>Sphere</span><strong id="outSphere">—</strong></div>
-        <div><span>I<sub>pk</sub> @ −19 dBm (50 Ω)</span><strong id="outIpk">—</strong></div>
-        <div><span>P<sub>rad</sub> (Eq.15)</span><strong id="outPrad">—</strong></div>
-        <div><span>E∥ at r=λ</span><strong id="outELam">—</strong></div>
-        <div><span>E∥ at r=10 m</span><strong id="outE10">—</strong></div>
+    <div class="efield-layout">
+      <div class="efield-canvas-wrap">
+        <canvas id="efieldCanvas" width="720" height="660" aria-label="Color-shaded E parallel field map canvas"></canvas>
+        <p style="font-size:.85rem;margin:.4rem .2rem 0;opacity:.85">Hover for local <em>r</em> and E∥. Metal masked. Window ±2.5&nbsp;λ. Legend: log₁₀ E∥ (V/m).</p>
       </div>
-      <div class="card" style="padding:.75rem 1rem">
-        <h3 style="margin-top:0">Near / far markers</h3>
-        <p class="marker-key">
-          <span class="mk-reac"></span>λ/(2π) reactive · <span class="mk-fres"></span>λ Fresnel ·
-          <span class="mk-2lam"></span>2λ educational · <span class="mk-frau"></span>2D²/λ Fraunhofer (D = sphere OD)
-        </p>
-        <ul style="margin:.4rem 0 0;padding-left:1.1rem;font-size:.9rem">
-          <li>λ/(2π) = <strong id="outRreact">—</strong></li>
-          <li>λ = <strong id="outRfres">—</strong></li>
-          <li>2D²/λ = <strong id="outRfrau">—</strong></li>
-          <li>2λ = <strong id="outR2lam">—</strong></li>
-        </ul>
-        <p style="font-size:.82rem;margin:.5rem 0 0;opacity:.85">Conventional EM boundaries — not Hively-specific. For electrically-small LAB spheres, 2D²/λ can fall <em>inside</em> the metal; the ring is omitted from the plot but still listed. Prefer 2D²/λ with D from lab SKU; 2λ kept as educational alternate.</p>
+      <div class="efield-side">
+        <div class="meter">
+          <div><span>Assembly</span><strong id="outLabel">—</strong></div>
+          <div><span>f</span><strong id="outF">—</strong></div>
+          <div><span>λ</span><strong id="outLam">—</strong></div>
+          <div><span>λ/4 sleeve (hub VF=1)</span><strong id="outSleeve">—</strong></div>
+          <div><span>Sphere</span><strong id="outSphere">—</strong></div>
+          <div><span>I<sub>pk</sub> @ −19 dBm (50 Ω)</span><strong id="outIpk">—</strong></div>
+          <div><span>P<sub>rad</sub> (Eq.15)</span><strong id="outPrad">—</strong></div>
+          <div><span>E∥ at r=λ</span><strong id="outELam">—</strong></div>
+          <div><span>E∥ at r=10 m</span><strong id="outE10">—</strong></div>
+        </div>
+        <div class="card" style="padding:.75rem 1rem">
+          <h3 style="margin-top:0">Near / far markers</h3>
+          <p class="marker-key">
+            <span class="mk-reac"></span>λ/(2π) · <span class="mk-fres"></span>λ ·
+            <span class="mk-2lam"></span>2λ · <span class="mk-frau"></span>2D²/λ
+          </p>
+          <ul style="margin:.4rem 0 0;padding-left:1.1rem;font-size:.9rem">
+            <li>λ/(2π) = <strong id="outRreact">—</strong></li>
+            <li>λ = <strong id="outRfres">—</strong></li>
+            <li>2D²/λ = <strong id="outRfrau">—</strong></li>
+            <li>2λ = <strong id="outR2lam">—</strong></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
+  </details>
 
-  <h2>Radial model (lockstep with JSON)</h2>
+  <h2>Radial model (lockstep with JSON / CoS WL)</h2>
   <pre class="eq">P = 10^((P_tx_dBm − 30)/10)          # W into 50 Ω; P_tx = −19 dBm (TinySA Ultra max)
 I_rms = √(P / 50);  I_peak = I_rms √2
 P_rad = I_peak² · Z0 / (4π)          # US 9,306,527 Eq. 15
 S(r)  = P_rad / (4π r²)              # isotropic geometric
 E∥(r) ≈ √(S(r) · Z0)                 # HYP / illustrative impedance cartoon
 # ⇒ E∥ ∝ 1/r outside conductors
-# Z0 = 376.73031346177 Ω (fields.js canonical)
-# Metal mask: LAB sphere disk + RG-405/U coax + Keyport sleeve wall (gap 0.1 cm)
-# NOT a Maxwell near-field; no angular pattern; no measured E∥</pre>
+# Markers: λ/(2π), λ, 2D²/λ (D=LAB sphere dia), 2λ, ~3λ educational
+# Geometry: Keyport sleeve open→tip + LAB KB sphere — NOT patent skirt+monopole FIG.2B</pre>
 
-  <h2>Bands (hub sleeve table + LAB SKUs)</h2>
+  <h2>Bands</h2>
   <div class="table-wrap">
   <table>
     <thead>
-      <tr><th>Band</th><th>f</th><th>Sphere</th><th>λ/4 sleeve</th><th>D</th></tr>
+      <tr><th>Band</th><th>f</th><th>Sphere</th><th>λ/4 sleeve</th><th>E∥(λ) lock</th><th>PNG</th></tr>
     </thead>
     <tbody>
-      <tr><td>Exp B</td><td>433.59 MHz</td><td>KB-2016 2.50″</td><td>172.9 mm</td><td>63.5 mm</td></tr>
-      <tr><td>Exp A</td><td>1.296 GHz</td><td>KB-1820 ¾″</td><td>57.8 mm</td><td>19.05 mm</td></tr>
-      <tr><td>ISM</td><td>2.45 GHz</td><td>KB-1820 ¾″</td><td>30.6 mm</td><td>19.05 mm</td></tr>
+      <tr><td>Exp B</td><td>433.59 MHz</td><td>KB-2016 2.50″</td><td>172.9 mm</td><td>3.077×10<sup>−2</sup> V/m</td><td><a href="img/efield/efield_433MHz_KB2016.png">PNG</a></td></tr>
+      <tr><td>Exp A</td><td>1.296 GHz</td><td>KB-1820 ¾″</td><td>57.8 mm</td><td>9.197×10<sup>−2</sup> V/m</td><td><a href="img/efield/efield_1296MHz_KB1820.png">PNG</a></td></tr>
+      <tr><td>ISM</td><td>2.45 GHz</td><td>KB-1820 ¾″</td><td>30.6 mm</td><td>1.739×10<sup>−1</sup> V/m</td><td><a href="img/efield/efield_2450MHz_KB1820.png">PNG</a></td></tr>
     </tbody>
   </table>
   </div>
 
   <h2>Citations / hub links</h2>
   <ul>
-    <li>SNR sibling: <a href="sleeve-balun-snr.html">sleeve-balun-snr.html</a> (same Eq.15 → S → E∥ chain)</li>
+    <li>CoS Cloud: <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunEFieldMaps">SleeveBalunEFieldMaps</a></li>
+    <li>Assets: <a href="img/efield/">img/efield/</a> · <a href="img/efield/efield_summary.json">efield_summary.json</a></li>
+    <li>SNR sibling: <a href="sleeve-balun-snr.html">sleeve-balun-snr.html</a></li>
     <li>Geometry: <a href="sleeve-balun.html">sleeve-balun.html</a> · <a href="setup.html#sleeve">setup#sleeve</a> · Navy US 12,525,711</li>
-    <li><span class="labtag">LAB</span> spheres: <a href="setup.html#sphere-a">setup#sphere-a</a> · <span class="patenttag">PATENT</span> λ/4 sphere ≠ LAB</li>
-    <li>Machine-readable: <a href="physics-constants.json">physics-constants.json</a> → <code>efield_maps</code> · version <code>snr-dual-sim-params-v0.1</code></li>
-    <li>Formula parents: <a href="fields.html">fields.html</a> · <code>js/fields.js</code></li>
+    <li>Style citation (≠ geometry): US 9,306,527 B1 FIG. 2B · Loebl–Hively 2019 FIG. 2</li>
+    <li>Machine-readable: <a href="physics-constants.json">physics-constants.json</a> → <code>efield_maps</code> · <code>snr-dual-sim-params-v0.1.1</code></li>
   </ul>
-  <p class="footnote">efield-maps-v0 · 24 Sep 2026 · Dan Britton SLW Hub. Educational, contested, illustrative. Mathematica Cloud owned by CoS separately — this page is the GitHub Pages half.</p>
+  <p class="footnote">efield-maps-v0 · 24 Sep 2026 · Dan Britton SLW Hub. Educational, contested, illustrative. Mathematica Cloud owned by CoS; this page is the GitHub Pages half with embedded PNG exports.</p>
 </main>
 <footer class="site">
   <div class="wrap">

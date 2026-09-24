@@ -3,7 +3,7 @@
     "title": "SLW Hub shared physics constants + formula strings",
     "page": "sleeve-balun-snr.html + sleeve-balun-efield.html",
     "repo": "9wzg44nz44-glitch/9wzg44nz44-glitch.github.io",
-    "version": "snr-dual-sim-params-v0.1",
+    "version": "snr-dual-sim-params-v0.1.1",
     "date": "2026-09-24",
     "research": "/workspace/sleeve-balun-snr/RESEARCH.md",
     "disclaimer": "Educational / contested. SLW is not settled physics. Numbers are hub toys for Mathematica bit-for-bit parity with js/fields.js and experiment-c-snr.html \u2014 not lab calibration. No invented equations; HYP/toy/illustrative flagged.",
@@ -18,6 +18,12 @@
       "US 12,525,711 (Keyport sleeve); US 9,306,527 Eq.15; Hively-Loebl 2019 + 2022 Errata"
     ],
     "changelog": [
+      {
+        "from": "snr-dual-sim-params-v0.1",
+        "to": "snr-dual-sim-params-v0.1.1",
+        "date": "2026-09-24",
+        "summary": "Fold-in CoS Mathematica SleeveBalunEFieldMaps: PNG assets under img/efield/, Cloud URL, lock E\u2225 numbers + r_3lam markers. TinySA \u221219 / SNR parity UNCHANGED."
+      },
       {
         "from": "snr-dual-sim-params-v0",
         "to": "snr-dual-sim-params-v0.1",
@@ -374,7 +380,7 @@
     "near_field_flag": "far \u2248 2*D^2/lambda with D\u2248lambda/4; flag when r < far (Friis caveat)",
     "sleeve_length": "L_sleeve = (C/f)/4 * VF",
     "E_parallel_radial_cartoon": "E_parallel(r) = sqrt(S(r)*Z0) with S(r)=P_rad/(4*pi*r^2), P_rad = I_peak^2 * Z0 / (4*pi)  # isotropic 1/r magnitude cartoon; NOT Maxwell near-field; metal (sphere+sleeve+coax) masked; open-air only",
-    "near_far_markers_efield": "r_reactive=lambda/(2*pi); r_fresnel=lambda; r_fraunhofer=2*D^2/lambda (D=LAB sphere diameter); r_2lam=2*lambda (educational alternate when aperture unclear)"
+    "near_far_markers_efield": "r_reactive=lambda/(2*pi); r_fresnel=lambda; r_fraunhofer=2*D^2/lambda (D=LAB sphere diameter); r_2lam=2*lambda; r_3lam=3*lambda (educational)"
   },
   "scenarios": {
     "garage_to_house": {
@@ -412,7 +418,7 @@
   },
   "efield_maps": {
     "maps_id": "efield-maps-v0",
-    "parent_physics_version": "snr-dual-sim-params-v0.1",
+    "parent_physics_version": "snr-dual-sim-params-v0.1.1",
     "page": "sleeve-balun-efield.html",
     "js": "js/sleeve-balun-efield.js",
     "disclaimer": "HYP / illustrative / not a measurement. Cartoon E\u2225=\u221a(S\u00b7Z0) isotropic 1/r magnitude from Hively Eq.15 P_rad \u2014 NOT a full Maxwell near-field solution. LAB spheres only (not patent \u03bb/4). Keyport sleeve US 12,525,711 (not Hively skirt).",
@@ -435,7 +441,8 @@
       "r_reactive": "lambda / (2 * pi)  # conventional reactive near-field boundary",
       "r_fresnel": "lambda  # radiating near / Fresnel rough edge",
       "r_fraunhofer": "2 * D^2 / lambda  # Fraunhofer; D = LAB sphere diameter_m",
-      "r_2lam": "2 * lambda  # educational alternate when aperture D unclear"
+      "r_2lam": "2 * lambda  # educational alternate when aperture D unclear",
+      "r_3lam": "3 * lambda  # educational; Loebl\u2013Hively 2019 fn.59 classical near-field remark \u2014 not on patent FIG.2B drawing"
     },
     "color_legend": "log10(E_parallel) in V/m",
     "bands": [
@@ -454,11 +461,15 @@
           "r_reactive_lambda_over_2pi": 0.110042786,
           "r_fresnel_lambda": 0.691419216,
           "r_fraunhofer_2D2_over_lambda": 0.011663691,
-          "r_2lam_educational": 1.382838433
+          "r_2lam_educational": 1.382838433,
+          "r_3lam_educational": 2.0742576489310176
         },
-        "E_parallel_at_lambda_V_per_m": 0.030774249044506128,
-        "E_parallel_at_10m_V_per_m": 0.0021277907156891634,
-        "note": "Fraunhofer 2D\u00b2/\u03bb uses LAB sphere diameter; for electrically-small LAB spheres this radius can lie inside the metal sphere \u2014 still tabulated; plot prefers drawing rings only outside metal + always shows 2\u03bb."
+        "E_parallel_at_lambda_V_per_m": 0.030768707487557136,
+        "E_parallel_at_10m_V_per_m": 0.002127407561792882,
+        "note": "Fraunhofer 2D\u00b2/\u03bb uses LAB sphere diameter; for electrically-small LAB spheres this radius can lie inside the metal sphere \u2014 still tabulated; plot prefers drawing rings only outside metal + always shows 2\u03bb.",
+        "I_pk_A_lock": 0.0007096267784671506,
+        "Prad_W_lock": 1.5096653745617386e-05,
+        "png": "img/efield/efield_433MHz_KB2016.png"
       },
       {
         "key": "expA_1296",
@@ -475,11 +486,15 @@
           "r_reactive_lambda_over_2pi": 0.036815935,
           "r_fresnel_lambda": 0.231321341,
           "r_fraunhofer_2D2_over_lambda": 0.003137648,
-          "r_2lam_educational": 0.462642682
+          "r_2lam_educational": 0.462642682,
+          "r_3lam_educational": 0.6939640231481482
         },
-        "E_parallel_at_lambda_V_per_m": 0.091984194196545,
-        "E_parallel_at_10m_V_per_m": 0.0021277907156891634,
-        "note": "Fraunhofer 2D\u00b2/\u03bb uses LAB sphere diameter; for electrically-small LAB spheres this radius can lie inside the metal sphere \u2014 still tabulated; plot prefers drawing rings only outside metal + always shows 2\u03bb."
+        "E_parallel_at_lambda_V_per_m": 0.09196763048934256,
+        "E_parallel_at_10m_V_per_m": 0.002127407561792882,
+        "note": "Fraunhofer 2D\u00b2/\u03bb uses LAB sphere diameter; for electrically-small LAB spheres this radius can lie inside the metal sphere \u2014 still tabulated; plot prefers drawing rings only outside metal + always shows 2\u03bb.",
+        "I_pk_A_lock": 0.0007096267784671506,
+        "Prad_W_lock": 1.5096653745617386e-05,
+        "png": "img/efield/efield_1296MHz_KB1820.png"
       },
       {
         "key": "ism_2450",
@@ -496,17 +511,48 @@
           "r_reactive_lambda_over_2pi": 0.019474878,
           "r_fresnel_lambda": 0.122364269,
           "r_fraunhofer_2D2_over_lambda": 0.005931511,
-          "r_2lam_educational": 0.244728537
+          "r_2lam_educational": 0.244728537,
+          "r_3lam_educational": 0.3670928057142857
         },
-        "E_parallel_at_lambda_V_per_m": 0.17388987328822164,
-        "E_parallel_at_10m_V_per_m": 0.0021277907156891634,
-        "note": "Fraunhofer 2D\u00b2/\u03bb uses LAB sphere diameter; for electrically-small LAB spheres this radius can lie inside the metal sphere \u2014 still tabulated; plot prefers drawing rings only outside metal + always shows 2\u03bb."
+        "E_parallel_at_lambda_V_per_m": 0.17385856072445163,
+        "E_parallel_at_10m_V_per_m": 0.002127407561792882,
+        "note": "Fraunhofer 2D\u00b2/\u03bb uses LAB sphere diameter; for electrically-small LAB spheres this radius can lie inside the metal sphere \u2014 still tabulated; plot prefers drawing rings only outside metal + always shows 2\u03bb.",
+        "I_pk_A_lock": 0.0007096267784671506,
+        "Prad_W_lock": 1.5096653745617386e-05,
+        "png": "img/efield/efield_2450MHz_KB1820.png",
+        "sleeve_lambda_over_4_m_cos": 0.030591067142857142
       }
     ],
     "hypLabels_extra": [
       "E\u2225 2D map is isotropic 1/r cartoon from \u221a(S Z0) \u2014 HYP / illustrative",
       "Marker rings are conventional EM boundaries, not Hively-specific predictions",
       "LAB KB spheres \u2260 patent optional sphere radius=\u03bb/4"
-    ]
+    ],
+    "cloud_url": "https://www.wolframcloud.com/obj/danbritton5/SleeveBalunEFieldMaps",
+    "cloud_note": "CoS-owned Mathematica Cloud Manipulate; Pages embeds exported PNGs + optional canvas",
+    "style_note": "Visual vibe US 9,306,527 B1 FIG. 2B / Loebl\u2013Hively 2019 FIG. 2 constant |E| contours. Geometry on maps is LAB Keyport sleeve + KB spheres \u2014 NOT patent skirt balun + linear monopole.",
+    "patent_fig_ref": "US 9,306,527 B1 FIG. 2B (skirt+monopole @ ~8 GHz) \u2014 citation for style only",
+    "assets": {
+      "dir": "img/efield/",
+      "summary_json": "img/efield/efield_summary.json",
+      "combined_png": "img/efield/efield_three_bands_combined.png",
+      "bands": {
+        "expB_433": "img/efield/efield_433MHz_KB2016.png",
+        "expA_1296": "img/efield/efield_1296MHz_KB1820.png",
+        "ism_2450": "img/efield/efield_2450MHz_KB1820.png"
+      }
+    },
+    "cos_lock_at_m19_dBm": {
+      "source": "img/efield/efield_summary.json + CoS SleeveBalunEFieldMaps.wl",
+      "I_pk_A": 0.0007096267784671506,
+      "Prad_W": 1.5096653745617386e-05,
+      "E_parallel_at_10m_V_per_m": 0.002127407561792882,
+      "E_parallel_at_lambda_V_per_m": {
+        "expB_433": 0.030768707487557136,
+        "expA_1296": 0.09196763048934256,
+        "ism_2450": 0.17385856072445163
+      },
+      "note": "E(10 m)=2.127e-3 V/m all bands; E(\u03bb)=3.077e-2 / 9.197e-2 / 1.739e-1 for 433.59 / 1296 / 2450. From \u221a(S Z0) isotropic cartoon \u2014 HYP."
+    }
   }
 }
