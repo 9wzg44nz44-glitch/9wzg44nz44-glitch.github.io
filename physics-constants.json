@@ -3,7 +3,7 @@
     "title": "SLW Hub shared physics constants + formula strings",
     "page": "sleeve-balun-snr.html + sleeve-balun-efield.html",
     "repo": "9wzg44nz44-glitch/9wzg44nz44-glitch.github.io",
-    "version": "snr-dual-sim-params-v0.1.1",
+    "version": "snr-dual-sim-params-v0.2",
     "date": "2026-09-24",
     "research": "/workspace/sleeve-balun-snr/RESEARCH.md",
     "disclaimer": "Educational / contested. SLW is not settled physics. Numbers are hub toys for Mathematica bit-for-bit parity with js/fields.js and experiment-c-snr.html \u2014 not lab calibration. No invented equations; HYP/toy/illustrative flagged.",
@@ -30,7 +30,8 @@
         "date": "2026-09-24",
         "summary": "Add efield_maps section + E\u2225 radial cartoon keys for sleeve-balun-efield.html (Pages). TinySA \u221219 / SNR parity constants UNCHANGED."
       }
-    ]
+    ],
+    "changelog_v0_2": "live E\u2225 map panel on SleeveBalunSNR + distance_presets (near/far \u03bb default + home/ship/aircraft/LEO/GEO). SNR formula chain UNCHANGED except range presets and map UI."
   },
   "hypLabels": [
     "illustrative / not a measurement",
@@ -418,7 +419,7 @@
   },
   "efield_maps": {
     "maps_id": "efield-maps-v0",
-    "parent_physics_version": "snr-dual-sim-params-v0.1.1",
+    "parent_physics_version": "snr-dual-sim-params-v0.2",
     "page": "sleeve-balun-efield.html",
     "js": "js/sleeve-balun-efield.js",
     "disclaimer": "HYP / illustrative / not a measurement. Cartoon E\u2225=\u221a(S\u00b7Z0) isotropic 1/r magnitude from Hively Eq.15 P_rad \u2014 NOT a full Maxwell near-field solution. LAB spheres only (not patent \u03bb/4). Keyport sleeve US 12,525,711 (not Hively skirt).",
@@ -553,6 +554,81 @@
         "ism_2450": 0.17385856072445163
       },
       "note": "E(10 m)=2.127e-3 V/m all bands; E(\u03bb)=3.077e-2 / 9.197e-2 / 1.739e-1 for 433.59 / 1296 / 2450. From \u221a(S Z0) isotropic cartoon \u2014 HYP."
-    }
+    },
+    "merged_into_snr": true,
+    "snr_page": "sleeve-balun-snr.html",
+    "note_v0_2": "Primary live map is now on SleeveBalunSNR Manipulate / sleeve-balun-snr.html; standalone sleeve-balun-efield remains."
+  },
+  "distance_presets": {
+    "disclaimer": "Educational range r presets. Separate from mediaScenario Garage/Outdoor/Submarine (Ohmic L_eff). Long free-space paths (ship/aircraft/LEO/GEO) keep Outdoor media (L_eff=0) unless user already on Submarine stack \u2014 do NOT invent seawater \u03b1 for 20 km free-space path. near_far_lambda and leo/geo labeled HYP/educational.",
+    "default_id": "near_far_lambda",
+    "C_m_per_s": 299792458,
+    "ftToM": 0.3048,
+    "presets": [
+      {
+        "id": "near_far_lambda",
+        "label": "Near\u2194far (\u03bb \u00b7 default)",
+        "r_m": "lambda = C/f",
+        "r_m_formula": "C/f",
+        "frequency_dependent": true,
+        "notes": "DEFAULT. Radiating-near / Fresnel rough interface. Frequency-dependent. Label HYP/educational.",
+        "hyp": true
+      },
+      {
+        "id": "fraunhofer_2D2_over_lambda",
+        "label": "Fraunhofer 2D\u00b2/\u03bb (LAB sphere dia)",
+        "r_m": "2*D^2/lambda with D = LAB sphere OD",
+        "r_m_formula": "2 * D_lab^2 / (C/f)",
+        "frequency_dependent": true,
+        "notes": "Often INSIDE metal for electrically-small KB spheres \u2014 still list; UI should clamp display / warn if r < sphereR",
+        "hyp": true
+      },
+      {
+        "id": "home_garage",
+        "label": "Home garage\u2192house",
+        "r_m": 10,
+        "notes": "existing garage default",
+        "hyp": false
+      },
+      {
+        "id": "home_outdoor",
+        "label": "Home outdoor",
+        "r_m": 50,
+        "notes": "existing outdoor default",
+        "hyp": false
+      },
+      {
+        "id": "ship_20km",
+        "label": "Submerged \u2192 surface ship 20 km",
+        "r_m": 20000,
+        "notes": "user ask \u2014 free-space r; Ohmic media stays Outdoor (L_eff=0) unless already Submarine",
+        "hyp": false
+      },
+      {
+        "id": "aircraft_slant_30km_35kft",
+        "label": "Aircraft 30 km horiz @ 35 000 ft",
+        "r_m": 31840.323867699586,
+        "r_m_exact": "Sqrt[30000.^2 + (35000*0.3048)^2]",
+        "ground_range_m": 30000,
+        "altitude_ft": 35000,
+        "altitude_m": 10668.0,
+        "notes": "Document both ground range and altitude; use SLANT range as r",
+        "hyp": false
+      },
+      {
+        "id": "leo_500km",
+        "label": "LEO ~500 km altitude",
+        "r_m": 500000,
+        "notes": "illustrative LEO altitude (not a specific satellite). Label HYP/educational",
+        "hyp": true
+      },
+      {
+        "id": "geo_35786km",
+        "label": "GEO altitude",
+        "r_m": 35786000,
+        "notes": "standard GEO altitude \u224835786 km",
+        "hyp": false
+      }
+    ]
   }
 }

@@ -1,4 +1,4 @@
-/*! sleeve-balun-snr.js — v0 (CoS RESEARCH fold-in)
+/*! sleeve-balun-snr.js — v0.2 (live E∥ map + distance_presets)
  * Formulas ONLY from hub js/fields.js + experiment-c-snr.html + Linearly Resistive LEN.
  * TinySA Ultra gen max −19 dBm (tinysa.org TinySA4). No RG-450; RG-405 host / RG-316 jumpers.
  * Patent λ/4 sphere ≠ LAB KB-1820 / KB-2016. US 12,562,930 not used for balun dims.
@@ -38,10 +38,37 @@
   };
 
   const SPHERE_LAB = {
-    1296000000: { id: "KB-1820", kind: "LAB", diaIn: 0.75, note: "LAB ¾″ Al · Exp A — NOT patent λ/4 sphere" },
-    2450000000: { id: "KB-1820", kind: "LAB", diaIn: 0.75, note: "LAB ¾″ Al · 2.45 GHz — NOT patent λ/4 sphere" },
-    433590000: { id: "KB-2016", kind: "LAB", diaIn: 2.5, note: "LAB 2.50″ Al · Exp B — NOT patent λ/4 sphere" }
+    1296000000: { id: "KB-1820", kind: "LAB", diaIn: 0.75, note: "LAB ¾″ Al · Exp A — NOT patent λ/4 sphere", od_m: 0.01905 },
+    2450000000: { id: "KB-1820", kind: "LAB", diaIn: 0.75, note: "LAB ¾″ Al · 2.45 GHz — NOT patent λ/4 sphere", od_m: 0.01905 },
+    433590000: { id: "KB-2016", kind: "LAB", diaIn: 2.5, note: "LAB 2.50″ Al · Exp B — NOT patent λ/4 sphere", od_m: 0.0635 }
   };
+
+  const PHYSICS_VERSION = "snr-dual-sim-params-v0.2";
+  const FT_TO_M = 0.3048;
+  const GAP_M = 0.001;
+  const RG405_OD_M = 0.086 * 0.0254;
+  const COAX_R = RG405_OD_M / 2;
+  const SLEEVE_R = COAX_R + 0.0005;
+  const SLEEVE_MM = { 1296000000: 57.8, 2450000000: 30.6, 433590000: 172.9 };
+
+  /** JSON distance_presets — LOCK exact numbers */
+  function distancePresetRM(id, f) {
+    const lam = C / f;
+    const sphere = SPHERE_LAB[f] || SPHERE_LAB[1296000000];
+    const D = sphere.od_m;
+    switch (id) {
+      case "near_far_lambda": return lam;
+      case "fraunhofer_2D2_over_lambda": return 2 * D * D / lam;
+      case "home_garage": return 10;
+      case "home_outdoor": return 50;
+      case "ship_20km": return 20000;
+      case "aircraft_slant_30km_35kft":
+        return Math.sqrt(30000 * 30000 + (35000 * FT_TO_M) * (35000 * FT_TO_M));
+      case "leo_500km": return 500000;
+      case "geo_35786km": return 35786000;
+      default: return lam;
+    }
+  }
 
   function patentSphereDiaM(f) {
     return (C / f) / 2; // diameter = 2*(λ/4) = λ/2
@@ -118,7 +145,13 @@
       Irms = Math.sqrt(P / RL);
       Ipk = Irms * Math.SQRT2;
     }
-    const r = +$("r").value;
+    let r;
+    if ($("log10r")) {
+      r = Math.pow(10, +$("log10r").value);
+      if ($("r")) $("r").value = String(r);
+    } else {
+      r = +$("r").value;
+    }
     const cage = $("cage").value;
     const att = ATT[cage] || 0;
     const mP = meshPower(att);
@@ -194,7 +227,7 @@
 
   function render(s) {
     $("ptxOut").textContent = fmtN(s.Ptx_dBm, 1) + " dBm (Ultra max −19)";
-    $("rOut").textContent = fmtN(s.r, 2) + " m · " + fmtN(s.r * 3.280839895, 1) + " ft";
+    $("rOut").textContent = s.r.toExponential(4) + " m · " + fmtN(s.r / FT_TO_M, 1) + " ft · log10=" + fmtN(Math.log10(s.r), 2);
     $("Iout").textContent = "I_rms=" + fmt(s.Irms, 3) + " A · I_pk=" + fmt(s.Ipk, 3) + " A" +
       (s.highI ? "" : "  (at −19 dBm: ≈0.50 mA rms / 0.71 mA pk)");
     $("sphereOut").textContent = s.sphere.id + " · " + s.sphere.diaIn + "″ · " + s.sphere.note;
@@ -298,12 +331,177 @@
     }
   }
 
+
+  function turbo(t) {
+    t = Math.max(0, Math.min(1, t));
+    const r = Math.max(0, Math.min(1, 0.13572138 + t * (4.61539260 + t * (-42.73933202 + t * (132.13108234 + t * (-152.94239396 + t * 59.28637943))))));
+    const g = Math.max(0, Math.min(1, 0.09140261 + t * (2.21555694 + t * (4.07525298 + t * (-24.08076409 + t * (34.01357394 + t * -13.74514578))))));
+    const b = Math.max(0, Math.min(1, 0.10667330 + t * (12.20615972 + t * (-60.50009986 + t * (110.23206676 + t * (-89.57544944 + t * 27.34824973))))));
+    return [Math.floor(r * 255), Math.floor(g * 255), Math.floor(b * 255)];
+  }
+
+  function makeMapBand(s) {
+    const f = s.f;
+    const lam = s.LAMBDA;
+    const sleeveL = (SLEEVE_MM[f] != null ? SLEEVE_MM[f] : (lam * 1000 / 4)) / 1000;
+    const sphereR = ((s.sphere.od_m) || (s.sphere.diaIn * 0.0254)) / 2;
+    const zTip = -sphereR;
+    const zSleeveOpen = -(sphereR + GAP_M);
+    const zSleeveClosed = zSleeveOpen - sleeveL;
+    const zCoaxEnd = zSleeveClosed - 0.15 * lam;
+    const win = 3.2 * lam;
+    return {
+      f, lam, sleeveL, sphereR, sphereD: 2 * sphereR,
+      ipk: s.Ipk, prad: s.Prad,
+      zTip, zSleeveOpen, zSleeveClosed, zCoaxEnd, win,
+      rReactive: lam / (2 * Math.PI),
+      rFresnel: lam,
+      rFraunhofer: 2 * (2 * sphereR) * (2 * sphereR) / lam,
+      r2lam: 2 * lam,
+      r3lam: 3 * lam
+    };
+  }
+
+  function maskMetal(band, x, z) {
+    const rAbs = Math.abs(x);
+    const rs = band.sphereR;
+    if (x * x + z * z <= rs * rs) return true;
+    if (rAbs <= COAX_R && z >= band.zCoaxEnd && z <= band.zTip) return true;
+    if (rAbs > COAX_R && rAbs <= SLEEVE_R && z >= band.zSleeveClosed && z <= band.zSleeveOpen) return true;
+    if (rAbs <= SLEEVE_R && rAbs >= COAX_R * 0.5 && Math.abs(z - band.zSleeveClosed) <= 0.00025) return true;
+    return false;
+  }
+
+  function EparAtR(prad, r) {
+    if (r < 1e-12) return 0;
+    const S = prad / (4 * Math.PI * r * r);
+    return Math.sqrt(Math.max(S, 0) * Z0);
+  }
+
+  function drawRing(ctx, sx, sy, r, color, dash) {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.6;
+    if (dash) ctx.setLineDash(dash);
+    ctx.beginPath();
+    // approximate circle in plot coords via many segments
+    const n = 96;
+    for (let i = 0; i <= n; i++) {
+      const a = (i / n) * Math.PI * 2;
+      const x = r * Math.cos(a), z = r * Math.sin(a);
+      if (i === 0) ctx.moveTo(sx(x), sy(z)); else ctx.lineTo(sx(x), sy(z));
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
+
+  function drawEfieldMap(s) {
+    const canvas = $("efieldMap");
+    if (!canvas) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const cssW = canvas.clientWidth || 640;
+    const cssH = cssW;
+    canvas.width = Math.floor(cssW * dpr);
+    canvas.height = Math.floor(cssH * dpr);
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const band = makeMapBand(s);
+    const pad = 36;
+    const plotW = cssW - 2 * pad;
+    const plotH = cssH - 2 * pad;
+    const win = band.win;
+    const sx = (x) => pad + ((x + win) / (2 * win)) * plotW;
+    const sy = (z) => pad + ((win - z) / (2 * win)) * plotH;
+
+    const eMax = EparAtR(band.prad, Math.max(band.sphereR * 1.08, 0.002));
+    const eMin = Math.max(EparAtR(band.prad, 3 * band.lam), eMax * 1e-6);
+
+    ctx.fillStyle = "#0b1020";
+    ctx.fillRect(0, 0, cssW, cssH);
+
+    const step = Math.max(3, Math.floor(Math.min(plotW, plotH) / 120));
+    for (let py = 0; py < plotH; py += step) {
+      for (let px = 0; px < plotW; px += step) {
+        const x = -win + (px / plotW) * 2 * win;
+        const z = win - (py / plotH) * 2 * win;
+        if (maskMetal(band, x, z)) {
+          ctx.fillStyle = "#4a3a5a";
+          ctx.fillRect(pad + px, pad + py, step, step);
+          continue;
+        }
+        const rr = Math.hypot(x, z);
+        const E = EparAtR(band.prad, rr);
+        const t = (Math.log10(Math.max(E, eMin * 0.5)) - Math.log10(eMin)) /
+                  (Math.log10(eMax) - Math.log10(eMin) || 1);
+        const [cr, cg, cb] = turbo(t);
+        ctx.fillStyle = "rgb(" + cr + "," + cg + "," + cb + ")";
+        ctx.fillRect(pad + px, pad + py, step, step);
+      }
+    }
+
+    // antenna cartoon
+    ctx.fillStyle = "rgba(180,120,200,0.85)";
+    ctx.beginPath();
+    ctx.arc(sx(0), sy(0), Math.max(2, (band.sphereR / (2 * win)) * plotW), 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#7a2a9a";
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // markers
+    drawRing(ctx, sx, sy, band.rReactive, "rgba(160,80,200,0.9)", [4, 3]);
+    drawRing(ctx, sx, sy, band.rFresnel, "rgba(40,160,80,0.9)", [5, 3]);
+    if (band.rFraunhofer > band.sphereR && band.rFraunhofer < win * 1.05)
+      drawRing(ctx, sx, sy, band.rFraunhofer, "rgba(220,60,60,0.85)", [3, 3]);
+    drawRing(ctx, sx, sy, band.r3lam, "rgba(220,140,40,0.85)", [6, 3]);
+
+    // selected r
+    let offMap = false;
+    if (s.r <= win * 1.02) {
+      drawRing(ctx, sx, sy, s.r, "#ff3030", [8, 4]);
+    } else {
+      offMap = true;
+    }
+
+    const eAtLam = EparAtR(band.prad, band.lam) * Math.sqrt(s.Surv); // Surv=1 usually; E∥ no mP
+    // E∥ uses S = Sgeom*Surv — match compute Epar which already has Surv
+    const eAtR = s.Epar;
+    const eAtLamExact = Math.sqrt(Math.max(s.Prad / (4 * Math.PI * band.lam * band.lam) * s.Surv, 0) * Z0);
+
+    ctx.fillStyle = "#d7e0f2";
+    ctx.font = "11px IBM Plex Mono, monospace";
+    ctx.fillText("E∥ map · " + PHYSICS_VERSION, pad, 18);
+    ctx.font = "10px IBM Plex Mono, monospace";
+    ctx.fillStyle = "#f0c14b";
+    ctx.fillText("I_pk=" + s.Ipk.toExponential(3) + "  E∥(λ)=" + eAtLamExact.toExponential(3) +
+      "  E∥(r)=" + eAtR.toExponential(3), pad, cssH - 12);
+
+    if ($("emapCaption")) {
+      $("emapCaption").innerHTML =
+        "f=" + (s.f / 1e6).toFixed(2) + " MHz · λ=" + (band.lam * 1000).toFixed(1) + " mm · " +
+        "I<sub>pk</sub>=" + s.Ipk.toExponential(3) + " A · " +
+        "E∥(λ)=<strong>" + eAtLamExact.toExponential(3) + "</strong> V/m · " +
+        "E∥(r)=<strong>" + eAtR.toExponential(3) + "</strong> V/m" +
+        (offMap
+          ? " · <span class=\"hyp\">selected r off-map (r=" + s.r.toExponential(4) + " m); E∥(r) still in numeric strip</span>"
+          : " · red dashed = selected r") +
+        "<br><span class=\"footnote\">HYP / illustrative / not Maxwell near-field · LAB Keyport ≠ US 9,306,527 FIG.2B · E∥ NO mP</span>";
+    }
+  }
+
   function rangeBounds() {
     const scen = $("scenario").value;
-    if (scen === "garage") return { rMin: 1, rMax: 20 };
-    if (scen === "outdoor") return { rMin: 5, rMax: 200 };
-    if (scen === "sub") return { rMin: 10, rMax: 5000 };
-    return { rMin: 0.5, rMax: Math.max(+$("r").value * 2, 30) };
+    let rCur = $("log10r") ? Math.pow(10, +$("log10r").value) : +$("r").value;
+    let rMin, rMax;
+    if (scen === "garage") { rMin = 0.05; rMax = 20; }
+    else if (scen === "outdoor") { rMin = 0.05; rMax = 200; }
+    else if (scen === "sub") { rMin = 0.5; rMax = 5000; }
+    else { rMin = 0.05; rMax = 30; }
+    rMax = Math.max(rMax, rCur * 1.15);
+    rMin = Math.min(rMin, Math.max(rCur / 50, 1e-3));
+    return { rMin: rMin, rMax: rMax };
   }
 
   function sampleVsRange(s0, N) {
@@ -312,8 +510,11 @@
     const f = s0.f;
     const K0 = 2 * Math.PI * f / C;
     const SurvFixed = Math.exp(-s0.ohm.alphaEff);
+    const useLog = (b.rMax / b.rMin) > 50;
     for (let i = 0; i < N; i++) {
-      const r = b.rMin + i * (b.rMax - b.rMin) / (N - 1);
+      const r = useLog
+        ? Math.pow(10, Math.log10(b.rMin) + i * (Math.log10(b.rMax) - Math.log10(b.rMin)) / (N - 1))
+        : b.rMin + i * (b.rMax - b.rMin) / (N - 1);
       const Sgeom = s0.Prad / (4 * Math.PI * r * r);
       const S = Sgeom * SurvFixed;
       const Epar = Math.sqrt(Math.max(S, 0) * Z0);
@@ -369,7 +570,7 @@
   function applyScenario() {
     const scen = $("scenario").value;
     if (scen === "garage") {
-      $("r").min = 1; $("r").max = 20; $("r").value = 10;
+      // media garage — r owned by distance preset
       $("cage").value = "sealed";
       $("errataAlpha0").checked = true;
       $("cageOhm").checked = false;
@@ -381,9 +582,9 @@
       $("med_ocean_air").checked = false;
       $("med_free_space").checked = false;
       $("highI").checked = false;
-      $("ptx").value = -10;
+      $("ptx").value = -19;
     } else if (scen === "outdoor") {
-      $("r").min = 5; $("r").max = 200; $("r").value = 50;
+      // media outdoor — r owned by distance preset
       $("cage").value = "open";
       $("errataAlpha0").checked = true;
       $("cageOhm").checked = false;
@@ -396,7 +597,7 @@
       $("med_ocean_air").checked = false;
       $("highI").checked = false;
     } else if (scen === "sub") {
-      $("r").min = 10; $("r").max = 5000; $("r").value = 1000;
+      // media sub — r owned by distance preset
       $("cage").value = "sealed";
       $("errataAlpha0").checked = true;
       $("cageOhm").checked = false;
@@ -412,6 +613,37 @@
     }
     syncHighI();
     syncOhmicUI();
+    applyDistancePreset(false);
+  }
+
+
+  function applyDistancePreset(fromUser) {
+    const el = $("distPreset");
+    if (!el) return;
+    const f = +$("freq").value;
+    const id = el.value;
+    const rM = distancePresetRM(id, f);
+    if ($("log10r")) {
+      const lo = Math.log10(Math.max(rM, 1e-6));
+      $("log10r").value = String(Math.max(-2, Math.min(7.6, lo)));
+    }
+    if ($("r")) $("r").value = String(rM);
+    if ($("distNote")) {
+      const lam = C / f;
+      let extra = "";
+      if (id === "aircraft_slant_30km_35kft") {
+        extra = " Slant = √(30000² + (35000×0.3048)²) = " + rM.toFixed(3) + " m (horiz 30 km · alt 35000 ft).";
+      }
+      if (id === "fraunhofer_2D2_over_lambda") {
+        const sphere = SPHERE_LAB[f] || SPHERE_LAB[1296000000];
+        const Rs = sphere.od_m / 2;
+        if (rM < Rs) extra = " WARN: 2D²/λ is INSIDE LAB sphere R=" + Rs.toExponential(3) + " m.";
+      }
+      $("distNote").textContent =
+        "Preset " + id + " → r=" + rM.toExponential(4) + " m (" + (rM / FT_TO_M).toFixed(1) + " ft). λ=" +
+        lam.toExponential(4) + " m." + extra +
+        " Media Ohmic L_eff unchanged (no invented seawater α for free-space long paths).";
+    }
   }
 
   function syncHighI() {
@@ -453,10 +685,11 @@
     const s = compute();
     render(s);
     drawPlots(s);
+    drawEfieldMap(s);
   }
 
   const ids = [
-    "freq", "ptx", "r", "cage", "mode", "lna", "scenario", "highI", "Iexplore",
+    "freq", "ptx", "r", "log10r", "distPreset", "cage", "mode", "lna", "scenario", "highI", "Iexplore",
     "errataAlpha0", "cageOhm", "cagePath", "alphaExtra", "Lextra", "alphaToy",
     "med_air", "med_copper", "med_air_inside", "med_steel", "med_seawater", "med_ocean_air", "med_free_space"
   ];
@@ -468,7 +701,15 @@
   });
   $("scenario").addEventListener("change", function () { applyScenario(); tick(); });
   $("highI").addEventListener("change", function () { syncHighI(); tick(); });
-  $("freq").addEventListener("change", function () { syncFreq(); tick(); });
+  $("freq").addEventListener("change", function () {
+    syncFreq();
+    const id = $("distPreset") ? $("distPreset").value : "";
+    if (id === "near_far_lambda" || id === "fraunhofer_2D2_over_lambda") applyDistancePreset(false);
+    tick();
+  });
+  if ($("distPreset")) {
+    $("distPreset").addEventListener("change", function () { applyDistancePreset(true); tick(); });
+  }
   $("mode").addEventListener("change", function () { syncOhmicUI(); tick(); });
   $("errataAlpha0").addEventListener("change", function () { syncOhmicUI(); tick(); });
   window.addEventListener("resize", tick);
@@ -476,5 +717,6 @@
   syncHighI();
   syncFreq();
   syncOhmicUI();
+  applyDistancePreset(false);
   tick();
 })();
