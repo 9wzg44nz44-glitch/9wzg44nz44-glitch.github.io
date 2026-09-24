@@ -3,54 +3,91 @@
     "title": "SLW Hub shared physics constants + formula strings",
     "page": "sleeve-balun-snr.html",
     "repo": "9wzg44nz44-glitch/9wzg44nz44-glitch.github.io",
-    "version": "sleeve-snr-draft-v1",
+    "version": "snr-dual-sim-params-v0",
     "date": "2026-09-24",
-    "disclaimer": "Educational / contested. SLW is not settled physics. Numbers are hub toys for Mathematica bit-for-bit parity with js/fields.js and experiment-c-snr.html — not lab calibration.",
+    "research": "/workspace/sleeve-balun-snr/RESEARCH.md",
+    "disclaimer": "Educational / contested. SLW is not settled physics. Numbers are hub toys for Mathematica bit-for-bit parity with js/fields.js and experiment-c-snr.html — not lab calibration. No invented equations; HYP/toy/illustrative flagged.",
     "sources": [
       "js/fields.js (hub)",
       "fields.html #eq",
       "experiment-c-snr.html #eq",
       "sleeve-balun.html frequency table",
-      "setup.html#sleeve / #sphere-a"
+      "setup.html#sleeve / #sphere-a",
+      "Linearly-Resistive-Media-submerged-to-outer-space (LEN + MEDIA)",
+      "tinysa.org TinySA4.Specification (fetched 2026-09-24)",
+      "US 12,525,711 (Keyport sleeve); US 9,306,527 Eq.15; Hively-Loebl 2019 + 2022 Errata"
     ]
   },
   "hypLabels": [
-    "illustrative",
-    "not a measurement",
+    "illustrative / not a measurement",
     "HYP / toy",
-    "educational / typical handbook-ish (not a datasheet warranty)",
     "Friis near-field caveat",
-    "α_ohm media presets are illustrative HYP — replace invented attenFactor 0.95",
-    "E∥ from S·Z0 cartoon is illustrative",
-    "Φ / C labeled educational — page plots A_m (NZ) and A_z (Zimmerman); no separate invented Φ formula",
-    "SW mode forces α=0 (hub experiment-c-snr framing)"
+    "TinySA Ultra gen max −19 dBm (NOT +10) — FACT from tinysa.org TinySA4.Specification",
+    "I_rms from 50 Ω assumes matched load; antenna Z≠50 Ω → I_antenna is HYP without S11",
+    "E∥ ≈ √(S·Z0) impedance cartoon — HYP / illustrative",
+    "Φ / C educational framing — page plots A_m (NZ) and A_z (Zimmerman); no separate invented Φ formula",
+    "Errata 2022 α=0 for irrotational SLW (EED prediction) vs Exp-C Ohmic α (empirical/HYP) — BOTH flags kept",
+    "SW mode forces α=0 (experiment-c-snr framing)",
+    "Media α_ohm / stack Ohmic for sensitivity studies are HYP/illustrative — DO NOT use Cross-Sectional attenFactor 0.95",
+    "Linearly Resistive steel μ_r=1 is a JS simplification (physically incomplete)",
+    "Patent US 12,525,711 optional sphere radius=λ/4 ≠ Dan LAB spheres KB-1820 / KB-2016 — label PATENT vs LAB",
+    "US 12,562,930 is sensor/DAQ — DO NOT use for balun dims",
+    "cable limits: Ultra alone never thermally limits coax; PA path needs separate ceiling",
+    "NO standard RG-450/U — sleeve host RG-405/U; jumpers RG-316-class"
   ],
   "constants": {
     "C": { "value": 299792458, "unit": "m/s", "note": "speed of light (hub)" },
-    "MU0": { "value": 1.2566370614359173e-6, "unit": "H/m", "exact": "4 * Math.PI * 1e-7", "note": "vacuum permeability" },
-    "Z0": { "value": 376.73031346177, "unit": "ohm", "note": "free-space impedance (fields.js)" },
-    "RL": { "value": 50, "unit": "ohm", "note": "load / coax characteristic" },
-    "B_HZ": { "value": 100000, "unit": "Hz", "note": "RBW toy = 100 kHz" },
-    "N0": { "value": -174, "unit": "dBm/Hz", "note": "thermal floor at 290 K" },
-    "A_EFF": { "value": 0.007853981633974483, "unit": "m^2", "exact": "Math.PI * 0.05 ** 2", "note": "Hively palm-coil A_eff (10 cm radius); detector chain" },
-    "ETA": { "value": 0.5, "unit": "1", "note": "detector efficiency toy (fields.js)" },
-    "R_RESP": { "value": 264030, "unit": "m/H", "note": "Nikolova–Zimmerman CEM-R-46 response" },
-    "Gtx": { "value": 1.5, "unit": "linear", "note": "short-monopole TEM Friis toy" },
-    "NF_default_dB": { "value": 3, "note": "Hively NF unless LNA" },
-    "NF_lna_dB": { "value": 5, "note": "when LNA checked" },
-    "LNA_gain_dB": { "value": 20, "note": "when LNA checked; on P_sig only" }
+    "MU0": { "value": 1.2566370614359173e-6, "unit": "H/m", "exact": "4 * Math.PI * 1e-7" },
+    "EPS0": { "value": 8.854187817e-12, "unit": "F/m", "note": "approx; Z0 from fields.js canonical" },
+    "Z0": { "value": 376.73031346177, "unit": "ohm", "note": "fields.js canonical (Linearly Resistive uses 376.730313668 — prefer fields.js)" },
+    "RL": { "value": 50, "unit": "ohm" },
+    "B_HZ": { "value": 100000, "unit": "Hz" },
+    "N0": { "value": -174, "unit": "dBm/Hz" },
+    "A_EFF": { "value": 0.007853981633974483, "unit": "m^2", "exact": "Math.PI * 0.05 ** 2", "note": "Hively palm-coil 10 cm radius" },
+    "ETA": { "value": 0.5, "unit": "1" },
+    "R_RESP": { "value": 264030, "unit": "m/H" },
+    "Gtx": { "value": 1.5, "unit": "linear" },
+    "sigma_Cu": { "value": 58000000, "unit": "S/m", "note": "lab.html skin-depth table" },
+    "NF_default_dB": { "value": 3 },
+    "NF_lna_dB": { "value": 5 },
+    "LNA_gain_dB": { "value": 20 }
   },
   "frequencies_Hz": {
     "expA_1296": 1296000000,
     "ism_2450": 2450000000,
     "expB_433_59": 433590000,
-    "note": "Experiment A cage 1296 MHz · ISM/WiFi exploratory 2.45 GHz · Experiment B Monstein–Wesley 433.59 MHz — keep A vs B electrically separate"
+    "optional_8e9": 8000000000,
+    "note": "Keep Experiment A (1296 cage) electrically separate from Experiment B (433)"
+  },
+  "drive_TinySA_Ultra_ZS406": {
+    "source": "https://tinysa.org/wiki/pmwiki.php?n=TinySA4.Specification",
+    "P_dBm_min_gen": -115,
+    "P_dBm_max_gen": -19,
+    "P_dBm_default_cartoon": -10,
+    "P_dBm_slider_max": -19,
+    "level_step_dB": 1,
+    "cleanest_mode": "square/coarse above ~800 MHz — less accurate level",
+    "highest_accuracy_mode": "fine level / reduced harmonics — prefer for calibrated dBm",
+    "analyzer_best_below_dBm": -25,
+    "analyzer_abs_max_dBm": 6,
+    "analyzer_abs_max_note": "+6 dBm @ 0 dB internal atten; short-term +20 dBm with 30 dB atten",
+    "assume_50ohm": true,
+    "at_Pmax_m19_dBm": {
+      "P_W": 1.2589254117941673e-5,
+      "I_rms_A": 0.0005018722172637806,
+      "I_peak_A": 0.0007097545848498854,
+      "note": "≈0.50 mA rms · ≈0.71 mA peak into 50 Ω"
+    },
+    "caveat": "FACT circuit identity only when load≈50 Ω; sphere/sleeve Z≠50 Ω → I_antenna HYP without measured S11"
   },
   "ATT_dB_per_tent": {
     "open": 0,
     "slotted": 25,
     "sealed": 55,
-    "note": "RadioScreen #1124-0 sealed preset 55 dB/tent (inside 50–60 dB quote); two tents → 2× Att on power when both sealed. Dan 4 ft buy / dual tents."
+    "product": "Less EMF RadioScreen #1124-0",
+    "vendor_quote_dB": "50–60 dB (10 MHz–1 GHz avg)",
+    "dan_buy": "4 ft × 54 in; two tents",
+    "note": "TEM mesh power factor — separate from SLW Ohmic/Joule channel"
   },
   "zimmerman": {
     "A0_Wb_per_m": 1e-10,
@@ -58,54 +95,132 @@
     "r_ref_m": 1.5,
     "f_ref_GHz": 1.3,
     "I_from_Az_coeff": 420000,
-    "note": "Az = 1e-10 * (Ipk/0.028) * (1.5/r) * (1.3/f_GHz); Pz uses 420000 * Az"
+    "note": "Az = 1e-10*(Ipk/0.028)*(1.5/r)*(1.3/f_GHz); Pz uses 420000*Az"
   },
   "spheres": {
-    "KB-1820": {
+    "LAB_KB-1820": {
+      "kind": "LAB",
       "diameter_in": 0.75,
       "diameter_m": 0.01905,
       "material": "3003 Al hollow",
-      "use": "1.3 GHz and 2.45 GHz identical TX/RX",
-      "hole": "ships with no hole"
+      "use": "Exp A 1296 MHz and 2.45 GHz identical TX/RX",
+      "hole": "ships with no hole",
+      "note": "NOT patent λ/4 sphere"
     },
-    "KB-2016": {
+    "LAB_KB-2016": {
+      "kind": "LAB",
       "diameter_in": 2.5,
       "diameter_m": 0.0635,
       "material": "Al hollow",
-      "use": "Monstein–Wesley Exp B ≈433.59 MHz identical TX/RX",
-      "hole": "ships with pre-drilled 1/4 in"
+      "use": "Exp B ≈433.59 MHz identical TX/RX",
+      "hole": "ships with pre-drilled 1/4 in",
+      "note": "NOT patent λ/4 sphere; MW Fig.1 used ≈60 mm OD"
+    },
+    "PATENT_US12525711_sphere_lambda_over_4": {
+      "kind": "PATENT",
+      "radius": "λ/4",
+      "diameter_at_1296MHz_m": 0.11566,
+      "diameter_at_1296MHz_in": 4.55,
+      "diameter_at_433_59MHz_m": 0.34571,
+      "diameter_at_433_59MHz_in": 13.61,
+      "claims": "16–17",
+      "note": "Optional spherical transmitter in US 12,525,711 — DIFFERENT scale from Dan LAB KB spheres. Do not equate without explicit HYP scaling."
+    }
+  },
+  "patents": {
+    "US12525711": {
+      "role": "Navy Keyport SLW antenna with balun (sleeve/skirt/horn shapes)",
+      "geometry_hub": "open end toward tip = sleeve (hub manufacturing language)",
+      "use_for_balun_dims": true
+    },
+    "US12562930": {
+      "role": "Navy sensor/DAQ (hydrophone / vector-sensor 0–16 kHz)",
+      "use_for_balun_dims": false,
+      "note": "DO NOT use for balun / sphere RF dimensions — bundled library PDF only"
+    },
+    "US9306527": {
+      "role": "Hively historical fat annular skirt + Eq.15 P_OUT",
+      "use_for_this_shop_sleeve": false
     }
   },
   "sleeve_lambda_over_4": {
     "VF_default": 1.0,
     "formula": "L_sleeve_m = (C/f)/4 * VF",
+    "coax_host": "RG-405/U",
     "at_VF_1": {
       "433.59e6": { "lambda_m": 0.691418, "sleeve_mm": 172.9, "stub_lambda10_mm": 69.1 },
       "1296e6": { "lambda_m": 0.231321, "sleeve_mm": 57.8, "stub_lambda10_mm": 23.1 },
       "2450e6": { "lambda_m": 0.122364, "sleeve_mm": 30.6, "stub_lambda10_mm": 12.2 },
       "8e9": { "lambda_m": 0.037474, "sleeve_mm": 9.4, "stub_lambda10_mm": 3.7 }
     },
-    "geometry": "Navy Keyport WA / US 12,525,711 style close-fitting sleeve (Hively calls it sleeve despite patent naming). NOT Hively US 9,306,527 Fig.2A fat skirt. Hub: sleeve-balun.html / setup.html#sleeve"
+    "geometry": "Navy Keyport / US 12,525,711 style close-fitting sleeve. NOT Hively US 9,306,527 Fig.2A fat skirt. Hub: sleeve-balun.html / setup.html#sleeve"
   },
   "cable_limits_educational": {
-    "disclaimer": "educational / typical handbook-ish caution — NOT a datasheet warranty",
-    "flexible_thin_SMA_Irms_A": { "caution_low": 0.1, "caution_high": 0.5, "note": "thin flexible SMA jumpers ~0.1–0.5 A RF continuous caution" },
-    "RG405_Irms_A": { "caution": 1.5, "note": "RG-405 semi-rigid higher than flexible SMA but still limited" },
-    "RG450_class_Irms_A": { "caution": 3.0, "note": "heavier rigid / RG-450-class SMA — still limited; thicker cable or external PA when exceeded" },
-    "TinySA_Ultra_Ptx_dBm": {
-      "typical_clean_max": 10,
-      "hard_flag_above_dBm": 15,
-      "note": "TinySA Ultra generator typically milliwatts; flag when dBm implies I beyond clean TinySA output"
+    "disclaimer": "Ultra alone never thermally limits coax at −19 dBm (~12.6 µW). PA path needs separate I/dBm ceiling. Handbook-ish — NOT a datasheet warranty.",
+    "naming": {
+      "RG-450U": "NO standard type — treat spoken 'RG-450U' as RG-405/U",
+      "sleeve_host": "RG-405/U (0.086 in semi-rigid)",
+      "jumpers": "RG-316-class PTFE flex SMA"
+    },
+    "TinySA_Ultra_alone": {
+      "P_dBm_max": -19,
+      "I_rms_A_at_max": 0.000502,
+      "thermal_limit_reached": false,
+      "note": "Cable thermal limit is never the bottleneck for Ultra-alone drive"
+    },
+    "external_PA_path": {
+      "require_explicit_P_dBm": true,
+      "rg405_caution_note": "re-rate cable, connectors, BPF, legal ERP when PA added",
+      "rg316_times_approx_W_at_1GHz": 173,
+      "note": "Times Microwave M17/RG-316 order-of-magnitude; far above TinySA — only relevant with PA"
     }
   },
+  "ohmic_modes": {
+    "errata_alpha0_EED": {
+      "flag": "use_hively_errata_no_ohmic_SLW",
+      "alpha": 0,
+      "label": "EED prediction (Hively-Loebl 2022 Errata A6): irrotational SLW not subject to resistive loss / skin effect",
+      "also_SW": "SW mode (experiment-c) forces α=0"
+    },
+    "expC_ohmic_empirical_HYP": {
+      "flag": "ohmic_alpha_enabled",
+      "label": "Exp-C / Monstein-style Ohmic α for sensitivity studies — empirical/HYP; α unknown until measured",
+      "formula": "S = S_geom * exp(-alpha_ohm * L_eff); loss_dB = 4.343 * alpha_ohm * L_eff"
+    },
+    "note": "Keep BOTH flags in UI — product decision which default; v0 default scenario garage uses Errata α=0 OFF path with optional cage Ohmic HYP checkbox"
+  },
+  "submarine_stack_lengths_m": {
+    "source": "Linearly-Resistive-Media-submerged-to-outer-space JS LEN",
+    "copper_wall": 0.003175,
+    "air_inside": 100.584,
+    "steel_wall": 0.0762,
+    "seawater_exit": 91.44,
+    "notes": {
+      "copper_wall": "1/8 inch Faraday cage wall",
+      "air_inside": "330 ft cylinder length used as air path",
+      "steel_wall": "3 inch",
+      "seawater_exit": "300 ft"
+    },
+    "DO_NOT_USE": "Cross-Sectional attenFactor(steel|seawater)=0.95 — rejected invented toy"
+  },
+  "media_LinearlyResistive_HYP": {
+    "disclaimer": "Copied from Linearly Resistive MEDIA table — educational; steel μ_r=1 is simplification",
+    "vacuum": { "eps_r": 1, "mu_r": 1, "sigma": 0 },
+    "air": { "eps_r": 1.0006, "mu_r": 1, "sigma": 1e-14 },
+    "seawater": { "eps_r": 80, "mu_r": 1, "sigma": 4.0 },
+    "copper": { "eps_r": 1, "mu_r": 1, "sigma": 5.8e7 },
+    "steel": { "eps_r": 1, "mu_r": 1, "sigma": 5e6, "hyp": "μ_r=1 incomplete physically" },
+    "crust": { "eps_r": 10, "mu_r": 1, "sigma": 0.01 }
+  },
   "alpha_ohm_media_presets_Np_per_m": {
-    "disclaimer": "HYP / toy / illustrative — replace prior submarine stub attenFactor 0.95. Unknown until measured. SW mode forces alpha=0.",
-    "air": { "alpha": 0.0, "label": "illustrative", "path_m_default": 0 },
-    "steel_3in_hull": { "alpha": 2.0, "label": "HYP/illustrative", "path_m_default": 0.0762, "note": "3 inch steel path" },
-    "seawater": { "alpha": 0.05, "label": "HYP/illustrative", "path_m_default": 100, "note": "toy; mainstream TEM seawater attenuation is far harsher — this is SLW Ohmic cartoon only" },
-    "ocean_air_interface": { "alpha": 0.02, "label": "HYP/illustrative", "path_m_default": 1, "note": "extra interface path toy" },
-    "free_space": { "alpha": 0.0, "label": "illustrative", "path_m_default": 0 },
-    "radioscreen_cage_path": { "alpha": 0.05, "label": "HYP/illustrative SLW Joule through mesh conductors", "path_m_default_per_tent": 1.0, "note": "separate from TEM mesh ATT; Hively 2019: SLW retains Joule losses from longitudinal E; applied at BOTH TX and RX ends" }
+    "disclaimer": "HYP / illustrative sensitivity presets for Exp-C Ohmic mode ONLY — not Errata α=0 path; NOT attenFactor 0.95",
+    "air": { "alpha": 0.0, "L_m": 0, "label": "illustrative" },
+    "copper_wall": { "alpha": 0.0, "L_m": 0.003175, "label": "HYP — Errata would force α=0; sensitivity knob only" },
+    "steel_3in_hull": { "alpha": 0.0, "L_m": 0.0762, "label": "HYP — default α=0 per Errata; optional nonzero for sensitivity" },
+    "seawater_exit": { "alpha": 0.0, "L_m": 91.44, "label": "HYP — default α=0 per Errata; optional nonzero for sensitivity" },
+    "air_inside_sub": { "alpha": 0.0, "L_m": 100.584, "label": "illustrative path length from Linearly Resistive" },
+    "radioscreen_cage_path": { "alpha": 0.0, "L_m_per_tent_default": 1.0, "label": "HYP — TEM mesh uses ATT dB; SLW Joule separate; default α=0 (Errata); enable Exp-C Ohmic for sensitivity" },
+    "expC_default_toy": { "alpha": 0.05, "L_m": 1.0, "label": "HYP toy matching experiment-c-snr default slider α=0.05 when Ohmic sensitivity ON" }
   },
   "formulas": {
     "wattsFromDbm": "P = 10^((P_tx_dBm - 30)/10)   # W into 50 Ω",
@@ -124,14 +239,44 @@
     "NZ_Psig": "P_sig,NZ = ((R_RESP/sqrt(2))*A_m)^2 * RL * mP * 10^(lnaGain/10)",
     "Zimmerman_Az": "A_z = 1e-10 * (I_peak/0.028) * (1.5/r) * (1.3/f_GHz)   # Wb/m",
     "Zimmerman_Psig": "P_sig,Z = (420000*A_z)^2 * RL * mP * 10^(lnaGain/10)",
-    "ohmic_S": "S = S_geom * exp(-alpha_ohm * L)   # experiment-c-snr; SW forces alpha=0",
+    "ohmic_S": "S = S_geom * exp(-alpha_ohm * L)   # experiment-c-snr; Errata/SW → alpha=0",
     "ohmic_dB": "loss_dB = 4.343 * alpha_ohm * L",
-    "E_parallel_illustrative": "E_parallel ≈ sqrt(S * Z0)   # HYP/illustrative impedance cartoon from Hively S; NOT a measured E∥",
-    "near_field_flag": "far ≈ 2*D^2/lambda with D≈lambda/4; flag when r < far (Friis caveat)"
+    "E_parallel_illustrative": "E_parallel ≈ sqrt(S * Z0)   # HYP/illustrative; also printed in Hively-SNR-Simulator",
+    "near_field_flag": "far ≈ 2*D^2/lambda with D≈lambda/4; flag when r < far (Friis caveat)",
+    "sleeve_length": "L_sleeve = (C/f)/4 * VF"
   },
   "scenarios": {
-    "garage_to_house": { "range_m_default": 10, "range_m_min": 5, "range_m_max": 15, "cage": "sealed", "note": "residential garage TX → house RX; dual RadioScreen tents" },
-    "outdoor_longer": { "range_m_default": 50, "range_m_min": 15, "range_m_max": 200, "cage": "open", "note": "outdoor longer range" },
-    "submarine_stack": { "range_m_default": 1000, "note": "later: media stack presets; exploratory I~10–20 A with cable warnings" }
+    "garage_to_house": {
+      "range_m_default": 10,
+      "range_m_min": 5,
+      "range_m_max": 15,
+      "cage": "sealed",
+      "P_dBm_default": -10,
+      "note": "residential garage TX → house RX; dual RadioScreen tents; TinySA ≤ −19 dBm"
+    },
+    "outdoor_longer": {
+      "range_m_default": 50,
+      "range_m_min": 15,
+      "range_m_max": 200,
+      "cage": "open"
+    },
+    "submarine_stack": {
+      "range_m_default": 1000,
+      "lengths_from": "Linearly Resistive LEN",
+      "copper_wall_m": 0.003175,
+      "air_inside_m": 100.584,
+      "steel_wall_m": 0.0762,
+      "seawater_exit_m": 91.44,
+      "note": "Exploratory high-I only with external PA path + cable warnings; Ultra alone stays ≤ −19 dBm"
+    }
+  },
+  "physics_flags_default": {
+    "use_hively_Eq15_Prad": true,
+    "use_hively_errata_no_ohmic_SLW": true,
+    "ohmic_alpha_Np_per_m": 0.0,
+    "include_friis_TEM": true,
+    "include_NZ_Az": true,
+    "include_Zimmerman_lab_Az": true,
+    "assume_50ohm_I": true
   }
 }
