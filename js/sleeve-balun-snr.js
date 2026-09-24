@@ -657,20 +657,26 @@
     const sw = $("mode").value === "sw";
     const errata = $("errataAlpha0").checked;
     const lock = sw || errata;
-    ["cageOhm", "alphaToy", "cagePath", "alphaExtra", "Lextra",
-      "med_air", "med_copper", "med_air_inside", "med_steel", "med_seawater", "med_ocean_air", "med_free_space"
-    ].forEach(function (id) {
+    // Media stack + cageOhm always clickable (config). Only α magnitude sliders
+    // are disabled while Errata/SW force α=0 — otherwise boxes look broken.
+    const magIds = ["alphaToy", "cagePath", "alphaExtra", "Lextra"];
+    magIds.forEach(function (id) {
       const el = $(id);
-      if (el) el.disabled = lock && id !== "med_air" && id !== "med_free_space" ? lock : (lock && (id === "cageOhm" || id === "alphaToy" || id === "cagePath" || id === "alphaExtra" || id === "Lextra" || id.indexOf("med_") === 0));
+      if (el) el.disabled = lock;
     });
-    // simpler: disable ohmic controls when α forced 0
-    const ids = ["cageOhm", "alphaToy", "cagePath", "alphaExtra", "Lextra",
-      "med_copper", "med_air_inside", "med_steel", "med_seawater", "med_ocean_air"];
-    ids.forEach(function (id) { const el = $(id); if (el) el.disabled = lock; });
+    ["cageOhm", "med_air", "med_copper", "med_air_inside", "med_steel",
+      "med_seawater", "med_ocean_air", "med_free_space"].forEach(function (id) {
+      const el = $(id);
+      if (el) el.disabled = false;
+    });
+    const grid = document.querySelector(".media-grid");
+    if (grid) grid.classList.toggle("ohmic-alpha-locked", lock);
     if ($("ohmicNote")) {
       $("ohmicNote").textContent = lock
-        ? (sw ? "SW → α=0 locked." : "Errata α=0 (EED) locked — uncheck to enable Exp-C Ohmic HYP sensitivity.")
-        : "Exp-C Ohmic HYP ON — α·L uses Linearly Resistive fixed lengths; NOT attenFactor 0.95.";
+        ? (sw
+          ? "SW → α=0. Media boxes stay clickable for stack config; α·L does not apply until mode=SLW and Errata is unchecked."
+          : "Errata α=0 (EED) on — media stack boxes ARE clickable (config only). Uncheck Errata (mode=SLW) to apply Exp-C Ohmic HYP α·L.")
+        : "Exp-C Ohmic HYP ON — α·L uses checked Linearly Resistive segments; NOT attenFactor 0.95.";
     }
   }
 

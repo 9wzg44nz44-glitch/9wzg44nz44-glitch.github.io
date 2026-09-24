@@ -28,6 +28,8 @@
 .snr-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 @media(max-width:700px){.snr-grid{grid-template-columns:1fr}}
 .media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.4rem .8rem;font-size:.9rem}
+.media-grid.ohmic-alpha-locked{opacity:.92;outline:1px dashed #c47a2c;outline-offset:4px}
+.media-grid.ohmic-alpha-locked::after{content:"α locked (Errata/SW) — boxes still clickable; uncheck Errata to apply Ohmic";display:block;grid-column:1/-1;font-size:.8rem;color:#c47a2c;margin-top:.35rem}
 #cableWarn{background:#2a1a0a;color:#f0d2a0;border:1px solid #a67c3a;border-radius:8px;padding:.8rem 1rem;margin:1rem 0;font-size:.9rem}
 #cableWarn ul{margin:.4rem 0 0;padding-left:1.2rem}
 #highIbox.warn-on{outline:2px solid #e07030;background:rgba(224,112,48,.08);padding:.5rem;border-radius:8px}
@@ -170,7 +172,7 @@ input[type=range]{width:100%}
   </div>
 
   <h3>Ohmic / media stack</h3>
-  <p class="footnote" id="ohmicNote">Errata α=0 locked by default. Uncheck Errata (and leave mode=SLW) to enable Exp-C Ohmic <span class="hyp">HYP</span> sensitivity. Stack lengths from Linearly Resistive — <strong>not</strong> Cross-Sectional attenFactor&nbsp;0.95.</p>
+  <p class="footnote" id="ohmicNote">Media stack checkboxes are always clickable. Errata α=0 is on by default (α·L not applied). Uncheck Errata (mode=SLW) to apply Exp-C Ohmic <span class="hyp">HYP</span>. Lengths from Linearly Resistive — <strong>not</strong> Cross-Sectional attenFactor&nbsp;0.95.</p>
   <div class="media-grid card" style="padding:1rem">
     <label><input id="med_air" type="checkbox" checked> air (garage / cage interior)</label>
     <label><input id="med_copper" type="checkbox"> copper wall ⅛″ (L=0.003175 m)</label>
