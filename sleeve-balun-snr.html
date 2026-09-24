@@ -32,6 +32,10 @@
 #cableWarn ul{margin:.4rem 0 0;padding-left:1.2rem}
 #highIbox.warn-on{outline:2px solid #e07030;background:rgba(224,112,48,.08);padding:.5rem;border-radius:8px}
 input[type=range]{width:100%}
+.efield-wrap{margin:1rem 0}
+.efield-wrap canvas{width:100%;max-width:720px;height:auto;aspect-ratio:1/1;display:block;background:#0b1020;border-radius:8px;margin:0 auto}
+.dist-note{font-size:.85rem;color:#555;margin:.3rem 0}
+
 .hyp{color:#a67c3a;font-weight:600}
 .labtag{background:#1a3a2a;color:#8fd;padding:.1rem .4rem;border-radius:4px;font-size:.8rem}
 .patenttag{background:#3a2a1a;color:#fc8;padding:.1rem .4rem;border-radius:4px;font-size:.8rem}
@@ -88,21 +92,34 @@ input[type=range]{width:100%}
 </nav>
 
 <main id="main" class="wrap">
-  <p class="kicker">v0 · dual Keyport sleeve + <span class="labtag">LAB spheres</span> · TinySA Ultra ≤ −19 dBm · illustrative · not a measurement</p>
-  <h1>Sleeve-balun SNR — garage tents to exploratory stacks</h1>
+  <p class="kicker">v0.2 · dual Keyport sleeve + <span class="labtag">LAB spheres</span> · live E∥ map · TinySA Ultra ≤ −19 dBm · illustrative · not a measurement</p>
+  <h1>Sleeve-balun SNR — live E∥ map + distance presets (v0.2)</h1>
   <p class="lede">Interactive cartoon for <strong>identical TX/RX <span class="labtag">LAB</span> aluminum spheres</strong> (K-Mac <code>KB-1820</code> ¾″ at 1296 / 2.45&nbsp;GHz; <code>KB-2016</code> 2.50″ at 433.59&nbsp;MHz) fed through <strong>Navy Keyport-style λ/4 sleeves</strong> on <strong>RG-405/U</strong> (US&nbsp;12,525,711 geometry — <a href="sleeve-balun.html">sleeve-balun.html</a> / <a href="setup.html#sleeve">setup#sleeve</a>), <em>not</em> Hively US&nbsp;9,306,527 Fig.&nbsp;2A’s fat skirt. Patent optional sphere (radius&nbsp;=&nbsp;λ/4) is a <span class="patenttag">PATENT</span> scale — <strong>not</strong> Dan’s catalog balls. Drive: TinySA Ultra (ZS406) <strong>−115…−19&nbsp;dBm</strong> → I into 50&nbsp;Ω, or exploratory high-I (external PA). Constants: <a href="physics-constants.json"><code>physics-constants.json</code></a>.</p>
 
-  <div class="banner-legal"><strong>Not a measurement.</strong> SLW is <em>not</em> settled physics. TinySA Ultra generator max listed step is <strong>−19&nbsp;dBm</strong> (tinysa.org TinySA4) — not +10. Mesh ATT is RadioScreen #1124-0 (≈55&nbsp;dB sealed/tent). Dual Ohmic flags: <strong>Errata α=0 (EED prediction)</strong> vs <strong>Exp-C Ohmic α (empirical/HYP)</strong>. Media lengths from Linearly Resistive (copper ⅛″, air 330&nbsp;ft, steel 3″, seawater 300&nbsp;ft) — <span class="hyp">no attenFactor&nbsp;0.95</span>. E∥ from √(S·Z<sub>0</sub>) is an impedance cartoon. Φ/C educational only. Keep <strong>Exp&nbsp;A (1296)</strong> electrically separate from <strong>Exp&nbsp;B (433)</strong>. US&nbsp;12,562,930 is sensor/DAQ — not balun dims.</div>
+  <div class="banner-legal"><strong>Not a measurement.</strong> SLW is <em>not</em> settled physics. TinySA Ultra generator max listed step is <strong>−19&nbsp;dBm</strong> (tinysa.org TinySA4) — not +10. Mesh ATT is RadioScreen #1124-0 (≈55&nbsp;dB sealed/tent). Dual Ohmic flags: <strong>Errata α=0 (EED prediction)</strong> vs <strong>Exp-C Ohmic α (empirical/HYP)</strong>. Media lengths from Linearly Resistive (copper ⅛″, air 330&nbsp;ft, steel 3″, seawater 300&nbsp;ft) — <span class="hyp">no attenFactor&nbsp;0.95</span>. E∥ from √(S·Z<sub>0</sub>) is an impedance cartoon. Distance presets (near/far λ default, home, ship 20 km, aircraft slant, LEO, GEO) set range r only — no invented Ohmic for long free-space paths. Φ/C educational only. Keep <strong>Exp&nbsp;A (1296)</strong> electrically separate from <strong>Exp&nbsp;B (433)</strong>. US&nbsp;12,562,930 is sensor/DAQ — not balun dims.</div>
 
   <h2 id="controls">Controls</h2>
   <div class="controls card">
-    <label>Scenario preset
+    <label>Media scenario (Ohmic L_eff only)
       <select id="scenario">
-        <option value="garage" selected>Residential garage TX → house RX (5–15 m, dual tents)</option>
-        <option value="outdoor">Outdoor longer range</option>
-        <option value="sub">Submarine stack (Linearly Resistive lengths)</option>
+        <option value="garage" selected>Residential garage TX → house RX (Ohmic L_eff=0 air)</option>
+        <option value="outdoor">Outdoor (Ohmic L_eff=0)</option>
+        <option value="sub">Submarine stack (steel+seawater L_eff)</option>
       </select>
     </label>
+    <label>Distance r preset <span class="hyp">SEPARATE from media</span>
+      <select id="distPreset">
+        <option value="near_far_lambda" selected>Near↔far (λ · DEFAULT · HYP)</option>
+        <option value="fraunhofer_2D2_over_lambda">Fraunhofer 2D²/λ LAB sphere</option>
+        <option value="home_garage">Home garage→house 10 m</option>
+        <option value="home_outdoor">Home outdoor 50 m</option>
+        <option value="ship_20km">Submerged → surface ship 20 km</option>
+        <option value="aircraft_slant_30km_35kft">Aircraft 30 km horiz @ 35 000 ft (slant)</option>
+        <option value="leo_500km">LEO ~500 km (HYP)</option>
+        <option value="geo_35786km">GEO altitude 35786 km</option>
+      </select>
+    </label>
+    <p class="dist-note" id="distNote">Default r = λ(f). Ship/aircraft/LEO/GEO do not invent seawater α — media stays Outdoor/garage unless Submarine.</p>
     <label>Frequency
       <select id="freq">
         <option value="1296000000" selected>1296.000 MHz · Exp A cage</option>
@@ -120,13 +137,14 @@ input[type=range]{width:100%}
       <output id="sleeveOut" class="mono"></output>
     </label>
     <label>P<sub>tx</sub> TinySA Ultra generator (dBm) · max −19
-      <input id="ptx" type="range" min="-115" max="-19" step="1" value="-10">
+      <input id="ptx" type="range" min="-115" max="-19" step="1" value="-19">
       <output id="ptxOut"></output>
     </label>
-    <label>Range r (sphere–sphere)
-      <input id="r" type="range" min="1" max="20" step="0.1" value="10">
+    <label>Range r (log₁₀ m) — covers GEO ~3.58e7 m
+      <input id="log10r" type="range" min="-2" max="7.6" step="0.01" value="-0.635">
       <output id="rOut"></output>
     </label>
+    <input id="r" type="hidden" value="0.231321">
     <label>Cage (RadioScreen #1124-0 · TEM mesh factor)
       <select id="cage">
         <option value="open">open (0 dB / tent)</option>
@@ -206,6 +224,13 @@ input[type=range]{width:100%}
     </article>
   </div>
 
+  <h2 id="emap">Live E∥ map (updates with freq / Ptx)</h2>
+  <div class="efield-wrap card" style="padding:1rem">
+    <p class="footnote"><span class="hyp">HYP / illustrative</span> · isotropic 1/r E∥=√(S·Z<sub>0</sub>) · LAB Keyport ≠ US 9,306,527 FIG.2B · E∥ has <strong>no</strong> mesh mP · red dashed = selected r (if on-map)</p>
+    <canvas id="efieldMap" width="640" height="640" aria-label="E parallel field map"></canvas>
+    <p class="mono" id="emapCaption" style="margin-top:.6rem"></p>
+  </div>
+
   <h2>Plots vs range (feet + meters)</h2>
   <div class="plots">
     <article class="plot-card">
@@ -280,12 +305,12 @@ seawater_exit = 91.44 m (300 ft)
     <li>E∥ 2D maps: <a href="sleeve-balun-efield.html">sleeve-balun-efield.html</a></li>
     <li>Machine-readable: <a href="physics-constants.json">physics-constants.json</a></li>
   </ul>
-  <p class="footnote">v0 · 24 Sep 2026 · Dan Britton SLW Hub. Educational, contested, illustrative. CoS RESEARCH fold-in.</p>
+  <p class="footnote">v0.2 · 24 Sep 2026 · Dan Britton SLW Hub. Live E∥ map + distance_presets. Educational, contested, illustrative.</p>
 </main>
 <footer class="site">
   <div class="wrap">
     <div>
-      <strong>Dan Britton</strong> · Sleeve-balun SNR v0<br>
+      <strong>Dan Britton</strong> · Sleeve-balun SNR v0.2<br>
       Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
     </div>
   </div>
