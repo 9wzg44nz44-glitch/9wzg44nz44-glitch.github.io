@@ -5,7 +5,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sleeve-balun dual-sphere SNR · Keyport TX/RX · SLW Hub</title>
-<meta name="description" content="Interactive first-draft SNR for dual Keyport-style sleeve-balun + identical Al spheres: Hively Eq.15, NZ Am, Zimmerman Az, RadioScreen mesh, illustrative Ohmic α. Educational — not a measurement.">
+<meta name="description" content="Interactive v0 SNR for dual Keyport-style sleeve-balun + LAB Al spheres (KB-1820 / KB-2016): Hively Eq.15, NZ Am, Zimmerman Az, RadioScreen mesh, Errata α=0 vs Exp-C Ohmic. TinySA Ultra ≤ −19 dBm. Educational — not a measurement.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,6 @@
 .controls label{display:block;font-size:.9rem}
 .controls output,.mono{font-family:"IBM Plex Mono",monospace}
 .eq{overflow-x:auto;font-family:"IBM Plex Mono",monospace;font-size:.8rem;background:rgba(0,0,0,.04);padding:.8rem 1rem;border-radius:8px;white-space:pre-wrap}
-.readout{background:#0b1020;color:#d7e0f2;padding:1rem 1.1rem;border-radius:8px;font-family:"IBM Plex Mono",monospace;font-size:.84rem;line-height:1.5}
 .plots{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1rem;margin:1rem 0}
 .plot-card{background:#fff;border:1px solid rgba(0,0,0,.18);border-radius:10px;padding:.75rem;color:#111}
 .plot-card h3{margin:.1rem 0 .4rem;color:#0a0a0a;font-weight:700}
@@ -28,12 +27,14 @@
 .meter strong{display:block;font:600 1.05rem "IBM Plex Mono",monospace;color:#55d6be}
 .snr-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 @media(max-width:700px){.snr-grid{grid-template-columns:1fr}}
-.media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.4rem .8rem;font-size:.9rem}
+.media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.4rem .8rem;font-size:.9rem}
 #cableWarn{background:#2a1a0a;color:#f0d2a0;border:1px solid #a67c3a;border-radius:8px;padding:.8rem 1rem;margin:1rem 0;font-size:.9rem}
 #cableWarn ul{margin:.4rem 0 0;padding-left:1.2rem}
 #highIbox.warn-on{outline:2px solid #e07030;background:rgba(224,112,48,.08);padding:.5rem;border-radius:8px}
 input[type=range]{width:100%}
 .hyp{color:#a67c3a;font-weight:600}
+.labtag{background:#1a3a2a;color:#8fd;padding:.1rem .4rem;border-radius:4px;font-size:.8rem}
+.patenttag{background:#3a2a1a;color:#fc8;padding:.1rem .4rem;border-radius:4px;font-size:.8rem}
 </style>
 </head>
 <body>
@@ -84,11 +85,11 @@ input[type=range]{width:100%}
 </nav>
 
 <main id="main" class="wrap">
-  <p class="kicker">FIRST DRAFT · dual Keyport sleeve + identical spheres · illustrative · not a measurement</p>
+  <p class="kicker">v0 · dual Keyport sleeve + <span class="labtag">LAB spheres</span> · TinySA Ultra ≤ −19 dBm · illustrative · not a measurement</p>
   <h1>Sleeve-balun SNR — garage tents to exploratory stacks</h1>
-  <p class="lede">Interactive cartoon for <strong>identical TX/RX aluminum spheres</strong> fed through <strong>Navy Keyport-style λ/4 sleeves</strong> (US&nbsp;12,525,711 geometry — hub <a href="sleeve-balun.html">sleeve-balun.html</a> / <a href="setup.html#sleeve">setup#sleeve</a>), <em>not</em> Hively US&nbsp;9,306,527 Fig.&nbsp;2A’s fat skirt. Drive: TinySA Ultra dBm → I, or exploratory high-I. Plots reuse hub chains from <a href="fields.html">fields.html</a> / <code>js/fields.js</code> and Ohmic framing from <a href="experiment-c-snr.html">experiment-c-snr.html</a>. Bit-for-bit constants: <a href="physics-constants.json"><code>physics-constants.json</code></a>.</p>
+  <p class="lede">Interactive cartoon for <strong>identical TX/RX <span class="labtag">LAB</span> aluminum spheres</strong> (K-Mac <code>KB-1820</code> ¾″ at 1296 / 2.45&nbsp;GHz; <code>KB-2016</code> 2.50″ at 433.59&nbsp;MHz) fed through <strong>Navy Keyport-style λ/4 sleeves</strong> on <strong>RG-405/U</strong> (US&nbsp;12,525,711 geometry — <a href="sleeve-balun.html">sleeve-balun.html</a> / <a href="setup.html#sleeve">setup#sleeve</a>), <em>not</em> Hively US&nbsp;9,306,527 Fig.&nbsp;2A’s fat skirt. Patent optional sphere (radius&nbsp;=&nbsp;λ/4) is a <span class="patenttag">PATENT</span> scale — <strong>not</strong> Dan’s catalog balls. Drive: TinySA Ultra (ZS406) <strong>−115…−19&nbsp;dBm</strong> → I into 50&nbsp;Ω, or exploratory high-I (external PA). Constants: <a href="physics-constants.json"><code>physics-constants.json</code></a>.</p>
 
-  <div class="banner-legal"><strong>Not a measurement.</strong> SLW / extended electrodynamics is <em>not</em> settled physics. Mesh ATT is RadioScreen (≈55&nbsp;dB sealed/tent), not Hively copper-pipe 25,000&nbsp;dB. Media α<sub>ohm</sub> presets are <span class="hyp">HYP / illustrative</span> — they replace an earlier invented attenFactor&nbsp;0.95. E∥ from √(S·Z<sub>0</sub>) is an impedance cartoon. Φ/C is educational framing; this page plots A<sub>m</sub> (NZ) and A<sub>z</sub> (Zimmerman) only. Keep <strong>Experiment&nbsp;A (1296 cage)</strong> electrically separate from <strong>Experiment&nbsp;B (433)</strong>.</div>
+  <div class="banner-legal"><strong>Not a measurement.</strong> SLW is <em>not</em> settled physics. TinySA Ultra generator max listed step is <strong>−19&nbsp;dBm</strong> (tinysa.org TinySA4) — not +10. Mesh ATT is RadioScreen #1124-0 (≈55&nbsp;dB sealed/tent). Dual Ohmic flags: <strong>Errata α=0 (EED prediction)</strong> vs <strong>Exp-C Ohmic α (empirical/HYP)</strong>. Media lengths from Linearly Resistive (copper ⅛″, air 330&nbsp;ft, steel 3″, seawater 300&nbsp;ft) — <span class="hyp">no attenFactor&nbsp;0.95</span>. E∥ from √(S·Z<sub>0</sub>) is an impedance cartoon. Φ/C educational only. Keep <strong>Exp&nbsp;A (1296)</strong> electrically separate from <strong>Exp&nbsp;B (433)</strong>. US&nbsp;12,562,930 is sensor/DAQ — not balun dims.</div>
 
   <h2 id="controls">Controls</h2>
   <div class="controls card">
@@ -96,46 +97,50 @@ input[type=range]{width:100%}
       <select id="scenario">
         <option value="garage" selected>Residential garage TX → house RX (5–15 m, dual tents)</option>
         <option value="outdoor">Outdoor longer range</option>
-        <option value="sub">Submarine media stack (exploratory)</option>
+        <option value="sub">Submarine stack (Linearly Resistive lengths)</option>
       </select>
     </label>
     <label>Frequency
       <select id="freq">
         <option value="1296000000" selected>1296.000 MHz · Exp A cage</option>
-        <option value="2450000000">2450 MHz · ISM / Wi‑Fi band exploratory</option>
+        <option value="2450000000">2450 MHz · ISM exploratory</option>
         <option value="433590000">433.59 MHz · Exp B Monstein–Wesley</option>
       </select>
     </label>
-    <label>Sphere (auto by freq)
+    <label><span class="labtag">LAB sphere</span> (auto by freq)
       <output id="sphereOut" class="mono"></output>
     </label>
-    <label>λ/4 sleeve (hub VF=1)
+    <label><span class="patenttag">PATENT</span> US 12,525,711 optional Ø=λ/2
+      <output id="patentOut" class="mono"></output>
+    </label>
+    <label>λ/4 sleeve on RG-405/U (VF=1)
       <output id="sleeveOut" class="mono"></output>
     </label>
-    <label>P<sub>tx</sub> TinySA generator (dBm)
-      <input id="ptx" type="range" min="-30" max="20" step="0.5" value="-10">
+    <label>P<sub>tx</sub> TinySA Ultra generator (dBm) · max −19
+      <input id="ptx" type="range" min="-115" max="-19" step="1" value="-10">
       <output id="ptxOut"></output>
     </label>
     <label>Range r (sphere–sphere)
       <input id="r" type="range" min="1" max="20" step="0.1" value="10">
       <output id="rOut"></output>
     </label>
-    <label>Cage (both RadioScreen tents · TEM mesh factor)
+    <label>Cage (RadioScreen #1124-0 · TEM mesh factor)
       <select id="cage">
         <option value="open">open (0 dB / tent)</option>
         <option value="slotted">slotted (~25 dB / tent)</option>
         <option value="sealed" selected>sealed (55 dB / tent)</option>
       </select>
     </label>
-    <label>Mode
+    <label>Wave mode
       <select id="mode">
-        <option value="slw" selected>SLW (Ohmic on)</option>
+        <option value="slw" selected>SLW</option>
         <option value="sw">SW (α forced 0)</option>
       </select>
     </label>
+    <label><input id="errataAlpha0" type="checkbox" checked> Errata α=0 (EED: no resistive loss for irrotational SLW)</label>
     <label><input id="lna" type="checkbox"> Detector LNA (~20 dB, NF ≈ 5 dB)</label>
     <div id="highIbox">
-      <label><input id="highI" type="checkbox"> Exploratory high-I (10–20 A pk) — <span class="hyp">HARD cable warnings</span></label>
+      <label><input id="highI" type="checkbox"> Exploratory high-I (external PA) — <span class="hyp">not TinySA</span></label>
       <label>I<sub>peak</sub> exploratory
         <input id="Iexplore" type="range" min="0.5" max="20" step="0.1" value="10" disabled>
         <output id="IexploreOut"></output>
@@ -143,20 +148,26 @@ input[type=range]{width:100%}
     </div>
   </div>
 
-  <h3>Propagation media (illustrative α · checkboxes stack)</h3>
-  <p class="footnote">Each checked layer adds α·L to the Ohmic exponent (experiment-c-snr style). <span class="hyp">HYP / toy</span> — not mainstream TEM seawater numbers.</p>
+  <h3>Ohmic / media stack</h3>
+  <p class="footnote" id="ohmicNote">Errata α=0 locked by default. Uncheck Errata (and leave mode=SLW) to enable Exp-C Ohmic <span class="hyp">HYP</span> sensitivity. Stack lengths from Linearly Resistive — <strong>not</strong> Cross-Sectional attenFactor&nbsp;0.95.</p>
   <div class="media-grid card" style="padding:1rem">
-    <label><input id="med_air" type="checkbox" checked> air (inside garage / sub) α=0</label>
-    <label><input id="med_steel" type="checkbox"> 3″ steel hull (HYP α=2 · L=0.0762 m)</label>
-    <label><input id="med_seawater" type="checkbox"> seawater (HYP α=0.05 · L=100 m)</label>
-    <label><input id="med_ocean_air" type="checkbox"> ocean–air interface (HYP α=0.02 · L=1 m)</label>
-    <label><input id="med_free_space" type="checkbox"> free-space to ship/aircraft/sat (α=0)</label>
+    <label><input id="med_air" type="checkbox" checked> air (garage / cage interior)</label>
+    <label><input id="med_copper" type="checkbox"> copper wall ⅛″ (L=0.003175 m)</label>
+    <label><input id="med_air_inside" type="checkbox"> air inside sub 330 ft (L=100.584 m)</label>
+    <label><input id="med_steel" type="checkbox"> steel hull 3″ (L=0.0762 m)</label>
+    <label><input id="med_seawater" type="checkbox"> seawater exit 300 ft (L=91.44 m)</label>
+    <label><input id="med_ocean_air" type="checkbox"> ocean–air interface (toy L=1 m)</label>
+    <label><input id="med_free_space" type="checkbox"> free-space → ship/aircraft/sat</label>
   </div>
   <div class="controls card">
-    <label><input id="cageOhm" type="checkbox" checked> SLW Ohmic / Joule through cage path at <strong>both</strong> TX and RX (HYP α=0.05 Np/m · separate from TEM mesh ATT)</label>
+    <label><input id="cageOhm" type="checkbox"> SLW Ohmic through cage path at <strong>both</strong> TX+RX (HYP · separate from TEM mesh ATT)</label>
     <label>Cage path L per tent
       <input id="cagePath" type="range" min="0.1" max="5" step="0.1" value="1">
       <output id="cagePathOut"></output>
+    </label>
+    <label>α_ohm toy when Exp-C Ohmic ON (Np/m)
+      <input id="alphaToy" type="range" min="0" max="2" step="0.01" value="0.05">
+      <output id="alphaToyOut"></output>
     </label>
     <label>Extra α_ohm (Np/m)
       <input id="alphaExtra" type="range" min="0" max="2" step="0.01" value="0">
@@ -205,31 +216,31 @@ input[type=range]{width:100%}
       <p>Teal = Nikolova–Zimmerman A<sub>m</sub>; purple = Zimmerman 2011 A<sub>z</sub>. Φ/C = educational label only.</p>
     </article>
     <article class="plot-card">
-      <h3>3 · Detector SNR<sub>Hively</sub> (identical spheres chain)</h3>
+      <h3>3 · Detector SNR<sub>Hively</sub> (identical LAB spheres chain)</h3>
       <canvas id="plotSnr"></canvas>
       <p>P<sub>load</sub> / SNR from hub Hively chain (A_EFF palm-coil toy × η × mesh × Ohmic). Yellow = current r.</p>
     </article>
   </div>
 
-  <h2 id="cable">Cable guidance (educational)</h2>
+  <h2 id="cable">Cable / TinySA guidance</h2>
   <div class="card">
-    <p>Conservative <span class="hyp">handbook-ish</span> continuous RF current cautions — <strong>not</strong> a datasheet warranty:</p>
     <ul>
-      <li>Thin flexible SMA jumpers: ~0.1–0.5&nbsp;A I<sub>rms</sub> caution</li>
-      <li>RG-405 semi-rigid: higher, educational caution ~1.5&nbsp;A I<sub>rms</sub></li>
-      <li>RG-450-class / heavier rigid SMA: educational caution ~3&nbsp;A I<sub>rms</sub>; above that → thicker cable or external PA</li>
-      <li>TinySA Ultra generator: typically milliwatts; clean region ≲ +10&nbsp;dBm; flag above ~+15&nbsp;dBm</li>
+      <li><strong>TinySA Ultra (ZS406)</strong> gen: <strong>−115…−19&nbsp;dBm</strong> (1&nbsp;dB steps). Cleanest = square/coarse; highest accuracy = fine level. At −19&nbsp;dBm into 50&nbsp;Ω: I<sub>rms</sub>≈0.50&nbsp;mA, I<sub>peak</sub>≈0.71&nbsp;mA.</li>
+      <li>Analyzer abs max <strong>+6&nbsp;dBm</strong> @ 0&nbsp;dB atten (best measurements &lt; −25&nbsp;dBm) — separate from generator.</li>
+      <li><strong>Ultra alone never thermally limits coax.</strong> Sleeve host <strong>RG-405/U</strong>; jumpers <strong>RG-316-class</strong>. There is <strong>no</strong> standard “RG-450/U”.</li>
+      <li>External PA path: separate I/dBm ceiling — re-rate cable, connectors, BPF, legal ERP.</li>
     </ul>
-    <p class="footnote">See <a href="physics-constants.json">physics-constants.json</a> → <code>cable_limits_educational</code>.</p>
+    <p class="footnote">See <a href="physics-constants.json">physics-constants.json</a> → <code>drive_TinySA_Ultra_ZS406</code> · <code>cable_limits_educational</code>.</p>
   </div>
 
   <h2 id="eq">Equations on this page (as coded — hub chains only)</h2>
   <p>f ∈ {1.296×10<sup>9</sup>, 2.45×10<sup>9</sup>, 4.3359×10<sup>8</sup>} Hz · c = 299792458 · μ<sub>0</sub> = 4π×10<sup>−7</sup> · Z<sub>0</sub> = 376.73031346177 · R<sub>L</sub> = 50.</p>
-  <h3>TinySA → current</h3>
+  <h3>TinySA Ultra → current (50 Ω identity)</h3>
   <pre class="eq">P = 10^((P_tx,dBm − 30)/10)   W into 50 Ω
 I_rms = sqrt(P / 50)
 I_peak = I_rms * sqrt(2)
-# high-I mode: set I_peak directly; back-compute P = I_rms²·50</pre>
+# Ultra gen max listed step: −19 dBm → I_rms ≈ 0.50 mA, I_peak ≈ 0.71 mA
+# Antenna Z ≠ 50 Ω → I_antenna is HYP without measured S11</pre>
   <h3>TEM received (Friis; honest near-field caveat)</h3>
   <pre class="eq">G_tx ≈ 1.5
 A_eff,TEM = 3λ² / (8π)
@@ -237,48 +248,40 @@ P_rx,TEM = P_tx * G_tx * A_eff,TEM / (4 π r²) * mP
 mP = 10^(−2·Att_dB/10)   # two tents
 SNR_TEM,dB = P_rx,dBm − (−174 + 10 log10(B) + NF)
 Near-field flags when r &lt; 2 D²/λ with D ≈ λ/4.</pre>
-  <h3>Hively SLW (US 9,306,527 Eq. 15 — same JS as fields.js)</h3>
+  <h3>Hively SLW (US 9,306,527 Eq. 15 — fields.js)</h3>
   <pre class="eq">P_rad = I_peak² Z_0 / (4π)
 S_geom = P_rad / (4π r²)
-S = S_geom * exp(−α_ohm L_eff)   # experiment-c-snr; SW → α=0
+S = S_geom * exp(−α_ohm L_eff)   # Exp-C Ohmic HYP; Errata/SW → α=0
 loss_dB = 4.343 * α_ohm * L_eff
 A_eff = π (0.05)² · η = 0.50
 P_load = S A_eff η * mP * 10^(lnaGain/10)
 SNR_Hively,dB = P_load,dBm − (−174 + 10 log10(B) + NF)</pre>
-  <h3>E∥ illustrative (Hively S / Z<sub>0</sub> cartoon)</h3>
-  <pre class="eq">E_parallel ≈ sqrt(S * Z_0)     # HYP / illustrative — not a measured E∥</pre>
-  <h3>Nikolova–Zimmerman A<sub>m</sub> + Zimmerman A<sub>z</sub></h3>
-  <pre class="eq">k_0 = 2π f / c
-A_m(r) = μ_0 I_peak / (2π k_0 r)     Wb/m
-P_sig,NZ = ((R/√2) A_m)² * 50 * mP * Ohmic   R=264030
+  <h3>E∥ illustrative + potentials</h3>
+  <pre class="eq">E_parallel ≈ sqrt(S * Z_0)     # HYP / illustrative
+A_m(r) = μ_0 I_peak / (2π k_0 r)
 A_z = 10⁻¹⁰ * (I_peak/0.028) * (1.5/r) * (1.3/f_GHz)
-P_sig,Z = (420000 A_z)² * 50 * mP * Ohmic
-# Φ / C: educational framing only — no separate invented Φ formula on this page</pre>
-  <h3>Mesh (TEM factor) + cage Ohmic (SLW Joule, both ends)</h3>
+# Φ / C: educational framing only — no separate invented Φ formula</pre>
+  <h3>Mesh + submarine lengths (Linearly Resistive LEN)</h3>
   <pre class="eq">Att open 0 · slotted 25 · sealed 55 dB / tent (RadioScreen #1124-0)
-Two tents: power × 10^(−2·Att/10)
-Cage Ohmic (HYP): α≈0.05 Np/m × L_per_tent × 2 (TX+RX) — separate from mesh ATT
-Hively 2019 framing: SLW retains Joule losses from longitudinal E; SW forces α=0</pre>
-  <h3>Media α presets (<span class="hyp">HYP / illustrative</span>)</h3>
-  <pre class="eq">air / free-space: α=0
-3″ steel hull: α=2 Np/m · L=0.0762 m
-seawater: α=0.05 · L_default=100 m
-ocean–air interface: α=0.02 · L=1 m
-# Replaces prior submarine stub attenFactor 0.95</pre>
+copper_wall = 0.003175 m (⅛″)
+air_inside  = 100.584 m (330 ft)
+steel_wall  = 0.0762 m (3″)
+seawater_exit = 91.44 m (300 ft)
+# DO NOT use Cross-Sectional attenFactor = 0.95</pre>
 
   <h2>Citations / hub links</h2>
   <ul>
-    <li>Antenna geometry: <a href="sleeve-balun.html">sleeve-balun.html</a> · <a href="setup.html#sleeve">setup#sleeve</a> · Navy US 12,525,711</li>
-    <li>Spheres: KB-1820 ¾″ (A / 2.45 GHz) · KB-2016 2.5″ (B 433.59) — <a href="setup.html#sphere-a">setup#sphere-a</a></li>
-    <li>Formula parents: <a href="fields.html">fields.html</a> · <a href="experiment-c-snr.html">experiment-c-snr.html</a></li>
+    <li>Antenna geometry: <a href="sleeve-balun.html">sleeve-balun.html</a> · <a href="setup.html#sleeve">setup#sleeve</a> · Navy US 12,525,711 (balun). US 12,562,930 = sensor/DAQ only.</li>
+    <li><span class="labtag">LAB</span> spheres: KB-1820 ¾″ · KB-2016 2.50″ — <a href="setup.html#sphere-a">setup#sphere-a</a>. <span class="patenttag">PATENT</span> λ/4 sphere ≠ LAB.</li>
+    <li>Formula parents: <a href="fields.html">fields.html</a> · <a href="experiment-c-snr.html">experiment-c-snr.html</a> · Linearly Resistive Media</li>
     <li>Machine-readable: <a href="physics-constants.json">physics-constants.json</a></li>
   </ul>
-  <p class="footnote">v1 first draft · 24 Sep 2026 · Dan Britton SLW Hub. Educational, contested, illustrative.</p>
+  <p class="footnote">v0 · 24 Sep 2026 · Dan Britton SLW Hub. Educational, contested, illustrative. CoS RESEARCH fold-in.</p>
 </main>
 <footer class="site">
   <div class="wrap">
     <div>
-      <strong>Dan Britton</strong> · Sleeve-balun SNR draft<br>
+      <strong>Dan Britton</strong> · Sleeve-balun SNR v0<br>
       Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
     </div>
   </div>
