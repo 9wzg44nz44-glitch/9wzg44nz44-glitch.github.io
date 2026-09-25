@@ -12,8 +12,8 @@ If[!TrueQ[$CloudConnected],
 
 Get[FileNameJoin[{DirectoryName[$InputFileName], "FX1SNR.wl"}]];
 Print["Loaded PhysicsVersion = ", PhysicsVersion];
-If[PhysicsVersion =!= "fx1-snr-v0.1",
-  Print["ERROR: PhysicsVersion mismatch (expected fx1-snr-v0.1), got ", PhysicsVersion];
+If[PhysicsVersion =!= "fx1-snr-v0.2",
+  Print["ERROR: PhysicsVersion mismatch (expected fx1-snr-v0.2), got ", PhysicsVersion];
   Exit[3]
 ];
 
