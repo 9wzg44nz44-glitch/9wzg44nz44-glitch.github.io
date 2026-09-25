@@ -33,8 +33,8 @@
     pMax: -19,
     pDefault: -10,
     analyzerAbsMax: 6,
-    IrmsAtM19: 0.0005018722172637806,
-    IpkAtM19: 0.0007097545848498854
+    IrmsAtM19: 0.0005017819071656863,
+    IpkAtM19: 0.0007096267784671506
   };
 
   const SPHERE_LAB = {
