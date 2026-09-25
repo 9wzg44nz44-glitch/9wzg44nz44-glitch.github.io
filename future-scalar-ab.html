@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Future experiments · Scalar electric AB in a Faraday sphere · SLW Hub</title>
+<meta name="description" content="Chiao et al. 2023 scalar electric Aharonov–Bohm proposal (PRA 107, 042209): summary, the 2025 Gao Comment and Reply, Dan Britton’s notes with evaluation, and an EED (Hively–Loebl) reading that predicts a longitudinal E inside the cage.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="c-nuclei.html">C×nuclei</a>
+      <a href="fields.html">Fields</a>
+      <a href="monstein.html">Monstein</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="setup.html">Setup</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<nav id="expt-abc" class="expt-abc" aria-label="Jump to Experiment A, B, or C">
+  <span class="expt-abc-label">Experiments</span>
+  <a class="expt-abc-btn" data-expt="a" href="index.html#expt-a"><span class="k">A</span> 1296 MHz cage</a>
+  <a class="expt-abc-btn" data-expt="b" href="index.html#expt-b"><span class="k">B</span> 433 MHz</a>
+  <a class="expt-abc-btn" data-expt="c" href="experiment-c.html"><span class="k">C</span> atomic 1S–2S</a>
+  <a class="expt-abc-sub" href="setup.html">A setup</a>
+  <a class="expt-abc-sub" href="monstein.html">B monstein</a>
+  <a class="expt-abc-sub" href="experiment-c.html">C protocol</a>
+  <a class="expt-abc-sub" href="experiment-c-snr.html">C SNR</a>
+  <a class="expt-abc-sub" href="kit.html">Kit</a>
+  <a class="expt-abc-sub" href="index.html">Home</a>
+</nav>
+
+<main id="main" class="wrap">
+
+<p class="kicker">Library · Future experiments</p>
+<h1>Scalar electric Aharonov–Bohm inside a Faraday sphere</h1>
+<p class="lede">Chiao, Hart, Scheibner, Sharping, Inan, Singleton &amp; Tobar (2023), <cite>Phys. Rev. A</cite> 107, 042209, plus the 2025 Comment and Reply. Summary, Dan’s reading notes with an evaluation, and an EED (Hively–Loebl) interpretation. Labels: <strong>FACT</strong> = what the papers say; <strong>HYP</strong> = our interpretation or derivation, not published and not settled physics.</p>
+<div class="banner-edu">Educational. The EED section is our own derivation from the Hively–Loebl equations, not a statement by Dr. Hively, Chiao et&nbsp;al., or Gao. Sign conventions still need checking against <a href="library.html#hively-loebl-2019">Hively &amp; Loebl 2019</a>.</div>
+
+<p><a class="btn primary" href="papers/Chiao-et-al-2023-PRA-107-042209.pdf">Download PDF (arXiv v2)</a>
+   <a class="btn" href="https://arxiv.org/abs/2212.03437">arXiv:2212.03437</a>
+   <a class="btn" href="https://doi.org/10.1103/PhysRevA.107.042209">PRA 107, 042209</a>
+   <a class="btn" href="https://doi.org/10.1103/c8t7-y8h2">Gao Comment, PRA 111, 066203</a>
+   <a class="btn" href="https://philsci-archive.pitt.edu/25719/">Gao preprint</a>
+   <a class="btn" href="https://doi.org/10.1103/mtfh-m6tr">Chiao et&nbsp;al. Reply, PRA 111, 066204</a></p>
+
+<h2 id="summary">Summary of the paper (FACT)</h2>
+<ul>
+  <li><strong>Setup.</strong> A closed conducting (Faraday) shell has an oscillating voltage <code>V(t) = V0 cos Ωt</code> applied to its surface. The drive is a voltage on the shell itself, not an incident electromagnetic wave. Inside, the electric field is zero and the potential is spatially uniform, apart from very small fields that any time variation produces.</li>
+  <li><strong>Claim.</strong> A quantum system inside picks up a time-dependent Aharonov–Bohm phase <code>φ(t) = α sin Ωt</code> with <code>α = eV0/(ħΩ)</code>. Expanding with Bessel functions (Jacobi–Anger) splits each level <code>Ei</code> into sidebands <code>Ei ± nħΩ</code> weighted by <code>Jn(α)</code>. For large α the strongest sidebands sit near <code>Ei ± eV0</code>.</li>
+  <li><strong>Relation to known physics.</strong> The math is the same as the AC Stark / Autler–Townes effect without the polarizability term, because E = 0. The authors argue the sidebands survive a gauge change because the wavefunction phase changes along with the potential.</li>
+  <li><strong>Proposed test.</strong> Rubidium vapor inside the cage with <code>Ω = 10⁸ s⁻¹</code> (about 15.9&nbsp;MHz) and <code>V0 = 0.5 mV</code>. That gives α ≈ 7.6×10³ and sidebands about <code>eV0/h</code> ≈ 121&nbsp;GHz away, easily resolved against the Rb D1 line. The readout is electromagnetically induced transparency (EIT) in a Λ scheme using 5S<sub>1/2</sub>, 5P<sub>1/2</sub>, and the ground state’s upper sideband. Charged quantum dots are offered as an alternative probe.</li>
+  <li><strong>The S→S point.</strong> The sideband is an image of the ground state, so it has S character. The electric-dipole selection rule forbids a direct S→S transition. The paper uses that rule to predict a transparency hole from destructive two-path interference in energy space, which it calls the energy-space analog of AB interference in coordinate space.</li>
+</ul>
+
+<h2 id="debate">The 2025 published debate (FACT)</h2>
+<ul>
+  <li><strong>Gao, Comment, PRA 111, 066203 (13 Jun 2025).</strong> Inside the cage the uniform potential can be removed with <code>λ(t) = (V0/Ω) sin Ωt</code>, which leaves <code>V′ = 0, A′ = 0</code> and <code>H′ = H0</code>. The gauge-invariant energy <code>−(∂tS + eV)</code> stays <code>Ei</code>, so transition energies do not move and the sidebands are artifacts of the gauge. Gao contrasts this with the magnetic AB ring, where the phase <code>∮A·dl</code> is topological and cannot be removed. Gao also suggests a “true gauge” picture in which something physical does change inside the cage but cannot be measured.</li>
+  <li><strong>Chiao et&nbsp;al., Reply, PRA 111, 066204 (same issue).</strong> The authors say Gao’s gauging procedure is inconsistent and would give wrong answers if applied the same way to the magnetic AB effect. They reaffirm that the energy shifts are physical.</li>
+  <li><strong>Status.</strong> As of this page, no experiment has been reported that settles it.</li>
+</ul>
+
+<h2 id="dan-notes">Dan’s reading notes, with evaluation</h2>
+<article class="card">
+  <span class="tag">Dan · forbidden S-to-S</span>
+  <p><em>“This paper speaks to the forbidden S to S transitions.”</em></p>
+  <p><strong>Correct, with one refinement.</strong> The paper invokes the S→S dipole selection rule. It does not claim the transition becomes allowed. The rule forbids jumping from the ground state to its own S-type sideband, and that is what shapes the predicted EIT transparency hole. The forbidden transition is part of the readout mechanism, not the effect being discovered.</p>
+</article>
+<article class="card">
+  <span class="tag">Dan · Faraday sphere with sinusoidal modulation</span>
+  <p><em>“A time-varying scalar potential … inside a Faraday spherical cage which itself is subject to a sinusoidal exterior electromagnetic modulation, leaving only the scalar field modulation inside.”</em></p>
+  <p><strong>Essentially right; one correction.</strong> The modulation is a voltage driven onto the shell, not an exterior electromagnetic wave. That matters: a wave would be screened, while a shell voltage moves the potential inside by the same amount everywhere. The spelling is Aharonov–Bohm.</p>
+  <p><strong>Our added critique (HYP, not in Gao).</strong> The paper’s Hamiltonian <code>H0 + eV(t)</code> is written for one charge. For a neutral rubidium atom, the electron and the nucleus-plus-core sit in the same uniform potential with opposite charges, so their coupling terms cancel. Any shift that did exist would also be common to all levels of the same system, so optical transition frequencies would not change. A convincing test probably needs a net-charged probe (quantum dot, trapped ion) or a charge path referenced to something outside the cage.</p>
+</article>
+<article class="card">
+  <span class="tag">Dan · longitudinal E inside the cage</span>
+  <p><em>“The paper is silent on a longitudinal electric field also possibly being present inside the Faraday cage, as I think Dr. Hively declares physically possible.”</em></p>
+  <p><strong>Right: the paper is silent,</strong> because it assumes standard electrodynamics. For a perfectly symmetric shell, standard electrodynamics gives exactly zero E inside at any frequency, since a spherically symmetric charge oscillation produces no interior or radiated field. Under Hively’s extended electrodynamics the answer changes (next section).</p>
+</article>
+
+<h2 id="eed">EED reading of the same cage (HYP)</h2>
+<p>Using the SI equations from our Hively–Loebl ledger:</p>
+<pre><code>E = −∇Φ − ∂t A        B = ∇×A        C = ∇·A + (1/c²) ∂t Φ
+∇·E + ∂t C = ρ/ε0     ∇×B − (1/c²) ∂t E − ∇C = μ0 J
+Modes: TEM (C = 0) · SLW (B = 0, E ∥ k, C ≠ 0) · SW (E = B = 0, C ≠ 0)</code></pre>
+<ol>
+  <li><strong>C is not zero inside.</strong> With the paper’s interior potentials (<code>A = 0</code>, <code>Φ = V0 cos Ωt</code>), <code>C = (1/c²) ∂tΦ = −(V0 Ω/c²) sin Ωt</code>, uniform in space and oscillating in time.</li>
+  <li><strong>Gao’s gauge change is not allowed in EED.</strong> EED only permits gauge functions with <code>□λ = 0</code>, because other choices change the physical field C. Gao’s <code>λ = (V0/Ω) sin Ωt</code> has <code>□λ = −(V0 Ω/c²) sin Ωt ≠ 0</code>. In EED terms Chiao et&nbsp;al. are right that something physical changes inside. Note that the same objection applies to the gauge argument inside Chiao et&nbsp;al.’s own paper.</li>
+  <li><strong>E cannot be zero.</strong> With no charge inside, the EED Gauss law demands <code>∇·E = −∂tC ≠ 0</code>, which is equivalent to <code>□Φ = 0</code>. Solving for a sphere of radius R with <code>Φ(R) = V0 cos Ωt</code> and <code>k = Ω/c</code>:<br>
+  <code>Φ(r) = V0 cos Ωt · R sin(kr) / (r sin kR)</code><br>
+  <code>E_r(r) = V0 cos Ωt · R [sin(kr) − kr cos(kr)] / (r² sin kR)</code> ≈ <code>(r/3)(Ω²/c²) V0 cos Ωt</code> for kR ≪ 1.<br>
+  The field is radial (longitudinal), zero at the center, and has B = 0. That is an SLW, not a pure SW.</li>
+  <li><strong>A pure SW cannot oscillate in a charge-free, field-free region.</strong> If E = B = 0 and ρ = J = 0, the two equations above force <code>∂tC = 0</code> and <code>∇C = 0</code>. Under these equations, a time-varying C inside the cage always brings a longitudinal E with it.</li>
+  <li><strong>Resonance.</strong> The solution blows up at <code>kR = π</code> (shell diameter = one wavelength). That would be a spherically symmetric interior resonance that standard electrodynamics does not have.</li>
+</ol>
+
+<table>
+  <thead><tr><th>Case (HYP numbers)</th><th>Drive V0</th><th>f</th><th>Shell radius</th><th>kR</th><th>E_r at the wall</th></tr></thead>
+  <tbody>
+    <tr><td>Chiao et&nbsp;al. Rb proposal (R assumed 0.1&nbsp;m)</td><td>0.5&nbsp;mV</td><td>15.9&nbsp;MHz</td><td>100&nbsp;mm</td><td>0.033</td><td>1.9×10⁻⁶&nbsp;V/m</td></tr>
+    <tr><td>Exp B 2.5″ sphere, TinySA −19&nbsp;dBm</td><td>35&nbsp;mV pk</td><td>433.59&nbsp;MHz</td><td>31.75&nbsp;mm</td><td>0.289</td><td>3.1×10⁻²&nbsp;V/m</td></tr>
+    <tr><td>Exp A ¾″ sphere, TinySA −19&nbsp;dBm</td><td>35&nbsp;mV pk</td><td>1296&nbsp;MHz</td><td>9.525&nbsp;mm</td><td>0.259</td><td>8.2×10⁻²&nbsp;V/m</td></tr>
+    <tr><td>¾″ sphere, 2.45&nbsp;GHz</td><td>35&nbsp;mV pk</td><td>2450&nbsp;MHz</td><td>9.525&nbsp;mm</td><td>0.489</td><td>3.0×10⁻¹&nbsp;V/m</td></tr>
+  </tbody>
+</table>
+<p>First <code>kR = π</code> resonance: 4.72&nbsp;GHz for the 2.5″ sphere, 15.7&nbsp;GHz for the ¾″ sphere, 1.50&nbsp;GHz for a 0.1&nbsp;m radius shell.</p>
+
+<h2 id="detection">Role in pure scalar-wave detection</h2>
+<p><strong>Concept (FACT).</strong> The paper is a proposal for sensing a time-varying scalar potential in a region where E and B are zero. That is the regime scalar-wave detection is aimed at, and it comes from mainstream physicists (Chiao, Tobar) in <cite>Phys. Rev. A</cite>.</p>
+<p><strong>Three competing predictions (HYP framing).</strong> Gao and standard textbook gauge reasoning predict no effect inside. Chiao et&nbsp;al. predict energy sidebands. EED predicts a small radial longitudinal E growing toward the wall, and a scalar resonance at <code>kR = π</code>. A driven Faraday sphere with a probe inside could in principle tell these apart.</p>
+<p><strong>Candidate future experiment (not a lab protocol yet).</strong> Drive an Exp&nbsp;A or Exp&nbsp;B aluminum sphere’s potential directly from the TinySA, place a small radial E-probe inside off center, and read it out without a conducting path to the outside reference (battery-powered recorder or fiber, in the spirit of Tomilin’s sealed box). Controls: probe rotated tangential, probe at the center (EED predicts zero there), and frequency swept toward <code>kR = π</code>. The main false-positive risks are feed-point asymmetry, holes or seams in the shell, and cable pickup, all of which also give small interior fields in standard electrodynamics.</p>
+<p><strong>Open checks.</strong> (1) Confirm signs and the allowed-gauge condition against Hively–Loebl 2019. (2) Decide whether to ask Dr. Hively directly (Dan’s call). (3) Read the Chiao et&nbsp;al. Reply in full before building on the gauge argument.</p>
+
+<p><a class="btn" href="library.html#future-experiments">Back to the library</a></p>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Providence, RI / Lady Lake, FL · ARRL member · experimental-physics enthusiast<br>
+      Built with prior Grok (xAI) pages at
+      <a href="https://github.com/9wzg44nz44-glitch">github.com/9wzg44nz44-glitch</a>.
+    </div>
+    <div>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics and are not IEEE-standard antenna theory.
+      No medical, free-energy, over-unity, or operational communications claims. Do not use these models for engineering, regulatory, or safety decisions.
+      Licensed 23&nbsp;cm operation requires a valid amateur radio license. No magnetron source in this hub’s lab protocol.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+
+</body>
+</html>
