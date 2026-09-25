@@ -1,4 +1,4 @@
-/*! sleeve-balun-efield.js — efield-maps-v0 / snr-dual-sim-params-v0.2
+/*! sleeve-balun-efield.js — efield-maps-v0.2-snr-dual-sim-params-v0.2 (maps ID as produced by SleeveBalunEFieldMaps.wl: "efield-maps-v0.2-" <> PhysicsVersion)
  * 2D color-shaded E∥ cartoon around Keyport sleeve + LAB sphere TX.
  * Formulas ONLY from physics-constants.json / js/fields.js / sleeve-balun-snr.js:
  *   P_rad = I_pk² Z0/(4π)  (Hively Eq.15)
@@ -13,7 +13,7 @@
   const Z0 = 376.73031346177;
   const RL = 50;
   const PHYSICS_VERSION = "snr-dual-sim-params-v0.2";
-  const MAPS_ID = "efield-maps-v0";
+  const MAPS_ID = "efield-maps-v0.2-snr-dual-sim-params-v0.2";
   const P_DBM = -19; // TinySA Ultra gen max — FACT, unchanged
   const GAP_M = 0.001; // 0.1 cm Keyport
   const RG405_OD_M = 0.086 * 0.0254;

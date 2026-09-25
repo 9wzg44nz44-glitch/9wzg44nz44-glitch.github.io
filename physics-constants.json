@@ -22,6 +22,12 @@
    "from": "snr-dual-sim-params-v0.2",
    "to": "snr-dual-sim-params-v0.2",
    "date": "2026-09-25",
+   "summary": "Label-only change: efield_maps.maps_id efield-maps-v0 -> efield-maps-v0.2-snr-dual-sim-params-v0.2, matching the ID the WL produces; sleeve-balun-efield.html/js labels updated. No numeric change. Cloud twin pending sync."
+  },
+  {
+   "from": "snr-dual-sim-params-v0.2",
+   "to": "snr-dual-sim-params-v0.2",
+   "date": "2026-09-25",
    "summary": "Data-table fix only, no engine or version change: the -19 dBm I_rms/I_peak in drive_TinySA_Ultra_ZS406.at_Pmax_m19_dBm and efield_maps.I_peak_A_at_drive/P_rad_Eq15_W_at_drive corrected to sqrt(P/50), sqrt(2)*I_rms (= Mathematica I_pk_A_lock). Simulators compute I from dBm at runtime, so their outputs are unchanged."
   },
       {
@@ -425,7 +431,8 @@
     "assume_50ohm_I": true
   },
   "efield_maps": {
-    "maps_id": "efield-maps-v0",
+    "maps_id": "efield-maps-v0.2-snr-dual-sim-params-v0.2",
+    "maps_id_note": "2026-09-25: unified with the ID SleeveBalunEFieldMaps.wl produces (efield-maps-v0.2- <> PhysicsVersion). Was efield-maps-v0 (page text also said snr-dual-sim-params-v0.1.1). Cloud Manipulate + PNGs still carry the 24 Sep v0 label, pending re-export/republish.",
     "parent_physics_version": "snr-dual-sim-params-v0.2",
     "page": "sleeve-balun-efield.html",
     "js": "js/sleeve-balun-efield.js",
