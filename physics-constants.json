@@ -18,6 +18,12 @@
       "US 12,525,711 (Keyport sleeve); US 9,306,527 Eq.15; Hively-Loebl 2019 + 2022 Errata"
     ],
     "changelog": [
+  {
+   "from": "snr-dual-sim-params-v0.2",
+   "to": "snr-dual-sim-params-v0.2",
+   "date": "2026-09-25",
+   "summary": "Data-table fix only, no engine or version change: the -19 dBm I_rms/I_peak in drive_TinySA_Ultra_ZS406.at_Pmax_m19_dBm and efield_maps.I_peak_A_at_drive/P_rad_Eq15_W_at_drive corrected to sqrt(P/50), sqrt(2)*I_rms (= Mathematica I_pk_A_lock). Simulators compute I from dBm at runtime, so their outputs are unchanged."
+  },
       {
         "from": "snr-dual-sim-params-v0.1",
         "to": "snr-dual-sim-params-v0.1.1",
@@ -141,9 +147,10 @@
     "assume_50ohm": true,
     "at_Pmax_m19_dBm": {
       "P_W": 1.2589254117941673e-05,
-      "I_rms_A": 0.0005018722172637806,
-      "I_peak_A": 0.0007097545848498854,
-      "note": "\u22480.50 mA rms \u00b7 \u22480.71 mA peak into 50 \u03a9"
+      "I_rms_A": 0.0005017819071656863,
+      "I_peak_A": 0.0007096267784671506,
+      "note": "\u22480.50 mA rms \u00b7 \u22480.71 mA peak into 50 \u03a9",
+      "correction_2026_09_25": "I_rms_A/I_peak_A were 5.018722e-4/7.097546e-4 (precompute/transcription error, 1.8e-4 rel; implied R 49.982 \u03a9, I_pk/I_rms \u2260 \u221a2). Now I_rms = sqrt(P_W/50), I_peak = efield_maps.cos_lock_at_m19_dBm.I_pk_A (Mathematica IFromPtx[-19.])"
     },
     "caveat": "FACT circuit identity only when load\u224850 \u03a9; sphere/sleeve Z\u226050 \u03a9 \u2192 I_antenna HYP without measured S11"
   },
@@ -425,8 +432,8 @@
     "disclaimer": "HYP / illustrative / not a measurement. Cartoon E\u2225=\u221a(S\u00b7Z0) isotropic 1/r magnitude from Hively Eq.15 P_rad \u2014 NOT a full Maxwell near-field solution. LAB spheres only (not patent \u03bb/4). Keyport sleeve US 12,525,711 (not Hively skirt).",
     "drive_P_dBm": -19,
     "drive_note": "TinySA Ultra gen max \u221219 dBm FACT \u2014 unchanged from v0; I_peak from 50 \u03a9 identity",
-    "I_peak_A_at_drive": 0.0007097545848498854,
-    "P_rad_Eq15_W_at_drive": 1.5102092160614027e-05,
+    "I_peak_A_at_drive": 0.0007096267784671506,
+    "P_rad_Eq15_W_at_drive": 1.5096653745617386e-05,
     "gap_m_Keyport": 0.001,
     "gap_note": "0.1 cm Keyport gap FACT from hub setup \u2014 sleeve open toward tip",
     "coax_host": "RG-405/U",
