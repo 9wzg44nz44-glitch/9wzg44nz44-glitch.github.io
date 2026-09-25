@@ -73,9 +73,9 @@
 </nav>
 
 <main id="main" class="wrap">
-  <p class="kicker">Illustrative · 1296.000 MHz · TinySA Ultra 406 · <span class="mono">tem-slw-1296-v0.1</span></p>
+  <p class="kicker">Illustrative · 1296.000 MHz · TinySA Ultra 406 · <span class="mono">tem-slw-1296-v0.1.1</span></p>
   <h1>Radiated fields: ¾″ sphere (primary) vs archived sleeve-stub</h1>
-  <div class="banner-edu"><strong>Cloud twin pending sync (tem-slw-1296-v0.1).</strong> Wolfram twin: <a href="https://www.wolframcloud.com/obj/danbritton5/SLW-TEM-fields-1296MHz">SLW-TEM-fields-1296MHz</a> (Wolfram Cloud Manipulate). The published Cloud copy predates tem-slw-1296-v0.1. It lacks this page's detector-LNA option, its SNR/received-power readouts and the SMA-leak marker (a drawing only, with no numeric effect). The repo <code>SLW-TEM-fields-1296MHz.wl</code> now includes them and will be republished at the next Wolfram session.</div>
+  <div class="banner-edu"><strong>Cloud twin pending sync (tem-slw-1296-v0.1.1).</strong> Wolfram twin: <a href="https://www.wolframcloud.com/obj/danbritton5/SLW-TEM-fields-1296MHz">SLW-TEM-fields-1296MHz</a> (Wolfram Cloud Manipulate). The published Cloud copy predates tem-slw-1296-v0.1.1. It lacks this page's detector-LNA option, its SNR/received-power readouts and the SMA-leak marker (a drawing only, with no numeric effect). The repo <code>SLW-TEM-fields-1296MHz.wl</code> now includes them and will be republished at the next Wolfram session.</div>
   <p class="footnote">Different experiment (not this mesh tent): Monstein–Wesley 2002 brass-rod polarizer — <a href="monstein.html">monstein.html</a>.</p>
   <p class="lede">Educational cartoon of expected <strong>transverse (TEM)</strong> vs <strong>longitudinal / scalar (SLW)</strong> patterns for Dan’s 23&nbsp;cm HAM bench: TinySA Ultra 406 in square-wave / mixer region at <strong>1296.000 MHz</strong>, first-article radiator is a <strong>¾″ <code>KB-1820</code> Al hollow sphere</strong> + SMA bulkhead (<a href="setup.html#sphere-a">setup#sphere-a</a>; sleeve-stub / bifilar <strong>archived</strong> at <a href="setup.html#archive-bifilar">#archive-bifilar</a>), optional female-SMA leak, two RadioScreen mesh tents. Mainstream classical electrodynamics (CED) is TEM. SLW / extended electrodynamics is <em>not</em> settled physics. Numbers are the same toys as the older SNR pages, driven here by TinySA dBm instead of a 5&nbsp;A slider.</p>
   <p class="footnote">Archived control build language: close-fitting λ/4 <em>sleeve</em> (bazooka choke) — <a href="setup.html#archive-bifilar">setup.html#archive-bifilar</a> · <a href="setup.html#sleeve">#sleeve</a>. US 9,306,527 Fig.&nbsp;2A’s fat annular skirt remains historical patent geometry.</p>
@@ -85,8 +85,8 @@
   <div id="viz" role="img" aria-label="2D schematic of stub, SMA, TEM lobes and SLW pattern"><canvas id="vizCanvas"></canvas></div>
   </div>
   <div class="controls card">
-    <label>P<sub>tx</sub> TinySA generator (dBm)
-      <input id="ptx" type="range" min="-30" max="10" step="0.5" value="-10">
+    <label>P<sub>tx</sub> TinySA generator (dBm; default −19 dBm)
+      <input id="ptx" type="range" min="-30" max="10" step="0.5" value="-19">
       <output id="ptxOut"></output>
     </label>
     <label>r stub-tip → pancake (m)
@@ -126,7 +126,7 @@
   <p class="footnote">Assumptions stated in the equations section: 50&nbsp;Ω, RBW B = 100&nbsp;kHz (log the real RBW), thermal floor N<sub>0</sub> = −174 dBm/Hz at 290&nbsp;K, Hively NF = 3&nbsp;dB unless LNA on (NF ≈ 5&nbsp;dB, +20&nbsp;dB gain on P<sub>sig</sub> only — still illustrative). TinySA input is 50&nbsp;Ω when internal atten ≥ 10&nbsp;dB.</p>
 
   <h2 id="eq">Equations on this page (as coded)</h2>
-  <p class="footnote">Physics version <code>tem-slw-1296-v0.1</code> (page, <code>js/fields.js</code> and <code>SLW-TEM-fields-1296MHz.wl</code>). The “SMA-end leak on” checkbox changes the drawing only, not any number.</p>
+  <p class="footnote">Physics version <code>tem-slw-1296-v0.1.1</code> (page, <code>js/fields.js</code> and <code>SLW-TEM-fields-1296MHz.wl</code>). The “SMA-end leak on” checkbox changes the drawing only, not any number.</p>
   <p>f = 1.296×10<sup>9</sup> Hz, c = 299792458 m/s, μ<sub>0</sub> = 4π×10<sup>−7</sup>, Z<sub>0</sub> = 376.73031346177 Ω, R<sub>L</sub> = 50 Ω.</p>
   <h3>TinySA → current</h3>
   <pre class="eq">P = 10^((P_tx,dBm − 30)/10)   W into 50 Ω

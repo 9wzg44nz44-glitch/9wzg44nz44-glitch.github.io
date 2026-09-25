@@ -1,11 +1,11 @@
 (* Educational TEM vs SLW cartoon. 1296 MHz TinySA. SLW is not settled physics.
-   PhysicsVersion: tem-slw-1296-v0.1 (Wolfram twin of fields.html / js/fields.js)
-   Cloud: https://www.wolframcloud.com/obj/danbritton5/SLW-TEM-fields-1296MHz  (Cloud copy predates v0.1: pending sync)
+   PhysicsVersion: tem-slw-1296-v0.1.1 (Wolfram twin of fields.html / js/fields.js)
+   Cloud: https://www.wolframcloud.com/obj/danbritton5/SLW-TEM-fields-1296MHz  (Cloud copy predates v0.1.1: pending sync)
    v0.1 (2026-09-25): added the page's detector LNA option (NF 3 -> 5 dB, +20 dB gain) and its SNR/received-power
    readouts (TEM Friis toy, SNR_Hively, P_sig NZ, P_sig Z), transcribed from js/fields.js with no new physics.
    The "SMA-end leak" checkbox is drawing-only on the page (no numeric effect) and is drawing-only here too.
-   The -10 dBm default is kept as on the page (flagged: TinySA Ultra generator max is -19 dBm; question for Dan). *)
-TEMSLWVersion = "tem-slw-1296-v0.1";
+   v0.1.1 (2026-09-25): default P_tx is -19 dBm, matching the real TinySA Ultra output; slider range remains -30 to +10 dBm. *)
+TEMSLWVersion = "tem-slw-1296-v0.1.1";
 Z0 = 376.73031346177;
 f = 1.296*^9;
 c = 299792458;
@@ -70,7 +70,7 @@ cloudObj =
       Style["SNR = P_dBm - (-174 + 10 log10(B) + NF), B = 100 kHz, NF 3 dB (5 dB + 20 dB gain with LNA); Friis toy Gtx 1.5, Aeff 3 lambda^2/(8 Pi); Hively load Aeff = Pi 0.05^2, eta 0.5 (as js/fields.js).", 10, Gray]
       }]
     ],
-   {{Pdbm, -10, "P_tx dBm"}, -30, 10, 0.5},
+   {{Pdbm, -19, "P_tx dBm"}, -30, 10, 0.5},
    {{r, 0.5, "r (m)"}, 0.05, 3, 0.01},
    {{cage, "sealed", "cage"}, {"open", "slotted", "sealed"}},
    {{show, "both", "fields"}, {"both", "tem", "slw"}},
