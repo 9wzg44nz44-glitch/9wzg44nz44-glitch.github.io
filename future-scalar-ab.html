@@ -167,7 +167,7 @@ Modes: TEM (C = 0) · SLW (B = 0, E ∥ k, C ≠ 0) · SW (E = B = 0, C ≠ 0)</
 <h3 id="home-steps">4 · Procedure</h3>
 <ol>
   <li><strong>Floor.</strong> Close the sphere with the generator off. Record the receiver floor at 433.59&nbsp;MHz (narrow RBW, waterfall on).</li>
-  <li><strong>Timed drive with microSD logging.</strong> Drive the shell 60&nbsp;s on, 60&nbsp;s off, three or more cycles (phone stopwatch, log the times). Record on the inside receiver’s microSD card, since the waterfall itself cannot be saved as data:
+  <li><strong>Timed drive with microSD logging.</strong> Drive the shell 60&nbsp;s on, 60&nbsp;s off, three or more cycles (phone stopwatch, log the times). Record on the inside receiver’s microSD card (full details in <a href="#home-data">5 · Data recording</a>), since the waterfall itself cannot be saved as data:
     <ul>
       <li><em>Timestamped CSVs (preferred):</em> set the TinySA clock, turn on STORAGE&nbsp;› AUTO NAME, set a trigger level a few dB above the generator-off floor, and enable TRIGGER&nbsp;› AUTO SAVE. Each crossing writes a trace CSV (at most one per 30&nbsp;s, hence 60&nbsp;s cycles). File times should match the on periods. The generator-off run should write no files.</li>
       <li><em>Waterfall screenshot:</em> large waterfall shows the last 80 sweeps; set SWEEP TIME so 80 sweeps span the run (3&nbsp;s per sweep gives 4&nbsp;min). After opening the sphere, press PAUSE, then STORAGE&nbsp;› SAVE CAPTURE. Expect on/off stripes; the lid opening marks the end.</li>
@@ -183,6 +183,20 @@ Modes: TEM (C = 0) · SLW (B = 0, E ∥ k, C ≠ 0) · SW (E = B = 0, C ≠ 0)</
   <li><strong>Leakage controls.</strong> Move the feed point to a different spot on the shell and rotate the seam; a real EED signal should not care, leakage will. Then ground the shell to the counterpoise and drive the telescopic monopole beside it at the same power; that reading is your ordinary-leakage floor.</li>
   <li><strong>Log</strong> sphere type and size, seam treatment, feed point, frequency, drive dBm, amp on/off, probe type, position, orientation, RBW, and the inside/outside ratio.</li>
 </ol>
+<h3 id="home-data">5 · Data recording (TinySA Ultra microSD)</h3>
+<p>The sphere is closed during a run, so the inside receiver must record by itself. The TinySA Ultra saves three kinds of files to its microSD card: trace data as CSV (SAVE TRACES), screen images as BMP (SAVE CAPTURE), and instrument settings (SAVE SETTINGS). It cannot export the waterfall as numbers, only as part of a screen image. Menu names below follow the tinySA wiki and can shift slightly between firmware versions.</p>
+<ol>
+  <li><strong>Once, before the first session.</strong> Insert a microSD card in each TinySA you will use. Set the clock so file names carry the right date and time. Turn on STORAGE&nbsp;› AUTO NAME (files are named like <code>SA_YYMMDD_HHMMSS</code>).</li>
+  <li><strong>Lock the settings.</strong> On the inside receiver set center 433.59&nbsp;MHz, span about 1&nbsp;MHz, a narrow RBW, and the amp on or off as planned. Save them with STORAGE&nbsp;› SAVE SETTINGS and name the file (for example <code>FX1-433</code>). Reload it with LOAD SETTINGS at the start of every run, so all runs are comparable. Do the same on the outside monitor.</li>
+  <li><strong>Hands-off CSV logging.</strong> Measure the floor with the generator off. Set the trigger level a few dB above that floor and enable TRIGGER&nbsp;› AUTO SAVE. Each time the signal crosses the level, the receiver writes a trace CSV, at most once every 30&nbsp;s. That is why the drive runs 60&nbsp;s on and 60&nbsp;s off.</li>
+  <li><strong>Waterfall image.</strong> The large waterfall holds the last 80 sweeps (small holds 40). Set SWEEP TIME so 80 sweeps cover the run; 3&nbsp;s per sweep covers 4&nbsp;minutes. After opening the sphere, press PAUSE at once, then SAVE CAPTURE.</li>
+  <li><strong>End of each run.</strong> With the sweep paused, also do SAVE TRACES (the final trace as CSV). If you ran a max-hold trace, it is saved too.</li>
+  <li><strong>Controls get recorded the same way.</strong> The generator-off run should produce no AUTO SAVE files. Record the outside-reference, tangential, center, H20, and leakage-control runs with the same settings file.</li>
+  <li><strong>After the session.</strong> Copy each card to a laptop folder such as <code>FX1/2026-MM-DD/run01</code>, keeping the inside receiver’s and the outside monitor’s files in separate subfolders. Do not rename the auto-named files, since the name is the timestamp.</li>
+  <li><strong>Dry run first.</strong> With the sphere open, run two minutes of the on/off pattern and confirm that CSVs and the capture actually appear on the card.</li>
+</ol>
+<p><strong>Run-log columns</strong> (one row per run, on paper or a spreadsheet): date · run # · sphere (bowls / mesh, diameter) · seam treatment · feed-point location · frequency · generator dBm · drive amp on/off · receiver amp on/off · probe (E5 / stub / H20) · probe position (center / 0.7R / outside) · orientation (radial / tangential) · RBW · settings file · on/off start times · CSV file names · capture file name · peak on-level dBm · off-level dBm · inside/outside ratio dB · notes.</p>
+
 <p><strong>Reading the result.</strong> A radial-only interior field near the EED size, zero-ish at the center, with no B and indifferent to feed and seam placement, would be strong support for the EED reading and worth sending to Dr. Hively. A field that is small, carries B, and moves around with the seams is ordinary leakage, which is the standard-physics expectation. Anything in between needs better shielding before drawing a conclusion.</p>
 
 <p><strong>Open checks.</strong> (1) Confirm signs and the allowed-gauge condition against Hively–Loebl 2019. (2) Decide whether to ask Dr. Hively directly (Dan’s call). (3) Read the Chiao et&nbsp;al. Reply in full before building on the gauge argument.</p>
