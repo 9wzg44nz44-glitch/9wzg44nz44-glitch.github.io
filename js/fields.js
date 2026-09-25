@@ -1,6 +1,6 @@
-/*! fields.js — TEM vs SLW 1296 MHz · PhysicsVersion tem-slw-1296-v0.1 (twin: SLW-TEM-fields-1296MHz.wl / Wolfram Cloud SLW-TEM-fields-1296MHz) */
+/*! fields.js — TEM vs SLW 1296 MHz · PhysicsVersion tem-slw-1296-v0.1.1 (twin: SLW-TEM-fields-1296MHz.wl / Wolfram Cloud SLW-TEM-fields-1296MHz) */
 (function () {
-  const PHYSICS_VERSION = "tem-slw-1296-v0.1";
+  const PHYSICS_VERSION = "tem-slw-1296-v0.1.1";
   const F = 1.296e9;
   const C = 299792458;
   const MU0 = 4 * Math.PI * 1e-7;
