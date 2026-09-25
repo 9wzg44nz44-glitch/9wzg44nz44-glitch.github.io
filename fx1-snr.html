@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FX-1 driven Faraday sphere SNR · standard vs EED (HYP) · SLW Hub</title>
-<meta name="description" content="FX-1 SNR simulator (fx1-snr-v0.1, draft): driven Faraday sphere interior (standard leakage vs EED/SLW HYP E_r) and exterior fields, SleeveBalunSNR media stack, Tekbox E5/H10/H20/H5 probe factors from the TBPS01 manual, TinySA Ultra noise floor and SNR. Educational — not a measurement.">
+<title>FX-1: what should the probe read? · driven Faraday sphere SNR · SLW Hub</title>
+<meta name="description" content="FX-1 SNR simulator (fx1-snr-v0.2): expected Tekbox probe reading on a TinySA inside and outside a driven metal sphere at 433.59 MHz. openEMS FDTD fields (FACT) vs the EED hypothesis (HYP). Novice-friendly front view; details in tabs. Educational, not a measurement.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,33 +13,70 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <style>
-.controls{display:grid;gap:.7rem 1.2rem;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));margin:1rem 0}
-.controls label{display:block;font-size:.9rem}
-.controls output,.mono{font-family:"IBM Plex Mono",monospace}
-.eq{overflow-x:auto;font-family:"IBM Plex Mono",monospace;font-size:.8rem;background:rgba(0,0,0,.04);padding:.8rem 1rem;border-radius:8px;white-space:pre-wrap}
-.plots{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1rem;margin:1rem 0}
-.plot-card{background:#fff;border:1px solid rgba(0,0,0,.18);border-radius:10px;padding:.75rem;color:#111}
-.plot-card h3{margin:.1rem 0 .4rem;color:#0a0a0a;font-weight:700}
-.plot-card canvas{width:100%;height:280px;display:block;background:#0b1020;border-radius:7px}
-.plot-card p{font-size:.85rem;margin:.5rem 0 0;color:#222}
-.meter{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem;margin:1rem 0}
-.meter>div{background:#0b1020;color:#d7e0f2;border-radius:8px;padding:.7rem}
-.meter strong{display:block;font:600 1.05rem "IBM Plex Mono",monospace;color:#55d6be}
-.media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.4rem .8rem;font-size:.9rem}
-#flags{background:#2a1a0a;color:#f0d2a0;border:1px solid #a67c3a;border-radius:8px;padding:.6rem 1rem;margin:1rem 0;font-size:.9rem}
+/* FX-1 v0.2: novice / iPad-first layout */
+main.wrap{max-width:980px}
+.small{font-size:.85rem}
+.mono{font-family:"IBM Plex Mono",monospace}
+.pending-mini{display:inline-block;font-size:.8rem;background:rgba(212,180,131,.12);color:var(--gold,#d4b483);border:1px dashed var(--gold,#c9a13a);border-radius:6px;padding:.1rem .5rem;margin:.2rem 0;text-transform:none;letter-spacing:0}
+.hero{background:#0b1020;color:#e8eefc;border-radius:14px;padding:1.1rem 1.2rem;margin:1rem 0}
+.hero .hl{font:600 1.35rem/1.35 "Source Sans 3",system-ui,sans-serif;margin:0 0 .5rem}
+.hero .hl strong{color:#55d6be}
+.hero .hl .hy{color:#ffb86b}
+.hero .mean{margin:.3rem 0 .6rem;color:#cdd6ea;font-size:1rem}
+.hero .pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.6rem;margin-top:.6rem}
+.hero .pair>div{background:rgba(255,255,255,.06);border-radius:10px;padding:.6rem .8rem}
+.hero .pair b{display:block;font:600 1.3rem "IBM Plex Mono",monospace}
+.hero .pair .std b{color:#55d6be}.hero .pair .hyp b{color:#ffb86b}
+.hero .tagline{font-size:.8rem;color:#9fb0cc}
+.hero .probes{margin-top:.6rem;font-size:.85rem;color:#b9c4dc}
+.hero .probes span{display:inline-block;margin-right:.9rem}
+.front-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.9rem 1.2rem;margin:1rem 0}
+.front-controls .ctl{background:var(--paper,#1f1b15);border:1px solid var(--rule,#3a3328);border-radius:12px;padding:.7rem .8rem}
+.ctl .q{font-weight:600;margin:0 0 .4rem;display:block}
+.ctl .hint{font-size:.88rem;color:var(--ink-muted,#b7ab95);margin:.4rem 0 0}
+.seg{display:flex;flex-wrap:wrap;gap:.4rem}
+.seg button,.tabs button{min-height:44px;padding:.45rem .8rem;border-radius:10px;border:1px solid var(--rule-bright,#5a4e3c);background:var(--paper-2,#262117);color:var(--ink,#f3ead8);font:inherit;font-size:1rem;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--copper,#c47a3a);color:#140d05;border-color:var(--copper,#c47a3a);font-weight:600}
+select,input[type=number]{font-size:16px;min-height:40px;max-width:100%}
+input[type=range]{width:100%;min-height:36px}
+.tabs{display:flex;flex-wrap:wrap;gap:.45rem;margin:1.2rem 0 .6rem}
+.tabs button[aria-selected=true]{background:var(--nz,#4a9b88);color:#08130f;border-color:var(--nz,#4a9b88);font-weight:600}
+.panel{border:1px solid var(--rule,#3a3328);border-radius:12px;padding:1rem 1.1rem;margin:.4rem 0 1.2rem;background:var(--bg-elev,#181510)}
+.panel[hidden]{display:none}
+.panel h2{margin-top:.2rem}
+.chain{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.5rem;margin:.8rem 0}
+.chain>div{background:#0b1020;color:#d7e0f2;border-radius:10px;padding:.6rem .7rem;font-size:.9rem}
+.chain>div b{display:block;color:#55d6be;font-family:"IBM Plex Mono",monospace;font-size:1rem;margin-top:.2rem}
+dl.gloss dt{font-weight:600;margin-top:.5rem}
+dl.gloss dd{margin:.1rem 0 0 1rem}
+.controls{display:grid;gap:.7rem 1.2rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:1rem 0}
+.controls label{display:block;font-size:.92rem}
+.eq{overflow-x:auto;font-family:"IBM Plex Mono",monospace;font-size:.8rem;background:rgba(255,255,255,.04);padding:.8rem 1rem;border-radius:8px;white-space:pre-wrap}
+.plot-card{background:var(--paper,#1f1b15);border:1px solid var(--rule,#3a3328);border-radius:12px;padding:.75rem;color:var(--ink,#f3ead8);margin:1rem 0}
+.plot-card h3{margin:.1rem 0 .4rem;font-size:1.05rem}
+.plot-card canvas{width:100%;height:300px;display:block;background:#0b1020;border-radius:8px}
+.plot-card p{font-size:.9rem;margin:.5rem 0 0;color:var(--ink-muted,#b7ab95)}
+.plot-card img{width:100%;height:auto;border-radius:6px;background:#fff}
+#flags{background:#2a1a0a;color:#f0d2a0;border:1px solid #a67c3a;border-radius:8px;padding:.5rem .9rem;margin:.6rem 0;font-size:.88rem}
+#flags:empty{display:none}
 #flags ul{margin:.2rem 0;padding-left:1.2rem}
-input[type=range]{width:100%}
-.hyp{color:#a67c3a;font-weight:600}
-.fact{color:#1f7a5a;font-weight:600}
-.warn{color:#c0392b;font-weight:600}
-.labtag{background:#1a3a2a;color:#8fd;padding:.1rem .4rem;border-radius:4px;font-size:.8rem}
-.tbl-wrap{overflow-x:auto;margin:.5rem 0 1rem}
+.hyp{color:#ffb86b;font-weight:600}
+.fact{color:#55d6be;font-weight:600}
+.warn{color:#ff7a66;font-weight:600}
+.tbl-wrap{overflow-x:auto;margin:.5rem 0 1rem;-webkit-overflow-scrolling:touch}
 table.res{border-collapse:collapse;font-size:.8rem;min-width:100%}
-table.res th,table.res td{border:1px solid rgba(0,0,0,.15);padding:.25rem .4rem;text-align:right;white-space:nowrap}
-table.res th{background:rgba(0,0,0,.05);text-align:center}
+table.res th,table.res td{border:1px solid rgba(255,255,255,.12);padding:.25rem .4rem;text-align:right;white-space:nowrap}
+table.res th{background:rgba(255,255,255,.05);text-align:center}
 table.res td:first-child{text-align:left}
-td.stdc{background:rgba(85,214,190,.10)} td.hypc{background:rgba(255,159,67,.12)} td.dim{color:#888}
-.pending{background:#fff4d6;border:1px dashed #c9a13a;border-radius:8px;padding:.5rem .8rem;font-size:.9rem}
+td.stdc{background:rgba(85,214,190,.10)} td.hypc{background:rgba(255,159,67,.12)} td.dim{color:var(--ink-faint,#7d7363)}
+.media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.4rem .8rem;font-size:.9rem}
+.pending{background:rgba(212,180,131,.10);border:1px dashed var(--gold,#c9a13a);border-radius:8px;padding:.5rem .8rem;font-size:.95rem}
+details.more{margin:.6rem 0}
+details.more summary{cursor:pointer;font-weight:600;min-height:32px}
+@media (max-width:600px){.hero .hl{font-size:1.15rem}.plot-card canvas{height:240px}}
+.hero{border:1px solid #26314d}
+.front-controls select{width:100%;background:var(--paper-2,#262117);color:var(--ink,#f3ead8);border:1px solid var(--rule-bright,#5a4e3c);border-radius:8px;padding:.3rem .4rem}
+.hero .probes span{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -73,298 +110,442 @@ td.stdc{background:rgba(85,214,190,.10)} td.hypc{background:rgba(255,159,67,.12)
 </nav>
 
 <main id="main" class="wrap">
-  <p class="kicker"><span class="mono" id="verOut">fx1-snr-v0.1</span> · driven Faraday sphere · <span class="fact">FACT</span> vs <span class="hyp">HYP</span> · illustrative · not a measurement</p>
-  <h1>FX-1 SNR — driven Faraday sphere, standard physics vs EED (v0.1 draft)</h1>
-  <p class="lede">Predicts what the Tekbox <strong>E5</strong>, <strong>H10</strong>, <strong>H20</strong> and <strong>H5</strong> probes should read on a TinySA Ultra for the <a href="future-scalar-ab.html#home-experiment">FX-1 home experiment</a>. Setup: two ~11″ stainless bowls (R ≈ 0.14 m) driven at 433.59 MHz from TinySA #1 through a Zeenko ZK06-UM 21 dB amp (~+2 dBm, ~0.4 V peak on the shell). TinySA #2 sits inside, TinySA #3 outside. Each reading is shown two ways. <span class="fact">Standard physics</span> uses textbook formulas with labelled modelling assumptions. <span class="hyp">HYP</span> uses the page's EED E<sub>r</sub> inside and the SleeveBalunSNR carry-over rules outside.</p>
-  <p class="pending"><strong>Wolfram Cloud twin:</strong> <a href="https://www.wolframcloud.com/obj/danbritton5/FX1SNR">wolframcloud.com/obj/danbritton5/FX1SNR</a>, <strong class="warn">Cloud twin pending sync (fx1-snr-v0.1)</strong>. The page is live ahead of the Cloud object. <code>FX1SNR.wl</code> uses the same constants file and version and is ready to CloudPublish. Status is tracked in the hub sync ledger. <strong>openEMS reference:</strong> see <a href="#openems">openEMS reference</a> (FDTD of the sphere + counterpoise, separate worker; reference data, not engine physics).</p>
+  <p class="kicker"><span class="mono" id="verOut">fx1-snr-v0.2</span> · FX-1 home experiment · illustrative, not a measurement · <span class="pending-mini">Cloud twin pending sync (fx1-snr-v0.2)</span></p>
+  <h1>FX-1: what should the probe read?</h1>
+  <p class="lede">A metal sphere (two 11″ stainless bowls) is driven with a 433.59 MHz radio signal. A small probe connected to a TinySA spectrum analyser sits either <strong>inside</strong> the sphere or <strong>outside</strong> it. This page predicts the reading two ways. <span class="fact">Standard physics</span> uses Maxwell's equations and an openEMS computer simulation. The <span class="hyp">EED hypothesis</span> is the unproven "scalar wave" idea being tested.</p>
 
-  <div class="banner-legal"><strong>Not a measurement.</strong> EED/SLW is <em>not</em> settled physics. The HYP interior numbers assume the shell pins Φ = V0 cos Ωt at its surface, as the page says, and V0 comes from the page's 50 Ω conversion. Probe factors are Tekbox's published EMC-sniffer curves; Tekbox warns that sniffer probes distort the field. The TinySA noise floor uses the published 30 MHz spec, and applying it at 433 MHz and above is an ASSUMPTION.</div>
-
-  <h2 id="controls">Controls</h2>
-  <div class="controls card">
-    <label>Frequency
-      <select id="freqSel">
-        <option value="433590000" selected>433.59 MHz · FX-1 / Exp B</option>
-        <option value="1296000000">1296 MHz · Exp A</option>
-        <option value="2450000000">2450 MHz · ISM</option>
-        <option value="free">free (slider)</option>
-      </select>
-      <input id="freqFree" type="range" min="100" max="3000" step="1" value="433.59">
-      <output id="freqOut"></output>
-    </label>
-    <label>Drive preset
-      <select id="drivePreset">
-        <option value="tinysa_plus_zeenko" selected>TinySA + Zeenko 21 dB → +2 dBm (page)</option>
-        <option value="tinysa_alone">TinySA alone −19 dBm (page: 35 mV)</option>
-        <option value="custom">custom</option>
-      </select>
-    </label>
-    <label>Drive level at shell feed (dBm)
-      <input id="pdbm" type="range" min="-40" max="10" step="1" value="2">
-      <output id="pdbmOut"></output>
-    </label>
-    <label>Sphere radius
-      <select id="radSel">
-        <option value="bowls_11in" selected>bowls ~11″ · R = 0.14 m (page)</option>
-        <option value="KB2016_2p5in">K-Mac KB-2016 2.50″ · R = 31.75 mm</option>
-        <option value="KB1820_0p75in">K-Mac KB-1820 ¾″ · R = 9.525 mm</option>
-        <option value="free">free (mm)</option>
-      </select>
-      <input id="radFree" type="number" min="5" max="300" step="0.5" value="140">
-    </label>
-    <label>Shell construction
-      <select id="shellType">
-        <option value="solid" selected>solid metal (bowls / hollow ball)</option>
-        <option value="mesh">RadioScreen over a form (page catalog SE)</option>
-      </select>
-    </label>
-    <label>Shell metal
-      <select id="shellMat">
-        <option value="ss304" selected>stainless 304 (σ = 1.39 MS/m, μr ≤ 1.02)</option>
-        <option value="al3003">aluminum 3003-H14 (σ = 24 MS/m)</option>
-        <option value="copper">copper (σ = 58 MS/m)</option>
-      </select>
-    </label>
-    <label>Wall thickness <span class="hyp">ASSUMPTION</span>
-      <input id="tWall" type="range" min="0.1" max="2" step="0.05" value="0.5">
-      <output id="tWallOut"></output>
-    </label>
-    <label><input id="seamOn" type="checkbox" checked> Copper-tape seam has an unbonded gap (aperture leakage)</label>
-    <label>Longest unbonded seam gap l <span class="hyp">ASSUMPTION</span>
-      <input id="seamL" type="range" min="0.5" max="100" step="0.5" value="5">
-      <output id="seamLOut"></output>
-    </label>
-    <label>Number of such gaps n
-      <input id="seamN" type="range" min="1" max="20" step="1" value="1">
-      <output id="seamNOut"></output>
-    </label>
-    <label><input id="cpOn" type="checkbox" checked> Baking-sheet counterpoise below (image source)</label>
-    <label>Gap sphere-bottom → counterpoise (page ≥ 20 cm)
-      <input id="gap" type="range" min="5" max="60" step="1" value="20">
-      <output id="gapOut"></output>
-    </label>
-    <label><input id="powerLimit" type="checkbox" checked> Power-limit exterior Models B/C (radiated ≤ drive power)</label>
-    <label>Interior probe position r/R
-      <input id="rR" type="range" min="0" max="0.99" step="0.01" value="0.7">
-      <output id="rROut"></output>
-    </label>
-    <label>Interior probe orientation
-      <select id="orient"><option value="radial" selected>radial</option><option value="tangential">tangential</option></select>
-    </label>
-    <label>Exterior distance (from shell wall)
-      <select id="distSel">
-        <option value="bench_5cm" selected>5 cm</option>
-        <option value="bench_10cm">10 cm</option>
-        <option value="bench_20cm">20 cm</option>
-        <option value="bench_50cm">50 cm</option>
-        <option value="bench_100cm">100 cm</option>
-        <option value="near_far_lambda">λ (near↔far · HYP/educational)</option>
-        <option value="home_garage">home garage 10 m</option>
-        <option value="home_outdoor">home outdoor 50 m</option>
-        <option value="free">free (cm)</option>
-      </select>
-      <input id="distFree" type="number" min="1" max="10000" step="1" value="30">
-      <output id="distOut"></output>
-    </label>
-    <label>Exterior standard model
-      <select id="extModel">
-        <option value="B" selected>B · line current + image (Hertzian superposition)</option>
-        <option value="A">A · isolated sphere, quasi-static</option>
-        <option value="C">C · point Hertzian dipole at counterpoise</option>
-      </select>
-    </label>
-    <label>Probe (meters below)
-      <select id="probe">
-        <option value="E5" selected>E5 (E-field)</option>
-        <option value="H10">H10 (H-field, 10 mm)</option>
-        <option value="H20">H20 (H-field, 20 mm)</option>
-        <option value="H5">H5 (H-field, 5 mm)</option>
-      </select>
-    </label>
-    <label>Probe factor source
-      <select id="factorSrc">
-        <option value="manual" selected>Tekbox manual V2.2 curves (digitized)</option>
-        <option value="faq">Tekbox FAQ V1.1 formula</option>
-      </select>
-    </label>
-    <label>TinySA RBW
-      <select id="rbw">
-        <option value="200">200 Hz</option><option value="1000">1 kHz</option><option value="3000">3 kHz</option>
-        <option value="10000" selected>10 kHz</option><option value="30000">30 kHz</option><option value="100000">100 kHz</option>
-        <option value="300000">300 kHz</option><option value="600000">600 kHz</option><option value="850000">850 kHz</option>
-      </select>
-    </label>
-    <label><input id="lna" type="checkbox"> TinySA internal 20 dB LNA (NF 5 dB)</label>
-  </div>
-
-  <h3>Media stack (exterior path) — SleeveBalunSNR carry-over + FX-1 items</h3>
-  <p class="footnote">These layers affect only the <strong>exterior</strong> readings. Interior readings see the shell only. <span class="fact">Standard</span>: each checked layer adds a Schelkunoff slab SE (A+R+B) using the parent's material constants, and the tents add 2×att. <span class="hyp">HYP</span> follows the parent exactly: Errata α = 0 by default, or Exp-C Ohmic α<sub>toy</sub>·ΣL, with mesh mP applied to the detector power.</p>
-  <div class="controls card">
-    <label>Stack preset
-      <select id="stackPreset">
-        <option value="open_air" selected>open air (no stack)</option>
-        <option value="tents_slotted">two tents slotted</option>
-        <option value="tents_sealed">two tents sealed</option>
-        <option value="hdpe_block">HDPE block in path</option>
-        <option value="copper_wall">copper wall ⅛″</option>
-        <option value="steel_hull">steel hull 3″</option>
-        <option value="submarine">submarine stack (TOY)</option>
-        <option value="expC_ohmic_sealed">Exp-C Ohmic HYP toy + sealed tents + cage path</option>
-      </select>
-    </label>
-    <label>Tents (RadioScreen #1124-0, two tents)
-      <select id="tents">
-        <option value="open" selected>open (0 dB / tent)</option>
-        <option value="slotted">slotted (~25 dB / tent)</option>
-        <option value="sealed">sealed (55 dB / tent)</option>
-      </select>
-    </label>
-  </div>
-  <div class="media-grid card" style="padding:1rem">
-    <label><input id="med_air" type="checkbox" checked> air (garage / cage interior)</label>
-    <label><input id="med_copper" type="checkbox"> copper wall ⅛″ (L=0.003175 m)</label>
-    <label><input id="med_air_inside" type="checkbox"> air inside sub 330 ft (L=100.584 m)</label>
-    <label><input id="med_steel" type="checkbox"> steel hull 3″ (L=0.0762 m)</label>
-    <label><input id="med_seawater" type="checkbox"> seawater exit 300 ft (L=91.44 m)</label>
-    <label><input id="med_ocean_air" type="checkbox"> ocean–air interface (TOY L=1 m)</label>
-    <label><input id="med_free_space" type="checkbox"> free-space</label>
-    <label><input id="med_hdpe" type="checkbox"> HDPE block (εr 2.29, tanδ 5e-4)</label>
-  </div>
-  <div class="controls card">
-    <label>HDPE thickness <span class="hyp">ASSUMPTION default</span>
-      <input id="hdpeT" type="range" min="0.5" max="30" step="0.5" value="5">
-      <output id="hdpeTOut"></output>
-    </label>
-    <label><input id="errata" type="checkbox" checked> Errata α = 0 (EED: no resistive loss for irrotational SLW)</label>
-    <label>α_ohm toy when Exp-C Ohmic ON (Np/m)
-      <input id="alphaToy" type="range" min="0" max="2" step="0.01" value="0.05">
-      <output id="alphaToyOut"></output>
-    </label>
-    <label><input id="cageOhm" type="checkbox"> SLW Ohmic through cage path at both TX+RX (HYP)</label>
-    <label>Cage path L per tent
-      <input id="cagePath" type="range" min="0.1" max="5" step="0.1" value="1">
-      <output id="cagePathOut"></output>
-    </label>
-    <label>Extra α_ohm (Np/m)
-      <input id="alphaExtra" type="range" min="0" max="2" step="0.01" value="0">
-      <output id="alphaExtraOut"></output>
-    </label>
-    <label>Extra path L (m)
-      <input id="Lextra" type="range" min="0" max="50" step="0.5" value="0">
-      <output id="LextraOut"></output>
-    </label>
-  </div>
-
+  <section class="hero" aria-live="polite" id="hero">
+    <p class="hl" id="headline">Loading…</p>
+    <p class="mean" id="meaning"></p>
+    <div class="pair">
+      <div class="std"><span class="small">Standard physics (<span id="stdTag">FACT</span>)</span><b id="stdVal">—</b><span class="tagline" id="stdNote"></span></div>
+      <div class="hyp"><span class="small">EED hypothesis (HYP, unproven)</span><b id="hypVal">—</b><span class="tagline" id="hypNote"></span></div>
+    </div>
+    <div class="probes" id="probeRow"></div>
+  </section>
   <div id="flags" role="status"></div>
-  <p class="mono" id="floorOut"></p>
 
-  <div class="meter">
-    <div>Probe factor K(f)<strong id="mK">—</strong></div>
-    <div>Interior STD (leak)<strong id="mIntStd">—</strong></div>
-    <div>Interior HYP (EED)<strong id="mIntHyp">—</strong></div>
-    <div>Exterior STD<strong id="mExtStd">—</strong></div>
-    <div>Exterior HYP<strong id="mExtHyp">—</strong></div>
+  <section class="front-controls" aria-label="Main controls">
+    <div class="ctl">
+      <span class="q">1 · Where is the probe?</span>
+      <div class="seg" data-seg="loc">
+        <button type="button" data-v="inside">Inside the sphere</button>
+        <button type="button" data-v="outside">Outside the sphere</button>
+      </div>
+      <p class="hint">Inside, TinySA #2 is sealed in with the probe. Outside, TinySA #3 is on the bench.</p>
+    </div>
+    <div class="ctl" id="ctlRR">
+      <span class="q">2 · How far from the centre?</span>
+      <input type="range" id="fRR" data-k="rR" min="0" max="0.9" step="0.05" aria-label="r over R">
+      <p class="hint" id="rrHint"></p>
+    </div>
+    <div class="ctl" id="ctlDist" hidden>
+      <span class="q">2 · How far from the sphere's surface?</span>
+      <div class="seg" data-seg="distId">
+        <button type="button" data-v="bench_5cm">5 cm</button>
+        <button type="button" data-v="bench_10cm">10 cm</button>
+        <button type="button" data-v="bench_20cm">20 cm</button>
+        <button type="button" data-v="bench_50cm">50 cm</button>
+        <button type="button" data-v="bench_100cm">1 m</button>
+        <button type="button" data-v="home_garage">10 m</button>
+        <button type="button" data-v="home_outdoor">50 m</button>
+      </div>
+      <p class="hint" id="distHint"></p>
+    </div>
+    <div class="ctl" id="ctlSeam">
+      <span class="q">3 · How well is the seam sealed?</span>
+      <select id="fSeam" data-k="seam" aria-label="seam quality">
+        <option value="closed">Perfectly sealed (no gap)</option>
+        <option value="arc_0p1x30">One tiny gap: 30 mm long, 0.1 mm wide</option>
+        <option value="arc_1x30">One small gap: 30 mm long, 1 mm wide</option>
+        <option value="ring_0p1">Hairline gap all the way round (0.1 mm)</option>
+        <option value="ring_1">1 mm gap all the way round</option>
+      </select>
+      <p class="hint" id="seamHint">The seam is where the two bowls meet under the copper tape. Any gap lets a little ordinary signal leak in. Only matters when the probe is inside.</p>
+    </div>
+    <div class="ctl">
+      <span class="q">4 · How strong is the drive?</span>
+      <div class="seg" data-seg="drive">
+        <button type="button" data-v="tinysa_alone">TinySA alone (−19 dBm)</button>
+        <button type="button" data-v="tinysa_plus_zeenko">TinySA + 21 dB amp (+2 dBm)</button>
+      </div>
+      <p class="hint">dBm is signal power in decibels relative to 1 milliwatt. Every 10 dB is a factor of 10 in power: 0 dBm = 1 mW, −30 dBm = 1 µW.</p>
+    </div>
+  </section>
+
+  <article class="plot-card">
+    <h3 id="plotTitle">Reading vs position</h3>
+    <canvas id="plotFront" role="img" aria-label="predicted reading plot"></canvas>
+    <p id="plotCap"></p>
+  </article>
+
+  <div class="tabs" role="tablist" aria-label="Details">
+    <button type="button" role="tab" data-tab="how" aria-selected="false">How it works</button>
+    <button type="button" role="tab" data-tab="all" aria-selected="false">All controls</button>
+    <button type="button" role="tab" data-tab="eed" aria-selected="false">Standard physics vs EED</button>
+    <button type="button" role="tab" data-tab="oems" aria-selected="false">openEMS cross-check</button>
+    <button type="button" role="tab" data-tab="assume" aria-selected="false">Assumptions &amp; open questions</button>
+    <button type="button" role="tab" data-tab="src" aria-selected="false">Sources</button>
+    <button type="button" role="tab" data-tab="ver" aria-selected="false">Version &amp; sync</button>
   </div>
 
-  <div class="card"><h3>Shell</h3><p id="shellOut"></p></div>
-  <div class="card"><h3>Interior (probe inside the sphere)</h3><p id="intOut"></p></div>
-  <div class="card"><h3>Exterior</h3><p id="extOut"></p></div>
+  <!-- ============ How it works ============ -->
+  <section class="panel" id="tab-how" role="tabpanel" hidden>
+    <h2>How it works</h2>
+    <p>The prediction is a chain of four steps. The numbers below are live for your current settings.</p>
+    <div class="chain" id="chainOut"></div>
+    <ol>
+      <li><strong>Field at the probe.</strong> This is the electric field <em>E</em>, measured in volts per metre (V/m), or the magnetic field <em>B</em>, measured in tesla (T; 1 µT = one millionth of a tesla). Outside the sphere it comes from the openEMS simulation of the real geometry. Inside, it comes from the openEMS simulation of the seam you chose (standard physics) or from the EED formula (hypothesis).</li>
+      <li><strong>Probe factor K(f).</strong> This is how many dBm the Tekbox probe delivers to the analyser when it sits in a field of exactly 1 V/m (E5 probe) or 1 µT (H probes) at frequency <em>f</em>. It comes from Tekbox's published calibration charts. The probe output is K + 20·log<sub>10</sub>(field ÷ 1 V/m or 1 µT).</li>
+      <li><strong>TinySA noise floor.</strong> This is the weakest signal the analyser can show, set by its own electronic noise. It depends on the <strong>RBW</strong> (resolution bandwidth: how wide a slice of spectrum the analyser listens to at once). A narrower RBW means less noise and a lower floor.</li>
+      <li><strong>SNR</strong> (signal-to-noise ratio) = probe output − noise floor, in dB. Above about 10 dB you clearly see a peak. Near 0 dB it is lost in the noise. Below 0 dB you see nothing but noise.</li>
+    </ol>
+    <h3>Words and symbols</h3>
+    <dl class="gloss">
+      <dt>f: frequency</dt><dd>How many times per second the drive signal oscillates, in hertz (Hz). 433.59 MHz = 433.59 million times per second.</dd>
+      <dt>λ: wavelength</dt><dd>The distance a radio wave travels during one oscillation: λ = c ÷ f, where c is the speed of light. At 433.59 MHz, λ ≈ 0.69 m.</dd>
+      <dt>Ω: angular frequency</dt><dd>Ω = 2πf, the same frequency counted in radians per second (one full cycle = 2π radians). The page writes the shell voltage as V0·cos(Ωt).</dd>
+      <dt>k: wavenumber</dt><dd>k = 2π ÷ λ = Ω ÷ c. It tells you how fast the wave's phase advances per metre (≈ 9.09 per metre at 433.59 MHz).</dd>
+      <dt>R: sphere radius</dt><dd>The distance from the centre of the sphere to its wall (0.14 m for the 11″ bowls).</dd>
+      <dt>r: distance from the centre</dt><dd>How far the probe is from the exact middle of the sphere.</dd>
+      <dt>r/R</dt><dd>The probe's position as a fraction: 0 = the exact centre, 1 = touching the wall.</dd>
+      <dt>d: distance from the surface</dt><dd>How far the outside probe is from the metal surface (not the centre).</dd>
+      <dt>kR</dt><dd>The sphere's size measured in wave units (k × R). kR ≈ 1.27 for the bowls at 433.59 MHz. The EED formula blows up when kR = π (a resonance).</dd>
+      <dt>V0: peak shell voltage</dt><dd>The largest voltage the drive puts on the shell during each cycle. The page uses V0 = √(2·50 Ω·P), which gives about 0.4 V at +2 dBm.</dd>
+      <dt>dBm</dt><dd>Power in decibels relative to 1 milliwatt. It is logarithmic: +10 dB = 10× the power, +20 dB = 100×, and −100 dBm is 0.1 picowatt.</dd>
+      <dt>dB</dt><dd>A ratio in decibels. For fields (volts), a factor of 10 is 20 dB. For power, a factor of 10 is 10 dB.</dd>
+      <dt>RBW: resolution bandwidth</dt><dd>The width of the frequency slice the TinySA measures at once. The default is 10 kHz.</dd>
+      <dt>Noise floor</dt><dd>The analyser's own noise level. A signal must be above it to be seen.</dd>
+      <dt>Probe factor</dt><dd>The probe's calibration: dBm out for a 1 V/m (E probe) or 1 µT (H probe) field.</dd>
+      <dt>E5, H10, H20, H5</dt><dd>The four Tekbox probes. E5 senses electric field. The H probes sense magnetic field; the number is the loop size in mm.</dd>
+      <dt>Seam / slot</dt><dd>The joint between the two bowls. A slot is any gap in the metal that signal can leak through.</dd>
+      <dt>openEMS / FDTD</dt><dd>openEMS is free software that solves Maxwell's equations on a 3-D grid, stepping forward in time (FDTD = finite-difference time-domain). The grid spacing ("mesh", e.g. 2.5 mm) limits accuracy.</dd>
+      <dt>PEC</dt><dd>Perfect electric conductor: an idealised metal with zero resistance, as used in the simulation.</dd>
+      <dt>Near field / far field</dt><dd>Close to a source (within about λ/2π ≈ 11 cm here), the fields fall off quickly and are mostly stored energy. Far away they fall off as 1/distance: that is the radiated wave.</dd>
+      <dt>FACT / HYP / ASSUMPTION</dt><dd>FACT = established physics or published data. HYP = the unproven EED hypothesis. ASSUMPTION = a modelling choice made here that could be wrong.</dd>
+    </dl>
+  </section>
 
-  <h2 id="results">Results tables</h2>
-  <p class="footnote">Each cell shows the probe output in dBm at the TinySA input, with SNR against the floor in parentheses. <strong>floor</strong> means the prediction is no signal (HYP B = 0, tangential HYP E = 0, or the ideal shell), so the TinySA shows only its noise floor. A <span class="warn">!</span> means above −25 dBm. Teal = standard, orange = HYP.</p>
-  <h3>Interior points (r/R)</h3>
-  <div class="tbl-wrap"><table class="res" id="tblInt"></table></div>
-  <h3>Exterior distance presets</h3>
-  <div class="tbl-wrap"><table class="res" id="tblExt"></table></div>
+  <!-- ============ All controls ============ -->
+  <section class="panel" id="tab-all" role="tabpanel" hidden>
+    <h2>All controls</h2>
+    <p class="small">Defaults reproduce the page setup. Changing frequency, radius or feed gap away from the simulated geometry switches to the analytic (formula-only) model. That model is clearly labelled, because openEMS shows it reads high at 433 MHz.</p>
+    <div class="controls">
+      <label>Frequency f
+        <select id="freqSel" data-k="freqSel">
+          <option value="433590000">433.59 MHz · FX-1 (openEMS data)</option>
+          <option value="1296000000">1296 MHz · Exp A</option>
+          <option value="2450000000">2450 MHz · ISM</option>
+          <option value="free">free (slider)</option>
+        </select>
+        <input id="freqFree" data-k="freqMHz" type="range" min="100" max="3000" step="1">
+        <output id="freqOut" class="mono"></output>
+      </label>
+      <label>Drive level (dBm into the feed)
+        <select id="drivePreset" data-k="drive">
+          <option value="tinysa_plus_zeenko">TinySA + Zeenko 21 dB → +2 dBm</option>
+          <option value="tinysa_alone">TinySA alone −19 dBm</option>
+          <option value="custom">custom</option>
+        </select>
+        <input id="pdbm" data-k="pdbm" type="range" min="-40" max="10" step="1">
+        <output id="pdbmOut" class="mono"></output>
+      </label>
+      <label>Sphere radius R
+        <select id="radSel" data-k="radSel">
+          <option value="bowls_11in">bowls ~11″ · R = 0.14 m (openEMS data)</option>
+          <option value="KB2016_2p5in">K-Mac KB-2016 2.50″ · R = 31.75 mm</option>
+          <option value="KB1820_0p75in">K-Mac KB-1820 ¾″ · R = 9.525 mm</option>
+          <option value="free">free (mm)</option>
+        </select>
+        <input id="radFree" data-k="radMm" type="number" min="5" max="300" step="0.5">
+      </label>
+      <label>Seam (all options)
+        <select id="seamAll" data-k="seam">
+          <option value="closed">closed (fully bonded) · openEMS</option>
+          <option value="arc_0p1x30">arc slot 0.1 mm × 30 mm · openEMS</option>
+          <option value="arc_1x30">arc slot 1 mm × 30 mm · openEMS (default)</option>
+          <option value="ring_0p1">ring slot 0.1 mm · openEMS</option>
+          <option value="ring_1">ring slot 1 mm · openEMS 2.5 mm mesh</option>
+          <option value="ring_1_m5">ring slot 1 mm · openEMS 5 mm mesh (sensitivity)</option>
+          <option value="analytic">v0.1 analytic wall + seam (Ott slot formula)</option>
+        </select>
+      </label>
+      <label>Inside: direction of the probe from the centre
+        <select id="intDir" data-k="intDir">
+          <option value="eq">toward the seam (equator), worst case</option>
+          <option value="axis">up the vertical axis (away from the seam)</option>
+          <option value="obl">45° between the two</option>
+        </select>
+      </label>
+      <label>Inside: EED field component the probe senses
+        <select id="orient" data-k="orient"><option value="radial">radial (pointing out from the centre)</option><option value="tangential">tangential (along the wall)</option></select>
+      </label>
+      <label>Inside: r/R (fine)
+        <input id="rRfine" data-k="rR" type="range" min="0" max="0.9" step="0.01">
+        <output id="rROut" class="mono"></output>
+      </label>
+      <label>Outside: distance from surface (free, cm)
+        <input id="distFree" data-k="distCm" type="number" min="1" max="10000" step="1">
+        <span class="small"><input id="distUseFree" data-k="distUseFree" type="checkbox"> use this instead of the front buttons</span>
+      </label>
+      <label>Exterior standard model
+        <select id="extModel" data-k="extModel">
+          <option value="auto">auto: openEMS where available, else analytic B</option>
+          <option value="O">openEMS table (FACT, ±15%)</option>
+          <option value="B">analytic B · line current + image</option>
+          <option value="A">analytic A · isolated sphere, quasi-static</option>
+          <option value="C">analytic C · point dipole at counterpoise</option>
+        </select>
+      </label>
+      <label><input id="cpOn" data-k="cpOn" type="checkbox"> Baking-sheet counterpoise below</label>
+      <label>Gap: sphere bottom → counterpoise (cm)
+        <input id="gap" data-k="gapCm" type="range" min="1" max="60" step="1">
+        <output id="gapOut" class="mono"></output>
+        <span class="small">openEMS data: 20 cm (page geometry) at 433.59 MHz; 1 cm (10 mm feed-gap geometry) at 433.59, 1296 and 2450 MHz.</span>
+      </label>
+      <label><input id="powerLimit" data-k="powerLimit" type="checkbox"> Power-limit analytic models B/C</label>
+      <label>Headline probe
+        <select id="probe" data-k="probe">
+          <option value="E5">E5 (electric field)</option><option value="H10">H10 (magnetic, 10 mm)</option>
+          <option value="H20">H20 (magnetic, 20 mm)</option><option value="H5">H5 (magnetic, 5 mm)</option>
+        </select>
+      </label>
+      <label>Probe factor source
+        <select id="factorSrc" data-k="factorSrc">
+          <option value="manual">Tekbox manual V2.2 curves</option>
+          <option value="faq">Tekbox FAQ V1.1 formula</option>
+        </select>
+      </label>
+      <label>TinySA RBW
+        <select id="rbw" data-k="rbw">
+          <option value="200">200 Hz</option><option value="1000">1 kHz</option><option value="3000">3 kHz</option>
+          <option value="10000">10 kHz</option><option value="30000">30 kHz</option><option value="100000">100 kHz</option>
+          <option value="300000">300 kHz</option><option value="600000">600 kHz</option><option value="850000">850 kHz</option>
+        </select>
+      </label>
+      <label><input id="lna" data-k="lna" type="checkbox"> TinySA internal LNA (low-noise amplifier)</label>
+      <label>Shell construction
+        <select id="shellType" data-k="shellType">
+          <option value="solid">solid metal (bowls / hollow ball)</option>
+          <option value="mesh">RadioScreen mesh over a form</option>
+        </select>
+      </label>
+      <label>Shell metal (analytic fallback)
+        <select id="shellMat" data-k="shellMat">
+          <option value="ss304">stainless 304</option><option value="al3003">aluminium 3003-H14</option><option value="copper">copper</option>
+        </select>
+      </label>
+      <label>Wall thickness (mm, analytic fallback)
+        <input id="tWall" data-k="tWallMm" type="range" min="0.1" max="2" step="0.05">
+        <output id="tWallOut" class="mono"></output>
+      </label>
+      <label>Analytic seam gap length l (mm)
+        <input id="seamL" data-k="seamLmm" type="range" min="0.5" max="100" step="0.5">
+        <output id="seamLOut" class="mono"></output>
+      </label>
+      <label>Analytic seam: number of gaps n
+        <input id="seamN" data-k="seamN" type="range" min="1" max="20" step="1">
+        <output id="seamNOut" class="mono"></output>
+      </label>
+    </div>
+    <h3>Media stack (outside readings only)</h3>
+    <p class="small">These are material layers between the sphere and an outside probe, carried over from the Sleeve SNR simulator. <span class="fact">Standard</span>: each layer's shielding adds in dB. <span class="hyp">HYP</span>: the parent's EED loss rules.</p>
+    <div class="controls">
+      <label>Stack preset
+        <select id="stackPreset" data-k="stackPreset">
+          <option value="open_air">open air (no stack)</option>
+          <option value="tents_slotted">two tents slotted</option>
+          <option value="tents_sealed">two tents sealed</option>
+          <option value="hdpe_block">HDPE block in path</option>
+          <option value="copper_wall">copper wall ⅛″</option>
+          <option value="steel_hull">steel hull 3″</option>
+          <option value="submarine">submarine stack (TOY)</option>
+          <option value="expC_ohmic_sealed">Exp-C Ohmic HYP toy + sealed tents</option>
+        </select>
+      </label>
+      <label>Tents (RadioScreen, two tents)
+        <select id="tents" data-k="tents">
+          <option value="open">open (0 dB)</option><option value="slotted">slotted (~25 dB each)</option><option value="sealed">sealed (55 dB each)</option>
+        </select>
+      </label>
+      <label>HDPE thickness (cm)
+        <input id="hdpeT" data-k="hdpeCm" type="range" min="0.5" max="30" step="0.5">
+        <output id="hdpeTOut" class="mono"></output>
+      </label>
+      <label><input id="errata" data-k="errata" type="checkbox"> HYP Errata α = 0 (no loss)</label>
+      <label>α toy (Np/m) when Errata off
+        <input id="alphaToy" data-k="alphaToy" type="range" min="0" max="2" step="0.01">
+        <output id="alphaToyOut" class="mono"></output>
+      </label>
+      <label><input id="cageOhm" data-k="cageOhm" type="checkbox"> HYP Ohmic through cage path</label>
+      <label>Cage path per tent (m)
+        <input id="cagePath" data-k="cagePath" type="range" min="0.1" max="5" step="0.1">
+        <output id="cagePathOut" class="mono"></output>
+      </label>
+      <label>Extra α (Np/m)
+        <input id="alphaExtra" data-k="alphaExtra" type="range" min="0" max="2" step="0.01">
+        <output id="alphaExtraOut" class="mono"></output>
+      </label>
+      <label>Extra path L (m)
+        <input id="Lextra" data-k="Lextra" type="range" min="0" max="50" step="0.5">
+        <output id="LextraOut" class="mono"></output>
+      </label>
+    </div>
+    <div class="media-grid" id="mediaGrid"></div>
+    <p class="mono small" id="floorOut"></p>
+    <h3>Full tables (all probes)</h3>
+    <p class="small">Each cell is the probe output in dBm, with the SNR in parentheses. "floor" means no signal is predicted. Teal = standard, orange = HYP.</p>
+    <h4>Inside, by r/R (current seam and direction)</h4>
+    <div class="tbl-wrap"><table class="res" id="tblInt"></table></div>
+    <h4>Outside, by distance (current exterior model)</h4>
+    <div class="tbl-wrap"><table class="res" id="tblExt"></table></div>
+    <div class="small" id="detailOut"></div>
+  </section>
 
-  <div class="plots">
-    <article class="plot-card">
-      <h3>1 · Interior field vs r/R</h3>
-      <canvas id="plotInt"></canvas>
-      <p>Orange = <span class="hyp">HYP</span> EED radial E<sub>r</sub>. Teal dashed = standard leakage estimate (uniform, ASSUMPTION). The ideal closed conductor gives E = 0 (FACT).</p>
-    </article>
-    <article class="plot-card">
-      <h3>2 · Exterior probe dBm vs distance</h3>
-      <canvas id="plotExt"></canvas>
-      <p>Teal = standard (selected model), orange dashed = HYP carry-over, grey dotted = TinySA floor. H probes have no HYP curve because B = 0.</p>
-    </article>
-  </div>
-
-  <h2 id="openems">openEMS reference</h2>
-  <!-- BEGIN OPENEMS (generated by merge_openems.mjs — do not edit by hand) -->
-<p id="openemsOut"><strong>Merged</strong> from <code>openems/results.json</code> (2026-09-25 11:02 UTC; openEMS v0.37.0-rc3-11-g12cd91d / CSXCAD v0.7.0-rc3-1-gbd2c133 (FDTD); scripts in /workspace/sim-lab/fx1/openems). <span class="fact">FACT</span> = Maxwell FDTD of an <em>assumed</em> geometry: FDTD (openEMS) of PEC sphere R=0.14 m + 0.35 m square counterpoise, 10 mm feed gap; Zin=15.2+j25.1 ohm, S11=-4.24 dB; normalisation per_2dBm_available_50ohm. Probe on the horizontal ray from the sphere centre; r = R + d. Radiated/accepted power ratio from NF2FF = 1.079 (≈1 ⇒ lossless PEC; consistent). Reference data only — does not change PhysicsVersion <code>fx1-snr-v0.1</code>.</p>
-<div class="tbl-wrap"><table class="res"><thead><tr><th>d from wall</th><th>openEMS |E| V/m</th><th>JS-B |E| (gap 20 cm)</th><th>JS-B |E| (gap 10 mm, openEMS geometry)</th><th>JS-A |E|</th><th>openEMS |B| T</th><th>JS-B |B| (gap 10 mm)</th><th>E5 openEMS dBm</th><th>E5 JS-B (10 mm) dBm</th><th>H10 openEMS dBm</th><th>H10 JS-B (10 mm) dBm</th><th>H20 openEMS dBm</th><th>H20 JS-B (10 mm) dBm</th><th>H5 openEMS dBm</th><th>H5 JS-B (10 mm) dBm</th></tr></thead><tbody>
-<tr><td>5 cm</td><td>1.615e+0</td><td>1.195e+0</td><td>2.023e+0</td><td>1.544e+0</td><td>6.041e-9</td><td>6.672e-9</td><td>-54.2</td><td>-52.3</td><td>-51.5</td><td>-50.6</td><td>-44.8</td><td>-44.0</td><td>-70.8</td><td>-69.9</td></tr>
-<tr><td>10 cm</td><td>1.221e+0</td><td>1.033e+0</td><td>1.684e+0</td><td>9.676e-1</td><td>4.609e-9</td><td>5.782e-9</td><td>-56.7</td><td>-53.9</td><td>-53.8</td><td>-51.9</td><td>-47.2</td><td>-45.2</td><td>-73.1</td><td>-71.2</td></tr>
-<tr><td>20 cm</td><td>8.422e-1</td><td>8.587e-1</td><td>1.307e+0</td><td>4.821e-1</td><td>3.012e-9</td><td>4.576e-9</td><td>-59.9</td><td>-56.1</td><td>-57.5</td><td>-53.9</td><td>-50.9</td><td>-47.2</td><td>-76.8</td><td>-73.2</td></tr>
-<tr><td>50 cm</td><td>4.226e-1</td><td>6.461e-1</td><td>8.031e-1</td><td>1.361e-1</td><td>1.427e-9</td><td>2.757e-9</td><td>-65.9</td><td>-60.3</td><td>-64.0</td><td>-58.3</td><td>-57.4</td><td>-51.6</td><td>-83.3</td><td>-77.6</td></tr>
-<tr><td>100 cm</td><td>2.299e-1</td><td>4.771e-1</td><td>4.801e-1</td><td>4.289e-2</td><td>7.740e-10</td><td>1.619e-9</td><td>-71.2</td><td>-64.8</td><td>-69.3</td><td>-62.9</td><td>-62.7</td><td>-56.3</td><td>-88.6</td><td>-82.2</td></tr>
-<tr><td>3 m from centre (NF2FF)</td><td>1.005e-1</td><td>2.191e-1</td><td>1.878e-1</td><td>—</td><td>3.354e-10</td><td>—</td><td>-78.3</td><td>-72.9</td><td>-76.6</td><td>-71.2</td><td>-69.9</td><td>-64.5</td><td>-95.9</td><td>-90.4</td></tr>
-<tr><td>10 m from centre (NF2FF)</td><td>3.016e-2</td><td>6.819e-2</td><td>5.662e-2</td><td>—</td><td>1.006e-10</td><td>—</td><td>-88.8</td><td>-83.3</td><td>-87.1</td><td>-81.6</td><td>-80.4</td><td>-74.9</td><td>-106.3</td><td>-100.9</td></tr>
-</tbody></table></div>
-<p>Interior (FDTD, equatorial ray, per_2dBm_available_50ohm): <strong>closed_pec_r10mm</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.82 = 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0 V/m; <strong>closed_pec_r5mm</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.90 = 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0 V/m; <strong>closed_pec_r5mm_compact</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.90 = 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0 V/m; <strong>ring_slot_1mm</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.90 = 1.452e-1, 1.500e-1, 1.726e-1, 2.447e-1, 7.571e+0 V/m; <strong>arc_slot_1mm_x30mm</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.90 = 1.714e-4, 3.256e-4, 7.688e-4, 2.435e-3, 2.671e-1 V/m. JS standard leak (Schelkunoff wall ⊕ Ott seam, uniform, ASSUMPTION): 4.113e-2 V/m; JS HYP E_r at r/R 0.7: 1.319e+0 V/m. Closed PEC shell ⇒ interior exactly 0 in FDTD (FACT check of E=B=0).</p>
-<!-- END OPENEMS -->
-
-  <h2 id="eq">Equations (as coded — identical in FX1SNR.wl)</h2>
-  <h3>Drive</h3>
+  <!-- ============ Standard vs EED ============ -->
+  <section class="panel" id="tab-eed" role="tabpanel" hidden>
+    <h2>Standard physics vs EED (<span class="fact">FACT</span> / <span class="hyp">HYP</span>)</h2>
+    <h3>Inside the sphere: the shape is the discriminating measurement</h3>
+    <ul>
+      <li><span class="fact">Standard physics (FACT)</span>: a closed metal shell blocks radio fields, so a perfectly sealed sphere has <strong>zero</strong> field inside. The openEMS simulation confirms this exactly. Any signal inside leaks in through gaps in the seam. That leakage is <strong>already present at the centre</strong> (finite at r = 0) and is <strong>strongest next to the gap</strong>. It carries a magnetic field (B ≠ 0) near the slot.</li>
+      <li><span class="hyp">EED hypothesis (HYP)</span>: the page's formula E<sub>r</sub>(r) = V0·R·[sin kr − kr·cos kr] ÷ (r²·sin kR) gives a purely <strong>radial</strong> field (pointing straight out from the centre). It is <strong>exactly zero at the centre</strong>, rises smoothly to the wall, is the same in every direction, and has <strong>no magnetic field</strong> (B = 0).</li>
+      <li>So: move the probe from the centre toward the wall, in several directions. EED predicts a rise from nothing, identical in all directions, and no H-probe signal. Leakage predicts a signal already at the centre that grows mainly toward the seam, and an H-probe signal near the seam.</li>
+    </ul>
+    <div class="tbl-wrap"><table class="res" id="tblShape"></table></div>
+    <h3>Outside the sphere</h3>
+    <p>Both views predict a signal outside, because the driven sphere acts as an ordinary antenna. Outside readings therefore do not discriminate between them; they check the drive and the probe chain. The <span class="hyp">HYP</span> exterior value is the Sleeve SNR carry-over formula (an illustrative cartoon, not a derived EED result).</p>
+    <h3>Equations as coded (identical in FX1SNR.wl)</h3>
+    <h4>Drive</h4>
   <pre class="eq">P = 10^((P_dBm − 30)/10) W
 V0 = sqrt(2·50·P)          # ASSUMPTION, as the page does: +2 dBm → 0.398 V; −19 dBm → 35.5 mV
-I_pk = sqrt(2P/50)         # hub 50 Ω identity (SleeveBalunSNR)</pre>
-  <h3>Interior — standard <span class="fact">FACT forms</span> + <span class="hyp">ASSUMPTIONS</span></h3>
-  <pre class="eq">Ideal closed conductor: E = 0, B = 0 inside                                    # FACT
-E_ref = V0/R  (surface field of a sphere at potential V0)                     # FACT electrostatics (page uses V0/R)
-SE_wall = A + R + B  (Schelkunoff slab, plane wave, normal incidence)          # FACT form — Schelkunoff 1943; Ott, EMC Engineering (2009) ch. 6
-  γ = sqrt(jωμ(σ + ωε0εr tanδ + jωε0εr)),  η = jωμ/γ
-  A = 8.686·Re(γ)·t ;  R = 20log10|(η0+η)²/(4η0η)| ;  B = 20log10|1 − ((η0−η)/(η0+η))² e^(−2γt)|
-SE_seam = max(0, 20log10(λ/(2l)) − 10log10 n)   for l &lt; λ/2                # FACT form — Ott (2009) §6.6 slot/aperture
-SE_shell = −10log10(10^(−SE_wall/10) + 10^(−SE_seam/10))                      # ASSUMPTION: incoherent sum
-RadioScreen shell: 60 dB (&lt;1 GHz), 50 dB (1.3 GHz) page catalog; between INTERPOLATED; above held (ASSUMPTION)
-E_leak = E_ref·10^(−SE_shell/20)  (uniform in r)   ·   B_leak = E_leak/c      # ASSUMPTIONS</pre>
-  <h3>Interior — EED <span class="hyp">HYP</span> (future-scalar-ab.html#eed, exactly)</h3>
+s  = 10^((P_dBm − 2)/20)   # openEMS scaling: fields ∝ source voltage (FACT, linear system); tables are per +2 dBm available (50 Ω)</pre>
+  <h4>Outside — standard, DEFAULT: openEMS table <span class="fact">FACT ±15%</span></h4>
+  <pre class="eq">points (d_i, E_i, B_i): equatorial samples d = 0.05, 0.1, 0.2, 0.5, 1.0 m + NF2FF far field at r = 3 m, 10 m (d = r − R)
+between samples: ln E and ln B linear in ln d  (log-log interpolation)
+beyond the last point: E = E_last·(R + d_last)/(R + d)   (far field ∝ 1/r, FACT)
+closer than 5 cm: no data → analytic model (labelled)
+E = s·E_table(d),  B = s·B_table(d)
+used when f = 433.59 MHz, R = 0.14 m, counterpoise on, gap = 20 cm (page geometry) — or gap = 1 cm at 433.59/1296/2450 MHz (10 mm feed-gap runs)</pre>
+  <h4>Inside — standard, DEFAULT: openEMS seam tables <span class="fact">FACT, order-of-magnitude</span></h4>
+  <pre class="eq">closed seam: E = 0, B = 0 (FDTD identically zero)
+slot cases: |E|(r/R), |B|(r/R) sampled at r/R = 0, 0.25, 0.5, 0.7, 0.9 along the chosen direction
+between samples: ln|E| linear in r/R (linear if a sample is 0); beyond the last sample: held
+E_leak = s·|E|(r/R),  B_leak = s·|B|(r/R)
+only f = 433.59 MHz, R = 0.14 m; otherwise the v0.1 analytic model below ("analytic only")</pre>
+  <h4>Inside — standard, analytic fallback (v0.1) <span class="fact">FACT forms</span> + <span class="hyp">ASSUMPTIONS</span></h4>
+  <pre class="eq">E_ref = V0/R ;  SE_wall = A + R + B (Schelkunoff slab) ;  SE_seam = max(0, 20log10(λ/(2l)) − 10log10 n) for l &lt; λ/2 (Ott 2009 §6.6)
+SE_shell = −10log10(10^(−SE_wall/10) + 10^(−SE_seam/10))   # ASSUMPTION incoherent sum
+E_leak = E_ref·10^(−SE_shell/20) (uniform in r) ;  B_leak = E_leak/c   # ASSUMPTIONS</pre>
+  <h4>Inside — EED <span class="hyp">HYP</span> (future-scalar-ab.html#eed, exactly)</h4>
   <pre class="eq">E_r(r) = V0 R [sin kr − kr cos kr] / (r² sin kR),   k = 2πf/c,   E_r(0) = 0
-B = 0 (SLW: "radial (longitudinal), zero at the center, and has B = 0");  tangential E = 0
-Resonance at kR = π (f = c/2R).  Standard cavity: TM101 ka = 2.744, TE101 ka = 4.493 (FACT)</pre>
-  <h3>Exterior — standard</h3>
-  <pre class="eq">Q = 4πε0 R V0                                                   # FACT isolated-sphere capacitance (counterpoise proximity ignored: ASSUMPTION)
-A: E = V0 R / r_c²,  B = 0                                      # FACT electrostatics; valid r_c ≪ λ/2π, far from counterpoise
-B: uniform current I0 = ωQ on a line from image centre (−h_c) to sphere centre (+h_c), N = 400 Hertzian elements   # ASSUMPTION
-C: single Hertzian dipole I·l = ω(2h_c Q) at the counterpoise                                                    # ASSUMPTION
-Hertzian element (Balanis, Antenna Theory 3e, Eq. 4-8a–c, 4-10a):                                               # FACT form
-  E_r = η Il cosθ/(2πr²) [1 + 1/(jkr)] e^(−jkr)
-  E_θ = jηk Il sinθ/(4πr) [1 + 1/(jkr) − 1/(kr)²] e^(−jkr)
-  H_φ = jk Il sinθ/(4πr) [1 + 1/(jkr)] e^(−jkr)
-Radiated power (image theory: half-space = ½ full-space): C: ηπ/3 (Il/λ)² (Balanis 4-16); B: uniform line-source integral
-Power limit (default ON): if P_rad,model &gt; P_drive, scale B/C fields by sqrt(P_drive/P_rad)   # FACT energy bound; uniform scaling = ASSUMPTION
-Probe at sphere-centre height h_c = gap + R, horizontal r_c = R + d</pre>
-  <h3>Exterior — <span class="hyp">HYP</span> (SleeveBalunSNR carry-over)</h3>
-  <pre class="eq">P_rad = I_pk² Z0/(4π)  (US 9,306,527 Eq. 15) ;  S = P_rad/(4π r_c²)·exp(−αL) ;  E∥ = sqrt(S·Z0)   # HYP / illustrative
-B = 0 (SLW) ;  detector power × mP (two tents), as SNR_Hively in sleeve-balun-snr.html</pre>
-  <h3>Probe → TinySA → SNR</h3>
-  <pre class="eq">P_probe = K(f) + 20log10(field/ref) − stack_dB        ref = 1 V/m (E5) or 1 µT (H probes)
-K(f): Tekbox TBPS01/TBWA2 manual V2.2 p.2 Pict. 2 (H, dBm at 1 µT), p.3 Pict. 3 (E5, dBm at 1 V/m)
-      chart data points extracted from the PDF vector paths; between points linear in log f = INTERPOLATED
-      outside the plotted range = NOT PUBLISHED (H20 curve ends at 2000 MHz; others at 3000 MHz)
-alt:  Tekbox FAQ V1.1 (2022) p.2: B = 10^((P − S − 20log F_MHz)/20), S = 80/62/40 (H20/H10/H5); E = 10^((P + 112.5 − 20log F_MHz)/20)
-Field amplitude: peak amplitude, as the page does (Tekbox does not say rms vs peak)   # ASSUMPTION
-floor = −102 dBm + 10log10(RBW/30 kHz)  (no LNA) ;  −145 dBm + 10log10(RBW/200 Hz)  (LNA)   # tinysa.org TinySA4 spec (30 MHz)
-SNR = P_probe − floor ;  warnings above −25 dBm (best), −1 dBm (P1dB), +6 dBm (abs max)</pre>
+B = 0 ;  tangential E = 0 ;  resonance at kR = π.   Standard cavity modes: TM101 kR = 2.744, TE101 kR = 4.493 (FACT)</pre>
+  <h4>Outside — analytic comparison models</h4>
+  <pre class="eq">Q = 4πε0 R V0
+A: E = V0 R / r_c²  (isolated sphere, quasi-static)
+B: uniform current I0 = ωQ on a line from image centre to sphere centre, 400 Hertzian elements (Balanis Eq. 4-8/4-10), power-limited
+C: single Hertzian dipole I·l = ω(2h_c Q) at the counterpoise, power-limited
+probe at sphere-centre height h_c = gap + R, horizontal distance r_c = R + d</pre>
+  <h4>Outside — <span class="hyp">HYP</span> (SleeveBalunSNR carry-over)</h4>
+  <pre class="eq">P_rad = I_pk² Z0/(4π) ;  S = P_rad/(4π r_c²)·exp(−αL) ;  E∥ = sqrt(S·Z0) ;  B = 0   # HYP / illustrative</pre>
+  <h4>Probe → TinySA → SNR</h4>
+  <pre class="eq">P_probe = K(f) + 20log10(field/ref) − stack_dB      ref = 1 V/m (E5) or 1 µT (H probes)
+floor = −102 dBm + 10log10(RBW/30 kHz) (no LNA) ;  −145 dBm + 10log10(RBW/200 Hz) (LNA)
+SNR = P_probe − floor ;  displayed reading = 10log10(10^(P/10) + 10^(floor/10))</pre>
 
-  <h2>Sources</h2>
-  <ul>
-    <li>Setup, EED formula and page figures: <a href="future-scalar-ab.html#home-experiment">future-scalar-ab.html#home-experiment</a> (FX-1, draft, HYP) and <a href="future-scalar-ab.html#eed">#eed</a>. Hively–Loebl 2019 extended electrodynamics (SLW has B = 0).</li>
-    <li>Parent media stack and HYP Ohmic rules: <a href="sleeve-balun-snr.html">sleeve-balun-snr.html</a> / SleeveBalunSNR.wl (<code>snr-dual-sim-params-v0.2</code>). Keyport sleeve US 12,525,711 (parent context). Monstein &amp; Wesley 2002 (433.59 MHz Exp B lineage). Nikolova–Zimmerman / Zimmerman potentials (parent only; not used here).</li>
-    <li>Tekbox: <a href="https://www.tekbox.com/product/TBPS01_TBWA2_Manual.pdf">TBPS01/TBWA2 manual V2.2</a> (pp. 2–3, frequency-response charts) · <a href="https://www.tekbox.com/product/FAQ_Near_Field_Probes.pdf">FAQ Near Field Probes V1.1</a> (p. 2 scaling factors).</li>
-    <li>TinySA Ultra: <a href="https://tinysa.org/wiki/pmwiki.php?n=TinySA4.Specification">tinysa.org TinySA4.Specification</a>.</li>
-    <li>Materials: 304 SS ρ = 72 µΩ·cm, μr ≤ 1.02 annealed (<a href="https://www.upmet.com/sites/default/files/products/datasheet/304-datasheet.pdf">UPMET 304 datasheet</a>) · Al 3003-H14 ρ = 4.16 µΩ·cm (<a href="https://matweb.com/search/datasheet_print.aspx?matguid=09c63ea8e10e4eea8398256801bb8514">MatWeb</a>) · HDPE εr 2.29, tanδ 5×10⁻⁴ (<a href="https://doi.org/10.3390/polym13162658">Polymers 13:2658, Table 1</a>) · copper/steel/seawater/air from the parent media table.</li>
-    <li>Standard EM: Schelkunoff (1943) / H. W. Ott, <em>Electromagnetic Compatibility Engineering</em> (Wiley 2009) ch. 6; C. A. Balanis, <em>Antenna Theory</em> 3e §4.2, §4.7; Harrington, <em>Time-Harmonic EM Fields</em> §6-9 / Balanis, <em>Advanced Engineering EM</em> §10.4 (spherical cavity).</li>
-    <li>Machine-readable: <a href="physics-constants-fx1.json">physics-constants-fx1.json</a> (<code>fx1-snr-v0.1</code>).</li>
-  </ul>
-  <p class="footnote">fx1-snr-v0.1 · 25 Sep 2026 · Dan Britton SLW Hub · Cloud twin pending sync (fx1-snr-v0.1). Educational, contested, illustrative.</p>
+  </section>
+
+  <!-- ============ openEMS ============ -->
+  <section class="panel" id="tab-oems" role="tabpanel" hidden>
+    <h2>openEMS cross-check</h2>
+    <p><span class="fact">FACT</span> (for an assumed geometry): openEMS FDTD simulations of a perfectly conducting sphere (R = 0.14 m) above a 0.35 m square counterpoise, run by a separate worker. Results: <code>/workspace/sim-lab/fx1/openems/results.json</code>. Values are per +2 dBm available from a 50 Ω source and are scaled with drive voltage (×10<sup>(P−2)/20</sup>).</p>
+    <div id="oemsFeed"></div>
+    <h3>Outside: openEMS vs the analytic formulas</h3>
+    <p class="small" id="oemsExtNote"></p>
+    <div class="tbl-wrap"><table class="res" id="tblOemsExt"></table></div>
+    <article class="plot-card">
+      <h3>openEMS fields vs distance: 10 mm vs 200 mm spacing (433.59 MHz)</h3>
+      <img src="img/fx1/fields_vs_distance_gap10_vs_gap200_433MHz.png" alt="openEMS E and H field magnitude versus distance from the sphere surface, comparing 10 mm and 200 mm counterpoise spacing at several mesh sizes" loading="lazy">
+      <p>Per 0.4 V peak at the feed. The page geometry (200 mm spacing, dashed and dotted) gives much weaker fields per volt than a sphere fed directly across a 10 mm gap. Curves for the 10, 5 and 2.5 mm meshes differ by 12–34%. This is the basis of the ±15% label on the finest (2.5 mm) run.</p>
+    </article>
+    <h3>Inside: openEMS seam leakage (per r/R, current drive)</h3>
+    <p class="small">Labelled <span class="fact">FACT but order-of-magnitude</span>: PEC walls, a stair-stepped sphere, not mesh-converged (the 1 mm ring slot changes about 1.6× between the 5 mm and 2.5 mm meshes). A "U" marks a sample within 2 grid cells of the slot opening, where the field is unresolved. The slot runs used the 10 mm feed-gap geometry at equal available power (ASSUMPTION; see Assumptions).</p>
+    <div class="tbl-wrap"><table class="res" id="tblOemsInt"></table></div>
+    <article class="plot-card">
+      <h3>Interior |E| and |H| at 433.59 MHz: openEMS vs EED</h3>
+      <img src="img/fx1/interior_leakage_433MHz.png" alt="openEMS interior field versus r over R for several seam slots compared with the EED hypothesis curve" loading="lazy">
+      <p>Magenta = EED formula (zero at the centre, rising to the wall). Solid lines = toward the slot, dashed = along the vertical axis. A closed PEC shell gives exactly zero, drawn at the 10<sup>−12</sup> plot floor.</p>
+    </article>
+    <details class="more"><summary>Other openEMS datasets (10 mm feed gap: 433.59, 1296, 2450 MHz)</summary>
+      <div class="tbl-wrap"><table class="res" id="tblOemsHigh"></table></div>
+      <p class="small">These use a different geometry: the sphere is fed directly across a 10 mm gap just above the counterpoise, not the page's 200 mm wire feed. They are used only when you set the gap to 1 cm (All controls). At 1296 and 2450 MHz, openEMS data exist <em>only</em> for this geometry, so the 20 cm page geometry falls back to the analytic model there.</p>
+    </details>
+    <details class="more"><summary>v0.1 merged reference dump (10 mm geometry vs v0.1 analytic)</summary>
+    <!-- BEGIN OPENEMS (generated by merge_openems.mjs — do not edit by hand) -->
+<p id="openemsOut"><strong>Merged</strong> from <code>openems/results.json</code> (2026-09-25 11:38 UTC; openEMS v0.37.0-rc3-11-g12cd91d / CSXCAD v0.7.0-rc3-1-gbd2c133 (FDTD); scripts in /workspace/sim-lab/fx1/openems). <span class="fact">FACT</span> = Maxwell FDTD of an <em>assumed</em> geometry: FDTD (openEMS) of PEC sphere R=0.14 m + 0.35 m square counterpoise, 10 mm feed gap; Zin=14.7+j24.8 ohm, S11=-4.11 dB; normalisation per_2dBm_available_50ohm. Probe on the horizontal ray from the sphere centre; r = R + d. Radiated/accepted power ratio from NF2FF = 1.012 (≈1 ⇒ lossless PEC; consistent). Full reference dump of the 10 mm feed-gap run vs the analytic models. In <code>fx1-snr-v0.2</code> the engine default uses engine.openems (page 200 mm geometry + seam tables).</p>
+<div class="tbl-wrap"><table class="res"><thead><tr><th>d from wall</th><th>openEMS |E| V/m</th><th>JS-B |E| (gap 20 cm)</th><th>JS-B |E| (gap 10 mm, openEMS geometry)</th><th>JS-A |E|</th><th>openEMS |B| T</th><th>JS-B |B| (gap 10 mm)</th><th>E5 openEMS dBm</th><th>E5 JS-B (10 mm) dBm</th><th>H10 openEMS dBm</th><th>H10 JS-B (10 mm) dBm</th><th>H20 openEMS dBm</th><th>H20 JS-B (10 mm) dBm</th><th>H5 openEMS dBm</th><th>H5 JS-B (10 mm) dBm</th></tr></thead><tbody>
+<tr><td>5 cm</td><td>1.587e+0</td><td>1.195e+0</td><td>2.023e+0</td><td>1.544e+0</td><td>5.995e-9</td><td>6.672e-9</td><td>-54.4</td><td>-52.3</td><td>-51.6</td><td>-50.6</td><td>-44.9</td><td>-44.0</td><td>-70.8</td><td>-69.9</td></tr>
+<tr><td>10 cm</td><td>1.206e+0</td><td>1.033e+0</td><td>1.684e+0</td><td>9.676e-1</td><td>4.574e-9</td><td>5.782e-9</td><td>-56.8</td><td>-53.9</td><td>-53.9</td><td>-51.9</td><td>-47.2</td><td>-45.2</td><td>-73.2</td><td>-71.2</td></tr>
+<tr><td>20 cm</td><td>8.364e-1</td><td>8.587e-1</td><td>1.307e+0</td><td>4.821e-1</td><td>2.978e-9</td><td>4.576e-9</td><td>-60.0</td><td>-56.1</td><td>-57.6</td><td>-53.9</td><td>-51.0</td><td>-47.2</td><td>-76.9</td><td>-73.2</td></tr>
+<tr><td>50 cm</td><td>4.203e-1</td><td>6.461e-1</td><td>8.031e-1</td><td>1.361e-1</td><td>1.414e-9</td><td>2.757e-9</td><td>-65.9</td><td>-60.3</td><td>-64.1</td><td>-58.3</td><td>-57.4</td><td>-51.6</td><td>-83.4</td><td>-77.6</td></tr>
+<tr><td>100 cm</td><td>2.288e-1</td><td>4.771e-1</td><td>4.801e-1</td><td>4.289e-2</td><td>7.668e-10</td><td>1.619e-9</td><td>-71.2</td><td>-64.8</td><td>-69.4</td><td>-62.9</td><td>-62.8</td><td>-56.3</td><td>-88.7</td><td>-82.2</td></tr>
+<tr><td>3 m from centre (NF2FF)</td><td>8.699e-2</td><td>2.191e-1</td><td>1.878e-1</td><td>—</td><td>2.902e-10</td><td>—</td><td>-79.6</td><td>-72.9</td><td>-77.9</td><td>-71.2</td><td>-71.2</td><td>-64.5</td><td>-97.1</td><td>-90.4</td></tr>
+<tr><td>10 m from centre (NF2FF)</td><td>2.610e-2</td><td>6.819e-2</td><td>5.662e-2</td><td>—</td><td>8.705e-11</td><td>—</td><td>-90.1</td><td>-83.3</td><td>-88.3</td><td>-81.6</td><td>-81.7</td><td>-74.9</td><td>-107.6</td><td>-100.9</td></tr>
+</tbody></table></div>
+<p>Interior (FDTD, equatorial ray, per_2dBm_available_50ohm): <strong>closed_pec_r10mm</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.82 = 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0 V/m; <strong>closed_pec_r5mm</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.90 = 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0 V/m; <strong>closed_pec_r2p5mm</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.90 = 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0 V/m; <strong>closed_pec_r5mm_compact</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.90 = 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0, 0.000e+0 V/m; <strong>ring_slot_1mm</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.90 = 1.452e-1, 1.500e-1, 1.726e-1, 2.447e-1, 7.571e+0 V/m; <strong>ring_slot_1mm_r2p5mm</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.90 = 2.301e-1, 2.370e-1, 2.685e-1, 3.582e-1, 1.187e+0 V/m; <strong>ring_slot_0p1mm</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.90 = 1.725e-2, 1.784e-2, 2.060e-2, 2.937e-2, 8.056e+0 V/m; <strong>arc_slot_1mm_x30mm</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.90 = 1.714e-4, 3.256e-4, 7.688e-4, 2.435e-3, 2.671e-1 V/m; <strong>arc_slot_0p1mm_x30mm</strong> |E| at r/R 0.00/0.25/0.50/0.70/0.90 = 2.054e-5, 3.918e-5, 9.312e-5, 2.936e-4, 2.961e-1 V/m. JS standard leak (Schelkunoff wall ⊕ Ott seam, uniform, ASSUMPTION): 4.113e-2 V/m; JS HYP E_r at r/R 0.7: 1.319e+0 V/m. Closed PEC shell ⇒ interior exactly 0 in FDTD (FACT check of E=B=0).</p>
+<!-- END OPENEMS -->
+    </details>
+  </section>
+
+  <!-- ============ Assumptions ============ -->
+  <section class="panel" id="tab-assume" role="tabpanel" hidden>
+    <h2>Assumptions &amp; open questions</h2>
+    <ul>
+      <li><strong>Drive (ASSUMPTION, as the page):</strong> V0 = √(2·50·P) (+2 dBm → 0.398 V peak) sets the EED interior amplitude. openEMS says the feed port of the page geometry actually sees 0.776 V peak at +2 dBm available. Most of that is across the badly mismatched wire feed (Zin ≈ 353 − j761 Ω, S11 −0.43 dB, only ≈151 µW of 1.58 mW accepted).</li>
+      <li><strong>Exterior default (FACT ±15%):</strong> openEMS 2.5 mm-mesh run of the page geometry. It is not mesh-converged: 5 mm vs 2.5 mm differ 12–17%, and the thin feed wire's radius makes Zin sensitive. Between samples the values are interpolated log-log in distance. Beyond 10 m they are extended as 1/r (far field). Closer than 5 cm there are no data, so the analytic model is used and labelled.</li>
+      <li><strong>Analytic exterior models (comparison only):</strong> at 433.59 MHz and a 20 cm gap, Model B reads 2.3–5× higher than openEMS. For frequencies or radii with no openEMS data, the page shows the analytic model with the label "analytic only — openEMS shows it reads high at 433 MHz".</li>
+      <li><strong>Seam (ASSUMPTION):</strong> the default is one 30 mm × 1 mm gap in the tape. This replaces v0.1's assumed 5 mm analytic seam. The real seam is unknown: well-bonded copper tape may act closed, while non-conductive adhesive plus clips may behave like a slot.</li>
+      <li><strong>Interior leakage transfer (ASSUMPTION):</strong> the slot runs used the 10 mm feed-gap geometry. They are applied to the page geometry at equal available power. In openEMS the exterior fields of the 200 mm geometry are 0.33–0.40× the 10 mm ones, so interior leakage is probably <em>overestimated</em> by roughly 2.5–3×. That is conservative against falsely claiming an EED signal.</li>
+      <li><strong>Magnetic field inside:</strong> on the vertical axis the openEMS |B| samples (~10<sup>−15</sup> T) are numerical noise, effectively zero. Near the slot, |B| is real and gives an H-probe signal that EED says should not exist (EED has B = 0).</li>
+      <li><strong>Walls:</strong> openEMS uses PEC walls. A real 0.5 mm 304 stainless wall adds a separate path through the metal that is far below every slot (skin depth ≈ 20 µm at 433 MHz).</li>
+      <li><strong>Probe (FACT data, ASSUMPTION use):</strong> Tekbox curves are for EMC sniffing and the probe itself disturbs the field. Peak amplitude is used, as on the page. The H20 manual curve and the FAQ formula disagree by ~13 dB at 433 MHz.</li>
+      <li><strong>Noise floor (ASSUMPTION):</strong> the TinySA spec is given at 30 MHz and is applied here at 433 MHz–3 GHz.</li>
+      <li><strong>Open questions:</strong> the real seam gap and whether the tape bonds electrically; how the tethered inside analyser and its battery perturb the interior; the probe's orientation relative to the slot; mesh convergence below 2.5 mm; a real-wall (lossy) FDTD run; openEMS runs of the 200 mm geometry at 1296 and 2450 MHz.</li>
+    </ul>
+  </section>
+
+  <!-- ============ Sources ============ -->
+  <section class="panel" id="tab-src" role="tabpanel" hidden>
+    <h2>Sources</h2>
+    <ul>
+      <li>Setup, EED formula and page figures: <a href="future-scalar-ab.html#home-experiment">future-scalar-ab.html#home-experiment</a> (FX-1, draft, HYP) and <a href="future-scalar-ab.html#eed">#eed</a>. Hively–Loebl 2019 extended electrodynamics (SLW has B = 0).</li>
+      <li>openEMS FDTD (Liebig, <a href="https://openems.de">openems.de</a>): runs and scripts in <code>/workspace/sim-lab/fx1/openems/</code> (results.json, README.md, tables.md); data embedded in <a href="physics-constants-fx1.json">physics-constants-fx1.json</a> → engine.openems.</li>
+      <li>Parent media stack and HYP Ohmic rules: <a href="sleeve-balun-snr.html">sleeve-balun-snr.html</a> / SleeveBalunSNR.wl (<code>snr-dual-sim-params-v0.2</code>).</li>
+      <li>Tekbox: <a href="https://www.tekbox.com/product/TBPS01_TBWA2_Manual.pdf">TBPS01/TBWA2 manual V2.2</a> (pp. 2–3) · <a href="https://www.tekbox.com/product/FAQ_Near_Field_Probes.pdf">FAQ Near Field Probes V1.1</a> (p. 2).</li>
+      <li>TinySA Ultra: <a href="https://tinysa.org/wiki/pmwiki.php?n=TinySA4.Specification">tinysa.org TinySA4.Specification</a>.</li>
+      <li>Materials: <a href="https://www.upmet.com/sites/default/files/products/datasheet/304-datasheet.pdf">UPMET 304</a> · <a href="https://matweb.com/search/datasheet_print.aspx?matguid=09c63ea8e10e4eea8398256801bb8514">MatWeb Al 3003-H14</a> · <a href="https://doi.org/10.3390/polym13162658">Polymers 13:2658 (HDPE)</a>.</li>
+      <li>Standard EM: Schelkunoff (1943) / H. W. Ott, <em>Electromagnetic Compatibility Engineering</em> (Wiley 2009) ch. 6; C. A. Balanis, <em>Antenna Theory</em> 3e §4.2, §4.7; Harrington, <em>Time-Harmonic EM Fields</em> §6-9.</li>
+    </ul>
+  </section>
+
+  <!-- ============ Version ============ -->
+  <section class="panel" id="tab-ver" role="tabpanel" hidden>
+    <h2>Version &amp; sync</h2>
+    <p>PhysicsVersion <code id="verOut2">fx1-snr-v0.2</code> · 25 Sep 2026.</p>
+    <p class="pending"><strong class="warn">Cloud twin pending sync (fx1-snr-v0.2).</strong> The Wolfram twin <a href="https://www.wolframcloud.com/obj/danbritton5/FX1SNR">wolframcloud.com/obj/danbritton5/FX1SNR</a> is not yet republished. <code>wolfram/FX1SNR.wl</code> in this repo carries the same constants, including the embedded openEMS tables, and the same version, and is ready to CloudPublish. GitHub may run ahead of Cloud under the 2026-09-25 publishing rule. The gap is logged in the hub sync ledger.</p>
+    <ul>
+      <li>Single source of truth: <a href="physics-constants-fx1.json">physics-constants-fx1.json</a>. <code>check_constants.mjs</code> asserts bit-identical constants in the JS and WL twins.</li>
+      <li>Independent Python re-implementation (<code>py_check.py</code>) matches <code>js_outputs.json</code> over the full grid (see PHYSICS_LOCK.md).</li>
+      <li><strong>v0.2 changes:</strong> openEMS 200 mm page-geometry fields are the default exterior model (FACT ±15%). openEMS seam options replace the assumed 5 mm analytic seam inside. The analytic models moved to a comparison role. The page was rebuilt with a simple front and details tabs for novice and iPad viewing.</li>
+      <li>v0.1 (PR #49): first release, with analytic exterior (Model B) and analytic 5 mm seam.</li>
+    </ul>
+  </section>
+
+  <p class="footnote">fx1-snr-v0.2 · Dan Britton SLW Hub · <span class="pending-mini">Cloud twin pending sync (fx1-snr-v0.2)</span> · Educational, contested, illustrative.</p>
 </main>
 <footer class="site">
   <div class="wrap">
     <div>
-      <strong>Dan Britton</strong> · FX-1 SNR fx1-snr-v0.1 (draft)<br>
+      <strong>Dan Britton</strong> · FX-1 SNR fx1-snr-v0.2<br>
       Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
     </div>
   </div>

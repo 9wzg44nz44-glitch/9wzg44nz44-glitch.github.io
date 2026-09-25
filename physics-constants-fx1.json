@@ -1,16 +1,16 @@
 {
  "meta": {
   "title": "FX-1 driven Faraday sphere SNR — shared physics constants (Pages fx1-snr.html + Wolfram FX1SNR.wl)",
-  "version": "fx1-snr-v0.1",
+  "version": "fx1-snr-v0.2",
   "date": "2026-09-25",
-  "status": "Pages live; Cloud twin pending sync (fx1-snr-v0.1). Relaxed publishing rule 2026-09-25: GitHub may lead Cloud; tracked in /workspace/sim-lab/SYNC_LEDGER.md",
+  "status": "Pages live; Cloud twin pending sync (fx1-snr-v0.2). Relaxed publishing rule 2026-09-25: GitHub may lead Cloud; tracked in /workspace/sim-lab/SYNC_LEDGER.md",
   "cloud_url": "https://www.wolframcloud.com/obj/danbritton5/FX1SNR",
   "parent": "snr-dual-sim-params-v0.2 (SleeveBalunSNR) media stack + HYP ohmic rules carried over",
   "setup_source": "future-scalar-ab.html#home-experiment (FX-1, draft, HYP)",
   "disclaimer": "Educational / contested. SLW/EED is not settled physics. Standard-physics columns use textbook formulas with labelled modelling assumptions; HYP columns reproduce the page's EED formula and SleeveBalunSNR carry-over rules only. Not a measurement."
  },
  "engine": {
-  "PHYSICS_VERSION": "fx1-snr-v0.1",
+  "PHYSICS_VERSION": "fx1-snr-v0.2",
   "C0": 299792458,
   "MU0": 1.2566370614359173e-06,
   "EPS0": 8.854187817e-12,
@@ -343,7 +343,935 @@
    0.5,
    0.7,
    0.9
-  ]
+  ],
+  "openems": {
+   "P_ref_dBm": 2,
+   "norm": "per_2dBm_available_50ohm",
+   "match_tol": {
+    "f_rel": 1e-06,
+    "R_abs_m": 1e-06,
+    "gap_abs_m": 1e-06
+   },
+   "ext_mesh_uncertainty_rel": 0.15,
+   "exterior": [
+    {
+     "id": "gap200_433",
+     "results_key": "433.59MHz_gap200mm",
+     "reference_case": "gap200_r2p5",
+     "f_Hz": 433590000.0,
+     "R_m": 0.14,
+     "gap_m": 0.2,
+     "mesh": "2.5 mm cells near sphere (finest run; not converged: 5 mm vs 2.5 mm differ 12-17%)",
+     "d_m": [
+      0.05,
+      0.1,
+      0.2,
+      0.5,
+      1.0
+     ],
+     "E": [
+      0.5183246759537693,
+      0.41304045919127136,
+      0.3091578196246085,
+      0.16969770933840234,
+      0.09113169524940214
+     ],
+     "B": [
+      1.885958167338703e-09,
+      1.5409193443162823e-09,
+      1.1230295689269891e-09,
+      5.769218412525017e-10,
+      3.0511626009714716e-10
+     ],
+     "ff_r_m": [
+      3.0,
+      10.0
+     ],
+     "ff_E": [
+      0.0315738304513311,
+      0.009472149298980824
+     ],
+     "ff_B": [
+      1.0531896186438119e-10,
+      3.1595689104963486e-11
+     ],
+     "Zin_re": 352.8887344594165,
+     "Zin_im": -760.7523927820674,
+     "S11_dB": -0.43465866934182185,
+     "P_acc_W_at_Pref": 0.0001509427805215738,
+     "Vgap_pk_V_at_Pref": 0.775648146421041,
+     "Dmax": 2.2005087178319807,
+     "note": "page geometry: sphere bottom 200 mm above a 0.35 m square counterpoise, thin vertical feed wire, 10 mm port at the sheet"
+    },
+    {
+     "id": "gap10_433",
+     "results_key": "433.59MHz",
+     "reference_case": "closed_pec_r2p5mm",
+     "f_Hz": 433590000.0,
+     "R_m": 0.14,
+     "gap_m": 0.01,
+     "mesh": "2.5 mm cells near sphere (finest run)",
+     "d_m": [
+      0.05,
+      0.1,
+      0.2,
+      0.5,
+      1.0
+     ],
+     "E": [
+      1.586667627349717,
+      1.2061500374422294,
+      0.8363604502201342,
+      0.42028096014564986,
+      0.22884938073997393
+     ],
+     "B": [
+      5.9947553649212115e-09,
+      4.574040324219102e-09,
+      2.9779769951096697e-09,
+      1.414149817875557e-09,
+      7.667630486107056e-10
+     ],
+     "ff_r_m": [
+      3.0,
+      10.0
+     ],
+     "ff_E": [
+      0.08698890003077997,
+      0.026096671433620742
+     ],
+     "ff_B": [
+      2.901637373104962e-10,
+      8.704912594439164e-11
+     ],
+     "Zin_re": 14.707105040341071,
+     "Zin_im": 24.839703692967774,
+     "S11_dB": -4.114853972024244,
+     "P_acc_W_at_Pref": 0.0009704034993882005,
+     "Vgap_pk_V_at_Pref": 0.3316124498828192,
+     "Dmax": 1.8285344114895323,
+     "note": "10 mm feed gap (sphere driven directly across a 10 mm port), closed PEC shell"
+    },
+    {
+     "id": "gap10_1296",
+     "results_key": "1.296GHz",
+     "reference_case": "high_band_closed_r5mm",
+     "f_Hz": 1296000000.0,
+     "R_m": 0.14,
+     "gap_m": 0.01,
+     "mesh": "5 mm cells near sphere, compact domain (d <= 0.5 m usable)",
+     "d_m": [
+      0.05,
+      0.1,
+      0.2,
+      0.5
+     ],
+     "E": [
+      1.6490600019763026,
+      1.2348923524600208,
+      0.7455783547918369,
+      0.28871404052363764
+     ],
+     "B": [
+      4.906124289729775e-09,
+      3.865879688231345e-09,
+      2.3911413867134885e-09,
+      9.49440944237666e-10
+     ],
+     "ff_r_m": [
+      3.0,
+      10.0
+     ],
+     "ff_E": [
+      0.040416010537201945,
+      0.0121248039356567
+     ],
+     "ff_B": [
+      1.3481329986360747e-10,
+      4.04439925425232e-11
+     ],
+     "Zin_re": 32.136278463084366,
+     "Zin_im": 79.17260942391299,
+     "S11_dB": -2.957181713827489,
+     "P_acc_W_at_Pref": 0.0007826947237859563,
+     "Vgap_pk_V_at_Pref": 0.5963563493799576,
+     "Dmax": 5.33539305401527,
+     "note": "10 mm feed gap geometry, closed PEC shell; NOT the page's 200 mm geometry"
+    },
+    {
+     "id": "gap10_2450",
+     "results_key": "2.45GHz",
+     "reference_case": "high_band_closed_r5mm",
+     "f_Hz": 2450000000.0,
+     "R_m": 0.14,
+     "gap_m": 0.01,
+     "mesh": "5 mm cells near sphere, compact domain (d <= 0.5 m usable)",
+     "d_m": [
+      0.05,
+      0.1,
+      0.2,
+      0.5
+     ],
+     "E": [
+      1.1941176798619717,
+      1.067469701165533,
+      0.7967474477693274,
+      0.3008024924188639
+     ],
+     "B": [
+      3.746338310525965e-09,
+      3.470738492185841e-09,
+      2.624914820596074e-09,
+      9.99780095268074e-10
+     ],
+     "ff_r_m": [
+      3.0,
+      10.0
+     ],
+     "ff_E": [
+      0.04753504334157681,
+      0.014260513623484362
+     ],
+     "ff_B": [
+      1.585598372243801e-10,
+      4.756795323878482e-11
+     ],
+     "Zin_re": 61.77394540525377,
+     "Zin_im": 130.76347202160883,
+     "S11_dB": -2.347020579643195,
+     "P_acc_W_at_Pref": 0.0006616886301215084,
+     "Vgap_pk_V_at_Pref": 0.6693745533367921,
+     "Dmax": 3.1945838865861145,
+     "note": "10 mm feed gap geometry, closed PEC shell; NOT the page's 200 mm geometry"
+    }
+   ],
+   "interior": {
+    "f_Hz": 433590000.0,
+    "R_m": 0.14,
+    "cases": {
+     "closed": {
+      "results_case": "closed_pec_r2p5mm",
+      "description": "closed PEC shell, full domain, 2.5 mm cells near sphere (finest, REFERENCE for exterior[433.59MHz])",
+      "eq": {
+       "xE": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       "xB": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "B": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "axis": {
+       "xE": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       "xB": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "B": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "obl": {
+       "xE": [
+        0.0,
+        0.24999999999999994,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       "xB": [
+        0.0,
+        0.24999999999999994,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "B": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "label": "closed seam (fully bonded)",
+      "mesh": "2.5 mm"
+     },
+     "ring_0p1": {
+      "results_case": "ring_slot_0p1mm",
+      "description": "full 360-deg equatorial seam slot, 0.1 mm high, compact domain",
+      "eq": {
+       "xE": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        0.017251986680076496,
+        0.01783972833667902,
+        0.020604220688231586,
+        0.029367859354822338,
+        8.055726285239867
+       ],
+       "xB": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.8928572142857114
+       ],
+       "B": [
+        5.3594909279130575e-16,
+        9.235252279210217e-12,
+        1.8921270088067833e-11,
+        2.7973853457184314e-11,
+        5.290351872458034e-11
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        true
+       ]
+      },
+      "axis": {
+       "xE": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        0.017251986680076496,
+        0.015477268648079537,
+        0.0115373229371246,
+        0.008354046451784187,
+        0.006184117259711823
+       ],
+       "xB": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.892857142857143
+       ],
+       "B": [
+        5.3594909279130575e-16,
+        2.5137225219494346e-16,
+        2.6737181616576086e-16,
+        1.6184630638150847e-16,
+        1.9556443681287719e-16
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "obl": {
+       "xE": [
+        0.0,
+        0.24999999999999994,
+        0.5,
+        0.7,
+        0.884063842463326
+       ],
+       "E": [
+        0.017251986680076496,
+        0.01652526739668605,
+        0.01410830260136014,
+        0.011019264751793371,
+        0.008346006482182955
+       ],
+       "xB": [
+        0.0,
+        0.24999999999999994,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "B": [
+        5.3594909279130575e-16,
+        6.15251008159067e-12,
+        1.0291742613972772e-11,
+        1.1226438332525613e-11,
+        1.0511442049112692e-11
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "label": "hairline gap all round (0.1 mm ring slot)",
+      "mesh": "5 mm, compact"
+     },
+     "ring_1": {
+      "results_case": "ring_slot_1mm_r2p5mm",
+      "description": "as ring_slot_1mm but 2.5 mm cells (model wall 3.75 mm thick instead of 7.5 mm): mesh / slot-depth sensitivity",
+      "eq": {
+       "xE": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        0.23009825566527672,
+        0.2369759860673116,
+        0.2685196878523851,
+        0.3582387516376418,
+        1.1871799466919988
+       ],
+       "xB": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "B": [
+        1.906341646303909e-15,
+        1.2287429358060702e-10,
+        2.5482371079513454e-10,
+        3.8687100105168564e-10,
+        6.501766984908059e-10
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "axis": {
+       "xE": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        0.23009825566527672,
+        0.20779411267863404,
+        0.15738956790235878,
+        0.11530666563730593,
+        0.08224088078705254
+       ],
+       "xB": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "B": [
+        1.906341646303909e-15,
+        3.3035591975939343e-16,
+        6.160796596089336e-16,
+        8.203628312088063e-16,
+        5.790150146464252e-16
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "obl": {
+       "xE": [
+        0.0,
+        0.24999999999999994,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        0.23009825566527672,
+        0.2208260873565261,
+        0.19035758474890477,
+        0.15079002897639102,
+        0.10597263576817915
+       ],
+       "xB": [
+        0.0,
+        0.24999999999999994,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "B": [
+        1.906341646303909e-15,
+        8.197247110120411e-11,
+        1.3918779842865592e-10,
+        1.5429033379860028e-10,
+        1.4194845496904313e-10
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "label": "1 mm gap all round (ring slot)",
+      "mesh": "2.5 mm, compact"
+     },
+     "arc_1x30": {
+      "results_case": "arc_slot_1mm_x30mm",
+      "description": "30 mm long x 1.0 mm high equatorial slot at +x (local tape gap), compact domain",
+      "eq": {
+       "xE": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        0.00017135061587944704,
+        0.0003255533493119933,
+        0.0007688317003046717,
+        0.002434789542463447,
+        0.26705973099746616
+       ],
+       "xB": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.8928642856857144
+       ],
+       "B": [
+        7.681894050166995e-13,
+        1.471764392468963e-12,
+        4.419854450352087e-12,
+        2.0396129491153123e-11,
+        2.6745722719436765e-10
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        true
+       ]
+      },
+      "axis": {
+       "xE": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        0.00017135061587944704,
+        0.00015561653017263918,
+        0.00011814754853717393,
+        8.55139879467782e-05,
+        6.151002008325171e-05
+       ],
+       "xB": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.892857142857143
+       ],
+       "B": [
+        7.681894050166995e-13,
+        7.220908966570989e-13,
+        6.130929741282276e-13,
+        5.149201946925792e-13,
+        4.188400423900506e-13
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "obl": {
+       "xE": [
+        0.0,
+        0.24999999999999994,
+        0.5,
+        0.7,
+        0.884063842463326
+       ],
+       "E": [
+        0.00017135061587944704,
+        0.00024997118797060917,
+        0.0003138043006672604,
+        0.00030987791570579576,
+        0.00026304480945496826
+       ],
+       "xB": [
+        0.0,
+        0.24999999999999994,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "B": [
+        7.681894050166995e-13,
+        1.1154272098836617e-12,
+        1.5357013058197925e-12,
+        1.704039491951757e-12,
+        1.6313029914053734e-12
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "label": "one 30 mm long, 1 mm gap in the tape",
+      "mesh": "5 mm, compact"
+     },
+     "arc_0p1x30": {
+      "results_case": "arc_slot_0p1mm_x30mm",
+      "description": "30 mm long x 0.1 mm high equatorial slot at +x, compact domain",
+      "eq": {
+       "xE": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        2.0543383600510317e-05,
+        3.918366367327089e-05,
+        9.31225444253036e-05,
+        0.00029361177512386336,
+        0.29607330789668684
+       ],
+       "xB": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.8928572142857114
+       ],
+       "B": [
+        9.245438094358235e-14,
+        1.7654854927690885e-13,
+        5.326828876988878e-13,
+        2.4712057735262165e-12,
+        3.173509701936638e-11
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        true
+       ]
+      },
+      "axis": {
+       "xE": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        2.0543383600510317e-05,
+        1.8598493108515748e-05,
+        1.4081483205429255e-05,
+        1.0069825812176753e-05,
+        7.226694553285132e-06
+       ],
+       "xB": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.892857142857143
+       ],
+       "B": [
+        9.245438094358235e-14,
+        8.689208432542263e-14,
+        7.370777928545264e-14,
+        6.175333379242613e-14,
+        5.002811767071994e-14
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "obl": {
+       "xE": [
+        0.0,
+        0.24999999999999994,
+        0.5,
+        0.7,
+        0.884063842463326
+       ],
+       "E": [
+        2.0543383600510317e-05,
+        2.998546808451322e-05,
+        3.769616786356943e-05,
+        3.715094693900095e-05,
+        3.146172418839303e-05
+       ],
+       "xB": [
+        0.0,
+        0.24999999999999994,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "B": [
+        9.245438094358235e-14,
+        1.3370760141485838e-13,
+        1.8408407002206346e-13,
+        2.0407679943981664e-13,
+        1.9582946106770143e-13
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "label": "one 30 mm long hairline (0.1 mm) gap",
+      "mesh": "5 mm, compact"
+     },
+     "ring_1_m5": {
+      "results_case": "ring_slot_1mm",
+      "description": "full 360-deg equatorial seam slot, 1.0 mm high (tape non-conducting), compact domain",
+      "eq": {
+       "xE": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        0.14515302535685295,
+        0.15001374463799594,
+        0.17257254937222563,
+        0.24474303906666622,
+        7.570795980002428
+       ],
+       "xB": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.8928642856857144
+       ],
+       "B": [
+        1.4601115860831597e-15,
+        7.792427711448704e-11,
+        1.609997488027868e-10,
+        2.420047365436371e-10,
+        4.708796989650582e-10
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        true
+       ]
+      },
+      "axis": {
+       "xE": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "E": [
+        0.14515302535685295,
+        0.13024652007580184,
+        0.09711566880420991,
+        0.07033140861027139,
+        0.052066391063760056
+       ],
+       "xB": [
+        0.0,
+        0.25,
+        0.5,
+        0.7,
+        0.892857142857143
+       ],
+       "B": [
+        1.4601115860831597e-15,
+        5.8275777687982e-16,
+        4.417499620282764e-16,
+        1.849782684453709e-16,
+        3.5337716773574684e-16
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "obl": {
+       "xE": [
+        0.0,
+        0.24999999999999994,
+        0.5,
+        0.7,
+        0.884063842463326
+       ],
+       "E": [
+        0.14515302535685295,
+        0.13905108719078016,
+        0.11872969754717189,
+        0.09278316044493165,
+        0.07029557586947886
+       ],
+       "xB": [
+        0.0,
+        0.24999999999999994,
+        0.5,
+        0.7,
+        0.9000000000000001
+       ],
+       "B": [
+        1.4601115860831597e-15,
+        5.18671128942297e-11,
+        8.700400089975666e-11,
+        9.510523764285986e-11,
+        8.91321017757433e-11
+       ],
+       "unresolved": [
+        false,
+        false,
+        false,
+        false,
+        false
+       ]
+      },
+      "label": "1 mm ring slot, coarser 5 mm mesh (sensitivity)",
+      "mesh": "5 mm, compact"
+     }
+    }
+   },
+   "seam_options": [
+    "closed",
+    "arc_0p1x30",
+    "arc_1x30",
+    "ring_0p1",
+    "ring_1",
+    "ring_1_m5",
+    "analytic"
+   ],
+   "seam_front_options": [
+    "closed",
+    "arc_0p1x30",
+    "arc_1x30",
+    "ring_0p1",
+    "ring_1"
+   ],
+   "seam_default": "arc_1x30",
+   "int_dir_default": "eq"
+  }
  },
  "labels": {
   "C0,MU0,EPS0,Z0": "FACT (hub physics-constants.json snr-dual-sim-params-v0.2 values; Z0 = hub canonical)",
@@ -358,7 +1286,7 @@
   "materials.copper/steel/seawater/air": "copied from hub physics-constants.json media_LinearlyResistive_HYP (steel mu_r=1 flagged incomplete there)",
   "materials.hdpe": "FACT Polymers 2021, 13(16), 2658, Table 1, HDPE eps_r 2.29, tan_d 0.0005 (https://doi.org/10.3390/polym13162658)",
   "shell.t_wall_default_m": "ASSUMPTION 0.5 mm (not measured)",
-  "shell.seam_gap_default_m / seam_n_default": "ASSUMPTION (longest unbonded gap under copper tape = 5 mm, 1 gap) — sensitivity slider",
+  "shell.seam_gap_default_m / seam_n_default": "ASSUMPTION (5 mm, 1 gap) — v0.2: used ONLY by seam option analytic and by the analytic fallback (no openEMS data); the default seam is now openEMS-backed (engine.openems)",
   "shell.mesh_SE": "FACT page catalog figures for RadioScreen (~60 dB below 1 GHz, ~50 dB at 1.3 GHz); between = INTERPOLATED; above 1.3 GHz held at 50 dB = ASSUMPTION",
   "counterpoise_gap_default_m": "FACT page (at least 20 cm above counterpoise) — used as sphere-bottom-to-counterpoise gap (ASSUMPTION on reference point)",
   "tents_att_dB": "copied from hub SleeveBalunSNR (RadioScreen #1124-0, two tents, mP = 10^(-2*att/10))",
@@ -370,6 +1298,10 @@
   "faq_v11": "FACT Tekbox 'FAQ Near Field Probes' V1.1 26-Jan-2022 p.2 (https://www.tekbox.com/product/FAQ_Near_Field_Probes.pdf): B[T]=10^((Pout-S-20log10 F_MHz)/20), S: H20 80, H10 62, H5 40 ('H field scaling factors corrected'); E[V/m]=10^((Pout+112.5-20log10 F_MHz)/20). V1.0 (2019) had S=76/56/47 (superseded)",
   "tinysa_floor": "FACT tinysa.org TinySA4.Specification: lowest discernible signal -102 dBm @30 MHz, RBW 30 kHz (no LNA); -145 dBm @30 MHz, RBW 200 Hz (LNA, NF 5 dB); RBW list; best < -25 dBm; P1dB -1 dBm; abs max +6 dBm. Scaling 10log10(RBW/RBW_ref) = FACT (thermal noise ∝ bandwidth); applying the 30 MHz spec at 433 MHz–3 GHz = ASSUMPTION",
   "distances": "bench 5..100 cm measured from the shell wall (page: 'same distance from the wall'); home_garage 10 m / home_outdoor 50 m + near_far_lambda reused from SleeveBalunSNR distance_presets (also from the wall here)",
+  "openems.exterior": "FACT (openEMS FDTD, /workspace/sim-lab/fx1/openems/results.json exterior[...].near_field_by_distance['equatorial_+x'] + far_field_nf2ff horizontal theta=90, phi=0, normalisation per +2 dBm available from a 50-ohm source). Mesh not converged: +-15% (2.5 mm vs 5 mm cells differ 12-17%; thin-wire radius sensitivity in Zin). gap200_433 = page geometry (DEFAULT); gap10_* = 10 mm feed gap geometry",
+  "openems.interior": "FACT but order-of-magnitude (openEMS FDTD, PEC walls, stair-stepped sphere, not converged; ring 1 mm slot 2.5 mm vs 5 mm mesh differ ~1.6x at centre). interior.cases[...] per +2 dBm available; slot runs used the 10 mm feed-gap geometry. Samples within 2 cells of the slot mouth are flagged unresolved",
+  "openems.seam_default": "ASSUMPTION: one 30 mm x 1 mm gap in the copper tape (replaces the v0.1 assumed 5 mm analytic seam); user-selectable",
+  "openems.scaling": "FACT linear system: fields scale with source EMF -> x 10^((P_dBm - 2)/20). Transfer of 10 mm-gap slot tables to the 200 mm page geometry at equal available power = ASSUMPTION (openEMS exterior fields in the 200 mm geometry are 0.33-0.40x the 10 mm ones, so interior leakage is probably overestimated ~2.5-3x = conservative against claiming an EED signal)",
   "lineN": "numerical: midpoint-rule elements for the line-current exterior model (JS and WL identical)"
  },
  "formulas": {
@@ -408,6 +1340,21 @@
    "SleeveBalunSNR carry-over: P_rad = I_pk^2 Z0/(4 pi) (US 9,306,527 Eq.15); S = P_rad/(4 pi r_c^2) * exp(-alpha L); E_par = sqrt(S Z0)  # HYP / illustrative cartoon",
    "B = 0 for SLW  # HYP"
   ],
+  "exterior_openEMS": [
+   "points (d_i, E_i, B_i) = near-field equatorial samples (non-null) + far-field points (d = r_ff - R); sorted by d",
+   "d_first <= d <= d_last: ln E and ln B piecewise-linear in ln d (log-log interpolation); exact sample -> sample value",
+   "d > d_last: E = E_last (R + d_last)/(R + d) (far-field 1/r, FACT)",
+   "d < d_first: no openEMS data -> analytic model (labelled)",
+   "scale s = 10^((P_dBm - P_ref_dBm)/20), P_ref = +2 dBm available (50-ohm source)",
+   "dataset used when |f - f_i| <= 1e-6 f_i, |R - R_i| <= 1e-6 m, counterpoise ON, |gap - gap_i| <= 1e-6 m; else analytic only",
+   "extModel 'auto' (default) = openEMS when available, else Model B (counterpoise) / A"
+  ],
+  "interior_openEMS": [
+   "seam option in openems.seam_options; table = interior.cases[seam][dir] (dir eq = toward the seam, axis = vertical axis, obl = 45 deg)",
+   "|E|(r/R): sample x_i = xE; exact sample -> E_i; between samples: if both > 0, ln E linear in r/R, else linear; r/R >= last sample -> last value (clamped); same for |B| with xB",
+   "E_leak = |E|(r/R) * s, B_leak = |B|(r/R) * s",
+   "openEMS tables only for f = 433.59 MHz and R = 0.14 m; otherwise and for seam 'analytic': v0.1 analytic wall + seam model (labelled analytic only)"
+  ],
   "stack_standard": [
    "sum of SE_layer (Schelkunoff A+R+B form above) over checked layers + 2*att_tent  # layers in series, inter-layer reflections ignored = ASSUMPTION",
    "ocean_air_toy / free_space: no standard attenuation defined (0 dB)"
@@ -431,7 +1378,7 @@
   ]
  },
  "openems_reference": {
-  "status": "merged (reference data, not engine physics; re-run merge_openems.mjs if results.json is regenerated)",
+  "status": "v0.2: openEMS exterior (200 mm page geometry) is the DEFAULT exterior model and the seam tables are the interior default (engine.openems); this block is the full reference dump ( re-run merge_openems.mjs if results.json is regenerated)",
   "source": "/workspace/sim-lab/fx1/openems/results.json",
   "merged_file": "fx1-openems-reference.json (repo root) = /workspace/sim-lab/fx1/openems_reference.json",
   "html_block": "fx1-snr.html #openems (BEGIN/END OPENEMS markers)",
