@@ -1,0 +1,441 @@
+{
+ "meta": {
+  "title": "FX-1 driven Faraday sphere SNR — shared physics constants (Pages fx1-snr.html + Wolfram FX1SNR.wl)",
+  "version": "fx1-snr-v0.1",
+  "date": "2026-09-25",
+  "status": "Pages live; Cloud twin pending sync (fx1-snr-v0.1). Relaxed publishing rule 2026-09-25: GitHub may lead Cloud; tracked in /workspace/sim-lab/SYNC_LEDGER.md",
+  "cloud_url": "https://www.wolframcloud.com/obj/danbritton5/FX1SNR",
+  "parent": "snr-dual-sim-params-v0.2 (SleeveBalunSNR) media stack + HYP ohmic rules carried over",
+  "setup_source": "future-scalar-ab.html#home-experiment (FX-1, draft, HYP)",
+  "disclaimer": "Educational / contested. SLW/EED is not settled physics. Standard-physics columns use textbook formulas with labelled modelling assumptions; HYP columns reproduce the page's EED formula and SleeveBalunSNR carry-over rules only. Not a measurement."
+ },
+ "engine": {
+  "PHYSICS_VERSION": "fx1-snr-v0.1",
+  "C0": 299792458,
+  "MU0": 1.2566370614359173e-06,
+  "EPS0": 8.854187817e-12,
+  "Z0": 376.73031346177,
+  "RL": 50,
+  "freq_presets_Hz": {
+   "f433": 433590000,
+   "f1296": 1296000000,
+   "f2450": 2450000000
+  },
+  "freq_free_min_Hz": 100000000.0,
+  "freq_free_max_Hz": 3000000000.0,
+  "drive": {
+   "tinysa_gen_min_dBm": -115,
+   "tinysa_gen_max_dBm": -19,
+   "zeenko_gain_dB": 21,
+   "presets_dBm": {
+    "tinysa_alone": -19,
+    "tinysa_plus_zeenko": 2
+   },
+   "default_dBm": 2
+  },
+  "radius_presets_m": {
+   "bowls_11in": 0.14,
+   "KB2016_2p5in": 0.03175,
+   "KB1820_0p75in": 0.009525
+  },
+  "radius_default_shell": {
+   "bowls_11in": "ss304",
+   "KB2016_2p5in": "al3003",
+   "KB1820_0p75in": "al3003"
+  },
+  "radius_default_seam": {
+   "bowls_11in": true,
+   "KB2016_2p5in": false,
+   "KB1820_0p75in": false
+  },
+  "materials": {
+   "ss304": {
+    "sigma": 1388888.888888889,
+    "mu_r": 1.02,
+    "eps_r": 1.0,
+    "tan_d": 0.0
+   },
+   "al3003": {
+    "sigma": 24038461.538461536,
+    "mu_r": 1.0,
+    "eps_r": 1.0,
+    "tan_d": 0.0
+   },
+   "copper": {
+    "sigma": 58000000.0,
+    "mu_r": 1.0,
+    "eps_r": 1.0,
+    "tan_d": 0.0
+   },
+   "steel": {
+    "sigma": 5000000.0,
+    "mu_r": 1.0,
+    "eps_r": 1.0,
+    "tan_d": 0.0
+   },
+   "seawater": {
+    "sigma": 4.0,
+    "mu_r": 1.0,
+    "eps_r": 80.0,
+    "tan_d": 0.0
+   },
+   "air": {
+    "sigma": 1e-14,
+    "mu_r": 1.0,
+    "eps_r": 1.0006,
+    "tan_d": 0.0
+   },
+   "hdpe": {
+    "sigma": 0.0,
+    "mu_r": 1.0,
+    "eps_r": 2.29,
+    "tan_d": 0.0005
+   }
+  },
+  "shell": {
+   "t_wall_default_m": 0.0005,
+   "seam_gap_default_m": 0.005,
+   "seam_n_default": 1,
+   "mesh_SE": {
+    "f_lo_Hz": 1000000000.0,
+    "SE_lo_dB": 60,
+    "f_hi_Hz": 1300000000.0,
+    "SE_hi_dB": 50
+   }
+  },
+  "counterpoise_gap_default_m": 0.2,
+  "lineN": 400,
+  "tents_att_dB": {
+   "open": 0,
+   "slotted": 25,
+   "sealed": 55
+  },
+  "sub_len_m": {
+   "copper_wall": 0.003175,
+   "air_inside": 100.584,
+   "steel_wall": 0.0762,
+   "seawater_exit": 91.44,
+   "ocean_air_toy": 1.0,
+   "free_space": 0.0
+  },
+  "hdpe_t_default_m": 0.05,
+  "ohmic": {
+   "alpha_toy_default": 0.05,
+   "cage_path_default_m": 1.0
+  },
+  "cavity_roots": {
+   "TM101": 2.744,
+   "TE101": 4.493
+  },
+  "hyp_resonance_flag_abs_sin_kR": 0.05,
+  "probe_anchor_MHz": {
+   "E5": [
+    0.3,
+    1,
+    3,
+    6,
+    10,
+    100,
+    300,
+    500,
+    800,
+    1100,
+    1200,
+    1300,
+    1400,
+    1700,
+    2000,
+    2500,
+    3000
+   ],
+   "H20": [
+    0.3,
+    0.5,
+    1,
+    6,
+    10,
+    100,
+    300,
+    500,
+    800,
+    1100,
+    1200,
+    1300,
+    1400,
+    1700,
+    2000
+   ],
+   "H10": [
+    0.3,
+    0.5,
+    1,
+    6,
+    10,
+    100,
+    300,
+    500,
+    800,
+    1100,
+    1200,
+    1300,
+    1400,
+    1700,
+    2000,
+    2500,
+    3000
+   ],
+   "H5": [
+    0.3,
+    0.5,
+    1,
+    6,
+    10,
+    100,
+    300,
+    500,
+    800,
+    1100,
+    1200,
+    1300,
+    1400,
+    1700,
+    2000,
+    2500,
+    3000
+   ]
+  },
+  "probe_anchor_dBm": {
+   "E5": [
+    -120.0,
+    -115.0,
+    -104.0,
+    -97.0,
+    -93.0,
+    -72.0,
+    -62.0,
+    -57.0,
+    -54.0,
+    -50.0,
+    -49.8,
+    -49.0,
+    -48.0,
+    -46.0,
+    -46.5,
+    -44.5,
+    -45.0
+   ],
+   "H20": [
+    -50.0,
+    -45.0,
+    -39.0,
+    -23.0,
+    -18.5,
+    -3.0,
+    1.0,
+    -1.0,
+    -4.0,
+    -12.0,
+    -20.0,
+    -12.0,
+    -10.0,
+    0.0,
+    5.0
+   ],
+   "H10": [
+    -69.0,
+    -63.5,
+    -57.0,
+    -42.0,
+    -37.0,
+    -18.0,
+    -10.0,
+    -6.0,
+    -4.0,
+    -4.0,
+    -4.0,
+    -4.5,
+    -5.0,
+    -5.0,
+    -8.0,
+    -10.0,
+    -15.0
+   ],
+   "H5": [
+    -90.0,
+    -86.0,
+    -80.0,
+    -65.0,
+    -60.0,
+    -40.0,
+    -30.0,
+    -25.0,
+    -21.0,
+    -18.0,
+    -18.5,
+    -17.0,
+    -15.0,
+    -14.0,
+    -13.0,
+    -13.0,
+    -14.0
+   ]
+  },
+  "probe_ref": {
+   "E5": 1.0,
+   "H20": 1e-06,
+   "H10": 1e-06,
+   "H5": 1e-06
+  },
+  "probe_kind": {
+   "E5": "E",
+   "H20": "B",
+   "H10": "B",
+   "H5": "B"
+  },
+  "faq_v11": {
+   "E5_scale": 112.5,
+   "S": {
+    "H20": 80,
+    "H10": 62,
+    "H5": 40
+   },
+   "f_max_MHz": 6000
+  },
+  "tinysa_floor": {
+   "noLNA": {
+    "lds_dBm": -102,
+    "rbw_Hz": 30000
+   },
+   "LNA": {
+    "lds_dBm": -145,
+    "rbw_Hz": 200
+   },
+   "rbw_options_Hz": [
+    200,
+    1000,
+    3000,
+    10000,
+    30000,
+    100000,
+    300000,
+    600000,
+    850000
+   ],
+   "rbw_default_Hz": 10000,
+   "best_below_dBm": -25,
+   "p1dB_dBm": -1,
+   "abs_max_dBm": 6
+  },
+  "distances": {
+   "bench_cm": [
+    5,
+    10,
+    20,
+    50,
+    100
+   ],
+   "home_garage_m": 10,
+   "home_outdoor_m": 50
+  },
+  "interior_grid_rR": [
+   0,
+   0.25,
+   0.5,
+   0.7,
+   0.9
+  ]
+ },
+ "labels": {
+  "C0,MU0,EPS0,Z0": "FACT (hub physics-constants.json snr-dual-sim-params-v0.2 values; Z0 = hub canonical)",
+  "RL": "FACT 50 ohm TinySA/Zeenko port impedance; applying it to the shell is an ASSUMPTION (page does the same)",
+  "drive.tinysa_gen_*": "FACT tinysa.org TinySA4.Specification (gen -115..-19 dBm, 1 dB steps)",
+  "drive.zeenko_gain_dB": "FACT per hub page future-scalar-ab.html#home-experiment (kit list: Zeenko ZK06-UM 21 dB); vendor datasheet not re-checked",
+  "drive.presets_dBm.tinysa_plus_zeenko": "FACT page figure (+2 dBm, ~0.4 V peak on shell)",
+  "V0 = sqrt(2*RL*P)": "ASSUMPTION (50-ohm identity, as the page uses: +2 dBm -> 0.398 V, -19 dBm -> 35.5 mV)",
+  "radius_presets_m": "FACT page (bowls ~11 in across -> R~0.14 m) + hub setup.html (K-Mac KB-2016 2.50 in, KB-1820 0.75 in hollow 3003 Al)",
+  "materials.ss304": "FACT UPMET 304 datasheet: resistivity 72 microohm-cm @20C, mu_r 1.02 max annealed (https://www.upmet.com/sites/default/files/products/datasheet/304-datasheet.pdf). Bowl alloy (304?) and cold-work permeability are ASSUMPTIONS",
+  "materials.al3003": "FACT MatWeb Aluminum 3003-H14 resistivity 4.16e-6 ohm-cm (https://matweb.com/search/datasheet_print.aspx?matguid=09c63ea8e10e4eea8398256801bb8514); temper of K-Mac balls unknown",
+  "materials.copper/steel/seawater/air": "copied from hub physics-constants.json media_LinearlyResistive_HYP (steel mu_r=1 flagged incomplete there)",
+  "materials.hdpe": "FACT Polymers 2021, 13(16), 2658, Table 1, HDPE eps_r 2.29, tan_d 0.0005 (https://doi.org/10.3390/polym13162658)",
+  "shell.t_wall_default_m": "ASSUMPTION 0.5 mm (not measured)",
+  "shell.seam_gap_default_m / seam_n_default": "ASSUMPTION (longest unbonded gap under copper tape = 5 mm, 1 gap) — sensitivity slider",
+  "shell.mesh_SE": "FACT page catalog figures for RadioScreen (~60 dB below 1 GHz, ~50 dB at 1.3 GHz); between = INTERPOLATED; above 1.3 GHz held at 50 dB = ASSUMPTION",
+  "counterpoise_gap_default_m": "FACT page (at least 20 cm above counterpoise) — used as sphere-bottom-to-counterpoise gap (ASSUMPTION on reference point)",
+  "tents_att_dB": "copied from hub SleeveBalunSNR (RadioScreen #1124-0, two tents, mP = 10^(-2*att/10))",
+  "sub_len_m": "copied from hub SleeveBalunSNR (Linearly Resistive LEN); ocean_air_toy L=1 m is a parent TOY",
+  "hdpe_t_default_m": "ASSUMPTION 5 cm block",
+  "ohmic": "copied from hub SleeveBalunSNR (alpha_toy 0.05 Np/m HYP toy; cage path 1 m/tent)",
+  "cavity_roots": "FACT standard EM: spherical PEC cavity lowest TM (root of [x j1(x)]' = 2.744) and TE (root of j1 = 4.493); e.g. Harrington, Time-Harmonic Electromagnetic Fields (1961) §6-9; Balanis, Advanced Engineering Electromagnetics 2nd ed. §10.4",
+  "probe_anchor_*": "FACT/DIGITIZED Tekbox TBPS01/TBWA2 manual V2.2 (https://www.tekbox.com/product/TBPS01_TBWA2_Manual.pdf) p.2 Picture 2 (H probes, output dBm at 1 uT) and p.3 Picture 3 (E5, output dBm at 1 V/m). Anchor points = the chart's data points extracted from the PDF vector paths (not hand-read), rounded to 0.1 dB and nominal MHz. Between anchors: linear in log10(f) = INTERPOLATED. Outside anchor range = NOT PUBLISHED",
+  "faq_v11": "FACT Tekbox 'FAQ Near Field Probes' V1.1 26-Jan-2022 p.2 (https://www.tekbox.com/product/FAQ_Near_Field_Probes.pdf): B[T]=10^((Pout-S-20log10 F_MHz)/20), S: H20 80, H10 62, H5 40 ('H field scaling factors corrected'); E[V/m]=10^((Pout+112.5-20log10 F_MHz)/20). V1.0 (2019) had S=76/56/47 (superseded)",
+  "tinysa_floor": "FACT tinysa.org TinySA4.Specification: lowest discernible signal -102 dBm @30 MHz, RBW 30 kHz (no LNA); -145 dBm @30 MHz, RBW 200 Hz (LNA, NF 5 dB); RBW list; best < -25 dBm; P1dB -1 dBm; abs max +6 dBm. Scaling 10log10(RBW/RBW_ref) = FACT (thermal noise ∝ bandwidth); applying the 30 MHz spec at 433 MHz–3 GHz = ASSUMPTION",
+  "distances": "bench 5..100 cm measured from the shell wall (page: 'same distance from the wall'); home_garage 10 m / home_outdoor 50 m + near_far_lambda reused from SleeveBalunSNR distance_presets (also from the wall here)",
+  "lineN": "numerical: midpoint-rule elements for the line-current exterior model (JS and WL identical)"
+ },
+ "formulas": {
+  "drive": [
+   "P = 10^((P_dBm-30)/10)",
+   "V0 = sqrt(2*RL*P)  # ASSUMPTION (page)",
+   "I_pk = sqrt(2*P/RL)  # hub 50-ohm identity (SleeveBalunSNR)"
+  ],
+  "interior_standard": [
+   "ideal closed conductor: E = 0, B = 0  # FACT",
+   "E_ref = V0/R  # FACT electrostatics, surface field of a sphere at potential V0 (page uses V0/R)",
+   "SE_wall = A + R + B (Schelkunoff, plane wave, normal incidence): A = 8.686*Re(gamma)*t; R = 20log10|(eta0+eta)^2/(4 eta0 eta)|; B = 20log10|1 - ((eta0-eta)/(eta0+eta))^2 exp(-2 gamma t)|; gamma = sqrt(j w mu (sigma_t + j w eps)), eta = j w mu / gamma  # FACT form (Schelkunoff 1943; Ott, Electromagnetic Compatibility Engineering 2009 ch.6)",
+   "SE_seam = max(0, 20log10(lambda/(2 l)) - 10log10(n)) for l < lambda/2 else 0  # FACT form (Ott 2009 §6.6 aperture/slot; plane-wave, thin sheet)",
+   "SE_shell = -10log10(10^(-SE_wall/10) + 10^(-SE_seam/10))  # ASSUMPTION: incoherent power sum of leakage paths",
+   "E_leak = E_ref*10^(-SE_shell/20), uniform in r  # ASSUMPTION (no seam-position dependence)",
+   "B_leak = E_leak/C0  # ASSUMPTION plane-wave impedance"
+  ],
+  "interior_HYP": [
+   "E_r(r) = V0 R [sin kr - kr cos kr]/(r^2 sin kR), k = 2 pi f / C0  # HYP, exactly as future-scalar-ab.html#eed",
+   "E_r(0) = 0; series near 0: V0 R k^3 r/(3 sin kR)",
+   "B = 0 (EED SLW mode, page: 'The field is radial (longitudinal), zero at the center, and has B = 0')  # HYP",
+   "tangential E = 0  # HYP"
+  ],
+  "exterior_standard": [
+   "Q = 4 pi eps0 R V0  # FACT isolated-sphere capacitance; ignoring counterpoise proximity = ASSUMPTION",
+   "Model A (isolated sphere, quasi-static): E = V0 R / r_c^2, B = 0  # FACT electrostatics, valid r << lambda/2pi and far from counterpoise",
+   "Model B (default): uniform line current I0 = w Q from image centre (z=-h_c) to sphere centre (z=+h_c), superposition of N Hertzian elements  # ASSUMPTION (uniform in-phase current, all charge on sphere, infinite ground plane image)",
+   "Model C: single Hertzian dipole I l = w (2 h_c Q) at the ground plane  # ASSUMPTION (point dipole)",
+   "Hertzian element (Balanis, Antenna Theory 3rd ed. Eq. 4-8a,b,c/4-10): E_r = eta Il cos(th)/(2 pi r^2) [1 + 1/(jkr)] e^-jkr; E_th = j eta k Il sin(th)/(4 pi r) [1 + 1/(jkr) - 1/(kr)^2] e^-jkr; H_ph = j k Il sin(th)/(4 pi r) [1 + 1/(jkr)] e^-jkr  # FACT form",
+   "probe position: sphere-centre height h_c = gap + R, horizontal distance r_c = R + d from sphere centre",
+   "P_rad(B) = 1/2 * full-space radiated power of a uniform line current of length L = 2 h_c: (Z0 k^2 I0^2 L^2/(32 pi^2)) * 2 pi * Int_0^pi sin^3(th) [sin(u)/u]^2 dth, u = k L cos(th)/2  # FACT form (Balanis ch.4 far-zone line source; half-space by image theory)",
+   "P_rad(C) = 0.5 * Z0 (pi/3) (I l/lambda)^2, 1/lambda = k/(2 pi)  # FACT form (Balanis Eq. 4-16, halved for half-space above the ground plane)",
+   "power limit (default ON): if P_rad(model) > P_drive then E,B scaled by sqrt(P_drive/P_rad)  # ASSUMPTION (energy-conservation bound; the 50-ohm V0 identity over-drives Models B/C)"
+  ],
+  "exterior_HYP": [
+   "SleeveBalunSNR carry-over: P_rad = I_pk^2 Z0/(4 pi) (US 9,306,527 Eq.15); S = P_rad/(4 pi r_c^2) * exp(-alpha L); E_par = sqrt(S Z0)  # HYP / illustrative cartoon",
+   "B = 0 for SLW  # HYP"
+  ],
+  "stack_standard": [
+   "sum of SE_layer (Schelkunoff A+R+B form above) over checked layers + 2*att_tent  # layers in series, inter-layer reflections ignored = ASSUMPTION",
+   "ocean_air_toy / free_space: no standard attenuation defined (0 dB)"
+  ],
+  "stack_HYP": [
+   "SleeveBalunSNR carry-over: Errata alpha=0 (default) -> no loss; Exp-C Ohmic ON -> alphaL = alpha_toy * sum(L of checked segments) [+ alpha_toy*2*cage_path if cage Ohmic] [+ alpha_extra*L_extra]; power survival exp(-alphaL); mesh mP applied to detector power (as SNR_Hively)"
+  ],
+  "probe": [
+   "P_probe_dBm = K(f) + 20 log10(field/ref) - stack_dB; K from manual V2.2 curve (default) or FAQ V1.1 formula",
+   "field amplitude convention: peak amplitude used, as the page does (Tekbox does not state rms vs peak)  # ASSUMPTION"
+  ],
+  "tinysa": [
+   "floor_dBm = lds_dBm + 10log10(RBW/rbw_ref)",
+   "SNR_dB = P_probe_dBm - floor_dBm",
+   "reading_dBm = 10log10(10^(P/10) + 10^(floor/10))"
+  ],
+  "flags": [
+   "f_TM101 = 2.744 C0/(2 pi R); f_TE101 = 4.493 C0/(2 pi R)  # FACT standard",
+   "f_EED(kR=pi) = C0/(2R)  # HYP page",
+   "resonance flag if |sin kR| < 0.05"
+  ]
+ },
+ "openems_reference": {
+  "status": "merged (reference data, not engine physics; re-run merge_openems.mjs if results.json is regenerated)",
+  "source": "/workspace/sim-lab/fx1/openems/results.json",
+  "merged_file": "fx1-openems-reference.json (repo root) = /workspace/sim-lab/fx1/openems_reference.json",
+  "html_block": "fx1-snr.html #openems (BEGIN/END OPENEMS markers)",
+  "wl_symbol": "FX1OpenEMSReference in FX1SNR.wl (BEGIN/END FX1 OPENEMS markers)",
+  "note": "openEMS geometry differs from the JS default: 10 mm feed gap (sphere centre 0.15 m) vs JS counterpoise gap 0.20 m; comparison also evaluates JS at the openEMS gap"
+ }
+}

@@ -1,0 +1,618 @@
+{
+ "status": "merged",
+ "merged_at": "2026-09-25T11:07:25.360Z",
+ "source": "/workspace/sim-lab/fx1/openems/results.json",
+ "source_mtime": "2026-09-25T11:02:19.331Z",
+ "generated_by": "openEMS v0.37.0-rc3-11-g12cd91d / CSXCAD v0.7.0-rc3-1-gbd2c133 (FDTD); scripts in /workspace/sim-lab/fx1/openems",
+ "label": "FACT (FDTD of an ASSUMED geometry; see assumptions) — reference data, not engine physics",
+ "physics_version_compared": "fx1-snr-v0.1",
+ "normalisation": "per_2dBm_available_50ohm",
+ "conventions": {
+  "per_1V_peak_gap": "fields for 1 V peak across the feed gap (shell vs counterpoise)",
+  "per_0p4V_peak_gap": "fields for 0.4 V peak across the feed gap (page value for shell voltage)",
+  "per_1mW_accepted": "fields for 1 mW actually delivered into the feed gap (Re(V I*)/2 = 1 mW)",
+  "per_2dBm_available_50ohm": "fields for a 50-ohm source with +2 dBm AVAILABLE power (open-circuit EMF 0.7962 V peak); gap voltage = EMF*Zin/(Zin+50), so the simulated input mismatch is included"
+ },
+ "assumptions": {
+  "sphere_outer_radius_m": 0.14,
+  "sphere_centre_height_m": 0.15,
+  "wall_model": "PEC spherical shell (outer surface at R), model thickness 1.5 fine cells; real 304 stainless sigma ~1.4e6 S/m not resolved",
+  "counterpoise": "ASSUMPTION: 0.35 m x 0.35 m zero-thickness PEC square in z=0, centred under the sphere",
+  "feed": "ASSUMPTION: 10 mm vertical gap between counterpoise centre and sphere bottom; 50-ohm lumped port across it",
+  "seam": "closed case = perfectly bonded seam; slot cases = equatorial gaps (tape assumed NOT conducting across them)",
+  "surroundings": "free space (no table, floor, cables, TinySA/amp bodies, operator); feed cable not modelled",
+  "drive": "TinySA -> 21 dB amp, +2 dBm, 433.59 MHz CW (page)"
+ },
+ "js_gap_default_m": 0.2,
+ "js_gap_openEMS_geometry_m": 0.01,
+ "feed": {
+  "Zin_ohm": [
+   15.209688319938014,
+   25.05711740051384
+  ],
+  "S11_dB": -4.240356416561183,
+  "Vgap_peak_V_at_2dBm_available": 0.33408609878437623,
+  "P_accepted_W_at_2dBm_available": 0.0009879069013264711
+ },
+ "Prad_over_Paccepted": 1.0786695472665935,
+ "Dmax": 1.92098835126439,
+ "summary": "FDTD (openEMS) of PEC sphere R=0.14 m + 0.35 m square counterpoise, 10 mm feed gap; Zin=15.2+j25.1 ohm, S11=-4.24 dB; normalisation per_2dBm_available_50ohm",
+ "exterior_equatorial": [
+  {
+   "id": "bench_5cm",
+   "d_m": 0.05,
+   "openEMS_E_Vpm": 1.61487,
+   "openEMS_B_T": 6.04132e-9,
+   "openEMS_E_Vpm_0p4V": 1.93347,
+   "openEMS_B_T_0p4V": 7.23325e-9,
+   "js_gapDefault": {
+    "E_A": 1.54391,
+    "E_B": 1.19496,
+    "B_B": 3.31112e-9,
+    "E_C": 0.952948,
+    "B_C": 2.31798e-9,
+    "scaleB": 0.218678,
+    "E_hyp": 1.25631
+   },
+   "js_gapOpenEMS": {
+    "E_A": 1.54391,
+    "E_B": 2.02267,
+    "B_B": 6.67216e-9,
+    "E_C": 2.09014,
+    "B_C": 6.34324e-9,
+    "scaleB": 0.410266
+   },
+   "probes_dBm": {
+    "E5": {
+     "openEMS": -54.23,
+     "js_B_gapDefault": -56.85,
+     "js_B_gapOpenEMS": -52.28,
+     "js_A": -54.62,
+     "js_hyp": -56.41,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 1.96
+    },
+    "H10": {
+     "openEMS": -51.49,
+     "js_B_gapDefault": -56.72,
+     "js_B_gapOpenEMS": -50.63,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 0.86
+    },
+    "H20": {
+     "openEMS": -44.82,
+     "js_B_gapDefault": -50.04,
+     "js_B_gapOpenEMS": -43.96,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 0.86
+    },
+    "H5": {
+     "openEMS": -70.77,
+     "js_B_gapDefault": -76,
+     "js_B_gapOpenEMS": -69.91,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 0.86
+    }
+   }
+  },
+  {
+   "id": "bench_10cm",
+   "d_m": 0.1,
+   "openEMS_E_Vpm": 1.22128,
+   "openEMS_B_T": 4.60932e-9,
+   "openEMS_E_Vpm_0p4V": 1.46223,
+   "openEMS_B_T_0p4V": 5.51872e-9,
+   "js_gapDefault": {
+    "E_A": 0.967622,
+    "E_B": 1.03339,
+    "B_B": 2.92683e-9,
+    "E_C": 0.916794,
+    "B_C": 2.55272e-9,
+    "scaleB": 0.218678,
+    "E_hyp": 0.994579
+   },
+   "js_gapOpenEMS": {
+    "E_A": 0.967622,
+    "E_B": 1.68399,
+    "B_B": 5.78176e-9,
+    "E_C": 1.71081,
+    "B_C": 5.72553e-9,
+    "scaleB": 0.410266
+   },
+   "probes_dBm": {
+    "E5": {
+     "openEMS": -56.66,
+     "js_B_gapDefault": -58.11,
+     "js_B_gapOpenEMS": -53.87,
+     "js_A": -58.68,
+     "js_hyp": -58.44,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 2.79
+    },
+    "H10": {
+     "openEMS": -53.84,
+     "js_B_gapDefault": -57.79,
+     "js_B_gapOpenEMS": -51.87,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 1.97
+    },
+    "H20": {
+     "openEMS": -47.17,
+     "js_B_gapDefault": -51.11,
+     "js_B_gapOpenEMS": -45.2,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 1.97
+    },
+    "H5": {
+     "openEMS": -73.12,
+     "js_B_gapDefault": -77.07,
+     "js_B_gapOpenEMS": -71.15,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 1.97
+    }
+   }
+  },
+  {
+   "id": "bench_20cm",
+   "d_m": 0.2,
+   "openEMS_E_Vpm": 0.842175,
+   "openEMS_B_T": 3.01221e-9,
+   "openEMS_E_Vpm_0p4V": 1.00833,
+   "openEMS_B_T_0p4V": 3.60651e-9,
+   "js_gapDefault": {
+    "E_A": 0.482137,
+    "E_B": 0.858706,
+    "B_B": 2.52982e-9,
+    "E_C": 0.849624,
+    "B_C": 2.68684e-9,
+    "scaleB": 0.218678,
+    "E_hyp": 0.702056
+   },
+   "js_gapOpenEMS": {
+    "E_A": 0.482137,
+    "E_B": 1.30708,
+    "B_B": 4.57628e-9,
+    "E_C": 1.31075,
+    "B_C": 4.57301e-9,
+    "scaleB": 0.410266
+   },
+   "probes_dBm": {
+    "E5": {
+     "openEMS": -59.89,
+     "js_B_gapDefault": -59.72,
+     "js_B_gapOpenEMS": -56.07,
+     "js_A": -64.73,
+     "js_hyp": -61.47,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 3.82
+    },
+    "H10": {
+     "openEMS": -57.54,
+     "js_B_gapDefault": -59.05,
+     "js_B_gapOpenEMS": -53.91,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 3.63
+    },
+    "H20": {
+     "openEMS": -50.86,
+     "js_B_gapDefault": -52.38,
+     "js_B_gapOpenEMS": -47.23,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 3.63
+    },
+    "H5": {
+     "openEMS": -76.82,
+     "js_B_gapDefault": -78.33,
+     "js_B_gapOpenEMS": -73.18,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 3.63
+    }
+   }
+  },
+  {
+   "id": "bench_50cm",
+   "d_m": 0.5,
+   "openEMS_E_Vpm": 0.422622,
+   "openEMS_B_T": 1.42714e-9,
+   "openEMS_E_Vpm_0p4V": 0.506004,
+   "openEMS_B_T_0p4V": 1.70872e-9,
+   "js_gapDefault": {
+    "E_A": 0.136072,
+    "E_B": 0.646148,
+    "B_B": 2.09961e-9,
+    "E_C": 0.651974,
+    "B_C": 2.19518e-9,
+    "scaleB": 0.218678,
+    "E_hyp": 0.372967
+   },
+   "js_gapOpenEMS": {
+    "E_A": 0.136072,
+    "E_B": 0.803115,
+    "B_B": 2.75681e-9,
+    "E_C": 0.782516,
+    "B_C": 2.67462e-9,
+    "scaleB": 0.410266
+   },
+   "probes_dBm": {
+    "E5": {
+     "openEMS": -65.88,
+     "js_B_gapDefault": -62.19,
+     "js_B_gapOpenEMS": -60.3,
+     "js_A": -75.72,
+     "js_hyp": -66.96,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 5.58
+    },
+    "H10": {
+     "openEMS": -64.03,
+     "js_B_gapDefault": -60.67,
+     "js_B_gapOpenEMS": -58.31,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 5.72
+    },
+    "H20": {
+     "openEMS": -57.35,
+     "js_B_gapDefault": -54,
+     "js_B_gapOpenEMS": -51.63,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 5.72
+    },
+    "H5": {
+     "openEMS": -83.31,
+     "js_B_gapDefault": -79.95,
+     "js_B_gapOpenEMS": -77.59,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 5.72
+    }
+   }
+  },
+  {
+   "id": "bench_100cm",
+   "d_m": 1,
+   "openEMS_E_Vpm": 0.229927,
+   "openEMS_B_T": 7.74038e-10,
+   "openEMS_E_Vpm_0p4V": 0.27529,
+   "openEMS_B_T_0p4V": 9.26752e-10,
+   "js_gapDefault": {
+    "E_A": 0.0428863,
+    "E_B": 0.477096,
+    "B_B": 1.60222e-9,
+    "E_C": 0.428938,
+    "B_C": 1.4408e-9,
+    "scaleB": 0.218678,
+    "E_hyp": 0.209385
+   },
+   "js_gapOpenEMS": {
+    "E_A": 0.0428863,
+    "E_B": 0.480137,
+    "B_B": 1.61942e-9,
+    "E_C": 0.458445,
+    "B_C": 1.54271e-9,
+    "scaleB": 0.410266
+   },
+   "probes_dBm": {
+    "E5": {
+     "openEMS": -71.16,
+     "js_B_gapDefault": -64.82,
+     "js_B_gapOpenEMS": -64.77,
+     "js_A": -85.75,
+     "js_hyp": -71.98,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 6.4
+    },
+    "H10": {
+     "openEMS": -69.34,
+     "js_B_gapDefault": -63.02,
+     "js_B_gapOpenEMS": -62.93,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 6.41
+    },
+    "H20": {
+     "openEMS": -62.67,
+     "js_B_gapDefault": -56.35,
+     "js_B_gapOpenEMS": -56.25,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 6.41
+    },
+    "H5": {
+     "openEMS": -88.62,
+     "js_B_gapDefault": -82.3,
+     "js_B_gapOpenEMS": -82.21,
+     "js_A": null,
+     "js_hyp": null,
+     "delta_js_B_gapOpenEMS_minus_openEMS": 6.41
+    }
+   }
+  }
+ ],
+ "far_field": [
+  {
+   "id": "r_3m",
+   "r_from_centre_m": 3,
+   "openEMS_E_Vpm": 0.100546,
+   "openEMS_B_T": 3.35384e-10,
+   "js_gapOpenEMS_E_B": 0.187849,
+   "js_gapDefault_E_B": 0.219138,
+   "probes_dBm": {
+    "E5": {
+     "openEMS": -78.35,
+     "js_B_gapOpenEMS": -72.92,
+     "js_B_gapDefault": -71.58
+    },
+    "H10": {
+     "openEMS": -76.61,
+     "js_B_gapOpenEMS": -71.16,
+     "js_B_gapDefault": -69.81
+    },
+    "H20": {
+     "openEMS": -69.93,
+     "js_B_gapOpenEMS": -64.49,
+     "js_B_gapDefault": -63.14
+    },
+    "H5": {
+     "openEMS": -95.88,
+     "js_B_gapOpenEMS": -90.44,
+     "js_B_gapDefault": -89.09
+    }
+   }
+  },
+  {
+   "id": "r_10m",
+   "r_from_centre_m": 10,
+   "openEMS_E_Vpm": 0.0301637,
+   "openEMS_B_T": 1.00615e-10,
+   "js_gapOpenEMS_E_B": 0.0566221,
+   "js_gapDefault_E_B": 0.0681856,
+   "probes_dBm": {
+    "E5": {
+     "openEMS": -88.81,
+     "js_B_gapOpenEMS": -83.34,
+     "js_B_gapDefault": -81.72
+    },
+    "H10": {
+     "openEMS": -87.06,
+     "js_B_gapOpenEMS": -81.59,
+     "js_B_gapDefault": -79.98
+    },
+    "H20": {
+     "openEMS": -80.39,
+     "js_B_gapOpenEMS": -74.92,
+     "js_B_gapDefault": -73.3
+    },
+    "H5": {
+     "openEMS": -106.34,
+     "js_B_gapOpenEMS": -100.87,
+     "js_B_gapDefault": -99.25
+    }
+   }
+  }
+ ],
+ "interior_equatorial": {
+  "closed_pec_r10mm": {
+   "description": "closed PEC shell, full domain, 10 mm cells near sphere (coarse)",
+   "r_over_R": [
+    0,
+    0.25,
+    0.5,
+    0.7,
+    0.9
+   ],
+   "E_sampled_r_over_R": [
+    0,
+    0.25,
+    0.5,
+    0.7,
+    0.8229799015573509
+   ],
+   "E_Vpm": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "B_T": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "E_axis_top_Vpm": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "closed_pec_r5mm": {
+   "description": "closed PEC shell, full domain, 5 mm cells near sphere (fine, REFERENCE)",
+   "r_over_R": [
+    0,
+    0.25,
+    0.5,
+    0.7,
+    0.9
+   ],
+   "E_sampled_r_over_R": [
+    0,
+    0.25,
+    0.5,
+    0.7,
+    0.9000000000000001
+   ],
+   "E_Vpm": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "B_T": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "E_axis_top_Vpm": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "closed_pec_r5mm_compact": {
+   "description": "closed PEC shell, compact domain (for slot comparison)",
+   "r_over_R": [
+    0,
+    0.25,
+    0.5,
+    0.7,
+    0.9
+   ],
+   "E_sampled_r_over_R": [
+    0,
+    0.25,
+    0.5,
+    0.7,
+    0.9000000000000001
+   ],
+   "E_Vpm": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "B_T": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "E_axis_top_Vpm": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "ring_slot_1mm": {
+   "description": "full 360-deg equatorial seam slot, 1.0 mm high (tape non-conducting), compact domain",
+   "r_over_R": [
+    0,
+    0.25,
+    0.5,
+    0.7,
+    0.9
+   ],
+   "E_sampled_r_over_R": [
+    0,
+    0.25,
+    0.5,
+    0.7,
+    0.9000000000000001
+   ],
+   "E_Vpm": [
+    0.145153,
+    0.150014,
+    0.172573,
+    0.244743,
+    7.5708
+   ],
+   "B_T": [
+    1.46011e-15,
+    7.79243e-11,
+    1.61e-10,
+    2.42005e-10,
+    4.7088e-10
+   ],
+   "E_axis_top_Vpm": [
+    0.145153,
+    0.130247,
+    0.0971157,
+    0.0703314,
+    0.0520664
+   ]
+  },
+  "arc_slot_1mm_x30mm": {
+   "description": "30 mm long x 1.0 mm high equatorial slot at +x (local tape gap), compact domain",
+   "r_over_R": [
+    0,
+    0.25,
+    0.5,
+    0.7,
+    0.9
+   ],
+   "E_sampled_r_over_R": [
+    0,
+    0.25,
+    0.5,
+    0.7,
+    0.9000000000000001
+   ],
+   "E_Vpm": [
+    0.000171351,
+    0.000325553,
+    0.000768832,
+    0.00243479,
+    0.26706
+   ],
+   "B_T": [
+    7.68189e-13,
+    1.47176e-12,
+    4.41985e-12,
+    2.03961e-11,
+    2.67457e-10
+   ],
+   "E_axis_top_Vpm": [
+    0.000171351,
+    0.000155617,
+    0.000118148,
+    0.000085514,
+    0.00006151
+   ]
+  }
+ },
+ "js_interior_default": {
+  "0": {
+   "E_leak": 0.04112733027562186,
+   "E_hyp": 0,
+   "B_leak": 1.371860071130337e-10
+  },
+  "0.25": {
+   "E_leak": 0.04112733027562186,
+   "E_hyp": 0.5054073534698162,
+   "B_leak": 1.371860071130337e-10
+  },
+  "0.5": {
+   "E_leak": 0.04112733027562186,
+   "E_hyp": 0.980381268598388,
+   "B_leak": 1.371860071130337e-10
+  },
+  "0.7": {
+   "E_leak": 0.04112733027562186,
+   "E_hyp": 1.3193367193610368,
+   "B_leak": 1.371860071130337e-10
+  },
+  "0.9": {
+   "E_leak": 0.04112733027562186,
+   "E_hyp": 1.6080364572505301,
+   "B_leak": 1.371860071130337e-10
+  }
+ }
+}
