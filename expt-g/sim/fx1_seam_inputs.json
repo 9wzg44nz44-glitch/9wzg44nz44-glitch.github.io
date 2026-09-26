@@ -1,0 +1,10 @@
+{
+ "source": "sim-lab/fx1/openems/results.json (FX-1 openEMS run, 433.59 MHz, 0.4 V peak gap drive)",
+ "E_ext_5cm_Vpm": 1.9138818556545663,
+ "E_int_centre_max4dir_Vpm": {
+  "ring_slot_1mm": 0.17033620402092592,
+  "ring_slot_0p1mm": 0.020601314482484912,
+  "arc_slot_1mm_x30mm": 0.00020510211657061127,
+  "arc_slot_0p1mm_x30mm": 2.4589033568804184e-05
+ }
+}

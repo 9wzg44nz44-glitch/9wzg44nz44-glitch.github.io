@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experiment G · Undersea SLW link via hydrogen 2S tickled relaxation · SLW Hub</title>
+<meta name="description" content="Experiment G (expt-g-v0.1, desk model G0): can a ~1 GHz scalar-longitudinal wave (HYP) cross seawater, a steel hull and a Faraday cage and tickle metastable hydrogen 2S atoms into Lyman-alpha? Hively's own Joule term, Meissner-Wentz seawater, Lamb-Retherford quench physics, 2E1 background, link budget, detector options, gates G0-G3. Educational, contested, illustrative.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* Experiment G v0.1: novice / iPad-first layout (pattern: fx1-snr.html) */
+main.wrap{max-width:980px}
+html,body{overflow-x:hidden}
+.small{font-size:.85rem}
+.mono{font-family:"IBM Plex Mono",monospace}
+.pending-mini{display:inline-block;font-size:.8rem;background:rgba(212,180,131,.12);color:var(--gold,#d4b483);border:1px dashed var(--gold,#c9a13a);border-radius:6px;padding:.1rem .5rem;margin:.2rem 0}
+.answer{background:#0b1020;color:#e8eefc;border:1px solid #26314d;border-radius:14px;padding:1rem 1.15rem;margin:1rem 0}
+.answer h2{color:#fff;margin:.1rem 0 .5rem;font-size:1.25rem}
+.answer p,.answer li{color:#d7e0f2;font-size:1rem;line-height:1.5}
+.answer strong{color:#55d6be}
+.answer .hy{color:#ffb86b;font-weight:600}
+.answer .big{font:600 1.15rem/1.4 "Source Sans 3",system-ui,sans-serif;color:#fff}
+.answer blockquote{margin:.4rem 0 .6rem;padding:.4rem .8rem;border-left:3px solid #ffb86b;background:rgba(255,184,107,.08);color:#f3e2c8;font-size:.95rem}
+.frame{background:rgba(85,214,190,.08);border:1px solid rgba(85,214,190,.45);border-radius:10px;padding:.6rem .9rem;margin:.8rem 0;font-size:.98rem}
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.5rem;margin:.8rem 0 1rem}
+.gates>div{border-radius:10px;padding:.55rem .7rem;border:1px solid var(--rule,#3a3328);background:var(--paper,#1f1b15);font-size:.9rem}
+.gates>div b{display:block;font-family:"IBM Plex Mono",monospace;font-size:1rem}
+.gates .now{border-color:#55d6be;box-shadow:0 0 0 1px #55d6be inset}
+.gates .req{border-color:#ffb86b}
+.hero{background:#0b1020;color:#e8eefc;border-radius:14px;padding:1rem 1.1rem;margin:1rem 0;border:1px solid #26314d}
+.hero .hl{font:600 1.2rem/1.35 "Source Sans 3",system-ui,sans-serif;margin:0 0 .5rem}
+.hero .pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem;margin-top:.6rem}
+.hero .pair>div{background:rgba(255,255,255,.06);border-radius:10px;padding:.55rem .75rem}
+.hero .pair b{display:block;font:600 1.2rem "IBM Plex Mono",monospace;word-break:break-word}
+.hero .pair .std b{color:#55d6be}.hero .pair .hyp b{color:#ffb86b}
+.hero .tagline{font-size:.8rem;color:#9fb0cc}
+.front-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.9rem 1.2rem;margin:1rem 0}
+.front-controls .ctl{background:var(--paper,#1f1b15);border:1px solid var(--rule,#3a3328);border-radius:12px;padding:.7rem .8rem}
+.ctl .q{font-weight:600;margin:0 0 .4rem;display:block}
+.ctl .hint{font-size:.88rem;color:var(--ink-muted,#b7ab95);margin:.4rem 0 0}
+.ctl output{font-family:"IBM Plex Mono",monospace;font-weight:600}
+.seg{display:flex;flex-wrap:wrap;gap:.4rem}
+.seg button,.tabs button{min-height:44px;padding:.45rem .8rem;border-radius:10px;border:1px solid var(--rule-bright,#5a4e3c);background:var(--paper-2,#262117);color:var(--ink,#f3ead8);font:inherit;font-size:1rem;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--copper,#c47a3a);color:#140d05;border-color:var(--copper,#c47a3a);font-weight:600}
+input[type=range]{width:100%;min-height:36px}
+select{font-size:16px;min-height:40px;max-width:100%}
+.tabs{display:flex;flex-wrap:wrap;gap:.45rem;margin:1.2rem 0 .6rem}
+.tabs button[aria-selected=true]{background:var(--nz,#4a9b88);color:#08130f;border-color:var(--nz,#4a9b88);font-weight:600}
+.panel{border:1px solid var(--rule,#3a3328);border-radius:12px;padding:1rem 1.1rem;margin:.4rem 0 1.2rem;background:var(--bg-elev,#181510)}
+.panel[hidden]{display:none}
+.panel h2{margin-top:.2rem}
+.plot-card{background:var(--paper,#1f1b15);border:1px solid var(--rule,#3a3328);border-radius:12px;padding:.75rem;margin:1rem 0}
+.plot-card h3{margin:.1rem 0 .4rem;font-size:1.05rem}
+.plot-card svg{width:100%;height:auto;display:block;background:#0b1020;border-radius:8px}
+.plot-card p{font-size:.9rem;margin:.5rem 0 0;color:var(--ink-muted,#b7ab95)}
+.eq{overflow-x:auto;font-family:"IBM Plex Mono",monospace;font-size:.82rem;background:rgba(255,255,255,.04);padding:.7rem .9rem;border-radius:8px;white-space:pre-wrap;word-break:break-word}
+.tbl-wrap{overflow-x:auto;margin:.5rem 0 1rem;-webkit-overflow-scrolling:touch;max-width:100%}
+table.res{border-collapse:collapse;font-size:.82rem;width:100%}
+table.res th,table.res td{border:1px solid rgba(255,255,255,.12);padding:.3rem .4rem;text-align:left;vertical-align:top}
+table.res th{background:rgba(255,255,255,.05)}
+table.res td.n{text-align:right;white-space:nowrap;font-family:"IBM Plex Mono",monospace}
+.hyp{color:#ffb86b;font-weight:600}.fact{color:#55d6be;font-weight:600}.asm{color:#b9a2ff;font-weight:600}.warn{color:#ff7a66;font-weight:600}
+.lab{display:inline-block;font-size:.72rem;font-weight:700;border-radius:4px;padding:0 .3rem;margin-right:.2rem;vertical-align:1px}
+.lab.F{background:rgba(85,214,190,.18);color:#55d6be}.lab.H{background:rgba(255,184,107,.18);color:#ffb86b}.lab.A{background:rgba(185,162,255,.18);color:#b9a2ff}
+.pending{background:rgba(212,180,131,.10);border:1px dashed var(--gold,#c9a13a);border-radius:8px;padding:.5rem .8rem;font-size:.95rem}
+dl.gloss dt{font-weight:600;margin-top:.5rem}
+dl.gloss dd{margin:.1rem 0 0 1rem}
+.controls{display:grid;gap:.7rem 1.2rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:1rem 0}
+.controls label{display:block;font-size:.92rem}
+.controls output{font-family:"IBM Plex Mono",monospace}
+#flags{background:#2a1a0a;color:#f0d2a0;border:1px solid #a67c3a;border-radius:8px;padding:.5rem .9rem;margin:.6rem 0;font-size:.9rem}
+#flags:empty{display:none}
+details.more{margin:.6rem 0}
+details.more summary{cursor:pointer;font-weight:600;min-height:32px}
+code,.mono{word-break:break-word}
+@media (max-width:600px){.hero .hl{font-size:1.05rem}.answer .big{font-size:1.05rem}}
+</style>
+</head>
