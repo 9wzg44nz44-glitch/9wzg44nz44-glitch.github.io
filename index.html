@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home · Experiments A–F · SLW Hub</title>
-<meta name="description" content="Educational hub: Experiments A–F — 1296 MHz ¾″ sphere; 433 MHz balls; atomic 1S–2S; hypersonic plasma shear; Exodus capacitors; hydrogen pure Scalar Wave; shared field kit.">
+<title>Home · Experiments A–G · SLW Hub</title>
+<meta name="description" content="Educational hub: Experiments A–G — 1296 MHz ¾″ sphere; 433 MHz balls; atomic 1S–2S; hypersonic plasma shear; Exodus capacitors; hydrogen pure Scalar Wave; undersea SLW link via hydrogen 2S; shared field kit.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,6 +31,7 @@
       <a href="https://9wzg44nz44-glitch.github.io/Experiment-D-Hypersonic-Plasma-Shear-SLW/">Expt D</a>
       <a href="https://9wzg44nz44-glitch.github.io/Experiment-E-Exodus-Capacitor-SLW-SW/">Expt E</a>
       <a href="https://9wzg44nz44-glitch.github.io/Experiment-F-Hydrogen-Scalar-Wave/">Expt F</a>
+      <a href="experiment-g.html">Expt G</a>
       <a href="learn.html">Learn</a>
       <a href="compare.html">Compare</a>
       <a href="c-nuclei.html">C×nuclei</a>
@@ -52,6 +53,7 @@
   <a class="expt-abc-btn" data-expt="d" href="https://9wzg44nz44-glitch.github.io/Experiment-D-Hypersonic-Plasma-Shear-SLW/"><span class="k">D</span> hypersonic</a>
   <a class="expt-abc-btn" data-expt="e" href="https://9wzg44nz44-glitch.github.io/Experiment-E-Exodus-Capacitor-SLW-SW/"><span class="k">E</span> Exodus</a>
   <a class="expt-abc-btn" data-expt="f" href="https://9wzg44nz44-glitch.github.io/Experiment-F-Hydrogen-Scalar-Wave/"><span class="k">F</span> hydrogen SW</a>
+  <a class="expt-abc-btn" data-expt="g" href="experiment-g.html"><span class="k">G</span> undersea 2S</a>
   <a class="expt-abc-sub" href="setup.html">A setup</a>
   <a class="expt-abc-sub" href="monstein.html">B monstein</a>
   <a class="expt-abc-sub" href="experiment-c.html">C protocol</a>
@@ -75,6 +77,7 @@
       <a class="btn" href="https://9wzg44nz44-glitch.github.io/Experiment-D-Hypersonic-Plasma-Shear-SLW/">D · hypersonic plasma</a>
       <a class="btn" href="https://9wzg44nz44-glitch.github.io/Experiment-E-Exodus-Capacitor-SLW-SW/">E · Exodus capacitors</a>
       <a class="btn" href="https://9wzg44nz44-glitch.github.io/Experiment-F-Hydrogen-Scalar-Wave/">F · hydrogen SW</a>
+      <a class="btn" href="experiment-g.html">G · undersea 2S link</a>
       <a class="btn" href="#kit">Shared kit</a>
       <a class="btn" href="learn.html">Briefing</a>
       <a class="btn" href="library.html">Library</a>
@@ -88,6 +91,7 @@
       <dt>A</dt><dd>1296.000 MHz · 23 cm · ¾″ KB-1820 sphere</dd>
       <dt>B</dt><dd>433.59 MHz · 70 cm · balls + rods · no balun</dd>
       <dt>C</dt><dd>Caged SLW/SW · 1S–2S optical UV · v1 draft</dd>
+      <dt>G</dt><dd>Undersea SLW · H 2S tickle at 1057.8 MHz · desk study</dd>
       <dt>Tone</dt><dd>Academic, warm, skeptical</dd>
     </dl>
   </aside>
@@ -115,14 +119,15 @@
   </article>
 </div>
 
-<div role="tablist" class="tablist" data-expt-tabs aria-label="Experiments A through F and shared kit">
+<div role="tablist" class="tablist" data-expt-tabs aria-label="Experiments A through G and shared kit">
   <button type="button" role="tab" id="tab-expt-a" aria-controls="panel-expt-a" aria-selected="true" data-hash="expt-a" tabindex="0">1 · A · 1296 MHz sphere</button>
   <button type="button" role="tab" id="tab-expt-b" aria-controls="panel-expt-b" aria-selected="false" data-hash="expt-b" tabindex="-1">2 · B · 433 MHz balls</button>
   <button type="button" role="tab" id="tab-expt-c" aria-controls="panel-expt-c" aria-selected="false" data-hash="expt-c" tabindex="-1">3 · C · atomic 1S–2S</button>
   <button type="button" role="tab" id="tab-expt-d" aria-controls="panel-expt-d" aria-selected="false" data-hash="expt-d" tabindex="-1">4 · D · hypersonic plasma</button>
   <button type="button" role="tab" id="tab-expt-e" aria-controls="panel-expt-e" aria-selected="false" data-hash="expt-e" tabindex="-1">5 · E · Exodus capacitors</button>
   <button type="button" role="tab" id="tab-expt-f" aria-controls="panel-expt-f" aria-selected="false" data-hash="expt-f" tabindex="-1">6 · F · hydrogen SW</button>
-  <button type="button" role="tab" id="tab-kit" aria-controls="panel-kit" aria-selected="false" data-hash="kit" tabindex="-1">7 · Shared field kit</button>
+  <button type="button" role="tab" id="tab-expt-g" aria-controls="panel-expt-g" aria-selected="false" data-hash="expt-g" tabindex="-1">7 · G · undersea 2S link</button>
+  <button type="button" role="tab" id="tab-kit" aria-controls="panel-kit" aria-selected="false" data-hash="kit" tabindex="-1">8 · Shared field kit</button>
 </div>
 
 <section id="panel-expt-a" class="tab-panel" role="tabpanel" aria-labelledby="tab-expt-a" data-hash="expt-a">
@@ -245,6 +250,24 @@
       <ul>
         <li><a href="https://9wzg44nz44-glitch.github.io/Experiment-F-Hydrogen-Scalar-Wave/">Experiment F · Hydrogen Scalar Wave</a></li>
         <li><a href="https://grok.com/share/bGVnYWN5_c62c7dc7-f05c-4ef9-8f24-67f27eace446">Design conversation (Grok share)</a></li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section id="panel-expt-g" class="tab-panel" role="tabpanel" aria-labelledby="tab-expt-g" hidden data-hash="expt-g">
+  <h2 id="expt-g">Experiment G — Undersea SLW link via hydrogen 2S tickled relaxation</h2>
+  <p>Desk study (gate G0). A 1057.8&nbsp;MHz transmitter in seawater would tickle trapped hydrogen 2S atoms, inside their own Faraday cage inside a steel hull, into giving off Lyman-α photons. The SLW is assumed (HYP) to pass the cage wall. <strong>Key answer (default, with Hively's Joule-loss term):</strong> a ~1&nbsp;GHz SLW falls by a factor e every 1.45&nbsp;cm of seawater, so the range is centimetres (5.72&nbsp;cm at 1&nbsp;W with today's lab 2S receiver; TEM-equal, the classical comparison, gives 4.59&nbsp;cm). As in Experiment C's field dictionary, SLW has no eddy/skin loss but does have Joule loss σE∥², and SW has neither. His 2022 Erratum claims no resistive loss; the page keeps that only as a labelled toggle (metres at 1&nbsp;W) and flags the conflict. Only a pool test with TEM controls (gate G2) can decide.</p>
+  <div class="grid-2">
+    <article class="card hively">
+      <h3>What it is</h3>
+      <p>2S chain (243&nbsp;nm pump, 2E1 background, Lamb-shift tickle, Lyman-α counting), seawater model (Meissner &amp; Wentz 2004), steel hull and cage, link budget, detector comparison. Gates: G0 desk → G1 TEM bench → G2 pool mockup → G3 comms.</p>
+    </article>
+    <article class="card">
+      <h3>Live page</h3>
+      <ul>
+        <li><a href="experiment-g.html">Experiment G · Undersea 2S link</a> (Cloud twin pending sync)</li>
+        <li>Related: <a href="experiment-c.html">Experiment C</a> · <a href="https://9wzg44nz44-glitch.github.io/Experiment-F-Hydrogen-Scalar-Wave/">Experiment F</a></li>
       </ul>
     </article>
   </div>
