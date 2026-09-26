@@ -1,4 +1,7 @@
-/*! sleeve-balun-snr.js — v0.2 (live E∥ map + distance_presets)
+/*! sleeve-balun-snr.js — v0.3 (Joule-literal SLW loss is the DEFAULT; Erratum α=0 is a labelled toggle)
+ * v0.3 (2026-09-25): default Ohmic mode = Joule-literal (Hively & Loebl 2019 Eq. 44 J·E, hub rule), TEM-equal shown as
+ * classical comparison, Erratum α=0 (Phys. Essays 35, 320, 2022) kept as non-default toggle, old Exp-C α toy kept as option.
+ * Seawater α_J / α_TEM: code copied verbatim from js/expt-g-engine.js (expt-g-v0.1; Meissner & Wentz 2004), 15 °C, S = 35.
  * Formulas ONLY from hub js/fields.js + experiment-c-snr.html + Linearly Resistive LEN.
  * TinySA Ultra gen max −19 dBm (tinysa.org TinySA4). No RG-450; RG-405 host / RG-316 jumpers.
  * Patent λ/4 sphere ≠ LAB KB-1820 / KB-2016. US 12,562,930 not used for balun dims.
@@ -37,13 +40,66 @@
     IpkAtM19: 0.0007096267784671506
   };
 
+  /* ---- Seawater model: copied verbatim from js/expt-g-engine.js (expt-g-v0.1) so both pages give identical numbers.
+   * FACT: Meissner & Wentz, IEEE TGRS 42, 1836 (2004) Eqs 6-8, 11-17 (ε′, ε″, σ of seawater).
+   * TEM α: FACT plane-wave attenuation.  |Z|: HYP Hively & Loebl 2019 Eq. 37 (far field).
+   * α_J = σ_H|Z|/2 with σ_H = ε0 ε″ ω: ASSUMPTION (ours; Joule-literal reading of Eq. 44, see experiment-g.html).
+   * These α are FIELD coefficients (E ∝ e^(−αL)). This page's α_ohm multiplies POWER density S, so α_ohm = 2α. */
+  const GC = { c: 299792458, eps0: 8.8541878128e-12, mu0: 1.25663706212e-6 };
+  GC.eta0 = GC.mu0 * GC.c;
+  const SEA_T = 15.0, SEA_S = 35.0;   // ASSUMPTION: same water as Experiment G (15 °C, salinity 35)
+  const MW_A = [5.7230e+00, 2.2379e-02, -7.1237e-04, 5.0478e+00, -7.0315e-02, 6.0059e-04, 3.6143e+00,
+    2.8841e-02, 1.3652e-01, 1.4825e-03, 2.4166e-04];
+  const MW_B = [-3.56417e-03, 4.74868e-06, 1.15574e-05, 2.39357e-03, -3.13530e-05, 2.52477e-07,
+    -6.28908e-03, 1.76032e-04, -9.22144e-05, -1.99723e-02, 1.81176e-04, -2.04265e-03, 1.57883e-04];
+  function mw_sigma(T, S) {
+    var s35 = 2.903602 + 8.607e-2 * T + 4.738817e-4 * T * T - 2.991e-6 * T * T * T + 4.3047e-9 * T * T * T * T;
+    var R15 = S * (37.5109 + 5.45216 * S + 1.4409e-2 * S * S) / (1004.75 + 182.283 * S + S * S);
+    var a0 = (6.9431 + 3.2841 * S - 9.9486e-2 * S * S) / (84.850 + 69.024 * S + S * S);
+    var a1 = 49.843 - 0.2276 * S + 0.198e-2 * S * S;
+    return s35 * R15 * (1 + a0 * (T - 15) / (a1 + T));
+  }
+  function cdiv(a, b) { var d = b[0] * b[0] + b[1] * b[1]; return [(a[0] * b[0] + a[1] * b[1]) / d, (a[1] * b[0] - a[0] * b[1]) / d]; }
+  function csqrt(z) { var r = Math.hypot(z[0], z[1]); var re = Math.sqrt((r + z[0]) / 2); var im = Math.sqrt(Math.max(0, (r - z[0]) / 2)); if (z[1] < 0) im = -im; return [re, im]; }
+  function mw_eps(fG, T, S) {
+    var a = MW_A, b = MW_B;
+    var es0 = (3.70886e4 - 8.2168e1 * T) / (4.21854e2 + T);
+    var e10 = a[0] + a[1] * T + a[2] * T * T;
+    var n10 = (45 + T) / (a[3] + a[4] * T + a[5] * T * T);
+    var einf0 = a[6] + a[7] * T;
+    var n20 = (45 + T) / (a[8] + a[9] * T + a[10] * T * T);
+    var es = es0 * Math.exp(b[0] * S + b[1] * S * S + b[2] * T * S);
+    var n1 = n10 * (1 + S * (b[3] + b[4] * T + b[5] * T * T));
+    var e1 = e10 * Math.exp(b[6] * S + b[7] * S * S + b[8] * T * S);
+    var n2 = n20 * (1 + S * (b[9] + b[10] * T));
+    var einf = einf0 * (1 + S * (b[11] + b[12] * T));
+    var sig = S > 0 ? mw_sigma(T, S) : 0;
+    var t1 = cdiv([es - e1, 0], [1, fG / n1]), t2 = cdiv([e1 - einf, 0], [1, fG / n2]);
+    var re = t1[0] + t2[0] + einf, im = t1[1] + t2[1] - sig / (2 * Math.PI * GC.eps0 * fG * 1e9);
+    return { re: re, im: im, sigma: sig };
+  }
+  function seawater(f) {
+    var T = SEA_T, S = SEA_S;
+    var e = mw_eps(f / 1e9, T, S), ep = e.re, epp = -e.im, w = 2 * Math.PI * f;
+    var sq = csqrt([ep, -epp]);
+    var alpha_tem = -(w / GC.c) * sq[1];
+    var tand = epp / ep;
+    var Zslw = GC.eta0 / Math.sqrt(ep) / Math.hypot(1, tand);        // HYP Eq.37 far field
+    var sigH = GC.eps0 * epp * w;                                      // Hively sigma = eps0 eps'' omega
+    var alpha_J = sigH * Zslw / 2;                                     // ASSUMPTION (ours)
+    return { sigma: e.sigma, ep: ep, epp: epp, alpha_tem: alpha_tem, alpha_J: alpha_J };
+  }
+  const NP2DB = 20 / Math.log(10);
+  const MODE_LABEL = { joule: "Joule-literal (default)", tem: "TEM-equal (classical comparison)", errata0: "Erratum α=0 (non-default toggle)", toy: "Exp-C α toy (HYP)" };
+
   const SPHERE_LAB = {
     1296000000: { id: "KB-1820", kind: "LAB", diaIn: 0.75, note: "LAB ¾″ Al · Exp A — NOT patent λ/4 sphere", od_m: 0.01905 },
     2450000000: { id: "KB-1820", kind: "LAB", diaIn: 0.75, note: "LAB ¾″ Al · 2.45 GHz — NOT patent λ/4 sphere", od_m: 0.01905 },
     433590000: { id: "KB-2016", kind: "LAB", diaIn: 2.5, note: "LAB 2.50″ Al · Exp B — NOT patent λ/4 sphere", od_m: 0.0635 }
   };
 
-  const PHYSICS_VERSION = "snr-dual-sim-params-v0.2";
+  const PHYSICS_VERSION = "snr-dual-sim-params-v0.2";   // shared base formula lock (physics-constants.json, E-field maps ID) — unchanged
+  const PAGE_VERSION = "sleeve-balun-snr-v0.3";           // v0.3: Joule-literal SLW-loss default (+ TEM-equal, Erratum toggle)
   const FT_TO_M = 0.3048;
   const GAP_M = 0.001;
   const RG405_OD_M = 0.086 * 0.0254;
@@ -81,18 +137,44 @@
   function meshPower(attEach) { return Math.pow(10, (-2 * attEach) / 10); }
   function sleeveQuarterM(f, vf) { return ((C / f) / 4) * (vf || 1); }
 
-  /** Ohmic: Errata/SW → α=0; Exp-C Ohmic ON → HYP α·L stack */
-  function readOhmic(sw, errataAlpha0) {
-    if (sw || errataAlpha0) {
+  /** Ohmic power exponent aL (S = S_geom·e^(−aL)) for the checked media stack.
+   *  joule (DEFAULT): seawater α_ohm = 2α_J; tem: 2α_TEM; air/free space ≈ 0 (ASSUMPTION σ_air ≈ 0);
+   *  metal walls: no metal model in Experiment G → UNKNOWN, contributes 0 (flagged);
+   *  errata0 / SW → 0; toy → old Exp-C α_toy·L stack (HYP). */
+  function readOhmic(sw, ohmMode, f) {
+    if (sw || ohmMode === "errata0") {
       return {
-        alphaEff: 0,
+        alphaEff: 0, seaOn: !!($("med_seawater") && $("med_seawater").checked), metalOn: false,
         parts: [sw
-          ? "SW mode → α forced 0 (experiment-c framing)"
-          : "Errata 2022 / EED prediction → α=0 (no resistive loss for irrotational SLW)"]
+          ? "SW mode → α forced 0 (Experiment C dictionary: SW has neither skin nor Joule loss)"
+          : "Erratum toggle (non-default): α=0 — Hively & Loebl 2022 Erratum says SLW has no resistive loss"]
       };
     }
     const parts = [];
     let aL = 0;
+    const seaOn = !!($("med_seawater") && $("med_seawater").checked);
+    const metalOn = !!(($("med_copper") && $("med_copper").checked) || ($("med_steel") && $("med_steel").checked));
+    if (ohmMode === "joule" || ohmMode === "tem") {
+      const wt = seawater(f);
+      const aF = ohmMode === "joule" ? wt.alpha_J : wt.alpha_tem;
+      const tag = ohmMode === "joule" ? "α_J (Joule-literal)" : "α_TEM (TEM-equal)";
+      if (seaOn) {
+        aL += 2 * aF * SUB_LEN.seawater_exit;
+        parts.push("seawater L=" + SUB_LEN.seawater_exit + " m · " + tag + "=" + aF.toFixed(2) + " Np/m field (" + (100 / aF).toFixed(2) +
+          " cm 1/e) → " + (4.343 * 2 * aF * SUB_LEN.seawater_exit).toFixed(0) + " dB (15 °C, S=35, Meissner–Wentz; code from experiment-g)");
+      }
+      const airOn = ["med_air", "med_air_inside", "med_free_space"].some(function (id) { return $(id) && $(id).checked; }) || ($("cageOhm") && $("cageOhm").checked);
+      if (airOn) parts.push("air / free space / cage interior: α≈0 (air hardly conducts; ASSUMPTION σ_air≈0)");
+      if (metalOn) parts.push("copper/steel wall: " + tag + " NOT computed — Experiment G has no metal model (UNKNOWN; adds 0 here)");
+      if ($("med_ocean_air") && $("med_ocean_air").checked) parts.push("ocean–air interface: a boundary, not a lossy path → 0");
+      const aExtraJ = $("alphaExtra") ? +$("alphaExtra").value : 0;
+      const LextraJ = $("Lextra") ? +$("Lextra").value : 0;
+      if (aExtraJ > 0 && LextraJ > 0) {
+        aL += aExtraJ * LextraJ;
+        parts.push("extra α=" + aExtraJ.toFixed(3) + " · L=" + LextraJ.toFixed(2) + " m (HYP)");
+      }
+      return { alphaEff: aL, seaOn: seaOn, metalOn: metalOn, parts: parts.length ? parts : ["no media segments selected (αL=0)"] };
+    }
     const aToy = $("alphaToy") ? +$("alphaToy").value : 0.05;
 
     function addSeg(checked, L, name) {
@@ -124,8 +206,8 @@
     }
 
     return {
-      alphaEff: aL,
-      parts: parts.length ? parts : ["Exp-C Ohmic ON but no segments selected (αL=0)"]
+      alphaEff: aL, seaOn: seaOn, metalOn: metalOn,
+      parts: parts.length ? parts : ["Exp-C α toy ON but no segments selected (αL=0)"]
     };
   }
 
@@ -157,7 +239,8 @@
     const mP = meshPower(att);
     const mode = $("mode").value;
     const sw = mode === "sw";
-    const errataAlpha0 = $("errataAlpha0") ? $("errataAlpha0").checked : false;
+    const ohmMode = $("ohmicMode") ? $("ohmicMode").value : "joule";
+    const errataAlpha0 = ohmMode === "errata0";
     const lnaOn = $("lna").checked;
     const nf = lnaOn ? 5 : 3;
     const lnaGain = lnaOn ? 20 : 0;
@@ -176,18 +259,27 @@
     const Prad = (Ipk * Ipk / (4 * Math.PI)) * Z0;
     const Sgeom = Prad / (4 * Math.PI * r * r);
 
-    const ohm = readOhmic(sw, errataAlpha0);
+    const ohm = readOhmic(sw, ohmMode, f);
+    const ohmJ = readOhmic(sw, "joule", f), ohmT = readOhmic(sw, "tem", f);   // side-by-side comparison
     const Surv = Math.exp(-ohm.alphaEff);
     const S = Sgeom * Surv;
     const ohmDb = 4.343 * ohm.alphaEff;
 
     const Pload = S * A_EFF * ETA * mP * Math.pow(10, lnaGain / 10);
-    const snrH = dbmFromWatts(Pload) - noise;
+    // Same equation in dB when e^(−αL) underflows to 0 (seawater): dBm(P0·e^(−x)) = dBm(P0) − (10/ln10)·x
+    const lossDbExact = (10 / Math.LN10) * ohm.alphaEff;
+    const dbmS = function (P, P0) { return Surv > 0 ? dbmFromWatts(P) : dbmFromWatts(P0) - lossDbExact; };
+    const PloadDbm = dbmS(Pload, Sgeom * A_EFF * ETA * mP * Math.pow(10, lnaGain / 10));
+    const snrH = PloadDbm - noise;
 
     const Am = (MU0 * Ipk) / (2 * Math.PI * K0 * r);
-    const Pnz = Math.pow((R_RESP / Math.SQRT2) * Am, 2) * RL * mP * Math.pow(10, lnaGain / 10) * Surv;
+    const Pnz0 = Math.pow((R_RESP / Math.SQRT2) * Am, 2) * RL * mP * Math.pow(10, lnaGain / 10);
+    const Pnz = Pnz0 * Surv;
     const Az = 1e-10 * (Ipk / 0.028) * (1.5 / r) * (1.3 / (f / 1e9));
-    const Pz = Math.pow(420000 * Az, 2) * RL * mP * Math.pow(10, lnaGain / 10) * Surv;
+    const Pz0 = Math.pow(420000 * Az, 2) * RL * mP * Math.pow(10, lnaGain / 10);
+    const Pz = Pz0 * Surv;
+    const PnzDbm = dbmS(Pnz, Pnz0), PzDbm = dbmS(Pz, Pz0);
+    const EparLog10 = 0.5 * Math.log10(Math.max(Sgeom, 1e-300) * Z0) - (lossDbExact / 20);
 
     const Epar = Math.sqrt(Math.max(S, 0) * Z0);
 
@@ -196,7 +288,8 @@
     const patentDiaM = patentSphereDiaM(f);
 
     return {
-      f, Ptx_dBm, P, Irms, Ipk, r, att, mP, sw, errataAlpha0, nf, noise, lnaGain,
+      f, Ptx_dBm, P, Irms, Ipk, r, att, mP, sw, errataAlpha0, ohmMode, ohmJ, ohmT, nf, noise, lnaGain,
+      PloadDbm, PnzDbm, PzDbm, EparLog10,
       near, far, LAMBDA, PrxTem, snrTem, Prad, Sgeom, S, Surv, ohmDb, ohm,
       Pload, snrH, Am, Pnz, Az, Pz, Epar, sphere, sleeveM, patentDiaM, highI, cage
     };
@@ -225,6 +318,21 @@
     return w;
   }
 
+  function renderHeadline(s, dbJ, dbT) {
+    const el = $("sbHeadline"); if (!el) return;
+    const fM = (s.f / 1e6).toFixed(2) + " MHz";
+    if (s.sw) {
+      el.innerHTML = "Wave mode is <strong>SW</strong>: per Experiment C's dictionary SW has neither skin nor Joule loss, so α = 0 in every mode. SNR<sub>Hively</sub> ≈ " + fmtN(s.snrH, 1) + " dB.";
+      return;
+    }
+    if (!s.ohm.seaOn || (dbJ === 0 && dbT === 0)) {
+      el.innerHTML = "<strong>Default: Hively's Joule-loss term is ON.</strong> On this path there is no seawater, only air, and air hardly conducts electricity (ASSUMPTION: σ<sub>air</sub> ≈ 0). So the Joule loss here is <strong>0 dB</strong>, and the Joule default, the TEM-equal comparison and the Erratum toggle give <strong>the same numbers</strong>: SNR<sub>Hively</sub> ≈ " + fmtN(s.snrH, 1) + " dB at " + fM + ". The choice only matters when seawater is in the path (media scenario “Submarine stack”)." +
+        (s.ohm.metalOn ? " Copper/steel walls are ticked, but no metal Joule model exists yet (UNKNOWN), so they add 0 here." : "");
+      return;
+    }
+    el.innerHTML = "<strong>Default: Hively's Joule-loss term is ON.</strong> The path includes " + SUB_LEN.seawater_exit + " m of seawater. At " + fM + " that costs <strong>" + fmtN(dbJ, 0) + " dB</strong> with the Joule loss (TEM-equal, the classical comparison: " + fmtN(dbT, 0) + " dB; Erratum toggle: 0 dB). Selected mode: " + MODE_LABEL[s.ohmMode] + " → SNR<sub>Hively</sub> ≈ " + fmtN(s.snrH, 0) + " dB, i.e. " + (s.snrH < 0 ? "<strong>no detectable SLW signal</strong>" : "detectable") + ". Under the Joule reading a 1&nbsp;GHz-class SLW falls by a factor e every ~1–3&nbsp;cm of seawater (table below).";
+  }
+
   function render(s) {
     $("ptxOut").textContent = fmtN(s.Ptx_dBm, 1) + " dBm (Ultra max −19)";
     $("rOut").textContent = s.r.toExponential(4) + " m · " + fmtN(s.r / FT_TO_M, 1) + " ft · log10=" + fmtN(Math.log10(s.r), 2);
@@ -251,14 +359,17 @@
       "SNR<sub>TEM</sub>≈<strong>" + fmtN(s.snrTem, 1) + " dB</strong> (B=100 kHz, NF=" + s.nf + " dB" +
       (s.lnaGain ? ", LNA +20 dB" : "") + ")." + nearNote;
 
-    const ohmLabel = s.sw ? "SW α=0" : (s.errataAlpha0 ? "Errata α=0 (EED)" : "Exp-C Ohmic HYP");
+    const ohmLabel = s.sw ? "SW α=0" : MODE_LABEL[s.ohmMode];
+    const dbJ = s.sw ? 0 : 4.343 * s.ohmJ.alphaEff, dbT = s.sw ? 0 : 4.343 * s.ohmT.alphaEff;
+    const Etxt = s.Surv > 0 ? fmt(s.Epar, 3) : "10^" + s.EparLog10.toFixed(0);
     $("slwOut").innerHTML =
       "P<sub>rad</sub> (Eq.15)=" + fmt(s.Prad, 3) + " W · S<sub>geom</sub>=" + fmt(s.Sgeom, 3) + " W/m²<br>" +
       "Ohmic [" + ohmLabel + "] survival=" + fmtN(100 * s.Surv, 2) + "% (" + fmtN(s.ohmDb, 2) + " dB) · S=" + fmt(s.S, 3) + " W/m²<br>" +
-      "E∥≈√(S·Z<sub>0</sub>)=<strong>" + fmt(s.Epar, 3) + " V/m</strong> <em>(illustrative cartoon)</em><br>" +
+      "Loss on this path: <strong>Joule (default) " + fmtN(dbJ, 1) + " dB</strong> · TEM-equal " + fmtN(dbT, 1) + " dB · Erratum toggle 0 dB<br>" +
+      "E∥≈√(S·Z<sub>0</sub>)=<strong>" + Etxt + " V/m</strong> <em>(illustrative cartoon)</em><br>" +
       "A<sub>m</sub>(NZ)=" + fmt(s.Am, 3) + " Wb/m · A<sub>z</sub>(Z)=" + fmt(s.Az, 3) + " Wb/m<br>" +
-      "SNR<sub>Hively</sub>≈<strong>" + fmtN(s.snrH, 1) + " dB</strong> · P<sub>load</sub>=" + fmtN(dbmFromWatts(s.Pload), 1) +
-      " dBm · P<sub>sig,NZ</sub>=" + fmtN(dbmFromWatts(s.Pnz), 1) + " · P<sub>sig,Z</sub>=" + fmtN(dbmFromWatts(s.Pz), 1) + "<br>" +
+      "SNR<sub>Hively</sub>≈<strong>" + fmtN(s.snrH, 1) + " dB</strong> · P<sub>load</sub>=" + fmtN(s.PloadDbm, 1) +
+      " dBm · P<sub>sig,NZ</sub>=" + fmtN(s.PnzDbm, 1) + " · P<sub>sig,Z</sub>=" + fmtN(s.PzDbm, 1) + "<br>" +
       "Two tents × " + s.att + " dB → power × " + fmt(s.mP, 2) + ".<br>" +
       "<span class=\"footnote\">Ohmic stack: " + s.ohm.parts.join("; ") + "</span>";
 
@@ -269,12 +380,13 @@
       "There is <strong>no</strong> standard RG-450/U. US&nbsp;12,562,930 is sensor/DAQ — not balun dims.</p>";
     box.hidden = false;
 
-    $("meterE").textContent = fmt(s.Epar, 3) + " V/m";
+    $("meterE").textContent = Etxt + " V/m";
     $("meterAm").textContent = fmt(s.Am, 3) + " Wb/m";
     $("meterAz").textContent = fmt(s.Az, 3) + " Wb/m";
     $("meterSnr").textContent = fmtN(s.snrH, 1) + " dB";
-    $("meterPload").textContent = fmtN(dbmFromWatts(s.Pload), 1) + " dBm";
+    $("meterPload").textContent = fmtN(s.PloadDbm, 1) + " dBm";
     $("meterOhm").textContent = fmtN(s.ohmDb, 2) + " dB";
+    renderHeadline(s, dbJ, dbT);
   }
 
   function canvas(id) {
@@ -472,7 +584,7 @@
 
     ctx.fillStyle = "#d7e0f2";
     ctx.font = "11px IBM Plex Mono, monospace";
-    ctx.fillText("E∥ map · " + PHYSICS_VERSION, pad, 18);
+    ctx.fillText("E∥ map · " + PAGE_VERSION + " · " + PHYSICS_VERSION, pad, 18);
     ctx.font = "10px IBM Plex Mono, monospace";
     ctx.fillStyle = "#f0c14b";
     ctx.fillText("I_pk=" + s.Ipk.toExponential(3) + "  E∥(λ)=" + eAtLamExact.toExponential(3) +
@@ -521,9 +633,12 @@
       const Am = (MU0 * s0.Ipk) / (2 * Math.PI * K0 * r);
       const Az = 1e-10 * (s0.Ipk / 0.028) * (1.5 / r) * (1.3 / (f / 1e9));
       const Pload = S * A_EFF * ETA * s0.mP * Math.pow(10, s0.lnaGain / 10);
-      const snrH = dbmFromWatts(Pload) - s0.noise;
+      // same dB form as compute() when e^(−αL) underflows (seawater)
+      const PloadDbm = SurvFixed > 0 ? dbmFromWatts(Pload)
+        : dbmFromWatts(Sgeom * A_EFF * ETA * s0.mP * Math.pow(10, s0.lnaGain / 10)) - (10 / Math.LN10) * s0.ohm.alphaEff;
+      const snrH = PloadDbm - s0.noise;
       pts.r.push(r); pts.E.push(Epar); pts.Am.push(Am); pts.Az.push(Az);
-      pts.snr.push(snrH); pts.Pdbm.push(dbmFromWatts(Pload));
+      pts.snr.push(snrH); pts.Pdbm.push(PloadDbm);
     }
     pts.b = b;
     return pts;
@@ -572,7 +687,7 @@
     if (scen === "garage") {
       // media garage — r owned by distance preset
       $("cage").value = "sealed";
-      $("errataAlpha0").checked = true;
+      if ($("ohmicMode")) $("ohmicMode").value = "joule";   // v0.3: presets use the Joule-literal default
       $("cageOhm").checked = false;
       $("med_air").checked = true;
       $("med_copper").checked = false;
@@ -586,7 +701,7 @@
     } else if (scen === "outdoor") {
       // media outdoor — r owned by distance preset
       $("cage").value = "open";
-      $("errataAlpha0").checked = true;
+      if ($("ohmicMode")) $("ohmicMode").value = "joule";   // v0.3: presets use the Joule-literal default
       $("cageOhm").checked = false;
       $("med_air").checked = true;
       $("med_free_space").checked = true;
@@ -599,7 +714,7 @@
     } else if (scen === "sub") {
       // media sub — r owned by distance preset
       $("cage").value = "sealed";
-      $("errataAlpha0").checked = true;
+      if ($("ohmicMode")) $("ohmicMode").value = "joule";   // v0.3: presets use the Joule-literal default
       $("cageOhm").checked = false;
       $("med_air").checked = true;
       $("med_copper").checked = true;
@@ -655,14 +770,15 @@
 
   function syncOhmicUI() {
     const sw = $("mode").value === "sw";
-    const errata = $("errataAlpha0").checked;
+    const om = $("ohmicMode") ? $("ohmicMode").value : "joule";
+    const errata = om === "errata0";
     const lock = sw || errata;
     // Media stack + cageOhm always clickable (config). Only α magnitude sliders
     // are disabled while Errata/SW force α=0 — otherwise boxes look broken.
     const magIds = ["alphaToy", "cagePath", "alphaExtra", "Lextra"];
     magIds.forEach(function (id) {
       const el = $(id);
-      if (el) el.disabled = lock;
+      if (el) el.disabled = lock || ((id === "alphaToy" || id === "cagePath") && om !== "toy");
     });
     ["cageOhm", "med_air", "med_copper", "med_air_inside", "med_steel",
       "med_seawater", "med_ocean_air", "med_free_space"].forEach(function (id) {
@@ -672,11 +788,12 @@
     const grid = document.querySelector(".media-grid");
     if (grid) grid.classList.toggle("ohmic-alpha-locked", lock);
     if ($("ohmicNote")) {
-      $("ohmicNote").textContent = lock
-        ? (sw
-          ? "SW → α=0. Media boxes stay clickable for stack config; α·L does not apply until mode=SLW and Errata is unchecked."
-          : "Errata α=0 (EED) on — media stack boxes ARE clickable (config only). Uncheck Errata (mode=SLW) to apply Exp-C Ohmic HYP α·L.")
-        : "Exp-C Ohmic HYP ON — α·L uses checked Linearly Resistive segments; NOT attenFactor 0.95.";
+      $("ohmicNote").textContent = sw
+        ? "SW → α=0 (Experiment C: SW has neither skin nor Joule loss). Media boxes stay clickable for stack config."
+        : ({ joule: "DEFAULT · Joule-literal: seawater uses α_J from Hively's Eq. 37/44 (Experiment G code); air ≈ 0; metal walls not modelled (UNKNOWN, 0).",
+             tem: "TEM-equal (classical comparison): seawater uses the ordinary-radio α_TEM; air ≈ 0; metal walls not modelled (UNKNOWN, 0).",
+             errata0: "Erratum α=0 toggle (NOT the default): no loss in any medium, per Hively & Loebl's 2022 Erratum. Conflicts with Experiment C's Joule-loss rule.",
+             toy: "Exp-C α toy (HYP): old v0.2 option — α_toy·L over the checked Linearly Resistive segments; NOT attenFactor 0.95." })[om];
     }
   }
 
@@ -696,7 +813,7 @@
 
   const ids = [
     "freq", "ptx", "r", "log10r", "distPreset", "cage", "mode", "lna", "scenario", "highI", "Iexplore",
-    "errataAlpha0", "cageOhm", "cagePath", "alphaExtra", "Lextra", "alphaToy",
+    "ohmicMode", "cageOhm", "cagePath", "alphaExtra", "Lextra", "alphaToy",
     "med_air", "med_copper", "med_air_inside", "med_steel", "med_seawater", "med_ocean_air", "med_free_space"
   ];
   ids.forEach(function (id) {
@@ -717,7 +834,7 @@
     $("distPreset").addEventListener("change", function () { applyDistancePreset(true); tick(); });
   }
   $("mode").addEventListener("change", function () { syncOhmicUI(); tick(); });
-  $("errataAlpha0").addEventListener("change", function () { syncOhmicUI(); tick(); });
+  $("ohmicMode").addEventListener("change", function () { syncOhmicUI(); tick(); });
   window.addEventListener("resize", tick);
 
   syncHighI();

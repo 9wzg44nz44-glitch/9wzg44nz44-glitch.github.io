@@ -53,7 +53,7 @@
     "I_rms from 50 \u03a9 assumes matched load; antenna Z\u226050 \u03a9 \u2192 I_antenna is HYP without S11",
     "E\u2225 \u2248 \u221a(S\u00b7Z0) impedance cartoon \u2014 HYP / illustrative",
     "\u03a6 / C educational framing \u2014 page plots A_m (NZ) and A_z (Zimmerman); no separate invented \u03a6 formula",
-    "Errata 2022 \u03b1=0 for irrotational SLW (EED prediction) vs Exp-C Ohmic \u03b1 (empirical/HYP) \u2014 BOTH flags kept",
+    "SLW Ohmic modes: Joule-literal (Hively & Loebl 2019 Eq. 44, J\u00b7E) DEFAULT; TEM-equal classical comparison; Errata 2022 \u03b1=0 (EED prediction) labelled non-default toggle; Exp-C Ohmic \u03b1 (empirical/HYP) toy \u2014 all kept",
     "SW mode forces \u03b1=0 (experiment-c-snr framing)",
     "Media \u03b1_ohm / stack Ohmic for sensitivity studies are HYP/illustrative \u2014 DO NOT use Cross-Sectional attenFactor 0.95",
     "Linearly Resistive steel \u03bc_r=1 is a JS simplification (physically incomplete)",
@@ -275,7 +275,7 @@
     "errata_alpha0_EED": {
       "flag": "use_hively_errata_no_ohmic_SLW",
       "alpha": 0,
-      "label": "EED prediction (Hively-Loebl 2022 Errata A6): irrotational SLW not subject to resistive loss / skin effect",
+      "label": "EED prediction (Hively-Loebl 2022 Errata A6): irrotational SLW not subject to resistive loss / skin effect \u2014 labelled NON-default toggle (Joule-literal is default)",
       "also_SW": "SW mode (experiment-c) forces \u03b1=0"
     },
     "expC_ohmic_empirical_HYP": {
@@ -283,7 +283,7 @@
       "label": "Exp-C / Monstein-style Ohmic \u03b1 for sensitivity studies \u2014 empirical/HYP; \u03b1 unknown until measured",
       "formula": "S = S_geom * exp(-alpha_ohm * L_eff); loss_dB = 4.343 * alpha_ohm * L_eff"
     },
-    "note": "Keep BOTH flags in UI \u2014 product decision which default; v0 default scenario garage uses Errata \u03b1=0 OFF path with optional cage Ohmic HYP checkbox"
+    "note": "DEFAULT (sleeve-balun-snr v0.3, 2026-09-25): Joule-literal \u2014 Hively & Loebl 2019 Eq. 44 J\u00b7E read literally as SLW power loss (ASSUMPTION); seawater from Meissner\u2013Wentz 15 \u00b0C S35 as in Experiment G; air \u2248 0 (ASSUMPTION), so air paths are unchanged. TEM-equal = classical comparison. Erratum \u03b1=0 (Hively, Phys. Essays 35, 320, 2022) = labelled NON-default toggle (errata_alpha0_EED). Exp-C Ohmic \u03b1 toy (HYP) kept as an option. Unresolved conflict: Erratum \u03b1=0 vs experiment-c.html #dict/#ohmic (SLW has linear Ohmic loss). Constant values unchanged."
   },
   "submarine_stack_lengths_m": {
     "source": "Linearly-Resistive-Media-submerged-to-outer-space JS LEN",
@@ -348,12 +348,12 @@
     "steel_3in_hull": {
       "alpha": 0.0,
       "L_m": 0.0762,
-      "label": "HYP \u2014 default \u03b1=0 per Errata; optional nonzero for sensitivity"
+      "label": "HYP \u2014 Exp-C toy knob (\u03b1=0 here); page default is Joule-literal, Errata \u03b1=0 is a toggle; optional nonzero for sensitivity"
     },
     "seawater_exit": {
       "alpha": 0.0,
       "L_m": 91.44,
-      "label": "HYP \u2014 default \u03b1=0 per Errata; optional nonzero for sensitivity"
+      "label": "HYP \u2014 Exp-C toy knob (\u03b1=0 here); page default is Joule-literal, Errata \u03b1=0 is a toggle; optional nonzero for sensitivity"
     },
     "air_inside_sub": {
       "alpha": 0.0,
@@ -363,7 +363,7 @@
     "radioscreen_cage_path": {
       "alpha": 0.0,
       "L_m_per_tent_default": 1.0,
-      "label": "HYP \u2014 TEM mesh uses ATT dB; SLW Joule separate; default \u03b1=0 (Errata); enable Exp-C Ohmic for sensitivity"
+      "label": "HYP \u2014 TEM mesh uses ATT dB; SLW Joule separate; Exp-C toy \u03b1=0 here (page default Joule-literal, air \u2248 0; Errata \u03b1=0 toggle); enable Exp-C Ohmic for sensitivity"
     },
     "expC_default_toy": {
       "alpha": 0.05,
@@ -423,7 +423,7 @@
   },
   "physics_flags_default": {
     "use_hively_Eq15_Prad": true,
-    "use_hively_errata_no_ohmic_SLW": true,
+    "use_hively_errata_no_ohmic_SLW": false,
     "ohmic_alpha_Np_per_m": 0.0,
     "include_friis_TEM": true,
     "include_NZ_Az": true,

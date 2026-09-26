@@ -5,7 +5,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sleeve-balun dual-sphere SNR · Keyport TX/RX · SLW Hub</title>
-<meta name="description" content="Interactive v0 SNR for dual Keyport-style sleeve-balun + LAB Al spheres (KB-1820 / KB-2016): Hively Eq.15, NZ Am, Zimmerman Az, RadioScreen mesh, Errata α=0 vs Exp-C Ohmic. TinySA Ultra ≤ −19 dBm. Educational — not a measurement.">
+<meta name="description" content="Interactive v0 SNR for dual Keyport-style sleeve-balun + LAB Al spheres (KB-1820 / KB-2016): Hively Eq.15, NZ Am, Zimmerman Az, RadioScreen mesh. v0.3 default: Hively Joule-loss term (Joule-literal) with TEM-equal comparison; Erratum α=0 as a labelled toggle. TinySA Ultra ≤ −19 dBm. Educational — not a measurement.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,6 +41,22 @@ input[type=range]{width:100%}
 .hyp{color:#a67c3a;font-weight:600}
 .labtag{background:#1a3a2a;color:#8fd;padding:.1rem .4rem;border-radius:4px;font-size:.8rem}
 .patenttag{background:#3a2a1a;color:#fc8;padding:.1rem .4rem;border-radius:4px;font-size:.8rem}
+.answer{background:#0b1020;color:#e8eefc;border:1px solid #26314d;border-radius:14px;padding:1rem 1.15rem;margin:1rem 0}
+.answer h2{color:#fff;margin:.1rem 0 .5rem;font-size:1.2rem}
+.answer p,.answer li,.answer summary{color:#d7e0f2;line-height:1.5}
+.answer strong{color:#55d6be}
+.answer .big{font:600 1.08rem/1.45 "Source Sans 3",system-ui,sans-serif;color:#fff}
+.answer blockquote{margin:.4rem 0 .6rem;padding:.4rem .8rem;border-left:3px solid #ffb86b;background:rgba(255,184,107,.08);color:#f3e2c8;font-size:.95rem}
+.conflict{margin:.6rem 0;padding:.55rem .8rem;border:1px dashed #ff6b6b;border-radius:10px;background:rgba(255,107,107,.08);color:#ffd9d9}
+.lab-a{color:#b9a2ff;font-weight:600}
+.tag-def,.tag-tog{display:inline-block;font-size:.72rem;padding:0 .35rem;border-radius:5px;margin-left:.2rem}
+.tag-def{background:rgba(85,214,190,.18);color:#55d6be}.tag-tog{background:rgba(255,184,107,.18);color:#ffb86b}
+.tbl-wrap{overflow-x:auto;max-width:100%}
+table.res{border-collapse:collapse;width:100%;font-size:.9rem}
+table.res th,table.res td{border:1px solid #26314d;padding:.35rem .5rem;text-align:left;vertical-align:top}
+table.res td.n{font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+#seaTable td.n{white-space:normal}
+.pending-mini{display:inline-block;font-size:.8rem;border:1px dashed #c9a13a;color:#d4b483;border-radius:6px;padding:.05rem .45rem}
 </style>
 </head>
 <body>
@@ -94,11 +110,29 @@ input[type=range]{width:100%}
 </nav>
 
 <main id="main" class="wrap">
-  <p class="kicker">v0.2 · dual Keyport sleeve + <span class="labtag">LAB spheres</span> · live E∥ map · TinySA Ultra ≤ −19 dBm · illustrative · not a measurement</p>
-  <h1>Sleeve-balun SNR — live E∥ map + distance presets (v0.2)</h1>
+  <p class="kicker">v0.3 · Joule-loss default · <span class="pending-mini">Cloud twin pending sync (sleeve-balun-snr-v0.3)</span> · dual Keyport sleeve + <span class="labtag">LAB spheres</span> · live E∥ map · TinySA Ultra ≤ −19 dBm · illustrative · not a measurement</p>
+  <h1>Sleeve-balun SNR — live E∥ map + distance presets (v0.3)</h1>
   <p class="lede">Interactive cartoon for <strong>identical TX/RX <span class="labtag">LAB</span> aluminum spheres</strong> (K-Mac <code>KB-1820</code> ¾″ at 1296 / 2.45&nbsp;GHz; <code>KB-2016</code> 2.50″ at 433.59&nbsp;MHz) fed through <strong>Navy Keyport-style λ/4 sleeves</strong> on <strong>RG-405/U</strong> (US&nbsp;12,525,711 geometry — <a href="sleeve-balun.html">sleeve-balun.html</a> / <a href="setup.html#sleeve">setup#sleeve</a>), <em>not</em> Hively US&nbsp;9,306,527 Fig.&nbsp;2A’s fat skirt. Patent optional sphere (radius&nbsp;=&nbsp;λ/4) is a <span class="patenttag">PATENT</span> scale — <strong>not</strong> Dan’s catalog balls. Drive: TinySA Ultra (ZS406) <strong>−115…−19&nbsp;dBm</strong> → I into 50&nbsp;Ω, or exploratory high-I (external PA). Constants: <a href="physics-constants.json"><code>physics-constants.json</code></a>.</p>
 
-  <div class="banner-legal"><strong>Not a measurement.</strong> SLW is <em>not</em> settled physics. TinySA Ultra generator max listed step is <strong>−19&nbsp;dBm</strong> (tinysa.org TinySA4) — not +10. Mesh ATT is RadioScreen #1124-0 (≈55&nbsp;dB sealed/tent). Dual Ohmic flags: <strong>Errata α=0 (EED prediction)</strong> vs <strong>Exp-C Ohmic α (empirical/HYP)</strong>. Media lengths from Linearly Resistive (copper ⅛″, air 330&nbsp;ft, steel 3″, seawater 300&nbsp;ft) — <span class="hyp">no attenFactor&nbsp;0.95</span>. E∥ from √(S·Z<sub>0</sub>) is an impedance cartoon. Distance presets (near/far λ default, home, ship 20 km, aircraft slant, LEO, GEO) set range r only — no invented Ohmic for long free-space paths. Φ/C educational only. Keep <strong>Exp&nbsp;A (1296)</strong> electrically separate from <strong>Exp&nbsp;B (433)</strong>. US&nbsp;12,562,930 is sensor/DAQ — not balun dims.</div>
+  <section class="answer" id="joule" aria-labelledby="jouleH">
+    <h2 id="jouleH">Default in v0.3: Hively's Joule-loss term is on</h2>
+    <p class="big" id="sbHeadline" aria-live="polite">Loading…</p>
+    <p><strong>Symbols.</strong> <em>SLW</em>: scalar-longitudinal wave, the untested wave of Hively's extended electrodynamics (<span class="hyp">HYP</span>). <em>SW</em>: scalar wave, the E&nbsp;=&nbsp;0 special case (<span class="hyp">HYP</span>). <em>TEM</em>: ordinary radio (FACT). <em>σ</em>: electrical conductivity of the medium (S/m). <em>α</em>: attenuation. The field falls by a factor e every 1/α metres; 1&nbsp;Np/m = 8.686&nbsp;dB/m. <em>dB</em>: decibels of power.</p>
+    <p><strong>Shielding.</strong> The receive sphere and its detector sit inside their own Faraday cage (the RadioScreen tent), which strips ordinary radio (TEM) noise (FACT for TEM; see the cage control below). That an SLW passes through the cage wall is a <span class="hyp">HYP</span>othesis.</p>
+    <details>
+      <summary>Why Joule loss is the default, the seawater numbers, and the Erratum toggle (sources)</summary>
+      <p><strong>Hub rule (25&nbsp;Sep&nbsp;2026): include Hively's Joule-loss (Ohmic) term for SLW in conductive media.</strong> Hively &amp; Loebl, Phys. Essays 32, 112 (2019), Eq.&nbsp;(44), has the Joule term <code>J·E</code> in the energy balance, with Ohm's law <code>J = σE</code> (<span class="hyp">HYP</span>). <a href="experiment-c.html#dict">Experiment C's field dictionary</a> lists SLW as “Eddy / skin: <strong>no</strong>; Ohmic (Joule): <strong>yes</strong> (J=σE∥)”, lists SW as “no” for both, and says: “Do not say ‘SLW has no losses.’ Say: no eddy / no classical skin barrier; SLW still has linear Ohmic loss; SW has neither.” <a href="experiment-c.html#ohmic">Its Ohmic section</a> adds that longitudinal E “still drives J=σE and local Joule density <strong>σE∥²</strong>. Pure SW (E=0) has no σE² term.”</p>
+      <p><strong>How much, in seawater.</strong> We use Experiment G's code unchanged (<a href="experiment-g.html">experiment-g.html</a>, hub PR #56, not yet published, so the link may 404 for now; seawater ε′, ε″, σ from Meissner &amp; Wentz 2004, FACT). The Joule-literal attenuation is α<sub>J</sub> = σ<sub>H</sub>|Z|/2, with σ<sub>H</sub> = ε<sub>0</sub>ε″ω and |Z| from Hively's Eq.&nbsp;(37). That is our reading of Eq.&nbsp;(44) (<span class="lab-a">ASSUMPTION</span>), not an equation Hively prints. TEM-equal uses the textbook plane-wave α<sub>TEM</sub> (FACT). Air conducts almost nothing, so both are ≈&nbsp;0 in air (<span class="lab-a">ASSUMPTION</span> σ<sub>air</sub> ≈ 0). Copper and steel walls have no model yet (UNKNOWN), so they add 0.</p>
+      <div class="tbl-wrap"><table class="res" id="seaTable"><tr><th>Frequency (seawater 15&nbsp;°C, salinity 35, σ = 4.29 S/m)</th><th>SLW with Joule loss <span class="tag-def">default</span>: 1/e length</th><th>TEM-equal (classical comparison)</th><th>Erratum α=0 <span class="tag-tog">toggle</span></th><th>91.44&nbsp;m seawater (Submarine preset): Joule / TEM / Erratum</th></tr><tr><td>1296 MHz (Exp A)</td><td class="n"><strong>1.29 cm</strong> (671 dB/m)</td><td class="n">1.04 cm (832 dB/m)</td><td class="n">no loss</td><td class="n">61,371 dB / 76,090 dB / 0 dB</td></tr><tr><td>2450 MHz (ISM)</td><td class="n"><strong>0.91 cm</strong> (953 dB/m)</td><td class="n">0.82 cm (1063 dB/m)</td><td class="n">no loss</td><td class="n">87,180 dB / 97,224 dB / 0 dB</td></tr><tr><td>433.59 MHz (Exp B)</td><td class="n"><strong>2.78 cm</strong> (313 dB/m)</td><td class="n">1.42 cm (614 dB/m)</td><td class="n">no loss</td><td class="n">28,606 dB / 56,114 dB / 0 dB</td></tr></table></div>
+      <p class="footnote">This page's α<sub>ohm</sub> multiplies <em>power</em> density S (S = S<sub>geom</sub>·e<sup>−α<sub>ohm</sub>L</sup>). Experiment G's α is a <em>field</em> coefficient, so α<sub>ohm</sub> = 2α (a unit conversion, not new physics). Path losses use the page's locked 4.343·α<sub>ohm</sub>·L.</p>
+      <p><strong>Erratum α = 0: a non-default toggle (<span class="hyp">HYP</span>).</strong> Hively &amp; Loebl's 2022 Erratum argues that the Joule term cancels. What it says, in context (Phys. Essays 35, 320, 2022, <a href="https://doi.org/10.4006/0836-1398-35.3.320">doi:10.4006/0836-1398-35.3.320</a>):</p>
+      <blockquote>“This Erratum corrects errors in Appendix A of our paper for derivation of the no-skin-effect constraint. The scalar longitudinal wave (SLW) has only irrotational fields and no magnetic field from Eq. (27), B = 0 … Substituting the expressions for E and C from Eqs. (18) and (20) into Eq. (A.5) gives the longitudinal component of the A-wave equation: … (A6). Physically, Eq. (A6) means that the SLW is not subject to resistive loss in conductive media. The same no-loss result occurs from the energy balance equation, Eq. (44), by substituting for (ρ/ε) from Eq. (22) and by substituting for J<sup>L</sup> from Eq. (21) with B = 0; then cancelling terms. Consequently, the SLW is unconstrained by the skin effect and power loss in resistive media.”</blockquote>
+      <p>With the toggle on, no medium absorbs anything (α = 0). Choose it in “SLW loss in conductive media” below.</p>
+    </details>
+    <div class="conflict" role="note"><strong>⚠ Open conflict, flagged and not resolved here.</strong> The Erratum's “not subject to resistive loss” contradicts Experiment C's dictionary and Ohmic section (“SLW still has linear Ohmic loss”, “Do not say ‘SLW has no losses’”). This page follows the hub rule and uses Joule loss by default. It keeps the Erratum only as a labelled toggle. <a href="experiment-c.html">experiment-c.html</a> is left unchanged.</div>
+  </section>
+
+  <div class="banner-legal"><strong>Not a measurement.</strong> SLW is <em>not</em> settled physics. TinySA Ultra generator max listed step is <strong>−19&nbsp;dBm</strong> (tinysa.org TinySA4) — not +10. Mesh ATT is RadioScreen #1124-0 (≈55&nbsp;dB sealed/tent). SLW loss modes: <strong>Joule-literal (default, Hively Eq.&nbsp;44 J·E)</strong>, TEM-equal (classical comparison), <strong>Erratum α=0 (non-default toggle)</strong>, and the old Exp-C α toy (HYP). Media lengths from Linearly Resistive (copper ⅛″, air 330&nbsp;ft, steel 3″, seawater 300&nbsp;ft) — <span class="hyp">no attenFactor&nbsp;0.95</span>. E∥ from √(S·Z<sub>0</sub>) is an impedance cartoon. Distance presets (near/far λ default, home, ship 20 km, aircraft slant, LEO, GEO) set range r only — no invented Ohmic for long free-space paths. Φ/C educational only. Keep <strong>Exp&nbsp;A (1296)</strong> electrically separate from <strong>Exp&nbsp;B (433)</strong>. US&nbsp;12,562,930 is sensor/DAQ — not balun dims.</div>
 
   <h2 id="controls">Controls</h2>
   <div class="controls card">
@@ -160,7 +194,14 @@ input[type=range]{width:100%}
         <option value="sw">SW (α forced 0)</option>
       </select>
     </label>
-    <label><input id="errataAlpha0" type="checkbox" checked> Errata α=0 (EED: no resistive loss for irrotational SLW)</label>
+    <label>SLW loss in conductive media (α)
+      <select id="ohmicMode">
+        <option value="joule" selected>Joule-literal: Hively's J·E term (DEFAULT)</option>
+        <option value="tem">TEM-equal: same loss as ordinary radio (classical comparison)</option>
+        <option value="errata0">Erratum α=0: no loss (toggle, NOT default)</option>
+        <option value="toy">Exp-C α toy slider (HYP, old v0.2 option)</option>
+      </select>
+    </label>
     <label><input id="lna" type="checkbox"> Detector LNA (~20 dB, NF ≈ 5 dB)</label>
     <div id="highIbox">
       <label><input id="highI" type="checkbox"> Exploratory high-I (external PA) — <span class="hyp">not TinySA</span></label>
@@ -172,7 +213,7 @@ input[type=range]{width:100%}
   </div>
 
   <h3>Ohmic / media stack</h3>
-  <p class="footnote" id="ohmicNote">Media stack checkboxes are always clickable. Errata α=0 is on by default (α·L not applied). Uncheck Errata (mode=SLW) to apply Exp-C Ohmic <span class="hyp">HYP</span>. Lengths from Linearly Resistive — <strong>not</strong> Cross-Sectional attenFactor&nbsp;0.95.</p>
+  <p class="footnote" id="ohmicNote">DEFAULT · Joule-literal: seawater uses α_J from Hively's Eq. 37/44 (Experiment G code); air ≈ 0; metal walls not modelled (UNKNOWN, 0). Lengths from Linearly Resistive — <strong>not</strong> Cross-Sectional attenFactor&nbsp;0.95.</p>
   <div class="media-grid card" style="padding:1rem">
     <label><input id="med_air" type="checkbox" checked> air (garage / cage interior)</label>
     <label><input id="med_copper" type="checkbox"> copper wall ⅛″ (L=0.003175 m)</label>
@@ -188,7 +229,7 @@ input[type=range]{width:100%}
       <input id="cagePath" type="range" min="0.1" max="5" step="0.1" value="1">
       <output id="cagePathOut"></output>
     </label>
-    <label>α_ohm toy when Exp-C Ohmic ON (Np/m)
+    <label>α_ohm toy (used only in “Exp-C α toy” mode; Np/m)
       <input id="alphaToy" type="range" min="0" max="2" step="0.01" value="0.05">
       <output id="alphaToyOut"></output>
     </label>
@@ -281,7 +322,11 @@ Near-field flags when r &lt; 2 D²/λ with D ≈ λ/4.</pre>
   <h3>Hively SLW (US 9,306,527 Eq. 15 — fields.js)</h3>
   <pre class="eq">P_rad = I_peak² Z_0 / (4π)
 S_geom = P_rad / (4π r²)
-S = S_geom * exp(−α_ohm L_eff)   # Exp-C Ohmic HYP; Errata/SW → α=0
+S = S_geom * exp(−α_ohm L_eff)   # α_ohm = power coefficient; Erratum toggle / SW → α=0
+# v0.3 DEFAULT Joule-literal (ASSUMPTION, Experiment G): seawater α_ohm = 2·α_J
+#   α_J = σ_H |Z| / 2,  σ_H = ε0 ε″ ω,  |Z| = η0 / (√ε′ · |1 − j tan δ|)   (Hively &amp; Loebl 2019 Eqs 37, 44)
+# TEM-equal (FACT plane wave): seawater α_ohm = 2·α_TEM,  α_TEM = −(ω/c)·Im√(ε′ − jε″)
+# ε′, ε″, σ: Meissner &amp; Wentz 2004 at 15 °C, S = 35 · air/free space α ≈ 0 · metal walls UNKNOWN (0)
 loss_dB = 4.343 * α_ohm * L_eff
 A_eff = π (0.05)² · η = 0.50
 P_load = S A_eff η * mP * 10^(lnaGain/10)
@@ -307,13 +352,13 @@ seawater_exit = 91.44 m (300 ft)
     <li>E∥ 2D maps: <a href="sleeve-balun-efield.html">sleeve-balun-efield.html</a></li>
     <li>Machine-readable: <a href="physics-constants.json">physics-constants.json</a></li>
   </ul>
-  <p class="footnote">Wolfram Cloud twin (in sync, <code>snr-dual-sim-params-v0.2</code>): <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunSNR">wolframcloud.com/obj/danbritton5/SleeveBalunSNR</a></p>
-  <p class="footnote">v0.2 · 24 Sep 2026 · Dan Britton SLW Hub. Live E∥ map + distance_presets. Educational, contested, illustrative.</p>
+  <p class="footnote"><span class="pending-mini">Cloud twin pending sync (sleeve-balun-snr-v0.3)</span> The Wolfram Cloud twin still shows v0.2 with the Errata α=0 default: <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunSNR">wolframcloud.com/obj/danbritton5/SleeveBalunSNR</a>. The v0.3 WL source is updated but not yet run or published.</p>
+  <p class="footnote">v0.3 · 25 Sep 2026 · Dan Britton SLW Hub. Joule-loss default (Erratum α=0 as toggle). v0.2 · 24 Sep 2026: live E∥ map + distance_presets. Educational, contested, illustrative.</p>
 </main>
 <footer class="site">
   <div class="wrap">
     <div>
-      <strong>Dan Britton</strong> · Sleeve-balun SNR v0.2<br>
+      <strong>Dan Britton</strong> · Sleeve-balun SNR v0.3<br>
       Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
     </div>
   </div>
