@@ -226,7 +226,7 @@ def fx1_seam_SE(results_json_path):
 
 # ---------------- link budget ----------------
 DEFAULTS = dict(
-    f_d=L_MHZ * 1e6, eta_c=1.0, T_w=15.0, S=35.0, r=1.0, P_tx=1.0, slw_mode="errata0", alpha_custom=0.0,
+    f_d=L_MHZ * 1e6, eta_c=1.0, T_w=15.0, S=35.0, r=1.0, P_tx=1.0, slw_mode="joule", alpha_custom=0.0,   # default: Joule-literal (Dan rule 2026-09-25); Erratum alpha=0 is a toggle
     T_hull=1.0, T_cage=1.0, SE_cage=80.0, SE_hull_tem=0.0,
     hf="F1",                                   # FACT Landhuis: trapped 2S atoms are F=1 (m_F=1)
     N2S=5e7, eps_det=3e-7, R_dark=1.66,        # LAB preset (see page): Landhuis N; 2e-6 (no filter) x 0.15 filter; MCP 0.4/cm2/s x 4.15 cm2
@@ -289,7 +289,7 @@ def link(p=None):
     E_req_det = 1e-6 * math.sqrt(G_req / K1) if math.isfinite(G_req) else float("inf")
     E_req_out = E_req_det / (q["T_hull"] * q["T_cage"])
     a = eps * G_sig * D; b = eps * g_b * D; d = q["R_dark"]
-    N_req = ((K * K * (a + 2 * b) + math.sqrt(K ** 4 * (a + 2 * b) ** 2 + 8 * T / 2 * a * a * K * K * d)) / (T * a * a)) if a > 0 else float("inf")
+    N_req = ((K * K * (a + 2 * b) + math.sqrt(K ** 4 * (a + 2 * b) ** 2 + 8 * T / 2 * a * a * K * K * d)) / (T * a * a)) if a > 1e-150 else float("inf")   # guard: a^2 underflows (Joule default at long range)
     cps = R["sig"] + Rb
     return dict(q=q, wt=wt, alpha_slw=a_s, E_out_slw=E_out_slw, E_det_slw=E_det_slw, E_out_tem=E_out_tem,
                 tau_wa=tau, E_det_tem=E_det_tem, G_sig=G_sig, G_tem=G_tem, G_dc=G_dc, G_bbr=G_bbr, E_mot=E_mot, E_dc=E_dc,

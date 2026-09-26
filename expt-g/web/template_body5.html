@@ -28,7 +28,7 @@
   <section class="panel" id="tab-gates" role="tabpanel" hidden>
     <h2>Gates G0–G3 (in order; do not skip)</h2>
     <ol>
-      <li><strong>G0 · desk simulation (now).</strong> Full chain model, link budget, detector comparison, on GitHub plus the Mathematica twin. A paper result only. <em>Status: this page (expt-g-v0.1). The Python ↔ JS compare passes. The WL twin is written by hand but not run, so its compare is owed.</em></li>
+      <li><strong>G0 · desk simulation (now).</strong> Full chain model, link budget, detector comparison, on GitHub plus the Mathematica twin. A paper result only. <em>Status: this page (expt-g-v0.1; default SLW loss is the Joule term since 25&nbsp;Sep&nbsp;2026). The Python ↔ JS compare passes. The WL twin is written by hand but not run, so its compare is owed.</em></li>
       <li><strong>G1 · TEM baseline on the bench.</strong> Reproduce standard RF quenching of 2S at 1058&nbsp;MHz with an ordinary antenna. This proves the receiver works before any SLW claim. It needs hydrogen, the UV laser (or the L&amp;R electron-bombardment alternative), vacuum and Lyman-α hardware. Cost and difficulty: <a href="#" data-goto="rx">Receiver chain</a>. It should also reproduce the Lorentzian ({{fwhm}} wide) and the ±300&nbsp;MHz contrast ({{dF1_p300}} / {{dF1_m300}} for F&nbsp;=&nbsp;1 atoms), and survey 1058&nbsp;MHz ± 100&nbsp;MHz for DME, ADS-B and Wi-Fi products, using an LNA that covers 1058&nbsp;MHz (ZX60-P33ULN+, not the Kuhne 1296&nbsp;MHz LNA).</li>
       <li><strong>G2 · POOL MOCKUP TEST (required before any comms claim).</strong> The detector goes inside its own cage, inside a steel hull mockup, in water of known salinity. The transmitter sits outside, across a measured seawater path. Required controls:
         <ol type="a">
@@ -36,7 +36,7 @@
           <li>Cage open versus closed.</li>
           <li>Transmitter on versus off, and modulation on versus off.</li>
           <li>Detuned drive (for example ±300&nbsp;MHz) must lose the signal on the Lyman-α Lorentzian (expected contrast for F&nbsp;=&nbsp;1 atoms {{dF1_p300}} / {{dF1_m300}}).</li>
-          <li>Salinity and range must be varied. Under the Joule-literal reading the signal falls about {{aJdB}} with range in seawater and changes with salinity like TEM. Under the Erratum reading it follows 1/r only.</li>
+          <li>Salinity and range must be varied. With the Joule loss (page default) the signal falls about {{aJdB}} with range in seawater and changes with salinity like TEM. Under the Erratum toggle it follows 1/r only.</li>
         </ol>
         Only a signal that survives all of these may be called SLW (<span class="hyp">HYP</span>) evidence.</li>
       <li><strong>G3 · comms demo.</strong> Proceed only if G2 is positive. Measure bit error rate against range.</li>
@@ -66,7 +66,7 @@
       <tr><td>6</td><td>1&nbsp;µV/m gives {{rate1u}}&nbsp;s⁻¹ per atom; detecting it needs ~{{N1u_lab}} atoms</td><td>FACT (ours)</td><td>L&amp;R Eq.&nbsp;26; this page</td></tr>
       <tr><td>7</td><td>β–e crossing at {{Bc}}; broadband and v×B caveats; prefer direct drive</td><td>FACT (ours)</td><td>L&amp;R 1950 §16; Expt D check</td></tr>
       <tr><td>8</td><td>Seawater ε′ = {{ep}}, σ = {{sig}}; TEM 1/e length {{dT}} at 1057.8&nbsp;MHz</td><td>FACT</td><td>Meissner &amp; Wentz 2004</td></tr>
-      <tr><td>8h</td><td>SLW seawater loss: none (Erratum) or {{dJ}} (Joule literal)</td><td>HYP / ASSUMPTION</td><td>Hively &amp; Loebl 2019 Eqs 37, 44; Erratum 2022</td></tr>
+      <tr><td>8h</td><td>SLW seawater loss: 1/e length {{dJ}} with the Joule loss (page default), or none (Erratum toggle); the two conflict (Experiment C dictionary vs Erratum)</td><td>HYP / ASSUMPTION</td><td>Hively &amp; Loebl 2019 Eqs 37, 44; Erratum 2022</td></tr>
       <tr><td>9</td><td>Steel-hull SLW transmission T<sub>hull</sub></td><td>HYP (unknown)</td><td>—</td></tr>
       <tr><td>3f</td><td>1057.8&nbsp;MHz is the centroid; lines at {{hfc01}}, {{hfc11}}, {{hfc10}}; F=1 factor {{hfF1}}</td><td>FACT (ours)</td><td>Bullis et al. 2023; Lundeen et al. 1975; PRA 98, 012509 (2018)</td></tr>
       <tr><td>10</td><td>Stray quench ≤{{Gstray}}&nbsp;s⁻¹ at best compensation; blackbody {{bbr290}}&nbsp;s⁻¹ at 290&nbsp;K</td><td>FACT (Landhuis) / ours</td><td>Landhuis; Gallagher &amp; Cooke 1979</td></tr>

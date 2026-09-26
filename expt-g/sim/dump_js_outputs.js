@@ -16,5 +16,5 @@ for (const p of spec.link) { const L = G.link(p); out.link.push(LK.map(k => L[k]
 const wt = G.water(G.L_MHZ * 1e6, 15, 35), E0 = G.link().E_req_out;
 for (const [r, m] of spec.ptx) out.ptx.push(G.ptx_required(r, E0, wt, m));
 for (const [P, m] of spec.maxrange) out.maxrange.push(G.max_range(P, E0, wt, m));
-require("fs").writeFileSync(process.argv[4], JSON.stringify(out));
+require("fs").writeFileSync(process.argv[4], JSON.stringify(out, (k, v) => (typeof v === "number" && !isFinite(v)) ? (isNaN(v) ? "NaN" : (v > 0 ? "Infinity" : "-Infinity")) : v));
 console.log("wrote", process.argv[4]);

@@ -5,7 +5,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Experiment G · Undersea SLW link via hydrogen 2S tickled relaxation · SLW Hub</title>
-<meta name="description" content="Experiment G (expt-g-v0.1, desk model G0): can a ~1 GHz scalar-longitudinal wave (HYP) cross seawater, a steel hull and a Faraday cage and tickle metastable hydrogen 2S atoms into Lyman-alpha? Hively's own Joule term, Meissner-Wentz seawater, Lamb-Retherford quench physics, 2E1 background, link budget, detector options, gates G0-G3. Educational, contested, illustrative.">
+<meta name="description" content="Experiment G (expt-g-v0.1, desk model G0): can a ~1 GHz scalar-longitudinal wave (HYP) cross seawater, a steel hull and a Faraday cage and tickle metastable hydrogen 2S atoms into Lyman-alpha? Default: Hively's Joule-loss term included (SLW 1/e length about 1.45 cm in seawater, so centimetres); Erratum no-loss case as a toggle. Meissner-Wentz seawater, Lamb-Retherford quench physics, 2E1 background, link budget, detector options, gates G0-G3. Educational, contested, illustrative.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,6 +25,9 @@ html,body{overflow-x:hidden}
 .answer strong{color:#55d6be}
 .answer .hy{color:#ffb86b;font-weight:600}
 .answer .big{font:600 1.15rem/1.4 "Source Sans 3",system-ui,sans-serif;color:#fff}
+.answer .conflict,.conflict{margin:.6rem 0;padding:.55rem .8rem;border:1px dashed #ff6b6b;border-radius:10px;background:rgba(255,107,107,.08);color:#ffd9d9}
+.errtag{display:inline-block;margin-top:.25rem;font-size:.85rem;color:#ffb86b}
+#keyTable td,#keyTable th{white-space:normal}
 .answer blockquote{margin:.4rem 0 .6rem;padding:.4rem .8rem;border-left:3px solid #ffb86b;background:rgba(255,184,107,.08);color:#f3e2c8;font-size:.95rem}
 .frame{background:rgba(85,214,190,.08);border:1px solid rgba(85,214,190,.45);border-radius:10px;padding:.6rem .9rem;margin:.8rem 0;font-size:.98rem}
 .gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.5rem;margin:.8rem 0 1rem}
@@ -116,16 +119,24 @@ code,.mono{word-break:break-word}
   <section class="answer" id="key" aria-labelledby="keyH">
     <h2 id="keyH">The key question, answered first</h2>
     <p class="big">Using Hively's own Joule-loss term, how far does a ~1&nbsp;GHz SLW get through seawater?</p>
-    <p class="big"><strong>Short answer: centimetres, if his Joule term is a real loss.</strong> The SLW field then falls by a factor e every 1.45 cm of seawater at 1057.8&nbsp;MHz (599 dB/m), about as fast as ordinary radio (1.10 cm). His own 2022 Erratum says the term cancels and seawater takes nothing. In that case the range is set only by the receiver.</p>
-      <p><strong>It depends on one thing Hively's papers do not settle numerically: whether his Joule term actually removes energy from the SLW.</strong> Two readings of the same term are possible. We show both, plus the TEM-equal case the brief asks for.</p>
+    <p class="big" id="headlineKey"><strong>With the Joule-loss term, a ~1&nbsp;GHz SLW falls by a factor e every 1.45 cm of seawater (599 dB/m at 1057.8&nbsp;MHz, 15&nbsp;°C, salinity 35), so the range is centimetres.</strong> Ordinary radio (TEM), the classical comparison, falls by e every 1.10 cm (788 dB/m).</p>
+    <p><strong>Default on this page (hub rule, 25&nbsp;Sep&nbsp;2026): Hively's Joule-loss term is included for SLW in conductive media.</strong> This matches <a href="experiment-c.html#dict">Experiment C's field dictionary</a>, which lists SLW as “Eddy / skin: <strong>no</strong>; Ohmic (Joule): <strong>yes</strong> (J=σE∥)” and SW as “no” for both, and says: “Do not say ‘SLW has no losses.’ Say: no eddy / no classical skin barrier; SLW still has linear Ohmic loss; SW has neither.” <a href="experiment-c.html#ohmic">Experiment C's Ohmic section</a> adds that longitudinal E “still drives J=σE and local Joule density <strong>σE∥²</strong>. Pure SW (E=0) has no σE² term.” So on this page <strong>SLW has no eddy-current or skin-effect loss, but it does have Joule loss σE∥². SW has neither.</strong></p>
+    <div class="tbl-wrap"><table class="res" id="keyTable">
+      <tr><th>Longest range (1&nbsp;s, SNR&nbsp;5)</th><th>SLW with Joule loss <span class="lab A">default</span></th><th>TEM-equal (classical comparison)</th><th>Erratum α = 0 <span class="lab H">toggle, not default</span></th></tr>
+      <tr><td>Best lab receiver today, 1&nbsp;W</td><td class="n"><strong>5.72 cm</strong></td><td class="n">4.59 cm</td><td class="n">2.96 m</td></tr>
+      <tr><td>Best lab receiver today, 1&nbsp;kW</td><td class="n"><strong>9.93 cm</strong></td><td class="n">7.81 cm</td><td class="n">93.5 m</td></tr>
+      <tr><td>Best possible receiver, 1&nbsp;W</td><td class="n"><strong>11.9 cm</strong></td><td class="n">9.31 cm</td><td class="n">435 m</td></tr>
+      <tr><td>Best possible receiver, 1&nbsp;kW</td><td class="n"><strong>16.4 cm</strong></td><td class="n">12.8 cm</td><td class="n">13.8 km</td></tr>
+    </table></div>
     <ol>
-      <li><span class="hy">Reading 1: Hively &amp; Loebl's own 2022 Erratum (HYP).</span> The Joule term is <code>J·E</code> in their energy balance, Eq.&nbsp;(44) of Hively &amp; Loebl 2019, with Ohm's law <code>J = σE</code>. The Erratum (Phys. Essays 35, 320, 2022) substitutes and cancels it:
-        <blockquote>“Physically, Eq. (A6) means that the SLW is not subject to resistive loss in conductive media. The same no-loss result occurs from the energy balance equation, Eq. (44) … Consequently, the SLW is unconstrained by the skin effect and power loss in resistive media.”</blockquote>
-        So seawater absorbs nothing (α<sub>SLW</sub> = 0). Range is then limited only by spreading and by the receiver. With today's best lab 2S receiver, 1&nbsp;W reaches <strong>2.96 m</strong> and 1&nbsp;kW reaches <strong>93.5 m</strong>. With the best receiver physically possible from cited parts, 1&nbsp;W reaches <strong>435 m</strong>.</li>
-      <li><span class="hy">Reading 2: the same J·E term taken literally as a loss (our reading, ASSUMPTION).</span> Charge the Joule heat <code>σE²</code> against the SLW power flow <code>CE/μ</code> from Eq.&nbsp;(44). Use Hively's own SLW impedance, Eq.&nbsp;(37), and his definition σ = ε<sub>0</sub>ε″ω. At 1057.8&nbsp;MHz, 15&nbsp;°C and salinity 35 the field then falls by a factor e every <strong>1.45 cm</strong> (599 dB/m). <strong>That is centimetres</strong>, close to an ordinary radio wave (TEM), which falls by e every <strong>1.10 cm</strong> (788 dB/m). Under this reading 1&nbsp;W reaches only <strong>5.72 cm</strong>, and even 1&nbsp;kW reaches only <strong>9.93 cm</strong>. The best possible receiver stretches that to 16.4 cm.</li>
-      <li><span class="hy">TEM-equal case.</span> If the SLW loses energy like TEM, 1&nbsp;W reaches 4.59 cm and 1&nbsp;kW reaches 7.81 cm.</li>
+      <li><span class="hy">Default: Hively's Joule term J·E counted as a real loss (ASSUMPTION for the algebra, hub rule for the choice).</span> The Joule term is <code>J·E</code> in the energy balance, Eq.&nbsp;(44) of Hively &amp; Loebl 2019, with Ohm's law <code>J = σE</code>. We charge the Joule heat <code>σE∥²</code> against the SLW power flow <code>CE/μ</code> from Eq.&nbsp;(44), using Hively's SLW impedance, Eq.&nbsp;(37), and his definition σ = ε<sub>0</sub>ε″ω. The field then falls by e every <strong>1.45 cm</strong> (599 dB/m). Even 1&nbsp;kW reaches only 9.93 cm with today's best lab receiver and 16.4 cm with the best possible one.</li>
+      <li><span class="hy">TEM-equal (classical comparison).</span> If the SLW loses energy exactly like ordinary radio (1.10 cm), 1&nbsp;W reaches 4.59 cm and 1&nbsp;kW reaches 7.81 cm.</li>
+      <li><span class="hy">Erratum α = 0: a non-default toggle (HYP).</span> Hively &amp; Loebl's 2022 Erratum argues that the Joule term cancels. What it says, in context (Phys. Essays 35, 320, 2022, <a href="https://doi.org/10.4006/0836-1398-35.3.320">doi:10.4006/0836-1398-35.3.320</a>):
+        <blockquote>“This Erratum corrects errors in Appendix A of our paper for derivation of the no-skin-effect constraint. The scalar longitudinal wave (SLW) has only irrotational fields and no magnetic field from Eq. (27), B = 0 … Substituting the expressions for E and C from Eqs. (18) and (20) into Eq. (A.5) gives the longitudinal component of the A-wave equation: … (A6). Physically, Eq. (A6) means that the SLW is not subject to resistive loss in conductive media. The same no-loss result occurs from the energy balance equation, Eq. (44), by substituting for (ρ/ε) from Eq. (22) and by substituting for J<sup>L</sup> from Eq. (21) with B = 0; then cancelling terms. Consequently, the SLW is unconstrained by the skin effect and power loss in resistive media.”</blockquote>
+        With that toggle on, seawater absorbs nothing, and only spreading and the receiver limit range: 1&nbsp;W reaches 2.96 m (lab) or 435 m (best possible). Choose it with control&nbsp;3 below or in “All controls”.</li>
     </ol>
-    <p><strong>The unknown parameter</strong> is α<sub>SLW</sub>, the SLW field attenuation in seawater in nepers per metre. It is not an extra constant in Hively's formulas. It encodes which reading is right. It gets a slider below, with presets for 0 (Erratum), the Joule-literal value and the TEM value. Only the G2 pool mockup can decide it. <strong>If Reading 2 holds, the undersea link is a few centimetres long whatever receiver is used.</strong></p>
+    <div class="conflict" role="note"><strong>⚠ Open conflict, flagged and not resolved here.</strong> The Erratum's “not subject to resistive loss” contradicts Experiment C's dictionary and Ohmic section (“SLW still has linear Ohmic loss”, “Do not say ‘SLW has no losses’”). This page follows the hub rule and uses Joule loss by default. It keeps the Erratum only as a labelled toggle. <a href="experiment-c.html">experiment-c.html</a> is left unchanged. Only the G2 pool mockup (control e: vary salinity and range) can settle it.</div>
+    <p><strong>The unknown parameter</strong> is α<sub>SLW</sub>, the SLW field attenuation in seawater in nepers per metre. It is not an extra constant in Hively's formulas; it encodes which reading is right. Presets: Joule-loss value (default), TEM value, 0 (Erratum toggle), or a custom slider.</p>
     <p class="small">Distances here are for a 1&nbsp;s count with a signal-to-noise ratio (SNR) of 5, a lossless hull and cage (T<sub>hull</sub> = T<sub>cage</sub> = 1), and SLW coupling η = 1. Distances under about one wavelength in water (2.99 cm) are near-field, where our far-field formula is only indicative. Details: <a href="#" data-goto="hively">Hively term</a> · <a href="#" data-goto="link">link budget</a>.</p>
   </section>
 
@@ -144,8 +155,8 @@ code,.mono{word-break:break-word}
   <section class="front-controls" aria-label="Main controls">
     <div class="ctl">
       <span class="q">1 · Seawater path length (range)</span>
-      <input type="range" id="fR" min="-2" max="3" step="0.05" value="0" aria-label="range, log scale">
-      <p class="hint">Range = <output id="oR">1 m</output>. The slider goes from 1&nbsp;cm to 1&nbsp;km.</p>
+      <input type="range" id="fR" min="-2" max="3" step="0.05" value="-1.3" aria-label="range, log scale">
+      <p class="hint">Range = <output id="oR">5 cm</output> (default: inside the Joule-loss range). The slider goes from 1&nbsp;cm to 1&nbsp;km.</p>
     </div>
     <div class="ctl">
       <span class="q">2 · Transmitter power</span>
@@ -155,11 +166,11 @@ code,.mono{word-break:break-word}
     <div class="ctl">
       <span class="q">3 · How much does seawater absorb the SLW?</span>
       <div class="seg" data-seg="slw_mode">
-        <button type="button" data-v="errata0" aria-pressed="true">Hively Erratum: none</button>
-        <button type="button" data-v="joule" aria-pressed="false">Joule term literal</button>
+        <button type="button" data-v="joule" aria-pressed="true">Joule loss (default)</button>
         <button type="button" data-v="tem" aria-pressed="false">Same as radio (TEM)</button>
+        <button type="button" data-v="errata0" aria-pressed="false">Erratum: none (toggle)</button>
       </div>
-      <p class="hint">This is α<sub>SLW</sub>, the make-or-break unknown (<span class="hyp">HYP</span>).</p>
+      <p class="hint">This is α<sub>SLW</sub>, the make-or-break unknown (<span class="hyp">HYP</span>). The default includes Hively's Joule loss σE∥². The Erratum button is Hively's 2022 no-loss claim, kept for comparison only.</p>
     </div>
     <div class="ctl">
       <span class="q">4 · Which 2S receiver?</span>
@@ -185,13 +196,14 @@ code,.mono{word-break:break-word}
   <article class="plot-card">
     <h3>Field reaching the atoms vs seawater range</h3>
     <div id="plotFront" role="img" aria-label="field at the atoms against range for the three SLW assumptions and ordinary radio"></div>
-    <p>Lines show SLW field for each absorption assumption at your power (orange: Erratum α = 0; red: Joule literal; purple: TEM-equal) and ordinary radio through an 80&nbsp;dB cage (teal). Dashed line: the field this receiver needs (SNR 5 in 1&nbsp;s). Where a line is above the dashed line, the link works. Grey band: under one wavelength in water, where the formula is only indicative.</p>
+    <p>Lines show SLW field for each absorption assumption at your power (red: Joule loss, the default; purple: TEM-equal, the classical comparison; orange dashed: Erratum α = 0 toggle) and ordinary radio through an 80&nbsp;dB cage (teal). The thick line is the one currently selected. Dashed line: the field this receiver needs (SNR 5 in 1&nbsp;s). Where a line is above the dashed line, the link works. Grey band: under one wavelength in water, where the formula is only indicative.</p>
   </article>
 
   <details class="more" open>
     <summary>Words and symbols used on this page (plain English)</summary>
     <dl class="gloss">
-      <dt>SLW, scalar-longitudinal wave</dt><dd>A wave predicted by Hively's “extended electrodynamics” (EED). It has an electric field pointing along its direction of travel and no magnetic field. It has never been independently confirmed. <span class="lab H">HYP</span></dd>
+      <dt>SLW, scalar-longitudinal wave</dt><dd>A wave predicted by Hively's “extended electrodynamics” (EED). It has an electric field pointing along its direction of travel and no magnetic field. It has never been independently confirmed. <span class="lab H">HYP</span> On this hub (<a href="experiment-c.html#dict">Experiment C dictionary</a>): no eddy-current or skin loss, but Joule loss σE∥² in conducting water.</dd>
+      <dt>SW, scalar wave</dt><dd>The E&nbsp;=&nbsp;0 special case (only the scalar field C). Per the same dictionary it has neither skin loss nor Joule loss. <span class="lab H">HYP</span></dd>
       <dt>TEM, ordinary radio</dt><dd>The normal radio wave of textbook physics (Maxwell). A closed metal box blocks it, and seawater absorbs it within centimetres at 1&nbsp;GHz. <span class="lab F">FACT</span></dd>
       <dt>2S and 2P</dt><dd>Two excited states of hydrogen. 2S lives 0.1215 s on its own, so it is “metastable”. 2P lives only 1.60 ns before emitting a Lyman-α photon.</dd>
       <dt>Lamb shift, L</dt><dd>The tiny energy gap between 2S and 2P. As a radio frequency it is 1057.8 MHz (NIST ASD). A field at this frequency “tickles” 2S into 2P.</dd>
@@ -228,12 +240,12 @@ code,.mono{word-break:break-word}
 “Equation (44) has new energy density terms: scalar field energy (C²/2μ), SLW energy (CE/μ), and a power source (ρC/εμ).”</div>
     <p>In their Appendix A they use Ohm's law, <code>J = σE</code>, “for linearly conductive media”. After Eq.&nbsp;(36) they write: “The resultant electric field is E<sup>L</sup> = J<sup>L</sup>/σ … Thus, no eddy currents occur, so the SLW is unimpeded by the skin effect.” They relate σ to the loss part of the permittivity: “σ = ε<sub>o</sub>ε″ω”. Their SLW impedance is Eq.&nbsp;(37):</p>
     <div class="eq">Z = |E_r| / |C/μ_oμ'| = √(μ_o/ε_o) · √(μ'/ε') · [1 − 1/(jkr)] / [1 − j tan(δ_ε)],   tan δ_ε = ε″/ε'      (Eq. 37)</div>
-    <p><span class="lab H">HYP</span> <strong>Erratum, Phys. Essays 35, 320 (2022)</strong> (<a href="https://doi.org/10.4006/0836-1398-35.3.320">doi:10.4006/0836-1398-35.3.320</a>). It corrects Appendix A and concludes: “Physically, Eq. (A6) means that the SLW is not subject to resistive loss in conductive media. The same no-loss result occurs from the energy balance equation, Eq. (44), by substituting for (ρ/ε) from Eq. (22) and by substituting for J<sup>L</sup> from Eq. (21) with B = 0; then cancelling terms. Consequently, the SLW is unconstrained by the skin effect and power loss in resistive media.” <strong>So Hively's own term, as Hively evaluates it, gives α<sub>SLW</sub> = 0.</strong> The 2019 Appendix A reached the same no-loss conclusion by a different route (Eq.&nbsp;A7). Hively's patent (US&nbsp;9,306,527) lists “E, C, and J exchange energy in conductive media” (Table&nbsp;1, EQNS 11–17).</p>
-    <p><span class="lab A">ASSUMPTION (ours)</span> <strong>Joule-literal reading.</strong> Suppose the Joule heat <code>J·E = σE²</code> is <em>not</em> cancelled but drains the SLW power flow <code>S = |CE/μ| = E²/|Z|</code> (CE/μ sits inside the divergence in Eq.&nbsp;44, so we treat it as the SLW power flow), using Eq.&nbsp;(37) to relate C to E. Then <code>dS/dr = −σE² = −σ|Z| S</code>, so the field attenuation is:</p>
+    <p><span class="lab H">HYP</span> <strong>Erratum, Phys. Essays 35, 320 (2022)</strong> (<a href="https://doi.org/10.4006/0836-1398-35.3.320">doi:10.4006/0836-1398-35.3.320</a>). It corrects Appendix A and concludes: “Physically, Eq. (A6) means that the SLW is not subject to resistive loss in conductive media. The same no-loss result occurs from the energy balance equation, Eq. (44), by substituting for (ρ/ε) from Eq. (22) and by substituting for J<sup>L</sup> from Eq. (21) with B = 0; then cancelling terms. Consequently, the SLW is unconstrained by the skin effect and power loss in resistive media.” <strong>So Hively's own term, as the Erratum evaluates it, gives α<sub>SLW</sub> = 0. On this page that is a non-default toggle.</strong> The 2019 Appendix A reached the same no-loss conclusion by a different route (Eq.&nbsp;A7). Hively's patent (US&nbsp;9,306,527) lists “E, C, and J exchange energy in conductive media” (Table&nbsp;1, EQNS 11–17).</p>
+    <p><span class="lab A">ASSUMPTION (ours) · page default</span> <strong>Joule-literal reading (default, hub rule: include Hively's Joule-loss term for SLW in conductive media).</strong> Suppose the Joule heat <code>J·E = σE²</code> is <em>not</em> cancelled but drains the SLW power flow <code>S = |CE/μ| = E²/|Z|</code> (CE/μ sits inside the divergence in Eq.&nbsp;44, so we treat it as the SLW power flow), using Eq.&nbsp;(37) to relate C to E. Then <code>dS/dr = −σE² = −σ|Z| S</code>, so the field attenuation is:</p>
     <div class="eq">α_J = σ_H |Z| / 2,   σ_H = ε_0 ε″ ω,   |Z| = η_0 / (√ε' · |1 − j tan δ|)   (far field, kr ≫ 1, μ' = 1)</div>
     <p>This is our algebra built from Hively's Eqs.&nbsp;(37) and (44). It is not an equation printed by Hively, and the Erratum says the terms cancel instead. At 1057.8&nbsp;MHz, 15&nbsp;°C, salinity 35 (Meissner–Wentz): ε′ = 73.0, ε″ = 77.5, σ<sub>H</sub> = 4.56 S/m, |Z| = 30.2 Ω, so <strong>α<sub>J</sub> = 69.0 Np/m = 599 dB/m: 1/e length 1.45 cm</strong>. For comparison, ordinary radio (TEM) has <strong>α<sub>TEM</sub> = 90.7 Np/m = 788 dB/m: 1/e length 1.10 cm</strong>. Over 10&nbsp;cm, that is 60 dB of SLW loss against 79 dB for TEM.</p>
     <div class="tbl-wrap"><table class="res">
-      <tr><th>Water (1057.8 MHz)</th><th>TEM 1/e length (FACT)</th><th>SLW, Joule literal (ASSUMPTION)</th><th>SLW, Erratum (HYP)</th></tr>
+      <tr><th>Water (1057.8 MHz)</th><th>TEM 1/e length (FACT, classical comparison)</th><th>SLW with Joule loss (default, ASSUMPTION)</th><th>SLW, Erratum toggle (HYP)</th></tr>
       <tr><td>0 °C, S = 35 (σ = 2.90 S/m)</td><td class="n">1.47 cm</td><td class="n">1.72 cm</td><td class="n">no loss</td></tr>
       <tr><td>10 °C, S = 35 (σ = 3.81 S/m)</td><td class="n">1.21 cm</td><td class="n">1.52 cm</td><td class="n">no loss</td></tr>
       <tr><td>15 °C, S = 35 (σ = 4.29 S/m)</td><td class="n">1.10 cm</td><td class="n">1.45 cm</td><td class="n">no loss</td></tr>
@@ -242,7 +254,7 @@ code,.mono{word-break:break-word}
       <tr><td>20 °C, S = 10 (brackish)</td><td class="n">2.65 cm</td><td class="n">2.79 cm</td><td class="n">no loss</td></tr>
       <tr><td>20 °C, S = 0 (fresh, pool)</td><td class="n">17.22 cm</td><td class="n">17.25 cm</td><td class="n">no loss</td></tr>
     </table></div>
-    <p class="small">S is salinity in parts per thousand (35 is typical open ocean). In fresh water the loss comes almost entirely from the water molecules' own relaxation (ε″), so both readings give about the same metre-scale length. <strong>Hub consistency note:</strong> <a href="experiment-c.html#ohmic">Experiment C's “SLW Ohmic” section</a> says “SLW still has linear Ohmic loss”. The 2022 Erratum says the opposite. The hub's <code>physics-constants.json</code> already keeps both flags. This page does the same and does not pick a winner.</p>
+    <p class="small">S is salinity in parts per thousand (35 is typical open ocean). In fresh water the loss comes almost entirely from the water molecules' own relaxation (ε″), so both readings give about the same metre-scale length. <strong>Hub consistency note (open conflict):</strong> <a href="experiment-c.html#dict">Experiment C's field dictionary</a> and <a href="experiment-c.html#ohmic">“SLW Ohmic” section</a> say SLW has no eddy/skin loss but “still has linear Ohmic loss”, with Joule density σE∥², while SW has neither. The 2022 Erratum says SLW is “not subject to resistive loss”. The two disagree. Following the hub rule, this page uses the Joule loss by default and keeps the Erratum as a labelled toggle. Experiment C is not edited. The hub's <code>physics-constants.json</code> keeps both flags.</p>
   </section>
   <!-- ============ Seawater, hull, cage ============ -->
   <section class="panel" id="tab-sea" role="tabpanel" hidden>
@@ -259,11 +271,11 @@ TEM (FACT, plane wave in a lossy medium): k = (ω/c)√(ε' − jε″),  α_TEM
     <article class="plot-card">
       <h3>Attenuation vs frequency in water</h3>
       <div id="plotSea" role="img" aria-label="attenuation against frequency"></div>
-      <p>Teal: ordinary radio (TEM, FACT). Red: SLW under the Joule-literal reading (ASSUMPTION). The Erratum reading is zero at all frequencies (not drawn). Vertical line: 1057.8&nbsp;MHz.</p>
+      <p>Teal: ordinary radio (TEM, FACT). Red: SLW with Hively's Joule-loss term, the page default (ASSUMPTION). The Erratum toggle is zero at all frequencies (not drawn). Vertical line: 1057.8&nbsp;MHz.</p>
     </article>
     <p id="seaLive" class="small"></p>
     <h3>A prior claim to keep in view: Tomilin, Lukin &amp; Gulkov (2021)</h3>
-    <p><span class="lab F">FACT</span> (what the paper reports) Tomilin, Lukin &amp; Gulkov, Tech. Phys. Lett. 47, 577 (2021), in the hub library, report a voice-tone link over 470&nbsp;m of seawater (σ = 4.77&nbsp;S/m, 8&nbsp;°C) at 27.4&nbsp;MHz with 1.17&nbsp;W, using insulated spheres driven by Tesla flat coils. They say the transmitter and receiver sat in sealed boxes with batteries and hung on nylon ropes. <span class="lab H">HYP</span> The authors <em>hypothesise</em> that longitudinal waves carried it. They report no Faraday-cage or TEM control of the kind in our gate G2. <span class="lab A">ASSUMPTION</span> (ours, S&nbsp;=&nbsp;35 because the paper gives only σ) Our seawater model gives a TEM 1/e length of 5.1 cm at 27.4&nbsp;MHz, so 470&nbsp;m is about 79,523 dB of TEM loss. The Joule-literal SLW reading gives 40 cm, which also rules the claim out. Only the Erratum reading (no loss at all) is consistent with it. This is one unreplicated field report, and G2's controls are designed to test exactly this kind of claim.</p>
+    <p><span class="lab F">FACT</span> (what the paper reports) Tomilin, Lukin &amp; Gulkov, Tech. Phys. Lett. 47, 577 (2021), in the hub library, report a voice-tone link over 470&nbsp;m of seawater (σ = 4.77&nbsp;S/m, 8&nbsp;°C) at 27.4&nbsp;MHz with 1.17&nbsp;W, using insulated spheres driven by Tesla flat coils. They say the transmitter and receiver sat in sealed boxes with batteries and hung on nylon ropes. <span class="lab H">HYP</span> The authors <em>hypothesise</em> that longitudinal waves carried it. They report no Faraday-cage or TEM control of the kind in our gate G2. <span class="lab A">ASSUMPTION</span> (ours, S&nbsp;=&nbsp;35 because the paper gives only σ) Our seawater model gives a TEM 1/e length of 5.1 cm at 27.4&nbsp;MHz, so 470&nbsp;m is about 79,523 dB of TEM loss. The default Joule-loss SLW reading gives 40 cm, which also rules the claim out. Only the Erratum toggle (no loss at all) is consistent with it. This is one unreplicated field report, and G2's controls are designed to test exactly this kind of claim.</p>
     <h3>Steel hull (T<sub>hull</sub>)</h3>
     <p><span class="lab F">FACT</span> Ordinary radio does not pass through an intact metal wall. FX-1 estimated that a 1&nbsp;mm stainless wall already absorbs more than 400&nbsp;dB at 433&nbsp;MHz (skin effect; Ott, <em>EMC Engineering</em>, 2009, ch.&nbsp;6), and a centimetre-thick steel hull absorbs far more. What leaks in comes through seams, hatches and glands. <span class="lab H">HYP</span> Hively reports the SLW passing thousands of skin depths of copper. Whether it passes a steel hull is untested, so T<sub>hull</sub> (field fraction) is swept from 10<sup>−12</sup> to 1. The front page uses T<sub>hull</sub> = 1, the most favourable case for the link. <span class="lab A">ASSUMPTION</span> For TEM we give the hull <em>no</em> credit (SE<sub>hull,TEM</sub> = 0&nbsp;dB), because the hull is not the cage, and we include the textbook water-to-air field transmission factor |τ| = |2η<sub>0</sub>/(η<sub>0</sub>+η<sub>w</sub>)| = 1.84 (FACT, normal incidence).</p>
     <h3>The detector's own cage (SE<sub>cage</sub>, T<sub>cage</sub>) and the FX-1 openEMS seam results</h3>
@@ -340,29 +352,30 @@ TEM (FACT, plane wave in a lossy medium): k = (ω/c)√(ε' − jε″),  α_TEM
     <p><strong>What the brief's “1&nbsp;µV/m” really costs.</strong> At 1&nbsp;µV/m each atom is tickled at 3.1×10⁻¹¹&nbsp;s<sup>−1</sup> (×0.573 for F&nbsp;=&nbsp;1 atoms). The same atom also emits 2.14&nbsp;s<sup>−1</sup> of background photons in the lab case. To see 1&nbsp;µV/m at SNR 5 in 1&nbsp;s therefore needs <strong>N<sub>2S</sub> ≈ 2.3×10³⁰</strong> with the lab detector (4.5×10²² times Landhuis's cloud) or 1.4×10²⁴ with the best one. <strong>Neither is possible.</strong> The practical sensitivity is the “needed field” column above: hundreds of mV/m today and a few mV/m at best.</p>
     <h3>Transmitter power needed vs range (1 s, SNR 5, T<sub>hull</sub> = T<sub>cage</sub> = η = 1)</h3>
     <div class="tbl-wrap"><table class="res">
-      <tr><th>Range</th><th>SLW, Erratum α=0 (HYP)</th><th>SLW, Joule literal</th><th>SLW, TEM-equal</th><th>Ordinary radio into 80&nbsp;dB cage (FACT)</th></tr>
+      <tr><th>Range</th><th>SLW with Joule loss (default)</th><th>SLW, TEM-equal (classical)</th><th>SLW, Erratum α=0 (toggle, HYP)</th><th>Ordinary radio into 80&nbsp;dB cage (FACT)</th></tr>
       <tr><td colspan="5"><em>Best lab today (needs 742 mV/m at the atoms)</em></td></tr>
-      <tr><td>1 cm*</td><td class="n">1.1×10⁻⁵ W</td><td class="n">4.5×10⁻⁵ W</td><td class="n">7.0×10⁻⁵ W</td><td class="n">1.58 kW</td></tr>
-      <tr><td>10 cm</td><td class="n">1.1×10⁻³ W</td><td class="n">1.12 kW</td><td class="n">86.6 kW</td><td class="n">10<sup>12</sup> W</td></tr>
-      <tr><td>1 m</td><td class="n">114 mW</td><td class="n">10<sup>59</sup> W</td><td class="n">10<sup>78</sup> W</td><td class="n">10<sup>85</sup> W</td></tr>
-      <tr><td>100 m</td><td class="n">1.14 kW</td><td class="n">10<sup>5992</sup> W</td><td class="n">10<sup>7882</sup> W</td><td class="n">10<sup>7890</sup> W</td></tr>
-      <tr><td>1 km</td><td class="n">114 kW</td><td class="n">10<sup>59898</sup> W</td><td class="n">10<sup>78797</sup> W</td><td class="n">10<sup>78805</sup> W</td></tr>
+      <tr><td>1 cm*</td><td class="n"><strong>4.5×10⁻⁵ W</strong></td><td class="n">7.0×10⁻⁵ W</td><td class="n">1.1×10⁻⁵ W</td><td class="n">1.58 kW</td></tr>
+      <tr><td>10 cm</td><td class="n"><strong>1.12 kW</strong></td><td class="n">86.6 kW</td><td class="n">1.1×10⁻³ W</td><td class="n">10<sup>12</sup> W</td></tr>
+      <tr><td>1 m</td><td class="n"><strong>10<sup>59</sup> W</strong></td><td class="n">10<sup>78</sup> W</td><td class="n">114 mW</td><td class="n">10<sup>85</sup> W</td></tr>
+      <tr><td>100 m</td><td class="n"><strong>10<sup>5992</sup> W</strong></td><td class="n">10<sup>7882</sup> W</td><td class="n">1.14 kW</td><td class="n">10<sup>7890</sup> W</td></tr>
+      <tr><td>1 km</td><td class="n"><strong>10<sup>59898</sup> W</strong></td><td class="n">10<sup>78797</sup> W</td><td class="n">114 kW</td><td class="n">10<sup>78805</sup> W</td></tr>
       <tr><td colspan="5"><em>Best physical receiver (needs 5.04 mV/m)</em></td></tr>
-      <tr><td>1 cm*</td><td class="n">5.3×10⁻¹⁰ W</td><td class="n">2.1×10⁻⁹ W</td><td class="n">3.2×10⁻⁹ W</td><td class="n">73.1 mW</td></tr>
-      <tr><td>10 cm</td><td class="n">5.3×10⁻⁸ W</td><td class="n">51.5 mW</td><td class="n">4 W</td><td class="n">9.0×10⁷ W</td></tr>
-      <tr><td>1 m</td><td class="n">5.3×10⁻⁶ W</td><td class="n">10<sup>55</sup> W</td><td class="n">10<sup>74</sup> W</td><td class="n">10<sup>81</sup> W</td></tr>
-      <tr><td>100 m</td><td class="n">52.8 mW</td><td class="n">10<sup>5988</sup> W</td><td class="n">10<sup>7878</sup> W</td><td class="n">10<sup>7885</sup> W</td></tr>
-      <tr><td>1 km</td><td class="n">5.28 W</td><td class="n">10<sup>59893</sup> W</td><td class="n">10<sup>78793</sup> W</td><td class="n">10<sup>78800</sup> W</td></tr>
+      <tr><td>1 cm*</td><td class="n"><strong>2.1×10⁻⁹ W</strong></td><td class="n">3.2×10⁻⁹ W</td><td class="n">5.3×10⁻¹⁰ W</td><td class="n">73.1 mW</td></tr>
+      <tr><td>10 cm</td><td class="n"><strong>51.5 mW</strong></td><td class="n">4 W</td><td class="n">5.3×10⁻⁸ W</td><td class="n">9.0×10⁷ W</td></tr>
+      <tr><td>1 m</td><td class="n"><strong>10<sup>55</sup> W</strong></td><td class="n">10<sup>74</sup> W</td><td class="n">5.3×10⁻⁶ W</td><td class="n">10<sup>81</sup> W</td></tr>
+      <tr><td>100 m</td><td class="n"><strong>10<sup>5988</sup> W</strong></td><td class="n">10<sup>7878</sup> W</td><td class="n">52.8 mW</td><td class="n">10<sup>7885</sup> W</td></tr>
+      <tr><td>1 km</td><td class="n"><strong>10<sup>59893</sup> W</strong></td><td class="n">10<sup>78793</sup> W</td><td class="n">5.28 W</td><td class="n">10<sup>78800</sup> W</td></tr>
     </table></div>
     <p class="small">* 1&nbsp;cm is under one wavelength in water (2.99 cm), where the far-field formula is only indicative. <span class="lab A">ASSUMPTION</span> The source radiates equally in all directions. Far field: E<sub>peak</sub> = √(2|Z|P/(4πr² cos θ))·e<sup>−αr</sup>, with Z = Hively's Eq.&nbsp;37 impedance for SLW (cos θ = 1) or the TEM wave impedance and its phase θ. Powers like 10<sup>58</sup>&nbsp;W simply mean “impossible”.</p>
     <div class="tbl-wrap"><table class="res">
-      <tr><th>Longest range</th><th>Erratum α=0</th><th>Joule literal</th><th>TEM-equal</th><th>Radio into 80 dB cage</th></tr>
-      <tr><td>Lab, 1 W</td><td class="n">2.96 m</td><td class="n">5.72 cm</td><td class="n">4.59 cm</td><td class="n">&lt;1 mm</td></tr>
-      <tr><td>Lab, 1 kW</td><td class="n">93.5 m</td><td class="n">9.93 cm</td><td class="n">7.81 cm</td><td class="n">0.883 cm</td></tr>
-      <tr><td>Best, 1 W</td><td class="n">435 m</td><td class="n">11.9 cm</td><td class="n">9.31 cm</td><td class="n">1.8 cm</td></tr>
-      <tr><td>Best, 1 kW</td><td class="n">13.8 km</td><td class="n">16.4 cm</td><td class="n">12.8 cm</td><td class="n">4.57 cm</td></tr>
+      <tr><th>Longest range</th><th>Joule loss (default)</th><th>TEM-equal (classical)</th><th>Erratum α=0 (toggle)</th><th>Radio into 80 dB cage</th></tr>
+      <tr><td>Lab, 1 W</td><td class="n"><strong>5.72 cm</strong></td><td class="n">4.59 cm</td><td class="n">2.96 m</td><td class="n">&lt;1 mm</td></tr>
+      <tr><td>Lab, 1 kW</td><td class="n"><strong>9.93 cm</strong></td><td class="n">7.81 cm</td><td class="n">93.5 m</td><td class="n">0.883 cm</td></tr>
+      <tr><td>Best, 1 W</td><td class="n"><strong>11.9 cm</strong></td><td class="n">9.31 cm</td><td class="n">435 m</td><td class="n">1.8 cm</td></tr>
+      <tr><td>Best, 1 kW</td><td class="n"><strong>16.4 cm</strong></td><td class="n">12.8 cm</td><td class="n">13.8 km</td><td class="n">4.57 cm</td></tr>
     </table></div>
-    <p><strong>Worked example</strong> (Erratum reading, 1&nbsp;W, 10&nbsp;m, lab receiver): field at the atoms 219 mV/m, tickle rate 0.854 s⁻¹ per atom, signal 11.8 /s against background 31.2 /s (cloud depleted to 0.92), SNR 0.969 in 1&nbsp;s, which is short of the SNR&nbsp;5 target. Under the Joule-literal reading the same 10&nbsp;m path leaves about 10<sup>-300</sup> V/m.</p>
+    <p><strong>Worked example, default (Joule loss, 1&nbsp;W, 5&nbsp;cm, lab receiver):</strong> field at the atoms 1.4 V/m, tickle rate 34.6 s⁻¹ per atom, signal 116 /s against background 8.85 /s (cloud depleted to 0.22), SNR 7.11 in 1&nbsp;s. At 10&nbsp;cm the same setup leaves 22.2 mV/m and SNR 0.0113. With the Joule loss, the same 10&nbsp;m path leaves about 10<sup>-300</sup> V/m.</p>
+    <p class="small"><strong>Erratum toggle, for comparison</strong> (α = 0, 1&nbsp;W, 10&nbsp;m, lab receiver): field at the atoms 219 mV/m, tickle rate 0.854 s⁻¹ per atom, signal 11.8 /s against background 31.2 /s (cloud depleted to 0.92), SNR 0.969 in 1&nbsp;s, which is short of the SNR&nbsp;5 target.</p>
     <h3>Backgrounds through the cage (brief §3)</h3>
     <p><span class="lab F">FACT</span> Field levels come from the free-space far-field formula, with isotropic antennas assumed (<span class="lab A">ASSUMPTION</span>). ADS-B: Mode S transponders emit 18.5–27&nbsp;dBW peak (ICAO Annex 10 Vol IV); we use 500&nbsp;W at 10&nbsp;km. GPS L2C: −160&nbsp;dBW minimum into a 3&nbsp;dBi antenna (IS-GPS-200). DME: aircraft interrogate on 1025–1150&nbsp;MHz on a 1&nbsp;MHz grid (NRAO EDIR 313; FAA), so <strong>one DME channel sits at 1058&nbsp;MHz, on our resonance</strong>; we use 300&nbsp;W at 10&nbsp;km. Wi-Fi: 100&nbsp;mW EIRP at 3&nbsp;m (ASSUMPTION). “Equivalent” means the field at 1057.8&nbsp;MHz that would give the same tickle rate for F&nbsp;=&nbsp;1 atoms (hyperfine lines and the Lorentzian included; ADS-B is 2.6 MHz from the F=1→F′=1 line). There is no duty-cycle credit here; ADS-B and DME are pulsed, and the live model uses 10<sup>−3</sup> (ASSUMPTION).</p>
     <div class="tbl-wrap"><table class="res">
@@ -373,7 +386,7 @@ TEM (FACT, plane wave in a lossy medium): k = (ω/c)√(ε' − jε″),  α_TEM
       <tr><td>Wi-Fi 2437 MHz</td><td class="n">816 mV/m</td><td class="n">+1379.2 MHz (-27.9 dB)</td><td class="n">44.8 mV/m</td><td class="n">448 µV/m</td><td class="n">4.48 µV/m</td><td class="n">39 dB</td></tr>
     </table></div>
     <p><strong>ADS-B leakage result:</strong> 17.3 mV/m outside (173 mV/m at 1&nbsp;km) becomes 2.06 µV/m equivalent behind an 80&nbsp;dB cage. That is far below both receivers' needed field, so about 32 dB of cage is enough. Our desk comparison reached the same conclusion with a different ADS-B level (a JFK-average of 0.45&nbsp;mV/m RMS; 1090ES Class A1 transmitters emit at least 125&nbsp;W, FAA AC 20-165B). Submerged, the sea itself removes ADS-B (TEM at 788 dB/m). Out of the water, at the G1 bench or the G2 pool, the cage must do the work. <span class="lab A">ASSUMPTION</span> Wi-Fi harmonics and intermodulation products that land near 1058&nbsp;MHz cannot be predicted here. G1 must include a spectrum survey at 1058&nbsp;MHz ± 100&nbsp;MHz inside and outside the cage.</p>
-    <p><strong>The transmitter's own TEM leak (control a):</strong> 1&nbsp;W through 5&nbsp;cm of seawater gives 539 mV/m at the hull (FACT), 99 µV/m at the atoms behind an 80&nbsp;dB cage (9.9 mV/m at 40&nbsp;dB), and a count rate of about 7.6×10⁻¹⁰ /s with the lab receiver. Ordinary radio cannot fake the signal through a sound cage at these ranges. A leaky cage (see the FX-1 seam table) plus a short water path could, which is why control (a) and (b) are required.</p>
+    <p><strong>The transmitter's own TEM leak (control a):</strong> 1&nbsp;W through 5&nbsp;cm of seawater gives 539 mV/m at the hull (FACT), 99 µV/m at the atoms behind an 80&nbsp;dB cage (9.9 mV/m at 40&nbsp;dB), and a count rate of about 5.9×10⁻⁷ /s with the lab receiver. Ordinary radio cannot fake the signal through a sound cage at these ranges. A leaky cage (see the FX-1 seam table) plus a short water path could, which is why control (a) and (b) are required.</p>
     <div id="linkLive"></div>
   </section>
   <!-- ============ Receiver chain ============ -->
@@ -406,7 +419,7 @@ TEM (FACT, plane wave in a lossy medium): k = (ω/c)√(ε' − jε″),  α_TEM
   <section class="panel" id="tab-gates" role="tabpanel" hidden>
     <h2>Gates G0–G3 (in order; do not skip)</h2>
     <ol>
-      <li><strong>G0 · desk simulation (now).</strong> Full chain model, link budget, detector comparison, on GitHub plus the Mathematica twin. A paper result only. <em>Status: this page (expt-g-v0.1). The Python ↔ JS compare passes. The WL twin is written by hand but not run, so its compare is owed.</em></li>
+      <li><strong>G0 · desk simulation (now).</strong> Full chain model, link budget, detector comparison, on GitHub plus the Mathematica twin. A paper result only. <em>Status: this page (expt-g-v0.1; default SLW loss is the Joule term since 25&nbsp;Sep&nbsp;2026). The Python ↔ JS compare passes. The WL twin is written by hand but not run, so its compare is owed.</em></li>
       <li><strong>G1 · TEM baseline on the bench.</strong> Reproduce standard RF quenching of 2S at 1058&nbsp;MHz with an ordinary antenna. This proves the receiver works before any SLW claim. It needs hydrogen, the UV laser (or the L&amp;R electron-bombardment alternative), vacuum and Lyman-α hardware. Cost and difficulty: <a href="#" data-goto="rx">Receiver chain</a>. It should also reproduce the Lorentzian (99.7 MHz wide) and the ±300&nbsp;MHz contrast (-11.6 dB / -14.3 dB for F&nbsp;=&nbsp;1 atoms), and survey 1058&nbsp;MHz ± 100&nbsp;MHz for DME, ADS-B and Wi-Fi products, using an LNA that covers 1058&nbsp;MHz (ZX60-P33ULN+, not the Kuhne 1296&nbsp;MHz LNA).</li>
       <li><strong>G2 · POOL MOCKUP TEST (required before any comms claim).</strong> The detector goes inside its own cage, inside a steel hull mockup, in water of known salinity. The transmitter sits outside, across a measured seawater path. Required controls:
         <ol type="a">
@@ -414,7 +427,7 @@ TEM (FACT, plane wave in a lossy medium): k = (ω/c)√(ε' − jε″),  α_TEM
           <li>Cage open versus closed.</li>
           <li>Transmitter on versus off, and modulation on versus off.</li>
           <li>Detuned drive (for example ±300&nbsp;MHz) must lose the signal on the Lyman-α Lorentzian (expected contrast for F&nbsp;=&nbsp;1 atoms -11.6 dB / -14.3 dB).</li>
-          <li>Salinity and range must be varied. Under the Joule-literal reading the signal falls about 599 dB/m with range in seawater and changes with salinity like TEM. Under the Erratum reading it follows 1/r only.</li>
+          <li>Salinity and range must be varied. With the Joule loss (page default) the signal falls about 599 dB/m with range in seawater and changes with salinity like TEM. Under the Erratum toggle it follows 1/r only.</li>
         </ol>
         Only a signal that survives all of these may be called SLW (<span class="hyp">HYP</span>) evidence.</li>
       <li><strong>G3 · comms demo.</strong> Proceed only if G2 is positive. Measure bit error rate against range.</li>
@@ -444,7 +457,7 @@ TEM (FACT, plane wave in a lossy medium): k = (ω/c)√(ε' − jε″),  α_TEM
       <tr><td>6</td><td>1&nbsp;µV/m gives 3.1×10⁻¹¹&nbsp;s⁻¹ per atom; detecting it needs ~2.3×10³⁰ atoms</td><td>FACT (ours)</td><td>L&amp;R Eq.&nbsp;26; this page</td></tr>
       <tr><td>7</td><td>β–e crossing at 573.5 G; broadband and v×B caveats; prefer direct drive</td><td>FACT (ours)</td><td>L&amp;R 1950 §16; Expt D check</td></tr>
       <tr><td>8</td><td>Seawater ε′ = 73.0, σ = 4.29 S/m; TEM 1/e length 1.10 cm at 1057.8&nbsp;MHz</td><td>FACT</td><td>Meissner &amp; Wentz 2004</td></tr>
-      <tr><td>8h</td><td>SLW seawater loss: none (Erratum) or 1.45 cm (Joule literal)</td><td>HYP / ASSUMPTION</td><td>Hively &amp; Loebl 2019 Eqs 37, 44; Erratum 2022</td></tr>
+      <tr><td>8h</td><td>SLW seawater loss: 1/e length 1.45 cm with the Joule loss (page default), or none (Erratum toggle); the two conflict (Experiment C dictionary vs Erratum)</td><td>HYP / ASSUMPTION</td><td>Hively &amp; Loebl 2019 Eqs 37, 44; Erratum 2022</td></tr>
       <tr><td>9</td><td>Steel-hull SLW transmission T<sub>hull</sub></td><td>HYP (unknown)</td><td>—</td></tr>
       <tr><td>3f</td><td>1057.8&nbsp;MHz is the centroid; lines at 909.87 MHz, 1087.43 MHz, 1146.65 MHz; F=1 factor 0.573</td><td>FACT (ours)</td><td>Bullis et al. 2023; Lundeen et al. 1975; PRA 98, 012509 (2018)</td></tr>
       <tr><td>10</td><td>Stray quench ≤1.77&nbsp;s⁻¹ at best compensation; blackbody 8.1×10⁻⁴&nbsp;s⁻¹ at 290&nbsp;K</td><td>FACT (Landhuis) / ours</td><td>Landhuis; Gallagher &amp; Cooke 1979</td></tr>

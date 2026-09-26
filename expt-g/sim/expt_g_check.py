@@ -34,10 +34,23 @@ if "{{" in html: print("    leftover {{ placeholder on page"); fail += 1
 # 2. required statements
 REQ = ["two 243", "972", "Faraday cage", "no cable crosses the cage wall", "fibre", "HYP", "Cloud twin pending sync (expt-g-v0.1)",
        "G0", "G1", "G2", "G3", "1057.8", "(44)", "not subject to resistive loss", "Meissner", "Klarsfeld",
-       "experiment-c.html", "Experiment-F-Hydrogen-Scalar-Wave", "OWED"]
+       "experiment-c.html", "Experiment-F-Hydrogen-Scalar-Wave", "OWED",
+       # Joule-loss default (hub rule 2026-09-25) + Erratum toggle + conflict flag
+       "With the Joule-loss term, a ~1&nbsp;GHz SLW falls by a factor e every", "so the range is centimetres",
+       "no eddy / no classical skin barrier; SLW still has linear Ohmic loss; SW has neither", "Joule density <strong>σE∥²</strong>",
+       "Erratum α = 0: a non-default toggle", "This Erratum corrects errors in Appendix A", "Open conflict, flagged and not resolved here",
+       "TEM-equal (classical comparison)", 'data-v="joule" aria-pressed="true"', 'data-v="errata0" aria-pressed="false"']
 low = html.lower(); rmiss = [s for s in REQ if s.lower() not in low]
 print(f"[2] required statements: {len(REQ) - len(rmiss)}/{len(REQ)} present" + (f"; missing {rmiss}" if rmiss else ""))
 fail += len(rmiss)
+# 2b. default SLW mode is Joule-literal in all three twins
+from expt_g_model import DEFAULTS as PYDEF
+_js = open(eng, encoding="utf-8").read(); _wlp = _first(os.path.join(d, "..", "wolfram", "ExptG.wl"), os.path.join(d, "..", "..", "wolfram", "ExptG.wl"))
+_wl = open(_wlp, encoding="utf-8").read()
+dchk = [("PY DEFAULTS", PYDEF["slw_mode"] == "joule"), ("JS DEFAULTS", 'slw_mode: "joule"' in _js), ("WL gDefaults", '"slw_mode" -> "joule"' in _wl)]
+dbad = [k for k, ok in dchk if not ok]
+print(f"[2b] default slw_mode = joule: {len(dchk) - len(dbad)}/{len(dchk)} twins" + (f"; not joule in {dbad}" if dbad else ""))
+fail += len(dbad)
 # 3. PY vs JS
 subprocess.run([sys.executable, os.path.join(d, "run_grid.py")], check=True, cwd=d, stdout=subprocess.DEVNULL)
 subprocess.run(["node", os.path.join(d, "dump_js_outputs.js"), eng, os.path.join(d, "grid_spec.json"), os.path.join(d, "js_outputs.json")], check=True, cwd=d, stdout=subprocess.DEVNULL)

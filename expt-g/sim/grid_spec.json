@@ -162,6 +162,36 @@
 {
 "r": 1000.0,
 "P_tx": 1000.0
+},
+{
+"slw_mode": "errata0"
+},
+{
+"N2S": 2200000000.0,
+"eps_det": 0.039,
+"R_dark": 0.02,
+"filt_shape": "gauss",
+"E_stray": 0.01,
+"G_stray": 0.0,
+"r": 30.0,
+"slw_mode": "errata0"
+},
+{
+"f_d": 1087431340.0,
+"r": 3,
+"P_tx": 0.01,
+"B_stray": 1.0,
+"T_atom": 5.8,
+"E_stray": 1.0,
+"filt_fwhm": 20,
+"T_int": 100,
+"T_bbr": 4.0,
+"slw_mode": "errata0"
+},
+{
+"r": 1000.0,
+"P_tx": 1000.0,
+"slw_mode": "errata0"
 }
 ],
 "ptx": [
@@ -266,5 +296,6 @@
 290.0,
 77.0,
 4.0
-]
+],
+"_note": "link cases 0-7: default slw_mode (joule since 2026-09-25) unless set; cases 8-11 repeat 0,2,6,7 with the Erratum toggle (errata0)."
 }

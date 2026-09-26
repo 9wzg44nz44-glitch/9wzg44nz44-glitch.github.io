@@ -114,6 +114,12 @@ Ls = link(dict(LAB, slw_mode="errata0", P_tx=1.0, r=10.0))
 X["ex_E"] = fE(Ls["E_det_slw"]); X["ex_sig"] = f"{Ls['R']['sig']:.3g} /s"; X["ex_bkg"] = f"{Ls['Rb']:.3g} /s"; X["ex_snr"] = f"{Ls['snr']:.3g}"
 X["ex_G"] = f"{Ls['G_sig']:.3g} s⁻¹"; X["ex_dep"] = f"{Ls['dep']:.2f}"
 Lj = link(dict(LAB, slw_mode="joule", P_tx=1.0, r=10.0)); X["exJ_E"] = fE(Lj["E_det_slw"]) if Lj["E_det_slw"] > 1e-300 else "0 (underflow)"
+# default worked example: Joule-literal (page default), 1 W, 5 cm and 10 cm, lab preset
+Ld = link(dict(LAB, slw_mode="joule", P_tx=1.0, r=0.05))
+X["exD_E"] = fE(Ld["E_det_slw"]); X["exD_sig"] = f"{Ld['R']['sig']:.3g} /s"; X["exD_bkg"] = f"{Ld['Rb']:.3g} /s"; X["exD_snr"] = f"{Ld['snr']:.3g}"
+X["exD_G"] = f"{Ld['G_sig']:.3g} s⁻¹"; X["exD_dep"] = f"{Ld['dep']:.2f}"
+Ld10 = link(dict(LAB, slw_mode="joule", P_tx=1.0, r=0.1)); X["exD10_E"] = fE(Ld10["E_det_slw"]); X["exD10_snr"] = f"{Ld10['snr']:.3g}"
+assert DEFAULTS["slw_mode"] == "joule"
 X["exJ_log10E"] = f"10<sup>{math.log10(field_at(1.0,1.0,0,wt['Zslw'])/10)-wt['alpha_J']*10/math.log(10):.0f}</sup> V/m"
 # ADS-B / GPS / DME / Wi-Fi fields (FACT free-space far field, ASSUMPTION isotropic antennas)
 E_ads10 = math.sqrt(2 * C["eta0"] * 500 / (4 * math.pi * 1e8)); E_ads1 = E_ads10 * 10

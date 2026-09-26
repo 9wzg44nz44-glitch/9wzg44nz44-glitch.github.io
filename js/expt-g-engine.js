@@ -151,7 +151,7 @@
   function log10_field_at(r, P, alpha, Z, costh) { costh = costh || 1; return 0.5 * Math.log10(2 * Z * P / (4 * Math.PI * r * r * costh)) - alpha * r / Math.LN10; }
   function power_for(E, r, alpha, Z, costh) { costh = costh || 1; return Math.log10(E * E * 4 * Math.PI * r * r * costh / (2 * Z)) + 2 * alpha * r / Math.LN10; }
 
-  var DEFAULTS = { f_d: L_MHZ * 1e6, eta_c: 1.0, T_w: 15.0, S: 35.0, r: 1.0, P_tx: 1.0, slw_mode: "errata0", alpha_custom: 0.0,
+  var DEFAULTS = { f_d: L_MHZ * 1e6, eta_c: 1.0, T_w: 15.0, S: 35.0, r: 1.0, P_tx: 1.0, slw_mode: "joule", alpha_custom: 0.0, /* default Joule-literal (Dan rule); Erratum = toggle */
     T_hull: 1.0, T_cage: 1.0, SE_cage: 80.0, SE_hull_tem: 0.0, hf: "F1",
     N2S: 5e7, eps_det: 3e-7, R_dark: 1.66, filt_fwhm: 10.0, filt_shape: "lorentz", block: 1e-4,
     E_stray: 0.0, G_stray: 1.7717, B_stray: 1e-3, T_atom: 100e-6, T_bbr: 290.0, SNR: 5.0, T_int: 1.0, cps_max: 15e6,
@@ -199,7 +199,7 @@
     var E_req_det = isFinite(G_req) ? 1e-6 * Math.sqrt(G_req / K1) : Infinity;
     var E_req_out = E_req_det / (q.T_hull * q.T_cage);
     var a = eps * G_sig * D, b = eps * g_b * D, d = q.R_dark;
-    var N_req = a > 0 ? (K * K * (a + 2 * b) + Math.sqrt(Math.pow(K, 4) * (a + 2 * b) * (a + 2 * b) + 8 * T / 2 * a * a * K * K * d)) / (T * a * a) : Infinity;
+    var N_req = a > 1e-150 ? /* guard: a^2 underflow */ (K * K * (a + 2 * b) + Math.sqrt(Math.pow(K, 4) * (a + 2 * b) * (a + 2 * b) + 8 * T / 2 * a * a * K * K * d)) / (T * a * a) : Infinity;
     var cps = R.sig + Rb;
     return { q: q, wt: wt, alpha_slw: a_s, E_out_slw: E_out_slw, E_det_slw: E_det_slw, E_out_tem: E_out_tem, tau_wa: tau,
       E_det_tem: E_det_tem, G_sig: G_sig, G_tem: G_tem, G_dc: G_dc, G_bbr: G_bbr, E_mot: E_mot, E_dc: E_dc, F2: F2, g_b: g_b, G0: G0,

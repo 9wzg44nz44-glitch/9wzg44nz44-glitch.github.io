@@ -7,7 +7,7 @@ def flat(o, p=""):
         for k in sorted(o): yield from flat(o[k], f"{p}.{k}")
     elif isinstance(o, list):
         for i, v in enumerate(o): yield from flat(v, f"{p}[{i}]")
-    else: yield p, o
+    else: yield p, (float(o) if o in ("Infinity", "-Infinity") else o)   # JS/WL write non-finite values as strings
 def cmp(a, b, tol=1e-9):
     A = dict(flat(a)); B = dict(flat(b)); bad = []; worst = 0.0
     for k in A:

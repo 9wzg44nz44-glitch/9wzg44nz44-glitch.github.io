@@ -1,4 +1,4 @@
-/* Experiment G page UI (expt-g-v0.1). Physics lives in expt-g-engine.js (window.ExptG). */
+/* Experiment G page UI (expt-g-v0.1; default SLW loss = Joule-literal since 2026-09-25). Physics lives in expt-g-engine.js (window.ExptG). */
 (function () {
   "use strict";
   var G = window.ExptG; if (!G) return;
@@ -7,7 +7,7 @@
   var DET_HINT = { lab: "Landhuis-style trapped H: 5×10⁷ atoms in 2S (FACT), efficiency 3×10⁻⁷ incl. a 10 nm filter, stray-field quench ≤1.77/s (Landhuis best), MCP dark 1.66/s.",
     opt: "Best possible from cited parts: efficiency 0.039 (ceiling), 2.2×10⁹ atoms (the most one 15 Mcps counter can handle), 10 mV/m stray field, dark 0.02/s (ASSUMPTION)." };
   var S = {}; var k; for (k in G.DEFAULTS) S[k] = G.DEFAULTS[k];
-  S.det = "lab"; S.r = 1; S.P_tx = 1; S.dfMHz = 0;
+  S.det = "lab"; S.r = 0.05; S.P_tx = 1; S.dfMHz = 0;   // front default 5 cm: inside the default (Joule-loss) range
   function applyPreset() { var p = PRESETS[S.det]; for (var kk in p) S[kk] = p[kk]; }
   applyPreset();
   var $ = function (id) { return document.getElementById(id); };
@@ -20,7 +20,7 @@
   function fElog(lg) { return lg > -300 ? fE(Math.pow(10, lg)) : "10<sup>" + lg.toFixed(0) + "</sup> V/m"; }
   function fR(r) { if (r <= 0) return "&lt;1 mm"; if (r < 1) return g3(r * 100) + " cm"; if (r < 1e3) return g3(r) + " m"; return g3(r / 1e3) + " km"; }
   function fP(lp) { if (lp < -2.5 || lp > 5.5) return Math.abs(lp) >= 10 ? "10<sup>" + lp.toFixed(0) + "</sup> W" : sci(Math.pow(10, lp)) + " W"; var P = Math.pow(10, lp); if (P < 1) return g3(P * 1e3) + " mW"; if (P < 1e3) return g3(P) + " W"; return g3(P / 1e3) + " kW"; }
-  var MODE_NAME = { errata0: "Hively Erratum (no seawater loss)", joule: "Joule term taken literally", tem: "TEM-equal loss", custom: "custom α" };
+  var MODE_NAME = { joule: "Joule-loss term σE∥² (default)", tem: "TEM-equal loss (classical comparison)", errata0: "Erratum α = 0 (non-default toggle)", custom: "custom α" };
 
   // ---------- tiny SVG plotter ----------
   function plot(el, o) {
@@ -63,7 +63,10 @@
     $("oCountsN").textContent = "signal vs background per second (largest background: " + bnames[big] + ")";
     $("oSNR").textContent = L.snr > 0 ? g3(L.snr) : "0";
     var ok = L.snr >= S.SNR;
-    $("headline").innerHTML = (ok ? "✅ Link works" : "❌ No link") + " at " + fR(S.r) + " with " + fP(Math.log10(S.P_tx)) + " — if the SLW behaves as “" + MODE_NAME[S.slw_mode] + "”. Longest range at this power: <strong>" + fR(G.max_range(S.P_tx, L.E_req_out, wt, S.slw_mode, S.alpha_custom)) + "</strong>.";
+    var rMode = fR(G.max_range(S.P_tx, L.E_req_out, wt, S.slw_mode, S.alpha_custom)), rTem = fR(G.max_range(S.P_tx, L.E_req_out, wt, "tem"));
+    $("headline").innerHTML = (ok ? "✅ Link works" : "❌ No link") + " at " + fR(S.r) + " with " + fP(Math.log10(S.P_tx)) + " — SLW loss: “" + MODE_NAME[S.slw_mode] + "”. Longest range at this power: <strong>" + rMode + "</strong>" +
+      (S.slw_mode === "tem" ? "." : " (TEM-equal, classical comparison: " + rTem + ").") +
+      (S.slw_mode === "errata0" ? " <span class=\"errtag\">Erratum toggle: Hively's 2022 no-loss claim, not the default; it conflicts with Experiment C's Joule-loss rule.</span>" : "");
     if (S.slw_mode === "custom") $("headline").innerHTML = (ok ? "✅ Link works" : "❌ No link") + " at " + fR(S.r) + " (custom α = " + g3(S.alpha_custom) + " Np/m).";
     var fl = [];
     if (S.r < wt.lam_water) fl.push("Range is under one wavelength in water (" + g3(wt.lam_water * 100) + " cm): near field, the far-field formula is only indicative (ASSUMPTION).");
@@ -75,8 +78,8 @@
     $("flags").innerHTML = fl.length ? "<ul><li>" + fl.join("</li><li>") + "</li></ul>" : "";
     // front plot
     var rs = logspace(-2, 3, 160), ymin = -12, ymax = 4;
-    var ser = [["errata0", "#ffb86b"], ["joule", "#ff6b6b"], ["tem", "#b9a2ff"]].map(function (m) {
-      var a = G.alpha_slw(m[0], wt); return { c: m[1], w: S.slw_mode === m[0] ? 3.5 : 1.8, pts: rs.map(function (r) { return [r, Math.max(ymin - 1, G.log10_field_at(r, S.P_tx, a, wt.Zslw) + Math.log10(S.T_hull * S.T_cage))]; }) };
+    var ser = [["errata0", "#ffb86b"], ["tem", "#b9a2ff"], ["joule", "#ff6b6b"]].map(function (m) {
+      var a = G.alpha_slw(m[0], wt); return { c: m[1], w: S.slw_mode === m[0] ? 3.5 : 1.8, dash: m[0] === "errata0" ? "6 5" : "", pts: rs.map(function (r) { return [r, Math.max(ymin - 1, G.log10_field_at(r, S.P_tx, a, wt.Zslw) + Math.log10(S.T_hull * S.T_cage))]; }) };
     });
     ser.push({ c: "#55d6be", w: 2, pts: rs.map(function (r) { return [r, Math.max(ymin - 1, G.log10_field_at(r, S.P_tx, wt.alpha_tem, wt.eta_abs, Math.cos(wt.eta_phase)) + Math.log10(L.tau_wa) - (S.SE_hull_tem + S.SE_cage) / 20)]; }) });
     plot($("plotFront"), { xlog: true, x0: 0.01, x1: 1000, y0: ymin, y1: ymax, series: ser, hl: [[Math.log10(L.E_req_det), "#ffffff"]],
@@ -95,7 +98,7 @@
       vl: [[G.L_MHZ * 1e6, "#ffb86b", "1057.8 MHz"]], xt: [[1e8, "100 MHz"], [3e8, "300 MHz"], [1e9, "1 GHz"], [3e9, "3 GHz"], [1e10, "10 GHz"]],
       yt: [[0, "1"], [1, "10"], [2, "100"], [3, "1000"], [4, "10⁴"]], xlabel: "frequency", ylabel: "attenuation (dB/m, log)" });
     $("oTw").textContent = T + " °C"; $("oS").textContent = Sa;
-    $("seaLive").innerHTML = "At 1057.8 MHz, " + T + " °C, S = " + Sa + ": ε′ = " + w0.ep.toFixed(1) + ", ε″ = " + w0.epp.toFixed(1) + ", σ = " + w0.sigma.toFixed(2) + " S/m. TEM: " + (w0.alpha_tem * G.NP2DB).toFixed(0) + " dB/m (1/e length " + g3(100 / w0.alpha_tem) + " cm). SLW Joule-literal: " + (w0.alpha_J * G.NP2DB).toFixed(0) + " dB/m (" + g3(100 / w0.alpha_J) + " cm). SLW Erratum: 0 dB/m.";
+    $("seaLive").innerHTML = "At 1057.8 MHz, " + T + " °C, S = " + Sa + ": ε′ = " + w0.ep.toFixed(1) + ", ε″ = " + w0.epp.toFixed(1) + ", σ = " + w0.sigma.toFixed(2) + " S/m. TEM: " + (w0.alpha_tem * G.NP2DB).toFixed(0) + " dB/m (1/e length " + g3(100 / w0.alpha_tem) + " cm). SLW with the Joule-loss term (default): " + (w0.alpha_J * G.NP2DB).toFixed(0) + " dB/m (" + g3(100 / w0.alpha_J) + " cm). SLW, Erratum toggle: 0 dB/m.";
   }
   function render2E1() {
     var ys = [], i; for (i = 0; i <= 200; i++) ys.push(i / 200);
@@ -148,7 +151,7 @@
       var v = c[5] ? Math.log10(S[c[0]]) : S[c[0]];
       h += '<label>' + c[1] + ': <output id="ao_' + c[0] + '"></output><input type="range" data-k="' + c[0] + '" data-log="' + (c[5] ? 1 : 0) + '" min="' + c[2] + '" max="' + c[3] + '" step="' + c[4] + '" value="' + v + '"></label>';
     });
-    h += '<label>α_SLW mode: <select id="aMode"><option value="errata0">Erratum: 0</option><option value="joule">Joule literal</option><option value="tem">TEM-equal</option><option value="custom">custom (slider)</option></select></label>';
+    h += '<label>α_SLW mode: <select id="aMode"><option value="joule">Joule-loss term (default)</option><option value="tem">TEM-equal (classical comparison)</option><option value="errata0">Erratum α = 0 (toggle, not default)</option><option value="custom">custom (slider)</option></select></label>';
     h += '<label>atom temperature (for v×B): <select id="aTat"><option value="0.0001">100 µK trapped</option><option value="5.8">5.8 K beam</option><option value="300">300 K</option></select></label>';
     h += '<label>filter shape: <select id="aShape"><option value="lorentz">Lorentzian (wide wings)</option><option value="gauss">Gaussian</option></select></label>';
     h += '<label>hyperfine state of the atoms: <select id="aHF"><option value="F1">F = 1 (trapped, FACT)</option><option value="F0">F = 0</option><option value="centroid">ignore hyperfine</option></select></label>';
@@ -180,10 +183,10 @@
   }
   function renderLinkLive(L) {
     var rows = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 100, 1000].map(function (r) {
-      return "<tr><td>" + fR(r) + "</td>" + ["errata0", "joule", "tem"].map(function (m) { return '<td class="n">' + fP(G.ptx_required(r, L.E_req_out, L.wt, m, S.alpha_custom)) + "</td>"; }).join("") +
+      return "<tr><td>" + fR(r) + "</td>" + ["joule", "tem", "errata0"].map(function (m) { return '<td class="n">' + fP(G.ptx_required(r, L.E_req_out, L.wt, m, S.alpha_custom)) + "</td>"; }).join("") +
         '<td class="n">' + fP(G.ptx_required(r, L.E_req_det * Math.sqrt(S.eta_c) * Math.pow(10, (S.SE_hull_tem + S.SE_cage) / 20) / L.tau_wa, L.wt, "TEM")) + "</td></tr>";
     }).join("");
-    $("linkLive").innerHTML = "<h3>Live: power needed with your current settings</h3><div class=\"tbl-wrap\"><table class=\"res\"><tr><th>Range</th><th>Erratum α=0</th><th>Joule literal</th><th>TEM-equal</th><th>Radio into cage</th></tr>" + rows + "</table></div>";
+    $("linkLive").innerHTML = "<h3>Live: power needed with your current settings</h3><div class=\"tbl-wrap\"><table class=\"res\"><tr><th>Range</th><th>SLW, Joule loss (default)</th><th>TEM-equal (classical)</th><th>Erratum α=0 (toggle)</th><th>Radio into cage</th></tr>" + rows + "</table></div>";
   }
   // ---------- wiring ----------
   function syncSeg() {

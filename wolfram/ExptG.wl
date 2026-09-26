@@ -109,10 +109,13 @@ water[f_, t_, s_] := Module[{eps, sig, ep, epp, w = 2. Pi f, sq, eta, tand, z, s
     "eta_abs" -> Abs[eta], "eta_phase" -> Arg[eta], "Zslw" -> z, "alpha_J" -> sigH z/2|>];
 alphaSLW[mode_, wt_, custom_: 0.] := Switch[mode, "errata0", 0., "joule", wt["alpha_J"], "tem", wt["alpha_tem"], _, custom];
 (* ASSUMPTION (ours): isotropic far-field point source *)
-fieldAt[r_, p_, al_, z_, c_: 1.] := Sqrt[2 z p/(4 Pi r^2 c)] Exp[-al r];
+(* mExp mirrors IEEE-754 double underflow in PY/JS (Mathematica would otherwise switch to arbitrary precision);
+   needed now that the default Joule-literal alpha gives exp(-26000) at 1 km. *)
+mExp[x_] := If[x < -708., 0., Exp[x]];
+fieldAt[r_, p_, al_, z_, c_: 1.] := Sqrt[2 z p/(4 Pi r^2 c)] mExp[-al r];
 powerFor[e_, r_, al_, z_, c_: 1.] := Log10[e^2 4 Pi r^2 c/(2 z)] + 2 al r/Log[10.];
 
-gDefaults = <|"f_d" -> gLMHz 10^6, "eta_c" -> 1., "T_w" -> 15., "S" -> 35., "r" -> 1., "P_tx" -> 1., "slw_mode" -> "errata0",
+gDefaults = <|"f_d" -> gLMHz 10^6, "eta_c" -> 1., "T_w" -> 15., "S" -> 35., "r" -> 1., "P_tx" -> 1., "slw_mode" -> "joule" (* default Joule-literal, Dan rule 2026-09-25; Erratum = toggle *),
   "alpha_custom" -> 0., "T_hull" -> 1., "T_cage" -> 1., "SE_cage" -> 80., "SE_hull_tem" -> 0., "hf" -> "F1", "N2S" -> 5.*^7,
   "eps_det" -> 3.*^-7, "R_dark" -> 1.66, "filt_fwhm" -> 10., "filt_shape" -> "lorentz", "block" -> 1.*^-4,
   "E_stray" -> 0., "G_stray" -> 1.7717, "B_stray" -> 1.*^-3, "T_atom" -> 100.*^-6, "T_bbr" -> 290., "SNR" -> 5., "T_int" -> 1.,
@@ -149,7 +152,7 @@ link[p_Association: <||>] := Module[{q = Join[gDefaults, p], wt, as, c, eos, eds
     Do[m = (lo + hi)/2; If[f[m] >= 0, hi = m, lo = m], {200}]; 10.^((lo + hi)/2)];
   ereqd = If[greq === Infinity, Infinity, 10^-6 Sqrt[greq/k1]]; ereqo = ereqd/(q["T_hull"] q["T_cage"]);
   aa = ep gs dd; bb = ep gb dd; dk = q["R_dark"];
-  nreq = If[aa > 0, (k^2 (aa + 2 bb) + Sqrt[k^4 (aa + 2 bb)^2 + 8 t/2 aa^2 k^2 dk])/(t aa^2), Infinity];
+  nreq = If[aa > 10.^-150 (* guard: a^2 underflow, matches PY/JS *), (k^2 (aa + 2 bb) + Sqrt[k^4 (aa + 2 bb)^2 + 8 t/2 aa^2 k^2 dk])/(t aa^2), Infinity];
   cps = rr["sig"] + rb;
   <|"wt" -> wt, "alpha_slw" -> as, "E_out_slw" -> eos, "E_det_slw" -> eds, "E_out_tem" -> eot, "tau_wa" -> tau,
     "E_det_tem" -> edt, "G_sig" -> gs, "G_tem" -> gt, "G_dc" -> gdc, "G_bbr" -> gbbr, "F2" -> f2, "dep" -> dd, "R" -> rr, "Rb" -> rb,
