@@ -344,3 +344,6 @@ td.num { font-variant-numeric: tabular-nums; }
 .topic-nav a:hover { color: var(--gold); border-color: var(--copper); }
 @media (max-width: 520px) { .doc pre { font-size: .78rem; } .cat-grid { grid-template-columns: 1fr; } }
 .cat-card.parallel { border-top: 3px solid var(--copper); }
+.doc p, .doc li, .doc blockquote { overflow-wrap: anywhere; }
+.doc a { overflow-wrap: anywhere; }
+h2[id] { scroll-margin-top: 84px; }
