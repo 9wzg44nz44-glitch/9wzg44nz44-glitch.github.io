@@ -1,0 +1,46 @@
+{
+ "433.59 MHz": {
+  "lambda_m": 0.6914,
+  "doppler_Hz_Eq3.2a": {
+   "0.1 m/s": 0.29,
+   "0.5 m/s": 1.45,
+   "1.0 m/s": 2.89,
+   "5.0 m/s": 14.46
+  }
+ },
+ "1296 MHz": {
+  "lambda_m": 0.2313,
+  "doppler_Hz_Eq3.2a": {
+   "0.1 m/s": 0.86,
+   "0.5 m/s": 4.32,
+   "1.0 m/s": 8.65,
+   "5.0 m/s": 43.23
+  }
+ },
+ "2450 MHz": {
+  "lambda_m": 0.1224,
+  "doppler_Hz_Eq3.2a": {
+   "0.1 m/s": 1.63,
+   "0.5 m/s": 8.17,
+   "1.0 m/s": 16.34,
+   "5.0 m/s": 81.72
+  }
+ },
+ "fmcw_Eq3.11": {
+  "R=1 m, fm=100 Hz, df=50 MHz": 66.71,
+  "R=3 m, fm=100 Hz, df=50 MHz": 200.14,
+  "R=10 m, fm=100 Hz, df=50 MHz": 667.13
+ },
+ "TEM_Rmax_m_Eq1.7_2450MHz_sigma1m2": {
+  "half-wave dipole, G=1.64 (2.15 dBi); Pt=13 dBm; RBW=30000 Hz (Smin=-102.0 dBm)": 50.3,
+  "half-wave dipole, G=1.64 (2.15 dBi); Pt=13 dBm; RBW=1000 Hz (Smin=-116.8 dBm)": 117.8,
+  "half-wave dipole, G=1.64 (2.15 dBi); Pt=13 dBm; RBW=100 Hz (Smin=-126.8 dBm)": 209.5,
+  "small horn/can, G=10^(15/10) (15 dBi, ASSUMPTION); Pt=13 dBm; RBW=30000 Hz (Smin=-102.0 dBm)": 221.0,
+  "small horn/can, G=10^(15/10) (15 dBi, ASSUMPTION); Pt=13 dBm; RBW=1000 Hz (Smin=-116.8 dBm)": 517.2,
+  "small horn/can, G=10^(15/10) (15 dBi, ASSUMPTION); Pt=13 dBm; RBW=100 Hz (Smin=-126.8 dBm)": 919.8
+ },
+ "notes": [
+  "Monostatic Eq. 1.7 assumes one antenna for TX and RX; HackRF One is half-duplex, so a real build is bistatic (HackRF TX + TinySA/second SDR RX) and direct TX->RX leakage, not the floor, usually limits it (ASSUMPTION).",
+  "sigma = 1 m^2 is an ASSUMPTION (order of a person/large metal plate is target-dependent)."
+ ]
+}

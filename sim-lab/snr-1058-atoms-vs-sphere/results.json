@@ -1,0 +1,2195 @@
+{
+ "checks": {
+  "rate_1uVpk_resonant": 3.095171911497034e-11,
+  "rate_1uVrms_resonant": 6.190343822994071e-11,
+  "rate_1uVrms_at_ftick_full": 6.19442740630919e-11,
+  "lamb_example_tau_us": 1.2611761364269696,
+  "static_10Vcm_tau_us": 3.563402239915357,
+  "static_1Vcm_rate": 2806.3068176770116
+ },
+ "hyperfine": {
+  "components_MHz": {
+   "F0->F'1": 909.8745015056451,
+   "F1->F'0": 1146.651340375645,
+   "F1->F'1": 1087.431340375645
+  },
+  "branching": {
+   "F0->F'1": 1.0,
+   "F1->F'0": 0.3333333333333333,
+   "F1->F'1": 0.6666666666666666
+  },
+  "check_F0_F1_vs_909.894": 909.8745015056451,
+  "F1_factor_at_ftick": 0.5729209245426083,
+  "F0_factor_at_ftick": 0.10193844792414944,
+  "F1_factor_at_1090": 0.8103796389957494,
+  "centroid_factor_at_1090": 0.7062378840070175
+ },
+ "two_photon": {
+  "A_integral_s-1": 16.452118371478512,
+  "NS84_total_quoted": 8.2249,
+  "photons_per_decay_in_filter": {
+   "FN122-XN 10nm lorentz": 0.0444482247199141,
+   "FN122-XN 10nm gauss": 0.021045821508513536,
+   "122-NB 20nm lorentz": 0.10976247772196164,
+   "122-NB 20nm gauss": 0.0644850559224697,
+   "hypothetical 1nm gauss": 0.00038514653307038596,
+   "Lya-only (ideal)": 0.0
+  },
+  "frac_photons_115_200nm_no_filter": 0.722488211877338
+ },
+ "bbr": {
+  "rate_290K": 0.0008073599960152302,
+  "rate_290K_P12_only": 4.575937688321174e-06,
+  "check_nbarA_P12": 4.575937688321173e-06,
+  "A_2S_2P12_spont": 8.011535809386194e-10,
+  "rate_4K": 1.04988377940608e-05,
+  "E_equiv_290K_uVm": 3610.2146937774837
+ },
+ "adsb": {
+  "E_out_avg_default_Vm": 0.0004464481257874625,
+  "E_peak_one_aircraft_10km_Vm": 0.0061237243569579455,
+  "detuning_MHz": 32.15286934185497,
+  "lorentz_factor": 0.7064152934634207,
+  "rate_SE55_default": 2.7580571998227375e-11,
+  "E_equiv_resonant_SE55_uVm": 0.6672691562564608
+ },
+ "stray": {
+  "compensated_upper_bound": 1.7716999999999992,
+  "uncompensated": 1000.0,
+  "optimistic_10mVm": 2.8063068176770123e-05,
+  "motional_52mVm_LIT_CHECK": 0.000758825363499864,
+  "E_equiv_uVm_compensated_upper_bound": 169119.82038631642,
+  "E_equiv_uVm_uncompensated": 4017902.7068214696,
+  "E_equiv_uVm_optimistic_10mVm": 673.080473860495,
+  "E_equiv_uVm_motional_52mVm_LIT_CHECK": 3500.018464074574
+ },
+ "K_q_per_uVm2": 6.19442740630919e-11,
+ "f_tick_MHz": 1057.847130658145,
+ "lambda_m": 0.2833986587584565,
+ "A_iso_m2": 0.006391248694696226,
+ "chains_NF_dB": {
+  "ZX60-P33ULN+ -> TinySA (LNA on)": 0.601142463625589,
+  "TinySA Ultra, internal LNA on": 6.0,
+  "TinySA Ultra, LNA off": 27.199999999999996
+ },
+ "ZX60_interp": {
+  "NF_dB": 0.40104628408775267,
+  "G_dB": 17.607700870903955
+ },
+ "openems": {
+  "cp": {
+   "Zin": [
+    8.276730583837036,
+    -24.925483484060518
+   ],
+   "S11_dB": -2.306509523601411,
+   "Dmax": 2.942903437354934,
+   "mismatch": 0.41203828549496335,
+   "D_horizon": 0.6903222502669324,
+   "Prad_over_Pacc": 0.9960593712266496,
+   "res_mm": 1.0
+  },
+  "cp_fine": {
+   "Zin": [
+    8.25588120223463,
+    -18.168161658872112
+   ],
+   "S11_dB": -2.544631071449364,
+   "Dmax": 2.941982245722401,
+   "mismatch": 0.44340808585789293,
+   "D_horizon": 0.6908148828679548,
+   "Prad_over_Pacc": 0.9963076961280253,
+   "res_mm": 0.5
+  },
+  "dipole": {
+   "Zin": [
+    7.714857374892496,
+    -97.75257142849877
+   ],
+   "S11_dB": -0.5538648979860149,
+   "Dmax": 1.5123056195145415,
+   "mismatch": 0.11973484620433206,
+   "D_horizon": 1.4962557891287425,
+   "Prad_over_Pacc": 0.9950852079594523,
+   "res_mm": 1.0
+  },
+  "dipole_fine": {
+   "Zin": [
+    7.722585749204677,
+    -92.59519068774668
+   ],
+   "S11_dB": -0.6034523675169425,
+   "Dmax": 1.5127300440357017,
+   "mismatch": 0.1297284961066365,
+   "D_horizon": 1.498034724043873,
+   "Prad_over_Pacc": 0.9934651434423701,
+   "res_mm": 0.5
+  }
+ },
+ "apertures_m2": {
+  "ideal isotropic lambda^2/4pi (brief bound)": 0.006391248694696226,
+  "matched Hertzian dipole 3lambda^2/8pi (hub TEM toy)": 0.00958687304204434,
+  "hub fields.js A_EFF*eta = pi 0.05^2 x 0.5 (Exp D 'hub')": 0.003926990816987242,
+  "openEMS KB-1820 over 0.35 m counterpoise, 10 mm gap, 50 ohm direct, best direction": 0.00833737571716964,
+  "openEMS KB-1820 over 0.35 m counterpoise, 10 mm gap, 50 ohm direct, direction-average": 0.0028339313499570105,
+  "openEMS KB-1820 over 0.35 m counterpoise, 10 mm gap, lossless conjugate match, best direction": 0.018802940187792768,
+  "openEMS two KB-1820 balls, 10 mm gap (sphere alone), 50 ohm direct, best direction": 0.0012542454463671646,
+  "openEMS two KB-1820 balls, 10 mm gap (sphere alone), 50 ohm direct, direction-average": 0.000829127081406445,
+  "openEMS two KB-1820 balls, 10 mm gap (sphere alone), lossless conjugate match, best direction": 0.009668233919370944
+ },
+ "apertures_dB_vs_iso": {
+  "ideal isotropic lambda^2/4pi (brief bound)": 0.0,
+  "matched Hertzian dipole 3lambda^2/8pi (hub TEM toy)": 1.7609125905568124,
+  "hub fields.js A_EFF*eta = pi 0.05^2 x 0.5 (Exp D 'hub')": -2.115258313351554,
+  "openEMS KB-1820 over 0.35 m counterpoise, 10 mm gap, 50 ohm direct, best direction": 1.1544365603422027,
+  "openEMS KB-1820 over 0.35 m counterpoise, 10 mm gap, 50 ohm direct, direction-average": -3.53196391484396,
+  "openEMS KB-1820 over 0.35 m counterpoise, 10 mm gap, lossless conjugate match, best direction": 4.686400475186162,
+  "openEMS two KB-1820 balls, 10 mm gap (sphere alone), 50 ohm direct, best direction": -7.072031840736164,
+  "openEMS two KB-1820 balls, 10 mm gap (sphere alone), 50 ohm direct, direction-average": -8.869646164945806,
+  "openEMS two KB-1820 balls, 10 mm gap (sphere alone), lossless conjugate match, best direction": 1.797614324209642
+ },
+ "Rs_Al3003_ohm": 0.013180263503827951,
+ "thresholds_Vm": {
+  "A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray<=1.77/s": {
+   "t=0.01": 0.19506490545611327,
+   "t=1": 0.04962056319811,
+   "t=100": 0.015397182456322359,
+   "t=10000": 0.004859919569294779
+  },
+  "A2 lab N/eps, 10 nm filter, stray 10 mV/m": {
+   "t=0.01": 0.15419952533829573,
+   "t=1": 0.03266085106227745,
+   "t=100": 0.009932525171544216,
+   "t=10000": 0.0031287689457272076
+  },
+  "A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m": {
+   "t=0.01": 0.0005839669258728414,
+   "t=1": 0.00018466140603091532,
+   "t=100": 5.8394901032728216e-05,
+   "t=10000": 1.8466083950089416e-05
+  },
+  "A3c best physical, one CEM (<=15 Mcps): N capped": {
+   "t=0.01": 0.00269559540437553,
+   "t=1": 0.0008519162963970123,
+   "t=100": 0.00026938359798759026,
+   "t=10000": 8.51860677877248e-05
+  },
+  "A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m": {
+   "t=0.01": 0.0003506432498054588,
+   "t=1": 0.00011088201651583351,
+   "t=100": 3.5063937113840635e-05,
+   "t=10000": 1.1088189386233571e-05
+  },
+  "A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K": {
+   "t=0.01": 9.231330722399156e-05,
+   "t=1": 2.9187881890568683e-05,
+   "t=100": 9.229887491542397e-06,
+   "t=10000": 2.9187425533677006e-06
+  },
+  "A6 ideal bound, Lya-only filter, 4 K shield, no stray": {
+   "t=0.01": 3.0946851499738915e-05,
+   "t=1": 9.773854567510559e-06,
+   "t=100": 3.0903723725537603e-06,
+   "t=10000": 9.77249161874795e-07
+  },
+  "S1 best: lambda^2/4pi, ZX60 chain": {
+   "t=0.01": 1.6463424961682402e-07,
+   "t=1": 1.6463424961682406e-08,
+   "t=100": 1.6463424961682404e-09,
+   "t=10000": 1.6463424961682405e-10
+  },
+  "S1 best: lambda^2/4pi, ZX60 chain [sigma-SNR]": {
+   "t=0.01": 1.1641399431961504e-07,
+   "t=1": 1.1641399431961504e-08,
+   "t=100": 1.1641399431961504e-09,
+   "t=10000": 1.1641399431961505e-10
+  },
+  "S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": {
+   "t=0.01": 1.4414459442551243e-07,
+   "t=1": 1.4414459442551244e-08,
+   "t=100": 1.4414459442551245e-09,
+   "t=10000": 1.4414459442551244e-10
+  },
+  "S2 openEMS counterpoise model, 50 ohm, best dir, ZX60 [sigma-SNR]": {
+   "t=0.01": 1.0192562018966446e-07,
+   "t=1": 1.0192562018966447e-08,
+   "t=100": 1.0192562018966448e-09,
+   "t=10000": 1.0192562018966447e-10
+  },
+  "S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": {
+   "t=0.01": 3.716394259556613e-07,
+   "t=1": 3.716394259556614e-08,
+   "t=100": 3.7163942595566136e-09,
+   "t=10000": 3.7163942595566135e-10
+  },
+  "S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60 [sigma-SNR]": {
+   "t=0.01": 2.62788758249524e-07,
+   "t=1": 2.62788758249524e-08,
+   "t=100": 2.6278875824952396e-09,
+   "t=10000": 2.62788758249524e-10
+  },
+  "S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": {
+   "t=0.01": 6.919339778050543e-07,
+   "t=1": 6.919339778050543e-08,
+   "t=100": 6.919339778050543e-09,
+   "t=10000": 6.919339778050544e-10
+  },
+  "S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only [sigma-SNR]": {
+   "t=0.01": 4.892712078393359e-07,
+   "t=1": 4.8927120783933596e-08,
+   "t=100": 4.89271207839336e-09,
+   "t=10000": 4.89271207839336e-10
+  },
+  "S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": {
+   "t=0.01": 7.944465024536165e-06,
+   "t=1": 7.944465024536165e-07,
+   "t=100": 7.944465024536166e-08,
+   "t=10000": 7.944465024536166e-09
+  },
+  "S5 openEMS sphere-alone, 50 ohm, TinySA LNA off [sigma-SNR]": {
+   "t=0.01": 5.617585091748874e-06,
+   "t=1": 5.617585091748874e-07,
+   "t=100": 5.617585091748874e-08,
+   "t=10000": 5.6175850917488746e-09
+  }
+ },
+ "thresholds_closed_form_Vm": {
+  "A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray<=1.77/s": 0.04858627046764867,
+  "A2 lab N/eps, 10 nm filter, stray 10 mV/m": 0.03126354891957272,
+  "A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m": 0.0001846608337782429,
+  "A3c best physical, one CEM (<=15 Mcps): N capped": 0.0008518601158113088,
+  "A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m": 0.00011088189262340165,
+  "A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K": 2.9187420923465578e-05,
+  "A6 ideal bound, Lya-only filter, 4 K shield, no stray": 9.772477837044656e-06
+ },
+ "A3c_N": 2208137069.422947,
+ "sphere_closed_form_Vm": {
+  "S1 best: lambda^2/4pi, ZX60 chain": 1.6463424961682403e-08,
+  "S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": 1.4414459442551244e-08,
+  "S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": 3.716394259556614e-08,
+  "S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": 6.919339778050543e-08,
+  "S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": 7.944465024536165e-07
+ },
+ "ratios_1s": {
+  "A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray<=1.77/s || S1 best: lambda^2/4pi, ZX60 chain": [
+   {
+    "E": 1e-06,
+    "snr_atom": 4.23566985342492e-10,
+    "snr_sphere": 3689.432956953679,
+    "snr_sphere_sigma": 85.90032545868122,
+    "ratio_dB": -129.40037520960576,
+    "ratio_sigma_dB": -113.07072707337647,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -137.7044485015042
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 0.0004235595395519246,
+    "snr_sphere": 3689432956.953679,
+    "snr_sphere_sigma": 85900.32545868123,
+    "ratio_dB": -129.40045155394537,
+    "ratio_sigma_dB": -83.07080341771612,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -77.70444850150419
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 28.84936000189045,
+    "snr_sphere": 3689432956953679.0,
+    "snr_sphere_sigma": 85900325.45868123,
+    "ratio_dB": -141.06823439758824,
+    "ratio_sigma_dB": -64.73858626135899,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -17.704448501504192
+   }
+  ],
+  "A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray<=1.77/s || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 4.23566985342492e-10,
+    "snr_sphere": 4812.860555865603,
+    "snr_sphere_sigma": 98.11075940859496,
+    "ratio_dB": -130.55481176994795,
+    "ratio_sigma_dB": -113.64794535354758,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -136.55001194116198
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 0.0004235595395519246,
+    "snr_sphere": 4812860555.865603,
+    "snr_sphere_sigma": 98110.75940859497,
+    "ratio_dB": -130.5548881142876,
+    "ratio_sigma_dB": -83.64802169788723,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -76.55001194116198
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 28.84936000189045,
+    "snr_sphere": 4812860555865603.0,
+    "snr_sphere_sigma": 98110759.40859497,
+    "ratio_dB": -142.22267095793043,
+    "ratio_sigma_dB": -65.31580454153008,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -16.550011941161987
+   }
+  ],
+  "A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray<=1.77/s || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 4.23566985342492e-10,
+    "snr_sphere": 724.0297955822288,
+    "snr_sphere_sigma": 38.05337818334211,
+    "ratio_dB": -122.32834336886958,
+    "ratio_sigma_dB": -109.5347111530084,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 0.0004235595395519246,
+    "snr_sphere": 724029795.5822288,
+    "snr_sphere_sigma": 38053.378183342116,
+    "ratio_dB": -122.32841971320921,
+    "ratio_sigma_dB": -79.53478749734805,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 28.84936000189045,
+    "snr_sphere": 724029795582228.8,
+    "snr_sphere_sigma": 38053378.183342114,
+    "ratio_dB": -133.99620255685207,
+    "ratio_sigma_dB": -61.2025703409909,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray<=1.77/s || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": [
+   {
+    "E": 1e-06,
+    "snr_atom": 4.23566985342492e-10,
+    "snr_sphere": 208.8674118129042,
+    "snr_sphere_sigma": 20.438562171195127,
+    "ratio_dB": -116.92948583249516,
+    "ratio_sigma_dB": -106.83528238482118,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 0.0004235595395519246,
+    "snr_sphere": 208867411.8129042,
+    "snr_sphere_sigma": 20438.562171195124,
+    "ratio_dB": -116.9295621768348,
+    "ratio_sigma_dB": -76.83535872916083,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 28.84936000189045,
+    "snr_sphere": 208867411812904.2,
+    "snr_sphere_sigma": 20438562.171195123,
+    "ratio_dB": -128.59734502047766,
+    "ratio_sigma_dB": -58.50314157280369,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray<=1.77/s || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": [
+   {
+    "E": 1e-06,
+    "snr_atom": 4.23566985342492e-10,
+    "snr_sphere": 1.5844213475565485,
+    "snr_sphere_sigma": 1.7801243482164657,
+    "ratio_dB": -95.72948583249516,
+    "ratio_sigma_dB": -96.2352823848212,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 0.0004235595395519246,
+    "snr_sphere": 1584421.3475565487,
+    "snr_sphere_sigma": 1780.124348216466,
+    "ratio_dB": -95.72956217683482,
+    "ratio_sigma_dB": -66.23535872916084,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 28.84936000189045,
+    "snr_sphere": 1584421347556.5486,
+    "snr_sphere_sigma": 1780124.348216466,
+    "ratio_dB": -107.39734502047767,
+    "ratio_sigma_dB": -47.9031415728037,
+    "atom_dom": "stray_Stark",
+    "atom_sat": false,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A2 lab N/eps, 10 nm filter, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain": [
+   {
+    "E": 1e-06,
+    "snr_atom": 1.0224155849260318e-09,
+    "snr_sphere": 3689.432956953679,
+    "snr_sphere_sigma": 85.90032545868122,
+    "ratio_dB": -125.57332161990078,
+    "ratio_sigma_dB": -109.24367348367154,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -137.7044485015042
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 0.001022325474660406,
+    "snr_sphere": 3689432956.953679,
+    "snr_sphere_sigma": 85900.32545868123,
+    "ratio_dB": -125.57370440080076,
+    "ratio_sigma_dB": -79.2440562645715,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -77.70444850150419
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 26.87171053231473,
+    "snr_sphere": 3689432956953679.0,
+    "snr_sphere_sigma": 85900325.45868123,
+    "ratio_dB": -141.37664310362004,
+    "ratio_sigma_dB": -65.0469949673908,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -17.704448501504192
+   }
+  ],
+  "A2 lab N/eps, 10 nm filter, stray 10 mV/m || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 1.0224155849260318e-09,
+    "snr_sphere": 4812.860555865603,
+    "snr_sphere_sigma": 98.11075940859496,
+    "ratio_dB": -126.727758180243,
+    "ratio_sigma_dB": -109.82089176384264,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -136.55001194116198
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 0.001022325474660406,
+    "snr_sphere": 4812860555.865603,
+    "snr_sphere_sigma": 98110.75940859497,
+    "ratio_dB": -126.72814096114296,
+    "ratio_sigma_dB": -79.82127454474261,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -76.55001194116198
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 26.87171053231473,
+    "snr_sphere": 4812860555865603.0,
+    "snr_sphere_sigma": 98110759.40859497,
+    "ratio_dB": -142.53107966396226,
+    "ratio_sigma_dB": -65.6242132475619,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -16.550011941161987
+   }
+  ],
+  "A2 lab N/eps, 10 nm filter, stray 10 mV/m || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 1.0224155849260318e-09,
+    "snr_sphere": 724.0297955822288,
+    "snr_sphere_sigma": 38.05337818334211,
+    "ratio_dB": -118.50128977916462,
+    "ratio_sigma_dB": -105.70765756330346,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 0.001022325474660406,
+    "snr_sphere": 724029795.5822288,
+    "snr_sphere_sigma": 38053.378183342116,
+    "ratio_dB": -118.50167256006459,
+    "ratio_sigma_dB": -75.70804034420343,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 26.87171053231473,
+    "snr_sphere": 724029795582228.8,
+    "snr_sphere_sigma": 38053378.183342114,
+    "ratio_dB": -134.3046112628839,
+    "ratio_sigma_dB": -61.51097904702272,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A2 lab N/eps, 10 nm filter, stray 10 mV/m || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": [
+   {
+    "E": 1e-06,
+    "snr_atom": 1.0224155849260318e-09,
+    "snr_sphere": 208.8674118129042,
+    "snr_sphere_sigma": 20.438562171195127,
+    "ratio_dB": -113.10243224279021,
+    "ratio_sigma_dB": -103.00822879511625,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 0.001022325474660406,
+    "snr_sphere": 208867411.8129042,
+    "snr_sphere_sigma": 20438.562171195124,
+    "ratio_dB": -113.1028150236902,
+    "ratio_sigma_dB": -73.00861157601622,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 26.87171053231473,
+    "snr_sphere": 208867411812904.2,
+    "snr_sphere_sigma": 20438562.171195123,
+    "ratio_dB": -128.9057537265095,
+    "ratio_sigma_dB": -58.81155027883551,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A2 lab N/eps, 10 nm filter, stray 10 mV/m || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": [
+   {
+    "E": 1e-06,
+    "snr_atom": 1.0224155849260318e-09,
+    "snr_sphere": 1.5844213475565485,
+    "snr_sphere_sigma": 1.7801243482164657,
+    "ratio_dB": -91.90243224279023,
+    "ratio_sigma_dB": -92.40822879511626,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 0.001022325474660406,
+    "snr_sphere": 1584421.3475565487,
+    "snr_sphere_sigma": 1780.124348216466,
+    "ratio_dB": -91.90281502369018,
+    "ratio_sigma_dB": -62.40861157601622,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 26.87171053231473,
+    "snr_sphere": 1584421347556.5486,
+    "snr_sphere_sigma": 1780124.348216466,
+    "ratio_dB": -107.7057537265095,
+    "ratio_sigma_dB": -48.21155027883552,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain": [
+   {
+    "E": 1e-06,
+    "snr_atom": 2.9325836952066274e-05,
+    "snr_sphere": 3689.432956953679,
+    "snr_sphere_sigma": 85.90032545868122,
+    "ratio_dB": -80.99709207289287,
+    "ratio_sigma_dB": -64.66744393666362,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -137.7044485015042
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 29.32050817734477,
+    "snr_sphere": 3689432956.953679,
+    "snr_sphere_sigma": 85900.32545868123,
+    "ratio_dB": -80.99788129768024,
+    "ratio_sigma_dB": -34.668233161450985,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -77.70444850150419
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 531513.8345839201,
+    "snr_sphere": 3689432956953679.0,
+    "snr_sphere_sigma": 85900325.45868123,
+    "ratio_dB": -98.41445049807317,
+    "ratio_sigma_dB": -22.0848023618439,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -17.704448501504192
+   }
+  ],
+  "A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 2.9325836952066274e-05,
+    "snr_sphere": 4812.860555865603,
+    "snr_sphere_sigma": 98.11075940859496,
+    "ratio_dB": -82.15152863323509,
+    "ratio_sigma_dB": -65.24466221683471,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -136.55001194116198
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 29.32050817734477,
+    "snr_sphere": 4812860555.865603,
+    "snr_sphere_sigma": 98110.75940859497,
+    "ratio_dB": -82.15231785802244,
+    "ratio_sigma_dB": -35.24545144162208,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -76.55001194116198
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 531513.8345839201,
+    "snr_sphere": 4812860555865603.0,
+    "snr_sphere_sigma": 98110759.40859497,
+    "ratio_dB": -99.56888705841536,
+    "ratio_sigma_dB": -22.662020642015,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -16.550011941161987
+   }
+  ],
+  "A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 2.9325836952066274e-05,
+    "snr_sphere": 724.0297955822288,
+    "snr_sphere_sigma": 38.05337818334211,
+    "ratio_dB": -73.92506023215671,
+    "ratio_sigma_dB": -61.13142801629554,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 29.32050817734477,
+    "snr_sphere": 724029795.5822288,
+    "snr_sphere_sigma": 38053.378183342116,
+    "ratio_dB": -73.92584945694408,
+    "ratio_sigma_dB": -31.1322172410829,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 531513.8345839201,
+    "snr_sphere": 724029795582228.8,
+    "snr_sphere_sigma": 38053378.183342114,
+    "ratio_dB": -91.34241865733699,
+    "ratio_sigma_dB": -18.54878644147582,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": [
+   {
+    "E": 1e-06,
+    "snr_atom": 2.9325836952066274e-05,
+    "snr_sphere": 208.8674118129042,
+    "snr_sphere_sigma": 20.438562171195127,
+    "ratio_dB": -68.5262026957823,
+    "ratio_sigma_dB": -58.43199924810833,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 29.32050817734477,
+    "snr_sphere": 208867411.8129042,
+    "snr_sphere_sigma": 20438.562171195124,
+    "ratio_dB": -68.52699192056966,
+    "ratio_sigma_dB": -28.432788472895695,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 531513.8345839201,
+    "snr_sphere": 208867411812904.2,
+    "snr_sphere_sigma": 20438562.171195123,
+    "ratio_dB": -85.94356112096258,
+    "ratio_sigma_dB": -15.849357673288612,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": [
+   {
+    "E": 1e-06,
+    "snr_atom": 2.9325836952066274e-05,
+    "snr_sphere": 1.5844213475565485,
+    "snr_sphere_sigma": 1.7801243482164657,
+    "ratio_dB": -47.3262026957823,
+    "ratio_sigma_dB": -47.83199924810833,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 29.32050817734477,
+    "snr_sphere": 1584421.3475565487,
+    "snr_sphere_sigma": 1780.124348216466,
+    "ratio_dB": -47.32699192056967,
+    "ratio_sigma_dB": -17.832788472895697,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 531513.8345839201,
+    "snr_sphere": 1584421347556.5486,
+    "snr_sphere_sigma": 1780124.348216466,
+    "ratio_dB": -64.74356112096258,
+    "ratio_sigma_dB": -5.249357673288612,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A3c best physical, one CEM (<=15 Mcps): N capped || S1 best: lambda^2/4pi, ZX60 chain": [
+   {
+    "E": 1e-06,
+    "snr_atom": 1.3780450950496816e-06,
+    "snr_sphere": 3689.432956953679,
+    "snr_sphere_sigma": 85.90032545868122,
+    "ratio_dB": -94.2769619328395,
+    "ratio_sigma_dB": -77.94731379661023,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -137.7044485015042
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 1.377794691561787,
+    "snr_sphere": 3689432956.953679,
+    "snr_sphere_sigma": 85900.32545868123,
+    "ratio_dB": -94.27775115762584,
+    "ratio_sigma_dB": -47.94810302139659,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -77.70444850150419
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 24976.270391623737,
+    "snr_sphere": 3689432956953679.0,
+    "snr_sphere_sigma": 85900325.45868123,
+    "ratio_dB": -111.69432035519705,
+    "ratio_sigma_dB": -35.3646722189678,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -17.704448501504192
+   }
+  ],
+  "A3c best physical, one CEM (<=15 Mcps): N capped || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 1.3780450950496816e-06,
+    "snr_sphere": 4812.860555865603,
+    "snr_sphere_sigma": 98.11075940859496,
+    "ratio_dB": -95.43139849318169,
+    "ratio_sigma_dB": -78.52453207678133,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -136.55001194116198
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 1.377794691561787,
+    "snr_sphere": 4812860555.865603,
+    "snr_sphere_sigma": 98110.75940859497,
+    "ratio_dB": -95.43218771796805,
+    "ratio_sigma_dB": -48.525321301567686,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -76.55001194116198
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 24976.270391623737,
+    "snr_sphere": 4812860555865603.0,
+    "snr_sphere_sigma": 98110759.40859497,
+    "ratio_dB": -112.84875691553924,
+    "ratio_sigma_dB": -35.9418904991389,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -16.550011941161987
+   }
+  ],
+  "A3c best physical, one CEM (<=15 Mcps): N capped || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 1.3780450950496816e-06,
+    "snr_sphere": 724.0297955822288,
+    "snr_sphere_sigma": 38.05337818334211,
+    "ratio_dB": -87.20493009210333,
+    "ratio_sigma_dB": -74.41129787624214,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 1.377794691561787,
+    "snr_sphere": 724029795.5822288,
+    "snr_sphere_sigma": 38053.378183342116,
+    "ratio_dB": -87.20571931688968,
+    "ratio_sigma_dB": -44.412087101028504,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 24976.270391623737,
+    "snr_sphere": 724029795582228.8,
+    "snr_sphere_sigma": 38053378.183342114,
+    "ratio_dB": -104.62228851446088,
+    "ratio_sigma_dB": -31.828656298599714,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A3c best physical, one CEM (<=15 Mcps): N capped || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": [
+   {
+    "E": 1e-06,
+    "snr_atom": 1.3780450950496816e-06,
+    "snr_sphere": 208.8674118129042,
+    "snr_sphere_sigma": 20.438562171195127,
+    "ratio_dB": -81.80607255572892,
+    "ratio_sigma_dB": -71.71186910805494,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 1.377794691561787,
+    "snr_sphere": 208867411.8129042,
+    "snr_sphere_sigma": 20438.562171195124,
+    "ratio_dB": -81.80686178051528,
+    "ratio_sigma_dB": -41.71265833284131,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 24976.270391623737,
+    "snr_sphere": 208867411812904.2,
+    "snr_sphere_sigma": 20438562.171195123,
+    "ratio_dB": -99.22343097808648,
+    "ratio_sigma_dB": -29.129227530412507,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A3c best physical, one CEM (<=15 Mcps): N capped || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": [
+   {
+    "E": 1e-06,
+    "snr_atom": 1.3780450950496816e-06,
+    "snr_sphere": 1.5844213475565485,
+    "snr_sphere_sigma": 1.7801243482164657,
+    "ratio_dB": -60.606072555728915,
+    "ratio_sigma_dB": -61.11186910805495,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 1.377794691561787,
+    "snr_sphere": 1584421.3475565487,
+    "snr_sphere_sigma": 1780.124348216466,
+    "ratio_dB": -60.606861780515274,
+    "ratio_sigma_dB": -31.112658332841306,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": false,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 24976.270391623737,
+    "snr_sphere": 1584421347556.5486,
+    "snr_sphere_sigma": 1780124.348216466,
+    "ratio_dB": -78.02343097808648,
+    "ratio_sigma_dB": -18.529227530412513,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain": [
+   {
+    "E": 1e-06,
+    "snr_atom": 8.133523755900546e-05,
+    "snr_sphere": 3689.432956953679,
+    "snr_sphere_sigma": 85.90032545868122,
+    "ratio_dB": -76.5668088344215,
+    "ratio_sigma_dB": -60.237160698192234,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -137.7044485015042
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 81.32045819708712,
+    "snr_sphere": 3689432956.953679,
+    "snr_sphere_sigma": 85900.32545868123,
+    "ratio_dB": -76.56759805920886,
+    "ratio_sigma_dB": -30.2379499229796,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -77.70444850150419
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1474154.1417006676,
+    "snr_sphere": 3689432956953679.0,
+    "snr_sphere_sigma": 85900325.45868123,
+    "ratio_dB": -93.9841672596072,
+    "ratio_sigma_dB": -17.65451912337795,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -17.704448501504192
+   }
+  ],
+  "A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 8.133523755900546e-05,
+    "snr_sphere": 4812.860555865603,
+    "snr_sphere_sigma": 98.11075940859496,
+    "ratio_dB": -77.72124539476368,
+    "ratio_sigma_dB": -60.81437897836334,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -136.55001194116198
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 81.32045819708712,
+    "snr_sphere": 4812860555.865603,
+    "snr_sphere_sigma": 98110.75940859497,
+    "ratio_dB": -77.72203461955105,
+    "ratio_sigma_dB": -30.8151682031507,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -76.55001194116198
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1474154.1417006676,
+    "snr_sphere": 4812860555865603.0,
+    "snr_sphere_sigma": 98110759.40859497,
+    "ratio_dB": -95.13860381994942,
+    "ratio_sigma_dB": -18.23173740354905,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -16.550011941161987
+   }
+  ],
+  "A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 8.133523755900546e-05,
+    "snr_sphere": 724.0297955822288,
+    "snr_sphere_sigma": 38.05337818334211,
+    "ratio_dB": -69.49477699368532,
+    "ratio_sigma_dB": -56.701144777824155,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 81.32045819708712,
+    "snr_sphere": 724029795.5822288,
+    "snr_sphere_sigma": 38053.378183342116,
+    "ratio_dB": -69.49556621847269,
+    "ratio_sigma_dB": -26.70193400261152,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1474154.1417006676,
+    "snr_sphere": 724029795582228.8,
+    "snr_sphere_sigma": 38053378.183342114,
+    "ratio_dB": -86.91213541887103,
+    "ratio_sigma_dB": -14.118503203009867,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": [
+   {
+    "E": 1e-06,
+    "snr_atom": 8.133523755900546e-05,
+    "snr_sphere": 208.8674118129042,
+    "snr_sphere_sigma": 20.438562171195127,
+    "ratio_dB": -64.09591945731091,
+    "ratio_sigma_dB": -54.00171600963695,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 81.32045819708712,
+    "snr_sphere": 208867411.8129042,
+    "snr_sphere_sigma": 20438.562171195124,
+    "ratio_dB": -64.09670868209828,
+    "ratio_sigma_dB": -24.002505234424312,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1474154.1417006676,
+    "snr_sphere": 208867411812904.2,
+    "snr_sphere_sigma": 20438562.171195123,
+    "ratio_dB": -81.51327788249662,
+    "ratio_sigma_dB": -11.41907443482266,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": [
+   {
+    "E": 1e-06,
+    "snr_atom": 8.133523755900546e-05,
+    "snr_sphere": 1.5844213475565485,
+    "snr_sphere_sigma": 1.7801243482164657,
+    "ratio_dB": -42.89591945731091,
+    "ratio_sigma_dB": -43.40171600963694,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 81.32045819708712,
+    "snr_sphere": 1584421.3475565487,
+    "snr_sphere_sigma": 1780.124348216466,
+    "ratio_dB": -42.896708682098286,
+    "ratio_sigma_dB": -13.402505234424314,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1474154.1417006676,
+    "snr_sphere": 1584421347556.5486,
+    "snr_sphere_sigma": 1780124.348216466,
+    "ratio_dB": -60.31327788249663,
+    "ratio_sigma_dB": -0.8190744348226632,
+    "atom_dom": "2E1_in_filter",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S1 best: lambda^2/4pi, ZX60 chain": [
+   {
+    "E": 1e-06,
+    "snr_atom": 0.0011738390182211458,
+    "snr_sphere": 3689.432956953679,
+    "snr_sphere_sigma": 85.90032545868122,
+    "ratio_dB": -64.9735108161326,
+    "ratio_sigma_dB": -48.64386267990334,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -137.7044485015042
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 1132.5960030857689,
+    "snr_sphere": 3689432956.953679,
+    "snr_sphere_sigma": 85900.32545868123,
+    "ratio_dB": -65.12884598235301,
+    "ratio_sigma_dB": -18.799197846123757,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -77.70444850150419
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1476213.2475399778,
+    "snr_sphere": 3689432956953679.0,
+    "snr_sphere_sigma": 85900325.45868123,
+    "ratio_dB": -93.97810524541791,
+    "ratio_sigma_dB": -17.648457109188655,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -17.704448501504192
+   }
+  ],
+  "A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 0.0011738390182211458,
+    "snr_sphere": 4812.860555865603,
+    "snr_sphere_sigma": 98.11075940859496,
+    "ratio_dB": -66.1279473764748,
+    "ratio_sigma_dB": -49.221080960074445,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -136.55001194116198
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 1132.5960030857689,
+    "snr_sphere": 4812860555.865603,
+    "snr_sphere_sigma": 98110.75940859497,
+    "ratio_dB": -66.28328254269522,
+    "ratio_sigma_dB": -19.376416126294856,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -76.55001194116198
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1476213.2475399778,
+    "snr_sphere": 4812860555865603.0,
+    "snr_sphere_sigma": 98110759.40859497,
+    "ratio_dB": -95.13254180576011,
+    "ratio_sigma_dB": -18.225675389359754,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -16.550011941161987
+   }
+  ],
+  "A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 0.0011738390182211458,
+    "snr_sphere": 724.0297955822288,
+    "snr_sphere_sigma": 38.05337818334211,
+    "ratio_dB": -57.90147897539644,
+    "ratio_sigma_dB": -45.10784675953526,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 1132.5960030857689,
+    "snr_sphere": 724029795.5822288,
+    "snr_sphere_sigma": 38053.378183342116,
+    "ratio_dB": -58.056814141616854,
+    "ratio_sigma_dB": -15.263181925755676,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1476213.2475399778,
+    "snr_sphere": 724029795582228.8,
+    "snr_sphere_sigma": 38053378.183342114,
+    "ratio_dB": -86.90607340468175,
+    "ratio_sigma_dB": -14.11244118882057,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": [
+   {
+    "E": 1e-06,
+    "snr_atom": 0.0011738390182211458,
+    "snr_sphere": 208.8674118129042,
+    "snr_sphere_sigma": 20.438562171195127,
+    "ratio_dB": -52.50262143902202,
+    "ratio_sigma_dB": -42.40841799134806,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 1132.5960030857689,
+    "snr_sphere": 208867411.8129042,
+    "snr_sphere_sigma": 20438.562171195124,
+    "ratio_dB": -52.65795660524244,
+    "ratio_sigma_dB": -12.563753157568469,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1476213.2475399778,
+    "snr_sphere": 208867411812904.2,
+    "snr_sphere_sigma": 20438562.171195123,
+    "ratio_dB": -81.50721586830734,
+    "ratio_sigma_dB": -11.413012420633367,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": [
+   {
+    "E": 1e-06,
+    "snr_atom": 0.0011738390182211458,
+    "snr_sphere": 1.5844213475565485,
+    "snr_sphere_sigma": 1.7801243482164657,
+    "ratio_dB": -31.302621439022026,
+    "ratio_sigma_dB": -31.80841799134806,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 1132.5960030857689,
+    "snr_sphere": 1584421.3475565487,
+    "snr_sphere_sigma": 1780.124348216466,
+    "ratio_dB": -31.457956605242437,
+    "ratio_sigma_dB": -1.9637531575684712,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1476213.2475399778,
+    "snr_sphere": 1584421347556.5486,
+    "snr_sphere_sigma": 1780124.348216466,
+    "ratio_dB": -60.30721586830734,
+    "ratio_sigma_dB": -0.8130124206333671,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A6 ideal bound, Lya-only filter, 4 K shield, no stray || S1 best: lambda^2/4pi, ZX60 chain": [
+   {
+    "E": 1e-06,
+    "snr_atom": 0.010471028197142237,
+    "snr_sphere": 3689.432956953679,
+    "snr_sphere_sigma": 85.90032545868122,
+    "ratio_dB": -55.46970293817373,
+    "ratio_sigma_dB": -39.14005480194448,
+    "atom_dom": "blackbody",
+    "atom_sat": false,
+    "sphere_P_dBm": -137.7044485015042
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 3986.222431716539,
+    "snr_sphere": 3689432956.953679,
+    "snr_sphere_sigma": 85900.32545868123,
+    "ratio_dB": -59.663980941821244,
+    "ratio_sigma_dB": -13.334332805591984,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -77.70444850150419
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1476157.7601812803,
+    "snr_sphere": 3689432956953679.0,
+    "snr_sphere_sigma": 85900325.45868123,
+    "ratio_dB": -93.97826848949285,
+    "ratio_sigma_dB": -17.64862035326359,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -17.704448501504192
+   }
+  ],
+  "A6 ideal bound, Lya-only filter, 4 K shield, no stray || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 0.010471028197142237,
+    "snr_sphere": 4812.860555865603,
+    "snr_sphere_sigma": 98.11075940859496,
+    "ratio_dB": -56.62413949851594,
+    "ratio_sigma_dB": -39.71727308211558,
+    "atom_dom": "blackbody",
+    "atom_sat": false,
+    "sphere_P_dBm": -136.55001194116198
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 3986.222431716539,
+    "snr_sphere": 4812860555.865603,
+    "snr_sphere_sigma": 98110.75940859497,
+    "ratio_dB": -60.81841750216344,
+    "ratio_sigma_dB": -13.911551085763085,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -76.55001194116198
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1476157.7601812803,
+    "snr_sphere": 4812860555865603.0,
+    "snr_sphere_sigma": 98110759.40859497,
+    "ratio_dB": -95.13270504983504,
+    "ratio_sigma_dB": -18.225838633434684,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -16.550011941161987
+   }
+  ],
+  "A6 ideal bound, Lya-only filter, 4 K shield, no stray || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": [
+   {
+    "E": 1e-06,
+    "snr_atom": 0.010471028197142237,
+    "snr_sphere": 724.0297955822288,
+    "snr_sphere_sigma": 38.05337818334211,
+    "ratio_dB": -48.39767109743757,
+    "ratio_sigma_dB": -35.60403888157639,
+    "atom_dom": "blackbody",
+    "atom_sat": false,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 3986.222431716539,
+    "snr_sphere": 724029795.5822288,
+    "snr_sphere_sigma": 38053.378183342116,
+    "ratio_dB": -52.59194910108508,
+    "ratio_sigma_dB": -9.798316885223903,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1476157.7601812803,
+    "snr_sphere": 724029795582228.8,
+    "snr_sphere_sigma": 38053378.183342114,
+    "ratio_dB": -86.90623664875667,
+    "ratio_sigma_dB": -14.112604432895504,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A6 ideal bound, Lya-only filter, 4 K shield, no stray || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": [
+   {
+    "E": 1e-06,
+    "snr_atom": 0.010471028197142237,
+    "snr_sphere": 208.8674118129042,
+    "snr_sphere_sigma": 20.438562171195127,
+    "ratio_dB": -42.99881356106316,
+    "ratio_sigma_dB": -32.90461011338919,
+    "atom_dom": "blackbody",
+    "atom_sat": false,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 3986.222431716539,
+    "snr_sphere": 208867411.8129042,
+    "snr_sphere_sigma": 20438.562171195124,
+    "ratio_dB": -47.19309156471066,
+    "ratio_sigma_dB": -7.098888117036697,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1476157.7601812803,
+    "snr_sphere": 208867411812904.2,
+    "snr_sphere_sigma": 20438562.171195123,
+    "ratio_dB": -81.50737911238227,
+    "ratio_sigma_dB": -11.413175664708298,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ],
+  "A6 ideal bound, Lya-only filter, 4 K shield, no stray || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": [
+   {
+    "E": 1e-06,
+    "snr_atom": 0.010471028197142237,
+    "snr_sphere": 1.5844213475565485,
+    "snr_sphere_sigma": 1.7801243482164657,
+    "ratio_dB": -21.79881356106316,
+    "ratio_sigma_dB": -22.30461011338919,
+    "atom_dom": "blackbody",
+    "atom_sat": false,
+    "sphere_P_dBm": -144.77648034224035
+   },
+   {
+    "E": 0.001,
+    "snr_atom": 3986.222431716539,
+    "snr_sphere": 1584421.3475565487,
+    "snr_sphere_sigma": 1780.124348216466,
+    "ratio_dB": -25.993091564710667,
+    "ratio_sigma_dB": 3.5011118829633014,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -84.77648034224035
+   },
+   {
+    "E": 1.0,
+    "snr_atom": 1476157.7601812803,
+    "snr_sphere": 1584421347556.5486,
+    "snr_sphere_sigma": 1780124.348216466,
+    "ratio_dB": -60.307379112382264,
+    "ratio_sigma_dB": -0.8131756647082989,
+    "atom_dom": "blackbody",
+    "atom_sat": true,
+    "sphere_P_dBm": -24.776480342240355
+   }
+  ]
+ },
+ "crossovers": {
+  "A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray<=1.77/s || S1 best: lambda^2/4pi, ZX60 chain": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -62.03093552951488,
+   "E_at_max_ratio_sigma": 0.27542287033381635
+  },
+  "A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray<=1.77/s || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -62.60815380968598,
+   "E_at_max_ratio_sigma": 0.27542287033381635
+  },
+  "A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray<=1.77/s || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -58.4949196091468,
+   "E_at_max_ratio_sigma": 0.27542287033381635
+  },
+  "A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray<=1.77/s || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -55.795490840959594,
+   "E_at_max_ratio_sigma": 0.27542287033381635
+  },
+  "A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray<=1.77/s || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -45.19549084095959,
+   "E_at_max_ratio_sigma": 0.27542287033381635
+  },
+  "A2 lab N/eps, 10 nm filter, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -61.212321538073226,
+   "E_at_max_ratio_sigma": 0.1659586907437563
+  },
+  "A2 lab N/eps, 10 nm filter, stray 10 mV/m || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -61.78953981824432,
+   "E_at_max_ratio_sigma": 0.1659586907437563
+  },
+  "A2 lab N/eps, 10 nm filter, stray 10 mV/m || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -57.67630561770514,
+   "E_at_max_ratio_sigma": 0.1659586907437563
+  },
+  "A2 lab N/eps, 10 nm filter, stray 10 mV/m || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -54.976876849517936,
+   "E_at_max_ratio_sigma": 0.1659586907437563
+  },
+  "A2 lab N/eps, 10 nm filter, stray 10 mV/m || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -44.376876849517934,
+   "E_at_max_ratio_sigma": 0.1659586907437563
+  },
+  "A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -18.014289058656704,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -18.591507338827807,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -14.478273138288621,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -11.778844370101417,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -1.1788443701014186,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A3c best physical, one CEM (<=15 Mcps): N capped || S1 best: lambda^2/4pi, ZX60 chain": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -31.29415891613636,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A3c best physical, one CEM (<=15 Mcps): N capped || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -31.87137719630746,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A3c best physical, one CEM (<=15 Mcps): N capped || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -27.758142995768278,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A3c best physical, one CEM (<=15 Mcps): N capped || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -25.05871422758107,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A3c best physical, one CEM (<=15 Mcps): N capped || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -14.458714227581073,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -13.58400582019007,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -14.16122410036117,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -10.047989899821987,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -7.348561131634783,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": {
+   "power_conv": [],
+   "sigma_conv": [
+    0.024547089156850336,
+    0.8128305161640995
+   ],
+   "max_ratio_sigma_dB": 3.251438868365215,
+   "E_at_max_ratio_sigma": 0.13803842646028866
+  },
+  "A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S1 best: lambda^2/4pi, ZX60 chain": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -13.037880299053864,
+   "E_at_max_ratio_sigma": 0.03630780547701017
+  },
+  "A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -13.615098579224965,
+   "E_at_max_ratio_sigma": 0.03630780547701017
+  },
+  "A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -9.50186437868578,
+   "E_at_max_ratio_sigma": 0.03630780547701017
+  },
+  "A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -6.802435610498575,
+   "E_at_max_ratio_sigma": 0.03630780547701017
+  },
+  "A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": {
+   "power_conv": [],
+   "sigma_conv": [
+    0.001698243652461746,
+    0.8128305161640995
+   ],
+   "max_ratio_sigma_dB": 3.7975643895014235,
+   "E_at_max_ratio_sigma": 0.03630780547701017
+  },
+  "A6 ideal bound, Lya-only filter, 4 K shield, no stray || S1 best: lambda^2/4pi, ZX60 chain": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -12.999239087573125,
+   "E_at_max_ratio_sigma": 0.012302687708123811
+  },
+  "A6 ideal bound, Lya-only filter, 4 K shield, no stray || S2 openEMS counterpoise model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -13.576457367744226,
+   "E_at_max_ratio_sigma": 0.012302687708123811
+  },
+  "A6 ideal bound, Lya-only filter, 4 K shield, no stray || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -9.463223167205042,
+   "E_at_max_ratio_sigma": 0.012302687708123811
+  },
+  "A6 ideal bound, Lya-only filter, 4 K shield, no stray || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only": {
+   "power_conv": [],
+   "sigma_conv": [],
+   "max_ratio_sigma_dB": -6.763794399017836,
+   "E_at_max_ratio_sigma": 0.012302687708123811
+  },
+  "A6 ideal bound, Lya-only filter, 4 K shield, no stray || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off": {
+   "power_conv": [],
+   "sigma_conv": [
+    0.00019054607179632481,
+    0.8128305161640995
+   ],
+   "max_ratio_sigma_dB": 3.8362056009821623,
+   "E_at_max_ratio_sigma": 0.012302687708123811
+  }
+ },
+ "atom_dominant": {
+  "A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray<=1.77/s": {
+   "1e-09": {
+    "dom_bg": "stray_Stark",
+    "S": 6.194427406309189e-15,
+    "B": 213.8740687486464,
+    "cps": 213.8740687486464,
+    "saturated": false
+   },
+   "1e-06": {
+    "dom_bg": "stray_Stark",
+    "S": 6.194427406270822e-09,
+    "B": 213.874068747322,
+    "cps": 213.87406875351644,
+    "saturated": false
+   },
+   "0.001": {
+    "dom_bg": "stray_Stark",
+    "S": 0.006194389038713609,
+    "B": 213.87274434610566,
+    "cps": 213.87893873514437,
+    "saturated": false
+   },
+   "0.03": {
+    "dom_bg": "stray_Stark",
+    "S": 5.5440790054371085,
+    "B": 212.68870691961533,
+    "cps": 218.23278592505244,
+    "saturated": false
+   },
+   "0.3": {
+    "dom_bg": "stray_Stark",
+    "S": 357.9551369492658,
+    "B": 137.34082392491015,
+    "cps": 495.295960874176,
+    "saturated": false
+   },
+   "1": {
+    "dom_bg": "stray_Stark",
+    "S": 861.0633829409346,
+    "B": 29.772856353660277,
+    "cps": 890.8362392945949,
+    "saturated": false
+   }
+  },
+  "A2 lab N/eps, 10 nm filter, stray 10 mV/m": {
+   "1e-09": {
+    "dom_bg": "2E1_in_filter",
+    "S": 6.194427406309189e-15,
+    "B": 36.70687505546418,
+    "cps": 36.70687505546419,
+    "saturated": false
+   },
+   "1e-06": {
+    "dom_bg": "2E1_in_filter",
+    "S": 6.194427406262561e-09,
+    "B": 36.70687505518825,
+    "cps": 36.706875061382675,
+    "saturated": false
+   },
+   "0.001": {
+    "dom_bg": "2E1_in_filter",
+    "S": 0.006194380778516493,
+    "B": 36.70659912533232,
+    "cps": 36.712793506110835,
+    "saturated": false
+   },
+   "0.03": {
+    "dom_bg": "2E1_in_filter",
+    "S": 5.537470019415112,
+    "B": 36.46020716608242,
+    "cps": 41.99767718549753,
+    "saturated": false
+   },
+   "0.3": {
+    "dom_bg": "2E1_in_filter",
+    "S": 332.3450064220225,
+    "B": 21.902489479874344,
+    "cps": 354.24749590189685,
+    "saturated": false
+   },
+   "1": {
+    "dom_bg": "2E1_in_filter",
+    "S": 726.4116474925704,
+    "B": 4.348699339643198,
+    "cps": 730.7603468322136,
+    "saturated": false
+   }
+  },
+  "A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m": {
+   "1e-09": {
+    "dom_bg": "2E1_in_filter",
+    "S": 2.415826688460584e-06,
+    "B": 6786263492.220707,
+    "cps": 6786263492.22071,
+    "saturated": true
+   },
+   "1e-06": {
+    "dom_bg": "2E1_in_filter",
+    "S": 2.4158266884423987,
+    "B": 6786263492.1696205,
+    "cps": 6786263494.585447,
+    "saturated": true
+   },
+   "0.001": {
+    "dom_bg": "2E1_in_filter",
+    "S": 2415808.5036214315,
+    "B": 6786212409.454446,
+    "cps": 6788628217.958067,
+    "saturated": true
+   },
+   "0.03": {
+    "dom_bg": "2E1_in_filter",
+    "S": 2159613307.5718937,
+    "B": 6740598025.923406,
+    "cps": 8900211333.4953,
+    "saturated": true
+   },
+   "0.3": {
+    "dom_bg": "2E1_in_filter",
+    "S": 129614552504.58878,
+    "B": 4045537197.2466826,
+    "cps": 133660089701.83546,
+    "saturated": true
+   },
+   "1": {
+    "dom_bg": "2E1_in_filter",
+    "S": 283300542522.1025,
+    "B": 795815419.3220726,
+    "cps": 284096357941.42456,
+    "saturated": true
+   }
+  },
+  "A3c best physical, one CEM (<=15 Mcps): N capped": {
+   "1e-09": {
+    "dom_bg": "2E1_in_filter",
+    "S": 5.334476464091097e-09,
+    "B": 14985000.000000002,
+    "cps": 14985000.000000007,
+    "saturated": false
+   },
+   "1e-06": {
+    "dom_bg": "2E1_in_filter",
+    "S": 0.005334476464050942,
+    "B": 14984999.999887202,
+    "cps": 14985000.005221678,
+    "saturated": false
+   },
+   "0.001": {
+    "dom_bg": "2E1_in_filter",
+    "S": 5334.436309473663,
+    "B": 14984887.202250212,
+    "cps": 14990221.638559686,
+    "saturated": false
+   },
+   "0.03": {
+    "dom_bg": "2E1_in_filter",
+    "S": 4768722.200068599,
+    "B": 14884164.391076446,
+    "cps": 19652886.591145046,
+    "saturated": true
+   },
+   "0.3": {
+    "dom_bg": "2E1_in_filter",
+    "S": 286206698.12204933,
+    "B": 8933100.670925647,
+    "cps": 295139798.79297495,
+    "saturated": true
+   },
+   "1": {
+    "dom_bg": "2E1_in_filter",
+    "S": 625566429.7306862,
+    "B": 1757269.5477792723,
+    "cps": 627323699.2784655,
+    "saturated": true
+   }
+  },
+  "A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m": {
+   "1e-09": {
+    "dom_bg": "2E1_in_filter",
+    "S": 1.8583282218927567e-05,
+    "B": 52202026863.10236,
+    "cps": 52202026863.10238,
+    "saturated": true
+   },
+   "1e-06": {
+    "dom_bg": "2E1_in_filter",
+    "S": 18.583282218787684,
+    "B": 52202026862.709404,
+    "cps": 52202026881.29269,
+    "saturated": true
+   },
+   "0.001": {
+    "dom_bg": "2E1_in_filter",
+    "S": 18583142.335549474,
+    "B": 52201633918.7465,
+    "cps": 52220217061.08205,
+    "saturated": true
+   },
+   "0.03": {
+    "dom_bg": "2E1_in_filter",
+    "S": 16612410058.245335,
+    "B": 51850754045.43081,
+    "cps": 68463164103.67615,
+    "saturated": true
+   },
+   "0.3": {
+    "dom_bg": "2E1_in_filter",
+    "S": 997035019266.0675,
+    "B": 31119516901.763714,
+    "cps": 1028154536167.8312,
+    "saturated": true
+   },
+   "1": {
+    "dom_bg": "2E1_in_filter",
+    "S": 2179234942477.7112,
+    "B": 6121657071.574406,
+    "cps": 2185356599549.2856,
+    "saturated": true
+   }
+  },
+  "A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K": {
+   "1e-09": {
+    "dom_bg": "blackbody",
+    "S": 1.8583282218927567e-05,
+    "B": 250626927.55177167,
+    "cps": 250626927.55179027,
+    "saturated": true
+   },
+   "1e-06": {
+    "dom_bg": "blackbody",
+    "S": 18.583282218787684,
+    "B": 250626927.54988506,
+    "cps": 250626946.1331673,
+    "saturated": true
+   },
+   "0.001": {
+    "dom_bg": "blackbody",
+    "S": 18583142.335549474,
+    "B": 250625040.98830822,
+    "cps": 269208183.32385767,
+    "saturated": true
+   },
+   "0.03": {
+    "dom_bg": "blackbody",
+    "S": 16612410058.245335,
+    "B": 248940433.13174927,
+    "cps": 16861350491.377085,
+    "saturated": true
+   },
+   "0.3": {
+    "dom_bg": "blackbody",
+    "S": 997035019266.0675,
+    "B": 149407779.29672477,
+    "cps": 997184427045.3643,
+    "saturated": true
+   },
+   "1": {
+    "dom_bg": "blackbody",
+    "S": 2179234942477.7112,
+    "B": 29390661.560229532,
+    "cps": 2179264333139.2715,
+    "saturated": true
+   }
+  },
+  "A6 ideal bound, Lya-only filter, 4 K shield, no stray": {
+   "1e-09": {
+    "dom_bg": "blackbody",
+    "S": 1.8583282218927567e-05,
+    "B": 3149659.6323898397,
+    "cps": 3149659.632408423,
+    "saturated": false
+   },
+   "1e-06": {
+    "dom_bg": "blackbody",
+    "S": 18.58328221878767,
+    "B": 3149659.632366128,
+    "cps": 3149678.2156483466,
+    "saturated": false
+   },
+   "0.001": {
+    "dom_bg": "blackbody",
+    "S": 18583142.32152566,
+    "B": 3149635.921336459,
+    "cps": 21732778.24286212,
+    "saturated": true
+   },
+   "0.03": {
+    "dom_bg": "blackbody",
+    "S": 16612398851.153912,
+    "B": 3128463.1377859935,
+    "cps": 16615527314.291698,
+    "saturated": true
+   },
+   "0.3": {
+    "dom_bg": "blackbody",
+    "S": 996994651830.2377,
+    "B": 1877550.050448573,
+    "cps": 996996529380.2881,
+    "saturated": true
+   },
+   "1": {
+    "dom_bg": "blackbody",
+    "S": 2179042102266.7683,
+    "B": 369323.41628444626,
+    "cps": 2179042471590.1846,
+    "saturated": true
+   }
+  }
+ },
+ "adsb_sweep": {
+  "SE=0": {
+   "rate": 8.721742668466001e-06,
+   "E_equiv_uVm": 375.2330215879043,
+   "rate_x10_field": 0.0008721742668465998
+  },
+  "SE=40": {
+   "rate": 8.721742668466003e-10,
+   "E_equiv_uVm": 3.7523302158790437,
+   "rate_x10_field": 8.721742668465999e-08
+  },
+  "SE=55": {
+   "rate": 2.7580571998227375e-11,
+   "E_equiv_uVm": 0.6672691562564608,
+   "rate_x10_field": 2.758057199822737e-09
+  },
+  "SE=80": {
+   "rate": 8.721742668466e-14,
+   "E_equiv_uVm": 0.037523302158790434,
+   "rate_x10_field": 8.721742668466e-12
+  },
+  "SE=100": {
+   "rate": 8.721742668466002e-16,
+   "E_equiv_uVm": 0.0037523302158790433,
+   "rate_x10_field": 8.721742668466e-14
+  },
+  "SE=120": {
+   "rate": 8.721742668466e-18,
+   "E_equiv_uVm": 0.0003752330215879043,
+   "rate_x10_field": 8.721742668466002e-16
+  }
+ },
+ "adsb_sphere_input_dBm_unshielded_peak": -62.224207535075344,
+ "sphere_input_dBm_at_1Vm_iso": -17.704448501504192,
+ "grid_N_eps": {
+  "1e+06|2e-06": {
+   "E_th": 0.11471568402792282,
+   "saturated": false
+  },
+  "1e+06|0.0002": {
+   "E_th": 0.02711178306170143,
+   "saturated": false
+  },
+  "1e+06|0.039": {
+   "E_th": 0.00705052324085907,
+   "saturated": false
+  },
+  "1e+06|0.3": {
+   "E_th": 0.004227659926415071,
+   "saturated": false
+  },
+  "1e+07|2e-06": {
+   "E_th": 0.05162020354850488,
+   "saturated": false
+  },
+  "1e+07|0.0002": {
+   "E_th": 0.01492736083242466,
+   "saturated": false
+  },
+  "1e+07|0.039": {
+   "E_th": 0.003958878204720448,
+   "saturated": false
+  },
+  "1e+07|0.3": {
+   "E_th": 0.0023761076813824584,
+   "saturated": false
+  },
+  "5e+07|2e-06": {
+   "E_th": 0.03266085106227745,
+   "saturated": false
+  },
+  "5e+07|0.0002": {
+   "E_th": 0.009929198875194774,
+   "saturated": false
+  },
+  "5e+07|0.039": {
+   "E_th": 0.0026464505102659006,
+   "saturated": false
+  },
+  "5e+07|0.3": {
+   "E_th": 0.0015887802324834502,
+   "saturated": false
+  },
+  "1e+08|2e-06": {
+   "E_th": 0.02711178306170143,
+   "saturated": false
+  },
+  "1e+08|0.0002": {
+   "E_th": 0.008338860147582998,
+   "saturated": false
+  },
+  "1e+08|0.039": {
+   "E_th": 0.0022251893991517445,
+   "saturated": false
+  },
+  "1e+08|0.3": {
+   "E_th": 0.0013359560227378005,
+   "saturated": false
+  },
+  "1e+09|2e-06": {
+   "E_th": 0.01492736083242466,
+   "saturated": false
+  },
+  "1e+09|0.0002": {
+   "E_th": 0.0046795033995412905,
+   "saturated": false
+  },
+  "1e+09|0.039": {
+   "E_th": 0.0012511290825427317,
+   "saturated": false
+  },
+  "1e+09|0.3": {
+   "E_th": 0.0007512228285535339,
+   "saturated": true
+  },
+  "1e+10|2e-06": {
+   "E_th": 0.008338860147582998,
+   "saturated": false
+  },
+  "1e+10|0.0002": {
+   "E_th": 0.0026297426086550934,
+   "saturated": false
+  },
+  "1e+10|0.039": {
+   "E_th": 0.0007035283605532222,
+   "saturated": true
+  },
+  "1e+10|0.3": {
+   "E_th": 0.00042243644791661763,
+   "saturated": true
+  },
+  "1e+11|2e-06": {
+   "E_th": 0.0046795033995412905,
+   "saturated": false
+  },
+  "1e+11|0.0002": {
+   "E_th": 0.0014785045434783813,
+   "saturated": false
+  },
+  "1e+11|0.039": {
+   "E_th": 0.0003956171624341418,
+   "saturated": true
+  },
+  "1e+11|0.3": {
+   "E_th": 0.00023755219283706037,
+   "saturated": true
+  },
+  "1e+12|2e-06": {
+   "E_th": 0.0026297426086550934,
+   "saturated": false
+  },
+  "1e+12|0.0002": {
+   "E_th": 0.0008313693748848685,
+   "saturated": true
+  },
+  "1e+12|0.039": {
+   "E_th": 0.00022247082877488775,
+   "saturated": true
+  },
+  "1e+12|0.3": {
+   "E_th": 0.00013358518746474287,
+   "saturated": true
+  }
+ }
+}

@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOTE.md — Home AC compressor and blower motors as SLW sources? (inrush vs running current) · SLW Hub</title>
+<meta name="description" content="Simulation Lab (2026-09-26): home AC compressor and blower motors as SLW sources? Inrush vs running current, Hively EQN. 15 consistency check, PWM/arcing sub-events, measurement plan, literature survey. FACT/HYP labelled.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../sim-lab/sim-lab.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../../index.html">Home</a>
+      <a href="../../learn.html">Learn</a>
+      <a href="../../compare.html">Compare</a>
+      <a href="../../fields.html">Fields</a>
+      <a href="../../monstein.html">Monstein</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../lab.html">Lab</a>
+      <a href="../../kit.html">Kit</a>
+      <a href="../../library.html">Library</a>
+      <a href="../../ranging/">Ranging</a>
+      <a href="../../sim-lab/" aria-current="page">Sim Lab</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Simulation Lab report · home sources (motors) · faithful HTML conversion</p>
+  <h1>NOTE.md — Home AC compressor and blower motors as SLW sources? (inrush vs running current)</h1>
+  <p class="lede">Are home AC compressor and blower motors plausible SLW sources? Inrush vs running current, Hively&#x27;s own charging-current criterion, ranked sub-events (PWM edges, contactor arcing, capacitor switching), a measurement plan, and the literature survey.</p>
+  <p><span class="badge mixed">MIXED</span> <a href="../">← Simulation Lab catalogue</a></p>
+  <div class="provenance">
+    <h2>Provenance</h2>
+    <ul>
+      <li><code>/workspace/sim-lab/home-motors/NOTE.md</code> (last modified 2026-09-26 06:51 EDT)</li><li><code>/workspace/sim-lab/home-motors/LIT.md</code> (last modified 2026-09-26 06:51 EDT)</li>
+      <li>Converted to HTML 2026-09-28 (EDT) as a faithful conversion: text, numbers, equations and labels are the source's own. No new equations were added; only the TEM tags described below and the edits listed here were made.</li>
+      
+      <li>Status lines inside the source (for example "nothing published", "HELD", "draft") describe the state when it was written. This page is its GitHub Pages twin, published 2026-09-28.</li>
+      <li>No Wolfram Cloud twin planned (analysis/report page, not one of Experiments A–G). Numbers are Python-computed; WL compare OWED where the source says so.</li>
+    </ul>
+  </div>
+  <div class="rules"><strong>Framing rules on this page (Dan).</strong> Under the SLW hypothesis no skin-depth, permeability, ferromagnetic or cage shielding-effectiveness argument is used to rank or dismiss SLW/SW. The Faraday cage strips TEM noise (<span class="badge fact">FACT</span>); an SLW passing the cage wall is <span class="badge hyp">HYP</span>. Every passage that uses transverse-EM (TEM / classical / cage-SE) reasoning is tagged <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>. FACT / HYP / ASSUMPTION labels are kept exactly as in the source.</div>
+  <h2>Downloads</h2><ul class="dl-list"><li><a href="home_motor_numbers.json">home_motor_numbers.json</a></li></ul>
+  
+  <article class="doc">
+<p>Simulation Lab · home-motors · 2026-09-26 · literature and reasoning only (nothing sent or published; SYNC_LEDGER.md untouched)</p>
+<p><strong>Labels.</strong> <span class="badge fact">FACT</span> = textbook, measured, datasheet or standard. <span class="badge hyp">HYP</span> = Hively, Monstein or scalar-wave hypothesis. <span class="badge asm">ASSUMPTION</span> = our modelling choice or reasoning.</p>
+<p><strong>Equations.</strong> No new equations. The only equations used are:</p>
+<ul>
+<li>Hively US 9,306,527 <strong>EQN. 15</strong>, <em>P_OUT = (I²/4π)·√(μ/ε)</em> (HYP);</li>
+<li>Zhu et al. 2022 <strong>Eq. (3)</strong>, <em>i_b = C_b dv_b/dt</em>;</li>
+<li>NEMA MG 1 <strong>§12.36</strong>, as a ratio.</li>
+</ul>
+<p>Arithmetic (sinusoid peak slope ωI_pk, and I_pk = √2·I_rms) is elementary calculus, labelled ASSUMPTION (sinusoidal current).</p>
+<p>Files:</p>
+<ul>
+<li><code>home_motor_numbers.py</code> and <code>home_motor_numbers.json</code> (illustrative numbers);</li>
+<li><code>src/</code> (downloaded datasheets and PDFs with text extracts).</li>
+</ul>
+<hr />
+<h2>0. SUMMARY (verdict)</h2>
+<p><strong>Is inrush magnitude itself a plausible HYP SLW source? No, by Hively's own written criterion.</strong></p>
+<p>Hively ties the SLW to an irrotational charging current where current must stop:</p>
+<ul>
+<li>US 9,306,527: <em>&quot;essentially all of the electrical current goes into charging and discharging the antenna&quot;</em>;</li>
+<li>Hively &amp; Reed 2020 p. 11: <em>&quot;charge accumulation causes arcing across the fault; this gradient-driven current creates the SLW.&quot;</em></li>
+</ul>
+<p>A motor winding is a closed inductive loop, so its inrush and running currents are solenoidal. Hively's own writing gives circulating currents zero SLW (Hively &amp; Reed p. 9; Hively &amp; Loebl App. C).</p>
+<p><strong>Consistency check (ASSUMPTION, using HYP EQN. 15).</strong> If the whole motor current counted, a 5-ton compressor's 31.6 A running current would emit ≈30 kW of SLW. Its electrical input is only ≈5.5 kW. At 178 A LRA the figure would be ≈0.95 MW. Only a small charging fraction can be Hively's I.</p>
+<p><strong>The inrush (FACT).</strong></p>
+<ul>
+<li>About 6× running current for 100–300 ms (Copeland AE4-1331 p. 16).</li>
+<li>The first half-cycle peak is 1.8–2.8× the rms symmetrical value (NEMA MG 1 §12.36).</li>
+<li>Peak slope only ~10⁵ A/s, all at 60 Hz. That is the least HYP-relevant part, and the part Dan's TinySA can't see.</li>
+</ul>
+<p><strong>Sub-events ranked by HYP relevance</strong> (charging into open ends, gaps or capacitance, i = C dv/dt):</p>
+<ol>
+<li><strong>Inverter PWM edges</strong> in ECM blowers (e.g. 20 kHz, TI TIDA-01353) and variable-speed compressors. dv/dt up to 10 kV/µs (Zhu 2022). Common-mode charging of winding-to-frame capacitance, continuous while running.</li>
+<li><strong>Contactor or relay arcing.</strong> Showering-arc bursts with &lt;10 ns rise, repeating at 10 kHz–1 MHz. This is Hively &amp; Reed's arcing case.</li>
+<li><strong>Start and run capacitor switching.</strong> Lumped ±Q, so weak (ASSUMPTION).</li>
+<li><strong>60 Hz line and winding-to-ground charging.</strong></li>
+<li><strong>The 60 Hz inrush envelope.</strong> Last.</li>
+</ol>
+<p><strong>Microwave oven.</strong> SLW emission from an oven is HYP. Its most HYP-like element is the magnetron's open-ended output probe at 2.45 GHz, plus a 4 kV doubler. Its &quot;switching&quot; is 60 Hz gating, or 20–50 kHz in inverter ovens. So it shares the fast-dv/dt ingredient with ECM blowers, not with compressor inrush.</p>
+<p><strong>Detection.</strong> Motor energy sits at 60 Hz–kHz, below the TinySA (100 kHz and up) and the Zeenko amps (~10 MHz and up). A copper-mesh cage gives only ~5–23 dB of magnetic shielding even at 10–150 kHz (Kühn 2013), and less at 60 Hz. False-positive risk is therefore high.</p>
+<p>The discriminating test (§4):</p>
+<ul>
+<li>inside the closed cage, battery-powered LF E (sphere plus preamp) and LF H (search coil) channels;</li>
+<li>event times from a current logger or microphone outside;</li>
+<li>pass only if E rises without H, beyond the calibrated cage transfer ratios.</li>
+</ul>
+<p>The house-wiring and cage simulation is owed (§5).</p>
+<p><strong>Literature verdict</strong> (details in <code>LIT.md</code>, searched 2026-09-26):</p>
+<ul>
+<li><strong>(a) No measurement ties SLW or SW to motors, compressor inrush or inductive switching.</strong> Not peer-reviewed, not even self-published.</li>
+<li><strong>(b) Nothing compares magnetron switching with motor inrush.</strong> The scalar-wave literature uses microwave ovens as unpowered Faraday cages (Meyl kit, HYP), not as sources. The only &quot;oven as SLW source&quot; document is Dan's own July 2026 planning page (SPECULATION).</li>
+<li><strong>(c) Hively and the Keyport patent name arcs and sparks as SLW drivers:</strong> fault arcing (Hively &amp; Reed 2020 p. 11), lightning and tape-peeling arcs (Hively &amp; Land 2021 p. 2), a &quot;resonant spark system&quot; (US 12,525,711 claim 30). All HYP, none measured. Motors appear only as superconductor applications (Hively) or as receiver loads (Meyl, Handwerker).</li>
+<li><strong>An EED-internal preprint</strong> (Rentzber, arXiv:2608.19405, HYP) finds that charge-conserving sources give C = 0. If that holds, even arcs and PWM do not source the SLW unless local charge conservation fails.</li>
+<li><strong>Net:</strong> the ranking above rests on reading Hively's criterion, not on any observation.</li>
+</ul>
+<hr />
+<h2>1. AC compressor starting</h2>
+<h3>1.1 Facts (cited)</h3>
+<ul>
+<li><strong>Inrush ratio and duration (FACT).</strong> Copeland Application Engineering Bulletin AE4-1331 R9 (Sep 2024), p. 16, &quot;Single Phase Starting Characteristics&quot;: <em>&quot;The starting Locked Rotor Amperage (LRA), also referred to as inrush current, is normally six or more times higher than the rated running amperage of the compressor and lasts from 100 to 300 milliseconds until the rotor starts turning.&quot;</em>
+<ul>
+<li>p. 23: <em>&quot;'inrush current' and locked rotor amps (LRA) are one and the same.&quot;</em> The nameplate LRA is measured on a locked compressor at the highest nameplate voltage, read after four seconds.</li>
+</ul>
+</li>
+<li><strong>5-ton example (FACT, datasheets).</strong> Copeland ZP57K5E-PFV (R-410A, 208–230 V, 1-phase, 57,000 Btu/h):
+<ul>
+<li>LRA <strong>178 A</strong> and RLA <strong>31.6 / 28.3 A</strong> (Baker Distributing and WalkairDirect listings);</li>
+<li>AHRI-rated input <strong>5460 W at 25.5 A</strong> (Copeland ZP-series sheet, dkkarani.com PDF);</li>
+<li>so LRA/RLA ≈ 5.6 and LRA/rated current ≈ 7.0 (<code>home_motor_numbers.json</code>);</li>
+<li>three-phase variants: ZP57K5E-TF5 LRA 136 A; -TFD (460 V) LRA 66.1 A, RLA 9.7 A (Sigler listing; Copeland ZPK5 service-kit table).</li>
+<li><strong>Note (FACT vs premise):</strong> the single-phase 5-ton LRA (178 A) sits above Dan's &quot;~100–150 A&quot; range. Three-phase or 460 V units fall inside or below it. The &quot;3–8× RLA&quot; range is consistent with Copeland's &quot;six or more&quot;.</li>
+</ul>
+</li>
+<li><strong>Asymmetric first half-cycle (FACT).</strong> NEMA MG 1-2016 Part 12, §12.36 &quot;Instantaneous Peak Value of Inrush Current&quot;: <em>&quot;The values in the previous tables are rms symmetrical values ... There will be a one-half cycle instantaneous peak value which may range from 1.8 to 2.8 times the above values as a function of the motor design and switching angle.&quot;</em> The DC offset depends on the point-on-wave at contact closure.</li>
+<li><strong>Start components (FACT).</strong>
+<ul>
+<li>AE4-1331 p. 16: <em>&quot;Start assist devices are usually not required&quot;</em>; PTC start devices <em>&quot;rated from 10 to 25 ohms may be used&quot;</em>.</li>
+<li>p. 18: <em>&quot;A start kit (specified start capacitor and relay)&quot;</em>.</li>
+<li>Single-phase scrolls use a run capacitor (e.g. ZR57K3-PFV: run cap 80 µF / 370 V, optional start cap 270–324 µF / 330 V; Copeland technical spec sheet).</li>
+<li><strong>ASSUMPTION (general HVAC practice, uncited):</strong> a potential relay drops the start capacitor out once the motor is up to speed. That is a contact opening in a capacitor circuit.</li>
+</ul>
+</li>
+<li><strong>Contactor arcing (FACT).</strong> EMC Compliance training note &quot;Transient susceptibility&quot; (emccompliance.co.uk): <em>&quot;When a current is interrupted by an unsuppressed electromechanical switch (either a manual switch, contactor or relay) the resultant voltage rise across the gap causes a repetitive ignition and extinction of an arc discharge – the so-called 'showering arc' effect ... The burst repetition rate varies from 10kHz to 1MHz ... Typically the rise time of each strike is less than 10ns and the duration is tens to hundreds of ns; transit time is roughly 5ns/m.&quot;</em> It also says these transients <em>&quot;couple along the supply circuit or are radiated from the conductors on either side of the switch&quot;</em> and <em>&quot;decay with distance&quot;</em>.
+<ul>
+<li>ASSUMPTION: bounce on closure (with the 6× inrush) and arcing on opening both occur at the condenser contactor.</li>
+</ul>
+</li>
+<li><strong>Inverter / variable-speed compressors (FACT).</strong>
+<ul>
+<li>Danfoss &quot;Inverter scroll compressor VRJ, Application Guidelines&quot; (residential, R-410A), p. 8: <em>&quot;With VRJ compressors, the LRA value is low because the variable speed drive reacts very rapidly (far below 1 second).&quot;</em></li>
+<li>The table lists VRJ028 at LRA <strong>10.2 A</strong> versus MCC <strong>18 A</strong>, so LRA is below the running maximum: no across-the-line inrush.</li>
+<li>The PWM drive is the trade-off: carrier kHz to tens of kHz, edges to MHz (Zhu et al., IEEE Access 10, 125279–125280, 2022: PWM <em>&quot;several kHz up to tens of kHz&quot;</em>, <em>&quot;dv/dt, typically up to 10kV/µs&quot;</em>, EMI <em>&quot;several to tens of MHz&quot;</em>).</li>
+</ul>
+</li>
+</ul>
+<h3>1.2 Spectral content and slopes</h3>
+<ul>
+<li><strong>Inrush:</strong> 60 Hz carrier with a 100–300 ms envelope step plus a decaying DC offset.
+<ul>
+<li>Peak slope of 178 A rms: ≈9.5×10⁴ A/s. At the NEMA half-cycle peak (320–498 A): ≈1.2–1.9×10⁵ A/s, treating that peak as a sinusoid amplitude.</li>
+<li>Running (31.6 A): ≈1.7×10⁴ A/s.</li>
+<li>Label: ASSUMPTION arithmetic, <code>home_motor_numbers.json</code>. This is &quot;slow&quot; (~10⁴–10⁵ A/s). The envelope change adds sidebands within a few Hz to tens of Hz of 60 Hz (ASSUMPTION).</li>
+</ul>
+</li>
+<li><strong>Contactor arc:</strong> broadband, ns rise, 10 kHz–1 MHz burst rate (FACT, above).
+<ul>
+<li>ASSUMPTION: with hundreds of volts to kV across the gap in &lt;10 ns, dv/dt ≳10¹⁰–10¹¹ V/s.</li>
+</ul>
+</li>
+<li><strong>Inverter PWM:</strong> dv/dt up to 10 kV/µs = 10¹⁰ V/s (Zhu). Wide-bandgap example: 400 V in 25 ns ≈ 1.6×10¹⁰ V/s (Scelba et al., IEEE TIA 58, 4461, 2022, test conditions).</li>
+</ul>
+<h3>1.3 Coupling to Hively's HYP source term</h3>
+<ul>
+<li>
+<p><strong>Hively's criterion (HYP, quoted in <code>/workspace/sim-lab/sub-sources/MECHANISM.md</code>):</strong></p>
+<ul>
+<li>Hively &amp; Loebl 2019 p. 123: <em>&quot;The irrotational current density (JL) is maximal at the feed point ... and zero at the end of the antenna (z = L).&quot;</em></li>
+<li>US 9,306,527: <em>&quot;essentially all of the electrical current goes into charging and discharging the antenna&quot;</em>.</li>
+<li>Hively &amp; Reed 2020 p. 11: <em>&quot;charge accumulation causes arcing across the fault; this gradient-driven current creates the SLW.&quot;</em></li>
+<li>Hively &amp; Reed 2020 p. 9: <em>&quot;A TEM transmitter produces only circulating currents, yielding C = 0 and EL = 0 with no SLW power output or reception.&quot;</em> <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+</li>
+<li>
+<p><strong>Motor winding (ASSUMPTION reasoning on HYP).</strong> The winding is a closed loop from line to line (or line to neutral). Current enters and leaves; no charge accumulates. Inrush magnitude therefore scales a <em>solenoidal</em> current, which gives no SLW under HYP.</p>
+</li>
+<li>
+<p><strong>Candidate HYP-relevant pieces</strong> (ranked in §0):</p>
+<ul>
+<li>(a) contactor or relay arcing, the gap-charging and breakdown case;</li>
+<li>(b) common-mode charging of winding and cable capacitance to the grounded frame, i = C dv/dt (Zhu Eq. 3). At 60 Hz this is small. With PWM edges it is large (Scelba et al. 2022: <em>&quot;the fluctuation of the common-mode voltage generates currents that flow to the ground through parasitic capacitances between the stator windings and the motor frame. The amplitude of such currents depends on the rate of variation of the common-mode voltage and increases with switching frequency&quot;</em>);</li>
+<li>(c) start and run capacitors. Charge does accumulate there, but as ±Q on closely spaced plates, which is dipole-like and closed by displacement current. <strong>ASSUMPTION:</strong> by analogy with Hively's App. C, whose balanced dipole gives no SLW output, a lumped capacitor is a weak HYP source compared with an unbalanced, monopole-like charging path to ground.</li>
+</ul>
+</li>
+<li>
+<p><strong>EQN. 15 internal-consistency flag (ASSUMPTION using HYP).</strong> Put <em>P_OUT = (I²/4π)·√(μ/ε)</em> with √(μ₀/ε₀) = 376.73 Ω:</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Current</th>
+<th>EQN. 15 result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>178 A (LRA)</td>
+<td>≈950 kW</td>
+</tr>
+<tr>
+<td>31.6 A (RLA)</td>
+<td>≈30 kW</td>
+</tr>
+<tr>
+<td>7 A (PSC start)</td>
+<td>≈1.5 kW</td>
+</tr>
+<tr>
+<td>1.5 A (PSC run)</td>
+<td>≈67 W</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The RLA figure exceeds the compressor's 5460 W input, which violates energy conservation. So I in EQN. 15 cannot be the motor's supply current. It can only be the irrotational charging component, consistent with Hively's own definition.</p>
+<ul>
+<li>Same flag as the sub-sources MIL-STD-1399-300B case: a 20 A capacitive line-to-ground current gives ≈12 kW.</li>
+<li>A testable prediction for HYP: if even 1 A of common-mode charging current were fully &quot;gradient-driven&quot;, EQN. 15 predicts ≈30 W of SLW from every VFD-equipped appliance.</li>
+</ul>
+</li>
+</ul>
+<h2>2. Indoor blower: PSC vs ECM</h2>
+<ul>
+<li><strong>PSC (FACT).</strong> A PSC motor keeps the capacitor winding in circuit continuously. Beckett Technical Bulletin &quot;An Introduction to PSC Motors&quot; (Oct 1999), p. 1: <em>&quot;Both the capacitor (auxiliary) winding and the main winding remain in the circuit the entire time the motor is running, hence the name 'permanent'.&quot;</em>
+<ul>
+<li>Table 1 (1/7 hp PSC burner motor, a close analogue of a small blower): starting (locked-rotor) current <strong>7 A</strong> vs running <strong>1.5 A</strong>, i.e. <strong>≈4.7×</strong>. That is higher than the &quot;~2–3×&quot; in the prompt.</li>
+<li>Blower-specific PSC LRA data were not found; see Blockers.</li>
+<li>PSC motors start across the line through a relay in the furnace control, so inrush is at 60 Hz (ASSUMPTION: same physics as §1.2, at ~1/25 the current). Relay arcing also applies.</li>
+</ul>
+</li>
+<li><strong>ECM (FACT).</strong> TI reference design TIDA-01353 (TIDUCE0A), &quot;Electronically Commutated Motor Reference Design for HVAC Blowers&quot; (½ hp, 115 V AC):
+<ul>
+<li>spec table p. 2: <em>&quot;Inverter switching frequency 20 kHz&quot;</em>, DC link 163.5 V typical;</li>
+<li>the intro contrasts it with <em>&quot;a permanent split capacitor motor, or PSC&quot;</em>;</li>
+<li>§2.2.3.5–2.2.3.6: open-loop start-up where <em>&quot;the START_UP_DUTY parameter is gradually increased to START_UP_DUTY_MAX&quot;</em>, a soft start.</li>
+<li>Power Integrations RDR-872 (70 W fan inverter) lists <strong>10 kHz</strong> PWM. The carrier is manufacturer-specific.</li>
+<li>The furnace's 100 Hz–1 kHz &quot;PWM&quot; airflow command is a low-voltage control signal, not the power switching (hvac-fanmotor.com guide; low-authority source, FACT only for the distinction).</li>
+<li>ECM consequences: little inrush (soft start; plus the DC-link capacitor inrush at power-up, limited by an NTC or thermistor in typical designs, as in RDR-872 &quot;inrush thermistor RT1&quot;). But there are continuous fast PWM edges and common-mode currents to ground while running. This is the HYP-favoured ingredient (Zhu Eq. 3; Scelba et al. 2022).</li>
+</ul>
+</li>
+</ul>
+<h2>3. Comparison table (device vs HYP source)</h2>
+<p class="tem-note">&#9888; Rows/columns in this table that refer to TEM / classical / cage SE: <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Device / event</th>
+<th>Peak current</th>
+<th>dI/dt, dv/dt</th>
+<th>Spectral content</th>
+<th>Where charge accumulates (HYP source per Hively)</th>
+<th>Classical TEM / near-field emission (FACT unless marked)</th>
+<th>Field geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Compressor inrush, fixed-speed 5-ton</strong></td>
+<td>178 A rms LRA; half-cycle peak 320–498 A (NEMA 1.8–2.8×)</td>
+<td>~10⁵ A/s (60 Hz slope)</td>
+<td>60 Hz plus 100–300 ms envelope plus DC offset</td>
+<td><strong>Nowhere significant.</strong> Closed winding loop (solenoidal). Small 60 Hz charging to frame.</td>
+<td>60 Hz magnetic field from supply loop and motor (∝ current, loop area); 240 V E-field from wiring</td>
+<td>Quasi-static dipole-like B near cables and motor; kr ≪ 1 (λ = 5000 km)</td>
+</tr>
+<tr>
+<td><strong>Compressor running</strong></td>
+<td>31.6 A RLA</td>
+<td>~1.7×10⁴ A/s</td>
+<td>60 Hz plus harmonics</td>
+<td>As above</td>
+<td>As above, ~6× lower B</td>
+<td>As above</td>
+</tr>
+<tr>
+<td><strong>Contactor / relay arcing</strong> (compressor, PSC blower)</td>
+<td>Transient; set by line impedance (unquantified here)</td>
+<td>&lt;10 ns rise; ASSUMPTION ≳10¹⁰ V/s</td>
+<td>Broadband, bursts at 10 kHz–1 MHz rate, content to ~100 MHz (ASSUMPTION from &lt;10 ns rise)</td>
+<td><strong>Across the opening gap: charge builds, then breaks down.</strong> The Hively &amp; Reed &quot;arcing&quot; case.</td>
+<td>Conducted and radiated bursts that &quot;decay with distance&quot; (EMC Compliance note); visible to TinySA (≥100 kHz) and to a radio as clicks</td>
+<td>Local to wiring; transmission-line-like along house wiring</td>
+</tr>
+<tr>
+<td><strong>Start cap / hard-start relay; run cap</strong></td>
+<td>Start-cap charging current up to LRA-class during start (ASSUMPTION)</td>
+<td>60 Hz, plus a relay-opening transient</td>
+<td>60 Hz plus a switching burst</td>
+<td>±Q on capacitor plates (lumped, dipole-like; weak per ASSUMPTION §1.3)</td>
+<td>Small, local</td>
+<td>Confined between plates</td>
+</tr>
+<tr>
+<td><strong>Inverter compressor / ECM blower PWM</strong></td>
+<td>Motor current (ECM ½ hp: a few A); CM current to ground unquantified here</td>
+<td>dv/dt up to 10 kV/µs (Zhu); 1.6×10¹⁰ V/s WBG example</td>
+<td>Carrier 10–20 kHz (RDR-872, TIDA-01353) to tens of kHz, harmonics to tens of MHz</td>
+<td><strong>Winding-to-frame and cable-to-ground capacitances, charged every edge</strong> (i = C dv/dt, Zhu Eq. 3). Unbalanced to ground, monopole-like (ASSUMPTION).</td>
+<td>Conducted and radiated CM EMI (Zhu &quot;several to tens of MHz&quot;); CM current on leads and ground</td>
+<td>CM loop through ground: antenna-like at MHz</td>
+</tr>
+<tr>
+<td><strong>PSC blower start</strong></td>
+<td>≈4.7× running (7 A vs 1.5 A, Beckett 1/7 hp)</td>
+<td>~4×10³ A/s</td>
+<td>60 Hz</td>
+<td>Closed loop; run cap ±Q</td>
+<td>60 Hz B, small</td>
+<td>Quasi-static</td>
+</tr>
+<tr>
+<td><strong>Microwave oven, transformer type</strong> (comparison; SLW emission is HYP)</td>
+<td>Magnetron anode 330 mA avg, 1.5 A peak max; 4.40 kV peak anode (LG 2M246 datasheet); &quot;half-wave doubler with leakage transformer&quot;</td>
+<td>HV swings of kV at 60 Hz; conduction gated to half of each 16.7 ms cycle (IEEE 802.11-98/240)</td>
+<td>60 Hz gating; 2.45 GHz RF (~50 MHz swept)</td>
+<td><strong>Magnetron output probe, an open-ended monopole into the waveguide at 2.45 GHz</strong> (textbook HYP geometry but inside a closed metal cavity); HV doubler capacitor and cathode at −4 kV</td>
+<td>2.45 GHz leakage ≤1 mW/cm² new, ≤5 mW/cm² thereafter, at ≥5 cm (21 CFR 1030.10(c)(1)); 60 Hz transformer stray B</td>
+<td>Contained cavity plus door-seal leakage; far field at 2.45 GHz in air</td>
+</tr>
+<tr>
+<td><strong>Microwave oven, inverter type</strong></td>
+<td>Similar anode; IGBT primary current</td>
+<td>IGBT switching at 20–45 kHz (Panasonic service literature; &quot;about 20 to 50 kHz&quot;, Panasonic US 8,492,687)</td>
+<td>20–50 kHz plus harmonics; 2.45 GHz</td>
+<td>As above, plus the 20–50 kHz resonant HV transformer charging</td>
+<td>As above, plus kHz CM EMI</td>
+<td>As above</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>EQN. 15 probe for the magnetron (ASSUMPTION): 0.33 A → ≈3.3 W; 1.5 A → ≈67 W. The same caveat applies: the anode current is a closed-circuit current, not an open-end charging current.</p>
+<h2>4. Detection with Dan's gear, and a discriminating test</h2>
+<h3>4.1 Why the current setup is blind or false-positive-prone for motors (FACT + Dan's gear)</h3>
+<ul>
+<li><strong>Frequency coverage.</strong>
+<ul>
+<li>Motor inrush energy lies at 60 Hz–kHz. The TinySA Ultra's normal range starts at 100 kHz, and the Zeenko amps are not usable below ~10 MHz (per Dan's gear note).</li>
+<li>Only contactor-arc bursts and the upper PWM harmonics fall in band. Those are classical broadband EMI that the TinySA will see if anything leaks.</li>
+</ul>
+</li>
+<li><strong>Cage magnetic shielding is poor at low frequency (FACT).</strong> Kühn, John &amp; Weigel, Adv. Radio Sci. 11, 189 (2013), measured a closed copper-mesh enclosure (30×30×10 cm, overlapped mesh) at 10–150 kHz. Magnetic SE was <em>&quot;very low (from 5 dB to 23 dB in the frequency range to be considered)&quot;</em> in one orientation, and ~20 dB higher in the other. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>
+<ul>
+<li>They note measured values run ~22 dB below the Kaden analytical model, due partly to imperfect seam connections.</li>
+<li>Magnetic (eddy-current) shielding falls with decreasing frequency (their Fig. 3/5 behaviour). At 60 Hz a thin non-ferrous mesh gives little H shielding.</li>
+<li>The <strong>electric</strong> field, by contrast, is strongly shielded: the paper says <em>&quot;the incident electrical field could be neglected due to Faraday cage effect&quot;</em>.</li>
+</ul>
+</li>
+<li><strong>Resulting false-positive path (ASSUMPTION).</strong> 60 Hz or kHz H-field from the compressor supply loop leaks into the cage. It induces EMF in any loop formed by sphere, preamp, battery and leads. That EMF looks like a &quot;sphere signal inside a Faraday cage&quot;. Vibration at compressor start (microphonics, triboelectric cable noise) is a second path.</li>
+</ul>
+<h3>4.2 Proposed discriminating test (literature-based design; not run)</h3>
+<p><strong>Goal.</strong> Look for an E-channel response inside the closed cage, time-locked to motor start events, <strong>without</strong> a matching H-channel response. Its size must exceed what the measured cage transfer ratios predict classically.</p>
+<ul>
+<li>The cage strips TEM (FACT for TEM). SLW passing the wall is HYP. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+<p><strong>Outside the cage (event timing and reference):</strong></p>
+<ol>
+<li><strong>Start-event timestamps.</strong>
+<ul>
+<li>Preferred and non-invasive: a clamp-on AC current logger on the condenser or air-handler supply. Use a split-core CT on a single conductor at an accessible point, installed by a qualified person if any panel or disconnect cover must be opened, with a battery logger sampling ≥1 kHz.</li>
+<li>Alternatives: a microphone or accelerometer on the condenser, or a light sensor on the blower status LED. Either gives start times to ~ms without touching mains.</li>
+</ul>
+</li>
+<li><strong>Outside E and H reference sensors</strong> near the cage: LF E-probe (a short monopole or plate into a high-impedance preamp) and an LF search coil, logged on the same clock.</li>
+</ol>
+<p><strong>Inside the closed cage</strong> (battery-powered; no cable crosses the wall; data out by fiber or SD card):
+3. <strong>E-channel.</strong> Existing KMAC sphere into a high-impedance, low-noise LF preamp (FET buffer, 10 Hz–100 kHz; specific part TBD) into a battery 24-bit recorder (96–192 kHz sampling covers 10 Hz–~90 kHz).</p>
+<ul>
+<li>Also, or instead, an <strong>Airspy HF+ Discovery</strong> (Expt D shopping list: HF coverage 0.5 kHz–31 MHz per airspy.com, as quoted in <code>expt-d/web/slw-detectability.html</code>) behind an LF preamp, for the kHz–MHz PWM and arc bands, on a battery host with fiber out.</li>
+</ul>
+<ol start="4">
+<li><strong>H-channel.</strong> A multi-turn LF search coil or a battery fluxgate/ELF magnetometer on the same recorder. The Tekbox H20 loop is too small for 60 Hz sensitivity (ASSUMPTION).</li>
+<li><strong>Control channels</strong> (same recorder):
+<ul>
+<li>a dummy sphere (same size, disconnected or terminated);</li>
+<li>a shorted-input preamp;</li>
+<li>an accelerometer (to flag vibration).</li>
+</ul>
+</li>
+<li><strong>Clock sync.</strong> Sync before closing the cage, plus a fiber-coupled LED flash as a shared marker. GPS will not work reliably inside the cage.</li>
+</ol>
+<p><strong>Procedure.</strong></p>
+<ul>
+<li>(i) Calibrate outside-to-inside transfer ratios for E and H using a known LF source (a Helmholtz or loop coil for H, a plate for E) at 60 Hz, 1 kHz, 20 kHz and 100 kHz, following the Kühn 2013 method.</li>
+<li>(ii) Log ≥50 compressor and blower start/stop events. Include ECM run periods, and inverter-compressor periods if fitted.</li>
+<li>(iii) Epoch-average around each event.</li>
+<li>(iv) Classical prediction: inside E ≈ outside E × (E transfer, tiny); inside H ≈ outside H × (H transfer, near 1 at 60 Hz); sphere EMF explained by H pickup in its loop and by vibration.</li>
+<li>(v) <strong>HYP-supporting outcome:</strong> a sphere E response not explained by the H-channel times the loop pickup, absent on the dummy sphere and shorted input, not correlated with the accelerometer, and repeatable across cage rotations.</li>
+<li>(vi) Repeat with the cage moved farther from the supply run. Classical H falls with distance from the wiring loop.</li>
+</ul>
+<p><strong>Equipment to add</strong> (ASSUMPTION list; prices and parts not checked):</p>
+<ul>
+<li>Airspy HF+ Discovery;</li>
+<li>LF high-impedance preamp;</li>
+<li>battery 24-bit audio recorder or DAQ;</li>
+<li>LF search coil or fluxgate;</li>
+<li>battery current logger with split-core CT (or a microphone logger);</li>
+<li>fiber LED sync link.</li>
+</ul>
+<h3>4.3 What TinySA can still do now</h3>
+<ul>
+<li>Watch 100 kHz–30 MHz for <strong>contactor-arc bursts</strong> and <strong>ECM PWM harmonics</strong>, inside and outside the cage, time-locked to start events.</li>
+<li>Anything seen inside is first a cage/seam/cable leak (VERIFY.md steps in <code>/workspace/sim-lab/sub-sources/</code>) before it is anything else.</li>
+</ul>
+<h2>5. Simulation owed (not run)</h2>
+<p>Logged as <strong>OWED</strong>; not run, because a credible model needs house-wiring geometry and cage/seam details we don't have.</p>
+<ol>
+<li><strong>Quasi-static magnetic model, 60 Hz–100 kHz</strong> (Elmer FEM magnetodynamics, or FEMM for 2-D). Inputs: compressor supply loop (line/neutral spacing, run length, 178 A inrush / 31.6 A run) and the ECM CM current path. Output: H at Dan's cage location.</li>
+<li><strong>Mesh-cage LF shielding model.</strong> Magnetic and electric transfer ratios of Dan's actual mesh and 3–4-wrap rolled seam at 60 Hz–100 kHz, including seam contact resistance. Validate against the Kühn 2013 measurement style.</li>
+<li><strong>Pickup model.</strong> EMF induced in the sphere/preamp/battery loop by the leaked H. This gives the classical false-positive level.</li>
+<li><strong>openEMS full-wave, 1–100 MHz.</strong> Contactor-arc and PWM-harmonic radiation from house wiring into the cage (EFT-like 5/50 ns source, per the IEC 61000-4-4 test waveform; exact waveform numbers are from a search snippet, see Blockers).</li>
+</ol>
+<p>No quick version was run: the answer depends mainly on wiring geometry and seam quality, which we can't assume credibly.</p>
+<h2>6. Sources (all accessed 2026-09-26)</h2>
+<ul>
+<li>Copeland, Application Engineering Bulletin <strong>AE4-1331 R9</strong> (Sep 2024), ZP16–ZP61K5E 1.5–5 ton scrolls: p. 16 (inrush 6×, 100–300 ms; PTC), p. 18 (start kit), p. 23 (LRA = inrush; 4 s measurement). apps.copeland.com/Publications/AEB/AE4_1331_R9.pdf (local: <code>src/AE4-1331.pdf</code>).</li>
+<li>Copeland ZP57K5E-PFV: LRA 178 A, RLA 31.6/28.3 A (bakerdist.com, walkairdirect.com). Copeland ZP-series sheet: 5460 W, 25.5 A, LRA 178 (dkkarani.com PDF). ZP57K5E-TFD: LRA 66.1, RLA 9.7 (siglers.com). ZR57K3-PFV capacitor data (Copeland spec sheet via acpro.com).</li>
+<li><strong>NEMA MG 1-2016 Part 12</strong> (rev. 2018), §12.36 (nema.org watermark PDF; local <code>src/nema_mg1_p12.pdf</code>, PDF p. 12).</li>
+<li><strong>Danfoss</strong>, Inverter scroll compressor VRJ Application Guidelines (AB141686422149en), p. 8 (local <code>src/danfoss_vrj.pdf</code>).</li>
+<li><strong>Zhu et al.</strong>, IEEE Access 10, 125279 (2022): Eqs. (1) and (3), dv/dt and EMI statements pp. 125279–80 (as cited in sub-sources).</li>
+<li><strong>Scelba et al.</strong>, &quot;Experimental Assessment of Induction Motors Fed by Sub-MHz-PWM Wide Band Gap Inverters&quot;, IEEE Trans. Ind. Appl. 58(4), 4461–4473 (2022), §III.B (Polito postprint; local <code>src/polito_cm.pdf</code>).</li>
+<li><strong>TI TIDA-01353</strong> / TIDUCE0A Rev. A, ECM reference design for HVAC blowers, p. 2 and §2.2.3.5–6 (local <code>src/ti_tida01353.pdf</code>). <strong>Power Integrations RDR-872</strong> (2021), fan inverter, 10 kHz PWM.</li>
+<li><strong>Beckett</strong> Technical Information Bulletin, &quot;An Introduction to PSC Motors&quot; (Oct 1999), Table 1 (local <code>src/beckett_psc.pdf</code>).</li>
+<li><strong>EMC Compliance</strong> training note, &quot;Transient susceptibility&quot;, EFT/Burst section (emccompliance.co.uk/training/Topics/IDH_Topic110.htm).</li>
+<li><strong>Kühn, John &amp; Weigel</strong>, Adv. Radio Sci. 11, 189–195 (2013), doi:10.5194/ars-11-189-2013.</li>
+<li><strong>LG 2M246 magnetron datasheet</strong> (pactraco.com PDF; local <code>src/2M246.pdf</code>). FCC ID BEJS104XC (Part 18 consumer device, 2M246/2M248J).</li>
+<li><strong>Panasonic</strong> inverter microwave service literature (&quot;20 KHz to 45 KHz&quot;; NN-S560 service manual &quot;20 to 40 kHz PWM&quot;, &quot;half-wave doubler ... 4,000V DC&quot;). <strong>US 8,492,687</strong> (Panasonic): &quot;about 20 to 50 kHz&quot;.</li>
+<li><strong>21 CFR 1030.10(c)(1)</strong> (eCFR): 1 mW/cm² before purchase, 5 mW/cm² thereafter, at ≥5 cm.</li>
+<li><strong>IEEE 802.11-98/240</strong> (Zyren, Harris 1998): oven 16.7 ms gating (as cited in sub-sources).</li>
+<li>Hively US 9,306,527 B1; Hively &amp; Loebl, Phys. Essays 32, 112 (2019); Hively &amp; Reed, Symmetry 12, 2110 (2020). Quotes and page numbers as in <code>/workspace/sim-lab/sub-sources/MECHANISM.md</code>.</li>
+<li>MIL-STD-1399-300B §5.1.2 (as in sub-sources).</li>
+</ul>
+<h2>7. Blockers and unverified items</h2>
+<ul>
+<li><strong>No blower-specific PSC LRA datasheet found.</strong> The Beckett 1/7 hp PSC burner motor (4.7×) is an analogue. The EASA article on inrush vs LRA is login-walled.</li>
+<li><strong>Scroll RLA data are from distributor listings, not a Copeland OPI page.</strong> The Copeland ZPK5 service-kit table (Scribd) has ambiguous column headers.</li>
+<li><strong>Contactor-arc current amplitudes and residential ECM dv/dt were not found.</strong> Industrial and WBG values were used as upper-class analogues (ASSUMPTION).</li>
+<li><strong>IEC 61000-4-4 is paywalled.</strong> The 5/50 ns and 5/100 kHz figures come from a search snippet (Ametek/Azoteq pages), not the standard.</li>
+<li><strong>Airspy HF+ Discovery specs</strong> are taken from the hub's Expt D page quoting airspy.com; not re-fetched today.</li>
+<li><strong>Simulations in §5 are owed, not run.</strong></li>
+<li>No contact made. Nothing published. SYNC_LEDGER.md untouched.</li>
+</ul>
+<h2 id="appendix-1">Literature survey (LIT.md)</h2>
+<p class="footnote">Source heading: <em>LIT.md: literature search on motors, compressor inrush, inductive switching and microwave ovens as scalar / longitudinal-wave sources</em></p><p>Simulation Lab · home-motors · 2026-09-26 · literature only. No one was contacted, nothing was published, and SYNC_LEDGER.md was not touched. No equations are introduced here.</p>
+<h3>Labels</h3>
+<p><strong>Evidence labels</strong> (as defined for this task):</p>
+<ul>
+<li><span class="badge fact">FACT</span>: published, peer-reviewed measurement.</li>
+<li><span class="badge hyp">HYP</span>: published claim or hypothesis, not independently replicated. Peer-reviewed theory and self-published experiments both fall here.</li>
+<li><strong>SPECULATION</strong>: no experimental backing (books, forums, blogs, marketing, planning documents).</li>
+</ul>
+<p><strong>Direction column:</strong></p>
+<ul>
+<li><strong>pro-SW</strong>: claims a scalar or longitudinal effect.</li>
+<li><strong>null/classical</strong>: finds an ordinary explanation.</li>
+<li><strong>theory</strong>: no measurement.</li>
+<li><strong>context</strong>: not about sources.</li>
+</ul>
+<p>Local copies are in <code>src/lit/</code>. Earlier local texts are in <code>/workspace/ohmic-slw-search</code>, <code>/workspace/hively-monstein</code> and <code>/workspace/hub/papers</code>.</p>
+<hr />
+<h3>1. Category verdicts (short)</h3>
+<p><strong>(a) Experimental detection of scalar/longitudinal waves from motor starting, compressor inrush or inductive-load switching: nothing found.</strong></p>
+<ul>
+<li>No peer-reviewed or self-published measurement ties a scalar or longitudinal wave to a motor start, compressor inrush or contactor/relay switching.</li>
+<li>The closest items are:
+<ul>
+<li>one self-published spark-gap experiment on the propagation speed of a collapsing Coulomb field (Gasser 2016, HYP). It is not a motor or an inductive load.</li>
+<li>Hively's and the Keyport patent's designation of <strong>arcs and sparks</strong> as SLW drivers (HYP, no measurement).</li>
+<li>the Tesla-derived &quot;radiant energy&quot; thesis that abrupt DC interruption across a spark gap emits a longitudinal ray (Lindemann 2001, SPECULATION).</li>
+</ul>
+</li>
+</ul>
+<p><strong>(b) Literature comparing magnetron switching with motor inrush as scalar-wave sources: nothing found.</strong></p>
+<ul>
+<li>No paper, patent or report compares the two.</li>
+<li>In the scalar-wave literature the microwave oven appears as an <strong>unpowered Faraday cage</strong> (Meyl's kit manual; Meyl Docu §VII &quot;The mobile phone in the microwave&quot;), not as a source.</li>
+<li>The only document proposing a microwave oven as an SLW <strong>source</strong> is Dan's own planning page, &quot;Proposed Experiment: Hively and Microwave Oven&quot; (July 2026). Its basis is extrapolation from Hively's 8 GHz reports; it contains no measurement (SPECULATION).</li>
+</ul>
+<p><strong>(c) Mentions by named researchers of motors, compressors, inductive switching or household appliances as candidate sources:</strong></p>
+<ul>
+<li><strong>None names motors, compressors or household appliances as SLW/SW sources</strong>, with one exception: Meyl's generic claim that &quot;technical devices&quot; radiate longitudinal vortex waves (electrosmog book blurb, SPECULATION).</li>
+<li>Hively mentions &quot;electric motors and generators&quot; only as <strong>applications of high-temperature superconductors</strong> (US 9,306,527, cols. 17–18).</li>
+<li>Hively's closest source statements are about <strong>arcing</strong>: seismic arcing across a fault (Hively &amp; Reed 2020, p. 11), lightning and tape-peeling arcs (Hively &amp; Land 2021, p. 2).</li>
+<li>The Keyport sleeve-balun patent claims a <strong>&quot;resonant spark system&quot;</strong> feeding the antenna (US 12,525,711 B1, claim 30).</li>
+<li>Meyl and Handwerker use motors only as <strong>loads</strong> driven by Tesla-coil receivers.</li>
+<li>A 2026 arXiv EED paper (Rentzber) states that <strong>charge-conserving sources, including all ordinary circuits, give C = 0 and no scalar-longitudinal radiation</strong>, even within extended electrodynamics. That excludes motors, arcs and PWM unless local charge conservation fails (theory, not peer-reviewed).</li>
+</ul>
+<p><strong>Hub pages.</strong> No hub page presents a microwave oven as an SLW source.</p>
+<ul>
+<li>Every hub copy (<code>hub-efield-repo</code>, <code>hub</code>, <code>slw-hub</code>) states &quot;No magnetron source in this hub's lab protocol&quot;. This appears in library.html, learn.html, compare.html, future-scalar-ab.html, sw-vs-slw.html and c-nuclei*.html.</li>
+<li>lab.html says &quot;no magnetron, no microwave oven, no 8 GHz TWT as the primary source&quot; and &quot;No modified microwave oven in this protocol&quot;.</li>
+<li>monstein.html says &quot;13 cm (2.45 GHz ISM / ham segments) only if you replicate. No magnetron protocol.&quot;</li>
+<li>index.html links Dan's oven page as &quot;Proposed oven experiment (historical; this hub does not use a magnetron)&quot;.</li>
+<li>The only basis for &quot;oven as source&quot; in the hub ecosystem is that linked planning page (SPECULATION).</li>
+</ul>
+<hr />
+<h3>2. Findings table</h3>
+<p class="tem-note">&#9888; Rows/columns in this table that refer to TEM / classical / cage SE: <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Citation / URL</th>
+<th>What was actually measured or claimed</th>
+<th>Motor / switching / appliance relevance</th>
+<th>Direction</th>
+<th>Label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Hively, <strong>US 9,306,527 B1</strong> (2016), Google Patents text; local <code>ohmic-slw-search/Hively-US9306527.txt</code></td>
+<td>Patent; theory plus proposed antennas (monopole with skirt balun, bifilar coil). Cols. 15–16: SLW from &quot;chemical-bond-breaking&quot; in earthquakes: <em>&quot;The Voltage corresponds to an electric field, which drives a current gradient, as the SLW driver.&quot;</em> Cols. 17–18: <em>&quot;electric motors and generators&quot;</em> listed among HTS applications.</td>
+<td>Motors appear <strong>only as HTS applications, not SLW sources</strong>. No appliances, switching or ovens.</td>
+<td>pro-SW / theory</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Hively &amp; Giakos, Int. J. Signal Imaging Syst. Eng. 5(1), 3–10 (2012), doi:10.1504/IJSISE.2012.046745 (abstract only; paywalled)</td>
+<td>Abstract: predicts <em>&quot;a charge-fluctuation-driven scalar wave, having energy but not momentum; a second longitudinal-electric wave with energy and momentum; experimental suggestions.&quot;</em></td>
+<td>No sources named in the abstract. Full text not seen.</td>
+<td>theory</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Hively &amp; Loebl, Phys. Essays 32, 112 (2019); local <code>Hively-Loebl-2019-pages.txt</code></td>
+<td>Theory plus skirt-balun monopole description: <em>&quot;essentially all of the electrical current goes into charging and discharging the antenna (an irrotational current)&quot;</em> (p. 119).</td>
+<td>No motors, appliances or ovens found in the searched text.</td>
+<td>pro-SW / theory</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Hively &amp; Reed, <strong>Symmetry 12, 2110 (2020)</strong>; local copy</td>
+<td>p. 11: Park's seismic detector (US 8,023,360): <em>&quot;charge accumulation causes arcing across the fault; this gradient-driven current creates the SLW ... This work clearly needs replication.&quot;</em> p. 13: pulsed/high-current tests (Graneau–Hering via Wesley 1990) cited as consistent with an extra force; <em>&quot;These tests need replication.&quot;</em> p. 13: tape-peeling arcs (Camara et al. 2008).</td>
+<td><strong>Arcing</strong> is named as an SLW driver (a natural fault, not household switching). No motors or appliances.</td>
+<td>pro-SW</td>
+<td>HYP (the authors themselves ask for replication)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Hively &amp; Land, J. Phys.: Conf. Ser. 1956, 012011 (2021), p. 2; local <code>Hively-Land-2021.txt</code></td>
+<td><em>&quot;Longitudinal currents (driven by EL) also occur in atmospheric lightning [31] and microscopic arcs in tape peeling [32-33].&quot;</em></td>
+<td>Arcs and lightning named; nothing on household switching.</td>
+<td>pro-SW / theory</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Camara, Escobar, Hird &amp; Putterman, <em>Nature</em> 455, 1089 (2008) (cited by Hively &amp; Reed [102])</td>
+<td><strong>Measured</strong> nanosecond X-ray flashes correlated with stick-slip in peeling tape.</td>
+<td>Arc/discharge physics. The SLW link is Hively's interpretation only.</td>
+<td>context</td>
+<td>FACT (X-ray measurement); SLW reading HYP</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Hively IARD 2020, &quot;Evidence for Scalar-Longitudinal Photons&quot;; local <code>Hively-Land-IARD-2020.txt</code></td>
+<td>Reported 8 GHz monopole/skirt-balun tests through copper enclosures.</td>
+<td>No motors, appliances or ovens found.</td>
+<td>pro-SW</td>
+<td>HYP (not independently replicated)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Hively &amp; Loebl, Erratum, Phys. Essays 35, 320 (2022); local <code>Errata.txt</code></td>
+<td>Correction: <em>&quot;the SLW is not subject to resistive loss in conductive media.&quot;</em></td>
+<td>None.</td>
+<td>theory</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Monstein &amp; Wesley, EPL 59, 514 (2002); reply 2004</td>
+<td><strong>Measured</strong> a 433.59 MHz signal between 6 cm ball antennas versus distance, with a wire-array &quot;polarizer&quot;.</td>
+<td>Source is an RF-driven ball; no motors or switching.</td>
+<td>pro-SW</td>
+<td>HYP (disputed; see #10–11)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Butterworth, Allison et al., <em>J. Sci. Explor.</em> 27(1), 13–23 (2013), &quot;Longitudinal EM Waves? The Monstein–Wesley Experiment Reconstructed&quot;; local <code>JSE_Butterworth_2013.pdf</code></td>
+<td><strong>Replicated</strong> the MW apparatus. The pattern resembled MW's theory, but the authors reject longitudinal waves: <em>&quot;a yet-unidentified mechanism must be producing the observed results.&quot;</em></td>
+<td>None.</td>
+<td>null/classical-leaning</td>
+<td>FACT (peer-reviewed replication measurement); interpretation open</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Bray &amp; Britton, EPL 66, 153 (2004); Rębilas (2008)</td>
+<td>Comments: charge conservation; ground-current explanation.</td>
+<td>None.</td>
+<td>null/classical, theory</td>
+<td>HYP (theory comments)</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Paulus &amp; Gentile (NUWC Keyport), <strong>US 12,525,711 B1</strong>, Google Patents text (<code>src/lit/US12525711B1.txt</code>)</td>
+<td>Claim 30: signals <em>&quot;comprising a plurality of electrical impulses, wherein the device comprises a resonant spark system.&quot;</em> Text: <em>&quot;Utilizing an antenna 1 with a high voltage resonant spark system 77′ may generate high-voltage low-current antenna feeds that are capable of generating SLW and scalar waves, while reducing the transverse electromagnetic (TEM) wave&quot;</em>; <em>&quot;By using higher voltages and lower current, the vector potential may be reduced and the scalar potential may dominate.&quot;</em></td>
+<td><strong>Deliberate spark/impulse drive into a sleeve-balun monopole</strong> is claimed as an SLW source. Nothing about motors or incidental household switching. Extending it to contactor arcs is our SPECULATION.</td>
+<td>pro-SW</td>
+<td>HYP (patent; no published measurement found)</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Zimmerman, <strong>US 8,165,531 B2</strong> (Google Patents text); Nikolova &amp; Zimmerman, McMaster CEM-R-46 (2007); Zimmerman, MPLB 25, 649 (2011)</td>
+<td>Potential (A-field) detection with plasma/electron-beam devices at ~1.3 GHz / L-band.</td>
+<td>No motors, switching or appliances (text searched for spark, impulse, motor, appliance, microwave oven, switching).</td>
+<td>pro-A / theory+expt</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>14</td>
+<td>US 12,562,930 (Navy, listed in hub papers)</td>
+<td>A DAQ/sensor-system patent (structure-borne noise, acceleration).</td>
+<td><strong>Not an SLW source document.</strong> No relevance.</td>
+<td>context</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Tomilin, Lukin &amp; Gulkov, Tech. Phys. Lett. 47, 577 (2021); local <code>hub/papers/Tomilin-…pdf</code></td>
+<td><strong>Reported</strong> a 27.4 MHz link over 470.7 m of seawater. Source: 1.17 W radio into a Tesla flat spiral coil feeding a 60 mm copper sphere. Theory (p. 577): a potential field <em>&quot;can be generated ... due to a nonstationary potential magnetic field, which creates a quasi-charge&quot;</em>, realised <em>&quot;with the help of a Tesla flat spiral coil when a nonstationary current propagates through it.&quot;</em></td>
+<td>Only a conceptual nod to &quot;nonstationary current in a coil&quot;. The experiment used RF, not switching; no motors or appliances.</td>
+<td>pro-SW</td>
+<td>HYP (unreplicated; AGC radio receiver)</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Podgainy &amp; Zaimidoroga, arXiv:1005.3130 (2010); Zaimidoroga, J. Mod. Phys. 7, 806 (2016)</td>
+<td>Theory of an &quot;electroscalar&quot; field. Reported copper-sphere signals in a metal box during the 1 Aug 2008 solar eclipse.</td>
+<td>Source is the Sun; no motors or appliances.</td>
+<td>pro-SW</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Van Vlaenderen &amp; Waser, Hadronic J. 24, 609 (2001); arXiv:physics/0305098</td>
+<td>Theory (&quot;longitudinal electroscalar&quot; waves). Cites Ignatiev's spherical-antenna tests and Tesla's resonant transformer.</td>
+<td>No motors or household switching.</td>
+<td>theory</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Ignatiev &amp; Leus, in <em>Instantaneous Action at a Distance in Modern Physics: Pro and Contra</em> (1999), p. 203 (via #17)</td>
+<td>Reported longitudinal electric transmission with a large spherical antenna, ~1.2c (as summarised in #17).</td>
+<td>Not motor/switching related. Primary text not obtained.</td>
+<td>pro-SW</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Arbab &amp; Satti, &quot;On the Generalized Maxwell Equations and Their Prediction of Electroscalar Wave&quot; (journal and year not verified here); Woodside, Am. J. Phys. 77, 438 (2009), doi:10.1119/1.3076300</td>
+<td>Theory only (quaternionic / field identities).</td>
+<td>No sources named (abstract-level check).</td>
+<td>theory</td>
+<td>HYP (Arbab); Woodside is mainstream math, not an SW claim</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Simulik, arXiv:1606.01738 (2016)</td>
+<td>Theory: longitudinal E solutions of standard Maxwell equations with gradient-type sources; comments on Van Vlaenderen &amp; Waser.</td>
+<td>None.</td>
+<td>theory</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Zhakatayev &amp; Tlebaldiyeva, arXiv:1711.11212, 1806.05060, 1901.09166; Zhakatayev arXiv:2004.03207</td>
+<td>Theory: claims &quot;long-range longitudinal electric wave&quot; from dipoles and linear antennas when the Lorenz gauge is not imposed.</td>
+<td>None (antennas only).</td>
+<td>theory</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>22</td>
+<td><strong>Rentzber, arXiv:2608.19405 (Aug 2026)</strong>, &quot;Scalar-Longitudinal Radiation in EED ...&quot; (local <code>src/lit/Rentzber_2026_arXiv2608.19405.pdf</code>)</td>
+<td>Theory: <em>&quot;For a conserved source with no scalar initial field, C=0 and the theory reduces to classical electrodynamics&quot;</em>; <em>&quot;The scalar sector is inactive in Maxwell theory and in EED with conserved sources. It can be activated only when a free source violates local charge conservation.&quot;</em></td>
+<td><strong>Directly relevant.</strong> Within EED (the Hively/Giakos framework), ordinary charge-conserving circuits (motors, contactors, PWM, magnetrons) do <strong>not</strong> source the scalar channel.</td>
+<td>theory (EED-internal)</td>
+<td>HYP (preprint, not peer-reviewed)</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Minotti &amp; Modanese, Symmetry 15, 1119 (2023); EPJC 83 (2023) &quot;Gauge waves generation and detection in Aharonov–Bohm electrodynamics&quot;; J. Phys. Commun. (2024) detector proposal</td>
+<td>Peer-reviewed theory: a scalar field <em>&quot;cannot cause dissipation&quot;</em> in ordinary conserving media. Detector <strong>proposals</strong> (graphite, Zener diode). No switching source reported.</td>
+<td>None.</td>
+<td>theory / proposal</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Meyl, <em>Scalar Wave Technology: Experimental Kit</em> manual (2003), 5th experiment &quot;Ineffective Faraday cage&quot; (medalab.com PDF)</td>
+<td>Kit with a 1–20 MHz generator and Tesla coils. <strong>A microwave oven is used as an unpowered shielding cage</strong>: <em>&quot;The power plug should have been pulled and the oven must not be activated in any case.&quot;</em></td>
+<td>Oven = <strong>cage, not source</strong>.</td>
+<td>pro-SW</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Meyl, <em>Scalar Wave Technology</em> Docu (local <code>Meyl-Docu1.txt</code>), §VII 2.2 &quot;The mobile phone in the microwave&quot; (TOC, p. 162)</td>
+<td>A phone placed in an (unpowered) oven used as a cage. Body text not in the local extract.</td>
+<td>Oven = cage.</td>
+<td>pro-SW</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Meyl, <em>Elektromagnetische Umweltverträglichkeit Teil 1</em> (3rd ed. 1998), k-meyl.de blurb</td>
+<td>Claims absorbed EM waves roll into vortices that spread as longitudinal waves. Concern if such vortices are <em>&quot;von technischen Geräten abgestrahlt&quot;</em> (&quot;radiated by technical devices&quot;).</td>
+<td>The only item naming generic &quot;technical devices&quot; as longitudinal-wave emitters. <strong>No motors, compressors or measurements named.</strong></td>
+<td>pro-SW</td>
+<td>SPECULATION</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Meyl, PIERS paper (local <code>Meyl_PIERS.txt</code>)</td>
+<td>Wireless-energy demonstrations; a receiver drives a small (~5 W) motor.</td>
+<td>Motor = <strong>load</strong>, not source.</td>
+<td>pro-SW</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Weidner, Zentgraf, Senkel, Junker &amp; Winkels, Institut für Gravitationsforschung (IGF), &quot;Experiments to proof the evidence of scalar waves: Tests with a Tesla reproduction by Prof. Konstantin Meyl&quot; (Sep 2001), tuks.nl PDF (<code>src/lit/debunking_meyl.pdf</code>)</td>
+<td><strong>Reproduced</strong> Meyl's kit effects, then attributed them to ordinary EM: <em>&quot;the transmission effects are within the scope of the classical electrodynamics, and can be explained through transmittance of transversal electromagnetic waves. An over unity effect was not observed.&quot;</em></td>
+<td>Context for Faraday-cage claims; no motors.</td>
+<td>null/classical</td>
+<td>HYP (documented investigation, not peer-reviewed)</td>
+</tr>
+<tr>
+<td>29</td>
+<td>Handwerker, &quot;Longitudinal dielectric waves in a Tesla coil and quaternionic Maxwell's equations&quot; (2011, self-published, DELTA Ingegneria; docslib)</td>
+<td>Tesla-coil field versus distance (photomultiplier, LED loops). Claims it can drive <em>&quot;common DC electric motors under proper conditions.&quot;</em></td>
+<td>Motor = <strong>load</strong>.</td>
+<td>pro-SW</td>
+<td>HYP (self-published)</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Lindemann, <em>The Free Energy Secrets of Cold Electricity</em> (Clear Tech, 2001), summarised by the Natural Philosophy Wiki</td>
+<td>Thesis: the &quot;Electro-Radiant Event&quot; <em>&quot;is produced when a high-voltage direct current is discharged across a spark gap and interrupted abruptly before any reversal of current can occur&quot;</em> and <em>&quot;propagates instantaneously as a longitudinal, electrostatic 'light-like ray'.&quot;</em> Credits Dollard's impulse-current demonstrations; Gray's patents include &quot;Suitable for Inductive Loads&quot;.</td>
+<td><strong>The only thread naming abrupt current interruption as a longitudinal-wave source.</strong> Spark-gap capacitor discharge, not motor inrush.</td>
+<td>pro-SW</td>
+<td>SPECULATION (book; no controlled measurement)</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Tesla, US 685,958 (1901) &quot;Method of Utilizing Radiant Energy&quot;; US 787,412 (1905)</td>
+<td>Patents on collecting &quot;radiant energy&quot; into a condenser, and earth-conducted transmission.</td>
+<td>They describe reception and storage, not emission from switching (per patent text summaries).</td>
+<td>theory / patent</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>32</td>
+<td>Gasser, &quot;Superluminal Coulomb-Interaction Experimentally Confirmed&quot; (self-published, pandualism.com, May 2016)</td>
+<td><strong>Measured</strong> timing between two detector spheres after a spark-gap discharge of spheres charged to ~±5 kV. Claims 1.2–5 c apparent speeds; the author notes image-charge and ground-current complications.</td>
+<td>A switching (spark) transient seen by spheres: a <strong>longitudinal-field</strong> timing claim, not &quot;SLW&quot;. No motors.</td>
+<td>pro-(superluminal)</td>
+<td>HYP (self-published, unreplicated)</td>
+</tr>
+<tr>
+<td>33</td>
+<td>de Sangro, Finocchiaro, Patteri, Piccolo &amp; Pizzella, EPJC 75, 137 (2015), &quot;Measuring propagation speed of Coulomb fields&quot;</td>
+<td><strong>Measured</strong> the field of an electron beam; results <em>&quot;compatible with an electric field rigidly carried by the beam.&quot;</em></td>
+<td>Not motor/switching. Context for #32.</td>
+<td>context</td>
+<td>FACT (measurement); interpretation debated</td>
+</tr>
+<tr>
+<td>34</td>
+<td>Zhang Cao, Liao Kangjia &amp; Fan Jing, <em>Modern Physics</em> 5(2), 29 (2015), doi:10.12677/MP.2015.52004 (Hans)</td>
+<td>Claimed <strong>measured</strong> delay of the &quot;longitudinal electric field&quot; in AC circuit wires; &gt;20c below 3 MHz.</td>
+<td>AC wiring, not switching sources.</td>
+<td>pro-(superluminal)</td>
+<td>HYP (low-tier journal, unreplicated)</td>
+</tr>
+<tr>
+<td>35</td>
+<td>Perry (Kerrow Energetics), &quot;Pulse-Induced Electrochemical Phenomena: Proposed Mechanisms using Extended Electrodynamic Theories&quot; (2025, ResearchGate)</td>
+<td>Proposes EED/SED mechanisms for pulse-induced gains in electrochemical cells.</td>
+<td>Pulsed excitation, but electrochemistry, not motors or appliances.</td>
+<td>pro-EED</td>
+<td>HYP/SPECULATION (not peer-reviewed; not read in full)</td>
+</tr>
+<tr>
+<td>36</td>
+<td><strong>Dan Britton (with Grok), &quot;Proposed Experiment: Hively and Microwave Oven&quot;</strong> (GitHub Pages, July 2026)</td>
+<td>Planning document. Proposes testing whether <em>&quot;an SLW component is generated inside the magnetron interaction space or by the high-voltage circuitry&quot;</em> can exit the oven cage. Basis: extrapolation from Hively's 8 GHz reports (which it calls &quot;validated&quot;). Its own stance: <em>&quot;Mainstream electromagnetism does not recognize freely propagating SLWs&quot;</em>; <em>&quot;probability of a clear positive SLW detection under mainstream physics remains low.&quot;</em></td>
+<td><strong>The only source found that proposes a microwave oven as an SLW source.</strong> No measurement.</td>
+<td>pro-SW proposal</td>
+<td>SPECULATION</td>
+</tr>
+<tr>
+<td>37</td>
+<td>Hub pages (<code>/workspace/hub-efield-repo</code>, <code>/workspace/hub</code>, <code>/workspace/slw-hub</code>): library.html, monstein.html, lab.html, index.html, etc.</td>
+<td>Rules text only: &quot;No magnetron source in this hub's lab protocol&quot;; lab.html: &quot;no magnetron, no microwave oven ... as the primary source&quot;; monstein.html: 13 cm/2.45 GHz &quot;only if you replicate. No magnetron protocol.&quot;</td>
+<td><strong>The hub does not claim ovens emit SLW.</strong> It links Dan's oven page as &quot;historical&quot;.</td>
+<td>context</td>
+<td>n/a</td>
+</tr>
+<tr>
+<td>38</td>
+<td>Mainstream motor-transient literature, e.g. Engineering, Technology &amp; Applied Science Research (ETASR) article 20702, switching-overvoltage study (~7000 oscillograms); stray-flux start-up diagnostics (Sensors, PMC7085524)</td>
+<td><strong>Measured</strong> conventional switching overvoltages (up to 7.61× on de-energising with 80 m feeders) and start-up stray magnetic flux.</td>
+<td>Confirms classical transient fields at motor starts. No scalar/longitudinal interpretation.</td>
+<td>classical</td>
+<td>FACT</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h3>3. Search record (terms, databases, dates)</h3>
+<p>All searches were run on 2026-09-26.</p>
+<p><strong>Tools.</strong> WebSearch (general web index), WebFetch/curl (primary pages and PDFs), the arXiv API (export.arxiv.org), Google Patents full text, eCFR, and a local ripgrep across all local paper texts and hub HTML.</p>
+<p><strong>Not queried directly:</strong></p>
+<ul>
+<li><strong>Google Scholar and IEEE Xplore</strong> have no API access from the box. Their content was reached only as far as the general web index surfaces abstracts; IEEE and Springer abstract pages appeared for some items.</li>
+<li><strong>Physics Essays</strong> full-text search is not available; the local Hively papers were grepped instead.</li>
+</ul>
+<p><strong>Web search terms:</strong></p>
+<ul>
+<li>&quot;scalar longitudinal wave detection motor switching transient inductive load experiment&quot;</li>
+<li>&quot;&quot;scalar wave&quot; microwave oven magnetron source experiment&quot;</li>
+<li>&quot;&quot;scalar wave&quot; OR &quot;longitudinal wave&quot; detector motor OR compressor OR refrigerator switching Faraday cage&quot;</li>
+<li>&quot;arXiv longitudinal electromagnetic wave detection experiment switching transient spark gap&quot;</li>
+<li>&quot;Physics Essays scalar longitudinal wave source power line transformer motor Hively 2022 2023 2024&quot;</li>
+<li>&quot;Hively Giakos 2012 Toward a more complete electrodynamic theory abstract&quot;</li>
+<li>&quot;Podgainy longitudinal electromagnetic waves experiment detection&quot;</li>
+<li>&quot;Zhu longitudinal electromagnetic wave scalar wave experimental detection&quot;</li>
+<li>&quot;Tesla radiant energy sudden interruption DC ... Lindemann Dollard switching inductive&quot;</li>
+<li>&quot;Meyl scalar waves electrosmog transformer motor household appliances&quot;</li>
+<li>&quot;Van Vlaenderen Waser 2001 ...&quot;</li>
+<li>&quot;Arbab quaternionic ... Woodside scalar field ...&quot;</li>
+<li>&quot;Modanese Minotti Aharonov-Bohm electrodynamics ... switching pulse&quot;</li>
+</ul>
+<p><strong>arXiv API queries and hit counts:</strong></p>
+<ul>
+<li><code>all:&quot;scalar longitudinal&quot;</code>: 20 hits, 1 relevant (Rentzber 2026).</li>
+<li><code>all:&quot;longitudinal electric wave&quot;</code>: 8 hits (Zhakatayev series; plasma papers).</li>
+<li><code>all:&quot;scalar wave&quot; AND all:motor</code>: <strong>0 hits</strong>.</li>
+<li><code>all:&quot;scalar wave&quot; AND all:&quot;microwave&quot;</code>: 4 hits, none relevant.</li>
+<li><code>all:electroscalar</code>: 2 hits (Podgainy &amp; Zaimidoroga).</li>
+<li><code>au:Hively</code>: 1 hit, unrelated.</li>
+<li><code>all:&quot;longitudinal electromagnetic wave&quot; AND all:switching</code>: <strong>0 hits</strong>.</li>
+</ul>
+<p><strong>Patents (Google Patents text):</strong></p>
+<ul>
+<li>US 9,306,527 (local text);</li>
+<li>US 12,525,711 B1: spark/impulse hits;</li>
+<li>US 8,165,531 B2: no hits for spark, impulse, motor, appliance, microwave oven or switching;</li>
+<li>US 12,562,930: an unrelated DAQ patent.</li>
+</ul>
+<p><strong>Local grep:</strong></p>
+<ul>
+<li>Terms: motor(s), compressor(s), appliance(s), microwave oven(s), magnetron(s), power line(s), transformer, household, inductive, switching, relay, arcing, spark gap, lightning, earthquake.</li>
+<li>Files: all texts in <code>/workspace/ohmic-slw-search</code> (Hively-*, Errata, Monstein, US12525711, US12562930, Zimmerman, Nikolova), <code>/workspace/hively-monstein</code> (Hively &amp; Reed, patent, Monstein &amp; Wesley reply, Meyl PIERS and vortex, Zimmerman) and <code>/workspace/hub/papers</code> (Tomilin 2021).</li>
+<li>Hub HTML: <code>/workspace/hub-efield-repo</code>, <code>/workspace/hub</code>, <code>/workspace/slw-hub</code>.</li>
+</ul>
+<p><strong>&quot;Zhu et al.&quot;</strong> No scalar-wave researcher named Zhu was found. The Zhu et al. (IEEE Access 10, 125279, 2022) cited in NOTE.md is a <strong>mainstream motor-drive EMI paper</strong>, not scalar-wave literature. The only &quot;Zhu&quot; hit in the web search was an unrelated 2017 metamaterials author list.</p>
+<h3>4. Blockers</h3>
+<ul>
+<li><strong>Hively &amp; Giakos 2012 full text is paywalled</strong> (Inderscience); only the abstract was checked.</li>
+<li><strong>Ignatiev &amp; Leus (1999)</strong> primary text not obtained; its summary comes from Van Vlaenderen &amp; Waser.</li>
+<li><strong>Meyl Docu §VII</strong> body text is not in the local extract (TOC only). The kit-manual PDF was read only via search-index excerpts.</li>
+<li><strong>Lindemann 2001</strong> was read via a wiki summary, not the book.</li>
+<li><strong>Perry 2025</strong> (ResearchGate) not read in full.</li>
+<li><strong>Google Scholar and IEEE Xplore could not be queried directly</strong>; coverage is web-index plus arXiv API plus patents, so an obscure conference paper could have been missed.</li>
+<li><strong>Tomilin 2022</strong> follow-up PDF is truncated locally (see <code>hub/papers/README-Tomilin-PDF-status.txt</code>).</li>
+</ul>
+
+  </article>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub · <a href="../../sim-lab/">Simulation Lab catalogue</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
+</body>
+</html>
