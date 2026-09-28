@@ -33,6 +33,7 @@ This is vanilla HTML/CSS/JS. No build step.
 | `library.html` | Six bundled PDFs with genre labels |
 | `papers/` | Verbatim PDFs (not rewritten) |
 | `css/style.css`, `js/*.js`, `assets/mark.svg` | Chrome |
+| `assets/site-search.js`, `assets/site-responsive.css`, `search-index.json`, `search.html`, `tools/build_search_index.py` | Site-wide search bar (every page) + responsive layer; rebuild the index with `python3 tools/build_search_index.py` |
 
 ## Physics constants used
 

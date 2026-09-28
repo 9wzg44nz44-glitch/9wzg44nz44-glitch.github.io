@@ -1,0 +1,61 @@
+/* SLW Hub shared responsive layer (phone / tablet / laptop).
+ * Loaded on every hub page by <link rel="stylesheet" href="/assets/site-responsive.css">
+ * (and injected by /assets/site-search.js as a fallback if a page forgets the link).
+ * Layout-only: no content, numbers, equations or FACT/HYP labels are touched.
+ * No user-agent sniffing: media queries only.
+ */
+
+/* ---------- all sizes ---------- */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+img, svg, video, iframe, embed, object, canvas { max-width: 100%; }
+img, video { height: auto; }
+iframe { border: 0; }
+pre { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* Grid/flex children may shrink below their content width (stops a wide
+   table or long formula from pushing the whole page sideways). */
+.grid-2 > *, .grid-3 > *, .grid-4 > *, .card, .hero-panel { min-width: 0; }
+/* Horizontal-scroll wrapper added around over-wide tables by site-search.js */
+.ss-scroll-x {
+  display: block; max-width: 100%; min-width: 0;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+}
+.ss-scroll-x > table { margin-top: 0; }
+
+/* ---------- laptop / desktop: readable line length ---------- */
+/* (text blocks only; figures, tables, diagrams and captions keep full width) */
+@media (min-width: 1200px) {
+  main :is(p, li, dd, blockquote):not(:is(td, th, figure, pre) *):not(:has(img, svg, canvas, table, iframe, video, pre)) { max-width: 80ch; }
+}
+
+/* ---------- tablet and phone ---------- */
+@media (max-width: 1024px) {
+  /* Tap targets at least 44 px */
+  button, select, summary,
+  input[type="button"], input[type="submit"], input[type="reset"],
+  input[type="text"], input[type="number"], input[type="search"], input[type="email"],
+  input[type="url"], input[type="tel"], input[type="date"] { min-height: 44px; }
+  input[type="range"] { min-height: 44px; }
+  input[type="checkbox"], input[type="radio"] { min-width: 22px; min-height: 22px; }
+  nav.primary a, .expt-abc a { min-height: 44px; display: inline-flex; align-items: center; }
+  .nav-toggle { min-height: 44px; min-width: 64px; }
+  /* iOS zooms into form fields under 16 px */
+  input, select, textarea { font-size: max(16px, 1em); }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 600px) {
+  /* Body text at least 16 px (larger lead-in text keeps its size;
+     kicker labels, table cells and code are exempt). */
+  main :is(p, li, dd, dt, figcaption, blockquote, label, summary):not(.lede):not(.hl):not(.kicker):not(:is(td, th, pre, svg) *) {
+    font-size: max(16px, 1em);
+  }
+  /* Long unbreakable strings (URLs, part numbers, inline formulas) wrap */
+  main :is(p, li, dd, figcaption, code, a):not(:is(td, th) *) { overflow-wrap: anywhere; }
+  /* Simulator control panels stack vertically */
+  .controls, .ctrl-grid, .front-controls { grid-template-columns: minmax(0, 1fr) !important; }
+  .ctrl label { flex-wrap: wrap; }
+}
+
+@media print {
+  .ss-scroll-x { overflow: visible !important; }
+}
