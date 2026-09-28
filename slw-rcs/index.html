@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SLW Radar Cross-Section: squat cylinder, sphere, and the multi-layer reflection stack · SLW Hub</title>
+<meta name="description" content="Analysis page: classical radar cross-section (RCS) of a 1 m PEC sphere (exact Mie series) and a squat 1 m x 1 m cylinder at 433.59 MHz, what Hively and Loebl do and do not say about scalar-longitudinal-wave (SLW) reflection, and a hypothesis-level submarine reflection stack with Hively's Joule term. Every claim labeled FACT, HYPOTHESIS or ASSUMPTION.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #110f0c;
+  --bg-elev: #181510;
+  --paper: #1f1b15;
+  --paper-2: #262117;
+  --ink: #f3ead8;
+  --ink-muted: #b7ab95;
+  --ink-faint: #7d7363;
+  --rule: #3a3328;
+  --rule-bright: #5a4e3c;
+  --copper: #c47a3a;
+  --copper-d: #8e5524;
+  --gold: #d4b483;
+  --nz: #4a9b88;
+  --nz-d: #2d6b5c;
+  --hively: #d4923a;
+  --hively-d: #8a5c18;
+  --meyl: #7a8bc4;
+  --warn: #c45c4a;
+  --ok: #6aaa6a;
+  --shadow: 0 18px 50px rgba(0,0,0,.45);
+  --radius: 14px;
+  --font-display: "Fraunces", "Libre Baskerville", Georgia, serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --max: 1120px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(196,122,58,.12), transparent 50%),
+    radial-gradient(900px 500px at 100% 0%, rgba(74,155,136,.08), transparent 45%),
+    var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 100vh;
+  font-size: 17px;
+}
+img, svg { max-width: 100%; display: block; }
+a { color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--ink); }
+code, .mono { font-family: var(--font-mono); font-size: .92em; }
+
+.skip {
+  position: absolute; left: -999px; top: 0;
+}
+.skip:focus { left: 12px; top: 12px; background: var(--paper); padding: 8px 12px; z-index: 99; }
+
+/* Header */
+header.site-header, header.site {
+  position: sticky; top: 0; z-index: 40;
+  backdrop-filter: blur(14px);
+  background: rgba(17,15,12,.92);
+  border-bottom: 1px solid var(--rule);
+}
+header.site .wrap, header.site .header-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 22px;
+}
+.header-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 22px;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--ink);
+  flex: 0 0 auto;
+}
+.brand img { width: 36px; height: 36px; }
+.brand-name { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; letter-spacing: .02em; }
+.brand-sub { display: block; font-family: var(--font-body); font-size: .68rem; color: var(--ink-muted); letter-spacing: .14em; text-transform: uppercase; }
+nav.primary { margin-left: auto; display: flex; flex-wrap: wrap; gap: 4px; }
+nav.primary a {
+  color: var(--ink-muted); text-decoration: none;
+  padding: 7px 11px; border-radius: 999px; font-size: .92rem;
+}
+nav.primary a:hover, nav.primary a[aria-current="page"] {
+  color: var(--ink); background: var(--paper-2);
+}
+nav.primary a[aria-current="page"] { box-shadow: inset 0 0 0 1px var(--rule-bright); }
+.nav-toggle {
+  display: none; margin-left: auto;
+  background: var(--paper); color: var(--ink); border: 1px solid var(--rule);
+  border-radius: 8px; padding: 8px 12px; cursor: pointer;
+}
+
+/* Layout */
+.wrap { max-width: var(--max); margin: 0 auto; padding: 28px 22px 64px; }
+.hero {
+  padding: 48px 0 28px;
+  display: grid; grid-template-columns: 1.4fr .9fr; gap: 36px; align-items: center;
+}
+.kicker {
+  font-size: .78rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--copper); font-weight: 600; margin: 0 0 10px;
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-display); font-weight: 600; line-height: 1.2;
+  margin: 0 0 .5em;
+}
+h1 { font-size: clamp(2rem, 4.4vw, 3.15rem); }
+h2 { font-size: clamp(1.45rem, 2.6vw, 2rem); margin-top: 1.6em; }
+h3 { font-size: 1.2rem; }
+.lede { font-size: 1.18rem; color: var(--ink-muted); max-width: 46rem; }
+.hero-panel {
+  background: linear-gradient(165deg, var(--paper-2), var(--paper));
+  border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: 22px; box-shadow: var(--shadow);
+}
+.hero-panel dt { color: var(--ink-faint); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; }
+.hero-panel dd { margin: 0 0 12px; font-family: var(--font-display); font-size: 1.05rem; }
+
+.banner-edu {
+  border: 1px solid #8a6a2a; background: #f4e6c8;
+  border-radius: 10px; padding: 12px 16px; color: #1a1408; font-size: .95rem;
+  margin: 8px 0 28px;
+}
+.banner-edu a { color: #6b3a08; font-weight: 600; }
+.banner-edu a:hover { color: #000; }
+.banner-edu strong { color: #0a0804; }
+.banner-warn {
+  border: 1px solid #8a2e22; background: #f5d4ce;
+  color: #1a0a08; border-radius: 10px; padding: 12px 16px; margin: 12px 0 22px;
+}
+.banner-warn strong { color: #0a0404; }
+.banner-warn a { color: #6b1e14; font-weight: 600; }
+.banner-legal {
+  border: 1px solid #8a5c18; background: #f7e8c6;
+  color: #1a1408; border-radius: 10px; padding: 14px 16px; margin: 12px 0 22px;
+}
+.banner-legal strong { color: #0a0804; }
+.banner-legal a { color: #6b3a08; font-weight: 600; }
+.banner-legal a:hover { color: #000; }
+
+.grid-3, .grid-2, .grid-4 {
+  display: grid; gap: 16px; margin: 22px 0;
+}
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.card {
+  background: var(--paper); border: 1px solid var(--rule);
+  border-radius: var(--radius); padding: 18px 18px 16px;
+}
+.card h3 { margin-top: 0; }
+.card p:last-child { margin-bottom: 0; }
+.card.nz { border-top: 3px solid var(--nz); }
+.card.hively { border-top: 3px solid var(--hively); }
+.card.meyl { border-top: 3px solid var(--meyl); }
+.card.copper { border-top: 3px solid var(--copper); }
+
+.tag {
+  display: inline-block; font-size: .72rem; letter-spacing: .08em;
+  text-transform: uppercase; padding: 3px 8px; border-radius: 999px;
+  border: 1px solid var(--rule-bright); color: var(--ink-muted); margin-right: 6px;
+}
+.tag.nz { color: var(--nz); border-color: var(--nz-d); }
+.tag.hively { color: var(--hively); border-color: var(--hively-d); }
+.tag.meyl { color: var(--meyl); border-color: #3d4a7a; }
+.tag.warn { color: var(--warn); border-color: #7a342c; }
+.tag.ok { color: var(--ok); }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 14px 0 22px; border: 1px solid var(--rule); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { color: var(--gold); font-weight: 600; background: var(--paper-2); font-size: .82rem; letter-spacing: .04em; }
+tr:last-child td { border-bottom: 0; }
+tbody tr:hover td { background: rgba(255,255,255,.02); }
+td.num, th.num { font-family: var(--font-mono); text-align: right; white-space: nowrap; }
+
+.eq {
+  font-family: var(--font-display); font-style: italic;
+  background: var(--bg-elev); border-left: 3px solid var(--copper);
+  padding: 10px 14px; margin: 12px 0; border-radius: 0 8px 8px 0;
+  overflow-x: auto;
+}
+.footnote { font-size: .88rem; color: var(--ink-muted); }
+
+/* Controls */
+.ctrl { margin: 12px 0 16px; }
+.ctrl label { display: flex; justify-content: space-between; gap: 12px; font-size: .92rem; color: var(--ink-muted); }
+.ctrl input[type=range] { width: 100%; accent-color: var(--copper); }
+.ctrl-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 16px; }
+button, .btn {
+  font-family: var(--font-body); cursor: pointer;
+  background: var(--paper-2); color: var(--ink);
+  border: 1px solid var(--rule-bright); border-radius: 999px;
+  padding: 8px 14px; font-size: .9rem;
+}
+button:hover, .btn:hover { border-color: var(--copper); color: var(--gold); }
+button.primary, .btn.primary {
+  background: linear-gradient(180deg, #c47a3a, #8e5524);
+  border-color: #e0a060; color: #1a120c; font-weight: 600;
+}
+select, input[type=text], input[type=number], textarea {
+  background: var(--bg); color: var(--ink);
+  border: 1px solid var(--rule-bright); border-radius: 8px;
+  padding: 8px 10px; font: inherit; width: 100%;
+}
+textarea { min-height: 70px; resize: vertical; }
+
+.metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.metric {
+  background: var(--bg-elev); border-radius: 10px; padding: 10px 12px;
+  border: 1px solid var(--rule);
+}
+.metric .v { font-family: var(--font-mono); font-size: 1.25rem; color: var(--gold); }
+.metric .l { font-size: .75rem; color: var(--ink-faint); letter-spacing: .08em; text-transform: uppercase; }
+
+canvas.plot {
+  width: 100%; height: 240px; background: #0c0b09;
+  border: 1px solid var(--rule); border-radius: 10px; display: block;
+}
+
+.steps { counter-reset: step; padding-left: 0; list-style: none; }
+.steps li {
+  position: relative; padding: 10px 0 10px 48px;
+  border-bottom: 1px dashed var(--rule);
+}
+.steps li::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; left: 0; top: 10px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--paper-2); border: 1px solid var(--copper);
+  color: var(--gold); display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: .85rem;
+}
+
+.toc a { display: block; padding: 4px 0; color: var(--ink-muted); text-decoration: none; }
+.toc a:hover { color: var(--gold); }
+
+footer.site {
+  border-top: 1px solid var(--rule);
+  padding: 28px 22px 48px; color: var(--ink-faint); font-size: .9rem;
+}
+footer.site .wrap { padding: 0; display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; }
+footer.site strong { color: var(--ink-muted); }
+
+.repo-list { columns: 2; gap: 18px; font-size: .92rem; }
+.repo-list a { display: inline; }
+
+.check-list { list-style: none; padding: 0; }
+.check-list li { padding: 6px 0 6px 28px; position: relative; }
+.check-list li::before { content: "☐"; position: absolute; left: 0; color: var(--copper); }
+
+.log-table input { width: 100%; font-size: .85rem; padding: 5px 6px; }
+
+@media (max-width: 860px) {
+  .hero, .grid-3, .grid-4, footer.site .wrap { grid-template-columns: 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .repo-list { columns: 1; }
+  .nav-toggle { display: inline-block; }
+  nav.primary { display: none; width: 100%; flex-direction: column; }
+  nav.primary.open { display: flex; }
+  .header-inner { flex-wrap: wrap; }
+  .metrics { grid-template-columns: 1fr; }
+}
+@media print {
+  .site-header, .nav-toggle, button, .ctrl { display: none !important; }
+  body { background: #fff; color: #111; }
+  a { color: #000; }
+  .card, .hero-panel { border-color: #ccc; background: #fff; }
+}
+
+/* ---- page-specific ---- */
+.badge { display: inline-block; font-family: var(--font-mono); font-size: .68rem; font-weight: 500; letter-spacing: .08em; padding: 2px 7px; border-radius: 5px; border: 1px solid; vertical-align: 2px; margin-right: 6px; white-space: nowrap; }
+.badge.fact { color: #8fd18f; border-color: #3f7a3f; background: rgba(106,170,106,.12); }
+.badge.hyp { color: #f0a58f; border-color: #8a3f30; background: rgba(196,92,74,.14); }
+.badge.asm { color: #9fb0e6; border-color: #3d4a7a; background: rgba(122,139,196,.14); }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 18px; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 10px; background: var(--bg-elev); font-size: .92rem; margin: 16px 0; }
+.legend > span { display: inline-flex; align-items: baseline; gap: 4px; }
+.claims { list-style: none; padding: 0; margin: 10px 0 16px; }
+.claims li { padding: 7px 0; border-bottom: 1px dashed var(--rule); }
+.claims li:last-child { border-bottom: 0; }
+.eq { font-family: var(--font-mono); background: var(--paper-2); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; margin: 10px 0; overflow-x: auto; white-space: nowrap; font-size: .92rem; color: var(--gold); }
+.calc { border: 1px solid var(--rule-bright); border-radius: var(--radius); background: var(--paper); padding: 16px 18px; margin: 16px 0 22px; }
+.calc h3 { margin: 0 0 6px; }
+.calc .inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px 14px; margin: 10px 0 12px; }
+.calc .inputs label { display: flex; flex-direction: column; gap: 4px; font-size: .86rem; color: var(--ink-muted); }
+.calc .inputs input[type=number] { width: 100%; font-family: var(--font-mono); }
+.calc .check { display: flex; align-items: flex-start; gap: 8px; font-size: .88rem; color: var(--ink-muted); margin: 4px 0 10px; }
+.calc .check input { margin-top: 3px; accent-color: var(--copper); }
+.out { font-family: var(--font-mono); font-size: .92rem; background: var(--bg-elev); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; margin: 8px 0; line-height: 1.6; overflow-x: auto; }
+.out .v { color: var(--gold); }
+.out .bad { color: var(--warn); }
+.plot-wrap { position: relative; width: 100%; margin: 10px 0 4px; }
+canvas.fplot { width: 100%; height: 280px; display: block; background: var(--bg-elev); border: 1px solid var(--rule); border-radius: 10px; }
+.caveat-box { border: 2px solid var(--warn); border-radius: var(--radius); background: rgba(196,92,74,.08); padding: 14px 18px; margin: 16px 0; }
+.caveat-box h3 { color: #f0a58f; margin-top: .6em; }
+.caveat-box h3:first-child { margin-top: 0; }
+.twin-note { border-left: 4px solid var(--copper); padding: 8px 14px; background: var(--bg-elev); border-radius: 0 10px 10px 0; margin: 18px 0; }
+.brand svg { width: 36px; height: 36px; }
+td.num { font-variant-numeric: tabular-nums; }
+@media (max-width: 520px) {
+  .wrap { padding: 20px 14px 48px; }
+  .calc { padding: 12px 12px; }
+  canvas.fplot { height: 240px; }
+  th, td { padding: 8px 8px; }
+}
+/* ---- slw-rcs additions ---- */
+.tem-box { border: 2px dashed #7a8bc4; border-radius: var(--radius); background: rgba(122,139,196,.07); padding: 14px 18px; margin: 18px 0; }
+.tem-box > h3:first-child { color: #9fb0e6; margin-top: 0; }
+.tem-box .tem-label { display: inline-block; font-family: var(--font-mono); font-size: .74rem; letter-spacing: .06em; color: #0c0e18; background: #9fb0e6; border-radius: 5px; padding: 2px 8px; margin-bottom: 8px; }
+.finding { border: 2px solid var(--hively); border-radius: var(--radius); background: rgba(212,146,58,.08); padding: 14px 18px; margin: 16px 0; }
+.finding h3 { color: var(--hively); margin-top: 0; }
+.budget { display: flex; width: 100%; height: 30px; border-radius: 8px; overflow: hidden; border: 1px solid var(--rule-bright); background: #0c0b09; margin: 10px 0 6px; }
+.budget > div { height: 100%; min-width: 0; transition: width .2s; }
+.bkey { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .86rem; color: var(--ink-muted); }
+.bkey i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+.seg-int { background: #c45c4a; } .seg-st { background: #8a8f99; } .seg-wa { background: #2d6b5c; } .seg-re { background: #d4b483; }
+.ctrl .val { font-family: var(--font-mono); color: var(--gold); white-space: nowrap; }
+.ctrl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 4px 22px; }
+.presets { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 12px; }
+.stack-svg { width: 100%; height: auto; background: var(--bg-elev); border: 1px solid var(--rule); border-radius: 10px; margin: 10px 0; }
+.plot-key { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: .84rem; color: var(--ink-muted); margin: 4px 0 10px; }
+.plot-key span::before { content: ""; display: inline-block; width: 18px; height: 0; border-top: 3px solid var(--k, #fff); margin-right: 6px; vertical-align: 3px; }
+.plot-key span.dash::before { border-top-style: dashed; }
+.plot-key span.dot::before { border-top-style: dotted; }
+.small { font-size: .88rem; color: var(--ink-muted); }
+.exp-list li { margin: 8px 0; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../index.html">Home</a>
+      <a href="../learn.html">Learn</a>
+      <a href="../compare.html">Compare</a>
+      <a href="../fields.html">Fields</a>
+      <a href="../monstein.html">Monstein</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../lab.html">Lab</a>
+      <a href="../kit.html">Kit</a>
+      <a href="../library.html">Library</a>
+      <a href="../ranging/">Ranging</a>
+      <a href="./" aria-current="page">SLW RCS</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Analysis page · radar cross-section · not one of Experiments A–G</p>
+  <h1>SLW Radar Cross-Section: squat cylinder, sphere, and the multi-layer reflection stack</h1>
+  <p class="lede">How strongly does a metal object send a radar signal back? For ordinary radio (transverse EM, “TEM”) textbooks answer this exactly, and we compute it here for a 1&nbsp;m sphere and a squat 1&nbsp;m × 1&nbsp;m cylinder at 433.59&nbsp;MHz. Then we ask the same question for a scalar-longitudinal wave (SLW). There the honest answer is that no cited source gives a reflection law yet, so the SLW parts are sliders, not predictions.</p>
+
+  <div class="banner-edu">Educational only. Mainstream classical electrodynamics treats free-space radio as transverse (TEM); scalar-longitudinal waves are disputed. Section A is textbook physics. Sections B–D mix textbook TEM facts with SLW hypotheses; the SLW parts are labelled and use <strong>no equation that is not in a cited source</strong>.</div>
+
+  <div class="legend" role="note" aria-label="Claim labels">
+    <span><span class="badge fact">FACT</span> textbook physics, published measurement, or arithmetic</span>
+    <span><span class="badge hyp">HYPOTHESIS</span> unproven physics (all SLW behaviour)</span>
+    <span><span class="badge asm">ASSUMPTION</span> taken as true to make the numbers work; check it</span>
+  </div>
+
+  <div class="twin-note"><span class="badge fact">FACT</span> No Wolfram Cloud twin planned (analysis page, not Experiments A-G); numbers cross-checked in Python.</div>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#classical">A · Classical RCS of a sphere and a squat cylinder (433.59 MHz)</a>
+    <a href="#slwrefl">B · SLW reflection off conductors: what the sources say</a>
+    <a href="#stack">C · Submarine reflection stack (hypothesis)</a>
+    <a href="#images">D · Images inside a cavity</a>
+    <a href="#conclusion">E · Conclusion and decisive experiments</a>
+    <a href="#sources">Sources and citation notes</a>
+  </nav>
+
+  <!-- ================= A ================= -->
+  <h2 id="classical">A · Classical RCS <span class="badge fact">FACT</span></h2>
+  <p><span class="badge fact">FACT</span> <strong>Radar cross-section (RCS, σ)</strong> is the area that, if it caught the incoming power and re-radiated it equally in all directions, would give the same echo the real object gives back toward the radar. It is measured in m² (or dBsm, decibels relative to 1&nbsp;m²). It depends on size compared with the wavelength, shape, and material (Knott, Shaeffer &amp; Tuley, <em>Radar Cross Section</em>).</p>
+  <ul class="claims">
+    <li><span class="badge fact">FACT</span> Frequency 433.59&nbsp;MHz (the Monstein &amp; Wesley frequency), so λ = c/f = <strong>0.6914&nbsp;m</strong>.</li>
+    <li><span class="badge fact">FACT</span> Material: we treat the targets as perfect electric conductors (PEC). Aluminum (σ ≈ 3.5×10⁷&nbsp;S/m) is effectively PEC at this frequency. Classically the induced currents stay in a micrometre-thin surface layer, far smaller than the 1&nbsp;m target (the number, 4.1&nbsp;µm, is in the <a href="#temBox">TEM box</a> in Section C). Copper or steel hulls give a negligibly different <em>classical</em> RCS for the same reason. <span class="small">(This is classical TEM reasoning, used here only for the classical RCS. It is not applicable under the SLW hypothesis.)</span></li>
+    <li><span class="badge fact">FACT</span> The size parameter is ka = 2πa/λ. The conventional regions are <strong>Rayleigh</strong> (ka ≲ 1: object small, σ ∝ f⁴), <strong>resonance / Mie</strong> (1 ≲ ka ≲ 10: wiggles from creeping waves), and <strong>optical</strong> (ka ≳ 10: σ approaches the geometric-optics value). <span class="badge asm">ASSUMPTION</span> The boundaries 1 and 10 are rules of thumb, not sharp lines.</li>
+  </ul>
+
+  <h3>A1 · Sphere, radius a = 1&nbsp;m</h3>
+  <ul class="claims">
+    <li><span class="badge fact">FACT</span> ka = <strong>9.09</strong>. This is the top of the resonance region, at the transition to the optical region.</li>
+    <li><span class="badge fact">FACT</span> Optical limit: σ → πa² = <strong>3.14&nbsp;m²</strong> (Knott et al.; Ruck Vol.&nbsp;1 ch.&nbsp;3).</li>
+    <li><span class="badge fact">FACT</span> Exact PEC Mie series, monostatic (backscatter), computed on this page:
+      <div class="eq">σ = (λ²/4π) · | Σ<sub>n≥1</sub> (−1)ⁿ (2n+1) (aₙ − bₙ) |² , &nbsp; aₙ = ψₙ′(x)/ξₙ′(x), &nbsp; bₙ = ψₙ(x)/ξₙ(x), &nbsp; x = ka</div>
+      where ψₙ(x) = x·jₙ(x) and ξₙ(x) = x·hₙ⁽¹⁾(x) are Riccati–Bessel functions. These are the Bohren &amp; Huffman (1983, ch.&nbsp;4, §4.4) scattering coefficients in the perfect-conductor limit (refractive index → ∞), with their backscatter sum (ch.&nbsp;4; see also Ruck Vol.&nbsp;1 ch.&nbsp;3 and Balanis AEE §11.8). Terms are summed to n = x + 4x<sup>1/3</sup> + 10.</li>
+    <li><span class="badge fact">FACT</span> Result at 433.59&nbsp;MHz: <strong>σ = 2.731&nbsp;m² (4.36&nbsp;dBsm) = 0.869 × πa²</strong>, i.e. 0.61&nbsp;dB below the optical value. The shortfall is the creeping-wave ripple, which is still about ±15&nbsp;% at ka ≈ 9.</li>
+    <li><span class="badge fact">FACT</span> The Rayleigh formula σ = 9πa²(ka)⁴ (small-sphere limit, Knott et al.; Ruck Vol.&nbsp;1 ch.&nbsp;3) would give 1.9×10⁵&nbsp;m² here, which is absurd. It is <strong>inapplicable at ka = 9</strong>; it is only valid for ka ≪ 1.</li>
+    <li><span class="badge fact">FACT</span> Checks on the series: at ka = 0.009 it agrees with the Rayleigh formula to 2×10⁻⁵. Its maximum is 3.65 πa² at ka ≈ 1.03 (for a = 1&nbsp;m that is about 50&nbsp;MHz), which is the familiar textbook peak.</li>
+  </ul>
+
+  <h3>A2 · Squat cylinder, a = 1&nbsp;m, h = 1&nbsp;m, broadside</h3>
+  <ul class="claims">
+    <li><span class="badge fact">FACT</span> Optical broadside formula σ = 2πah²/λ (Knott et al., optics-region formula for a cylinder at broadside) = <strong>9.09&nbsp;m² (9.58&nbsp;dBsm)</strong>.</li>
+    <li><span class="badge fact">FACT</span> There is <strong>no closed-form exact solution</strong> for a finite cylinder. It needs a numerical solver (method of moments or similar), which this page does not run.</li>
+    <li><span class="badge asm">ASSUMPTION</span> <strong>Labelled approximation:</strong> we take the exact 2-D series for an <em>infinite</em> PEC cylinder (Balanis AEE §11.5.1 TM<sup>z</sup>, E parallel to the axis; §11.5.2 TE<sup>z</sup>, H parallel to the axis) and convert with the standard long-body relation quoted by Knott et al.:
+      <div class="eq">σ<sub>2D</sub> = (2λ/π) · | Σ<sub>n≥0</sub> εₙ (−1)ⁿ Jₙ(ka)/Hₙ⁽²⁾(ka) |² (TM; TE uses Jₙ′/Hₙ⁽²⁾′), &nbsp; ε₀ = 1, εₙ = 2; &nbsp;&nbsp; σ<sub>3D</sub> ≈ 2h²σ<sub>2D</sub>/λ</div>
+      The conversion assumes h ≫ λ and ignores the end caps and edge currents. Here h/λ = 1.45, so it is only a rough guide.</li>
+    <li><span class="badge fact">FACT</span> (arithmetic, given that approximation) σ<sub>2D</sub> = 3.163&nbsp;m (1.007 πa) for TM, giving σ<sub>3D</sub> ≈ <strong>9.15&nbsp;m² (TM)</strong> and 9.25&nbsp;m² (TE), within 1–2&nbsp;% of the optical 9.09&nbsp;m². The Rayleigh (low-frequency) limit is <strong>inapplicable</strong> at ka = 9.</li>
+    <li><span class="badge fact">FACT</span> The cylinder's broadside echo is larger than the sphere's (9.1 vs 2.7&nbsp;m²) because its flat-in-one-direction side focuses the reflection back like a line mirror. Tilt it away from broadside and the echo falls quickly (the sinc pattern in Knott's relation).</li>
+  </ul>
+
+  <div class="calc" id="calcA">
+    <h3>RCS vs frequency <span class="badge fact">FACT</span> <span class="badge asm">ASSUMPTION: cylinder 2-D→3-D</span></h3>
+    <div class="ctrl-grid">
+      <div class="ctrl"><label for="aF">Frequency <span class="val" id="aFv"></span></label><input type="range" id="aF" min="0" max="1000" step="1"></div>
+      <div class="ctrl"><label for="aSa">Sphere radius a <span class="val" id="aSav"></span></label><input type="range" id="aSa" min="0.1" max="3" step="0.01" value="1"></div>
+      <div class="ctrl"><label for="aCa">Cylinder radius a <span class="val" id="aCav"></span></label><input type="range" id="aCa" min="0.1" max="3" step="0.01" value="1"></div>
+      <div class="ctrl"><label for="aCh">Cylinder height h <span class="val" id="aChv"></span></label><input type="range" id="aCh" min="0.1" max="3" step="0.01" value="1"></div>
+    </div>
+    <div class="presets"><label class="small" for="aPol">Cylinder polarization&nbsp;</label><select id="aPol" style="width:auto"><option value="TM">TM (E along axis)</option><option value="TE">TE (H along axis)</option></select> <button type="button" id="aReset">Reset to 433.59 MHz, 1 m</button></div>
+    <div class="out" id="aOut" aria-live="polite"></div>
+    <div class="plot-wrap"><canvas class="fplot" id="aPlot" role="img" aria-label="RCS in dBsm versus frequency 50 MHz to 3 GHz for the sphere and cylinder, with Rayleigh, resonance and optical regions shaded"></canvas></div>
+    <div class="plot-key">
+      <span style="--k:#d4b483">sphere, exact Mie</span><span class="dash" style="--k:#b7ab95">sphere optical πa²</span><span class="dot" style="--k:#7a8bc4">sphere Rayleigh 9πa²(ka)⁴</span><span style="--k:#4a9b88">cylinder, 2-D→3-D approx</span><span class="dash" style="--k:#6fd0b8">cylinder optical 2πah²/λ</span>
+    </div>
+    <p class="small">Shading uses the <em>sphere</em> radius: dark = Rayleigh (ka &lt; 1), mid = resonance (1–10), light = optical (ka &gt; 10). The vertical line is the frequency slider. Log frequency axis 50&nbsp;MHz–3&nbsp;GHz.</p>
+  </div>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>f (MHz)</th><th class="num">sphere ka</th><th class="num">Mie σ (m²)</th><th class="num">σ/πa²</th><th class="num">cyl. TM ≈ (m²)</th><th class="num">cyl. TE ≈ (m²)</th><th class="num">2πah²/λ (m²)</th><th>h/λ</th></tr></thead>
+    <tbody>
+      <tr><td>50</td><td class="num">1.048</td><td class="num">11.46</td><td class="num">3.646</td><td class="num">1.280</td><td class="num">1.066</td><td class="num">1.048</td><td>0.17 (approx. invalid)</td></tr>
+      <tr><td>100</td><td class="num">2.096</td><td class="num">4.485</td><td class="num">1.428</td><td class="num">2.272</td><td class="num">2.345</td><td class="num">2.096</td><td>0.33 (approx. invalid)</td></tr>
+      <tr><td>433.59</td><td class="num">9.087</td><td class="num">2.731</td><td class="num">0.869</td><td class="num">9.149</td><td class="num">9.249</td><td class="num">9.087</td><td>1.45 (rough)</td></tr>
+      <tr><td>1000</td><td class="num">20.96</td><td class="num">3.027</td><td class="num">0.964</td><td class="num">20.99</td><td class="num">20.91</td><td class="num">20.96</td><td>3.3</td></tr>
+      <tr><td>3000</td><td class="num">62.88</td><td class="num">3.153</td><td class="num">1.004</td><td class="num">62.88</td><td class="num">62.85</td><td class="num">62.88</td><td>10</td></tr>
+    </tbody></table></div>
+  <p class="small"><span class="badge fact">FACT</span> a = h = 1&nbsp;m. The table values come from the Python cross-check (scipy special functions). The page's own JavaScript matches them to better than 2×10⁻⁹ relative.</p>
+
+  <h3>A3 · Where the echo comes from (classical)</h3>
+  <ul class="claims">
+    <li><span class="badge fact">FACT</span> <strong>Sphere at ka ≈ 9:</strong> the echo is mostly a <em>specular point</em> (the spot facing the radar) plus a smaller <strong>creeping wave</strong> that travels around the shadow side and returns. Their interference causes the ripple in the plot (Knott et al.; Ruck Vol.&nbsp;1 ch.&nbsp;3).</li>
+    <li><span class="badge fact">FACT</span> <strong>Cylinder at broadside:</strong> a strong <em>broadside flash</em> from the whole side. It narrows as h/λ grows, with angular width about λ/h.</li>
+  </ul>
+
+  <!-- ================= B ================= -->
+  <h2 id="slwrefl">B · SLW reflection off conductors <span class="badge hyp">HYPOTHESIS</span></h2>
+  <div class="finding" id="hlFinding">
+    <h3>What Hively &amp; Loebl, the Erratum and the Hively patent provide on reflection</h3>
+    <ul class="claims">
+      <li><span class="badge fact">FACT</span> <strong>Hively &amp; Loebl, Phys. Essays 32, 112 (2019)</strong> give <em>one interface matching condition</em> for the scalar field C: continuity of the normal component of ∇C/μ across an interface, <strong>Eq.&nbsp;(26)</strong> (derived with a Gaussian pill box, “for long times”). They list it as item 5 of their Table I. They also state that the energy 4πr²(C²/2μ) is constant through a spherical boundary “in arbitrary media” (text around Eq.&nbsp;(25)).</li>
+      <li><span class="badge fact">FACT</span> They give <strong>no reflection coefficient, no transmission coefficient, no angle dependence and no conductor boundary condition</strong> for the SLW. One matching condition alone does not fix a reflection law.</li>
+      <li><span class="badge fact">FACT</span> The <strong>2022 Erratum</strong> (Phys. Essays 35, 320) corrects only Appendix A, the no-skin-effect / no-resistive-loss derivation. It says nothing about reflection.</li>
+      <li><span class="badge fact">FACT</span> <strong>Hively US 9,306,527 B1</strong> says qualitatively that “the above tests showed scattering and reflections of the SLW”, “consistent with classical electrodynamics, which predicts scattering of electric fields from conductors due to image charges and image-currents” (col.&nbsp;14). It attributes the FIG.&nbsp;6 variability to “scattering and reflections from nearby conductors” (col.&nbsp;9–10). It proposes “SLW-RADAR” (col.&nbsp;16; claim&nbsp;27). It gives <strong>no quantitative reflection law</strong>.</li>
+      <li><span class="badge fact">FACT</span> <strong>Keyport US 12,525,711 B1</strong> (Navy sleeve/skirt-balun monopole) covers transmitting and receiving SLW, including through water. It contains nothing on reflection or radar.</li>
+      <li><span class="badge fact">FACT</span> <strong>The only measured SLW reflection number</strong> is Monstein &amp; Wesley, EPL 59(4), 514 (2002): Earth-surface reflection coefficient ℜ = B²/A² = <strong>0.482</strong> (their Eq.&nbsp;24) at 433.59&nbsp;MHz, from the ground-image interference pattern. That is <strong>Earth (σ ≈ 10⁻³&nbsp;S/m), not metal</strong>, at near-grazing incidence, and it is one unreplicated experiment.</li>
+      <li><span class="badge hyp">HYPOTHESIS</span> <strong>Conclusion:</strong> no cited source gives a reflection law or conductor boundary condition for the longitudinal field. <strong>We do not derive one.</strong> Every SLW reflection value on this page is a user slider.</li>
+    </ul>
+    <p class="small">Searched: sim-lab notes (scalar-wave radar brief, REDO_SLW open item 5, JOULE_LOSS_POSITIONS), local text of H&amp;L 2019, the Erratum, Hively–Land 2021, US 9,306,527, US 12,525,711 (Google Patents full text) and Monstein &amp; Wesley 2002, plus a web search on 2026-09-28. Nothing further turned up.</p>
+  </div>
+
+  <h3>B1 · Specular or diffuse?</h3>
+  <ul class="claims">
+    <li><span class="badge fact">FACT</span> Classical, ka ≈ 9: the sphere gives a specular point plus creeping waves; the cylinder gives a broadside flash (Section A3).</li>
+    <li><span class="badge hyp">HYPOTHESIS</span> SLW: <strong>unknown.</strong> Whether an SLW echo is specular, diffuse, or follows image charges as the patent suggests has not been measured on metal.</li>
+  </ul>
+
+  <div class="calc" id="calcB">
+    <h3>Reflection vs incidence angle at 433.59 MHz</h3>
+    <div class="ctrl-grid">
+      <div class="ctrl"><label for="bR">SLW reflection coefficient (power) <span class="badge hyp">HYP</span> <span class="val" id="bRv"></span></label><input type="range" id="bR" min="0" max="1" step="0.001" value="0.482"></div>
+      <div class="ctrl"><label for="bSig">Seawater σ (S/m) <span class="val" id="bSigv"></span></label><input type="range" id="bSig" min="0.1" max="6" step="0.01" value="4"></div>
+      <div class="ctrl"><label for="bEr">Earth relative permittivity εᵣ <span class="badge asm">ASM</span> <span class="val" id="bErv"></span></label><input type="range" id="bEr" min="3" max="30" step="0.5" value="15"></div>
+    </div>
+    <div class="presets"><button type="button" data-br="0">SLW R = 0</button><button type="button" data-br="0.482">SLW R = 0.482 (M&amp;W Earth)</button><button type="button" data-br="1">SLW R = 1</button></div>
+    <div class="plot-wrap"><canvas class="fplot" id="bPlot" role="img" aria-label="Power reflection coefficient versus incidence angle: classical Fresnel curves for seawater and Earth, perfect conductor, and a flat SLW slider line"></canvas></div>
+    <div class="plot-key">
+      <span style="--k:#4a9b88">seawater ⊥ (TE)</span><span class="dash" style="--k:#4a9b88">seawater ∥ (TM)</span><span style="--k:#c47a3a">Earth ⊥ (TE)</span><span class="dash" style="--k:#c47a3a">Earth ∥ (TM)</span><span style="--k:#8a8f99">PEC = 1</span><span class="dot" style="--k:#f0a58f">SLW slider, no angle dependence known (HYP)</span>
+    </div>
+    <div class="out" id="bOut" aria-live="polite"></div>
+    <ul class="claims">
+      <li><span class="badge fact">FACT</span> (TEM) The coloured curves are the classical Fresnel power reflectances |Γ|² for a plane TEM wave (Jackson 3rd ed. §7.3, Eqs.&nbsp;7.39 and 7.41, with complex permittivity ε′ − jσ/ωε₀; Balanis AEE ch.&nbsp;5). Seawater ε′ comes from Meissner &amp; Wentz 2004 at 15&nbsp;°C, salinity 35 (the Experiment G code) <span class="badge asm">ASSUMPTION</span>; σ is the slider. Earth: σ = 10⁻³&nbsp;S/m (M&amp;W) and the εᵣ slider <span class="badge asm">ASSUMPTION</span>. A PEC reflects everything (|Γ|² = 1).</li>
+      <li><span class="badge hyp">HYPOTHESIS</span> The dotted SLW line is flat because <strong>no angle dependence is known (HYP)</strong>, not because it is predicted to be flat. Default 0.482 is M&amp;W's Earth value at their near-grazing geometry, not a metal value.</li>
+    </ul>
+  </div>
+
+  <!-- ================= C ================= -->
+  <h2 id="stack">C · Submarine reflection stack <span class="badge hyp">HYPOTHESIS</span></h2>
+  <p><span class="badge hyp">HYPOTHESIS</span> Picture an SLW transmitter inside a submarine. It sits in an air gap some distance from the hull, then the signal meets the 76&nbsp;mm steel pressure hull, then seawater with the surface above and the seabed below, then a target. At every interface some unknown fraction would be reflected (SLW coefficients unknown, so they are sliders). Inside materials, the only SLW loss allowed on this hub is <strong>Hively's Joule term</strong>.</p>
+
+  <svg class="stack-svg" viewBox="0 0 800 230" role="img" aria-label="Schematic: transmitter in air gap, steel hull, seawater between surface and seabed, target">
+    <rect x="0" y="0" width="800" height="230" fill="#14120e"/>
+    <rect x="0" y="30" width="800" height="12" fill="#1c2a3a"/><text x="8" y="24" fill="#b7ab95" font-size="13">air above sea</text>
+    <line x1="0" y1="42" x2="800" y2="42" stroke="#7a8bc4" stroke-width="2"/><text x="610" y="58" fill="#9fb0e6" font-size="12">surface (sea→air: R₃, HYP)</text>
+    <rect x="0" y="42" width="800" height="150" fill="#10302a" opacity=".85"/>
+    <rect x="0" y="192" width="800" height="38" fill="#3a3328"/><text x="610" y="214" fill="#d4b483" font-size="12">seabed (sea→seabed: R₄, HYP)</text>
+    <rect x="30" y="80" width="150" height="80" rx="10" fill="#1f1b15" stroke="#8a8f99" stroke-width="10"/>
+    <text x="48" y="112" fill="#f3ead8" font-size="12">air gap 15–30 ft</text>
+    <circle cx="60" cy="130" r="7" fill="#c47a3a"/><text x="72" y="135" fill="#d4b483" font-size="12">Tx</text>
+    <text x="30" y="178" fill="#b7ab95" font-size="11">steel hull 76 mm (R₁ air→steel, R₂ steel→sea)</text>
+    <line x1="68" y1="130" x2="640" y2="130" stroke="#d4b483" stroke-dasharray="6 5" stroke-width="2"/>
+    <text x="300" y="122" fill="#6fd0b8" font-size="12">seawater σ ≈ 4 S/m · Joule term only (HYP)</text>
+    <rect x="645" y="112" width="80" height="36" rx="16" fill="#262117" stroke="#d4b483"/><text x="660" y="135" fill="#f3ead8" font-size="12">target</text>
+  </svg>
+
+  <ul class="claims">
+    <li><span class="badge hyp">HYPOTHESIS</span> <strong>Interface coefficients</strong> (air→steel R₁, steel→seawater R₂, seawater→air R₃, seawater→seabed R₄): unknown, no cited law. Sliders default to 0; a button sets them to M&amp;W's 0.482 for illustration only.</li>
+    <li><span class="badge hyp">HYPOTHESIS</span> <strong>Loss inside materials, Joule term only</strong> (default ON): Hively &amp; Loebl 2019 Eq.&nbsp;(44) contains J·E with J = σE, i.e. Joule heating σE∥². We reuse the hub's Experiment G code unchanged (PR #56, branch expt-g-v0.1, head 726c896): α<sub>J</sub> = σ<sub>H</sub>|Z|/2 with Hively's far-field SLW impedance |Z| = η₀/(√ε′·√(1+tan²δ)) (Eq.&nbsp;37) and σ<sub>H</sub> = ε₀ε″ω. The field falls as e<sup>−α<sub>J</sub>d</sup>. <span class="badge asm">ASSUMPTION</span> The step from Eq.&nbsp;(44) to a per-metre α<sub>J</sub> is the hub's own construction (Experiment G), not a formula Hively wrote.</li>
+    <li><span class="badge hyp">HYPOTHESIS</span> <strong>Erratum toggle:</strong> Hively &amp; Loebl's 2022 Erratum says the SLW “is not subject to resistive loss in conductive media” (α = 0). This is available as a labelled toggle. It conflicts with the hub's Experiment C Joule rule, and that conflict is flagged, not resolved.</li>
+    <li><span class="badge asm">ASSUMPTION</span> Material enters the SLW model <strong>only through σ</strong> (plus ε′ inside Eq.&nbsp;37's |Z|). No permeability, skin depth or shielding number is used in the SLW path. For steel we take ε′ = 1. In that good-conductor limit the Joule construction gives α<sub>J</sub> → (ω/2c)√ε′ = k₀/2 whatever σ is (a property of the construction, not a Hively statement). At 433.59&nbsp;MHz that is 4.54&nbsp;Np/m, so the 76&nbsp;mm hull costs <strong>3.0&nbsp;dB</strong>.</li>
+    <li><span class="badge fact">FACT</span> (arithmetic in the model) Seawater σ = 4&nbsp;S/m at 433.59&nbsp;MHz: α<sub>J</sub> = 35.6&nbsp;Np/m, so the field falls by e every <strong>2.81&nbsp;cm</strong> (310&nbsp;dB/m). With the model's σ = 4.29&nbsp;S/m (15&nbsp;°C, S = 35) this reproduces Experiment G's α<sub>J</sub> exactly (checked in Python).</li>
+    <li><span class="badge asm">ASSUMPTION</span> Air: σ ≈ 0, so no Joule loss in the air gap. Straight rays with no refraction (no SLW refraction law is known either). Spreading 1/r² in power (H&amp;L 2019 Eq.&nbsp;38, Table I item 11 <span class="badge hyp">HYP</span>). Energy not reflected at an interface is transmitted (bookkeeping; no interface absorption term is cited).</li>
+  </ul>
+
+  <div class="calc" id="calcC">
+    <h3>Stack calculator and power budget <span class="badge hyp">HYPOTHESIS</span></h3>
+    <div class="ctrl-grid">
+      <div class="ctrl"><label for="cF">Frequency (MHz) <span class="val" id="cFv"></span></label><input type="range" id="cF" min="50" max="3000" step="0.01" value="433.59"></div>
+      <div class="ctrl"><label for="cGap">Tx air gap to hull <span class="val" id="cGapv"></span></label><input type="range" id="cGap" min="15" max="30" step="0.5" value="20"></div>
+      <div class="ctrl"><label for="cT">Steel hull thickness <span class="val" id="cTv"></span></label><input type="range" id="cT" min="5" max="150" step="1" value="76"></div>
+      <div class="ctrl"><label for="cSst">Steel σ (S/m) <span class="badge asm">ASM</span> <span class="val" id="cSstv"></span></label><input type="range" id="cSst" min="5" max="7.5" step="any" value="6.698970004336019"></div>
+      <div class="ctrl"><label for="cSw">Seawater σ (S/m) <span class="val" id="cSwv"></span></label><input type="range" id="cSw" min="0.1" max="6" step="0.01" value="4"></div>
+      <div class="ctrl"><label for="cX">Target horizontal range <span class="val" id="cXv"></span></label><input type="range" id="cX" min="-2" max="4" step="0.01" value="1"></div>
+      <div class="ctrl"><label for="cZs">Sub depth (m) <span class="val" id="cZsv"></span></label><input type="range" id="cZs" min="5" max="500" step="1" value="100"></div>
+      <div class="ctrl"><label for="cZt">Target depth (m) <span class="val" id="cZtv"></span></label><input type="range" id="cZt" min="1" max="500" step="1" value="100"></div>
+      <div class="ctrl"><label for="cH">Water depth (m) <span class="val" id="cHv"></span></label><input type="range" id="cH" min="20" max="1000" step="1" value="300"></div>
+      <div class="ctrl"><label for="cA">Target projected area (m²) <span class="val" id="cAv"></span></label><input type="range" id="cA" min="1" max="1000" step="1" value="100"></div>
+      <div class="ctrl"><label for="cR1">R₁ air→steel <span class="badge hyp">HYP</span> <span class="val" id="cR1v"></span></label><input type="range" id="cR1" min="0" max="1" step="0.001" value="0"></div>
+      <div class="ctrl"><label for="cR2">R₂ steel→seawater <span class="badge hyp">HYP</span> <span class="val" id="cR2v"></span></label><input type="range" id="cR2" min="0" max="1" step="0.001" value="0"></div>
+      <div class="ctrl"><label for="cR3">R₃ seawater→air (surface) <span class="badge hyp">HYP</span> <span class="val" id="cR3v"></span></label><input type="range" id="cR3" min="0" max="1" step="0.001" value="0"></div>
+      <div class="ctrl"><label for="cR4">R₄ seawater→seabed <span class="badge hyp">HYP</span> <span class="val" id="cR4v"></span></label><input type="range" id="cR4" min="0" max="1" step="0.001" value="0"></div>
+    </div>
+    <label class="check"><input type="checkbox" id="cJoule" checked> <span>Hively Joule term σE∥² ON (default; H&amp;L 2019 Eq.&nbsp;44, Experiment G code). Untick = <strong>2022 Erratum α = 0</strong> (no loss anywhere, HYP toggle).</span></label>
+    <label class="check"><input type="checkbox" id="cMetal" checked> <span>Apply the same Joule construction to the steel hull (default). Untick = steel loss 0, as the PR #57 sleeve page does (“metal Joule model UNKNOWN”).</span></label>
+    <div class="presets"><button type="button" id="cAll0">All R = 0</button><button type="button" id="cAll482">All R = 0.482 (M&amp;W Earth value, illustration)</button><button type="button" id="cReset">Reset defaults</button></div>
+    <div class="budget" id="cBar" role="img" aria-label="Power budget bar"><div class="seg-int" id="cSegInt"></div><div class="seg-st" id="cSegSt"></div><div class="seg-wa" id="cSegWa"></div><div class="seg-re" id="cSegRe"></div></div>
+    <div class="bkey"><span><i class="seg-int"></i>internal multipath (R₁ + R₂ back into the hull)</span><span><i class="seg-st"></i>Joule loss in steel</span><span><i class="seg-wa"></i>Joule loss in seawater before the target</span><span><i class="seg-re"></i>reaching the target range</span></div>
+    <p class="small"><span class="badge hyp">HYPOTHESIS</span> The whole budget is hypothetical. Fractions are of the power sent toward the target along one ray, before geometric spreading.</p>
+    <div class="out" id="cOut" aria-live="polite"></div>
+    <p class="small"><span class="badge hyp">HYPOTHESIS</span> Even the “reaching target” number is one-way. An echo would also need the target's SLW reflection (unknown), the return trip, and R₂/R₁ again on the way in. So no SLW radar range can be computed.</p>
+  </div>
+
+  <div class="tem-box" id="temBox">
+    <h3>Transverse-EM reasoning, NOT applicable under the SLW hypothesis</h3>
+    <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>
+    <p class="small" style="margin-top:0">Classical skin depth, wall-attenuation and cage numbers.</p>
+    <p class="small">These are ordinary radio (TEM) numbers, shown so you can compare. Under the SLW hypothesis they are <strong>not</strong> used to rank, limit or dismiss the SLW.</p>
+    <div class="ctrl-grid">
+      <div class="ctrl"><label for="tMu">Steel relative permeability μᵣ <span class="badge asm">ASM</span> <span class="val" id="tMuv"></span></label><input type="range" id="tMu" min="1" max="1000" step="1" value="100"></div>
+    </div>
+    <div class="out" id="tOut" aria-live="polite"></div>
+    <ul class="claims">
+      <li><span class="badge fact">FACT</span> (TEM) Skin depth δ = √(2/(ωμσ)) for a good conductor (Jackson 3rd ed. §8.1 and §5.18; Balanis AEE ch.&nbsp;4). A TEM wave crossing a wall of thickness t falls by about 8.69·t/δ&nbsp;dB. Seawater at 433.59&nbsp;MHz is only a moderate conductor (tanδ ≈ 2.3), so the exact lossy-medium attenuation is also shown.</li>
+      <li><span class="badge fact">FACT</span> (TEM) A closed Faraday cage or steel hull strips ordinary TEM noise and signal almost completely. That is exactly why caged receivers are used as TEM controls.</li>
+      <li><span class="badge hyp">HYPOTHESIS</span> An SLW passing through a cage wall or hull is a hypothesis (Hively's 8&nbsp;GHz copper-box tests, H&amp;L 2019 Fig.&nbsp;4 and US 9,306,527 FIGs. 3–5, are single-lab results). It is <em>not</em> ruled out or limited by the TEM numbers in this box.</li>
+    </ul>
+  </div>
+
+  <!-- ================= D ================= -->
+  <h2 id="images">D · Images inside a cavity</h2>
+  <ul class="claims">
+    <li><span class="badge fact">FACT</span> (TEM) A charge near a flat conductor behaves as if an opposite “image” charge sat behind the surface (method of images, Jackson 3rd ed. ch.&nbsp;2). Between two parallel conducting walls the images repeat without end, an <strong>infinite image series</strong>, like facing mirrors.</li>
+    <li><span class="badge fact">FACT</span> (TEM) A closed metal box is a <strong>resonant cavity</strong>. Only certain field patterns (modes) at certain frequencies fit, and a source inside drives those modes. The energy bounces around until wall losses (finite Q) absorb it (Jackson 3rd ed. §8.7–8.8). A transmitter inside a submarine hull is, classically, inside a large lossy cavity: nearly all TEM power stays inside as internal multipath.</li>
+    <li><span class="badge hyp">HYPOTHESIS</span> For the SLW, image behaviour inside a closed conductor is <strong>untested</strong>. The Hively patent says SLW scattering is “consistent with … image charges and image-currents” (col.&nbsp;14), but gives no measurement inside a cavity. Whether an SLW inside a hull builds up cavity-like internal multipath (large R₁ and R₂) or leaks straight out (R ≈ 0) is exactly what the R sliders in Section C leave open.</li>
+  </ul>
+
+  <!-- ================= E ================= -->
+  <h2 id="conclusion">E · Conclusion and decisive experiments</h2>
+  <ul class="claims">
+    <li><span class="badge fact">FACT</span> Classically (TEM, PEC) at 433.59&nbsp;MHz: 1&nbsp;m sphere σ = <strong>2.73&nbsp;m²</strong> (exact Mie; 0.87 × πa² = 3.14&nbsp;m²); 1&nbsp;m × 1&nbsp;m cylinder broadside ≈ <strong>9.1&nbsp;m²</strong> (optical 9.09&nbsp;m²; 2-D→3-D approximation 9.15&nbsp;m² TM). Both targets sit at ka ≈ 9, the resonance/optical transition. Rayleigh formulas do not apply.</li>
+    <li><span class="badge hyp">HYPOTHESIS</span> <strong>An SLW radar off a submarine cannot be designed yet</strong>, because no cited source gives an SLW reflection law or boundary condition at a conductor. Hively &amp; Loebl give only the Eq.&nbsp;(26) matching condition, and the only measured SLW reflection is M&amp;W's 0.482 off Earth.</li>
+    <li><span class="badge hyp">HYPOTHESIS</span> With the Joule term ON (default), seawater at 433.59&nbsp;MHz costs about 310&nbsp;dB per metre one way, which alone rules out any useful range. With the Erratum toggle (α = 0) only spreading and the unknown reflection coefficients remain. Which reading holds is itself an open experimental question.</li>
+  </ul>
+  <h3>Decisive experiments (3–5 that would settle the unknowns)</h3>
+  <ol class="exp-list">
+    <li><span class="badge hyp">HYPOTHESIS test</span> <strong>SLW reflection off an aluminum plate vs Earth.</strong> Use Monstein &amp; Wesley ball antennas at 433.59&nbsp;MHz. Repeat their ground-image null survey (see the <a href="../ranging/">ranging page</a>) over bare ground, then over a large aluminum sheet laid on the ground. Null depth gives B/A. Does ℜ change from 0.482? Include TEM dipole controls at the same geometry.</li>
+    <li><span class="badge hyp">HYPOTHESIS test</span> <strong>Caged-receiver transmission through a steel plate, with TEM controls.</strong> Battery receiver sealed in a Faraday cage; transmitter outside. Insert or remove a steel plate (76&nbsp;mm if possible, thinner plates first) in the path. Controls: a closed-loop (C = 0) antenna, a TEM dipole, and cage-open vs cage-closed runs. This gives R₁R₂-type transmission directly.</li>
+    <li><span class="badge hyp">HYPOTHESIS test</span> <strong>Seawater tank: Joule vs Erratum.</strong> Vary salinity and path length in a tank (Experiment G's G2 control e). The Joule reading predicts about 310&nbsp;dB/m at σ = 4&nbsp;S/m (433.59&nbsp;MHz), falling with salinity like σ; the Erratum predicts 1/r only.</li>
+    <li><span class="badge hyp">HYPOTHESIS test</span> <strong>Curved-target glint test.</strong> Rotate a sphere and a squat cylinder (Section A sizes, or scaled) in an SLW bistatic setup. A broadside flash that narrows with h/λ would mean SLW scattering follows classical optics; a flat angular response would mean something else.</li>
+    <li><span class="badge hyp">HYPOTHESIS test</span> <strong>Multipath inside a closed metal box.</strong> Transmitter and receiver both inside a sealed box. Sweep the frequency and look for cavity-mode peaks at the TEM-predicted frequencies (FACT for TEM, Jackson §8.7) versus an SLW response that ignores them. This measures internal multipath, the “R₁” question.</li>
+  </ol>
+
+  <!-- ================= Sources ================= -->
+  <h2 id="sources">Sources and citation notes</h2>
+  <ul class="claims">
+    <li><span class="badge fact">FACT</span> E.&nbsp;F. Knott, J.&nbsp;F. Shaeffer &amp; M.&nbsp;T. Tuley, <em>Radar Cross Section</em>, 2nd ed. (SciTech, 2004): RCS definition, optics-region formulas (sphere πa², cylinder broadside 2πah²/λ), Rayleigh sphere 9πa²(ka)⁴, the long-body relation σ<sub>3D</sub> = 2L²σ<sub>2D</sub>/λ (times the sinc² off broadside), specular and creeping-wave mechanisms.</li>
+    <li><span class="badge fact">FACT</span> G.&nbsp;T. Ruck (ed.), <em>Radar Cross Section Handbook</em>, Vol.&nbsp;1 (Plenum, 1970): ch.&nbsp;3 sphere (exact series, Rayleigh and optical limits), ch.&nbsp;4 cylinders.</li>
+    <li><span class="badge fact">FACT</span> C.&nbsp;F. Bohren &amp; D.&nbsp;R. Huffman, <em>Absorption and Scattering of Light by Small Particles</em> (Wiley, 1983), ch.&nbsp;4 (§4.4 scattering coefficients aₙ, bₙ; backscatter series), taken to the perfect-conductor limit.</li>
+    <li><span class="badge fact">FACT</span> C.&nbsp;A. Balanis, <em>Advanced Engineering Electromagnetics</em> (Wiley): ch.&nbsp;11 §11.5.1–11.5.2 (conducting circular cylinder, TM<sup>z</sup> / TE<sup>z</sup>), §11.8 (sphere); ch.&nbsp;4–5 (lossy media, oblique incidence).</li>
+    <li><span class="badge fact">FACT</span> J.&nbsp;D. Jackson, <em>Classical Electrodynamics</em>, 3rd ed. (Wiley, 1999): §7.3 Fresnel (Eqs.&nbsp;7.39, 7.41); §5.18 and §8.1 skin depth; ch.&nbsp;2 method of images; §8.7–8.8 resonant cavities and Q.</li>
+    <li><span class="badge fact">FACT</span> M.&nbsp;Abramowitz &amp; I.&nbsp;A. Stegun, <em>Handbook of Mathematical Functions</em>: 9.1.88 (Neumann series for Y₀) and 9.1.22 (integral for Yₙ), used only as numerical routines.</li>
+    <li><span class="badge hyp">HYPOTHESIS</span> L.&nbsp;M. Hively &amp; A.&nbsp;S. Loebl, “Classical and extended electrodynamics”, <em>Phys. Essays</em> 32, 112 (2019): Eqs.&nbsp;(25), (26), (37), (38), (44); Table I. <a href="../papers/Hively-Loebl-2019-Physics-Essays-Classical-and-extended-electrodynamics.pdf">PDF on this hub</a>. Erratum: <em>Phys. Essays</em> 35, 320 (2022), <a href="https://doi.org/10.4006/0836-1398-35.3.320">doi:10.4006/0836-1398-35.3.320</a>.</li>
+    <li><span class="badge hyp">HYPOTHESIS</span> L.&nbsp;M. Hively, US 9,306,527 B1 (2016), cols.&nbsp;9–10, 14, 16, claim&nbsp;27. <a href="../papers/Hively-US9306527B1-Scalar-Longitudinal-Waves.pdf">PDF</a>. M.&nbsp;E. Paulus &amp; D.&nbsp;A. Gentile (NUWC Keyport), US 12,525,711 B1 (2026). <a href="../papers/US12525711-Navy-SLW-Antenna.pdf">PDF</a>.</li>
+    <li><span class="badge fact">FACT</span> (as a published measurement) C.&nbsp;Monstein &amp; J.&nbsp;P. Wesley, “Observation of scalar longitudinal electrodynamic waves”, <em>EPL</em> 59(4), 514 (2002): ℜ = B²/A² = 0.482, Eq.&nbsp;(24). <a href="../papers/Monstein-Wesley-2002-EPL-Scalar-Longitudinal-Waves.pdf">PDF</a>. Related longitudinal-potential work: Zimmerman (QEX 2011; MPLB 2011; JAP 2013; hub <a href="../library.html">library</a>). It is not used for any number here.</li>
+    <li><span class="badge fact">FACT</span> Hub code reused: Experiment G seawater and Joule-term functions (PR #56, branch expt-g-v0.1, head 726c896; Meissner &amp; Wentz 2004 seawater model), read only. PR #56 and #57 are not modified.</li>
+  </ul>
+  <p class="small"><span class="badge asm">ASSUMPTION</span> <strong>Citation precision:</strong> the textbooks are not on the box. Balanis section numbers match the publisher's 3rd-edition contents. Knott is cited at book level with the topic. Other chapter, section and equation numbers are from standard editions and should be checked against your copy before you quote them. The formulas themselves are cross-checked numerically: Mie small-ka → Rayleigh, Mie large-ka → πa², 2-D cylinder large-ka → πa, and scipy vs page JS.</p>
+  <p class="small">Page version slw-rcs-v1.0 · 2026-09-28 · Python cross-check files: sim-lab <code>slw-rcs/check.py</code>, <code>output.json</code>, <code>js_check.py</code>.</p>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub<br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+// ---- RCS math (classical, FACT) — embedded verbatim in /slw-rcs/index.html ----
+var RCS = (function () {
+  "use strict";
+  var C0 = 299792458, EPS0 = 8.8541878128e-12, MU0 = 1.25663706212e-6, ETA0 = MU0 * C0, GAMMA_E = 0.5772156649015329;
+  function nTerms(x) { return Math.floor(x + 4 * Math.cbrt(x) + 10); }
+  // spherical Bessel j_n (downward recurrence, Miller) and y_n (upward), n = 0..N
+  function sphJ(N, x) {
+    var M = N + 20 + Math.ceil(Math.sqrt(40 * (N + 1))) + Math.ceil(x * 0.1);
+    var j = new Array(M + 2).fill(0); j[M + 1] = 0; j[M] = 1e-300;
+    for (var n = M; n >= 1; n--) {
+      j[n - 1] = (2 * n + 1) / x * j[n] - j[n + 1];
+      if (Math.abs(j[n - 1]) > 1e250) { for (var k = n - 1; k <= M + 1; k++) j[k] *= 1e-250; }
+    }
+    var j0 = Math.sin(x) / x, j1 = Math.sin(x) / (x * x) - Math.cos(x) / x;
+    var s = Math.abs(j0) > Math.abs(j1) ? j0 / j[0] : j1 / j[1];
+    var out = new Array(N + 1); for (var i = 0; i <= N; i++) out[i] = j[i] * s; return out;
+  }
+  function sphY(N, x) {
+    var y = new Array(N + 1); y[0] = -Math.cos(x) / x; if (N >= 1) y[1] = -Math.cos(x) / (x * x) - Math.sin(x) / x;
+    for (var n = 1; n < N; n++) y[n + 1] = (2 * n + 1) / x * y[n] - y[n - 1];
+    return y;
+  }
+  // PEC sphere monostatic RCS (Mie series; Bohren & Huffman ch. 4 coefficients in the PEC limit; Ruck Vol. 1 ch. 3)
+  function sphereMie(a, f) {
+    var lam = C0 / f, x = 2 * Math.PI * a / lam, N = nTerms(x);
+    var j = sphJ(N, x), y = sphY(N, x), sr = 0, si = 0;
+    for (var n = 1; n <= N; n++) {
+      var psi = x * j[n], psid = x * j[n - 1] - n * j[n];
+      var xr = x * j[n], xi = x * y[n];                              // xi_n = x h_n^(1) = x j_n + i x y_n
+      var xdr = x * j[n - 1] - n * j[n], xdi = x * y[n - 1] - n * y[n];
+      var d1 = xdr * xdr + xdi * xdi, d2 = xr * xr + xi * xi;
+      var ar = psid * xdr / d1, ai = -psid * xdi / d1;               // a_n = psi'/xi'
+      var br = psi * xr / d2, bi = -psi * xi / d2;                   // b_n = psi/xi
+      var s = (n % 2 ? -1 : 1) * (2 * n + 1);
+      sr += s * (ar - br); si += s * (ai - bi);
+    }
+    return { sigma: lam * lam / (4 * Math.PI) * (sr * sr + si * si), ka: x, N: N };
+  }
+  // cylindrical Bessel J_n (Miller), Y0 by the Neumann series (A&S 9.1.88), Y1 by Wronskian or integral (A&S 9.1.22)
+  function cylJ(N, x) {
+    var M = 2 * Math.floor((Math.max(N, x) + 20 + Math.ceil(Math.sqrt(40 * (Math.max(N, x) + 1)))) / 2);
+    var j = new Array(M + 2).fill(0); j[M + 1] = 0; j[M] = 1e-300;
+    for (var n = M; n >= 1; n--) {
+      j[n - 1] = 2 * n / x * j[n] - j[n + 1];
+      if (Math.abs(j[n - 1]) > 1e250) { for (var k = n - 1; k <= M + 1; k++) j[k] *= 1e-250; }
+    }
+    var norm = j[0]; for (var m = 2; m <= M; m += 2) norm += 2 * j[m];
+    var out = new Array(M + 1); for (var i = 0; i <= M; i++) out[i] = j[i] / norm; return out;
+  }
+  function Yint(n, x) {                                               // A&S 9.1.22, composite Simpson
+    var K = 2 * Math.max(2000, Math.ceil(40 * x)), h = Math.PI / K, s1 = 0;
+    for (var i = 0; i <= K; i++) { var t = i * h, w = (i === 0 || i === K) ? 1 : (i % 2 ? 4 : 2); s1 += w * Math.sin(x * Math.sin(t) - n * t); }
+    s1 *= h / 3;
+    var T = Math.asinh(60 / x) + 1, K2 = 20000, h2 = T / K2, s2 = 0;
+    for (var i2 = 0; i2 <= K2; i2++) { var u = i2 * h2, w2 = (i2 === 0 || i2 === K2) ? 1 : (i2 % 2 ? 4 : 2);
+      s2 += w2 * (Math.exp(n * u) + (n % 2 ? -1 : 1) * Math.exp(-n * u)) * Math.exp(-x * Math.sinh(u)); }
+    s2 *= h2 / 3;
+    return (s1 - s2) / Math.PI;
+  }
+  function cylY(N, x, J) {
+    var y = new Array(N + 1), s = 0;
+    for (var k = 1; 2 * k < J.length; k++) s += (k % 2 ? -1 : 1) * J[2 * k] / k;
+    y[0] = 2 / Math.PI * (Math.log(x / 2) + GAMMA_E) * J[0] - 4 / Math.PI * s;
+    y[1] = Math.abs(J[0]) >= 0.25 ? (J[1] * y[0] - 2 / (Math.PI * x)) / J[0] : Yint(1, x);
+    for (var n = 1; n < N; n++) y[n + 1] = 2 * n / x * y[n] - y[n - 1];
+    return y;
+  }
+  // 2-D PEC circular cylinder backscatter width (Balanis AEE sec. 11.5.1 TMz, 11.5.2 TEz); exact for an infinite cylinder
+  function cyl2D(a, f, pol) {
+    var lam = C0 / f, x = 2 * Math.PI * a / lam, N = nTerms(x);
+    var J = cylJ(N + 1, x), Y = cylY(N + 1, x, J), sr = 0, si = 0;
+    for (var n = 0; n <= N; n++) {
+      var jr, yr;
+      if (pol === "TE") { jr = n === 0 ? -J[1] : (J[n - 1] - J[n + 1]) / 2; yr = n === 0 ? -Y[1] : (Y[n - 1] - Y[n + 1]) / 2; }
+      else { jr = J[n]; yr = Y[n]; }
+      var d = jr * jr + yr * yr, rr = jr * jr / d, ri = jr * yr / d; // J/(J - iY) = J (J + iY)/(J^2+Y^2)
+      var e = (n === 0 ? 1 : 2) * (n % 2 ? -1 : 1);
+      sr += e * rr; si += e * ri;
+    }
+    return { sigma2D: 2 * lam / Math.PI * (sr * sr + si * si), ka: x };
+  }
+  // Knott 2-D -> 3-D broadside conversion sigma = 2 L^2 sigma_2D / lambda (valid L >> lambda; APPROXIMATE for a squat cylinder)
+  function cyl3D(a, h, f, pol) { var lam = C0 / f, r = cyl2D(a, f, pol); return { sigma: 2 * h * h / lam * r.sigma2D, sigma2D: r.sigma2D, ka: r.ka }; }
+  function cylOptical(a, h, f) { return 2 * Math.PI * a * h * h / (C0 / f); }
+  function sphereOptical(a) { return Math.PI * a * a; }
+  function sphereRayleigh(a, f) { var x = 2 * Math.PI * a * f / C0; return 9 * Math.PI * a * a * Math.pow(x, 4); }
+  // complex helpers
+  function csqrt(re, im) { var r = Math.hypot(re, im), a = Math.sqrt((r + re) / 2), b = Math.sqrt(Math.max(0, (r - re) / 2)); return [a, im < 0 ? -b : b]; }
+  function cdiv(a, b) { var d = b[0] * b[0] + b[1] * b[1]; return [(a[0] * b[0] + a[1] * b[1]) / d, (a[1] * b[0] - a[0] * b[1]) / d]; }
+  // Fresnel power reflectance (Jackson 3rd ed. sec. 7.3, Eqs. 7.39 & 7.41 with mu = mu0), complex eps = eps' - j eps''
+  function fresnel(ep, epp, thDeg) {
+    var t = thDeg * Math.PI / 180, s = Math.sin(t), c = Math.cos(t), r = csqrt(ep - s * s, -epp);
+    var te = cdiv([c - r[0], -r[1]], [c + r[0], r[1]]);
+    var ec = [ep * c, -epp * c];
+    var tm = cdiv([ec[0] - r[0], ec[1] - r[1]], [ec[0] + r[0], ec[1] + r[1]]);
+    return { te: te[0] * te[0] + te[1] * te[1], tm: tm[0] * tm[0] + tm[1] * tm[1] };
+  }
+  // Seawater: Meissner & Wentz 2004 eps' and dipolar eps'' (code from Experiment G, PR #56 head 726c896), sigma from slider
+  var MW_A = [5.7230e+00, 2.2379e-02, -7.1237e-04, 5.0478e+00, -7.0315e-02, 6.0059e-04, 3.6143e+00, 2.8841e-02, 1.3652e-01, 1.4825e-03, 2.4166e-04];
+  var MW_B = [-3.56417e-03, 4.74868e-06, 1.15574e-05, 2.39357e-03, -3.13530e-05, 2.52477e-07, -6.28908e-03, 1.76032e-04, -9.22144e-05, -1.99723e-02, 1.81176e-04, -2.04265e-03, 1.57883e-04];
+  function mw_sigma(T, S) {
+    var s35 = 2.903602 + 8.607e-2 * T + 4.738817e-4 * T * T - 2.991e-6 * T * T * T + 4.3047e-9 * T * T * T * T;
+    var R15 = S * (37.5109 + 5.45216 * S + 1.4409e-2 * S * S) / (1004.75 + 182.283 * S + S * S);
+    var a0 = (6.9431 + 3.2841 * S - 9.9486e-2 * S * S) / (84.850 + 69.024 * S + S * S);
+    var a1 = 49.843 - 0.2276 * S + 0.198e-2 * S * S;
+    return s35 * R15 * (1 + a0 * (T - 15) / (a1 + T));
+  }
+  function mw_eps(fG, T, S) {
+    var a = MW_A, b = MW_B;
+    var es0 = (3.70886e4 - 8.2168e1 * T) / (4.21854e2 + T);
+    var e10 = a[0] + a[1] * T + a[2] * T * T;
+    var n10 = (45 + T) / (a[3] + a[4] * T + a[5] * T * T);
+    var einf0 = a[6] + a[7] * T;
+    var n20 = (45 + T) / (a[8] + a[9] * T + a[10] * T * T);
+    var es = es0 * Math.exp(b[0] * S + b[1] * S * S + b[2] * T * S);
+    var n1 = n10 * (1 + S * (b[3] + b[4] * T + b[5] * T * T));
+    var e1 = e10 * Math.exp(b[6] * S + b[7] * S * S + b[8] * T * S);
+    var n2 = n20 * (1 + S * (b[9] + b[10] * T));
+    var einf = einf0 * (1 + S * (b[11] + b[12] * T));
+    var sig = S > 0 ? mw_sigma(T, S) : 0;
+    var t1 = cdiv([es - e1, 0], [1, fG / n1]), t2 = cdiv([e1 - einf, 0], [1, fG / n2]);
+    return { re: t1[0] + t2[0] + einf, im: t1[1] + t2[1] - sig / (2 * Math.PI * EPS0 * fG * 1e9), sigma: sig };
+  }
+  function seawaterEps(f, sigma) {                                    // T = 15 C, S = 35 (ASSUMPTION) for eps' and dipolar loss
+    var e = mw_eps(f / 1e9, 15, 35), relax = -e.im - e.sigma / (2 * Math.PI * EPS0 * f);
+    return { ep: e.re, epp: relax + sigma / (2 * Math.PI * EPS0 * f) };
+  }
+  // SLW Joule-literal attenuation (Experiment G construction: alpha_J = sigma_H |Z| / 2, Z from H&L 2019 Eq. 37, sigma_H = eps0 eps'' omega)
+  function alphaJ(ep, epp, f) { var w = 2 * Math.PI * f, tand = epp / ep, Z = ETA0 / Math.sqrt(ep) / Math.hypot(1, tand); return EPS0 * epp * w * Z / 2; }
+  function alphaTEM(ep, epp, f) { var s = csqrt(ep, -epp); return -(2 * Math.PI * f / C0) * s[1]; }
+  function skin(f, sigma, mur) { return Math.sqrt(2 / (2 * Math.PI * f * MU0 * (mur || 1) * sigma)); }
+  return { C0: C0, EPS0: EPS0, MU0: MU0, ETA0: ETA0, sphereMie: sphereMie, cyl2D: cyl2D, cyl3D: cyl3D, cylOptical: cylOptical,
+    sphereOptical: sphereOptical, sphereRayleigh: sphereRayleigh, fresnel: fresnel, seawaterEps: seawaterEps, mw_sigma: mw_sigma,
+    alphaJ: alphaJ, alphaTEM: alphaTEM, skin: skin, _cylJ: cylJ, _cylY: cylY, _Yint: Yint };
+})();
+
+</script>
+<script>
+(function () {
+  "use strict";
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open"); btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  function $(id) { return document.getElementById(id); }
+  function v(id) { return parseFloat($(id).value); }
+  function fx(x, d) { return isFinite(x) ? x.toFixed(d) : "—"; }
+  function sig3(x) { if (!isFinite(x)) return "—"; if (x === 0) return "0"; var a = Math.abs(x);
+    if (a >= 1e5 || a < 1e-3) { var e = Math.floor(Math.log10(a)), m = x / Math.pow(10, e); return m.toFixed(2) + "×10" + sup(e); }
+    return x.toPrecision(4); }
+  function sup(e) { var m = { "-": "⁻", "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹" };
+    return String(e).split("").map(function (c) { return m[c] || c; }).join(""); }
+  function pow10str(l10) { if (!isFinite(l10)) return "0"; if (l10 > -3) return sig3(Math.pow(10, l10));
+    var e = Math.floor(l10), m = Math.pow(10, l10 - e); return m.toFixed(2) + "×10" + sup(e); }
+  function db(x) { return 10 * Math.log10(x); }
+  var STATE = window.SLWRCS_STATE = {};
+
+  // ---------- canvas helper ----------
+  function setupCanvas(cv) {
+    var dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    var g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); return { g: g, w: w, h: h };
+  }
+  function drawAxes(g, box, xt, yt, xlab, ylab) {
+    g.strokeStyle = "#3a3328"; g.lineWidth = 1; g.fillStyle = "#b7ab95"; g.font = "11px system-ui, sans-serif";
+    xt.forEach(function (t) { g.beginPath(); g.moveTo(t[0], box.t); g.lineTo(t[0], box.b); g.stroke(); g.textAlign = "center"; g.fillText(t[1], t[0], box.b + 14); });
+    yt.forEach(function (t) { g.beginPath(); g.moveTo(box.l, t[0]); g.lineTo(box.r, t[0]); g.stroke(); g.textAlign = "right"; g.fillText(t[1], box.l - 5, t[0] + 4); });
+    g.strokeStyle = "#5a4e3c"; g.strokeRect(box.l, box.t, box.r - box.l, box.b - box.t);
+    g.textAlign = "center"; g.fillText(xlab, (box.l + box.r) / 2, box.b + 28);
+    g.save(); g.translate(12, (box.t + box.b) / 2); g.rotate(-Math.PI / 2); g.fillText(ylab, 0, 0); g.restore();
+  }
+  function line(g, pts, color, dash, width) {
+    g.save(); g.strokeStyle = color; g.lineWidth = width || 2; g.setLineDash(dash || []); g.beginPath();
+    var pen = false; pts.forEach(function (p) { if (p && isFinite(p[0]) && isFinite(p[1])) { if (!pen) { g.moveTo(p[0], p[1]); pen = true; } else g.lineTo(p[0], p[1]); } else pen = false; });
+    g.stroke(); g.restore();
+  }
+
+  // ================= A =================
+  var FMIN = 50e6, FMAX = 3000e6, aF = 433.59e6;
+  function sliderToF(s) { return FMIN * Math.pow(FMAX / FMIN, s / 1000); }
+  function fToSlider(f) { return Math.round(1000 * Math.log(f / FMIN) / Math.log(FMAX / FMIN)); }
+  function fmtF(f) { return f >= 1e9 ? (f / 1e9).toFixed(3) + " GHz" : (f / 1e6).toFixed(2) + " MHz"; }
+  function calcA() {
+    var sa = v("aSa"), ca = v("aCa"), ch = v("aCh"), pol = $("aPol").value, lam = RCS.C0 / aF;
+    $("aFv").textContent = fmtF(aF); $("aSav").textContent = sa.toFixed(2) + " m"; $("aCav").textContent = ca.toFixed(2) + " m"; $("aChv").textContent = ch.toFixed(2) + " m";
+    var m = RCS.sphereMie(sa, aF), opt = RCS.sphereOptical(sa), ray = RCS.sphereRayleigh(sa, aF);
+    var c3 = RCS.cyl3D(ca, ch, aF, pol), copt = RCS.cylOptical(ca, ch, aF), cka = 2 * Math.PI * ca / lam;
+    var reg = function (ka) { return ka < 1 ? "Rayleigh" : (ka <= 10 ? "resonance (Mie)" : "optical"); };
+    STATE.A = { f: aF, lam: lam, ka: m.ka, mie: m.sigma, optical: opt, ratio: m.sigma / opt, rayleigh: ray, cylTM: RCS.cyl3D(ca, ch, aF, "TM").sigma,
+      cylTE: RCS.cyl3D(ca, ch, aF, "TE").sigma, cyl2D: c3.sigma2D, cylOpt: copt, cylKa: cka, hOverLam: ch / lam };
+    $("aOut").innerHTML =
+      "λ = <span class='v'>" + fx(lam, 4) + " m</span><br>" +
+      "<b>Sphere</b> a = " + sa.toFixed(2) + " m: ka = <span class='v' id='aKa'>" + fx(m.ka, 3) + "</span> (" + reg(m.ka) + ")<br>" +
+      "&nbsp; exact Mie σ = <span class='v' id='aMie'>" + sig3(m.sigma) + " m²</span> (" + fx(db(m.sigma), 2) + " dBsm) = <span class='v'>" + fx(m.sigma / opt, 3) + "</span> × πa²<br>" +
+      "&nbsp; optical πa² = " + sig3(opt) + " m² · Rayleigh 9πa²(ka)⁴ = " + sig3(ray) + " m² " + (m.ka > 0.5 ? "<span class='bad'>(inapplicable: ka ≫ 1 not ≪ 1)</span>" : "(valid only for ka ≪ 1)") + "<br>" +
+      "<b>Cylinder</b> a = " + ca.toFixed(2) + " m, h = " + ch.toFixed(2) + " m, broadside, " + pol + ": ka = " + fx(cka, 3) + ", h/λ = " + fx(ch / lam, 2) + "<br>" +
+      "&nbsp; optical 2πah²/λ = <span class='v' id='aCopt'>" + sig3(copt) + " m²</span> (" + fx(db(copt), 2) + " dBsm)<br>" +
+      "&nbsp; 2-D exact σ₂D = " + sig3(c3.sigma2D) + " m → 2h²σ₂D/λ ≈ <span class='v' id='aCyl'>" + sig3(c3.sigma) + " m²</span> (" + fx(db(c3.sigma), 2) + " dBsm) " +
+      (ch / lam < 3 ? "<span class='bad'>(approximation needs h ≫ λ; here h/λ = " + fx(ch / lam, 2) + ", rough only)</span>" : "(approximate: end caps ignored)") +
+      "<br>&nbsp; Rayleigh limit: " + (cka > 0.5 ? "<span class='bad'>inapplicable</span>" : "applicable only for ka ≪ 1");
+    drawA(sa, ca, ch, pol);
+  }
+  function drawA(sa, ca, ch, pol) {
+    var cv = $("aPlot"), s = setupCanvas(cv), g = s.g;
+    var box = { l: 48, r: s.w - 10, t: 10, b: s.h - 34 };
+    var NP = 220, fs = [], i;
+    for (i = 0; i < NP; i++) fs.push(FMIN * Math.pow(FMAX / FMIN, i / (NP - 1)));
+    var mie = fs.map(function (f) { return db(RCS.sphereMie(sa, f).sigma); });
+    var cyl = fs.map(function (f) { return db(RCS.cyl3D(ca, ch, f, pol).sigma); });
+    var copt = fs.map(function (f) { return db(RCS.cylOptical(ca, ch, f)); });
+    var ray = fs.map(function (f) { return db(RCS.sphereRayleigh(sa, f)); });
+    var so = db(RCS.sphereOptical(sa));
+    var all = mie.concat(cyl, copt, [so]); var ymax = Math.ceil((Math.max.apply(null, all) + 3) / 5) * 5, ymin = Math.floor((Math.min.apply(null, all) - 3) / 5) * 5;
+    ymin = Math.max(ymin, ymax - 60);
+    var X = function (f) { return box.l + (box.r - box.l) * Math.log(f / FMIN) / Math.log(FMAX / FMIN); };
+    var Y = function (d) { return box.b - (box.b - box.t) * (d - ymin) / (ymax - ymin); };
+    g.clearRect(0, 0, s.w, s.h);
+    var f1 = RCS.C0 / (2 * Math.PI * sa), f10 = 10 * f1;              // ka = 1 and ka = 10 for the sphere
+    var clampX = function (f) { return Math.min(box.r, Math.max(box.l, X(f))); };
+    g.fillStyle = "rgba(122,139,196,.16)"; g.fillRect(box.l, box.t, clampX(f1) - box.l, box.b - box.t);
+    g.fillStyle = "rgba(212,146,58,.10)"; g.fillRect(clampX(f1), box.t, clampX(f10) - clampX(f1), box.b - box.t);
+    g.fillStyle = "rgba(106,170,106,.08)"; g.fillRect(clampX(f10), box.t, box.r - clampX(f10), box.b - box.t);
+    var xt = [[50e6, "50M"], [100e6, "100M"], [200e6, "200M"], [433.59e6, "433.59M"], [1e9, "1G"], [2e9, "2G"], [3e9, "3G"]].map(function (t) { return [X(t[0]), t[1]]; });
+    var yt = []; for (var d = ymin; d <= ymax; d += (ymax - ymin > 40 ? 10 : 5)) yt.push([Y(d), d + ""]);
+    drawAxes(g, box, xt, yt, "frequency (log)", "RCS (dBsm)");
+    g.fillStyle = "#b7ab95"; g.font = "10px system-ui"; g.textAlign = "left";
+    if (X(f1) > box.l + 30) g.fillText("Rayleigh", box.l + 4, box.t + 12);
+    if (X(f1) < box.r - 40) g.fillText("resonance", Math.max(box.l, X(f1)) + 4, box.t + 12);
+    if (X(f10) < box.r - 40) g.fillText("optical", X(f10) + 4, box.t + 12);
+    g.save(); g.beginPath(); g.rect(box.l, box.t, box.r - box.l, box.b - box.t); g.clip();
+    line(g, fs.map(function (f, k) { return [X(f), Y(ray[k])]; }), "#7a8bc4", [2, 3], 2);
+    line(g, [[box.l, Y(so)], [box.r, Y(so)]], "#b7ab95", [6, 4], 1.5);
+    line(g, fs.map(function (f, k) { return [X(f), Y(copt[k])]; }), "#6fd0b8", [6, 4], 1.5);
+    line(g, fs.map(function (f, k) { return [X(f), Y(cyl[k])]; }), "#4a9b88", [], 2);
+    line(g, fs.map(function (f, k) { return [X(f), Y(mie[k])]; }), "#d4b483", [], 2.2);
+    line(g, [[X(aF), box.t], [X(aF), box.b]], "#c47a3a", [3, 3], 1.5);
+    g.restore();
+  }
+  $("aF").value = fToSlider(aF);
+  $("aF").addEventListener("input", function () { aF = sliderToF(v("aF")); calcA(); });
+  ["aSa", "aCa", "aCh", "aPol"].forEach(function (id) { $(id).addEventListener("input", calcA); });
+  $("aReset").addEventListener("click", function () { aF = 433.59e6; $("aF").value = fToSlider(aF); $("aSa").value = 1; $("aCa").value = 1; $("aCh").value = 1; $("aPol").value = "TM"; calcA(); });
+
+  // ================= B =================
+  var FB = 433.59e6;
+  function calcB() {
+    var R = v("bR"), sig = v("bSig"), er = v("bEr");
+    $("bRv").textContent = R.toFixed(3); $("bSigv").textContent = sig.toFixed(2); $("bErv").textContent = er.toFixed(1);
+    var sw = RCS.seawaterEps(FB, sig), eEpp = 1e-3 / (2 * Math.PI * FB * RCS.EPS0);
+    var th = [], i; for (i = 0; i <= 180; i++) th.push(i * 0.5);
+    var S = th.map(function (t) { return RCS.fresnel(sw.ep, sw.epp, t); }), E = th.map(function (t) { return RCS.fresnel(er, eEpp, t); });
+    var s0 = RCS.fresnel(sw.ep, sw.epp, 0), e0 = RCS.fresnel(er, eEpp, 0), s80 = RCS.fresnel(sw.ep, sw.epp, 80), e80 = RCS.fresnel(er, eEpp, 80);
+    STATE.B = { seaEp: sw.ep, seaEpp: sw.epp, sea0: s0.te, earth0: e0.te, sea80: [s80.te, s80.tm], earth80: [e80.te, e80.tm], slw: R };
+    $("bOut").innerHTML = "Seawater ε = " + fx(sw.ep, 1) + " − j" + fx(sw.epp, 1) + " · normal incidence |Γ|² = <span class='v' id='bSea0'>" + fx(s0.te, 4) + "</span> (TEM, FACT)<br>" +
+      "Earth ε = " + fx(er, 1) + " − j" + fx(eEpp, 3) + " · normal incidence |Γ|² = <span class='v' id='bEarth0'>" + fx(e0.te, 4) + "</span> (TEM, FACT given the εᵣ assumption)<br>" +
+      "At 80°: seawater ⊥ " + fx(s80.te, 3) + ", ∥ " + fx(s80.tm, 3) + " · Earth ⊥ " + fx(e80.te, 3) + ", ∥ " + fx(e80.tm, 3) + "<br>" +
+      "SLW: <span class='v'>" + R.toFixed(3) + "</span> at every angle, because <b>no angle dependence is known (HYP)</b>. Not a prediction.";
+    var cv = $("bPlot"), s = setupCanvas(cv), g = s.g, box = { l: 44, r: s.w - 10, t: 10, b: s.h - 34 };
+    var X = function (t) { return box.l + (box.r - box.l) * t / 90; }, Y = function (p) { return box.b - (box.b - box.t) * p; };
+    g.clearRect(0, 0, s.w, s.h);
+    drawAxes(g, box, [0, 15, 30, 45, 60, 75, 90].map(function (t) { return [X(t), t + "°"]; }), [0, 0.2, 0.4, 0.6, 0.8, 1].map(function (p) { return [Y(p), p.toFixed(1)]; }), "incidence angle from the normal", "|Γ|² (power)");
+    line(g, [[X(0), Y(1)], [X(90), Y(1)]], "#8a8f99", [], 2);
+    line(g, th.map(function (t, k) { return [X(t), Y(S[k].te)]; }), "#4a9b88", [], 2);
+    line(g, th.map(function (t, k) { return [X(t), Y(S[k].tm)]; }), "#4a9b88", [6, 4], 2);
+    line(g, th.map(function (t, k) { return [X(t), Y(E[k].te)]; }), "#c47a3a", [], 2);
+    line(g, th.map(function (t, k) { return [X(t), Y(E[k].tm)]; }), "#c47a3a", [6, 4], 2);
+    line(g, [[X(0), Y(R)], [X(90), Y(R)]], "#f0a58f", [2, 4], 2.5);
+    g.fillStyle = "#f0a58f"; g.font = "11px system-ui"; g.textAlign = "left"; g.fillText("SLW (HYP): no angle dependence known", X(2), Y(R) - 5);
+  }
+  ["bR", "bSig", "bEr"].forEach(function (id) { $(id).addEventListener("input", calcB); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-br]"), function (b) { b.addEventListener("click", function () { $("bR").value = b.getAttribute("data-br"); calcB(); }); });
+
+  // ================= C =================
+  var FT = 0.3048;
+  function calcC() {
+    var f = v("cF") * 1e6, gapFt = v("cGap"), t = v("cT") / 1000, sst = Math.pow(10, v("cSst")), ssw = v("cSw"), x = Math.pow(10, v("cX"));
+    var zs = v("cZs"), zt = v("cZt"), H = v("cH"), A = v("cA"), R1 = v("cR1"), R2 = v("cR2"), R3 = v("cR3"), R4 = v("cR4");
+    var joule = $("cJoule").checked, metal = $("cMetal").checked;
+    if (zs >= H) zs = H - 1; if (zt >= H) zt = H - 1;
+    $("cFv").textContent = (f / 1e6).toFixed(2); $("cGapv").textContent = gapFt.toFixed(1) + " ft (" + (gapFt * FT).toFixed(2) + " m)";
+    $("cTv").textContent = (t * 1000).toFixed(0) + " mm"; $("cSstv").textContent = sig3(sst); $("cSwv").textContent = ssw.toFixed(2);
+    $("cXv").textContent = x < 1 ? (x * 100).toFixed(1) + " cm" : (x < 1000 ? x.toFixed(x < 10 ? 2 : 1) + " m" : (x / 1000).toFixed(2) + " km");
+    $("cZsv").textContent = zs.toFixed(0); $("cZtv").textContent = zt.toFixed(0); $("cHv").textContent = H.toFixed(0); $("cAv").textContent = A.toFixed(0);
+    ["cR1", "cR2", "cR3", "cR4"].forEach(function (id) { $(id + "v").textContent = v(id).toFixed(3); });
+    var sw = RCS.seawaterEps(f, ssw);
+    var aW = joule ? RCS.alphaJ(sw.ep, sw.epp, f) : 0;
+    var aS = (joule && metal) ? RCS.alphaJ(1, sst / (2 * Math.PI * f * RCS.EPS0), f) : 0;
+    var rd = Math.hypot(x, zt - zs), rsur = Math.hypot(x, zs + zt), rbed = Math.hypot(x, 2 * H - zs - zt);
+    var p = 1 - R1, refl1 = R1, tS = Math.exp(-2 * aS * t), steel = p * (1 - tS); p *= tS;
+    var refl2 = p * R2; p *= 1 - R2; var into = p;
+    var l10reach = into > 0 ? Math.log10(into) - 2 * aW * rd / Math.LN10 : -Infinity;
+    var reach = Math.pow(10, l10reach), wabs = into - reach;
+    var Rtot = gapFt * FT + t + rd, l10int = l10reach + Math.log10(Math.min(1, A / (4 * Math.PI * Rtot * Rtot)));
+    var dBw = aW * 20 / Math.LN10;
+    var bounce = function (R, ri) { return R > 0 ? Math.log10(R) + 2 * Math.log10(rd / ri) - 2 * aW * (ri - rd) / Math.LN10 : -Infinity; };
+    var lsur = bounce(R3, rsur), lbed = bounce(R4, rbed);
+    STATE.C = { f: f, aW: aW, aS: aS, internal: refl1 + refl2, steel: steel, into: into, wabs: wabs, l10reach: l10reach, l10int: l10int, rd: rd, dBw: dBw,
+      steel_dB: aS * t * 20 / Math.LN10, lsur: lsur, lbed: lbed };
+    var W = function (fr) { return (100 * Math.max(0, fr)).toFixed(3) + "%"; };
+    $("cSegInt").style.width = W(refl1 + refl2); $("cSegSt").style.width = W(steel); $("cSegWa").style.width = W(wabs); $("cSegRe").style.width = W(reach);
+    var bl = function (l) { return isFinite(l) ? pow10str(l) + " (" + fx(10 * l, 1) + " dB)" : "0 (R = 0)"; };
+    $("cOut").innerHTML =
+      "<b>Mode:</b> " + (joule ? "Hively Joule term ON (default)" : "<span class='bad'>Erratum α = 0 toggle (no loss)</span>") + (joule && !metal ? " · steel loss set to 0" : "") + "<br>" +
+      "Seawater ε′ = " + fx(sw.ep, 1) + ", ε″ = " + fx(sw.epp, 1) + " · α<sub>J</sub> = <span class='v' id='cAw'>" + fx(aW, 3) + " Np/m</span>" + (aW > 0 ? " (1/e every " + fx(100 / aW, 2) + " cm, " + fx(dBw, 1) + " dB/m)" : "") + "<br>" +
+      "Steel α<sub>J</sub> = <span class='v' id='cAs'>" + fx(aS, 3) + " Np/m</span> → hull " + fx(t * 1000, 0) + " mm costs <span class='v' id='cSdB'>" + fx(aS * t * 20 / Math.LN10, 2) + " dB</span>" + (aS > 0 ? " (k₀/2 = " + fx(Math.PI * f / RCS.C0, 3) + ")" : "") + "<br>" +
+      "<b>Budget</b> (one ray): internal multipath <span class='v' id='cInt'>" + (100 * (refl1 + refl2)).toFixed(2) + "%</span> · steel Joule <span class='v' id='cSt'>" + (100 * steel).toFixed(2) + "%</span> · into water <span class='v' id='cInto'>" + (100 * into).toFixed(2) + "%</span><br>" +
+      "&nbsp; water path to target r = " + fx(rd, 2) + " m → reaching target range: <span class='v' id='cReach'>" + bl(l10reach) + "</span> of emitted<br>" +
+      "&nbsp; intercepted by a " + A.toFixed(0) + " m² target at " + fx(Rtot, 1) + " m from the Tx (isotropic, ASSUMPTION): " + bl(l10int) + "<br>" +
+      "<b>Surface / seabed bounce</b> relative to the direct path at the target: surface (path " + fx(rsur, 1) + " m) " + bl(lsur) + " · seabed (path " + fx(rbed, 1) + " m) " + bl(lbed) + "<br>" +
+      "<span class='small'>All SLW numbers: HYPOTHESIS. The target's own SLW reflection is unknown, so no echo is computed.</span>";
+    calcT(f, sst, ssw, t);
+  }
+  function calcT(f, sst, ssw, t) {
+    var mu = v("tMu"); $("tMuv").textContent = mu.toFixed(0);
+    var dSt = RCS.skin(f, sst, mu), dSw = RCS.skin(f, ssw, 1), sw = RCS.seawaterEps(f, ssw), aT = RCS.alphaTEM(sw.ep, sw.epp, f), dAl = RCS.skin(f, 3.5e7, 1);
+    STATE.T = { dSteel: dSt, steelWall_dB: 8.685889638 * t / dSt, dSea: dSw, aTEMsea: aT, dAl: dAl };
+    $("tOut").innerHTML = "f = " + (f / 1e6).toFixed(2) + " MHz (from Section C)<br>" +
+      "Steel σ = " + sig3(sst) + " S/m, μᵣ = " + mu.toFixed(0) + ": δ = <span class='v' id='tDst'>" + fx(dSt * 1e6, 3) + " µm</span> → " + fx(t * 1000, 0) + " mm wall ≈ <span class='v' id='tWall'>" + sig3(8.685889638 * t / dSt) + " dB</span> (TEM)<br>" +
+      "Aluminum (3.5×10⁷ S/m): δ = " + fx(dAl * 1e6, 2) + " µm<br>" +
+      "Seawater σ = " + ssw.toFixed(2) + " S/m: good-conductor δ = <span class='v' id='tDsw'>" + fx(dSw * 100, 3) + " cm</span>; exact lossy-medium α<sub>TEM</sub> = " + fx(aT, 2) + " Np/m (1/e " + fx(100 / aT, 2) + " cm, " + fx(aT * 20 / Math.LN10, 0) + " dB/m)";
+  }
+  ["cF", "cGap", "cT", "cSst", "cSw", "cX", "cZs", "cZt", "cH", "cA", "cR1", "cR2", "cR3", "cR4", "cJoule", "cMetal", "tMu"].forEach(function (id) { $(id).addEventListener("input", calcC); $(id).addEventListener("change", calcC); });
+  function setR(val) { ["cR1", "cR2", "cR3", "cR4"].forEach(function (id) { $(id).value = val; }); calcC(); }
+  $("cAll0").addEventListener("click", function () { setR(0); });
+  $("cAll482").addEventListener("click", function () { setR(0.482); });
+  var CDEF = { cF: 433.59, cGap: 20, cT: 76, cSst: Math.log10(5e6), cSw: 4, cX: 1, cZs: 100, cZt: 100, cH: 300, cA: 100, cR1: 0, cR2: 0, cR3: 0, cR4: 0, tMu: 100 };
+  $("cReset").addEventListener("click", function () { Object.keys(CDEF).forEach(function (k) { $(k).value = CDEF[k]; }); $("cJoule").checked = true; $("cMetal").checked = true; calcC(); });
+
+  function all() { calcA(); calcB(); calcC(); }
+  var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(all, 150); });
+  all();
+  STATE.ready = true;
+})();
+
+</script>
+</body>
+</html>
