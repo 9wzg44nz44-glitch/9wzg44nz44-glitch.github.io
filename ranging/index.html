@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ranging a Scalar-Longitudinal Transmitter · SLW Hub</title>
+<meta name="description" content="Analysis page: how far away is a scalar-longitudinal-wave (SLW) transmitter? Ground-image null checkpoints (Monstein &amp; Wesley 2002), wavefront-curvature fill-in with two detectors, and a hypothetical two-detector (SLW + Josephson) ratio. Every claim labeled FACT, HYPOTHESIS or ASSUMPTION.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #110f0c;
+  --bg-elev: #181510;
+  --paper: #1f1b15;
+  --paper-2: #262117;
+  --ink: #f3ead8;
+  --ink-muted: #b7ab95;
+  --ink-faint: #7d7363;
+  --rule: #3a3328;
+  --rule-bright: #5a4e3c;
+  --copper: #c47a3a;
+  --copper-d: #8e5524;
+  --gold: #d4b483;
+  --nz: #4a9b88;
+  --nz-d: #2d6b5c;
+  --hively: #d4923a;
+  --hively-d: #8a5c18;
+  --meyl: #7a8bc4;
+  --warn: #c45c4a;
+  --ok: #6aaa6a;
+  --shadow: 0 18px 50px rgba(0,0,0,.45);
+  --radius: 14px;
+  --font-display: "Fraunces", "Libre Baskerville", Georgia, serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --max: 1120px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(196,122,58,.12), transparent 50%),
+    radial-gradient(900px 500px at 100% 0%, rgba(74,155,136,.08), transparent 45%),
+    var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 100vh;
+  font-size: 17px;
+}
+img, svg { max-width: 100%; display: block; }
+a { color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--ink); }
+code, .mono { font-family: var(--font-mono); font-size: .92em; }
+
+.skip {
+  position: absolute; left: -999px; top: 0;
+}
+.skip:focus { left: 12px; top: 12px; background: var(--paper); padding: 8px 12px; z-index: 99; }
+
+/* Header */
+header.site-header, header.site {
+  position: sticky; top: 0; z-index: 40;
+  backdrop-filter: blur(14px);
+  background: rgba(17,15,12,.92);
+  border-bottom: 1px solid var(--rule);
+}
+header.site .wrap, header.site .header-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 22px;
+}
+.header-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 22px;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--ink);
+  flex: 0 0 auto;
+}
+.brand img { width: 36px; height: 36px; }
+.brand-name { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; letter-spacing: .02em; }
+.brand-sub { display: block; font-family: var(--font-body); font-size: .68rem; color: var(--ink-muted); letter-spacing: .14em; text-transform: uppercase; }
+nav.primary { margin-left: auto; display: flex; flex-wrap: wrap; gap: 4px; }
+nav.primary a {
+  color: var(--ink-muted); text-decoration: none;
+  padding: 7px 11px; border-radius: 999px; font-size: .92rem;
+}
+nav.primary a:hover, nav.primary a[aria-current="page"] {
+  color: var(--ink); background: var(--paper-2);
+}
+nav.primary a[aria-current="page"] { box-shadow: inset 0 0 0 1px var(--rule-bright); }
+.nav-toggle {
+  display: none; margin-left: auto;
+  background: var(--paper); color: var(--ink); border: 1px solid var(--rule);
+  border-radius: 8px; padding: 8px 12px; cursor: pointer;
+}
+
+/* Layout */
+.wrap { max-width: var(--max); margin: 0 auto; padding: 28px 22px 64px; }
+.hero {
+  padding: 48px 0 28px;
+  display: grid; grid-template-columns: 1.4fr .9fr; gap: 36px; align-items: center;
+}
+.kicker {
+  font-size: .78rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--copper); font-weight: 600; margin: 0 0 10px;
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-display); font-weight: 600; line-height: 1.2;
+  margin: 0 0 .5em;
+}
+h1 { font-size: clamp(2rem, 4.4vw, 3.15rem); }
+h2 { font-size: clamp(1.45rem, 2.6vw, 2rem); margin-top: 1.6em; }
+h3 { font-size: 1.2rem; }
+.lede { font-size: 1.18rem; color: var(--ink-muted); max-width: 46rem; }
+.hero-panel {
+  background: linear-gradient(165deg, var(--paper-2), var(--paper));
+  border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: 22px; box-shadow: var(--shadow);
+}
+.hero-panel dt { color: var(--ink-faint); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; }
+.hero-panel dd { margin: 0 0 12px; font-family: var(--font-display); font-size: 1.05rem; }
+
+.banner-edu {
+  border: 1px solid #8a6a2a; background: #f4e6c8;
+  border-radius: 10px; padding: 12px 16px; color: #1a1408; font-size: .95rem;
+  margin: 8px 0 28px;
+}
+.banner-edu a { color: #6b3a08; font-weight: 600; }
+.banner-edu a:hover { color: #000; }
+.banner-edu strong { color: #0a0804; }
+.banner-warn {
+  border: 1px solid #8a2e22; background: #f5d4ce;
+  color: #1a0a08; border-radius: 10px; padding: 12px 16px; margin: 12px 0 22px;
+}
+.banner-warn strong { color: #0a0404; }
+.banner-warn a { color: #6b1e14; font-weight: 600; }
+.banner-legal {
+  border: 1px solid #8a5c18; background: #f7e8c6;
+  color: #1a1408; border-radius: 10px; padding: 14px 16px; margin: 12px 0 22px;
+}
+.banner-legal strong { color: #0a0804; }
+.banner-legal a { color: #6b3a08; font-weight: 600; }
+.banner-legal a:hover { color: #000; }
+
+.grid-3, .grid-2, .grid-4 {
+  display: grid; gap: 16px; margin: 22px 0;
+}
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.card {
+  background: var(--paper); border: 1px solid var(--rule);
+  border-radius: var(--radius); padding: 18px 18px 16px;
+}
+.card h3 { margin-top: 0; }
+.card p:last-child { margin-bottom: 0; }
+.card.nz { border-top: 3px solid var(--nz); }
+.card.hively { border-top: 3px solid var(--hively); }
+.card.meyl { border-top: 3px solid var(--meyl); }
+.card.copper { border-top: 3px solid var(--copper); }
+
+.tag {
+  display: inline-block; font-size: .72rem; letter-spacing: .08em;
+  text-transform: uppercase; padding: 3px 8px; border-radius: 999px;
+  border: 1px solid var(--rule-bright); color: var(--ink-muted); margin-right: 6px;
+}
+.tag.nz { color: var(--nz); border-color: var(--nz-d); }
+.tag.hively { color: var(--hively); border-color: var(--hively-d); }
+.tag.meyl { color: var(--meyl); border-color: #3d4a7a; }
+.tag.warn { color: var(--warn); border-color: #7a342c; }
+.tag.ok { color: var(--ok); }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 14px 0 22px; border: 1px solid var(--rule); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { color: var(--gold); font-weight: 600; background: var(--paper-2); font-size: .82rem; letter-spacing: .04em; }
+tr:last-child td { border-bottom: 0; }
+tbody tr:hover td { background: rgba(255,255,255,.02); }
+td.num, th.num { font-family: var(--font-mono); text-align: right; white-space: nowrap; }
+
+.eq {
+  font-family: var(--font-display); font-style: italic;
+  background: var(--bg-elev); border-left: 3px solid var(--copper);
+  padding: 10px 14px; margin: 12px 0; border-radius: 0 8px 8px 0;
+  overflow-x: auto;
+}
+.footnote { font-size: .88rem; color: var(--ink-muted); }
+
+/* Controls */
+.ctrl { margin: 12px 0 16px; }
+.ctrl label { display: flex; justify-content: space-between; gap: 12px; font-size: .92rem; color: var(--ink-muted); }
+.ctrl input[type=range] { width: 100%; accent-color: var(--copper); }
+.ctrl-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 16px; }
+button, .btn {
+  font-family: var(--font-body); cursor: pointer;
+  background: var(--paper-2); color: var(--ink);
+  border: 1px solid var(--rule-bright); border-radius: 999px;
+  padding: 8px 14px; font-size: .9rem;
+}
+button:hover, .btn:hover { border-color: var(--copper); color: var(--gold); }
+button.primary, .btn.primary {
+  background: linear-gradient(180deg, #c47a3a, #8e5524);
+  border-color: #e0a060; color: #1a120c; font-weight: 600;
+}
+select, input[type=text], input[type=number], textarea {
+  background: var(--bg); color: var(--ink);
+  border: 1px solid var(--rule-bright); border-radius: 8px;
+  padding: 8px 10px; font: inherit; width: 100%;
+}
+textarea { min-height: 70px; resize: vertical; }
+
+.metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.metric {
+  background: var(--bg-elev); border-radius: 10px; padding: 10px 12px;
+  border: 1px solid var(--rule);
+}
+.metric .v { font-family: var(--font-mono); font-size: 1.25rem; color: var(--gold); }
+.metric .l { font-size: .75rem; color: var(--ink-faint); letter-spacing: .08em; text-transform: uppercase; }
+
+canvas.plot {
+  width: 100%; height: 240px; background: #0c0b09;
+  border: 1px solid var(--rule); border-radius: 10px; display: block;
+}
+
+.steps { counter-reset: step; padding-left: 0; list-style: none; }
+.steps li {
+  position: relative; padding: 10px 0 10px 48px;
+  border-bottom: 1px dashed var(--rule);
+}
+.steps li::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; left: 0; top: 10px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--paper-2); border: 1px solid var(--copper);
+  color: var(--gold); display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: .85rem;
+}
+
+.toc a { display: block; padding: 4px 0; color: var(--ink-muted); text-decoration: none; }
+.toc a:hover { color: var(--gold); }
+
+footer.site {
+  border-top: 1px solid var(--rule);
+  padding: 28px 22px 48px; color: var(--ink-faint); font-size: .9rem;
+}
+footer.site .wrap { padding: 0; display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; }
+footer.site strong { color: var(--ink-muted); }
+
+.repo-list { columns: 2; gap: 18px; font-size: .92rem; }
+.repo-list a { display: inline; }
+
+.check-list { list-style: none; padding: 0; }
+.check-list li { padding: 6px 0 6px 28px; position: relative; }
+.check-list li::before { content: "☐"; position: absolute; left: 0; color: var(--copper); }
+
+.log-table input { width: 100%; font-size: .85rem; padding: 5px 6px; }
+
+@media (max-width: 860px) {
+  .hero, .grid-3, .grid-4, footer.site .wrap { grid-template-columns: 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .repo-list { columns: 1; }
+  .nav-toggle { display: inline-block; }
+  nav.primary { display: none; width: 100%; flex-direction: column; }
+  nav.primary.open { display: flex; }
+  .header-inner { flex-wrap: wrap; }
+  .metrics { grid-template-columns: 1fr; }
+}
+@media print {
+  .site-header, .nav-toggle, button, .ctrl { display: none !important; }
+  body { background: #fff; color: #111; }
+  a { color: #000; }
+  .card, .hero-panel { border-color: #ccc; background: #fff; }
+}
+
+/* ---- page-specific ---- */
+.badge { display: inline-block; font-family: var(--font-mono); font-size: .68rem; font-weight: 500; letter-spacing: .08em; padding: 2px 7px; border-radius: 5px; border: 1px solid; vertical-align: 2px; margin-right: 6px; white-space: nowrap; }
+.badge.fact { color: #8fd18f; border-color: #3f7a3f; background: rgba(106,170,106,.12); }
+.badge.hyp { color: #f0a58f; border-color: #8a3f30; background: rgba(196,92,74,.14); }
+.badge.asm { color: #9fb0e6; border-color: #3d4a7a; background: rgba(122,139,196,.14); }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 18px; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 10px; background: var(--bg-elev); font-size: .92rem; margin: 16px 0; }
+.legend > span { display: inline-flex; align-items: baseline; gap: 4px; }
+.claims { list-style: none; padding: 0; margin: 10px 0 16px; }
+.claims li { padding: 7px 0; border-bottom: 1px dashed var(--rule); }
+.claims li:last-child { border-bottom: 0; }
+.eq { font-family: var(--font-mono); background: var(--paper-2); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; margin: 10px 0; overflow-x: auto; white-space: nowrap; font-size: .92rem; color: var(--gold); }
+.calc { border: 1px solid var(--rule-bright); border-radius: var(--radius); background: var(--paper); padding: 16px 18px; margin: 16px 0 22px; }
+.calc h3 { margin: 0 0 6px; }
+.calc .inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px 14px; margin: 10px 0 12px; }
+.calc .inputs label { display: flex; flex-direction: column; gap: 4px; font-size: .86rem; color: var(--ink-muted); }
+.calc .inputs input[type=number] { width: 100%; font-family: var(--font-mono); }
+.calc .check { display: flex; align-items: flex-start; gap: 8px; font-size: .88rem; color: var(--ink-muted); margin: 4px 0 10px; }
+.calc .check input { margin-top: 3px; accent-color: var(--copper); }
+.out { font-family: var(--font-mono); font-size: .92rem; background: var(--bg-elev); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; margin: 8px 0; line-height: 1.6; overflow-x: auto; }
+.out .v { color: var(--gold); }
+.out .bad { color: var(--warn); }
+.plot-wrap { position: relative; width: 100%; margin: 10px 0 4px; }
+canvas.fplot { width: 100%; height: 280px; display: block; background: var(--bg-elev); border: 1px solid var(--rule); border-radius: 10px; }
+.caveat-box { border: 2px solid var(--warn); border-radius: var(--radius); background: rgba(196,92,74,.08); padding: 14px 18px; margin: 16px 0; }
+.caveat-box h3 { color: #f0a58f; margin-top: .6em; }
+.caveat-box h3:first-child { margin-top: 0; }
+.twin-note { border-left: 4px solid var(--copper); padding: 8px 14px; background: var(--bg-elev); border-radius: 0 10px 10px 0; margin: 18px 0; }
+.brand svg { width: 36px; height: 36px; }
+td.num { font-variant-numeric: tabular-nums; }
+@media (max-width: 520px) {
+  .wrap { padding: 20px 14px 48px; }
+  .calc { padding: 12px 12px; }
+  canvas.fplot { height: 240px; }
+  th, td { padding: 8px 8px; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../index.html">Home</a>
+      <a href="../learn.html">Learn</a>
+      <a href="../compare.html">Compare</a>
+      <a href="../fields.html">Fields</a>
+      <a href="../monstein.html">Monstein</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../lab.html">Lab</a>
+      <a href="../kit.html">Kit</a>
+      <a href="../library.html">Library</a>
+      <a href="./" aria-current="page">Ranging</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Analysis page · distance estimation · not one of Experiments A–G</p>
+  <h1>Ranging a Scalar-Longitudinal Transmitter</h1>
+  <p class="lede">Goal: estimate how far away a scalar-longitudinal-wave (SLW) transmitter is, using what a receiver can measure as it moves. We build up in three layers: fixed checkpoints from ground-reflection nulls, a two-detector trick to fill in between them, and a more speculative two-detector ratio.</p>
+
+  <div class="banner-edu">Educational only. Mainstream classical electrodynamics treats free-space radio as transverse (TEM); scalar-longitudinal waves are disputed. Sections 1 and 2 use plain two-path geometry that works for any wave. Section 3 depends on unverified extended-electrodynamics assumptions.</div>
+
+  <div class="legend" role="note" aria-label="Claim labels">
+    <span><span class="badge fact">FACT</span> published measurement, standard geometry or arithmetic</span>
+    <span><span class="badge hyp">HYPOTHESIS</span> unproven physics we are testing</span>
+    <span><span class="badge asm">ASSUMPTION</span> taken as true to make the numbers work; check at your site</span>
+  </div>
+
+  <nav class="toc" aria-label="On this page">
+    <a href="#nulls">1 · Null checkpoints (ground-image multipath)</a>
+    <a href="#curvature">2 · Wavefront-curvature fill-in (between nulls)</a>
+    <a href="#ratio">3 · Two-detector ratio (hypothesis)</a>
+    <a href="#caveats">4 · Caveats, unknowns and falsifiers</a>
+  </nav>
+
+  <!-- ========== SECTION 1 ========== -->
+  <h2 id="nulls">1 · Null checkpoints <span class="badge fact">FACT</span></h2>
+  <p><span class="badge fact">FACT</span> The ground acts like a mirror. The receiver gets the <em>direct</em> wave from the transmitter plus a <em>reflected</em> wave that seems to come from an “image” transmitter below the ground. The reflected path is a little longer. Wherever that extra length is an odd number of half-wavelengths, the two waves partly cancel and the signal dips. These dips (<strong>nulls</strong>) sit at fixed distances that depend only on the wavelength and the two antenna heights. The result holds for any kind of wave, so it does not depend on any SLW theory.</p>
+
+  <h3>The published case: Monstein &amp; Wesley (2002)</h3>
+  <ul class="claims">
+    <li><span class="badge fact">FACT</span> Frequency 433.59&nbsp;MHz, so λ = c/f = 0.6914&nbsp;m. Transmitter ball 4.0&nbsp;m above ground; receiver ball 4.4&nbsp;m above ground.</li>
+    <li><span class="badge fact">FACT</span> To agree with their observations, M&amp;W put the effective reflecting plane λ/2 = 34.6&nbsp;cm <em>below</em> the ground surface (the ground conducts poorly, about 10⁻³&nbsp;S/m). That gives effective heights y = 4.346&nbsp;m and y′ = 4.746&nbsp;m. <span class="badge asm">ASSUMPTION</span> The same λ/2 offset applies to your ground; it depends on soil conductivity.</li>
+    <li><span class="badge fact">FACT</span> Distances: direct path R = √(x² + (y′ − y)²); image path R′ = √(x² + (y′ + y)²), where x is the horizontal distance.</li>
+    <li><span class="badge fact">FACT</span> Their large-distance signal (eq. 15):
+      <div class="eq">S(x) ≈ (ωk / 2x²) · [A² + B² + 2AB·cos k(R′ − R)],&nbsp;&nbsp; k = 2π/λ</div>
+      Here A and B are the direct and image amplitudes. From their data B²/A² = 0.482, so B/A = 0.694.</li>
+    <li><span class="badge fact">FACT</span> Minima occur when R′ − R = (2n + 1)·λ/2, for n = 0, 1, 2, … (eq. 17). Larger n gives a null closer to the transmitter.</li>
+    <li><span class="badge fact">FACT</span> M&amp;W’s Table I predicts minima at 119, 39, 23 and 16&nbsp;m (n = 0…3). They report that their observations agree at <strong>39&nbsp;m and 23&nbsp;m</strong>. For the other two they say the minima “probably exist” but noise and roughly ±5&nbsp;m of GPS error made them indefinite.</li>
+    <li><span class="badge fact">FACT</span> Our own calculation from their effective heights gives 119.2, 39.3, 23.0 and 15.8&nbsp;m (plus 11.7&nbsp;m and closer). Each dip reaches (1 − B/A)², which is <strong>10.3&nbsp;dB</strong> below the direct-wave-only level. The calculator below reproduces these numbers.</li>
+    <li><span class="badge fact">FACT</span> Measured fall-off: in the range 20–100&nbsp;m, M&amp;W’s data fit (1/x²)·[1 + 0.945·cos k(R′ − R)]. Beyond about 100&nbsp;m the signal dropped <em>faster</em> than 1/x²: an extra exponential loss of 1/e per 145&nbsp;m, which they attribute to ground losses.</li>
+  </ul>
+
+  <h3>Which null am I on?</h3>
+  <p>Every null looks alike, so a single dip does not tell you which one it is. Two practical ways to find out:</p>
+  <ol class="steps">
+    <li><span class="badge fact">FACT</span> <strong>Count from a known position.</strong> Start close to the transmitter at a distance you have measured, then walk or drive outward and count the dips. Going outward, n decreases by 1 at each dip; the last dip (n = 0) is the farthest.</li>
+    <li><span class="badge fact">FACT</span> <strong>Switch frequency.</strong> Null positions scale with frequency: for far nulls, x grows roughly in proportion to f. Change f by a known amount (for example +10%) and see which dip moves by the amount the calculator predicts for each n. The matching prediction identifies n. At 1.1 × 433.59&nbsp;MHz the 39.3&nbsp;m null moves to about 42.7&nbsp;m and the 119.2&nbsp;m null to about 129.3&nbsp;m.</li>
+  </ol>
+
+  <div class="calc" id="calc1">
+    <h3>Null calculator <span class="badge fact">FACT</span></h3>
+    <p class="footnote">Change any box; results update instantly. The defaults are Monstein &amp; Wesley’s setup.</p>
+    <div class="inputs">
+      <label>Frequency f (MHz)<input type="number" id="c1f" value="433.59" step="0.01" min="1"></label>
+      <label>Tx height, physical (m)<input type="number" id="c1tx" value="4.0" step="0.1" min="0"></label>
+      <label>Rx height, physical (m)<input type="number" id="c1rx" value="4.4" step="0.1" min="0"></label>
+      <label>B/A (image ÷ direct amplitude)<input type="number" id="c1ba" value="0.694" step="0.001" min="0" max="0.999"></label>
+    </div>
+    <label class="check"><input type="checkbox" id="c1round" checked> <span>Round the λ/2 offset to the nearest millimetre, as M&amp;W publish it (0.346&nbsp;m). Effective height = physical height + λ/2. Untick to use the exact λ/2. At the defaults the exact value 0.3457&nbsp;m gives 39.2 and 119.1&nbsp;m instead of 39.3 and 119.2&nbsp;m.</span></label>
+    <div class="out" id="c1out" aria-live="polite"></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th class="num">n</th><th class="num">null at x (m)</th><th class="num">R (m)</th><th class="num">R′ (m)</th><th class="num">R′ − R (m)</th></tr></thead>
+      <tbody id="c1tbody"></tbody>
+    </table></div>
+    <p class="footnote" id="c1note"></p>
+    <div class="plot-wrap"><canvas class="fplot" id="c1plot" role="img" aria-label="Plot of ground-image factor F in dB versus distance from 10 to 300 metres"></canvas></div>
+    <p class="footnote">Plot: multipath factor F(x) = 1 + (B/A)² + 2(B/A)·cos k(R′ − R), in dB relative to the direct wave alone (0&nbsp;dB), against distance x on a log scale from 10 to 300&nbsp;m. The 1/x² spreading is <em>not</em> included, so only the ground-reflection ripple shows. Dashed lines mark the nulls.</p>
+  </div>
+
+  <!-- ========== SECTION 2 ========== -->
+  <h2 id="curvature">2 · Wavefront-curvature fill-in (between nulls)</h2>
+  <p>Nulls act as mile-markers, but you are usually somewhere between two of them. To fill the gap, place <strong>two identical SLW detectors</strong> a known distance <em>d</em> apart on the line pointing at the transmitter. The nearer detector sits at r₁ and the farther one at r₂ = r₁ + d. Because the wave spreads out, the nearer detector reads slightly stronger.</p>
+  <ul class="claims">
+    <li><span class="badge fact">FACT</span> M&amp;W measured power falling as 1/x² (amplitude ∝ 1/x) from 20 to 100&nbsp;m, with extra loss beyond 100&nbsp;m.</li>
+    <li><span class="badge asm">ASSUMPTION</span> Amplitude falls as 1/r at <em>your</em> site over the baseline.</li>
+    <li><span class="badge fact">FACT</span> (arithmetic, given that assumption) A₁/A₂ = r₂/r₁ = (r₁ + d)/r₁, so
+      <div class="eq">r₁ = d / (A₁/A₂ − 1)</div>
+      No Josephson junction or exotic detector is needed, just two matched SLW detectors.</li>
+    <li><span class="badge fact">FACT</span> <strong>Divide out the ground ripple first.</strong> Each reading includes the multipath factor F from Section 1, and F differs between the two positions. Divide each amplitude by √F at its own position before taking the ratio. This needs B/A to have been measured, for example from null depth.</li>
+    <li><span class="badge fact">FACT</span> <strong>Sensitivity is the hard part.</strong> At 80&nbsp;m with d = 2&nbsp;m the amplitude ratio is only 1.025 (0.21&nbsp;dB). An error of just ±0.02&nbsp;dB moves the answer to about 73–88&nbsp;m. You need detectors and electronics stable to about 0.02&nbsp;dB. A longer baseline helps: the ratio grows roughly in proportion to d.</li>
+    <li><span class="badge fact">FACT</span> If M&amp;W’s extra loss (1/e per 145&nbsp;m in power) is present and not removed, it adds about 0.06&nbsp;dB across a 2&nbsp;m baseline. That makes the 80&nbsp;m example read about 62&nbsp;m. <span class="badge asm">ASSUMPTION</span> M&amp;W saw this extra loss beyond 100&nbsp;m; whether it also acts at shorter range at your site is unknown.</li>
+  </ul>
+
+  <div class="calc" id="calc2">
+    <h3>Two-detector curvature calculator <span class="badge asm">ASSUMPTION: 1/r amplitude</span></h3>
+    <div class="inputs">
+      <label>Baseline d (m)<input type="number" id="c2d" value="2" step="0.1" min="0.01"></label>
+      <label>Measured ratio, near ÷ far, after F correction (dB)<input type="number" id="c2db" value="0.2145" step="0.001"></label>
+    </div>
+    <p class="footnote">A ratio in dB is the same number whether you read power or amplitude, because dB = 20·log₁₀(amplitude ratio) = 10·log₁₀(power ratio).</p>
+    <div class="out" id="c2out" aria-live="polite"></div>
+  </div>
+
+  <!-- ========== SECTION 3 ========== -->
+  <h2 id="ratio">3 · Two-detector ratio <span class="badge hyp">HYPOTHESIS</span></h2>
+  <p>This idea uses two <em>different</em> detectors: an SLW power detector and a Josephson-junction (JJ) phase detector. Both see the same transmitter current I₀. If their readings depend on I₀ in different ways, dividing one by the other could cancel the unknown transmitter strength. This section works through when that also leaves range information and when it does not.</p>
+  <ul class="claims">
+    <li><span class="badge hyp">HYPOTHESIS</span> SLW detector power: <span class="mono">P<sub>L</sub> = C<sub>L</sub>·I₀²·r<sup>−p</sup>·F(r)</span>, where F is the Section 1 ground factor and p is the power fall-off exponent.</li>
+    <li><span class="badge hyp">HYPOTHESIS</span> JJ phase: <span class="mono">φ = C<sub>J</sub>·I₀·r<sup>−1</sup>·G(r)</span>. This assumes the junction responds linearly to the vector potential A, per Hively &amp; Loebl’s extended electrodynamics as relayed by Dan; it has <em>not</em> yet been checked against the paper’s equation numbers. <span class="badge asm">ASSUMPTION</span> G = 1 (no ground-reflection effect in the JJ channel).</li>
+    <li><span class="badge fact">FACT</span> (algebra, given those models) <span class="mono">P<sub>L</sub>/φ² = (C<sub>L</sub>/C<sub>J</sub>²)·r<sup>2−p</sup>·F(r)</span>. The transmitter current I₀ cancels.</li>
+    <li><span class="badge fact">FACT</span> (algebra) <strong>If p = 2</strong> (both channels effectively 1/r in amplitude), range cancels too. Any combination P<sub>L</sub><sup>m</sup>·φ<sup>n</sup> carries I₀ and r with the <em>same</em> exponent (2m + n), so removing I₀ always removes r.</li>
+    <li><span class="badge hyp">HYPOTHESIS</span> The method therefore works only if the SLW <em>field</em> falls as 1/r² (power p = 4). You also need <strong>one calibration shot</strong> at a known distance r<sub>cal</sub>. Then:
+      <div class="eq">r = r<sub>cal</sub> · √[ (φ²/P<sub>L</sub>) ÷ (φ<sub>cal</sub>²/P<sub>cal</sub>) · F(r)/F(r<sub>cal</sub>) ]</div>
+      Because F(r) depends on the unknown r, the equation has to be solved numerically.</li>
+  </ul>
+
+  <h3>Worked example (verified in JavaScript and Python)</h3>
+  <ul class="claims">
+    <li><span class="badge asm">ASSUMPTION</span> p = 4, G = 1, and M&amp;W geometry and B/A (Section 1 defaults). Calibration at r<sub>cal</sub> = 20&nbsp;m; the true target is at 80&nbsp;m.</li>
+    <li><span class="badge fact">FACT</span> F(20&nbsp;m) = 2.246 (R′ − R = 1.966&nbsp;m); F(80&nbsp;m) = 1.424 (R′ − R = 0.514&nbsp;m).</li>
+    <li><span class="badge fact">FACT</span> P<sub>L</sub> ratio = (20/80)⁴ × 1.424/2.246 = 0.00248, i.e. −26.1&nbsp;dB. That splits into −24.1&nbsp;dB from distance and −2.0&nbsp;dB from the ground path. φ ratio = 20/80 = 0.250.</li>
+    <li><span class="badge fact">FACT</span> Quantity (φ ratio)² ÷ P<sub>L</sub> ratio = 0.0625 / 0.00248 = 25.24.</li>
+    <li><span class="badge fact">FACT</span> <strong>Without</strong> the F correction: r = 20·√25.24 = 100.5&nbsp;m, which is 26% too far. <strong>With</strong> F(80)/F(20) = 0.634: r = 80.0&nbsp;m.</li>
+    <li><span class="badge fact">FACT</span> <strong>Watch out: more than one answer.</strong> Because F ripples, the equation has several solutions between 10 and 300&nbsp;m. For this example they are 22.7, 23.3, 37.0, 42.4 and 80.0&nbsp;m. Simple repeated substitution starting from F ratio = 1 jumps around (100.5 → 38.0 → 26.3 → 91.3 → 55.3 …) and does not settle reliably. The calculator therefore scans the whole range and lists every solution.</li>
+    <li><span class="badge fact">FACT</span> <strong>Picking the right answer:</strong> use the null bracket from Section 1. Here both 42.4 and 80.0&nbsp;m lie between the 39.3&nbsp;m and 119.2&nbsp;m nulls, so the bracket alone is not enough; add the Section 2 curvature estimate. <span class="badge asm">ASSUMPTION</span> A repeat at a second frequency also works if the model holds at both frequencies: the true distance stays put while the false solutions move.</li>
+  </ul>
+
+  <div class="calc" id="calc3">
+    <h3>Two-detector ratio calculator <span class="badge hyp">HYPOTHESIS: p = 4, G = 1</span></h3>
+    <p class="footnote">Uses the frequency, heights and B/A from the Section 1 calculator for F(r). Ratios are target ÷ calibration.</p>
+    <div class="inputs">
+      <label>Calibration distance r<sub>cal</sub> (m)<input type="number" id="c3rcal" value="20" step="1" min="1"></label>
+      <label>P<sub>L</sub> ratio, target ÷ cal (dB)<input type="number" id="c3pl" value="-26.062" step="0.01"></label>
+      <label>φ ratio, target ÷ cal (linear)<input type="number" id="c3phi" value="0.25" step="0.01" min="0"></label>
+    </div>
+    <div class="out" id="c3out" aria-live="polite"></div>
+  </div>
+
+  <!-- ========== SECTION 4 ========== -->
+  <h2 id="caveats">4 · Caveats, unknowns and falsifiers</h2>
+  <div class="caveat-box">
+    <h3>What does not depend on SLW theory</h3>
+    <ul class="claims">
+      <li><span class="badge fact">FACT</span> Null positions depend only on wavelength and the two (effective) heights.</li>
+      <li><span class="badge fact">FACT</span> The F correction is plain geometry once B/A has been measured at your site.</li>
+    </ul>
+    <h3>What depends on extended electrodynamics (EED)</h3>
+    <ul class="claims">
+      <li><span class="badge hyp">HYPOTHESIS</span> A pure scalar wave exists with E = 0 and B = 0.</li>
+      <li><span class="badge hyp">HYPOTHESIS</span> Its 1/r fall-off, which Section 2 and the JJ channel in Section 3 rely on.</li>
+      <li><span class="badge hyp">HYPOTHESIS</span> A linear Josephson-junction response to it.</li>
+      <li><span class="badge hyp">HYPOTHESIS</span> The power exponent p (range information needs p = 4).</li>
+    </ul>
+    <h3>Unknowns</h3>
+    <ul class="claims">
+      <li><span class="badge asm">ASSUMPTION</span> G = 1: the reflection coefficient for the JJ channel is unknown.</li>
+      <li><span class="badge asm">ASSUMPTION</span> The ratio of source strengths for SW (scalar wave) and SLW is fixed; nobody has checked that it is.</li>
+    </ul>
+    <h3>Falsifiers: results that would sink the idea</h3>
+    <ul class="claims">
+      <li><strong>(a)</strong> P<sub>L</sub>/φ² stays flat as distance changes. That means p = 2, so the ratio carries no range information.</li>
+      <li><strong>(b)</strong> The JJ nulls fall at different distances from the SLW nulls. Then the two detectors are not seeing the same wave.</li>
+      <li><strong>(c)</strong> The JJ reading does not respond when the transmitter is keyed on and off, or does not fall as 1/r.</li>
+      <li><strong>(d)</strong> Either reading survives the controls: transmitter off, a dummy load in place of the antenna, and the detector sealed in a Faraday cage. <span class="badge fact">FACT</span> A sealed cage strips ordinary TEM radio. <span class="badge hyp">HYPOTHESIS</span> SLW passes through the cage wall.</li>
+    </ul>
+    <p><span class="badge fact">FACT</span> Practical point: Josephson junctions need cryogenic cooling and magnetic shielding. This is not a backyard detector.</p>
+  </div>
+
+  <div class="twin-note"><strong>No Wolfram Cloud twin planned (analysis page); numbers cross-checked in Python.</strong> The Python script reproduces the calculator outputs: null distances, F values, the Section 2 example, the worked example and its full root list.</div>
+
+  <h2>Sources</h2>
+  <ul>
+    <li>Monstein, C. &amp; Wesley, J.P., “Observation of scalar longitudinal electrodynamic waves”, <em>Europhysics Letters</em> <strong>59</strong>(4), 514 (2002). Hub summary: <a href="../monstein.html">Monstein page</a>.</li>
+    <li>Hively, L.M. &amp; Loebl, A.S., “Classical and extended electrodynamics”, <em>Physics Essays</em> <strong>32</strong> (2019), plus the 2022 Erratum.</li>
+    <li>Dan’s reviewed note, 2026-09-27.</li>
+  </ul>
+  <p class="footnote">Analysis page, 27 Sep 2026. The JJ-channel model is relayed from Dan’s reading of Hively &amp; Loebl and has not been checked against the paper’s equation numbers. This page © 2026 Dan Britton.</p>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub<br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  // nav toggle (inline copy of hub js/app.js behaviour)
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  var C = 299792458;
+  function $(id) { return document.getElementById(id); }
+  function num(id, dflt) { var v = parseFloat($(id).value); return isFinite(v) ? v : dflt; }
+  function fx(v, d) { return isFinite(v) ? v.toFixed(d) : "—"; }
+
+  // ---------- shared geometry model (Section 1) ----------
+  function model() {
+    var f = num("c1f", 433.59), tx = num("c1tx", 4.0), rx = num("c1rx", 4.4), ba = num("c1ba", 0.694);
+    var lam = C / (f * 1e6);
+    var off = $("c1round").checked ? Math.round(lam / 2 * 1000) / 1000 : lam / 2;
+    var m = { f: f, lam: lam, off: off, y1: tx + off, y2: rx + off, ba: ba, k: 2 * Math.PI / lam, ok: f > 0 && tx >= 0 && rx >= 0 && ba >= 0 && ba < 1 };
+    m.R = function (x) { return Math.hypot(x, m.y2 - m.y1); };
+    m.Rp = function (x) { return Math.hypot(x, m.y1 + m.y2); };
+    m.dR = function (x) { return m.Rp(x) - m.R(x); };
+    m.F = function (x) { return 1 + m.ba * m.ba + 2 * m.ba * Math.cos(m.k * m.dR(x)); };
+    return m;
+  }
+  // R'-R decreases monotonically from 2*min(y1,y2) at x=0 towards 0; solve R'-R = target by bisection
+  function solveX(m, target) {
+    var lo = 0, hi = 1e6;
+    if (target >= m.dR(0) || target <= m.dR(hi)) return NaN;
+    for (var i = 0; i < 200; i++) {
+      var mid = 0.5 * (lo + hi);
+      if (m.dR(mid) > target) lo = mid; else hi = mid;
+    }
+    return 0.5 * (lo + hi);
+  }
+  function nulls(m) {
+    var out = [];
+    for (var n = 0; n < 5000; n++) {
+      var x = solveX(m, (2 * n + 1) * m.lam / 2);
+      if (!isFinite(x)) break;
+      out.push({ n: n, x: x });
+    }
+    return out;
+  }
+
+  // ---------- Section 1 ----------
+  function drawPlot(m, nl) {
+    var cv = $("c1plot"), dpr = window.devicePixelRatio || 1;
+    var W = cv.clientWidth, H = cv.clientHeight;
+    if (!W || !H) return;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    var g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.clearRect(0, 0, W, H);
+    var L = 46, Rm = 12, T = 12, B = 34, pw = W - L - Rm, ph = H - T - B;
+    var x0 = 10, x1 = 300, lx0 = Math.log10(x0), lx1 = Math.log10(x1);
+    var ymax = Math.ceil(20 * Math.log10(1 + m.ba) / 2) * 2 + 2;
+    var ymin = Math.floor(20 * Math.log10(Math.max(1 - m.ba, 1e-3)) / 2) * 2 - 2;
+    if (ymin < -40) ymin = -40;
+    function X(x) { return L + (Math.log10(x) - lx0) / (lx1 - lx0) * pw; }
+    function Y(db) { return T + (ymax - db) / (ymax - ymin) * ph; }
+    g.font = "11px ui-monospace, Menlo, monospace"; g.lineWidth = 1;
+    // grid
+    g.strokeStyle = "#3a3328"; g.fillStyle = "#b7ab95"; g.textAlign = "right"; g.textBaseline = "middle";
+    var step = (ymax - ymin) > 20 ? 5 : 2;
+    for (var d = Math.ceil(ymin / step) * step; d <= ymax; d += step) {
+      g.beginPath(); g.moveTo(L, Y(d)); g.lineTo(L + pw, Y(d)); g.stroke();
+      g.fillText(d + "", L - 5, Y(d));
+    }
+    g.textAlign = "center"; g.textBaseline = "top";
+    [10, 20, 30, 50, 100, 200, 300].forEach(function (x) {
+      g.beginPath(); g.moveTo(X(x), T); g.lineTo(X(x), T + ph); g.stroke();
+      g.fillText(x + "", X(x), T + ph + 4);
+    });
+    g.fillText("distance x (m, log scale)", L + pw / 2, T + ph + 18);
+    g.save(); g.translate(11, T + ph / 2); g.rotate(-Math.PI / 2); g.textBaseline = "middle"; g.fillText("F (dB)", 0, 0); g.restore();
+    // 0 dB reference
+    g.strokeStyle = "#5a4e3c"; g.beginPath(); g.moveTo(L, Y(0)); g.lineTo(L + pw, Y(0)); g.stroke();
+    // null markers
+    g.strokeStyle = "rgba(196,92,74,.8)"; g.setLineDash([4, 4]); g.fillStyle = "#f0a58f";
+    nl.forEach(function (o) {
+      if (o.x < x0 || o.x > x1) return;
+      g.beginPath(); g.moveTo(X(o.x), T); g.lineTo(X(o.x), T + ph); g.stroke();
+    });
+    g.setLineDash([]);
+    // curve
+    g.strokeStyle = "#d4b483"; g.lineWidth = 1.8; g.beginPath();
+    var N = Math.max(600, Math.round(pw * 3));
+    for (var i = 0; i <= N; i++) {
+      var x = Math.pow(10, lx0 + (lx1 - lx0) * i / N), v = 10 * Math.log10(Math.max(m.F(x), 1e-12));
+      v = Math.max(ymin, Math.min(ymax, v));
+      if (i === 0) g.moveTo(X(x), Y(v)); else g.lineTo(X(x), Y(v));
+    }
+    g.stroke();
+    // labels for nulls >= 10 m (skip if crowded)
+    g.fillStyle = "#f0a58f"; g.textBaseline = "top"; g.textAlign = "center"; var lastX = -1e9;
+    nl.slice().reverse().forEach(function (o) {
+      if (o.x < x0 || o.x > x1) return;
+      var px = X(o.x); if (px - lastX < 34) return;
+      g.fillText(o.x.toFixed(1), px, T + 2); lastX = px;
+    });
+  }
+
+  var lastModel = null;
+  function calc1() {
+    var m = model(); lastModel = m;
+    var out = $("c1out"), tb = $("c1tbody"), note = $("c1note");
+    if (!m.ok) { out.innerHTML = '<span class="bad">Check inputs: f &gt; 0, heights ≥ 0, 0 ≤ B/A &lt; 1.</span>'; tb.innerHTML = ""; note.textContent = ""; return m; }
+    var nl = nulls(m), shown = nl.filter(function (o) { return o.x >= 10; }), hidden = nl.length - shown.length;
+    var depth = 20 * Math.log10(Math.max(1 - m.ba, 1e-12));
+    out.innerHTML = "λ = <span class='v'>" + fx(m.lam, 4) + " m</span> · λ/2 offset = <span class='v'>" + fx(m.off, 4) + " m</span><br>" +
+      "effective heights: Tx <span class='v'>" + fx(m.y1, 3) + " m</span>, Rx <span class='v'>" + fx(m.y2, 3) + " m</span><br>" +
+      "null depth vs direct wave alone = <span class='v'>" + fx(depth, 1) + " dB</span> · nulls at x ≥ 10 m: <span class='v'>" +
+      (shown.length ? shown.map(function (o) { return o.x.toFixed(1); }).join(", ") + " m" : "none") + "</span>";
+    tb.innerHTML = shown.map(function (o) {
+      return "<tr><td class='num'>" + o.n + "</td><td class='num'><strong>" + o.x.toFixed(1) + "</strong></td><td class='num'>" +
+        m.R(o.x).toFixed(3) + "</td><td class='num'>" + m.Rp(o.x).toFixed(3) + "</td><td class='num'>" + m.dR(o.x).toFixed(4) + "</td></tr>";
+    }).join("") || "<tr><td colspan='5'>No nulls beyond 10 m for these heights.</td></tr>";
+    note.textContent = (hidden > 0 ? hidden + " more null" + (hidden > 1 ? "s" : "") + " lie closer than 10 m (not listed; M&W’s approximation is meant for x > 10 m). " : "") +
+      "n = 0 is the farthest null. Beyond the n = 0 null there are no more dips; the signal just falls with distance.";
+    drawPlot(m, nl);
+    return m;
+  }
+
+  // ---------- Section 2 ----------
+  function r1From(d, db) { var ratio = Math.pow(10, db / 20); return ratio > 1 ? d / (ratio - 1) : NaN; }
+  function calc2() {
+    var d = num("c2d", 2), db = num("c2db", 0.2145), ratio = Math.pow(10, db / 20), r1 = r1From(d, db), out = $("c2out");
+    if (!(d > 0) || !(ratio > 1)) { out.innerHTML = '<span class="bad">Need d &gt; 0 and a ratio above 0 dB (nearer detector stronger).</span>'; return; }
+    var rp = r1From(d, db + 0.02), rm = r1From(d, db - 0.02);
+    out.innerHTML = "amplitude ratio A₁/A₂ = <span class='v'>" + fx(ratio, 4) + "</span><br>" +
+      "distance to nearer detector r₁ = d / (A₁/A₂ − 1) = <span class='v'>" + fx(r1, 1) + " m</span> (far detector at " + fx(r1 + d, 1) + " m)<br>" +
+      "if the ratio is off by ±0.02 dB: r₁ = <span class='v'>" + fx(rp, 1) + "</span> to <span class='v'>" + (isFinite(rm) ? fx(rm, 1) : "∞") + " m</span>";
+  }
+
+  // ---------- Section 3 ----------
+  function calc3() {
+    var m = lastModel || model(), out = $("c3out");
+    var rcal = num("c3rcal", 20), pldb = num("c3pl", -26.062), phi = num("c3phi", 0.25);
+    if (!m.ok || !(rcal > 0) || !(phi > 0)) { out.innerHTML = '<span class="bad">Check inputs (Section 1 values, r_cal &gt; 0, φ ratio &gt; 0).</span>'; return; }
+    var pl = Math.pow(10, pldb / 10), Q = phi * phi / pl, Fc = m.F(rcal);
+    var rNoF = rcal * Math.sqrt(Q);
+    function g(x) { return x - rcal * Math.sqrt(Q * m.F(x) / Fc); }
+    var roots = [], step = 0.01, a = 10, ga = g(a);
+    while (a < 300) {
+      var b = a + step, gb = g(b);
+      if (ga === 0) roots.push(a);
+      else if (ga * gb < 0) {
+        var lo = a, hi = b;
+        for (var i = 0; i < 60; i++) { var mid = 0.5 * (lo + hi); if (g(lo) * g(mid) <= 0) hi = mid; else lo = mid; }
+        roots.push(0.5 * (lo + hi));
+      }
+      a = b; ga = gb;
+    }
+    var nl = nulls(m);
+    function bracket(x) {
+      var inner = null, outer = null; // nulls sorted by n asc => x desc
+      nl.forEach(function (o) { if (o.x <= x && (inner === null || o.x > inner.x)) inner = o; if (o.x > x && (outer === null || o.x < outer.x)) outer = o; });
+      return (inner ? inner.x.toFixed(1) : "0") + "–" + (outer ? outer.x.toFixed(1) : "∞") + " m";
+    }
+    out.innerHTML = "F(r_cal) = <span class='v'>" + fx(Fc, 3) + "</span> (R′ − R = " + fx(m.dR(rcal), 3) + " m)<br>" +
+      "P_L ratio = <span class='v'>" + pl.toPrecision(3) + "</span> · quantity (φ ratio)²/(P_L ratio) = <span class='v'>" + fx(Q, 2) + "</span><br>" +
+      "without F correction: r = r_cal·√Q = <span class='v'>" + fx(rNoF, 1) + " m</span><br>" +
+      "with F correction, all solutions 10–300 m:<br>" +
+      (roots.length ? roots.map(function (r) {
+        return "&nbsp;&nbsp;r = <span class='v'>" + r.toFixed(1) + " m</span> · F(r)/F(r_cal) = " + fx(m.F(r) / Fc, 3) + " · between nulls " + bracket(r);
+      }).join("<br>") : "&nbsp;&nbsp;<span class='bad'>none in 10–300 m</span>") +
+      "<br><span style='color:var(--ink-muted)'>Pick the solution that matches your null count (Section 1) and curvature estimate (Section 2).</span>";
+    out.setAttribute("data-roots", roots.map(function (r) { return r.toFixed(2); }).join(","));
+  }
+
+  function all() { calc1(); calc2(); calc3(); }
+  ["c1f", "c1tx", "c1rx", "c1ba", "c1round"].forEach(function (id) { $(id).addEventListener("input", all); $(id).addEventListener("change", all); });
+  ["c2d", "c2db"].forEach(function (id) { $(id).addEventListener("input", calc2); });
+  ["c3rcal", "c3pl", "c3phi"].forEach(function (id) { $(id).addEventListener("input", calc3); });
+  var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { if (lastModel && lastModel.ok) drawPlot(lastModel, nulls(lastModel)); }, 120); });
+  all();
+})();
+
+</script>
+</body>
+</html>
