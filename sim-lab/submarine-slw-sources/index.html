@@ -46,7 +46,7 @@
     <ul>
       <li><code>/workspace/sim-lab/sub-sources/REDO_SLW.md</code> (last modified 2026-09-26 07:24 EDT)</li><li><code>/workspace/sim-lab/sub-sources/redo_slw_numbers.md</code> (last modified 2026-09-26 07:22 EDT)</li>
       <li>Converted to HTML 2026-09-28 (EDT) as a faithful conversion: text, numbers, equations and labels are the source's own. No new equations were added; only the TEM tags described below and the edits listed here were made.</li>
-      <li>§8: one internal process bullet about an unsent internal summary draft was omitted (outbound/internal drafts are excluded from Pages). Batch-1 files (SOURCES.md, SUMMARY.md, VERIFY.md) are superseded and are not published.</li>
+      <li>Appendix table A: the vertical bars in the header cells |Z| and |η| were escaped so the Markdown table renders; no values changed.</li><li>§8: one internal process bullet about an unsent internal summary draft was omitted (outbound/internal drafts are excluded from Pages). Batch-1 files (SOURCES.md, SUMMARY.md, VERIFY.md) are superseded and are not published.</li>
       <li>Status lines inside the source (for example "nothing published", "HELD", "draft") describe the state when it was written. This page is its GitHub Pages twin, published 2026-09-28.</li>
       <li>No Wolfram Cloud twin planned (analysis/report page, not one of Experiments A–G). Numbers are Python-computed; WL compare OWED where the source says so.</li>
     </ul>
@@ -709,18 +709,169 @@
 </ul>
 <h2 id="appendix-1">Appendix: numbers (redo_slw_numbers.md)</h2>
 <h3>A. Audit block (TEM column = reference only, NOT used for ranking) <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></h3>
-<p>| f | ε′ | ε″ | tanδ | σ_H (S/m) | Hively Eq.37 |Z| (Ω) | TEM |η| (Ω, ref) | |Z|/|η| | (a1) 1/e | TEM 1/e (ref) | α_a1/α_TEM | α_a1 / high-tanδ limit |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| 60 Hz | 73.3 | 1.29e+09 | 1.75e+07 | 4.29 | 2.51e-06 | 0.0105 | 2.39e-04 | 186 km | 31.4 m | 1.69e-04 | 1.000 |
-| 400 Hz | 73.3 | 1.93e+08 | 2.63e+06 | 4.29 | 1.67e-05 | 0.0271 | 6.17e-04 | 27.9 km | 12.1 m | 4.36e-04 | 1.000 |
-| 1 kHz (sonar low) | 73.3 | 7.71e+07 | 1.05e+06 | 4.29 | 4.18e-05 | 0.0429 | 9.75e-04 | 11.1 km | 7.68 m | 6.89e-04 | 1.000 |
-| 3 kHz (sonar mid) | 73.3 | 2.57e+07 | 3.51e+05 | 4.29 | 1.25e-04 | 0.0743 | 0.00169 | 3.71 km | 4.44 m | 0.00119 | 1.000 |
-| 10 kHz (PWM carrier / sonar) | 73.3 | 7.71e+06 | 1.05e+05 | 4.29 | 4.18e-04 | 0.136 | 0.00308 | 1.11 km | 2.43 m | 0.00218 | 1.000 |
-| 100 kHz (PWM harm. / sonar high) | 73.3 | 7.71e+05 | 1.05e+04 | 4.29 | 0.00418 | 0.429 | 0.00975 | 111 m | 76.8 cm | 0.00689 | 1.000 |
-| 1 MHz (PWM edge) | 73.3 | 7.71e+04 | 1.05e+03 | 4.29 | 0.0418 | 1.36 | 0.0308 | 11.1 m | 24.3 cm | 0.0218 | 1.000 |
-| 10 MHz (PWM edge top) | 73.3 | 7.71e+03 | 105 | 4.29 | 0.418 | 4.29 | 0.0975 | 1.11 m | 7.72 cm | 0.0693 | 1.000 |
-| 1057.8 MHz (Expt G check) | 73.0 | 77.5 | 1.06 | 4.56 | 30.2 | 36.5 | 0.828 | 1.45 cm | 1.1 cm | 0.76 | 0.728 |
-| 2.45 GHz (magnetron) | 71.7 | 41.9 | 0.585 | 5.72 | 38.4 | 41.3 | 0.929 | 9.11 mm | 8.17 mm | 0.897 | 0.505 | <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<p class="tem-note">&#9888; Rows/columns in this table that refer to TEM / classical / cage SE: <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>f</th>
+<th>ε′</th>
+<th>ε″</th>
+<th>tanδ</th>
+<th>σ_H (S/m)</th>
+<th>Hively Eq.37 |Z| (Ω)</th>
+<th>TEM |η| (Ω, ref)</th>
+<th>|Z|/|η|</th>
+<th>(a1) 1/e</th>
+<th>TEM 1/e (ref)</th>
+<th>α_a1/α_TEM</th>
+<th>α_a1 / high-tanδ limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>60 Hz</td>
+<td>73.3</td>
+<td>1.29e+09</td>
+<td>1.75e+07</td>
+<td>4.29</td>
+<td>2.51e-06</td>
+<td>0.0105</td>
+<td>2.39e-04</td>
+<td>186 km</td>
+<td>31.4 m</td>
+<td>1.69e-04</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>400 Hz</td>
+<td>73.3</td>
+<td>1.93e+08</td>
+<td>2.63e+06</td>
+<td>4.29</td>
+<td>1.67e-05</td>
+<td>0.0271</td>
+<td>6.17e-04</td>
+<td>27.9 km</td>
+<td>12.1 m</td>
+<td>4.36e-04</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>1 kHz (sonar low)</td>
+<td>73.3</td>
+<td>7.71e+07</td>
+<td>1.05e+06</td>
+<td>4.29</td>
+<td>4.18e-05</td>
+<td>0.0429</td>
+<td>9.75e-04</td>
+<td>11.1 km</td>
+<td>7.68 m</td>
+<td>6.89e-04</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>3 kHz (sonar mid)</td>
+<td>73.3</td>
+<td>2.57e+07</td>
+<td>3.51e+05</td>
+<td>4.29</td>
+<td>1.25e-04</td>
+<td>0.0743</td>
+<td>0.00169</td>
+<td>3.71 km</td>
+<td>4.44 m</td>
+<td>0.00119</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>10 kHz (PWM carrier / sonar)</td>
+<td>73.3</td>
+<td>7.71e+06</td>
+<td>1.05e+05</td>
+<td>4.29</td>
+<td>4.18e-04</td>
+<td>0.136</td>
+<td>0.00308</td>
+<td>1.11 km</td>
+<td>2.43 m</td>
+<td>0.00218</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>100 kHz (PWM harm. / sonar high)</td>
+<td>73.3</td>
+<td>7.71e+05</td>
+<td>1.05e+04</td>
+<td>4.29</td>
+<td>0.00418</td>
+<td>0.429</td>
+<td>0.00975</td>
+<td>111 m</td>
+<td>76.8 cm</td>
+<td>0.00689</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>1 MHz (PWM edge)</td>
+<td>73.3</td>
+<td>7.71e+04</td>
+<td>1.05e+03</td>
+<td>4.29</td>
+<td>0.0418</td>
+<td>1.36</td>
+<td>0.0308</td>
+<td>11.1 m</td>
+<td>24.3 cm</td>
+<td>0.0218</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>10 MHz (PWM edge top)</td>
+<td>73.3</td>
+<td>7.71e+03</td>
+<td>105</td>
+<td>4.29</td>
+<td>0.418</td>
+<td>4.29</td>
+<td>0.0975</td>
+<td>1.11 m</td>
+<td>7.72 cm</td>
+<td>0.0693</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>1057.8 MHz (Expt G check)</td>
+<td>73.0</td>
+<td>77.5</td>
+<td>1.06</td>
+<td>4.56</td>
+<td>30.2</td>
+<td>36.5</td>
+<td>0.828</td>
+<td>1.45 cm</td>
+<td>1.1 cm</td>
+<td>0.76</td>
+<td>0.728</td>
+</tr>
+<tr>
+<td>2.45 GHz (magnetron)</td>
+<td>71.7</td>
+<td>41.9</td>
+<td>0.585</td>
+<td>5.72</td>
+<td>38.4</td>
+<td>41.3</td>
+<td>0.929</td>
+<td>9.11 mm</td>
+<td>8.17 mm</td>
+<td>0.897</td>
+<td>0.505</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h3>B. Seawater, SLW/SW only</h3>
 <div class="table-wrap">
 <table>

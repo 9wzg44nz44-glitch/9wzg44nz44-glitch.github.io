@@ -46,7 +46,7 @@
     <ul>
       <li><code>/workspace/sim-lab/snr-2s-vs-sphere/NOTE.md</code> (last modified 2026-09-25 20:18 EDT)</li><li><code>/workspace/sim-lab/snr-2s-vs-sphere/results_tables.md</code> (last modified 2026-09-25 20:18 EDT)</li>
       <li>Converted to HTML 2026-09-28 (EDT) as a faithful conversion: text, numbers, equations and labels are the source's own. No new equations were added; only the TEM tags described below and the edits listed here were made.</li>
-      <li>This side calculation was folded into the (unpublished, held) Experiment G v0.1 model; Experiment G itself is not published here.</li>
+      <li>Appendix, &#x27;SNR at reference fields&#x27; table: the delimiter row was extended from 8 to 10 columns to match the header and rows (the source has an empty column between &#x27;atom case&#x27; and &#x27;sphere case&#x27;); no values changed.</li><li>This side calculation was folded into the (unpublished, held) Experiment G v0.1 model; Experiment G itself is not published here.</li>
       <li>Status lines inside the source (for example "nothing published", "HELD", "draft") describe the state when it was written. This page is its GitHub Pages twin, published 2026-09-28.</li>
       <li>No Wolfram Cloud twin planned (analysis/report page, not one of Experiments A–G). Numbers are Python-computed; WL compare OWED where the source says so.</li>
     </ul>
@@ -767,32 +767,314 @@ ZX60 interp 0.401 dB / 17.61 dB
 </table>
 </div>
 <h3>SNR at reference fields, t = 1 s (ratio_dB = 10log10(SNR_atom/SNR_sphere) with the brief's definitions; sigma column uses sphere sigma-SNR)</h3>
-<p>| atom case || sphere case | E | SNR atom | SNR sphere | ratio dB | ratio dB (sigma) | atom dominant bg | counter sat? |
-|---|---|---|---|---|---|---|---|
-| A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60 | 1 uV/m | 4.24e-10 | 7.24e+02 | -122.3 | -109.5 | stray_Stark | False |
-| A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60 | 1 mV/m | 4.24e-04 | 7.24e+08 | -122.3 | -79.5 | stray_Stark | False |
-| A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60 | 1 V/m | 2.88e+01 | 7.24e+14 | -134.0 | -61.2 | stray_Stark | False |
-| A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only | 1 uV/m | 4.24e-10 | 2.09e+02 | -116.9 | -106.8 | stray_Stark | False |
-| A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only | 1 mV/m | 4.24e-04 | 2.09e+08 | -116.9 | -76.8 | stray_Stark | False |
-| A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only | 1 V/m | 2.88e+01 | 2.09e+14 | -128.6 | -58.5 | stray_Stark | False |
-| A2 lab N/eps, 10 nm filter, stray 10 mV/m || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60 | 1 uV/m | 1.02e-09 | 7.24e+02 | -118.5 | -105.7 | 2E1_in_filter | False |
-| A2 lab N/eps, 10 nm filter, stray 10 mV/m || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60 | 1 mV/m | 1.02e-03 | 7.24e+08 | -118.5 | -75.7 | 2E1_in_filter | False |
-| A2 lab N/eps, 10 nm filter, stray 10 mV/m || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60 | 1 V/m | 2.69e+01 | 7.24e+14 | -134.3 | -61.5 | 2E1_in_filter | False |
-| A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain | 1 uV/m | 2.93e-05 | 3.69e+03 | -81.0 | -64.7 | 2E1_in_filter | True |
-| A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain | 1 mV/m | 2.93e+01 | 3.69e+09 | -81.0 | -34.7 | 2E1_in_filter | True |
-| A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain | 1 V/m | 5.32e+05 | 3.69e+15 | -98.4 | -22.1 | 2E1_in_filter | True |
-| A3c best physical, one CEM (&lt;=15 Mcps): N capped || S1 best: lambda^2/4pi, ZX60 chain | 1 uV/m | 1.38e-06 | 3.69e+03 | -94.3 | -77.9 | 2E1_in_filter | False |
-| A3c best physical, one CEM (&lt;=15 Mcps): N capped || S1 best: lambda^2/4pi, ZX60 chain | 1 mV/m | 1.38e+00 | 3.69e+09 | -94.3 | -47.9 | 2E1_in_filter | False |
-| A3c best physical, one CEM (&lt;=15 Mcps): N capped || S1 best: lambda^2/4pi, ZX60 chain | 1 V/m | 2.50e+04 | 3.69e+15 | -111.7 | -35.4 | 2E1_in_filter | True |
-| A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain | 1 uV/m | 8.13e-05 | 3.69e+03 | -76.6 | -60.2 | 2E1_in_filter | True |
-| A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain | 1 mV/m | 8.13e+01 | 3.69e+09 | -76.6 | -30.2 | 2E1_in_filter | True |
-| A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain | 1 V/m | 1.47e+06 | 3.69e+15 | -94.0 | -17.7 | 2E1_in_filter | True |
-| A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S1 best: lambda^2/4pi, ZX60 chain | 1 uV/m | 1.17e-03 | 3.69e+03 | -65.0 | -48.6 | blackbody | True |
-| A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S1 best: lambda^2/4pi, ZX60 chain | 1 mV/m | 1.13e+03 | 3.69e+09 | -65.1 | -18.8 | blackbody | True |
-| A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S1 best: lambda^2/4pi, ZX60 chain | 1 V/m | 1.48e+06 | 3.69e+15 | -94.0 | -17.6 | blackbody | True |
-| A6 ideal bound, Lya-only filter, 4 K shield, no stray || S1 best: lambda^2/4pi, ZX60 chain | 1 uV/m | 1.05e-02 | 3.69e+03 | -55.5 | -39.1 | blackbody | False |
-| A6 ideal bound, Lya-only filter, 4 K shield, no stray || S1 best: lambda^2/4pi, ZX60 chain | 1 mV/m | 3.99e+03 | 3.69e+09 | -59.7 | -13.3 | blackbody | True |
-| A6 ideal bound, Lya-only filter, 4 K shield, no stray || S1 best: lambda^2/4pi, ZX60 chain | 1 V/m | 1.48e+06 | 3.69e+15 | -94.0 | -17.6 | blackbody | True |</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>atom case</th>
+<th></th>
+<th>sphere case</th>
+<th>E</th>
+<th>SNR atom</th>
+<th>SNR sphere</th>
+<th>ratio dB</th>
+<th>ratio dB (sigma)</th>
+<th>atom dominant bg</th>
+<th>counter sat?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s</td>
+<td></td>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60</td>
+<td>1 uV/m</td>
+<td>4.24e-10</td>
+<td>7.24e+02</td>
+<td>-122.3</td>
+<td>-109.5</td>
+<td>stray_Stark</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s</td>
+<td></td>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60</td>
+<td>1 mV/m</td>
+<td>4.24e-04</td>
+<td>7.24e+08</td>
+<td>-122.3</td>
+<td>-79.5</td>
+<td>stray_Stark</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s</td>
+<td></td>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60</td>
+<td>1 V/m</td>
+<td>2.88e+01</td>
+<td>7.24e+14</td>
+<td>-134.0</td>
+<td>-61.2</td>
+<td>stray_Stark</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s</td>
+<td></td>
+<td>S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only</td>
+<td>1 uV/m</td>
+<td>4.24e-10</td>
+<td>2.09e+02</td>
+<td>-116.9</td>
+<td>-106.8</td>
+<td>stray_Stark</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s</td>
+<td></td>
+<td>S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only</td>
+<td>1 mV/m</td>
+<td>4.24e-04</td>
+<td>2.09e+08</td>
+<td>-116.9</td>
+<td>-76.8</td>
+<td>stray_Stark</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s</td>
+<td></td>
+<td>S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only</td>
+<td>1 V/m</td>
+<td>2.88e+01</td>
+<td>2.09e+14</td>
+<td>-128.6</td>
+<td>-58.5</td>
+<td>stray_Stark</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A2 lab N/eps, 10 nm filter, stray 10 mV/m</td>
+<td></td>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60</td>
+<td>1 uV/m</td>
+<td>1.02e-09</td>
+<td>7.24e+02</td>
+<td>-118.5</td>
+<td>-105.7</td>
+<td>2E1_in_filter</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A2 lab N/eps, 10 nm filter, stray 10 mV/m</td>
+<td></td>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60</td>
+<td>1 mV/m</td>
+<td>1.02e-03</td>
+<td>7.24e+08</td>
+<td>-118.5</td>
+<td>-75.7</td>
+<td>2E1_in_filter</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A2 lab N/eps, 10 nm filter, stray 10 mV/m</td>
+<td></td>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60</td>
+<td>1 V/m</td>
+<td>2.69e+01</td>
+<td>7.24e+14</td>
+<td>-134.3</td>
+<td>-61.5</td>
+<td>2E1_in_filter</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 uV/m</td>
+<td>2.93e-05</td>
+<td>3.69e+03</td>
+<td>-81.0</td>
+<td>-64.7</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 mV/m</td>
+<td>2.93e+01</td>
+<td>3.69e+09</td>
+<td>-81.0</td>
+<td>-34.7</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 V/m</td>
+<td>5.32e+05</td>
+<td>3.69e+15</td>
+<td>-98.4</td>
+<td>-22.1</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A3c best physical, one CEM (&lt;=15 Mcps): N capped</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 uV/m</td>
+<td>1.38e-06</td>
+<td>3.69e+03</td>
+<td>-94.3</td>
+<td>-77.9</td>
+<td>2E1_in_filter</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A3c best physical, one CEM (&lt;=15 Mcps): N capped</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 mV/m</td>
+<td>1.38e+00</td>
+<td>3.69e+09</td>
+<td>-94.3</td>
+<td>-47.9</td>
+<td>2E1_in_filter</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A3c best physical, one CEM (&lt;=15 Mcps): N capped</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 V/m</td>
+<td>2.50e+04</td>
+<td>3.69e+15</td>
+<td>-111.7</td>
+<td>-35.4</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 uV/m</td>
+<td>8.13e-05</td>
+<td>3.69e+03</td>
+<td>-76.6</td>
+<td>-60.2</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 mV/m</td>
+<td>8.13e+01</td>
+<td>3.69e+09</td>
+<td>-76.6</td>
+<td>-30.2</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 V/m</td>
+<td>1.47e+06</td>
+<td>3.69e+15</td>
+<td>-94.0</td>
+<td>-17.7</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 uV/m</td>
+<td>1.17e-03</td>
+<td>3.69e+03</td>
+<td>-65.0</td>
+<td>-48.6</td>
+<td>blackbody</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 mV/m</td>
+<td>1.13e+03</td>
+<td>3.69e+09</td>
+<td>-65.1</td>
+<td>-18.8</td>
+<td>blackbody</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 V/m</td>
+<td>1.48e+06</td>
+<td>3.69e+15</td>
+<td>-94.0</td>
+<td>-17.6</td>
+<td>blackbody</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A6 ideal bound, Lya-only filter, 4 K shield, no stray</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 uV/m</td>
+<td>1.05e-02</td>
+<td>3.69e+03</td>
+<td>-55.5</td>
+<td>-39.1</td>
+<td>blackbody</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A6 ideal bound, Lya-only filter, 4 K shield, no stray</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 mV/m</td>
+<td>3.99e+03</td>
+<td>3.69e+09</td>
+<td>-59.7</td>
+<td>-13.3</td>
+<td>blackbody</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A6 ideal bound, Lya-only filter, 4 K shield, no stray</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 V/m</td>
+<td>1.48e+06</td>
+<td>3.69e+15</td>
+<td>-94.0</td>
+<td>-17.6</td>
+<td>blackbody</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h3>Closed-form check (background-limited atoms; sphere E = sqrt(kT0 F eta0 / A t))</h3>
 <ul>
 <li>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s: 48.6 mV/m</li>
