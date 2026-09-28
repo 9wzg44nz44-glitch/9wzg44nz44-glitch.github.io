@@ -390,10 +390,10 @@ td.num { font-variant-numeric: tabular-nums; }
 
   <!-- ================= A ================= -->
   <h2 id="classical">A · Classical RCS <span class="badge fact">FACT</span></h2>
-  <p><span class="badge fact">FACT</span> <strong>Radar cross-section (RCS, σ)</strong> is the area that, if it caught the incoming power and re-radiated it equally in all directions, would give the same echo the real object gives back toward the radar. It is measured in m² (or dBsm, decibels relative to 1&nbsp;m²). It depends on size compared with the wavelength, shape, and material (Knott, Shaeffer &amp; Tuley; Ruck Vol.&nbsp;1 ch.&nbsp;1–2).</p>
+  <p><span class="badge fact">FACT</span> <strong>Radar cross-section (RCS, σ)</strong> is the area that, if it caught the incoming power and re-radiated it equally in all directions, would give the same echo the real object gives back toward the radar. It is measured in m² (or dBsm, decibels relative to 1&nbsp;m²). It depends on size compared with the wavelength, shape, and material (Knott, Shaeffer &amp; Tuley, <em>Radar Cross Section</em>).</p>
   <ul class="claims">
     <li><span class="badge fact">FACT</span> Frequency 433.59&nbsp;MHz (the Monstein &amp; Wesley frequency), so λ = c/f = <strong>0.6914&nbsp;m</strong>.</li>
-    <li><span class="badge fact">FACT</span> Material: we treat the targets as perfect electric conductors (PEC). Aluminum (σ ≈ 3.5×10⁷&nbsp;S/m) is effectively PEC at this frequency. Classically its skin depth is only <strong>4.1&nbsp;µm</strong>, far smaller than the 1&nbsp;m target. Copper or steel hulls give a negligibly different <em>classical</em> RCS for the same reason. <span class="small">(This is classical TEM reasoning, used here only for the classical RCS. It is not applicable under the SLW hypothesis.)</span></li>
+    <li><span class="badge fact">FACT</span> Material: we treat the targets as perfect electric conductors (PEC). Aluminum (σ ≈ 3.5×10⁷&nbsp;S/m) is effectively PEC at this frequency. Classically the induced currents stay in a micrometre-thin surface layer, far smaller than the 1&nbsp;m target (the number, 4.1&nbsp;µm, is in the <a href="#temBox">TEM box</a> in Section C). Copper or steel hulls give a negligibly different <em>classical</em> RCS for the same reason. <span class="small">(This is classical TEM reasoning, used here only for the classical RCS. It is not applicable under the SLW hypothesis.)</span></li>
     <li><span class="badge fact">FACT</span> The size parameter is ka = 2πa/λ. The conventional regions are <strong>Rayleigh</strong> (ka ≲ 1: object small, σ ∝ f⁴), <strong>resonance / Mie</strong> (1 ≲ ka ≲ 10: wiggles from creeping waves), and <strong>optical</strong> (ka ≳ 10: σ approaches the geometric-optics value). <span class="badge asm">ASSUMPTION</span> The boundaries 1 and 10 are rules of thumb, not sharp lines.</li>
   </ul>
 
@@ -552,8 +552,9 @@ td.num { font-variant-numeric: tabular-nums; }
   </div>
 
   <div class="tem-box" id="temBox">
-    <h3>Classical skin depth and cage numbers</h3>
+    <h3>Transverse-EM reasoning, NOT applicable under the SLW hypothesis</h3>
     <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>
+    <p class="small" style="margin-top:0">Classical skin depth, wall-attenuation and cage numbers.</p>
     <p class="small">These are ordinary radio (TEM) numbers, shown so you can compare. Under the SLW hypothesis they are <strong>not</strong> used to rank, limit or dismiss the SLW.</p>
     <div class="ctrl-grid">
       <div class="ctrl"><label for="tMu">Steel relative permeability μᵣ <span class="badge asm">ASM</span> <span class="val" id="tMuv"></span></label><input type="range" id="tMu" min="1" max="1000" step="1" value="100"></div>
