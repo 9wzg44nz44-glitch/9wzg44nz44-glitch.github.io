@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acrylic Rod-Holding Jigs (M&amp;W polarizer-analyzer) · SLW Hub</title>
+<meta name="description" content="Machine-shop drill patterns for acrylic jigs holding the Monstein &amp; Wesley 3×3 λ/2 rod polarizer-analyzer at 433.59 MHz, scaled to 1296 MHz and 2.45 GHz. FACT / HYPOTHESIS / IDEA labels.">
+<meta name="author" content="Dan Britton">
+<style>
+:root {
+  --bg: #110f0c;
+  --bg-elev: #181510;
+  --paper: #1f1b15;
+  --paper-2: #262117;
+  --ink: #f3ead8;
+  --ink-muted: #b7ab95;
+  --ink-faint: #7d7363;
+  --rule: #3a3328;
+  --rule-bright: #5a4e3c;
+  --copper: #c47a3a;
+  --copper-d: #8e5524;
+  --gold: #d4b483;
+  --nz: #4a9b88;
+  --nz-d: #2d6b5c;
+  --hively: #d4923a;
+  --hively-d: #8a5c18;
+  --meyl: #7a8bc4;
+  --warn: #c45c4a;
+  --ok: #6aaa6a;
+  --shadow: 0 18px 50px rgba(0,0,0,.45);
+  --radius: 14px;
+  --font-display: "Fraunces", "Libre Baskerville", Georgia, serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --max: 1120px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(196,122,58,.12), transparent 50%),
+    radial-gradient(900px 500px at 100% 0%, rgba(74,155,136,.08), transparent 45%),
+    var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 100vh;
+  font-size: 17px;
+}
+img, svg { max-width: 100%; display: block; }
+a { color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--ink); }
+code, .mono { font-family: var(--font-mono); font-size: .92em; }
+
+.skip {
+  position: absolute; left: -999px; top: 0;
+}
+.skip:focus { left: 12px; top: 12px; background: var(--paper); padding: 8px 12px; z-index: 99; }
+
+/* Header */
+header.site-header, header.site {
+  position: sticky; top: 0; z-index: 40;
+  backdrop-filter: blur(14px);
+  background: rgba(17,15,12,.92);
+  border-bottom: 1px solid var(--rule);
+}
+header.site .wrap, header.site .header-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 22px;
+}
+.header-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 10px 22px;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--ink);
+  flex: 0 0 auto;
+}
+.brand img { width: 36px; height: 36px; }
+.brand-name { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; letter-spacing: .02em; }
+.brand-sub { display: block; font-family: var(--font-body); font-size: .68rem; color: var(--ink-muted); letter-spacing: .14em; text-transform: uppercase; }
+nav.primary { margin-left: auto; display: flex; flex-wrap: wrap; gap: 4px; }
+nav.primary a {
+  color: var(--ink-muted); text-decoration: none;
+  padding: 7px 11px; border-radius: 999px; font-size: .92rem;
+}
+nav.primary a:hover, nav.primary a[aria-current="page"] {
+  color: var(--ink); background: var(--paper-2);
+}
+nav.primary a[aria-current="page"] { box-shadow: inset 0 0 0 1px var(--rule-bright); }
+.nav-toggle {
+  display: none; margin-left: auto;
+  background: var(--paper); color: var(--ink); border: 1px solid var(--rule);
+  border-radius: 8px; padding: 8px 12px; cursor: pointer;
+}
+
+/* Layout */
+.wrap { max-width: var(--max); margin: 0 auto; padding: 28px 22px 64px; }
+.hero {
+  padding: 48px 0 28px;
+  display: grid; grid-template-columns: 1.4fr .9fr; gap: 36px; align-items: center;
+}
+.kicker {
+  font-size: .78rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--copper); font-weight: 600; margin: 0 0 10px;
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-display); font-weight: 600; line-height: 1.2;
+  margin: 0 0 .5em;
+}
+h1 { font-size: clamp(2rem, 4.4vw, 3.15rem); }
+h2 { font-size: clamp(1.45rem, 2.6vw, 2rem); margin-top: 1.6em; }
+h3 { font-size: 1.2rem; }
+.lede { font-size: 1.18rem; color: var(--ink-muted); max-width: 46rem; }
+.hero-panel {
+  background: linear-gradient(165deg, var(--paper-2), var(--paper));
+  border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: 22px; box-shadow: var(--shadow);
+}
+.hero-panel dt { color: var(--ink-faint); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; }
+.hero-panel dd { margin: 0 0 12px; font-family: var(--font-display); font-size: 1.05rem; }
+
+.banner-edu {
+  border: 1px solid #8a6a2a; background: #f4e6c8;
+  border-radius: 10px; padding: 12px 16px; color: #1a1408; font-size: .95rem;
+  margin: 8px 0 28px;
+}
+.banner-edu a { color: #6b3a08; font-weight: 600; }
+.banner-edu a:hover { color: #000; }
+.banner-edu strong { color: #0a0804; }
+.banner-warn {
+  border: 1px solid #8a2e22; background: #f5d4ce;
+  color: #1a0a08; border-radius: 10px; padding: 12px 16px; margin: 12px 0 22px;
+}
+.banner-warn strong { color: #0a0404; }
+.banner-warn a { color: #6b1e14; font-weight: 600; }
+.banner-legal {
+  border: 1px solid #8a5c18; background: #f7e8c6;
+  color: #1a1408; border-radius: 10px; padding: 14px 16px; margin: 12px 0 22px;
+}
+.banner-legal strong { color: #0a0804; }
+.banner-legal a { color: #6b3a08; font-weight: 600; }
+.banner-legal a:hover { color: #000; }
+
+.grid-3, .grid-2, .grid-4 {
+  display: grid; gap: 16px; margin: 22px 0;
+}
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.card {
+  background: var(--paper); border: 1px solid var(--rule);
+  border-radius: var(--radius); padding: 18px 18px 16px;
+}
+.card h3 { margin-top: 0; }
+.card p:last-child { margin-bottom: 0; }
+.card.nz { border-top: 3px solid var(--nz); }
+.card.hively { border-top: 3px solid var(--hively); }
+.card.meyl { border-top: 3px solid var(--meyl); }
+.card.copper { border-top: 3px solid var(--copper); }
+
+.tag {
+  display: inline-block; font-size: .72rem; letter-spacing: .08em;
+  text-transform: uppercase; padding: 3px 8px; border-radius: 999px;
+  border: 1px solid var(--rule-bright); color: var(--ink-muted); margin-right: 6px;
+}
+.tag.nz { color: var(--nz); border-color: var(--nz-d); }
+.tag.hively { color: var(--hively); border-color: var(--hively-d); }
+.tag.meyl { color: var(--meyl); border-color: #3d4a7a; }
+.tag.warn { color: var(--warn); border-color: #7a342c; }
+.tag.ok { color: var(--ok); }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 14px 0 22px; border: 1px solid var(--rule); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { color: var(--gold); font-weight: 600; background: var(--paper-2); font-size: .82rem; letter-spacing: .04em; }
+tr:last-child td { border-bottom: 0; }
+tbody tr:hover td { background: rgba(255,255,255,.02); }
+td.num, th.num { font-family: var(--font-mono); text-align: right; white-space: nowrap; }
+
+.eq {
+  font-family: var(--font-display); font-style: italic;
+  background: var(--bg-elev); border-left: 3px solid var(--copper);
+  padding: 10px 14px; margin: 12px 0; border-radius: 0 8px 8px 0;
+  overflow-x: auto;
+}
+.footnote { font-size: .88rem; color: var(--ink-muted); }
+
+/* Controls */
+.ctrl { margin: 12px 0 16px; }
+.ctrl label { display: flex; justify-content: space-between; gap: 12px; font-size: .92rem; color: var(--ink-muted); }
+.ctrl input[type=range] { width: 100%; accent-color: var(--copper); }
+.ctrl-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 16px; }
+button, .btn {
+  font-family: var(--font-body); cursor: pointer;
+  background: var(--paper-2); color: var(--ink);
+  border: 1px solid var(--rule-bright); border-radius: 999px;
+  padding: 8px 14px; font-size: .9rem;
+}
+button:hover, .btn:hover { border-color: var(--copper); color: var(--gold); }
+button.primary, .btn.primary {
+  background: linear-gradient(180deg, #c47a3a, #8e5524);
+  border-color: #e0a060; color: #1a120c; font-weight: 600;
+}
+select, input[type=text], input[type=number], textarea {
+  background: var(--bg); color: var(--ink);
+  border: 1px solid var(--rule-bright); border-radius: 8px;
+  padding: 8px 10px; font: inherit; width: 100%;
+}
+textarea { min-height: 70px; resize: vertical; }
+
+.metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.metric {
+  background: var(--bg-elev); border-radius: 10px; padding: 10px 12px;
+  border: 1px solid var(--rule);
+}
+.metric .v { font-family: var(--font-mono); font-size: 1.25rem; color: var(--gold); }
+.metric .l { font-size: .75rem; color: var(--ink-faint); letter-spacing: .08em; text-transform: uppercase; }
+
+canvas.plot {
+  width: 100%; height: 240px; background: #0c0b09;
+  border: 1px solid var(--rule); border-radius: 10px; display: block;
+}
+
+.steps { counter-reset: step; padding-left: 0; list-style: none; }
+.steps li {
+  position: relative; padding: 10px 0 10px 48px;
+  border-bottom: 1px dashed var(--rule);
+}
+.steps li::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; left: 0; top: 10px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--paper-2); border: 1px solid var(--copper);
+  color: var(--gold); display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: .85rem;
+}
+
+.toc a { display: block; padding: 4px 0; color: var(--ink-muted); text-decoration: none; }
+.toc a:hover { color: var(--gold); }
+
+footer.site {
+  border-top: 1px solid var(--rule);
+  padding: 28px 22px 48px; color: var(--ink-faint); font-size: .9rem;
+}
+footer.site .wrap { padding: 0; display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; }
+footer.site strong { color: var(--ink-muted); }
+
+.repo-list { columns: 2; gap: 18px; font-size: .92rem; }
+.repo-list a { display: inline; }
+
+.check-list { list-style: none; padding: 0; }
+.check-list li { padding: 6px 0 6px 28px; position: relative; }
+.check-list li::before { content: "☐"; position: absolute; left: 0; color: var(--copper); }
+
+.log-table input { width: 100%; font-size: .85rem; padding: 5px 6px; }
+
+@media (max-width: 860px) {
+  .hero, .grid-3, .grid-4, footer.site .wrap { grid-template-columns: 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .repo-list { columns: 1; }
+  .nav-toggle { display: inline-block; }
+  nav.primary { display: none; width: 100%; flex-direction: column; }
+  nav.primary.open { display: flex; }
+  .header-inner { flex-wrap: wrap; }
+  .metrics { grid-template-columns: 1fr; }
+}
+@media print {
+  .site-header, .nav-toggle, button, .ctrl { display: none !important; }
+  body { background: #fff; color: #111; }
+  a { color: #000; }
+  .card, .hero-panel { border-color: #ccc; background: #fff; }
+}
+
+/* ---- page-specific ---- */
+.badge { display: inline-block; font-family: var(--font-mono); font-size: .68rem; font-weight: 500; letter-spacing: .08em; padding: 2px 7px; border-radius: 5px; border: 1px solid; vertical-align: 2px; margin-right: 6px; white-space: nowrap; }
+.badge.fact { color: #8fd18f; border-color: #3f7a3f; background: rgba(106,170,106,.12); }
+.badge.hyp { color: #f0a58f; border-color: #8a3f30; background: rgba(196,92,74,.14); }
+.badge.asm { color: #9fb0e6; border-color: #3d4a7a; background: rgba(122,139,196,.14); }
+.legend { display: flex; flex-wrap: wrap; gap: 10px 18px; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 10px; background: var(--bg-elev); font-size: .92rem; margin: 16px 0; }
+.legend > span { display: inline-flex; align-items: baseline; gap: 4px; }
+.claims { list-style: none; padding: 0; margin: 10px 0 16px; }
+.claims li { padding: 7px 0; border-bottom: 1px dashed var(--rule); }
+.claims li:last-child { border-bottom: 0; }
+.eq { font-family: var(--font-mono); background: var(--paper-2); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; margin: 10px 0; overflow-x: auto; white-space: nowrap; font-size: .92rem; color: var(--gold); }
+.calc { border: 1px solid var(--rule-bright); border-radius: var(--radius); background: var(--paper); padding: 16px 18px; margin: 16px 0 22px; }
+.calc h3 { margin: 0 0 6px; }
+.calc .inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px 14px; margin: 10px 0 12px; }
+.calc .inputs label { display: flex; flex-direction: column; gap: 4px; font-size: .86rem; color: var(--ink-muted); }
+.calc .inputs input[type=number] { width: 100%; font-family: var(--font-mono); }
+.calc .check { display: flex; align-items: flex-start; gap: 8px; font-size: .88rem; color: var(--ink-muted); margin: 4px 0 10px; }
+.calc .check input { margin-top: 3px; accent-color: var(--copper); }
+.out { font-family: var(--font-mono); font-size: .92rem; background: var(--bg-elev); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; margin: 8px 0; line-height: 1.6; overflow-x: auto; }
+.out .v { color: var(--gold); }
+.out .bad { color: var(--warn); }
+.plot-wrap { position: relative; width: 100%; margin: 10px 0 4px; }
+canvas.fplot { width: 100%; height: 280px; display: block; background: var(--bg-elev); border: 1px solid var(--rule); border-radius: 10px; }
+.caveat-box { border: 2px solid var(--warn); border-radius: var(--radius); background: rgba(196,92,74,.08); padding: 14px 18px; margin: 16px 0; }
+.caveat-box h3 { color: #f0a58f; margin-top: .6em; }
+.caveat-box h3:first-child { margin-top: 0; }
+.twin-note { border-left: 4px solid var(--copper); padding: 8px 14px; background: var(--bg-elev); border-radius: 0 10px 10px 0; margin: 18px 0; }
+.brand svg { width: 36px; height: 36px; }
+td.num { font-variant-numeric: tabular-nums; }
+@media (max-width: 520px) {
+  .wrap { padding: 20px 14px 48px; }
+  .calc { padding: 12px 12px; }
+  canvas.fplot { height: 240px; }
+  th, td { padding: 8px 8px; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../index.html">Home</a>
+      <a href="../learn.html">Learn</a>
+      <a href="../compare.html">Compare</a>
+      <a href="../fields.html">Fields</a>
+      <a href="../monstein.html">Monstein</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../lab.html">Lab</a>
+      <a href="../kit.html">Kit</a>
+      <a href="../library.html">Library</a>
+      <a href="../ranging/">Ranging</a>
+      <a href="./" aria-current="page">Rod jigs</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Analysis page · shop drawings · Experiment B (M&amp;W) + Experiment A and 2.45 GHz extensions</p>
+  <h1>Acrylic Rod-Holding Jigs for the Monstein &amp; Wesley Polarizer-Analyzer</h1>
+  <p class="lede">Three machine-shop drill patterns (one per frequency) for the plastic plates that hold nine parallel λ/2 rods in a 3 × 3 grid. The rods pass through one plate at mid-length, as in the M&amp;W photo. You need two identical plates per frequency: one for the horizontal-rod array (turns on a turntable) and one for the vertical-rod array (fixed).</p>
+  <div class="banner-warn"><strong>DRAFT, for Dan's review.</strong> These drawings have not been built or checked in a shop yet, and nothing has been ordered. Before drilling the real plates, try the reamer on a test coupon.</div>
+  <div class="banner-edu">Educational only. Mainstream electrodynamics treats free-space radio waves as transverse. The M&amp;W longitudinal-wave claim is disputed (Bray &amp; Britton 2004; Rębilas 2008). Butterworth et al. (2013) rebuilt the setup and did not see the polarizer null. This page covers mechanical geometry only.</div>
+  <div class="legend" role="note" aria-label="Claim labels">
+    <span><span class="badge fact">FACT</span> stated in a cited paper, or plain arithmetic</span>
+    <span><span class="badge hyp">HYPOTHESIS</span> an interpretation or extension, not in the papers</span>
+    <span><span class="badge asm">IDEA</span> our design choice; change it if you like</span>
+  </div>
+  <nav class="toc" aria-label="On this page">
+    <a href="#pdfs">1 · Drawings (PDF)</a><a href="#geometry">2 · Geometry check vs M&amp;W and Butterworth</a>
+    <a href="#freq">3 · Frequencies and sources</a><a href="#numbers">4 · Numbers per frequency</a>
+    <a href="#fit">5 · Hole fit in acrylic</a><a href="#design">6 · Design choices</a>
+    <a href="#material">7 · Material and purchase</a><a href="#open">8 · Open items</a><a href="#sources">9 · Sources</a>
+  </nav>
+
+  <h2 id="pdfs">1 · Drawings</h2>
+  <div class="grid-3"><div class="card copper"><h3>Experiment B · 433.59 MHz</h3>
+<a href="Jig_ExpB_433MHz.pdf"><img src="img/Jig_ExpB_433MHz-1.png" alt="Sheet 1 drill pattern preview, Experiment B · 433.59 MHz" width="1210" height="935" loading="lazy" style="border-radius:8px;border:1px solid var(--rule)"></a>
+<p><a href="Jig_ExpB_433MHz.pdf"><strong>Jig_ExpB_433MHz.pdf</strong></a> · 3 letter sheets (drill pattern · section + hole detail + tables · cut list + assembly + notes)</p></div><div class="card copper"><h3>Experiment A · 1296 MHz</h3>
+<a href="Jig_ExpA_1296MHz.pdf"><img src="img/Jig_ExpA_1296MHz-1.png" alt="Sheet 1 drill pattern preview, Experiment A · 1296 MHz" width="1210" height="935" loading="lazy" style="border-radius:8px;border:1px solid var(--rule)"></a>
+<p><a href="Jig_ExpA_1296MHz.pdf"><strong>Jig_ExpA_1296MHz.pdf</strong></a> · 3 letter sheets (drill pattern · section + hole detail + tables · cut list + assembly + notes)</p></div><div class="card copper"><h3>2.45 GHz band</h3>
+<a href="Jig_2450MHz.pdf"><img src="img/Jig_2450MHz-1.png" alt="Sheet 1 drill pattern preview, 2.45 GHz band" width="1210" height="935" loading="lazy" style="border-radius:8px;border:1px solid var(--rule)"></a>
+<p><a href="Jig_2450MHz.pdf"><strong>Jig_2450MHz.pdf</strong></a> · 3 letter sheets (drill pattern · section + hole detail + tables · cut list + assembly + notes)</p></div></div>
+  <p class="footnote">Sheet 1 for Exp A and 2.45 GHz is full size (1:1 on US Letter). Print it at 100 % and check the scale bar. Sheet 1 for Exp B is drawn at 1:4, because a 15″ plate does not fit on Letter. Its full-size coordinates are in the table. Numbers: <a href="numbers.json">numbers.json</a>.</p>
+
+  <h2 id="geometry">2 · Geometry check</h2>
+  <div class="table-wrap"><table>
+  <thead><tr><th>Item</th><th>Request</th><th>M&amp;W 2002 (EPL 59(4) 514)</th><th>Butterworth et al. 2013 (446 MHz)</th><th>Used here</th></tr></thead>
+  <tbody>
+  <tr><td>Rods</td><td>9, half-wave</td><td><span class="badge fact">FACT</span> "cubic array of 9 wires of length λ/2 (34.6 cm)", brass (p. 516, Fig. 2)</td><td><span class="badge fact">FACT</span> "nine wires in 3 × 3 arrays, a half-wavelength long"</td><td>9 × λ/2 (matches)</td></tr>
+  <tr><td>Spacing</td><td>λ/4</td><td><strong>Not stated</strong></td><td><span class="badge fact">FACT</span> "a quarter-wave apart"</td><td>λ/4, <strong>sourced from Butterworth, not M&amp;W</strong></td></tr>
+  <tr><td>Arrays</td><td>one horizontal, one vertical, rotatable</td><td><span class="badge fact">FACT</span> Fig. 2 is a single rotatable 3×3, "turned by hand or … disc record player". Text: "Two such arrays with wires perpendicular to the direction of propagation and to each other serve as a filter"</td><td><span class="badge fact">FACT</span> "one horizontal and one vertical. The horizontal polarizer can be rotated."</td><td>2 arrays per frequency; H rotates, V fixed</td></tr>
+  <tr><td>Mounting</td><td>not given</td><td><span class="badge fact">FACT</span> (photo) horizontal rods through <em>one</em> vertical wooden board at about mid-length</td><td>not described</td><td>one plate at rod mid-length</td></tr>
+  <tr><td>Ball antenna</td><td>6 cm</td><td><span class="badge fact">FACT</span> "ball antenna, 6 cm diameter" (abstract, Fig. 1)</td><td><span class="badge fact">FACT</span> solid 3″ (76 mm) Al balls; M&amp;W described as r = 30 mm</td><td>not part of the jig (hub B ball is KB-2016, 2.50″)</td></tr>
+  <tr><td>Rod dia, board size, array position</td><td>not given</td><td><strong>Not stated</strong></td><td><strong>Not stated</strong></td><td><span class="badge asm">IDEA</span> 1/8″ rods; plate sizes below</td></tr>
+  </tbody></table></div>
+  <p><span class="badge hyp">HYPOTHESIS</span> <strong>"Cubic"</strong>: a 3 × 3 grid at λ/4 pitch is λ/2 across, the same as the rod length, so the nine rods fill a λ/2 cube. This is our reading of the word and supports Butterworth's λ/4. <strong>Discrepancy flagged:</strong> the request's "spaced λ/4" and "one horizontal, one vertical" wording comes from Butterworth's reconstruction, not from M&amp;W. M&amp;W's measured curve (Fig. 3) used one rotating array.</p>
+
+  <h2 id="freq">3 · Frequencies and sources</h2>
+  <ul class="claims">
+   <li><span class="badge fact">FACT</span> <strong>Experiment B = 433.59 MHz</strong>: the M&amp;W frequency (abstract, p. 515). Also on hub monstein.html and setup.html, Dipole Detector DD-433, and the rod-fixtures rev A drawings.</li>
+   <li><strong>Experiment A = 1296.000 MHz</strong>: hub setup.html ("1296.000 MHz", lines 78/102), shop-drawing.html Sheet A, sleeve-balun.html, DD-1296 (dipole_numbers.json), and the Hively 1.3 GHz protocol ("1296.000 MHz" is the preferred lab carrier). <strong>1294.5 MHz is not on the hub or in the ledger</strong> (checked hub origin/main 8e53b6a). The only 1294.5 on the box is in hively-1.3ghz-faraday-lab-protocol.md line 107: "do not put a CW carrier on FM simplex 1294.5". The jig uses 1296.000. <span class="badge hyp">HYPOTHESIS</span> scaling to Exp A is Dan's extension. The hub (shop-drawing.html:506, monstein.html) still says polarizer rods are Exp B only.</li>
+   <li><strong>2.45 GHz = 2450.0 MHz</strong>: DD-2450 build sheet, rod-fixtures Future_2450MHz, and the oven magnetron nominal. <span class="badge hyp">HYPOTHESIS</span> scaling. Use the jig <em>outside</em> the oven only. Never put rods inside a running microwave oven.</li>
+  </ul>
+
+  <h2 id="numbers">4 · Numbers per frequency</h2>
+  <div class="table-wrap"><table><thead><tr><th></th><th>Experiment B · 433.59 MHz</th><th>Experiment A · 1296 MHz</th><th>2.45 GHz band</th></tr></thead><tbody>
+  <tr><th>Frequency</th><td>433.59 MHz <span class="badge fact">FACT</span></td><td>1296.000 MHz <span class="badge hyp">HYPOTHESIS</span></td><td>2450.0 MHz <span class="badge hyp">HYPOTHESIS</span></td></tr>
+<tr><th>λ = c/f</th><td>691.42 mm</td><td>231.32 mm</td><td>122.36 mm</td></tr>
+<tr><th>Rod length (λ/2, free space)</th><td>346.00 ± 1.0 mm (13.622″) · M&W 34.6 cm</td><td>115.66 ± 0.3 mm (4.554″)</td><td>61.18 ± 0.2 mm (2.409″)</td></tr>
+<tr><th>Pitch (λ/4)</th><td>172.85 mm (6.8053″)</td><td>57.83 mm (2.2768″)</td><td>30.59 mm (1.2044″)</td></tr>
+<tr><th>Rod diameter</th><td>1/8″ = 3.175 mm (brass, then W1)</td><td>1/8″ = 3.175 mm (brass, then W1)</td><td>1/8″ = 3.175 mm (brass, then W1)</td></tr>
+<tr><th>Hole</th><td>Ø3.175 mm ream thru, +0.013/−0 mm (size to measured rod)</td><td>Ø3.175 mm ream thru, +0.013/−0 mm (size to measured rod)</td><td>Ø3.175 mm ream thru, +0.013/−0 mm (size to measured rod)</td></tr>
+<tr><th>Hole position tol.</th><td>±0.25 mm (±0.010″)</td><td>±0.13 mm (±0.005″)</td><td>±0.13 mm (±0.005″)</td></tr>
+<tr><th>Rod plate (qty 2)</th><td>15.00″ sq × 0.5″ cast acrylic (381.0 mm, t = 12.70 mm)</td><td>6.00″ sq × 0.5″ cast acrylic (152.4 mm, t = 12.70 mm)</td><td>4.00″ sq × 0.25″ cast acrylic (101.6 mm, t = 6.35 mm)</td></tr>
+<tr><th>Edge margin (hole centre)</th><td>17.65 mm (5.6× rod dia)</td><td>18.37 mm (5.8× rod dia)</td><td>20.21 mm (6.4× rod dia)</td></tr>
+<tr><th>Rod protrusion each side</th><td>166.65 mm</td><td>51.48 mm</td><td>27.41 mm</td></tr>
+<tr><th>Plate t / rod L</th><td>0.037</td><td>0.110</td><td>0.104</td></tr>
+<tr><th>V-array leg height</th><td>7.625″ (194 mm)</td><td>3.125″ (79 mm)</td><td>2.125″ (54 mm)</td></tr>
+<tr><th>Acrylic area (net / +20 %)</th><td>912.8 / 1095.3 in²</td><td>154.5 / 185.4 in²</td><td>74.0 / 88.8 in²</td></tr>
+<tr><th>Acrylic mass</th><td>8.90 kg</td><td>1.51 kg</td><td>0.36 kg</td></tr>
+<tr><th>Buy</th><td>1 × 24×48″ × ½″</td><td>1 × 12×24″ × ½″</td><td>1 × 12×12″ × ¼″</td></tr>
+<tr><th>Drawing scale (sheet 1)</th><td>1:4 + full-size table</td><td>1:1 (template)</td><td>1:1 (template)</td></tr>
+</tbody></table></div>
+  <p class="footnote">The only electrical formula is λ = c/f with c = 299 792 458 m/s. Rod length is the free-space λ/2, which is M&amp;W's own definition: 34.6 cm at 433.59 MHz, compared with 345.71 mm computed; the hub cuts 346 ± 1 mm. These are polarizer rods, not the resonance-shortened Dipole Detector elements. Hole grid: 3 × 3 at λ/4, centred on the plate.</p>
+  <details><summary>Experiment B · 433.59 MHz: hole coordinates (mm)</summary><div class='table-wrap'><table><thead><tr><th>Hole</th><th class='num'>X from corner O</th><th class='num'>Y from corner O</th><th class='num'>X from centre C</th><th class='num'>Y from centre C</th></tr></thead><tbody><tr><td>H1</td><td class='num'>17.65</td><td class='num'>17.65</td><td class='num'>-172.85</td><td class='num'>-172.85</td></tr><tr><td>H2</td><td class='num'>190.50</td><td class='num'>17.65</td><td class='num'>+0.00</td><td class='num'>-172.85</td></tr><tr><td>H3</td><td class='num'>363.35</td><td class='num'>17.65</td><td class='num'>+172.85</td><td class='num'>-172.85</td></tr><tr><td>H4</td><td class='num'>17.65</td><td class='num'>190.50</td><td class='num'>-172.85</td><td class='num'>+0.00</td></tr><tr><td>H5</td><td class='num'>190.50</td><td class='num'>190.50</td><td class='num'>+0.00</td><td class='num'>+0.00</td></tr><tr><td>H6</td><td class='num'>363.35</td><td class='num'>190.50</td><td class='num'>+172.85</td><td class='num'>+0.00</td></tr><tr><td>H7</td><td class='num'>17.65</td><td class='num'>363.35</td><td class='num'>-172.85</td><td class='num'>+172.85</td></tr><tr><td>H8</td><td class='num'>190.50</td><td class='num'>363.35</td><td class='num'>+0.00</td><td class='num'>+172.85</td></tr><tr><td>H9</td><td class='num'>363.35</td><td class='num'>363.35</td><td class='num'>+172.85</td><td class='num'>+172.85</td></tr></tbody></table></div></details><details><summary>Experiment A · 1296 MHz: hole coordinates (mm)</summary><div class='table-wrap'><table><thead><tr><th>Hole</th><th class='num'>X from corner O</th><th class='num'>Y from corner O</th><th class='num'>X from centre C</th><th class='num'>Y from centre C</th></tr></thead><tbody><tr><td>H1</td><td class='num'>18.37</td><td class='num'>18.37</td><td class='num'>-57.83</td><td class='num'>-57.83</td></tr><tr><td>H2</td><td class='num'>76.20</td><td class='num'>18.37</td><td class='num'>+0.00</td><td class='num'>-57.83</td></tr><tr><td>H3</td><td class='num'>134.03</td><td class='num'>18.37</td><td class='num'>+57.83</td><td class='num'>-57.83</td></tr><tr><td>H4</td><td class='num'>18.37</td><td class='num'>76.20</td><td class='num'>-57.83</td><td class='num'>+0.00</td></tr><tr><td>H5</td><td class='num'>76.20</td><td class='num'>76.20</td><td class='num'>+0.00</td><td class='num'>+0.00</td></tr><tr><td>H6</td><td class='num'>134.03</td><td class='num'>76.20</td><td class='num'>+57.83</td><td class='num'>+0.00</td></tr><tr><td>H7</td><td class='num'>18.37</td><td class='num'>134.03</td><td class='num'>-57.83</td><td class='num'>+57.83</td></tr><tr><td>H8</td><td class='num'>76.20</td><td class='num'>134.03</td><td class='num'>+0.00</td><td class='num'>+57.83</td></tr><tr><td>H9</td><td class='num'>134.03</td><td class='num'>134.03</td><td class='num'>+57.83</td><td class='num'>+57.83</td></tr></tbody></table></div></details><details><summary>2.45 GHz band: hole coordinates (mm)</summary><div class='table-wrap'><table><thead><tr><th>Hole</th><th class='num'>X from corner O</th><th class='num'>Y from corner O</th><th class='num'>X from centre C</th><th class='num'>Y from centre C</th></tr></thead><tbody><tr><td>H1</td><td class='num'>20.21</td><td class='num'>20.21</td><td class='num'>-30.59</td><td class='num'>-30.59</td></tr><tr><td>H2</td><td class='num'>50.80</td><td class='num'>20.21</td><td class='num'>+0.00</td><td class='num'>-30.59</td></tr><tr><td>H3</td><td class='num'>81.39</td><td class='num'>20.21</td><td class='num'>+30.59</td><td class='num'>-30.59</td></tr><tr><td>H4</td><td class='num'>20.21</td><td class='num'>50.80</td><td class='num'>-30.59</td><td class='num'>+0.00</td></tr><tr><td>H5</td><td class='num'>50.80</td><td class='num'>50.80</td><td class='num'>+0.00</td><td class='num'>+0.00</td></tr><tr><td>H6</td><td class='num'>81.39</td><td class='num'>50.80</td><td class='num'>+30.59</td><td class='num'>+0.00</td></tr><tr><td>H7</td><td class='num'>20.21</td><td class='num'>81.39</td><td class='num'>-30.59</td><td class='num'>+30.59</td></tr><tr><td>H8</td><td class='num'>50.80</td><td class='num'>81.39</td><td class='num'>+0.00</td><td class='num'>+30.59</td></tr><tr><td>H9</td><td class='num'>81.39</td><td class='num'>81.39</td><td class='num'>+30.59</td><td class='num'>+30.59</td></tr></tbody></table></div></details>
+
+  <h2 id="fit">5 · Hole fit in acrylic</h2>
+  <p><strong>Spec on the drawings <span class="badge asm">IDEA</span>:</strong> ream to the <em>measured</em> rod diameter, nominal 0.1250″ (3.175 mm), with tolerance +0.0005/−0.0000″ (+0.013/−0 mm). That gives a snug (transition) fit, <strong>not a press fit</strong>. The rods are held by silicone O-rings (AS568-005) on both faces. Rods must be swappable, since Hively's plan is brass first and then W1 in the same geometry, and they must stay electrically floating. Drilling: pilot Ø3.0 mm (or #32), peck with water mist, use a dubbed zero-rake bit and a sacrificial backer, then ream. Chamfer 0.4 × 45° on both faces. Anneal before solvent cementing.</p>
+  <p><strong>Why not the requested 0.05–0.10 mm undersize?</strong> Acrylic makers advise against press fits and against high local stress: "design loads should not exceed 750 psi" for continuous loading (American Plastics Corp. acrylic data); Plaskolite and Perspex guides say to oversize holes and minimise stress. We estimated the hoop stress at the bore for a rigid rod in a thick plate as σ ≈ E·(δ/D)/(1+ν), with E ≈ 3.1 GPa and ν ≈ 0.37 <span class="badge asm">ASSUMPTION</span>:</p>
+  <div class="table-wrap"><table><thead><tr><th>Interference (diametral)</th><th class="num">mm</th><th class="num">hoop strain</th><th class="num">hoop stress psi</th><th class="num">÷ 750 psi</th></tr></thead><tbody><tr><td>requested 0.05 mm under</td><td class='num'>0.0500</td><td class='num'>1.57 %</td><td class='num'>5,168</td><td class='num'>6.9×</td></tr><tr><td>requested 0.10 mm under</td><td class='num'>0.1000</td><td class='num'>3.15 %</td><td class='num'>10,337</td><td class='num'>13.8×</td></tr><tr><td>HDPE fixture #31 (0.120 in) 0.127 mm under</td><td class='num'>0.1270</td><td class='num'>4.00 %</td><td class='num'>13,128</td><td class='num'>17.5×</td></tr><tr><td>light press 0.013 mm (0.0005 in)</td><td class='num'>0.0127</td><td class='num'>0.40 %</td><td class='num'>1,313</td><td class='num'>1.8×</td></tr><tr><td>0.0075 mm (0.0003 in)</td><td class='num'>0.0076</td><td class='num'>0.24 %</td><td class='num'>788</td><td class='num'>1.1×</td></tr></tbody></table></div>
+  <p class="footnote">750 psi continuous corresponds to only about 7.3 µm of interference, which a drilled hole cannot reliably hold. So the drawings specify a snug fit plus O-rings. The #31 (0.120″) light press used on the earlier HDPE fixtures works in HDPE because it is ductile. It must <strong>not</strong> be carried over to acrylic. Fallback if Dan wants a press fit: measured rod diameter minus 0.0005″ (about 1,300 psi), on cast acrylic only, annealed, and tested on the coupon first.</p>
+
+  <h2 id="design">6 · Design choices</h2>
+  <ul class="claims">
+   <li><span class="badge fact">FACT</span> M&amp;W Fig. 2 shows rods passing through one board at mid-length. <span class="badge asm">IDEA</span> We follow that: one plate per array, rods centred with equal protrusion.</li>
+   <li><span class="badge asm">IDEA</span> <strong>Not a solid block.</strong> The hub's 380 × 380 × 50–75 mm block would weigh about 9–13 kg in acrylic and put plastic over 14–22 % of each rod. <strong>Not two end plates</strong> either: that would put plastic at the rod tips and departs from the photo. Plate thickness: ½″ for Exp B (t/L 0.037) and Exp A (0.110), ¼″ for 2.45 GHz (0.104).</li>
+   <li><span class="badge asm">IDEA</span> H array: the rod plate is cemented into a half-depth dado in a square base, which sits on a turntable, so rotating it changes φ. V array: the rod plate is horizontal, cemented between two legs. Use solvent cement (Weld-On 16/4) only. No metal fasteners near the rods.</li>
+   <li><span class="badge asm">IDEA</span> 1/8″ rods for all three frequencies, for practical and structural reasons: that is the stock on hand or ordered (brass, and W1 drill rod), and one reamer serves every plate. The half-rod self-weight sag is only 0.13 mm for brass at 433 MHz. 1/16″ would bend in handling. The rod material enters M&amp;W's model only through σ (eq. 7).</li>
+   <li><span class="badge asm">IDEA</span> Keep steel (turntable bearing, screws) at least λ/(2π) from the nearest rod: 110 / 37 / 20 mm. This is by analogy with the hub's "keep ≳ λ/(2π) from either ball". Add a wood or plastic riser if needed.</li>
+   <li><strong>Change from earlier work:</strong> the rod-fixtures rev A drawings (2026-09-26) were HDPE (McMaster 9785T833 6×6×¾ ×6 and 8612N17 15×15×¾ ×3, already delivered). This request specifies acrylic, and the drawings follow it. Rod lengths and pitches match rev A.</li>
+  </ul>
+
+  <h2 id="material">7 · Material and purchase</h2>
+  <p>Per frequency: 2 rod plates, 1 H base, 2 V legs and 1 fit-test coupon (3×3″). Standard cast-acrylic sheets come in 12×12, 12×24, 24×24, 24×48 and 48×96″, in ⅛, ¼, ⅜, ½, ¾ and 1″ thicknesses. Nesting was checked with a guillotine shelf-pack and ⅛″ kerf.</p>
+  <div class="table-wrap"><table><thead><tr><th>Jig</th><th class="num">net in²</th><th class="num">+20 % in²</th><th>Thickness</th><th>Buy</th></tr></thead><tbody>
+  <tr><td>Exp B 433.59 MHz</td><td class="num">912.75</td><td class="num">1095.3</td><td>½″</td><td>1 × 24×48″ (1152 in²)</td></tr>
+  <tr><td>Exp A 1296 MHz</td><td class="num">154.5</td><td class="num">185.4</td><td>½″</td><td>1 × 12×24″ (288 in²)</td></tr>
+  <tr><td>2.45 GHz</td><td class="num">74.0</td><td class="num">88.8</td><td>¼″</td><td>1 × 12×12″ (144 in²)</td></tr>
+  </tbody></table></div>
+  <p><strong>Verdict:</strong> there is no acrylic stock on record. The only plastic on record is the HDPE bought for rev A. hub setup.html lists Amazon 6×6×⅛″ acrylic links, but those are shopping suggestions, not receipts, and ⅛″ is too thin for these plates anyway. Buy 3 pieces of cast acrylic (not extruded): ½″ 24×48, ½″ 12×24 and ¼″ 12×12. You can also order the 15 parts cut to size, which saves shop sawing. Prices have not been checked. Alternative: the HDPE Dan already owns fits the rev A plates (15×15 and 6×6), if he prefers not to buy acrylic.</p>
+
+  <h2 id="open">8 · Open items</h2>
+  <ul class="check-list">
+   <li><strong>WL check owed:</strong> <code>src/RodJigCheck.wl</code> is written but has not been run. There is no wolframscript on the box and the Wolfram Cloud key is unset. Numbers were computed in Python (<code>src/jig_numbers.py</code>).</li>
+   <li>Measure the actual rod diameters (brass and W1) before picking the reamer. Brass rod tolerance is looser than drill rod.</li>
+   <li>Stand height (centre rod H5 on the TX–RX axis) depends on the ball mounts, which are still open.</li>
+   <li>Sheet prices are not verified, and the O-ring part number should be checked against the measured rod.</li>
+   <li>Hub conflict remains: shop-drawing.html says "Rods / polarizer: None (Exp B only)", while Dan now wants Exp A and 2.45 GHz arrays.</li>
+  </ul>
+
+  <h2 id="sources">9 · Sources</h2>
+  <ul class="claims">
+   <li>C. Monstein &amp; J. P. Wesley, "Observation of scalar longitudinal electrodynamic waves", <em>Europhys. Lett.</em> 59(4) 514–520 (2002), doi:10.1209/epl/i2002-00136-9. Cited: p. 516 text, Fig. 2 photo/caption, Fig. 1, eq. (7).</li>
+   <li>E. J. Butterworth, C. B. Allison, D. Cavazos &amp; F. M. Mullen, "Longitudinal Electromagnetic Waves? The Monstein–Wesley Experiment Reconstructed", <em>J. Sci. Explor.</em> 27(1) 13–23 (2013), p. 16 (Methods).</li>
+   <li>Acrylic stress guidance: American Plastics Corp. acrylic data page (≤ 750 psi continuous); Plaskolite OPTIX-L fabrication guide (oversize holes, minimise stress); Perspex Design Guide §1.4.3; Röhm PLEXIGLAS machining guide 311-1 (annealing).</li>
+   <li>Box work: /workspace/sim-lab/rod-fixtures (rev A HDPE), /workspace/sim-lab/rod-thermal/dipole-detector (DD-433/1296/2450), hub 8e53b6a (read-only).</li>
+  </ul>
+  <div class="twin-note">No Wolfram Cloud twin planned (analysis page). Numbers were computed in Python; the WL re-check is owed. Drafted 2026-09-28 by Grok Bot for Dan Britton.</div>
+</main>
+<footer class="site"><div class="wrap"><div><strong>SLW Hub</strong> · Britton · educational. Rod-jig analysis page, draft of 2026-09-28.</div><div><a href="../index.html">Home</a> · <a href="../monstein.html">Monstein</a> · <a href="../shop-drawing.html">Shop drawings</a></div></div></footer>
+<script>
+(function () { var b = document.querySelector('.nav-toggle'), n = document.getElementById('nav');
+  if (b && n) b.addEventListener('click', function () { var o = n.classList.toggle('open'); b.setAttribute('aria-expanded', o ? 'true' : 'false'); }); })();
+</script>
+</body>
+</html>
