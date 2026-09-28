@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rod thermal model (SLW-only framing) + Faraday-cage coil observation + instrumentation · SLW Hub</title>
+<meta name="description" content="Simulation Lab report (2026-09-27): rod thermal model under SLW-only framing (S0/S1/S2), brass vs W1, cage-coil observation, near-field fall-off and instrumentation. Python only; WL compare owed. FACT/HYP labelled.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../sim-lab/sim-lab.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../../index.html">Home</a>
+      <a href="../../learn.html">Learn</a>
+      <a href="../../compare.html">Compare</a>
+      <a href="../../fields.html">Fields</a>
+      <a href="../../monstein.html">Monstein</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../lab.html">Lab</a>
+      <a href="../../kit.html">Kit</a>
+      <a href="../../library.html">Library</a>
+      <a href="../../ranging/">Ranging</a>
+      <a href="../../sim-lab/" aria-current="page">Sim Lab</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Simulation Lab report · rod / polarizer · faithful HTML conversion</p>
+  <h1>Rod thermal model (SLW-only framing) + Faraday-cage coil observation + instrumentation</h1>
+  <p class="lede">Rod heating under SLW-only framing (Erratum S0, Joule S1 literal and energy-capped, charge-relaxation S2), brass C36000 vs W1, temperature rise per scenario, the Faraday-cage coil observation (unverified), near-field fall-off, and instrumentation per frequency.</p>
+  <p><span class="badge mixed">MIXED</span> <a href="../">← Simulation Lab catalogue</a></p>
+  <div class="provenance">
+    <h2>Provenance</h2>
+    <ul>
+      <li><code>/workspace/sim-lab/rod-thermal/README.md</code> (last modified 2026-09-27 18:52 EDT)</li><li><code>/workspace/sim-lab/rod-thermal/tables.md</code> (last modified 2026-09-27 18:40 EDT)</li>
+      <li>Converted to HTML 2026-09-28 (EDT) as a faithful conversion: text, numbers, equations and labels are the source's own. No new equations were added; only the TEM tags described below and the edits listed here were made.</li>
+      <li>§8: the reference to the held rod log sheet PDF is kept as text only (the log sheet is not published; it is logged as owed). The contact-current section has its own page: ../rod-contact-current/.</li>
+      <li>Status lines inside the source (for example "nothing published", "HELD", "draft") describe the state when it was written. This page is its GitHub Pages twin, published 2026-09-28.</li>
+      <li>No Wolfram Cloud twin planned (analysis/report page, not one of Experiments A–G). Numbers are Python-computed; WL compare OWED where the source says so.</li>
+    </ul>
+  </div>
+  <div class="rules"><strong>Framing rules on this page (Dan).</strong> Under the SLW hypothesis no skin-depth, permeability, ferromagnetic or cage shielding-effectiveness argument is used to rank or dismiss SLW/SW. The Faraday cage strips TEM noise (<span class="badge fact">FACT</span>); an SLW passing the cage wall is <span class="badge hyp">HYP</span>. Every passage that uses transverse-EM (TEM / classical / cage-SE) reasoning is tagged <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>. FACT / HYP / ASSUMPTION labels are kept exactly as in the source.</div>
+  <h2>Downloads</h2><ul class="dl-list"><li><a href="numbers.json">numbers.json</a></li><li><a href="nearfield.json">nearfield.json</a></li><li><a href="../rod-contact-current/">Contact-current section →</a></li></ul>
+  
+  <article class="doc">
+<p>Prepared 2026-09-27 (ET) for Dan Britton / Chief of Staff via parent agent. Python only (no Wolfram on box; WL compare OWED).
+Scripts: <code>src/rod_thermal.py</code> -&gt; <code>numbers.json</code>, <code>tables.md</code>; <code>src/nearfield.py</code> -&gt; <code>nearfield.json</code>.
+Labels: <span class="badge fact">FACT</span> = quoted/cited source or standard physics with citation; <span class="badge hyp">HYP</span> = our or Dan's hypothesis/extrapolation; <strong>IDEA</strong> = suggestion.</p>
+<blockquote>
+<h2>SAFETY (read first)</h2>
+<p>Rods, probes, TinySAs and cables stay <strong>OUTSIDE the oven cavity</strong>. Never put loose metal in a running microwave oven: it can arc and damage the magnetron (and the oven). The &quot;near-door&quot; scenario means rods on a non-metallic stand outside the closed door. Do not defeat interlocks or run the oven empty/modified. Oven leakage limits are a federal product standard (21 CFR 1030.10: 5 mW/cm^2 at 5 cm, FACT); do not try to increase leakage.</p>
+</blockquote>
+<hr />
+<h2>0. Framing</h2>
+<ul>
+<li>Classical skin-depth / R_s (TEM) heating is <strong>not</strong> used as the governing model (Dan's correction). One confound line appears in Sec. 3.4 only. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>openEMS: <strong>N/A</strong> for the SLW mechanism (it solves Maxwell/TEM). Not run. Logged in SYNC_LEDGER. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>Model toggle: Erratum (Phys. Essays 35, 320, 2022) &quot;SLW is not subject to resistive loss in conductive media&quot; -&gt; <strong>S0: P = 0</strong> (FACT toggle).</li>
+</ul>
+<h2>1. Sources: charge accumulation, and whether sigma*E_par^2 is a stated heating term</h2>
+<p><strong>US 9,306,527 B1 (Hively), FACT quotes:</strong></p>
+<ul>
+<li>Col. 1 ll. 19-31: a classical linear monopole &quot;driven by a sinusoidal current to put charge onto and remove charge from the linear conductor (antenna)&quot; (charge-accumulator picture, <strong>transmitter</strong>).</li>
+<li>Col. 8 ll. ~44-55: &quot;essentially all of the electrical current goes into charging and discharging the antenna.&quot;</li>
+<li>Col. 7 ll. ~21-23: reciprocity, transmitter geometry can act as receiver.</li>
+<li>Col. 5 l. ~53 and col. 6 l. ~14: &quot;J=sigma E&quot;; EQN. 14 (col. 6 l. ~36) contains the term <strong>J.E</strong> in the energy balance; col. 6 ll. ~39-44 says with B=0 it &quot;may yield an identity, 0=0 ... verifying the no-skin-effect prediction&quot;. Table 1 item 6: &quot;C, E, and J exchange energy in conductive media.&quot;</li>
+<li><strong>Result:</strong> the patent <strong>never writes sigma*E^2 and never calls J.E heating/dissipation</strong>. No rod-absorption formula exists in the patent.</li>
+</ul>
+<p><strong>Hively &amp; Loebl, Phys. Essays 32, 112 (2019), FACT:</strong> Eq. (44), p. 117: d/dt(B^2/2mu + C^2/2mu + epsE^2) + div(ExB/mu + CE/mu) + <strong>J.E</strong> = rhoC/(eps mu). p. 116: &quot;E^L = J^L/sigma ... no eddy currents occur&quot;. The paper does not call J.E a loss or give an attenuation constant.</p>
+<p><strong>Keyport US 12,525,711 B1, FACT:</strong> silent on receiving rods, absorption, sigma*E^2, hysteresis, rod material (text search of Google full text: no &quot;heat&quot;, &quot;dissipat&quot;, &quot;absorb&quot;, &quot;hysteres&quot;, &quot;ohmic&quot;, &quot;joule&quot;, &quot;resistiv&quot;, &quot;attenuat&quot;; only &quot;conductive material&quot; for antenna parts, col. 4 ll. 5-7).</p>
+<p><strong>Monstein &amp; Wesley, EPL 59, 514 (2002), FACT:</strong> p. 516: &quot;only the E field component E0 cos(phi) in the direction of a wire produces Ohmic losses&quot;; Eq. (7) dP = -[sigma A E0^2 cos^2 phi] dL. This is the <strong>only</strong> source-derived rod Joule formula (it assumes internal E = external E0 cos phi). Eq. (9) T = exp[-kappa cos^2 phi], kappa = 4.4 fitted.</p>
+<p><strong>Verdict on sigma*E_par^2 as a heating term:</strong> from <strong>HL2019 Eq. 44 (J.E) + J = sigma E (paper and patent)</strong> and <strong>M&amp;W Eq. 7</strong> (paper). <strong>Not from the patent.</strong> Applying it to Dan's 1/8 in rods with internal E_par = external E_par is <strong>HYP (Dan's extrapolation)</strong>. Geometry (L vs lambda/2) setting absorbed energy: no source formula; M&amp;W kappa ~ L (FACT, Eq. 9 context) is the only length dependence stated.</p>
+<h2>2. Hysteresis question: W1 vs brass</h2>
+<p><strong>Conductivities (FACT):</strong></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>material</th>
+<th>source</th>
+<th>resistivity</th>
+<th>sigma (S/m)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C36000 free-cutting brass</td>
+<td>copper.org C36000: 26 % IACS @ 68 F</td>
+<td>-</td>
+<td>0.26 x 5.80e7 = <strong>1.51e7</strong></td>
+</tr>
+<tr>
+<td>W1 (DIN 1.1545, C105W1), annealed</td>
+<td>htsteelmill datasheet: 0.20 ohm mm^2/m (avg)</td>
+<td>20 uOhm cm</td>
+<td><strong>5.0e6</strong> (MetalZenith 0.18-0.22 uOhm m -&gt; 4.5-5.6e6)</td>
+</tr>
+<tr>
+<td>W1 hardened/tempered</td>
+<td>MatWeb 30 uOhm cm</td>
+<td>30 uOhm cm</td>
+<td>3.3e6</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>(The ~1e7 placeholder is not used.)</p>
+<p><strong>Same E_par (Model S1, HYP internal = external):</strong> heating ratio brass/W1 = sigma ratio = <strong>3.02</strong> (range 2.71-3.32 annealed; 4.5 vs hardened W1). <strong>Brass wins, about 3x more Joule heating per unit volume at the same E_par. This contradicts the &quot;high-hysteresis rods&quot; advice</strong> under the sigma<em>E^2 picture. Reason: hysteresis loss needs a cycling H/B; SLW has B = 0 (Erratum 2022; patent col. 2 ll. 54-61 &quot;no magnetic component&quot;, FACT), so mu_r and coercivity drop out of sigma</em>E^2 (HYP inference on FACT premises).</p>
+<p>Examples (tables.md): E_par = 0.1 V/m inside a 433.59 MHz rod -&gt; brass 0.10 W, 3.0 K; W1 0.034 W, 1.1 K (painted). But see Sec. 3: those fields are not reachable from the scenario fluxes without violating energy conservation.</p>
+<p><strong>Model S2, charge relaxation (HYP, first-principles continuity + Gauss):</strong> if the external E_par terminates on surface charge, E_in ~ (omega eps0/sigma) E_out, so p = (omega eps0 E_out)^2/sigma: <strong>ranking reverses, W1 &gt; brass by 3x</strong> (via sigma, not hysteresis). Magnitude is ~1e-8 of S1-capped: negligible (&lt;1e-8 K in every scenario).</p>
+<p><strong>Model S1-capped (HYP, energy-conserving, M&amp;W &lt;P/A&gt; = &lt;S&gt;):</strong> P = S * pi a^2 * (1 - exp(-kappa cos^2 phi)). Both metals absorb essentially everything through the cross-section -&gt; <strong>material-independent</strong> (ratio 1.00).</p>
+<p>So: <strong>brass/W1 = 3.0 (S1 literal), 1.0 (S1 capped), 0.33 (S2).</strong> No model makes hysteresis matter.</p>
+<h3>2.1 Question for Dan: Dr. &quot;Heidley/Hadley&quot; (likely Dr. Hively, <strong>unconfirmed</strong>). We did NOT contact anyone.</h3>
+<p>He specified HIGH-HYSTERESIS rods for the M&amp;W 433.59 MHz replication and a full 360 deg Lazy Susan rotation. Possible justifications, all <span class="badge hyp">HYP</span>:</p>
+<ul>
+<li>(i) Transverse-EM thinking: under ordinary TEM, magnetic loss in a ferromagnetic rod matters (TEM has B). Would test for TEM leakage, not SLW. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>(ii) A transverse mode excited at the rod ends by the longitudinal field (end discontinuity), whose B could then cause hysteresis loss. No source equation found for this.</li>
+<li>(iii) Charge-relaxation difference. Quantitative, with <strong>assumption eps = eps0 for metals (stated)</strong>:</li>
+</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>freq</th>
+<th>RF period</th>
+<th>tau brass = eps0/sigma</th>
+<th>tau W1</th>
+<th>tau/T (brass, W1)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>433.59 MHz</td>
+<td>2.31 ns</td>
+<td>5.9e-19 s</td>
+<td>1.8e-18 s</td>
+<td>2.6e-10, 7.7e-10</td>
+</tr>
+<tr>
+<td>1296 MHz</td>
+<td>0.772 ns</td>
+<td>5.9e-19 s</td>
+<td>1.8e-18 s</td>
+<td>7.6e-10, 2.3e-9</td>
+</tr>
+<tr>
+<td>2450 MHz</td>
+<td>0.408 ns</td>
+<td>5.9e-19 s</td>
+<td>1.8e-18 s</td>
+<td>1.4e-9, 4.3e-9</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Arithmetic <span class="badge fact">FACT</span>: tau is 9-10 orders of magnitude shorter than the period for both; both relax essentially instantly. Interpretation <span class="badge hyp">HYP</span>: (iii) cannot distinguish brass from W1 by relaxation speed. (Caveat: in real metals the response is limited by electron collision time ~1e-14 s, still &lt;&lt; period, standard Drude picture; HYP-level remark.) This ties to the patent's own transient E = E0 exp(-...t) with exponent printed eps/sigma (col. 5 l. ~55, a typo for sigma/eps).</p>
+<p><strong>360 deg rotation, FACT + HYP:</strong> M&amp;W Eq. 9 T = exp[-kappa cos^2 phi] is 180 deg periodic (FACT). Computed T(phi) at kappa = 4.4: 0.012 (0 deg), 0.037 (30), 0.333 (60), 1.000 (90), repeating identically 180-360. A full 360 deg sweep gives <strong>two repeats</strong>: a free consistency check; any 360 deg-periodic component points to asymmetry, a fixture/cable artifact, or a source off-axis (HYP on his intent). Also FACT: Hively himself rotated the receiving antenna <strong>360 deg in 1 deg increments</strong> (HL2019 p. 121, Fig. 5), so a full 360 sweep matches his own practice.</p>
+<h2>3. Temperature rise per frequency x material x scenario</h2>
+<p><strong>Flux-to-field map (HYP algebra on FACT equations):</strong> energy flux CE/mu with |C/E| = 1/c (patent EQN. 13, eps' = 1) -&gt; S = E^2/Z0, E_rms = sqrt(Z0 S). Spherical spreading S = P/(4 pi r^2) is FACT within Hively's framework (HL2019 p. 117: 4 pi r^2 (C^2/2mu) constant through a spherical boundary; patent col. 5 ll. ~62-65).
+<strong>All scenario fluxes are assumed to be SLW flux: HYP.</strong> Leakage exists only at 2.45 GHz. <strong>HackRF output power: not in the hub (MISSING).</strong> Hub drive level: +2 dBm (TinySA + Zeenko ZK06-UM 21 dB), <code>wolfram/PHYSICS_LOCK.md:39</code>; distances 1 m / 3 m are HYP; a 1 W case is plainly HYPOTHETICAL.</p>
+<p><strong>Thermal side (FACT correlations):</strong> m cp; natural convection on a horizontal cylinder, Churchill &amp; Chu (1975), Incropera 7e Eq. 9.34, air props Incropera Table A.4; linearized radiation h_r = 4 eps sigma_SB T^3; solved self-consistently. Conduction into the HDPE plate is ignored (so Delta T is a slight overestimate). Rod masses: brass 346 mm 23.3 g, W1 21.5 g (Speedy 0.1296 lb/36 in gives 22.2 g for 346 mm: consistent).</p>
+<p><strong>Per-rod results, phi = 0 (rod along propagation), painted (eps 0.96) / bare dull:</strong></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>scenario</th>
+<th>S (uW/cm^2)</th>
+<th>freq</th>
+<th>S1-capped P per rod</th>
+<th>Delta T (paint / bare)</th>
+<th>S1 upper, A_c = L^2 <strong>HYP, no source</strong></th>
+<th>S2</th>
+<th>S1 literal (sigma A L E^2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(a) 100 mW @ 30 ft</td>
+<td>0.0095</td>
+<td>2450</td>
+<td>0.74 nW</td>
+<td>0.13 / 0.25 uK</td>
+<td>0.35 uW -&gt; 60 / 110 uK</td>
+<td>&lt;1e-14 K</td>
+<td>0.26 W brass, 0.087 W W1: <strong>violates energy</strong></td>
+</tr>
+<tr>
+<td>(a) 300 mW @ 30 ft</td>
+<td>0.0286</td>
+<td>2450</td>
+<td>2.2 nW</td>
+<td>0.40 / 0.76 uK</td>
+<td>1.1 uW -&gt; 0.18 / 0.31 mK</td>
+<td>&lt;1e-13 K</td>
+<td>violates energy</td>
+</tr>
+<tr>
+<td>(a) 500 mW @ 30 ft</td>
+<td>0.0476</td>
+<td>2450</td>
+<td>3.7 nW</td>
+<td>0.66 / 1.3 uK</td>
+<td>1.8 uW -&gt; 0.29 / 0.52 mK</td>
+<td>&lt;1e-13 K</td>
+<td>violates energy</td>
+</tr>
+<tr>
+<td>(b) door, 5 mW/cm^2 @ 5 cm</td>
+<td>5000</td>
+<td>2450</td>
+<td><strong>0.39 mW</strong></td>
+<td><strong>55 / 85 mK</strong></td>
+<td>0.185 W -&gt; 17 / 21 K</td>
+<td>~1e-9 K</td>
+<td>1.4e5 W: absurd</td>
+</tr>
+<tr>
+<td>+2 dBm @ 1 m</td>
+<td>0.0126</td>
+<td>433.59</td>
+<td>0.99 nW</td>
+<td>0.03 / 0.06 uK</td>
+<td>15 uW -&gt; 0.44 / 0.78 mK</td>
+<td>~0</td>
+<td>violates energy</td>
+</tr>
+<tr>
+<td>+2 dBm @ 1 m</td>
+<td>0.0126</td>
+<td>1296</td>
+<td>0.99 nW</td>
+<td>0.09 / 0.18 uK</td>
+<td>1.7 uW -&gt; 0.15 / 0.27 mK</td>
+<td>~0</td>
+<td>violates energy</td>
+</tr>
+<tr>
+<td>+2 dBm @ 3 m</td>
+<td>0.0014</td>
+<td>433.59 / 1296</td>
+<td>0.11 nW</td>
+<td>~nK</td>
+<td>&lt;0.1 mK</td>
+<td>~0</td>
+<td>violates energy</td>
+</tr>
+<tr>
+<td>1 W @ 1 m (HYPOTHETICAL)</td>
+<td>7.96</td>
+<td>433.59</td>
+<td>0.62 uW</td>
+<td>19 / 36 uK</td>
+<td>9.4 mW -&gt; 0.22 / 0.33 K</td>
+<td>~0</td>
+<td>violates energy</td>
+</tr>
+<tr>
+<td>1 W @ 1 m (HYPOTHETICAL)</td>
+<td>7.96</td>
+<td>1296</td>
+<td>0.62 uW</td>
+<td>57 / 103 uK</td>
+<td>1.0 mW -&gt; 0.08 / 0.12 K</td>
+<td>~0</td>
+<td>violates energy</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Brass and W1 give identical S1-capped numbers (material-independent); bare values differ only by eps (0.22 vs 0.24). Full table with both materials: <code>tables.md</code>.</p>
+<p><strong>Verdicts (HYP model, FACT arithmetic):</strong></p>
+<ul>
+<li>(a) 30 ft leakage at any of 100/300/500 mW: <strong>sub-microkelvin</strong> (energy-capped); at most <strong>sub-millikelvin</strong> even with the unsourced L^2 collection area. <strong>Not IR-detectable.</strong></li>
+<li>(b) Near-door at the FDA limit: <strong>~55-85 mK</strong> per rod (capped), identical for brass and W1: <strong>below the 0.1-1 C IR-gun threshold</strong>, detectable only with a differential contact/fiber/camera-averaged setup (Sec. 4). Real ovens usually leak less than the limit (HYP; not measured). Only the unsourced L^2 area gives tens of K.</li>
+<li>433.59 / 1296 MHz with the hub's +2 dBm drive: <strong>nanokelvin to sub-mK</strong>. Undetectable thermally. Even a hypothetical 1 W at 1 m gives &lt;=0.1 mK capped (0.02-0.1 mK).</li>
+<li>The literal S1 formula (internal E = external) needs more power than the incident flux can supply in <strong>every</strong> case: it cannot be used without an energy cap.</li>
+</ul>
+<h3>3.4 One confound line (not the governing model)</h3>
+<p>For ordinary TEM leakage at the door (not SLW), a lambda/2 2.45 GHz rod has a classical maximum available power of S * 1.64 lambda^2/(4 pi) = 50 W/m^2 x 1.95e-3 m^2 ~ <strong>98 mW into a matched load</strong> (standard antenna effective aperture, FACT); an unloaded metal rod dissipates only a small fraction of that. This does not govern SLW, but it means any near-door rod heating is confounded by TEM leakage. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<h2>4. Measurement protocol</h2>
+<p><strong>Emissivity (FACT, Optris table sourced to Bramson / Wolfe &amp; Zissis):</strong></p>
+<ul>
+<li>Brass, dull/tarnished: <strong>0.22</strong>; oxidized: 0.61; polished: 0.03.</li>
+<li>Iron &amp; steel, freshly worked with emery (dull bare bar): <strong>0.24</strong>; rolled sheet 0.56; oxidized 0.74; rusty red 0.69.</li>
+<li>Black dull lacquer: 0.96-0.98 (Optris); black electrical tape 0.97 (ThermoWorks table); black plastic paint 0.95.</li>
+<li><strong>Recommendation:</strong> put a <strong>flat black paint or black electrical-tape dot (eps ~0.96)</strong> on each rod at the same spot and set the IR instrument to 0.96. This removes the brass-vs-steel emissivity difference (0.22 vs 0.24 bare is too low and uncertain for IR). The paint/tape adds a thin lossy dielectric and a little mass; use identical dots on every rod, including the reference. (Aluminized-back Kapton is NOT high-eps: 0.24-0.86 depending on thickness, design1st table.)</li>
+</ul>
+<p><strong>Irradiation time (computed):</strong> tau_th = m cp / (h A_s): painted 207-259 s (3.5-4.3 min); bare 313-405 s (5.2-6.8 min). Expose <strong>&gt;= 5 tau_th: ~20 min painted, ~35 min bare</strong> before reading steady state, then an equal off period.</p>
+<p><strong>Drift control:</strong> HVAC off, no people moving nearby, rods and HDPE plate equilibrated &gt;= 1 h, room thermometer logged, identical dummy HDPE plate, repeated on/off cycles (oven on/off is the modulation; keep oven duty and water load identical each cycle).</p>
+<p><strong>Differential measurement: worth doing (yes).</strong> Exposed rod vs an identical reference rod (same material, dot, mount) <strong>rotated to phi = 90 deg</strong> (M&amp;W T = 1, predicted zero absorption) or placed far out of the beam. Caution: a metal &quot;shield&quot; is not a valid reference in Hively's framework because the SLW is claimed to pass Faraday enclosures (patent col. 2 ll. 65-67; col. 10 ll. 35-38); use rotation/distance. The difference cancels common room drift.
+Expected noise floor (typical-instrument values, not verified against Dan's instruments, HYP-level):</p>
+<ul>
+<li>IR spot thermometer: ~0.1 C resolution. Sees nothing predicted here.</li>
+<li>Thermal camera, both rods in one frame: NETD typically 30-70 mK per frame; averaging many frames and pixels along the rod: ~5-10 mK.</li>
+<li>Differential type-T thermocouple (junction on each rod): Seebeck ~40 uV/K (standard type-T tables); a 0.1 uV meter gives 2.5 mK resolution. Realistic air-current noise several mK, reduced by sqrt(N) over N on/off cycles -&gt; <strong>~1-5 mK floor</strong> after ~10 cycles (HYP). Caution: TC leads are metal conductors in the field; route them perpendicular to the propagation axis (phi = 90) and keep them identical on both rods; prefer <strong>fiber-optic (GaAs) probes</strong>, which have no metal leads, if available.</li>
+<li>Against predictions: only the near-door S1-capped case (~55-85 mK) is above this floor; everything else is below it.</li>
+</ul>
+<h2>5. NEW: Dan's Faraday-cage bifilar coil + E5 observation</h2>
+<p><strong>Observation (Dan's data, UNVERIFIED by us):</strong> inside a sealed Faraday cage with the oven on, the Hively bifilar coil + TinySA shows 2.45 GHz activity; an E5 E-probe on its own TinySA near the coil showed oven-correlated activity; with the E5 moved as far from the coil as possible it went quiet while the coil's TinySA kept showing activity. Dan's HYP: the coil, driven by the longitudinal field, carries oscillating charge/current and makes a local near field that the E5 picks up.</p>
+<h3>5.1 What the sources say (FACT quotes) about SLW producing transverse fields at conductors/receivers</h3>
+<ul>
+<li><strong>No source statement found that an SLW converts to, or produces, transverse/TEM fields at a receiving conductor.</strong> Checked US 9,306,527, HL2019, Keyport US 12,525,711. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>US 9,306,527 col. 10 ll. 1-7 (bifilar coil): &quot;There may be zero or approximately zero inductance associated with the coil as a result of magnetic-field cancellation by counter-going electrical currents in adjacent turns of the coil. There may be zero or approximately zero capacitance associated with the coil as a result of adjacent turns of the coil having the same or approximately the same electrical charge density.&quot;</li>
+<li>US 9,306,527 col. 10 ll. 35-38: a solid copper Faraday box enclosing the coil &quot;may be configured to block most or all transverse electromagnetic waves impinging on the Faraday box.&quot; Col. 3 ll. 1-4: the result &quot;may not be explainable by radiation of classical transverse waves because such waves are eliminated via Faraday cage(s)&quot;.</li>
+<li>US 9,306,527 col. 7 ll. ~21-23 and HL2019 p. 116: &quot;a SLW transmitter can act as a receiver, and vice versa&quot; (reciprocity).</li>
+<li>HL2019 p. 116: &quot;The SLW has not been previously observed, because transverse electromagnetic (TEM) antennas detect only waves that produce a circulating current. A TEM transmitter produces only circulating currents, yielding C = 0 and E_L = 0 with no SLW power output or reception&quot;; Appendix C, pp. 123-124: &quot;This result explains the nondetection of the SLW by TEM antennas, which can detect waves that generate only a circulating current (no gradient-driven current).&quot; <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>HL2019 p. 121 (Hively's own confounds): &quot;One issue may be TEM signals being picked up by the coaxial cables, either inside or outside the Faraday cage... we did not use a TEM receiving antenna inside the Faraday cage to confirm the absence of such a signal.&quot; Also: &quot;a longitudinal E-field component occurs in the near-field under classical (Maxwell) electrodynamics&quot; within a few wavelengths (symbol garbled in extraction; ~3 lambda). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>Keyport US 12,525,711 col. 7 l. ~62 to col. 8 l. 5: &quot;Symmetric coil windings, such as a bifilar coil, may have SLW transmission advantages through cancelation of the E-Field [sic]. This may work similarly to a twisted pair ... and may cause the magnetic field of each wire to cancel with its opposing neighboring fields.&quot; Col. 7 ll. ~40-45: spark-fed antenna &quot;capable of generating SLW and scalar waves, while reducing the transverse electromagnetic (TEM) wave 4.&quot; Col. 7 ll. ~46-52: one-wire capacitive coupling, &quot;By sloshing electrons between two capacitive bodies, the sloshed current may be rectified on the receiving side.&quot; (Line numbers read from the rendered image, approximate.) <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+<p><strong>Consistency assessment:</strong></p>
+<ul>
+<li><strong>FACT (classical Maxwell):</strong> any time-varying charge/current distribution produces a reactive near field that falls off steeply. Reactive zone ~ lambda/(2 pi) (Wheeler radiansphere; kr = 1 in Jackson 3e Sec. 9.1): <strong>110 mm @ 433.59 MHz, 36.8 mm @ 1296 MHz, 19.5 mm @ 2.45 GHz</strong> (computed). For a small neutral source the quasi-static E falls as <strong>1/r^3</strong> (electric-dipole near zone, Jackson 3e Sec. 9.2), vs 1/r far field. So <strong>IF</strong> the coil carries 2.45 GHz current, a local E near it is expected, and its steep fall-off fits &quot;quiet when far.&quot;</li>
+<li><strong>HYP:</strong> that the coil current is driven by an inbound SLW. Hively's framework says TEM-type receivers (a small E-probe is one) do not detect SLW directly (p. 116), so an E5 reading near the coil is, in that framework, most naturally a <em>classical</em> local field from the coil's current: consistent with Dan's HYP. But no source claims the coil re-emits classical fields, and Hively's own col. 10 says the bifilar coil cancels B and has ~zero capacitance, so by design its local fields should be small (HYP tension worth noting). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>Important instrument FACT:</strong> tinySA Ultra covers 100 kHz-800 MHz in normal mode and up to 6 GHz only with <strong>ULTRA mode</strong> enabled (tinysa.org TinySA4 specification). It has a <strong>&quot;spur suppression option for assessing if certain signals are internally generated&quot;</strong> (same page). Use it.</li>
+</ul>
+<h3>5.2 Alternatives Dan should rule out (all HYP)</h3>
+<ul>
+<li>(a) <strong>The coil's own TinySA/coax/USB/power path is the antenna</strong>, or a cage leak (seam, vent, cable) couples in and the coil (a conductor that concentrates whatever gets in) re-radiates it. Hively flagged exactly this cable pickup (HL2019 p. 121).</li>
+<li>(b) <strong>The two TinySAs couple to each other</strong>, or through a shared ground/battery/USB, when the E5 is near the coil (the instruments are closest then).</li>
+<li>(c) <strong>TinySA self-generated spurs/harmonics</strong> (LO, ULTRA-mode mixing products, firmware) near 2.45 GHz, possibly modulated by the oven's mains-synchronous magnetron switching via power lines or vibration.</li>
+<li><strong>Cage rule check:</strong> no cable crosses the wall; battery power; data out only optically or after the run (stored traces). <strong>Were both TinySAs fully inside on battery, with USB unplugged?</strong> If not, that is a leak path and the result is not a Faraday test.</li>
+</ul>
+<h3>5.3 Discriminating controls (IDEA)</h3>
+<ol>
+<li>Oven off vs on (same setup) and oven on with an empty-cage baseline (TinySA with 50 ohm terminator, no coil).</li>
+<li>E5 near a <strong>dummy</strong>: a non-resonant coil or a straight wire of the same wire length, in place of the Hively coil.</li>
+<li>Coil disconnected from its TinySA and <strong>terminated in 50 ohm</strong>, E5 kept near it. If E5 still sees the oven, the coil is not being driven via its TinySA path.</li>
+<li>Swap the TinySAs; move both instruments; enable spur suppression; repeat.</li>
+<li>Seal each TinySA in its own small shielded box (probe coax through a bulkhead), both inside the big cage.</li>
+<li><strong>Distance sweep:</strong> E5 amplitude vs distance from the coil at fixed E5 orientation, log-log. Expected classical drops (computed): 5-&gt;50 mm: 20 dB for 1/r, 40 dB for 1/r^2, <strong>60 dB for 1/r^3</strong>; 5-&gt;20 mm: 12 / 24 / 36 dB. A steep (~1/r^3 beyond the coil radius) fall-off centered on the coil supports a local source; a flat or 1/r curve, or one centered on a cable/instrument, points to (a)-(c). Keep within the TinySA's ~70 dB spur-free range (spec page).</li>
+</ol>
+<h3>5.4 Implication for the rods (HYP)</h3>
+<p>If rods absorb by charge accumulation (sigma*E_par^2, HYP), they carry oscillating charge (max near the ends for a half-wave rod) and current (max at the center; classical half-wave distribution, FACT), so they should also show a local near field. <strong>IDEA:</strong> use a near-field probe sweep near a rod as an <strong>absorption proxy</strong>, with rotation phi as the key discriminator: a real rod-coupled signal should follow the M&amp;W <strong>cos^2 phi</strong> dependence, <strong>180 deg periodic</strong>, max at phi = 0/180 and minimum at 90/270, over a full 360 deg.
+Scale illustration (HYP arithmetic, <code>nearfield.json</code>): if the near-door S1-capped 0.39 mW were Joule loss with DC-uniform current (no skin effect per Hively), a 2.45 GHz rod would carry ~0.87 A rms (brass) / ~0.50 A (W1), i.e. classical H ~21 / 12 A/m at 5 mm: very easy to see with an H-probe. In Hively's framework the gradient-driven current has B = 0, so <strong>whether an H-probe sees an azimuthal field at the rod center is itself a discriminator</strong> between a classical current and Hively's irrotational current (HYP). Note this proxy is material-dependent (I ~ sqrt(sigma)) even when heating is not.</p>
+<h2>6. Instrumentation per frequency (rods floating, unperturbed; non-contact primary)</h2>
+<ul>
+<li><strong>Series ammeter / current probe:</strong> an ordinary ammeter cannot read RF current, and cutting the rod to insert one detunes it (FACT classical). Real example, verified: <strong>Tektronix CT6</strong> (Tek datasheet): 250 kHz-2 GHz typical (1.5 GHz guaranteed), closed core that accepts bare wire up to <strong>20 gauge (0.8 mm)</strong> only: it <strong>cannot fit a 1/8 in (3.175 mm) rod</strong> and does not reach 2.45 GHz. So clamp probes are a poor fit; treat as a &quot;class of device.&quot; A thermocouple-type RF ammeter inside the rod is impractical.</li>
+<li><strong>Non-contact current equivalent:</strong> a small shielded loop (H-probe, like H10) a few mm from the <strong>rod center</strong> (current maximum for a half-wave rod, FACT classical).</li>
+<li><strong>Voltage:</strong> half-wave rod voltage maximum is at the <strong>ends</strong> (FACT classical). Any contact probe loads and detunes the rod; prefer a capacitive E-probe (like E5) a few mm from a rod end.</li>
+<li><strong>TinySA + probes:</strong> H-probe near the center, E-probe near an end, spaced a few mm, either (1) <strong>fixed to the HDPE plate</strong> so they rotate with the rod (measures the rod's own response vs phi), or (2) <strong>fixed in space</strong> while the rod rotates (maps the field seen at one point; includes the probe-rod coupling). Both give different information; do both. The probe and its coax perturb the field and can themselves be the pickup (same caveat as the coil): repeat with the rod removed. Inside the cage: battery TinySA, no cable through the wall. 1296 and 2450 MHz need tinySA <strong>ULTRA mode</strong> (FACT, spec).</li>
+<li><strong>Oscilloscope:</strong> Tek &quot;5 Times Rule&quot; (FACT, Tektronix XYZs of Oscilloscopes primer): bandwidth &gt;= 5x signal for &lt;2% amplitude error -&gt; <strong>2.2 GHz (433.59 MHz), 6.5 GHz (1296 MHz), 12.3 GHz (2.45 GHz)</strong>. Prices not verified; say &quot;multi-GHz real-time scope class, expensive.&quot; Not needed: the <strong>TinySA zero-span mode</strong> (min burst 50 us at 850 kHz RBW, spec page) or an SDR gives the envelope, which is enough for on/off and vs-phi work. SDR coverage (vendor specs, not re-fetched this session): HackRF One ~1 MHz-6 GHz; RTL-SDR (R820T2) up to ~1.7 GHz, so 433.59 and 1296 MHz only.</li>
+<li><strong>Real-time brass vs W1:</strong> paired rods (one of each) at identical positions, differential IR camera or fiber-optic probes on painted dots, plus near-field probe amplitude vs phi for each material. Expect equal heating if S1-capped, brass 3x if S1 literal, W1 3x if S2; none predicts a hysteresis effect.</li>
+</ul>
+<h2>7. Open items / blockers</h2>
+<ul>
+<li>HackRF power figure: not in hub (source missing).</li>
+<li>Keyport PDF is image-only; col./line read from rendered page 13 (approximate). Erratum Phys. Essays 32(3) 417: unread.</li>
+<li>WL/JS compare OWED (no Wolfram on box; Cloud publishing pending). openEMS N/A for SLW.</li>
+<li>Dan's cage observation is unverified; no raw traces reviewed.</li>
+</ul>
+<h2>8. Contact-current section (added 2026-09-27)</h2>
+<p>See <code>contact/README.md</code> (Fluke/ammeter question, induced rod currents, contact loading, least-perturbing options, coil comparison, E5/H10 detectability) and the rod log sheet (HELD, not printed/sent; not published here). Python only; WL compare OWED.</p>
+<h2 id="appendix-1">Appendix: full tables (tables.md)</h2>
+<h3>Scenario table (per rod, phi = 0, rod axis along propagation)</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>scen</th>
+<th>freq</th>
+<th>mat</th>
+<th>S (uW/cm2)</th>
+<th>E_rms (V/m) HYP map</th>
+<th>S0</th>
+<th>S1-capped k=4.4 P (W)</th>
+<th>dT bare / paint (K)</th>
+<th>S1 upper A=L^2 HYP P (W)</th>
+<th>dT bare / paint (K)</th>
+<th>S2 relax P (W)</th>
+<th>dT paint (K)</th>
+<th>S1 literal P (W) [violates energy?]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a_100mW_30ft</td>
+<td>2450MHz</td>
+<td>brass_C36000</td>
+<td>0.00952</td>
+<td>0.189</td>
+<td>0</td>
+<td>7.44e-10</td>
+<td>2.55e-07 / 1.32e-07</td>
+<td>3.52e-07</td>
+<td>0.000109 / 5.99e-05</td>
+<td>2.14e-17</td>
+<td>3.81e-15</td>
+<td>0.262 [YES]</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>2450MHz</td>
+<td>W1_annealed</td>
+<td>0.00952</td>
+<td>0.189</td>
+<td>0</td>
+<td>7.44e-10</td>
+<td>2.49e-07 / 1.32e-07</td>
+<td>3.52e-07</td>
+<td>0.000107 / 5.99e-05</td>
+<td>6.45e-17</td>
+<td>1.15e-14</td>
+<td>0.0868 [YES]</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>2450MHz</td>
+<td>brass_C36000</td>
+<td>0.0286</td>
+<td>0.328</td>
+<td>0</td>
+<td>2.23e-09</td>
+<td>7.65e-07 / 3.97e-07</td>
+<td>1.06e-06</td>
+<td>0.000315 / 0.000176</td>
+<td>6.42e-17</td>
+<td>1.14e-14</td>
+<td>0.786 [YES]</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>2450MHz</td>
+<td>W1_annealed</td>
+<td>0.0286</td>
+<td>0.328</td>
+<td>0</td>
+<td>2.23e-09</td>
+<td>7.47e-07 / 3.97e-07</td>
+<td>1.06e-06</td>
+<td>0.000309 / 0.000176</td>
+<td>1.94e-16</td>
+<td>3.44e-14</td>
+<td>0.261 [YES]</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>2450MHz</td>
+<td>brass_C36000</td>
+<td>0.0476</td>
+<td>0.423</td>
+<td>0</td>
+<td>3.72e-09</td>
+<td>1.27e-06 / 6.62e-07</td>
+<td>1.76e-06</td>
+<td>0.000516 / 0.000291</td>
+<td>1.07e-16</td>
+<td>1.9e-14</td>
+<td>1.31 [YES]</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>2450MHz</td>
+<td>W1_annealed</td>
+<td>0.0476</td>
+<td>0.423</td>
+<td>0</td>
+<td>3.72e-09</td>
+<td>1.24e-06 / 6.62e-07</td>
+<td>1.76e-06</td>
+<td>0.000505 / 0.000291</td>
+<td>3.23e-16</td>
+<td>5.74e-14</td>
+<td>0.434 [YES]</td>
+</tr>
+<tr>
+<td>b_door_5mWcm2</td>
+<td>2450MHz</td>
+<td>brass_C36000</td>
+<td>5e+03</td>
+<td>137</td>
+<td>0</td>
+<td>0.000391</td>
+<td>0.085 / 0.0548</td>
+<td>0.185</td>
+<td>21.1 / 16.6</td>
+<td>1.12e-11</td>
+<td>2e-09</td>
+<td>1.38e+05 [YES]</td>
+</tr>
+<tr>
+<td>b_door_5mWcm2</td>
+<td>2450MHz</td>
+<td>W1_annealed</td>
+<td>5e+03</td>
+<td>137</td>
+<td>0</td>
+<td>0.000391</td>
+<td>0.0838 / 0.0548</td>
+<td>0.185</td>
+<td>20.9 / 16.6</td>
+<td>3.39e-11</td>
+<td>6.03e-09</td>
+<td>4.56e+04 [YES]</td>
+</tr>
+<tr>
+<td>drive_+2dBm_1m</td>
+<td>433.59MHz</td>
+<td>brass_C36000</td>
+<td>0.0126</td>
+<td>0.218</td>
+<td>0</td>
+<td>9.86e-10</td>
+<td>6.1e-08 / 3.17e-08</td>
+<td>1.49e-05</td>
+<td>0.000777 / 0.000442</td>
+<td>5.02e-18</td>
+<td>1.61e-16</td>
+<td>1.96 [YES]</td>
+</tr>
+<tr>
+<td>drive_+2dBm_1m</td>
+<td>433.59MHz</td>
+<td>W1_annealed</td>
+<td>0.0126</td>
+<td>0.218</td>
+<td>0</td>
+<td>9.86e-10</td>
+<td>5.96e-08 / 3.17e-08</td>
+<td>1.49e-05</td>
+<td>0.000761 / 0.000442</td>
+<td>1.51e-17</td>
+<td>4.87e-16</td>
+<td>0.651 [YES]</td>
+</tr>
+<tr>
+<td>drive_+2dBm_1m</td>
+<td>1296MHz</td>
+<td>brass_C36000</td>
+<td>0.0126</td>
+<td>0.218</td>
+<td>0</td>
+<td>9.86e-10</td>
+<td>1.81e-07 / 9.4e-08</td>
+<td>1.67e-06</td>
+<td>0.000268 / 0.00015</td>
+<td>1.5e-17</td>
+<td>1.43e-15</td>
+<td>0.656 [YES]</td>
+</tr>
+<tr>
+<td>drive_+2dBm_1m</td>
+<td>1296MHz</td>
+<td>W1_annealed</td>
+<td>0.0126</td>
+<td>0.218</td>
+<td>0</td>
+<td>9.86e-10</td>
+<td>1.77e-07 / 9.4e-08</td>
+<td>1.67e-06</td>
+<td>0.000262 / 0.00015</td>
+<td>4.52e-17</td>
+<td>4.31e-15</td>
+<td>0.218 [YES]</td>
+</tr>
+<tr>
+<td>drive_+2dBm_3m</td>
+<td>433.59MHz</td>
+<td>brass_C36000</td>
+<td>0.0014</td>
+<td>0.0727</td>
+<td>0</td>
+<td>1.1e-10</td>
+<td>6.78e-09 / 3.52e-09</td>
+<td>1.66e-06</td>
+<td>9.31e-05 / 5.1e-05</td>
+<td>5.58e-19</td>
+<td>1.79e-17</td>
+<td>0.218 [YES]</td>
+</tr>
+<tr>
+<td>drive_+2dBm_3m</td>
+<td>433.59MHz</td>
+<td>W1_annealed</td>
+<td>0.0014</td>
+<td>0.0727</td>
+<td>0</td>
+<td>1.1e-10</td>
+<td>6.62e-09 / 3.52e-09</td>
+<td>1.66e-06</td>
+<td>9.11e-05 / 5.1e-05</td>
+<td>1.68e-18</td>
+<td>5.41e-17</td>
+<td>0.0723 [YES]</td>
+</tr>
+<tr>
+<td>drive_+2dBm_3m</td>
+<td>1296MHz</td>
+<td>brass_C36000</td>
+<td>0.0014</td>
+<td>0.0727</td>
+<td>0</td>
+<td>1.1e-10</td>
+<td>2.01e-08 / 1.04e-08</td>
+<td>1.85e-07</td>
+<td>3.18e-05 / 1.72e-05</td>
+<td>1.67e-18</td>
+<td>1.59e-16</td>
+<td>0.0729 [YES]</td>
+</tr>
+<tr>
+<td>drive_+2dBm_3m</td>
+<td>1296MHz</td>
+<td>W1_annealed</td>
+<td>0.0014</td>
+<td>0.0727</td>
+<td>0</td>
+<td>1.1e-10</td>
+<td>1.96e-08 / 1.04e-08</td>
+<td>1.85e-07</td>
+<td>3.11e-05 / 1.72e-05</td>
+<td>5.03e-18</td>
+<td>4.79e-16</td>
+<td>0.0242 [YES]</td>
+</tr>
+<tr>
+<td>drive_1W_1m_HYP</td>
+<td>433.59MHz</td>
+<td>brass_C36000</td>
+<td>7.96</td>
+<td>5.48</td>
+<td>0</td>
+<td>6.22e-07</td>
+<td>3.59e-05 / 1.94e-05</td>
+<td>0.00941</td>
+<td>0.327 / 0.221</td>
+<td>3.17e-15</td>
+<td>1.02e-13</td>
+<td>1.24e+03 [YES]</td>
+</tr>
+<tr>
+<td>drive_1W_1m_HYP</td>
+<td>433.59MHz</td>
+<td>W1_annealed</td>
+<td>7.96</td>
+<td>5.48</td>
+<td>0</td>
+<td>6.22e-07</td>
+<td>3.51e-05 / 1.94e-05</td>
+<td>0.00941</td>
+<td>0.323 / 0.221</td>
+<td>9.56e-15</td>
+<td>3.07e-13</td>
+<td>411 [YES]</td>
+</tr>
+<tr>
+<td>drive_1W_1m_HYP</td>
+<td>1296MHz</td>
+<td>brass_C36000</td>
+<td>7.96</td>
+<td>5.48</td>
+<td>0</td>
+<td>6.22e-07</td>
+<td>0.000103 / 5.67e-05</td>
+<td>0.00105</td>
+<td>0.119 / 0.0775</td>
+<td>9.46e-15</td>
+<td>9.02e-13</td>
+<td>414 [YES]</td>
+</tr>
+<tr>
+<td>drive_1W_1m_HYP</td>
+<td>1296MHz</td>
+<td>W1_annealed</td>
+<td>7.96</td>
+<td>5.48</td>
+<td>0</td>
+<td>6.22e-07</td>
+<td>0.000101 / 5.67e-05</td>
+<td>0.00105</td>
+<td>0.117 / 0.0775</td>
+<td>2.85e-14</td>
+<td>2.72e-12</td>
+<td>137 [YES]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Same E_par (HYP internal = external), painted rods</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>freq</th>
+<th>E_rms (V/m)</th>
+<th>p brass (W/m3)</th>
+<th>p W1 (W/m3)</th>
+<th>P brass rod (W)</th>
+<th>P W1 rod (W)</th>
+<th>brass/W1</th>
+<th>dT brass (K)</th>
+<th>dT W1 (K)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>433.59MHz</td>
+<td>0.01</td>
+<td>1.51e+03</td>
+<td>500</td>
+<td>0.00413</td>
+<td>0.00137</td>
+<td>3.02</td>
+<td>0.101</td>
+<td>0.0353</td>
+</tr>
+<tr>
+<td>433.59MHz</td>
+<td>0.1</td>
+<td>1.51e+05</td>
+<td>5e+04</td>
+<td>0.413</td>
+<td>0.137</td>
+<td>3.02</td>
+<td>7.31</td>
+<td>2.67</td>
+</tr>
+<tr>
+<td>433.59MHz</td>
+<td>1.0</td>
+<td>1.51e+07</td>
+<td>5e+06</td>
+<td>41.3</td>
+<td>13.7</td>
+<td>3.02</td>
+<td>421</td>
+<td>163</td>
+</tr>
+<tr>
+<td>1296MHz</td>
+<td>0.01</td>
+<td>1.51e+03</td>
+<td>500</td>
+<td>0.00138</td>
+<td>0.000458</td>
+<td>3.02</td>
+<td>0.1</td>
+<td>0.035</td>
+</tr>
+<tr>
+<td>1296MHz</td>
+<td>0.1</td>
+<td>1.51e+05</td>
+<td>5e+04</td>
+<td>0.138</td>
+<td>0.0458</td>
+<td>3.02</td>
+<td>7.25</td>
+<td>2.65</td>
+</tr>
+<tr>
+<td>1296MHz</td>
+<td>1.0</td>
+<td>1.51e+07</td>
+<td>5e+06</td>
+<td>13.8</td>
+<td>4.58</td>
+<td>3.02</td>
+<td>418</td>
+<td>162</td>
+</tr>
+<tr>
+<td>2450MHz</td>
+<td>0.01</td>
+<td>1.51e+03</td>
+<td>500</td>
+<td>0.00073</td>
+<td>0.000242</td>
+<td>3.02</td>
+<td>0.0993</td>
+<td>0.0346</td>
+</tr>
+<tr>
+<td>2450MHz</td>
+<td>0.1</td>
+<td>1.51e+05</td>
+<td>5e+04</td>
+<td>0.073</td>
+<td>0.0242</td>
+<td>3.02</td>
+<td>7.17</td>
+<td>2.62</td>
+</tr>
+<tr>
+<td>2450MHz</td>
+<td>1.0</td>
+<td>1.51e+07</td>
+<td>5e+06</td>
+<td>7.3</td>
+<td>2.42</td>
+<td>3.02</td>
+<td>414</td>
+<td>160</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Charge relaxation tau = eps0/sigma vs RF period</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>freq</th>
+<th>mat</th>
+<th>tau (s)</th>
+<th>period (s)</th>
+<th>tau/T</th>
+<th>omega*tau</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>433.59MHz</td>
+<td>brass_C36000</td>
+<td>5.87e-19</td>
+<td>2.31e-09</td>
+<td>2.55e-10</td>
+<td>1.6e-09</td>
+</tr>
+<tr>
+<td>433.59MHz</td>
+<td>W1_annealed</td>
+<td>1.77e-18</td>
+<td>2.31e-09</td>
+<td>7.68e-10</td>
+<td>4.82e-09</td>
+</tr>
+<tr>
+<td>1296MHz</td>
+<td>brass_C36000</td>
+<td>5.87e-19</td>
+<td>7.72e-10</td>
+<td>7.61e-10</td>
+<td>4.78e-09</td>
+</tr>
+<tr>
+<td>1296MHz</td>
+<td>W1_annealed</td>
+<td>1.77e-18</td>
+<td>7.72e-10</td>
+<td>2.3e-09</td>
+<td>1.44e-08</td>
+</tr>
+<tr>
+<td>2450MHz</td>
+<td>brass_C36000</td>
+<td>5.87e-19</td>
+<td>4.08e-10</td>
+<td>1.44e-09</td>
+<td>9.04e-09</td>
+</tr>
+<tr>
+<td>2450MHz</td>
+<td>W1_annealed</td>
+<td>1.77e-18</td>
+<td>4.08e-10</td>
+<td>4.34e-09</td>
+<td>2.73e-08</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Rod thermal properties (at 1 mW absorbed)</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>freq/mat/surface</th>
+<th>L (mm)</th>
+<th>eps</th>
+<th>mass (g)</th>
+<th>h (W/m2K)</th>
+<th>A_surf (m2)</th>
+<th>dT per mW (K)</th>
+<th>tau_th (s)</th>
+<th>5 tau_th (min)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>433.59MHz</td>
+<td>brass_C36000</td>
+<td>bare</td>
+<td>346.0</td>
+<td>0.22</td>
+<td>23.28</td>
+<td>6.94</td>
+<td>0.00347</td>
+<td>0.0415</td>
+</tr>
+<tr>
+<td>433.59MHz</td>
+<td>brass_C36000</td>
+<td>paint</td>
+<td>346.0</td>
+<td>0.96</td>
+<td>23.28</td>
+<td>11.03</td>
+<td>0.00347</td>
+<td>0.0261</td>
+</tr>
+<tr>
+<td>433.59MHz</td>
+<td>W1_annealed</td>
+<td>bare</td>
+<td>346.0</td>
+<td>0.24</td>
+<td>21.50</td>
+<td>7.05</td>
+<td>0.00347</td>
+<td>0.0409</td>
+</tr>
+<tr>
+<td>433.59MHz</td>
+<td>W1_annealed</td>
+<td>paint</td>
+<td>346.0</td>
+<td>0.96</td>
+<td>21.50</td>
+<td>11.03</td>
+<td>0.00347</td>
+<td>0.0261</td>
+</tr>
+<tr>
+<td>1296MHz</td>
+<td>brass_C36000</td>
+<td>bare</td>
+<td>115.7</td>
+<td>0.22</td>
+<td>7.78</td>
+<td>7.52</td>
+<td>0.00117</td>
+<td>0.114</td>
+</tr>
+<tr>
+<td>1296MHz</td>
+<td>brass_C36000</td>
+<td>paint</td>
+<td>115.7</td>
+<td>0.96</td>
+<td>7.78</td>
+<td>11.58</td>
+<td>0.00117</td>
+<td>0.0739</td>
+</tr>
+<tr>
+<td>1296MHz</td>
+<td>W1_annealed</td>
+<td>bare</td>
+<td>115.7</td>
+<td>0.24</td>
+<td>7.19</td>
+<td>7.63</td>
+<td>0.00117</td>
+<td>0.112</td>
+</tr>
+<tr>
+<td>1296MHz</td>
+<td>W1_annealed</td>
+<td>paint</td>
+<td>115.7</td>
+<td>0.96</td>
+<td>7.19</td>
+<td>11.58</td>
+<td>0.00117</td>
+<td>0.0739</td>
+</tr>
+<tr>
+<td>2450MHz</td>
+<td>brass_C36000</td>
+<td>bare</td>
+<td>61.2</td>
+<td>0.22</td>
+<td>4.12</td>
+<td>7.92</td>
+<td>0.000626</td>
+<td>0.202</td>
+</tr>
+<tr>
+<td>2450MHz</td>
+<td>brass_C36000</td>
+<td>paint</td>
+<td>61.2</td>
+<td>0.96</td>
+<td>4.12</td>
+<td>11.95</td>
+<td>0.000626</td>
+<td>0.134</td>
+</tr>
+<tr>
+<td>2450MHz</td>
+<td>W1_annealed</td>
+<td>bare</td>
+<td>61.2</td>
+<td>0.24</td>
+<td>3.80</td>
+<td>8.02</td>
+<td>0.000626</td>
+<td>0.199</td>
+</tr>
+<tr>
+<td>2450MHz</td>
+<td>W1_annealed</td>
+<td>paint</td>
+<td>61.2</td>
+<td>0.96</td>
+<td>3.80</td>
+<td>11.95</td>
+<td>0.000626</td>
+<td>0.134</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>M&amp;W Eq. 9 T(phi) = exp(-4.4 cos^2 phi), 0-360 deg</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>30</th>
+<th>60</th>
+<th>90</th>
+<th>120</th>
+<th>150</th>
+<th>180</th>
+<th>210</th>
+<th>240</th>
+<th>270</th>
+<th>300</th>
+<th>330</th>
+<th>360</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.012</td>
+<td>0.037</td>
+<td>0.333</td>
+<td>1.000</td>
+<td>0.333</td>
+<td>0.037</td>
+<td>0.012</td>
+<td>0.037</td>
+<td>0.333</td>
+<td>1.000</td>
+<td>0.333</td>
+<td>0.037</td>
+<td>0.012</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+  </article>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub · <a href="../../sim-lab/">Simulation Lab catalogue</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
+</body>
+</html>

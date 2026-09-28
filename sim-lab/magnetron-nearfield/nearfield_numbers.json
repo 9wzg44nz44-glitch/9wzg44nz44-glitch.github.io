@@ -1,0 +1,205 @@
+{
+ "f_Hz": 2450000000.0,
+ "lambda_m": 0.12236426857142857,
+ "lambda_over_2pi_m": 0.019474878200967112,
+ "hertzian_ratio_Er_over_Eth": [
+  {
+   "kr": 0.1,
+   "r_cm": 0.195,
+   "r_over_lambda": 0.0159,
+   "ratio_peak": 2.0199989900007576,
+   "ratio_dB": 6.11,
+   "ratio_theta45": 2.019998990000758
+  },
+  {
+   "kr": 0.2,
+   "r_cm": 0.389,
+   "r_over_lambda": 0.0318,
+   "ratio_peak": 2.07993344319471,
+   "ratio_dB": 6.36,
+   "ratio_theta45": 2.0799334431947103
+  },
+  {
+   "kr": 0.5,
+   "r_cm": 0.974,
+   "r_over_lambda": 0.0796,
+   "ratio_peak": 2.4806946917841683,
+   "ratio_dB": 7.89,
+   "ratio_theta45": 2.4806946917841697
+  },
+  {
+   "kr": 1,
+   "r_cm": 1.947,
+   "r_over_lambda": 0.1592,
+   "ratio_peak": 2.8284271247461894,
+   "ratio_dB": 9.03,
+   "ratio_theta45": 2.82842712474619
+  },
+  {
+   "kr": 2,
+   "r_cm": 3.895,
+   "r_over_lambda": 0.3183,
+   "ratio_peak": 1.2403473458920842,
+   "ratio_dB": 1.87,
+   "ratio_theta45": 1.2403473458920846
+  },
+  {
+   "kr": 3,
+   "r_cm": 5.842,
+   "r_over_lambda": 0.4775,
+   "ratio_peak": 0.7402332101976052,
+   "ratio_dB": -2.61,
+   "ratio_theta45": 0.7402332101976055
+  },
+  {
+   "kr": 5,
+   "r_cm": 9.737,
+   "r_over_lambda": 0.7958,
+   "ratio_peak": 0.41598668863894206,
+   "ratio_dB": -7.62,
+   "ratio_theta45": 0.4159866886389421
+  },
+  {
+   "kr": 10,
+   "r_cm": 19.475,
+   "r_over_lambda": 1.5915,
+   "ratio_peak": 0.2019998990000758,
+   "ratio_dB": -13.89,
+   "ratio_theta45": 0.20199989900007576
+  },
+  {
+   "kr": 20,
+   "r_cm": 38.95,
+   "r_over_lambda": 3.1831,
+   "ratio_peak": 0.1002499992167969,
+   "ratio_dB": -19.98,
+   "ratio_theta45": 0.10024999921679689
+  },
+  {
+   "kr": 50,
+   "r_cm": 97.374,
+   "r_over_lambda": 7.9577,
+   "ratio_peak": 0.04001599999871949,
+   "ratio_dB": -27.96,
+   "ratio_theta45": 0.040015999998719486
+  },
+  {
+   "kr": 100,
+   "r_cm": 194.749,
+   "r_over_lambda": 15.9155,
+   "ratio_peak": 0.02000199999999,
+   "ratio_dB": -33.98,
+   "ratio_theta45": 0.02000199999999
+  },
+  {
+   "kr": 300,
+   "r_cm": 584.246,
+   "r_over_lambda": 47.7465,
+   "ratio_peak": 0.006666740740740738,
+   "ratio_dB": -43.52,
+   "ratio_theta45": 0.006666740740740738
+  },
+  {
+   "kr": 1000,
+   "r_cm": 1947.488,
+   "r_over_lambda": 159.1549,
+   "ratio_peak": 0.0020000019999999994,
+   "ratio_dB": -53.98,
+   "ratio_theta45": 0.002000002
+  }
+ ],
+ "ratio_threshold_distances": {
+  "-20 dB": {
+   "kr": 20.05,
+   "r_m": 0.3905,
+   "r_over_lambda": 3.19
+  },
+  "-30 dB": {
+   "kr": 63.26,
+   "r_m": 1.232,
+   "r_over_lambda": 10.07
+  },
+  "-40 dB": {
+   "kr": 200.0,
+   "r_m": 3.8951,
+   "r_over_lambda": 31.83
+  }
+ },
+ "regions": {
+  "magnetron antenna cap (D ~ 0.015-0.02 m, ASSUMPTION; inside waveguide: free-space regions do NOT apply)": {
+   "D_m": 0.02,
+   "D_over_lambda": 0.163,
+   "reactive_lambda_2pi_m": 0.0195,
+   "reactive_062_m": 0.005,
+   "fraunhofer_2D2_m": 0.0065,
+   "note": "electrically small (D < lambda): use lambda/2pi; 2D^2/lambda < lambda so far field set by r >> lambda"
+  },
+  "door seam/choke, D = 0.40 m diagonal (ASSUMPTION)": {
+   "D_m": 0.4,
+   "D_over_lambda": 3.269,
+   "reactive_lambda_2pi_m": 0.0195,
+   "reactive_062_m": 0.4484,
+   "fraunhofer_2D2_m": 2.6151,
+   "note": "D > lambda: Balanis Sec 2.2.4 formulas apply"
+  },
+  "door seam/choke, D = 0.45 m": {
+   "D_m": 0.45,
+   "D_over_lambda": 3.678,
+   "reactive_lambda_2pi_m": 0.0195,
+   "reactive_062_m": 0.535,
+   "fraunhofer_2D2_m": 3.3098,
+   "note": "D > lambda: Balanis Sec 2.2.4 formulas apply"
+  },
+  "door seam/choke, D = 0.50 m": {
+   "D_m": 0.5,
+   "D_over_lambda": 4.086,
+   "reactive_lambda_2pi_m": 0.0195,
+   "reactive_062_m": 0.6266,
+   "fraunhofer_2D2_m": 4.0862,
+   "note": "D > lambda: Balanis Sec 2.2.4 formulas apply"
+  },
+  "vent/mesh patch, D = 0.05 m (ASSUMPTION)": {
+   "D_m": 0.05,
+   "D_over_lambda": 0.409,
+   "reactive_lambda_2pi_m": 0.0195,
+   "reactive_062_m": 0.0198,
+   "fraunhofer_2D2_m": 0.0409,
+   "note": "electrically small (D < lambda): use lambda/2pi; 2D^2/lambda < lambda so far field set by r >> lambda"
+  },
+  "vent/mesh patch, D = 0.10 m (ASSUMPTION)": {
+   "D_m": 0.1,
+   "D_over_lambda": 0.817,
+   "reactive_lambda_2pi_m": 0.0195,
+   "reactive_062_m": 0.056,
+   "fraunhofer_2D2_m": 0.1634,
+   "note": "electrically small (D < lambda): use lambda/2pi; 2D^2/lambda < lambda so far field set by r >> lambda"
+  }
+ },
+ "placement": {
+  "D=0.4 m": {
+   "one_x_2D2": 2.62,
+   "three_x_2D2": 7.85,
+   "three_x_2D2_in_lambda": 64.1
+  },
+  "D=0.45 m": {
+   "one_x_2D2": 3.31,
+   "three_x_2D2": 9.93,
+   "three_x_2D2_in_lambda": 81.1
+  },
+  "D=0.5 m": {
+   "one_x_2D2": 4.09,
+   "three_x_2D2": 12.26,
+   "three_x_2D2_in_lambda": 100.2
+  }
+ },
+ "TE10_WR340": {
+  "a_m": 0.08636,
+  "b_m": 0.04318,
+  "fc_TE10_GHz": 1.7357,
+  "lambda_g_m": 0.1734,
+  "peak_Hz_over_Hx": 1.0038,
+  "peak_Hz_over_Hx_dB": 0.03,
+  "longitudinal_E": "zero for a pure TE10 mode (E_y only); E_z appears only in evanescent higher-order modes near the probe (Pozar Sec 3.3/4.7 general)",
+  "source": "Pozar 4e Sec 3.3 (TE10 field expressions); ASSUMPTION WR-340 dimensions"
+ }
+}

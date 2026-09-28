@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>REDO_SLW.md: submarine SLW/SW source survey, redone for SLW/SW propagation only · SLW Hub</title>
+<meta name="description" content="Simulation Lab (2026-09-26): submarine SLW/SW source survey redone for SLW/SW only. Joule-conversion audit, three readings, rankings, 2.45 GHz cage verification. FACT/HYP/ASSUMPTION labelled. Educational.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../sim-lab/sim-lab.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../../index.html">Home</a>
+      <a href="../../learn.html">Learn</a>
+      <a href="../../compare.html">Compare</a>
+      <a href="../../fields.html">Fields</a>
+      <a href="../../monstein.html">Monstein</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../lab.html">Lab</a>
+      <a href="../../kit.html">Kit</a>
+      <a href="../../library.html">Library</a>
+      <a href="../../ranging/">Ranging</a>
+      <a href="../../sim-lab/" aria-current="page">Sim Lab</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Simulation Lab report · submarine sources · faithful HTML conversion</p>
+  <h1>REDO_SLW.md: submarine SLW/SW source survey, redone for SLW/SW propagation only</h1>
+  <p class="lede">Submarine-borne SLW/SW source survey, redone for SLW/SW propagation only (the earlier TEM-ranked batch is superseded and not published). Joule-loss audit, three readings (Joule-as-assumed, Hively-text-literal, Erratum α=0), rankings, and the 2.45 GHz cage verification steps.</p>
+  <p><span class="badge mixed">MIXED</span> <a href="../">← Simulation Lab catalogue</a></p>
+  <div class="provenance">
+    <h2>Provenance</h2>
+    <ul>
+      <li><code>/workspace/sim-lab/sub-sources/REDO_SLW.md</code> (last modified 2026-09-26 07:24 EDT)</li><li><code>/workspace/sim-lab/sub-sources/redo_slw_numbers.md</code> (last modified 2026-09-26 07:22 EDT)</li>
+      <li>Converted to HTML 2026-09-28 (EDT) as a faithful conversion: text, numbers, equations and labels are the source's own. No new equations were added; only the TEM tags described below and the edits listed here were made.</li>
+      <li>§8: one internal process bullet about an unsent internal summary draft was omitted (outbound/internal drafts are excluded from Pages). Batch-1 files (SOURCES.md, SUMMARY.md, VERIFY.md) are superseded and are not published.</li>
+      <li>Status lines inside the source (for example "nothing published", "HELD", "draft") describe the state when it was written. This page is its GitHub Pages twin, published 2026-09-28.</li>
+      <li>No Wolfram Cloud twin planned (analysis/report page, not one of Experiments A–G). Numbers are Python-computed; WL compare OWED where the source says so.</li>
+    </ul>
+  </div>
+  <div class="rules"><strong>Framing rules on this page (Dan).</strong> Under the SLW hypothesis no skin-depth, permeability, ferromagnetic or cage shielding-effectiveness argument is used to rank or dismiss SLW/SW. The Faraday cage strips TEM noise (<span class="badge fact">FACT</span>); an SLW passing the cage wall is <span class="badge hyp">HYP</span>. Every passage that uses transverse-EM (TEM / classical / cage-SE) reasoning is tagged <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>. FACT / HYP / ASSUMPTION labels are kept exactly as in the source.</div>
+  <h2>Downloads</h2><ul class="dl-list"><li><a href="redo_slw_numbers.json">redo_slw_numbers.json</a></li></ul>
+  
+  <article class="doc">
+<p>Simulation Lab · sub-sources · 2026-09-26 (EDT) · literature and reasoning only. Nothing sent, published, pushed or merged. <code>SYNC_LEDGER.md</code> untouched.</p>
+<p>Labels:</p>
+<ul>
+<li><span class="badge fact">FACT</span>: textbook, measured, or peer-reviewed mainstream.</li>
+<li><span class="badge hyp">HYP</span>: published Hively / Monstein / scalar-wave hypothesis or claim.</li>
+<li><span class="badge asm">ASSUMPTION</span>: our modelling choice.</li>
+<li><strong>SPECULATION</strong>: no published backing.</li>
+</ul>
+<p>No new physics equations. Every equation is either quoted from the source named next to it or is an existing line of the Experiment G code (<code>/workspace/sim-lab/expt-g/sim/expt_g_model.py</code>). Numbers come from <code>redo_slw_numbers.py</code>, saved as <code>redo_slw_numbers.json</code> and <code>redo_slw_numbers.md</code>.</p>
+<hr />
+<h2>0. What changed and why</h2>
+<ol>
+<li><strong>The error.</strong> Batch 1 (SOURCES.md, SUMMARY.md, VERIFY.md) ranked sources partly on <strong>TEM</strong> losses: TEM seawater skin depth, TEM hull absorption, and TEM cage shielding. It then put the 2.45 GHz magnetron last, citing &quot;~95,000 dB/100 m&quot;. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>
+<ul>
+<li>Dan's target is <strong>SLW and SW only</strong>.</li>
+<li>In Hively's framework these have no eddy-current or skin-effect loss (HYP; Hively &amp; Loebl 2019 p. 117; Erratum 2022; US 9,306,527 cols. 5–7).</li>
+<li>So <strong>TEM figures are irrelevant here and are no longer used to rank or dismiss anything.</strong> <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+</li>
+<li><strong>The only SLW loss left</strong> is Hively's Joule term J·E (Hively &amp; Loebl 2019 Eq. 44), or no loss at all (Erratum, α = 0).</li>
+<li><strong>Audit result.</strong> Our per-metre Joule attenuation α_J = σ_H|Z|/2 is <strong>not in any Hively text</strong>. It is our construction and needs at least four added steps (§1.2). One of those steps is dropping the ρC/(εμ) term in Eq. 44, and that term is exactly what the Erratum says cancels J·E.
+<ul>
+<li>The construction is also <strong>not robust</strong>. Changing one convention (|Z| vs the real part of the flux) moves the 60 Hz 1/e length from <strong>186 km to 1.06 cm</strong> (§1.2d).</li>
+<li>|Z| is not the TEM impedance: at 60 Hz, Eq. 37 |Z| is 2.4×10⁻⁴ of TEM |η|. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>But the method is the classical recipe for low-loss dielectric attenuation. At 2.45 GHz seawater has tanδ = 0.585, so Hively's |Z| is 0.93 × TEM |η|, and the ~9 mm result lands within 10 % of the TEM value (§1.2c). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+</li>
+<li><strong>Re-ranking.</strong> Sources are re-ranked separately under the Joule default and under Erratum-lossless (§2).
+<ul>
+<li>The magnetron moves from last to <strong>first under Erratum-lossless</strong>, and stays weak under the Joule default.</li>
+<li>That weakness is from our Joule construction, not from TEM, and it carries the §1.2 caveat. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+</li>
+<li><strong>Verification.</strong> The 2.45 GHz verification list is rewritten without TEM-based dismissals (§5). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ol>
+<hr />
+<h2>1. Propagation model (SLW/SW only)</h2>
+<h3>1.1 What the sources actually say (quotes)</h3>
+<ul>
+<li><strong>Hively &amp; Loebl, Phys. Essays 32, 112 (2019), Eq. 44</strong> (p. 117, as printed; HYP). The revised energy balance:
+∂/∂t(B²/2μ + C²/2μ + εE²) + ∇·(E×B/μ + CE/μ) + J·E = ρC/(εμ).
+<ul>
+<li>Their gloss: <em>&quot;Equation (44) has new energy density terms: scalar field energy (C²/2μ), SLW energy (CE/μ), and a power source (ρC/εμ).&quot;</em></li>
+<li>Note (ASSUMPTION): the printed E-energy term lacks the /2 that the text on p. 116 uses (&quot;4πr²(εE²/2)&quot;). This is probably typographic.</li>
+</ul>
+</li>
+<li><strong>Eq. 37</strong> (p. 116; HYP): Z = |E_r|/|C/μ₀μ′| = √(μ₀/ε₀)·√(μ′/ε′)·[1 − 1/(jkr)]/[1 − j tan(δ_ε)].
+<ul>
+<li>Checked against the rendered PDF: the loss factor 1 − j tanδ sits <strong>outside</strong> the square root.</li>
+<li>The text says Eq. 37 uses <em>&quot;|E|/(C/μ) to obtain the SLW impedance, like the CED form, Z = |E|/|H|&quot;</em>.</li>
+<li>Hively's σ: <em>&quot;σ = ε₀ε″ω&quot;</em> (text after Eq. 36).</li>
+</ul>
+</li>
+<li><strong>Same page, straight after Eq. 37</strong> (HYP): <em>&quot;The C− and E− field energies from Eq. (44), 4πr²(εE²/2) and 4πr²(C²/2μ), are constant through a spherical boundary.&quot;</em> Also p. 115: <em>&quot;a constant energy, 4πr²(C²/2μ), through a spherical boundary around a source in arbitrary media, as required.&quot;</em>
+<ul>
+<li>Constant energy through every sphere means no loss beyond spreading. The paper's own text therefore describes no per-metre loss.</li>
+</ul>
+</li>
+<li><strong>p. 117</strong> (HYP): <em>&quot;Thus, no eddy currents occur, so the SLW is unimpeded by the skin effect for propagation through linearly conductive media.&quot;</em></li>
+<li><strong>p. 120</strong> (HYP): <em>&quot;SLW attenuation in conductive media is the subject of future work.&quot;</em> <strong>The 2019 paper explicitly does not give an SLW attenuation constant.</strong></li>
+<li><strong>p. 120–121, Fig. 4</strong> (HYP; single-lab, not replicated). 2 × 1.02 mm copper (<em>&quot;2914 skin depths&quot;</em>) around the antennas at ~8 GHz. Extrapolating to 2 mm separation <em>&quot;gives −79 dB and −86 dB&quot;</em>. <em>&quot;These results show that the SLW is unconstrained by the skin effect with 1/r² attenuation in free-space.&quot;</em></li>
+<li><strong>Erratum, Phys. Essays 35, 320 (2022)</strong> (HYP): <em>&quot;Physically, Eq. (A6) means that the SLW is not subject to resistive loss in conductive media. The same no-loss result occurs from the energy balance equation, Eq. (44), by substituting for (ρ/ε) from Eq. (22) and by substituting for J^L from Eq. (21) with B = 0; then cancelling terms. Consequently, the SLW is unconstrained by the skin effect and power loss in resistive media.&quot;</em></li>
+<li><strong>Hively &amp; Land, IARD 2020 slides 59–60</strong> (<code>/workspace/ohmic-slw-search/Hively-Land-IARD-2020.txt</code>; HYP, conference slides).
+<ul>
+<li>Slide titles: &quot;SLW Attenuation in Conductive Media&quot; and <strong>&quot;No SLW Attenuation in Conductive Media&quot;</strong>.</li>
+<li>σ appears only as a <strong>temporal</strong> relaxation, <em>&quot;E = Eo e^(−σt/ε)&quot;</em>.</li>
+<li>For harmonic fields: <em>&quot;lossless propagation in linear conductive media&quot;</em>.</li>
+<li>FACT (arithmetic): ε₀ε′/σ = 1.5×10⁻¹⁰ s in seawater. Hively does not turn this into a spatial loss.</li>
+</ul>
+</li>
+<li><strong>US 9,306,527 B1</strong> (HYP): <em>&quot;the electric wave's energy, 4πr²(εE²/2), may be constant through a spherical boundary of arbitrary radius&quot;</em>; Table 1: <em>&quot;SLW propagates in conductive media without the skin effect&quot;</em>; <em>&quot;C, E, and J exchange energy in conductive media. EQNS. 11-17&quot;</em>.</li>
+<li><strong>Hively &amp; Reed, Symmetry 12, 2110 (2020)</strong> (HYP): SLW and SW <em>&quot;are unconstrained by the skin effect, because neither wave has a magnetic field that generates&quot;</em> eddy currents (p. 1, abstract; p. 9 text; Table item 7, p. 10).</li>
+<li><strong>Hub, experiment-c.html #ohmic</strong> (hub rule, not a Hively quote): <em>&quot;SLW still has linear Ohmic loss ... p_Joule = J·E = σE∥²&quot;</em> and <em>&quot;exp(−α_ohm L) ... with α tied to σ / loss-tangent story&quot;</em>. The hub gives no formula for α_ohm.
+<ul>
+<li>Open item: the hub quotes the patent transient as &quot;E ∝ exp(−ε t/σ)&quot;. Hively's IARD slide has e^(−σt/ε). The hub form is dimensionally inconsistent and is probably a typo (ASSUMPTION). Not changed.</li>
+</ul>
+</li>
+</ul>
+<h3>1.2 Audit of α_J = σ_H|Z|/2 (the Joule-as-previously-assumed conversion)</h3>
+<p><strong>(a) What Eq. 44 literally gives.</strong> Eq. 44 is a <strong>local</strong> energy balance with four kinds of term:</p>
+<ul>
+<li>storage (B², C², E²);</li>
+<li>flux (E×B/μ, plus the SLW flux CE/μ);</li>
+<li>Joule work J·E;</li>
+<li>a source ρC/(εμ).</li>
+</ul>
+<p>It contains <strong>no attenuation constant and no length scale</strong>. Hively's own text says field energy is constant through any sphere (p. 115–116). It says attenuation in conductive media is &quot;future work&quot; (p. 120). The Erratum says the J·E term cancels once the other terms are substituted. <strong>Verdict: Eq. 44 alone cannot give a per-metre attenuation without added steps that are not in the source.</strong> HYP (source text) + ASSUMPTION (our reading).</p>
+<p><strong>(b) The added steps our α_J needed</strong> (all ASSUMPTION unless marked):</p>
+<ol>
+<li><strong>The flux.</strong> Treat CE/μ as the only energy flux of the SLW. B = 0 removes E×B/μ (HYP, Eq. 27).</li>
+<li><strong>Impedance, magnitude only.</strong> Replace C/μ by E/|Z| using Eq. 37, keeping only the magnitude of Z. This fixes both the E-to-flux relation and the phase convention (see d).</li>
+<li><strong>E∥ definition.</strong> Take J·E = σE∥² with E∥ = E_L, the radial field of the Eq. 37 spherical wave, and J_L = σE_L. The E_L = J_L/σ relation is Hively's (p. 117, HYP). Using σ = σ_H = ε₀ε″ω, which includes dipolar loss, is Hively's definition (HYP).</li>
+<li><strong>Drop the source term.</strong> Discard ρC/(εμ) and the time-averaged storage terms. <strong>This is the decisive invented step:</strong> the Erratum says ρC/(εμ) cancels J·E exactly.</li>
+<li><strong>Far field and local plane wave.</strong> Set kr → ∞ in Eq. 37 and treat the loss as a local exp(−2αr) on the flux. Spreading is handled separately.</li>
+<li>Then flux loss per metre = σ_H|Z| (in power), so α_J = σ_H|Z|/2 (in field). This is the existing Expt G code line (<code>water()</code>), and it is our construction, not Hively's.</li>
+</ol>
+<p><strong>(c) Does |Z| smuggle in a TEM/transverse impedance?</strong> <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<ul>
+<li><strong>Not the impedance itself.</strong> Eq. 37 is Hively's own SLW impedance (HYP). It differs from the TEM intrinsic impedance because 1 − j tanδ is outside the root. Numbers (seawater, 15 °C, S 35; TEM given for reference only, never for ranking): <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+<p class="tem-note">&#9888; Rows/columns in this table that refer to TEM / classical / cage SE: <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>f</th>
+<th>tanδ</th>
+<th>Eq. 37 |Z| (Ω)</th>
+<th>TEM |η| (Ω, ref)</th>
+<th>|Z|/|η|</th>
+<th>α_J (a1) 1/e</th>
+<th>TEM 1/e (ref)</th>
+<th>α_J/α_TEM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>60 Hz</td>
+<td>1.75×10⁷</td>
+<td>2.51×10⁻⁶</td>
+<td>0.0105</td>
+<td>2.4×10⁻⁴</td>
+<td>186 km</td>
+<td>31.4 m</td>
+<td>1.7×10⁻⁴</td>
+</tr>
+<tr>
+<td>10 kHz</td>
+<td>1.05×10⁵</td>
+<td>4.18×10⁻⁴</td>
+<td>0.136</td>
+<td>3.1×10⁻³</td>
+<td>1.11 km</td>
+<td>2.43 m</td>
+<td>2.2×10⁻³</td>
+</tr>
+<tr>
+<td>1 MHz</td>
+<td>1.05×10³</td>
+<td>0.0418</td>
+<td>1.36</td>
+<td>0.031</td>
+<td>11.1 m</td>
+<td>24.3 cm</td>
+<td>0.022</td>
+</tr>
+<tr>
+<td>1057.8 MHz</td>
+<td>1.06</td>
+<td>30.2</td>
+<td>36.5</td>
+<td>0.83</td>
+<td>1.45 cm</td>
+<td>1.10 cm</td>
+<td>0.76</td>
+</tr>
+<tr>
+<td><strong>2.45 GHz</strong></td>
+<td><strong>0.585</strong></td>
+<td><strong>38.4</strong></td>
+<td><strong>41.3</strong></td>
+<td><strong>0.93</strong></td>
+<td><strong>9.11 mm</strong></td>
+<td><strong>8.17 mm</strong></td>
+<td><strong>0.90</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>But the method is the classical one.</strong> Draining a flux E²/|Z| by σE² is how the textbook low-loss attenuation is derived (FACT: the standard derivation, e.g. Jackson 3rd ed. §8.1 / §7.5; section numbers from memory, unverified).
+<ul>
+<li>Where tanδ ≲ 1 (microwave), Hively's |Z| and TEM |η| nearly coincide, so the construction reproduces the TEM-like loss. That is why the earlier 2.45 GHz Joule figure (9.11 mm) sits within ~10 % of TEM (8.17 mm). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>At ELF–MHz (tanδ ≫ 1), Hively's |Z| is tiny and the same construction gives 10²–10⁴ × less loss than TEM. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>In that limit σ_H cancels against the tanδ in Eq. 37's denominator. The α_J/limit column in <code>redo_slw_numbers.md</code> is 1.000 up to 10 MHz, and <strong>α_J becomes salinity-independent and proportional to f</strong> (ASSUMPTION; arithmetic on the existing code line).</li>
+</ul>
+</li>
+<li><strong>Verdict (c):</strong> no TEM impedance was imported. The <strong>Poynting-theorem attenuation logic</strong> was, and at 2.45 GHz that logic returns essentially the TEM number. The ~9 mm is therefore not independent evidence about SLW. It is what you get by treating Eq. 44's SLW part like the classical Poynting theorem with the ρC/(εμ) term deleted. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+<p><strong>(d) Robustness check (ASSUMPTION sensitivity).</strong></p>
+<ul>
+<li>The Expt G code already applies a cos(phase) factor to the TEM flux: <code>field_at</code> uses S = E²cosθ/(2|Z|). It does not apply that factor to the SLW. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>Eq. 37's Z has phase δ, so applying the same convention to the SLW (reading a3) multiplies α_J by √(1 + tan²δ):</li>
+</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>f</th>
+<th>(a1) as previously assumed</th>
+<th>(a3) same logic, real-part flux</th>
+<th>ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>60 Hz</td>
+<td>186 km</td>
+<td><strong>1.06 cm</strong></td>
+<td>1.75×10⁷</td>
+</tr>
+<tr>
+<td>400 Hz</td>
+<td>27.9 km</td>
+<td>1.06 cm</td>
+<td>2.6×10⁶</td>
+</tr>
+<tr>
+<td>10 kHz</td>
+<td>1.11 km</td>
+<td>1.06 cm</td>
+<td>1.05×10⁵</td>
+</tr>
+<tr>
+<td>1 MHz</td>
+<td>11.1 m</td>
+<td>1.06 cm</td>
+<td>1.05×10³</td>
+</tr>
+<tr>
+<td>2.45 GHz</td>
+<td>9.11 mm</td>
+<td>7.86 mm</td>
+<td>1.16</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>A second sensitivity: Eq. 37's near-field factor |1 − 1/(jkr)|. With k = ω√ε′/c (ASSUMPTION: Hively gives no k for a lossy medium), 60 Hz has kr = 0.011 at 1 km. That raises |Z|, and so α_J, by ×93 at that range; at 10 km the factor is ×9.3.</li>
+<li><strong>Verdict (d): the Joule default is not a single well-defined model.</strong> Its ELF answer swings by ~7 orders of magnitude on an unstated convention. Only at ≳1 GHz are (a1) and (a3) close (both ~1 cm-scale). <strong>It should not carry ranking weight beyond &quot;a lower-bound-style pessimistic case&quot;.</strong></li>
+</ul>
+<p><strong>Overall audit verdict.</strong></p>
+<ul>
+<li>α_J = σ_H|Z|/2 is <strong>our ASSUMPTION</strong>, not something Eq. 44 gives. It needs a magnitude-only impedance substitution, a choice of E∥ and σ, and <strong>deletion of the ρC/(εμ) source term</strong>. That source term is the one Hively's Erratum uses to cancel J·E.</li>
+<li>|Z| is Hively's (not TEM), but the attenuation recipe is the classical one. So at 2.45 GHz it reproduces TEM-scale loss: 953 dB/m against the TEM reference 1063 dB/m. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>The more literal Hively-grounded reading (b) is <strong>no per-metre loss</strong>. It rests on the 2019 text itself, the patent, the 2020 slides and the Erratum.</li>
+</ul>
+<h3>1.3 The three readings (numbers from <code>redo_slw_numbers.py</code>)</h3>
+<ul>
+<li><strong>(a) Joule-as-previously-assumed (DEFAULT, per Dan's standing rule).</strong> α_J = σ_H|Z|/2 (existing code). <strong>Caveat: §1.2 (not in Hively; drops ρC/εμ; convention-sensitive).</strong> Variant (a2) uses fixed σ = 4.29 S/m instead of σ_H, which only matters above ~100 MHz (2.45 GHz: 1.21 cm instead of 9.11 mm).</li>
+<li><strong>(b) Hively-text-literal.</strong> No per-metre loss term exists in the source text: constant 4πr² energy &quot;in arbitrary media&quot; (2019 pp. 115–116), &quot;future work&quot; (p. 120), &quot;No SLW Attenuation in Conductive Media&quot; (IARD 2020). Only spreading, per Eq. 38 (P ∝ 1/r²). Possible <strong>interface</strong> effects under Eq. 26 (continuity of normal ∇C/μ) are <strong>UNKNOWN</strong>: Hively gives no transmission coefficient. HYP.</li>
+<li><strong>(c) Erratum α = 0 (labelled toggle).</strong> Numerically identical to (b), but with a different provenance: an explicit cancellation claim. HYP.</li>
+</ul>
+<p><strong>Seawater, SLW/SW only.</strong> 1/e length, then exponential loss in dB at 1 m / 100 m / 1 km / 10 km. Spreading is common to all readings: 0 / 40 / 60 / 80 dB re 1 m (Eq. 38, HYP).</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>f</th>
+<th>(a1) 1/e</th>
+<th>(a1) loss 1 m / 100 m / 1 km / 10 km (dB)</th>
+<th>(b)</th>
+<th>(c)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>60 Hz</td>
+<td>186 km</td>
+<td>5×10⁻⁵ / 0.005 / 0.047 / 0.47</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>400 Hz</td>
+<td>27.9 km</td>
+<td>3×10⁻⁴ / 0.031 / 0.31 / 3.1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1 kHz (sonar)</td>
+<td>11.1 km</td>
+<td>8×10⁻⁴ / 0.078 / 0.78 / 7.8</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>3 kHz (sonar)</td>
+<td>3.71 km</td>
+<td>0.002 / 0.23 / 2.3 / 23</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>10 kHz (PWM carrier / sonar)</td>
+<td>1.11 km</td>
+<td>0.008 / 0.78 / 7.8 / 78</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>100 kHz (PWM / sonar high)</td>
+<td>111 m</td>
+<td>0.078 / 7.8 / 78 / 779</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1 MHz (PWM edge)</td>
+<td>11.1 m</td>
+<td>0.78 / 78 / 779 / 7,790</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>10 MHz (PWM edge top)</td>
+<td>1.11 m</td>
+<td>7.8 / 779 / 7,790 / 77,900</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2.45 GHz (magnetron)</td>
+<td>9.11 mm</td>
+<td>953 / 9.5×10⁴ / 9.5×10⁵ / 9.5×10⁶</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Steel pressure hull.</strong></p>
+<ul>
+<li>Assumptions (ASSUMPTION): σ = 3.5 MS/m and μr = 90 (batch-1 HY-80 values, unverified); μr = 700 (COMSOL tutorial) and μr = 1 (GHz roll-off bound) also shown; ε′ = 1 (Eq. 37 needs ε′ and it is undefined for a metal).</li>
+<li>Thickness 30 mm (Pasopati hull, ARPN JEAS 2017), ~51 mm (&quot;approximately 2 in&quot;, HY-80 welding report) and 76 mm (hub 3 in wall).</li>
+<li>Reading (a1), applying the same code lines to steel (ASSUMPTION), gives dB through 30 / 51 / 76 mm:</li>
+</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>f</th>
+<th>μr = 1</th>
+<th>μr = 90</th>
+<th>μr = 700</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>60 Hz – 10 kHz</td>
+<td>&lt; 10⁻⁴</td>
+<td>&lt; 10⁻³</td>
+<td>&lt; 0.002</td>
+</tr>
+<tr>
+<td>1 MHz</td>
+<td>0.003 / 0.005 / 0.007</td>
+<td>0.03 / 0.04 / 0.07</td>
+<td>0.07 / 0.12 / 0.18</td>
+</tr>
+<tr>
+<td>10 MHz</td>
+<td>0.03 / 0.05 / 0.07</td>
+<td>0.26 / 0.44 / 0.66</td>
+<td>0.7 / 1.2 / 1.8</td>
+</tr>
+<tr>
+<td>2.45 GHz</td>
+<td>6.7 / 11.4 / 16.9</td>
+<td>64 / 108 / 161</td>
+<td>177 / 301 / 448</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Under (b) and (c) the hull loss is 0 dB. <strong>SLW or SW passing the hull is HYP</strong> (Hively 2019 Fig. 4 claim; unreplicated).</li>
+<li>A 0.6 mm steel oven or cage wall under (a1): 0.13 dB (μr 1) to 1.3 dB (μr 90) at 2.45 GHz, and ≤ 5×10⁻³ dB below 10 MHz (ASSUMPTION thickness).</li>
+<li><strong>Passing the oven cage, the room cage or the hull is HYP in every reading.</strong></li>
+</ul>
+<p><strong>Receive field per SLW watt, readings (b)/(c).</strong></p>
+<ul>
+<li>Expt G <code>field_at</code> with α = 0 and Eq. 37 |Z| (ASSUMPTION model consequence).</li>
+<li>Per SLW watt delivered into seawater, the field at 1 km grows with √|Z|: +22 dB at 10 kHz, +42 dB at 1 MHz and <strong>+72 dB at 2.45 GHz</strong>, relative to 60 Hz.</li>
+<li><strong>So without the Joule term, HF sources are favoured, not penalised.</strong> This is not a source-strength claim: the SLW watts of every source are UNKNOWN.</li>
+</ul>
+<hr />
+<h2>2. Re-ranked candidate sources (enemy submarine, detected from another submerged platform)</h2>
+<p><strong>How to read the SNR labels.</strong></p>
+<ul>
+<li>No source has a known SLW source-term magnitude. <strong>HYP: Hively's source coupling has never been measured</strong>, and the fraction of a device's electrical power that becomes SLW is unknown.</li>
+<li>So each label is <strong>qualitative and relative</strong>. It combines four things:
+<ol>
+<li>propagation under the reading;</li>
+<li>how literally the device matches Hively's charging-current criterion (§4);</li>
+<li>duty cycle;</li>
+<li>how distinct its fingerprint is against the SLW background that the same hypothesis implies (every grid, drive and oven on Earth; lightning per Hively &amp; Land 2021 p. 2).</li>
+</ol>
+</li>
+<li>Powers quoted are <strong>electrical</strong> powers from open sources, not SLW powers.</li>
+<li>The column &quot;(c) Erratum&quot; also stands for reading (b).</li>
+</ul>
+<p class="tem-note">&#9888; Rows/columns in this table that refer to TEM / classical / cage SE: <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Rank (a1)</th>
+<th>Rank (c)</th>
+<th>Source</th>
+<th>Frequency content</th>
+<th>Coupling path under Hively's criterion (HYP)</th>
+<th>SNR, Joule default (a1)</th>
+<th>SNR, Erratum-lossless (c)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>8</strong></td>
+<td><strong>1</strong></td>
+<td><strong>Mess-deck microwave oven (magnetron)</strong></td>
+<td>2.45 GHz carrier, ~50 MHz sweep. Conduction on one half-cycle of 60 Hz (16.7 ms period, ~50 % duty; IEEE 802.11-98/240). Dual-magnetron commercial ovens alternate half-cycles, giving 120 Hz structure (Sharp R-2397 manual). Power-level relay cycling on a 32 s base (Sharp KB-6024MW). Inverter ovens: 20–50 kHz, no 60 Hz gating (Panasonic, US 8,492,687).</td>
+<td>Output antenna probe = open-ended monopole driven at 2.45 GHz into the waveguide (Hively's monopole geometry, without a skirt balun). HV doubler capacitor charged every cycle. Anode current itself is a closed circuit (FACT circuit) → C = 0 for that part (HYP, App. C). Inside the oven cage and the hull.</td>
+<td><strong>Weak.</strong> Seawater 953 dB/m under (a1). Hull 7–450 dB (μr 1–700, 30–76 mm), secondary. Caveat: at 2.45 GHz (a1) is the Joule construction that reproduces TEM-scale loss (§1.2c); it is not a Hively result.</td>
+<td><strong>Moderate (source term unknown).</strong> No path loss. +72 dB receive field per SLW watt vs 60 Hz. ~1 kW class output (LG 2M246: 1000 W typical oven, 1150 W matched load; 4.40 kV peak anode). Most distinctive fingerprint of any candidate. Against it: intermittent (meal times; ASSUMPTION), and a lossless world contains every oven afloat and ashore as background.</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>2</strong></td>
+<td><strong>Seawater-pump / propulsion motor drives and engine-room frequency converters (60 Hz ↔ 400 Hz), incl. PWM edges</strong></td>
+<td>60 Hz and 400 Hz fundamentals (MIL-STD-1399-300B). Rectifier harmonics (360 Hz etc.; ASSUMPTION). PWM carrier &quot;several kHz up to tens of kHz&quot;. Edges <em>&quot;dv/dt, typically up to 10kV/µs&quot;</em>, EMI to &quot;several to tens of MHz&quot; (Zhu et al., IEEE Access 10, 125279, 2022).</td>
+<td>Common-mode dv/dt charging current i_b = C_b dv_b/dt (Zhu Eq. 3, FACT circuit law) into winding-to-frame, bearing and cable capacitance: current into capacitive terminations (HYP criterion). Shaft and propeller give an outboard path. 440 V ungrounded system: <em>&quot;Line-to-ground current of up to 20 amperes ... capacitive coupling&quot;</em> (MIL-STD-1399-300B §5.1.2, FACT).</td>
+<td><strong>Moderate.</strong> ≤10 kHz content has 1/e ≥ 1.1 km. 100 kHz: 111 m. MHz edges die in ~1–11 m. Hull negligible below 10 MHz under (a1). Continuous. Large converters (e.g. L3Harris ACFC 150 kW, batch 1; Columbia-class electric drive, CRS R41129, GAO-18-158). Background: every ship's and shore drive; 60 Hz especially.</td>
+<td><strong>Moderate.</strong> All components propagate, edges favoured (+42–52 dB per SLW watt at 1–10 MHz vs 60 Hz). Continuous. Fingerprint: carrier frequency and harmonics, plus shaft-rate-linked fundamental; 400 Hz is rarer than 50/60 Hz in the background.</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>3</strong></td>
+<td><strong>Sonar transmitters (and acoustic modems)</strong></td>
+<td>Mid-frequency 1–10 kHz. Higher-frequency sets to ~100 kHz (ASSUMPTION). Pulsed.</td>
+<td>Piezo stacks are capacitive loads: a conductor ending on a ceramic dielectric, outboard in a free-flooded dome or array, at high voltage. <strong>The most literal match to &quot;charge where current has to stop&quot;</strong> (HYP). No hull in the path.</td>
+<td><strong>Strong when active.</strong> 1/e 11 km (1 kHz) to 1.1 km (10 kHz), no hull. Tens of kW electrical in open analogues (Sea Lancer 25 kW transmit, Sea Sabre 71.3 kW, both 440 V 60 Hz; AN/SQS-26 &quot;maximum output was 240 kW&quot;). Submarine figures not public. Intermittent: SSNs mostly run passive (ASSUMPTION). When pinging, the acoustic signal already gives the platform away (FACT that active sonar is acoustically detectable).</td>
+<td><strong>Strong when active.</strong> Same, no loss, +12–32 dB per SLW watt vs 60 Hz.</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>5</strong></td>
+<td><strong>ICCP / galvanic UEP / shaft-rate modulated ELFE</strong></td>
+<td>DC; shaft rate and harmonics; ICCP ripple; 1–1000 Hz.</td>
+<td>Current already flows in seawater. The quasi-static J = σE in a homogeneous conductor is gradient-driven (FACT), the nearest real case of Hively's J = ∇κ. The anode and cathode surfaces are conductor-to-electrolyte transitions, but the current continues ionically rather than stopping (HYP, weaker).</td>
+<td><strong>Moderate.</strong> ELF propagates (1/e ≥ 28 km). No hull. Continuous. A classical signature is measured at O(1000) µV/m near field (DTIC AD1005158 snippet; FACT, page unverified), which <strong>confounds</strong> any SLW claim.</td>
+<td><strong>Moderate.</strong> Same, but low-frequency content gets no Z advantage. Classical confound remains.</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong>6</strong></td>
+<td><strong>60/400 Hz ship-service distribution</strong></td>
+<td>60 Hz, 400 Hz, harmonics.</td>
+<td>20 A capacitive line-to-ground charging current (FACT, above) is a charging-current source (HYP). Returns mostly via the hull as a closed loop, which is weak per HYP App. C.</td>
+<td><strong>Moderate–weak.</strong> Propagation fine. Background from global 50/60 Hz grids; 400 Hz more distinctive.</td>
+<td><strong>Moderate–weak.</strong> As (a1).</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>4</strong></td>
+<td><strong>Battery / propulsion bus switching, contactors and switchgear arcing</strong></td>
+<td>DC with kHz–MHz switching edges. Broadband arc impulses.</td>
+<td>Arcs are Hively's own written source example: <em>&quot;charge accumulation causes arcing across the fault; this gradient-driven current creates the SLW&quot;</em> (Hively &amp; Reed 2020 p. 11). Keyport's patent claims a <em>&quot;resonant spark system&quot;</em> (US 12,525,711 claim 30). HYP, no measurement.</td>
+<td><strong>Weak–moderate.</strong> Only the low-frequency part of an arc spectrum travels. Rare events.</td>
+<td><strong>Moderate (rare).</strong> Broadband impulses propagate intact; timing is unpredictable.</td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td><strong>7</strong></td>
+<td><strong>Radar / ESM / comms masts (surfaced or at periscope depth)</strong></td>
+<td>HF to X-band, pulsed radar with high peak power.</td>
+<td>Whips and monopoles are open-ended (HYP geometry) but have ground-plane return. Slotted arrays and horns carry closed currents (C = 0 per HYP App. C). They radiate into air. Only when the platform is near the surface.</td>
+<td><strong>Weak.</strong> GHz content gets the same (a1) seawater penalty as the magnetron. Tactical context: only when shallow.</td>
+<td><strong>Moderate–weak.</strong> No loss, but only near the surface. Antenna types mostly TEM-closed.</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td><strong>8</strong></td>
+<td><strong>Electrolytic oxygen generator</strong></td>
+<td>DC, rectifier ripple (ASSUMPTION).</td>
+<td>Electrode–membrane interface: electronic → ionic current, which does not stop. Closed DC circuit. Sea Wolf prototype OGP: 83-cell stack, <em>&quot;maximum current rating of 250 A ... 249 V&quot;</em> (NASA GRC report on the Hamilton Standard OGP).</td>
+<td><strong>Weak.</strong></td>
+<td><strong>Weak.</strong></td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td><strong>9</strong></td>
+<td><strong>Degaussing coils</strong></td>
+<td>DC to slow; supply ripple.</td>
+<td>Closed solenoidal loops: C = 0 (HYP; Hively &amp; Loebl App. C).</td>
+<td><strong>Weak.</strong></td>
+<td><strong>Weak.</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Not ranked:</strong></p>
+<ul>
+<li><strong>VLF/ELF comms antennas</strong> (floating wire, towed buoy): receive-only.</li>
+<li><strong>Electro-chlorination:</strong> not verified aboard submarines.</li>
+<li><strong>Crew Wi-Fi/Bluetooth:</strong> would share the magnetron's propagation but has ~mW-class power (ASSUMPTION).</li>
+</ul>
+<p><strong>Cross-cutting counterpoint.</strong></p>
+<ul>
+<li><strong>HYP-internal:</strong> Hively's own patent EQN. 8→9 gives □²C = 0 under charge conservation.</li>
+<li>Rentzber (arXiv:2608.19405, 2026; HYP preprint) argues <em>&quot;For a conserved source with no scalar initial field, C=0&quot;</em>. If that holds, <strong>every row above is zero</strong>, because all of these devices conserve charge.</li>
+<li><strong>FACT (mainstream):</strong> longitudinal E is near-field only (Bray &amp; Britton, EPL 66, 153, 2004).</li>
+</ul>
+<hr />
+<h2>3. Per-source notes</h2>
+<p><strong>3.1 Magnetron (Dan's top interest).</strong></p>
+<ul>
+<li><strong>FACT (datasheet, LG 2M246, local <code>home-motors/src/2M246.pdf</code>):</strong>
+<ul>
+<li>1000 W average output in a typical oven, 1150 W into a matched load;</li>
+<li>4.40 kV peak anode; 330 mA average anode current; 1500 mA peak maximum;</li>
+<li>supply: <em>&quot;Half-wave doubler with leakage&quot;</em> transformer.</li>
+</ul>
+</li>
+<li><strong>FACT (Sharp service manuals):</strong> power levels by relay cycling within a <em>&quot;32 second time base&quot;</em>, with ~2 s filament warm-up. The commercial Sharp R-2397 has two magnetrons, <em>&quot;oscillated alternatively according to the frequency of the power supply&quot;</em>.</li>
+<li><strong>FACT:</strong> a galley microwave oven is present on at least one US SSN (QSR Magazine, USS Jefferson City; batch 1). Shipboard units are 120 V 60 Hz (IMPA 175090; batch 1).</li>
+<li><strong>Fingerprint to search for (ASSUMPTION, derived from the FACT items):</strong>
+<ul>
+<li>2.45 GHz energy present only during one mains half-cycle (16.7 ms repeat at 60 Hz; 20 ms at 50 Hz for a 50 Hz navy);</li>
+<li>or 8.3 ms alternation for dual-magnetron ovens;</li>
+<li>a ~50 MHz intra-cycle frequency sweep;</li>
+<li>an on/off envelope at a 32 s class period at reduced power;</li>
+<li>use clustered at meal times.</li>
+</ul>
+</li>
+<li><strong>This modulation (60/120 Hz gating plus a 32 s envelope) is the discriminant.</strong> Under (c) it would ride on a lossless carrier.</li>
+<li><strong>HYP coupling:</strong> the probe/antenna in the waveguide launcher is an open-ended conductor carrying ~kW RF. It is the closest thing aboard to Hively's monopole, but with no skirt balun and inside a cavity.</li>
+<li><strong>Dan's cage observation</strong> of a 2.45 GHz longitudinal component is <strong>unverified (HYP at best)</strong> until §5 passes. If it passes, the obvious nearby source under (c) is a domestic oven, which the fingerprint test addresses.</li>
+</ul>
+<p><strong>3.2 Drives and converters.</strong></p>
+<ul>
+<li><strong>FACT:</strong> PWM common-mode dv/dt up to 10 kV/µs and bearing charging current i_b = C_b dv_b/dt (Zhu et al. 2022).</li>
+<li><strong>FACT:</strong> US 440 V 60 Hz ship-service power with 400 Hz Type II/III (MIL-STD-1399-300B).</li>
+<li><strong>FACT:</strong> electric-drive propulsion on Columbia (CRS R41129; GAO-18-158); diesel-electric submarines are electric-drive by design.</li>
+<li><strong>HYP:</strong> the capacitive charging currents are Hively-type sources.</li>
+<li>Under (a1) only the carrier and low harmonics travel. Under (c) the MHz edges become the favoured part.</li>
+</ul>
+<p><strong>3.3 Sonar.</strong> The most literal match to the criterion: charge accumulates on a capacitive dielectric termination, outboard (HYP). It ranks top under (a1) because ≤10 kHz propagates far and there is no hull. Its intermittency, and the fact that an active sonar is already acoustically loud, limit its tactical value.</p>
+<p><strong>3.4 ICCP / UEP.</strong> The strongest continuous in-water current. Its classical ELF field is measured, so any SLW claim must pass an SLW discriminant: E∥ with B = 0, or a range law inconsistent with classical quasi-static fields.</p>
+<p><strong>3.5 Arcing.</strong> The only category Hively himself names (faults, lightning, tape peeling; Hively &amp; Reed 2020 p. 11 and p. 13; Hively &amp; Land 2021 p. 2). It is HYP, with no measurement.</p>
+<hr />
+<h2>4. Hively transition mechanism (kept from batch 1)</h2>
+<ul>
+<li><strong>Not found verbatim.</strong> No Hively paper, patent, erratum or hub page says &quot;where a conductor ends and an insulator begins, energy converts to an SLW&quot;. Searched: <code>/workspace/ohmic-slw-search</code>, the hub papers and pages, US 9,306,527, US 12,525,711, web.</li>
+<li><strong>Closest analogues (HYP):</strong>
+<ul>
+<li>US 9,306,527 B1: <em>&quot;the skirt balun may dramatically reduce the return current to the source, so that essentially all of the electrical current goes into charging and discharging the antenna.&quot;</em></li>
+<li>The same patent: <em>&quot;gradient-driven current density (J) that is maximal at the feed point (z=0) and zero at the end (z=L).&quot;</em></li>
+<li>Hively &amp; Loebl 2019 App. B, p. 123: <em>&quot;The irrotational current density (JL) is maximal at the feed point, z = 0 (where the center conductor exits the coaxial cable), and zero at the end of the antenna (z = L).&quot;</em></li>
+<li>Hively &amp; Reed 2020 pp. 10–11: <em>&quot;Essentially all of the current then goes into charging and discharging the center conductor ... The resultant current is irrotational, which is a necessary and sufficient condition for producing the SLW.&quot;</em></li>
+<li>Hively &amp; Reed 2020 p. 11: <em>&quot;charge accumulation causes arcing across the fault; this gradient-driven current creates the SLW.&quot;</em></li>
+<li>Monstein &amp; Wesley, EPL 59, 514 (2002): <em>&quot;an oscillating uniform spherical charge density that is the source of the radiating longitudinal electric E field.&quot;</em></li>
+</ul>
+</li>
+<li><strong>Reading (HYP):</strong> the source is an irrotational charging current <strong>where current must stop</strong>: open ends, gaps, capacitive terminations. The insulator as such plays no role; the patent says the jacket <em>&quot;may make no difference&quot;</em>. Strength would scale with the charging current, i = C dv/dt (FACT circuit law).</li>
+<li><strong>Negative case (HYP):</strong> closed return currents give C = 0 (Hively &amp; Loebl App. C; Hively &amp; Reed p. 9).</li>
+<li><strong>Mainstream counterpoint (FACT):</strong> Bray &amp; Britton 2004: the radial current density must vanish at the conductor surface. Retarded potentials satisfy the Lorenz condition under charge conservation.</li>
+</ul>
+<hr />
+<h2>5. Verification checklist for Dan's 2.45 GHz cage reading (no TEM-based dismissals) <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></h2>
+<p><strong>Standing rules:</strong></p>
+<ul>
+<li>No cable crosses the cage wall. The battery is inside. Data leaves by fiber.</li>
+<li>Nothing modifies or opens an oven.</li>
+<li>We contact nobody. The Steve Morris comparison is Dan's own.</li>
+</ul>
+<p><strong>Classical alternative to rule out experimentally, not by a propagation argument:</strong> ordinary TEM leakage through seams, apertures or penetrations of the cage. Steps 4–7 test for it directly. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<ol>
+<li><strong>50 Ω swap (TinySA spurs).</strong> Replace the sphere with a 50 Ω load at the amp input, then at the TinySA input: same settings, same place, closed cage. Above ~800 MHz the TinySA Ultra generates <em>&quot;various mirrors and spurs&quot;</em> and LO leakage <em>&quot;up to -10dBm&quot;</em> (tinySA wiki; FACT). If the feature stays with the load, it is internal. Also run the amp alone, terminated, to catch ZK06-UM oscillation.</li>
+<li><strong>Internal emitters.</strong> Power the inside instruments one at a time (fiber converter, battery booster, TinySA CPU). Change RBW and span: spurs move with settings, real signals do not.</li>
+<li><strong>Magnetron fingerprint.</strong> Use HackRF or TinySA zero-span/waterfall, time-stamped. Look for:
+<ul>
+<li>(i) 2.45 GHz present only in one half of each 60 Hz cycle (16.7 ms repeat, ~50 % duty; IEEE 802.11-98/240), or 8.3 ms alternation for dual-magnetron ovens;</li>
+<li>(ii) a ~50 MHz intra-cycle sweep and warm-up drift;</li>
+<li>(iii) at reduced power, a 32 s-class on/off envelope (Sharp manuals);</li>
+<li>(iv) no 60 Hz gating if the local oven is an inverter type (20–50 kHz; Panasonic).</li>
+<li>Compare with Wi-Fi (20 MHz OFDM, 102.4 ms beacons) and Bluetooth (1 MHz hops). A feature locked to the local mains half-cycle is the oven signature, whatever the path.</li>
+</ul>
+</li>
+<li><strong>Router and oven off.</strong> Router off, phones in airplane mode, household oven unplugged; log times. Optionally run the unmodified oven normally (a cup of water), with times logged, to see if the feature follows it.</li>
+<li><strong>Cage SE check at 2.45 GHz.</strong> Battery TinySA plus sphere or E5 inside, logging to SD. Known 2.45 GHz source outside (HackRF) at 1–3 m. Measure door open vs closed. Seam-coupon S21 with the NanoRFE VNA outside the cage. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>Seam bonding.</strong> Add continuous conductive-adhesive copper tape or more clamps along the rolled overlap, then repeat steps 5 and 3. If the feature falls as SE rises, it is leakage. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>Nothing crosses; nothing noisy inside.</strong> No USB, chargers or metal-sheathed fiber at the wall. No USB 3 devices running inside.</li>
+<li><strong>Move and rotate the cage.</strong> Room standing waves change with position.</li>
+<li><strong>Sphere vs dummy vs 50 Ω.</strong> Only the connected sphere should show the feature.</li>
+<li><strong>E5 vs H20</strong> (first HYP-specific test). Same spot, then rotate each through 90°. HYP: an SLW has B = 0, so E5 responds and H20 does not. A TEM leak or cavity mode shows both, orientation-dependent. Near a small internal source E/H ≠ 377 Ω, so a lone E response is not proof by itself. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>Material test</strong> (distinguishes the three readings). A water layer or tank between the source and the cage, varying thickness and salinity:
+<ul>
+<li>(a1) predicts 953 dB/m at 2.45 GHz;</li>
+<li>(b)/(c) predict 1/r only;</li>
+<li>the (a3) sensitivity predicts ~7.9 mm 1/e.</li>
+</ul>
+</li>
+<li><strong>Timestamped comparison with Steve Morris</strong> (Dan arranges it). Both stations log GPS/NTP-stamped spectra with the same span, RBW and windows. Compare event times, spectral shape and gating period, and whether each station tracks its own local router or oven.
+<ul>
+<li><strong>No propagation argument is used to pre-judge a common source.</strong> Under (b)/(c) distance only adds 1/r.</li>
+<li>Correlation at matching times with matching instrument models means a shared-artefact check first (same firmware spur, mains-synchronous gating at both sites).</li>
+<li>Tracking of local sources means local leakage or local SLW.</li>
+<li>Only a feature that passes steps 1–11 at both sites and is not explained by local sources or instruments is interesting.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>6. Open questions</h2>
+<ol>
+<li><strong>Which propagation reading is right?</strong>
+<ul>
+<li>(a1), (a3), (b) and (c) differ by up to ~7 orders of magnitude in 1/e length at ELF. That is a spread in modelling conventions; there are no data to decide between them.</li>
+<li>Only a controlled material test (step 11; Expt G pool mockup) can separate them. No Hively text supplies a per-metre SLW attenuation.</li>
+</ul>
+</li>
+<li><strong>Should the hub's Joule default stay?</strong> It is Dan's standing rule. §1.2 shows it is our construction, contradicted by the Erratum's cancellation and convention-sensitive. Dan may want to relabel it &quot;pessimistic bound (ours)&quot; rather than &quot;Hively's Joule term&quot;. Decision for Dan; nothing changed here.</li>
+<li><strong>SLW source-term magnitude:</strong> unknown for every device. Hively's EQN. 15 (P ∝ I²) applied to ordinary charging currents would make every power system a kW-class emitter (batch-1 MECHANISM §3). No independent report exists.</li>
+<li><strong>Charge conservation:</strong> Hively's own □²C = 0 (patent EQN. 9) and Rentzber 2026 imply zero scalar sourcing by charge-conserving devices. Unresolved within EED.</li>
+<li><strong>Interfaces (Eq. 26):</strong> no transmission coefficient is given for water→steel→air. Hull and cage transmission under (b)/(c) is assumed ≈ 1 (HYP), not derived.</li>
+<li><strong>Background:</strong> under (c), every oven, drive and grid on Earth, plus lightning, is SLW background. No estimate exists.</li>
+<li><strong>Hub typo:</strong> experiment-c.html writes &quot;E ∝ exp(−ε t/σ)&quot; where Hively's slide has e^(−σt/ε). Flagged, not changed.</li>
+</ol>
+<hr />
+<h2>7. Sources (all local copies or open URLs; page numbers as cited)</h2>
+<ul>
+<li>Hively &amp; Loebl, <em>Classical and extended electrodynamics</em>, Phys. Essays 32, 112 (2019): Eqs. 21, 22, 26, 36, 37, 38, 44; pp. 115–117, 120–121, 123–124. Local: <code>/workspace/hub-efield-repo/papers/Hively-Loebl-2019-...pdf</code>; text <code>/workspace/ohmic-slw-search/Hively-Loebl-2019-pages.txt</code>.</li>
+<li>Hively &amp; Loebl, Erratum, Phys. Essays 35, 320 (2022), doi:10.4006/0836-1398-35.3.320. <code>/workspace/ohmic-slw-search/Errata-pages.txt</code>.</li>
+<li>Hively &amp; Land, IARD 2020 slides, slides 59–60 (&quot;No SLW Attenuation in Conductive Media&quot;). <code>/workspace/ohmic-slw-search/Hively-Land-IARD-2020.txt</code>.</li>
+<li>Hively &amp; Land, J. Phys.: Conf. Ser. 1956, 012011 (2021), p. 2 (lightning and tape arcs).</li>
+<li>Hively &amp; Reed, Symmetry 12, 2110 (2020), pp. 1, 9–11, 13.</li>
+<li>Hively, US 9,306,527 B1 (2016), cols. 5–8, EQNs. 8, 9, 12, 15.</li>
+<li>Paulus &amp; Gentile (NUWC Keyport), US 12,525,711 B1, claim 30.</li>
+<li>Monstein &amp; Wesley, Europhys. Lett. 59, 514 (2002); Bray &amp; Britton, Europhys. Lett. 66, 153 (2004).</li>
+<li>Rentzber, arXiv:2608.19405 (2026), preprint. Local: <code>/workspace/sim-lab/home-motors/src/lit/</code>.</li>
+<li>Meissner &amp; Wentz, IEEE TGRS 42, 1836 (2004): seawater model in the Expt G code.</li>
+<li>Experiment G code: <code>/workspace/sim-lab/expt-g/sim/expt_g_model.py</code> (<code>water()</code>, <code>field_at()</code>); <code>/workspace/sim-lab/expt-g/CM_RANGE_EXPLAINER.md</code>; <code>cm_range_1uV.py</code>.</li>
+<li>LG 2M246 magnetron datasheet (Pactra), local <code>/workspace/sim-lab/home-motors/src/2M246.pdf</code>.</li>
+<li>Sharp KB-6024MW service manual p. 8 (32 s time base): https://sharp.manymanuals.com/microwaves/kb-6024mw/service-manual-14058/8. Sharp R-2397 (dual magnetron, 48 s base): https://manualsdump.com/en/manuals/sharp-r-2397/28443/6</li>
+<li>Zyren (Harris), IEEE 802.11-98/240 (1998): oven gating. Panasonic US 8,492,687 (inverter 20–50 kHz).</li>
+<li>Zhu et al., IEEE Access 10, 125279 (2022): PWM dv/dt, Eqs. 1 and 3.</li>
+<li>MIL-STD-1399-300B, Table I p. 13 and §5.1.2.</li>
+<li>CRS R41129 (Columbia class, electric drive); GAO-18-158.</li>
+<li>Ultra Maritime Sea Lancer and Sea Sabre datasheets (transmit power, 440 V 60 Hz); AN/SQS-26 (Wikipedia, &quot;maximum output was 240 kW&quot;).</li>
+<li>NASA GRC report on the Hamilton Standard Sea Wolf prototype OGP (83 cells, 250 A, 249 V), via https://exa.ai/library/publication/tr3y8l649rv; NASA NTRS 19930018788 (SPE electrolyzers qualified for US and UK submarines).</li>
+<li>ARPN J. Eng. Appl. Sci. (2017) swedge-frame pressure hull paper (HY-80, 30–35 mm example); HY-80 welding report (&quot;plate thickness is approximately 2&quot;&quot;).</li>
+<li>Batch-1 sources retained (DTIC AD1005158 snippet, L3Harris ACFC, QSR Magazine, IMPA 175090): see SOURCES.md §5.</li>
+</ul>
+<h2>8. Blockers and unverified items</h2>
+<ul>
+<li>HY-80 σ and μr are unverified. Pressure-hull thickness varies by design; examples only.</li>
+<li>Submarine-specific sonar, drive and oven parameters are not public; analogues used.</li>
+<li>Jackson section numbers are from memory.</li>
+<li>The DTIC AD1005158 page is unverified (batch 1).</li>
+</ul>
+<h2 id="appendix-1">Appendix: numbers (redo_slw_numbers.md)</h2>
+<h3>A. Audit block (TEM column = reference only, NOT used for ranking) <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></h3>
+<p>| f | ε′ | ε″ | tanδ | σ_H (S/m) | Hively Eq.37 |Z| (Ω) | TEM |η| (Ω, ref) | |Z|/|η| | (a1) 1/e | TEM 1/e (ref) | α_a1/α_TEM | α_a1 / high-tanδ limit |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 60 Hz | 73.3 | 1.29e+09 | 1.75e+07 | 4.29 | 2.51e-06 | 0.0105 | 2.39e-04 | 186 km | 31.4 m | 1.69e-04 | 1.000 |
+| 400 Hz | 73.3 | 1.93e+08 | 2.63e+06 | 4.29 | 1.67e-05 | 0.0271 | 6.17e-04 | 27.9 km | 12.1 m | 4.36e-04 | 1.000 |
+| 1 kHz (sonar low) | 73.3 | 7.71e+07 | 1.05e+06 | 4.29 | 4.18e-05 | 0.0429 | 9.75e-04 | 11.1 km | 7.68 m | 6.89e-04 | 1.000 |
+| 3 kHz (sonar mid) | 73.3 | 2.57e+07 | 3.51e+05 | 4.29 | 1.25e-04 | 0.0743 | 0.00169 | 3.71 km | 4.44 m | 0.00119 | 1.000 |
+| 10 kHz (PWM carrier / sonar) | 73.3 | 7.71e+06 | 1.05e+05 | 4.29 | 4.18e-04 | 0.136 | 0.00308 | 1.11 km | 2.43 m | 0.00218 | 1.000 |
+| 100 kHz (PWM harm. / sonar high) | 73.3 | 7.71e+05 | 1.05e+04 | 4.29 | 0.00418 | 0.429 | 0.00975 | 111 m | 76.8 cm | 0.00689 | 1.000 |
+| 1 MHz (PWM edge) | 73.3 | 7.71e+04 | 1.05e+03 | 4.29 | 0.0418 | 1.36 | 0.0308 | 11.1 m | 24.3 cm | 0.0218 | 1.000 |
+| 10 MHz (PWM edge top) | 73.3 | 7.71e+03 | 105 | 4.29 | 0.418 | 4.29 | 0.0975 | 1.11 m | 7.72 cm | 0.0693 | 1.000 |
+| 1057.8 MHz (Expt G check) | 73.0 | 77.5 | 1.06 | 4.56 | 30.2 | 36.5 | 0.828 | 1.45 cm | 1.1 cm | 0.76 | 0.728 |
+| 2.45 GHz (magnetron) | 71.7 | 41.9 | 0.585 | 5.72 | 38.4 | 41.3 | 0.929 | 9.11 mm | 8.17 mm | 0.897 | 0.505 | <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<h3>B. Seawater, SLW/SW only</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>f</th>
+<th>(a1) Joule-as-assumed, σ_H: 1/e</th>
+<th>dB/m</th>
+<th>(a2) σ = 4.29 S/m: 1/e</th>
+<th>(b) Hively-literal</th>
+<th>(c) Erratum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>60 Hz</td>
+<td><strong>186 km</strong></td>
+<td>4.68e-05</td>
+<td>186 km</td>
+<td>no loss term (∞)</td>
+<td>α=0 (∞)</td>
+</tr>
+<tr>
+<td>400 Hz</td>
+<td><strong>27.9 km</strong></td>
+<td>3.12e-04</td>
+<td>27.9 km</td>
+<td>no loss term (∞)</td>
+<td>α=0 (∞)</td>
+</tr>
+<tr>
+<td>1 kHz (sonar low)</td>
+<td><strong>11.1 km</strong></td>
+<td>7.79e-04</td>
+<td>11.1 km</td>
+<td>no loss term (∞)</td>
+<td>α=0 (∞)</td>
+</tr>
+<tr>
+<td>3 kHz (sonar mid)</td>
+<td><strong>3.71 km</strong></td>
+<td>0.00234</td>
+<td>3.71 km</td>
+<td>no loss term (∞)</td>
+<td>α=0 (∞)</td>
+</tr>
+<tr>
+<td>10 kHz (PWM carrier / sonar)</td>
+<td><strong>1.11 km</strong></td>
+<td>0.00779</td>
+<td>1.11 km</td>
+<td>no loss term (∞)</td>
+<td>α=0 (∞)</td>
+</tr>
+<tr>
+<td>100 kHz (PWM harm. / sonar high)</td>
+<td><strong>111 m</strong></td>
+<td>0.0779</td>
+<td>111 m</td>
+<td>no loss term (∞)</td>
+<td>α=0 (∞)</td>
+</tr>
+<tr>
+<td>1 MHz (PWM edge)</td>
+<td><strong>11.1 m</strong></td>
+<td>0.779</td>
+<td>11.1 m</td>
+<td>no loss term (∞)</td>
+<td>α=0 (∞)</td>
+</tr>
+<tr>
+<td>10 MHz (PWM edge top)</td>
+<td><strong>1.11 m</strong></td>
+<td>7.79</td>
+<td>1.11 m</td>
+<td>no loss term (∞)</td>
+<td>α=0 (∞)</td>
+</tr>
+<tr>
+<td>1057.8 MHz (Expt G check)</td>
+<td><strong>1.45 cm</strong></td>
+<td>599</td>
+<td>1.54 cm</td>
+<td>no loss term (∞)</td>
+<td>α=0 (∞)</td>
+</tr>
+<tr>
+<td>2.45 GHz (magnetron)</td>
+<td><strong>9.11 mm</strong></td>
+<td>953</td>
+<td>1.21 cm</td>
+<td>no loss term (∞)</td>
+<td>α=0 (∞)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>(a3) SENSITIVITY (real-part flux, same Joule logic) 1/e length:</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>f</th>
+<th>(a1) 1/e</th>
+<th>(a3) 1/e</th>
+<th>(a3)/(a1) loss ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>60 Hz</td>
+<td>186 km</td>
+<td>1.06 cm</td>
+<td>1.75e+07</td>
+</tr>
+<tr>
+<td>400 Hz</td>
+<td>27.9 km</td>
+<td>1.06 cm</td>
+<td>2.63e+06</td>
+</tr>
+<tr>
+<td>1 kHz (sonar low)</td>
+<td>11.1 km</td>
+<td>1.06 cm</td>
+<td>1.05e+06</td>
+</tr>
+<tr>
+<td>3 kHz (sonar mid)</td>
+<td>3.71 km</td>
+<td>1.06 cm</td>
+<td>3.51e+05</td>
+</tr>
+<tr>
+<td>10 kHz (PWM carrier / sonar)</td>
+<td>1.11 km</td>
+<td>1.06 cm</td>
+<td>1.05e+05</td>
+</tr>
+<tr>
+<td>100 kHz (PWM harm. / sonar high)</td>
+<td>111 m</td>
+<td>1.06 cm</td>
+<td>1.05e+04</td>
+</tr>
+<tr>
+<td>1 MHz (PWM edge)</td>
+<td>11.1 m</td>
+<td>1.06 cm</td>
+<td>1.05e+03</td>
+</tr>
+<tr>
+<td>10 MHz (PWM edge top)</td>
+<td>1.11 m</td>
+<td>1.06 cm</td>
+<td>105</td>
+</tr>
+<tr>
+<td>1057.8 MHz (Expt G check)</td>
+<td>1.45 cm</td>
+<td>9.94 mm</td>
+<td>1.46</td>
+</tr>
+<tr>
+<td>2.45 GHz (magnetron)</td>
+<td>9.11 mm</td>
+<td>7.86 mm</td>
+<td>1.16</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>(b)/(c): receive field per 1 W SLW at 1 km (Expt G field_at, α=0, Eq. 37 |Z|), and dB relative to 60 Hz:</p>
+<ul>
+<li>60 Hz: 6.32e-07 V/m per √W ; +0.0 dB re 60 Hz</li>
+<li>400 Hz: 1.63e-06 V/m per √W ; +8.2 dB re 60 Hz</li>
+<li>1 kHz (sonar low): 2.58e-06 V/m per √W ; +12.2 dB re 60 Hz</li>
+<li>3 kHz (sonar mid): 4.47e-06 V/m per √W ; +17.0 dB re 60 Hz</li>
+<li>10 kHz (PWM carrier / sonar): 8.16e-06 V/m per √W ; +22.2 dB re 60 Hz</li>
+<li>100 kHz (PWM harm. / sonar high): 2.58e-05 V/m per √W ; +32.2 dB re 60 Hz</li>
+<li>1 MHz (PWM edge): 8.16e-05 V/m per √W ; +42.2 dB re 60 Hz</li>
+<li>10 MHz (PWM edge top): 0.000258 V/m per √W ; +52.2 dB re 60 Hz</li>
+<li>1057.8 MHz (Expt G check): 0.00219 V/m per √W ; +70.8 dB re 60 Hz</li>
+<li>2.45 GHz (magnetron): 0.00247 V/m per √W ; +71.8 dB re 60 Hz</li>
+</ul>
+<p>Exponential (Joule) loss only, dB, reading (a1) [ (a2) in brackets ]; (b)/(c) = 0 dB:</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>f</th>
+<th>1 m</th>
+<th>100 m</th>
+<th>1 km</th>
+<th>10 km</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>60 Hz</td>
+<td>4.68e-05 [4.68e-05]</td>
+<td>0.00468 [0.00468]</td>
+<td>0.0468 [0.0468]</td>
+<td>0.468 [0.468]</td>
+</tr>
+<tr>
+<td>400 Hz</td>
+<td>3.12e-04 [3.12e-04]</td>
+<td>0.0312 [0.0312]</td>
+<td>0.312 [0.312]</td>
+<td>3.12 [3.12]</td>
+</tr>
+<tr>
+<td>1 kHz (sonar low)</td>
+<td>7.79e-04 [7.79e-04]</td>
+<td>0.0779 [0.0779]</td>
+<td>0.779 [0.779]</td>
+<td>7.79 [7.79]</td>
+</tr>
+<tr>
+<td>3 kHz (sonar mid)</td>
+<td>0.00234 [0.00234]</td>
+<td>0.234 [0.234]</td>
+<td>2.34 [2.34]</td>
+<td>23.4 [23.4]</td>
+</tr>
+<tr>
+<td>10 kHz (PWM carrier / sonar)</td>
+<td>0.00779 [0.00779]</td>
+<td>0.779 [0.779]</td>
+<td>7.79 [7.79]</td>
+<td>77.9 [77.9]</td>
+</tr>
+<tr>
+<td>100 kHz (PWM harm. / sonar high)</td>
+<td>0.0779 [0.0779]</td>
+<td>7.79 [7.79]</td>
+<td>77.9 [77.9]</td>
+<td>779 [779]</td>
+</tr>
+<tr>
+<td>1 MHz (PWM edge)</td>
+<td>0.779 [0.779]</td>
+<td>77.9 [77.9]</td>
+<td>779 [779]</td>
+<td>7.79e+03 [7.79e+03]</td>
+</tr>
+<tr>
+<td>10 MHz (PWM edge top)</td>
+<td>7.79 [7.79]</td>
+<td>779 [779]</td>
+<td>7.79e+03 [7.79e+03]</td>
+<td>7.79e+04 [7.79e+04]</td>
+</tr>
+<tr>
+<td>1057.8 MHz (Expt G check)</td>
+<td>599 [563]</td>
+<td>5.99e+04 [5.63e+04]</td>
+<td>5.99e+05 [5.63e+05]</td>
+<td>5.99e+06 [5.63e+06]</td>
+</tr>
+<tr>
+<td>2.45 GHz (magnetron)</td>
+<td>953 [716]</td>
+<td>9.53e+04 [7.16e+04]</td>
+<td>9.53e+05 [7.16e+05]</td>
+<td>9.53e+06 [7.16e+06]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Spreading (Hively Eq. 38, field ∝ 1/r, common to all readings), dB re 1 m: 1 m: 0, 100 m: 40, 1000 m: 60, 10000 m: 80</p>
+<p>Eq. 37 near-field factor |1−1/(jkr)| with ASSUMPTION k = ω√ε′/c (real), at 1 m / 100 m / 1 km / 10 km (multiplies |Z| and so α_a1 at that range):</p>
+<ul>
+<li>60 Hz: kr = 1.08e-05, 0.00108, 0.0108, 0.108; factor = 9.29e+04, 929, 92.9, 9.34</li>
+<li>400 Hz: kr = 7.18e-05, 0.00718, 0.0718, 0.718; factor = 1.39e+04, 139, 14, 1.71</li>
+<li>1 kHz (sonar low): kr = 1.79e-04, 0.0179, 0.179, 1.79; factor = 5.57e+03, 55.7, 5.66, 1.14</li>
+<li>3 kHz (sonar mid): kr = 5.38e-04, 0.0538, 0.538, 5.38; factor = 1.86e+03, 18.6, 2.11, 1.02</li>
+<li>10 kHz (PWM carrier / sonar): kr = 0.00179, 0.179, 1.79, 17.9; factor = 557, 5.66, 1.14, 1</li>
+<li>100 kHz (PWM harm. / sonar high): kr = 0.0179, 1.79, 17.9, 179; factor = 55.7, 1.14, 1, 1</li>
+<li>1 MHz (PWM edge): kr = 0.179, 17.9, 179, 1.79e+03; factor = 5.66, 1, 1, 1</li>
+<li>10 MHz (PWM edge top): kr = 1.79, 179, 1.79e+03, 1.79e+04; factor = 1.14, 1, 1, 1</li>
+<li>1057.8 MHz (Expt G check): kr = 189, 1.89e+04, 1.89e+05, 1.89e+06; factor = 1, 1, 1, 1</li>
+<li>2.45 GHz (magnetron): kr = 435, 4.35e+04, 4.35e+05, 4.35e+06; factor = 1, 1, 1, 1</li>
+</ul>
+<h3>C. Steel pressure hull, reading (a1) only ((b)/(c): 0 dB). σ = 3.5 MS/m, ε′ = 1 (ASSUMPTIONS)</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>f</th>
+<th>μr</th>
+<th>(a1) 1/e</th>
+<th>dB through 30 / 51 / 76 mm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>60 Hz</td>
+<td>1</td>
+<td>1.59e+03 km</td>
+<td>1.64e-07 / 2.79e-07 / 4.15e-07</td>
+</tr>
+<tr>
+<td>60 Hz</td>
+<td>90</td>
+<td>168 km</td>
+<td>1.55e-06 / 2.64e-06 / 3.94e-06</td>
+</tr>
+<tr>
+<td>60 Hz</td>
+<td>700</td>
+<td>60.1 km</td>
+<td>4.33e-06 / 7.37e-06 / 1.10e-05</td>
+</tr>
+<tr>
+<td>400 Hz</td>
+<td>1</td>
+<td>239 km</td>
+<td>1.09e-06 / 1.86e-06 / 2.77e-06</td>
+</tr>
+<tr>
+<td>400 Hz</td>
+<td>90</td>
+<td>25.1 km</td>
+<td>1.04e-05 / 1.76e-05 / 2.63e-05</td>
+</tr>
+<tr>
+<td>400 Hz</td>
+<td>700</td>
+<td>9.02 km</td>
+<td>2.89e-05 / 4.91e-05 / 7.32e-05</td>
+</tr>
+<tr>
+<td>1 kHz (sonar low)</td>
+<td>1</td>
+<td>95.4 km</td>
+<td>2.73e-06 / 4.64e-06 / 6.92e-06</td>
+</tr>
+<tr>
+<td>1 kHz (sonar low)</td>
+<td>90</td>
+<td>10.1 km</td>
+<td>2.59e-05 / 4.40e-05 / 6.56e-05</td>
+</tr>
+<tr>
+<td>1 kHz (sonar low)</td>
+<td>700</td>
+<td>3.61 km</td>
+<td>7.22e-05 / 1.23e-04 / 1.83e-04</td>
+</tr>
+<tr>
+<td>3 kHz (sonar mid)</td>
+<td>1</td>
+<td>31.8 km</td>
+<td>8.19e-06 / 1.39e-05 / 2.08e-05</td>
+</tr>
+<tr>
+<td>3 kHz (sonar mid)</td>
+<td>90</td>
+<td>3.35 km</td>
+<td>7.77e-05 / 1.32e-04 / 1.97e-04</td>
+</tr>
+<tr>
+<td>3 kHz (sonar mid)</td>
+<td>700</td>
+<td>1.2 km</td>
+<td>2.17e-04 / 3.68e-04 / 5.49e-04</td>
+</tr>
+<tr>
+<td>10 kHz (PWM carrier / sonar)</td>
+<td>1</td>
+<td>9.54 km</td>
+<td>2.73e-05 / 4.64e-05 / 6.92e-05</td>
+</tr>
+<tr>
+<td>10 kHz (PWM carrier / sonar)</td>
+<td>90</td>
+<td>1.01 km</td>
+<td>2.59e-04 / 4.40e-04 / 6.56e-04</td>
+</tr>
+<tr>
+<td>10 kHz (PWM carrier / sonar)</td>
+<td>700</td>
+<td>361 m</td>
+<td>7.22e-04 / 0.00123 / 0.00183</td>
+</tr>
+<tr>
+<td>100 kHz (PWM harm. / sonar high)</td>
+<td>1</td>
+<td>954 m</td>
+<td>2.73e-04 / 4.64e-04 / 6.92e-04</td>
+</tr>
+<tr>
+<td>100 kHz (PWM harm. / sonar high)</td>
+<td>90</td>
+<td>101 m</td>
+<td>0.00259 / 0.0044 / 0.00656</td>
+</tr>
+<tr>
+<td>100 kHz (PWM harm. / sonar high)</td>
+<td>700</td>
+<td>36.1 m</td>
+<td>0.00722 / 0.0123 / 0.0183</td>
+</tr>
+<tr>
+<td>1 MHz (PWM edge)</td>
+<td>1</td>
+<td>95.4 m</td>
+<td>0.00273 / 0.00464 / 0.00692</td>
+</tr>
+<tr>
+<td>1 MHz (PWM edge)</td>
+<td>90</td>
+<td>10.1 m</td>
+<td>0.0259 / 0.044 / 0.0656</td>
+</tr>
+<tr>
+<td>1 MHz (PWM edge)</td>
+<td>700</td>
+<td>3.61 m</td>
+<td>0.0722 / 0.123 / 0.183</td>
+</tr>
+<tr>
+<td>10 MHz (PWM edge top)</td>
+<td>1</td>
+<td>9.54 m</td>
+<td>0.0273 / 0.0464 / 0.0692</td>
+</tr>
+<tr>
+<td>10 MHz (PWM edge top)</td>
+<td>90</td>
+<td>1.01 m</td>
+<td>0.259 / 0.44 / 0.656</td>
+</tr>
+<tr>
+<td>10 MHz (PWM edge top)</td>
+<td>700</td>
+<td>36.1 cm</td>
+<td>0.722 / 1.23 / 1.83</td>
+</tr>
+<tr>
+<td>1057.8 MHz (Expt G check)</td>
+<td>1</td>
+<td>9.02 cm</td>
+<td>2.89 / 4.91 / 7.32</td>
+</tr>
+<tr>
+<td>1057.8 MHz (Expt G check)</td>
+<td>90</td>
+<td>9.51 mm</td>
+<td>27.4 / 46.6 / 69.4</td>
+</tr>
+<tr>
+<td>1057.8 MHz (Expt G check)</td>
+<td>700</td>
+<td>3.41 mm</td>
+<td>76.4 / 130 / 194</td>
+</tr>
+<tr>
+<td>2.45 GHz (magnetron)</td>
+<td>1</td>
+<td>3.89 cm</td>
+<td>6.69 / 11.4 / 16.9</td>
+</tr>
+<tr>
+<td>2.45 GHz (magnetron)</td>
+<td>90</td>
+<td>4.11 mm</td>
+<td>63.5 / 108 / 161</td>
+</tr>
+<tr>
+<td>2.45 GHz (magnetron)</td>
+<td>700</td>
+<td>1.47 mm</td>
+<td>177 / 301 / 448</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Oven/cage wall 0.6 mm steel, reading (a1), dB (μr=1 / μr=90):</p>
+<ul>
+<li>60 Hz: 3.28e-09 / 3.11e-08</li>
+<li>400 Hz: 2.18e-08 / 2.07e-07</li>
+<li>1 kHz (sonar low): 5.46e-08 / 5.18e-07</li>
+<li>3 kHz (sonar mid): 1.64e-07 / 1.55e-06</li>
+<li>10 kHz (PWM carrier / sonar): 5.46e-07 / 5.18e-06</li>
+<li>100 kHz (PWM harm. / sonar high): 5.46e-06 / 5.18e-05</li>
+<li>1 MHz (PWM edge): 5.46e-05 / 5.18e-04</li>
+<li>10 MHz (PWM edge top): 5.46e-04 / 0.00518</li>
+<li>1057.8 MHz (Expt G check): 0.0578 / 0.548</li>
+<li>2.45 GHz (magnetron): 0.134 / 1.27</li>
+</ul>
+<p>Charge-relaxation time ε0ε′/σ in seawater (IARD 2020 slide form E = Eo e^(−σt/ε)): 1.51e-10 s</p>
+
+  </article>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub · <a href="../../sim-lab/">Simulation Lab catalogue</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact current measurement on a polarizing rod: is an ammeter / Fluke worth it? · SLW Hub</title>
+<meta name="description" content="Simulation Lab report (2026-09-27): contact current on a polarizing rod. Fluke cannot read RF; induced currents S1/S2 plus classical reference; loading; non-contact probes. Python only; WL compare owed. FACT/HYP labelled.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../sim-lab/sim-lab.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../../index.html">Home</a>
+      <a href="../../learn.html">Learn</a>
+      <a href="../../compare.html">Compare</a>
+      <a href="../../fields.html">Fields</a>
+      <a href="../../monstein.html">Monstein</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../lab.html">Lab</a>
+      <a href="../../kit.html">Kit</a>
+      <a href="../../library.html">Library</a>
+      <a href="../../ranging/">Ranging</a>
+      <a href="../../sim-lab/" aria-current="page">Sim Lab</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Simulation Lab report · rod / polarizer · faithful HTML conversion</p>
+  <h1>Contact current measurement on a polarizing rod: is an ammeter / Fluke worth it?</h1>
+  <p class="lede">Is an ammeter or Fluke worth it on a floating polarizing rod? Induced currents under S1 literal / S1 capped / S2 plus one CLASSICAL-TEM reference column, meter specs, contact loading, least-perturbing options and E5/H10 detectability.</p>
+  <p><span class="badge mixed">MIXED</span> <a href="../">← Simulation Lab catalogue</a></p>
+  <div class="provenance">
+    <h2>Provenance</h2>
+    <ul>
+      <li><code>/workspace/sim-lab/rod-thermal/contact/README.md</code> (last modified 2026-09-27 18:51 EDT)</li><li><code>/workspace/sim-lab/rod-thermal/contact/contact_tables.md</code> (last modified 2026-09-27 18:51 EDT)</li>
+      <li>Converted to HTML 2026-09-28 (EDT) as a faithful conversion: text, numbers, equations and labels are the source's own. No new equations were added; only the TEM tags described below and the edits listed here were made.</li>
+      
+      <li>Status lines inside the source (for example "nothing published", "HELD", "draft") describe the state when it was written. This page is its GitHub Pages twin, published 2026-09-28.</li>
+      <li>No Wolfram Cloud twin planned (analysis/report page, not one of Experiments A–G). Numbers are Python-computed; WL compare OWED where the source says so.</li>
+    </ul>
+  </div>
+  <div class="rules"><strong>Framing rules on this page (Dan).</strong> Under the SLW hypothesis no skin-depth, permeability, ferromagnetic or cage shielding-effectiveness argument is used to rank or dismiss SLW/SW. The Faraday cage strips TEM noise (<span class="badge fact">FACT</span>); an SLW passing the cage wall is <span class="badge hyp">HYP</span>. Every passage that uses transverse-EM (TEM / classical / cage-SE) reasoning is tagged <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>. FACT / HYP / ASSUMPTION labels are kept exactly as in the source.</div>
+  <h2>Downloads</h2><ul class="dl-list"><li><a href="contact_numbers.json">contact_numbers.json</a></li><li><a href="../rod-thermal/">← Rod thermal model</a></li></ul>
+  
+  <article class="doc">
+<p>2026-09-27 (ET). Draft for Dan via the parent agent. <strong>Python only; WL compare OWED.</strong> Script: <code>src/contact_current.py</code> -&gt; <code>contact_numbers.json</code>, <code>contact_tables.md</code> (full tables, both materials, 3 mm and 5 mm).
+Labels: <span class="badge fact">FACT</span> (cited), <span class="badge hyp">HYP</span>, <span class="badge asm">ASSUMPTION</span>, <strong>CLASSICAL-TEM</strong> (textbook Maxwell result, kept apart from the SLW framework and never used to rank or dismiss SLW). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<blockquote>
+<p><strong>SAFETY:</strong> rods, probes, meters and TinySAs stay <strong>outside the oven cavity</strong>. Loose metal in a running oven can arc and damage the magnetron.</p>
+</blockquote>
+<p><strong>Short answer:</strong> no. A Fluke in current mode <strong>cannot read RF current at 433.59 MHz to 2.45 GHz at any amplitude</strong>: its AC current band stops at 2 kHz (87V) or 500 Hz (117) (FACT, Fluke specs). Wiring it across both rod ends also closes a loop and destroys the thing being measured (the floating half-wave rod). Use non-contact probes. If contact is pursued anyway, the least-perturbing option is a clamp-type RF current probe at 433.59 MHz only (Fischer F-65 class, which is not really contact); for true contact, a split rod with a small sense resistor and a fiber/resistive-lead detector, accepting that it becomes a dipole with a feed gap.</p>
+<h2>1. Induced current in one floating half-wave rod</h2>
+<p><strong>What the SLW sources give:</strong> US 9,306,527 has J = sigma E (col. 5 l. ~53, col. 6 l. ~14) and the no-skin-effect claim (col. 6 ll. ~6-12). HL2019 Eq. 44 (p. 117) has J.E. M&amp;W Eq. 7 (EPL 59, 514, p. 516) gives Joule power per length, with the internal field taken equal to E0 cos phi. Keyport US 12,525,711 gives nothing for receiving rods. <strong>None of them gives a current formula or a current distribution for a floating rod</strong> (FACT: not found). So everything below is derived from the models' own quantities, plus labelled assumptions:</p>
+<ul>
+<li><strong>S1 literal:</strong> I = sigma E A (uniform J = sigma E over the cross-section, internal = external field: HYP). A floating rod must have I = 0 at its ends (charge continuity, classical), so a uniform current is self-inconsistent at the ends. It also gives <strong>amperes to tens of kA</strong>, far more than the incident flux can supply: unphysical.</li>
+<li><strong>S1 capped:</strong> P = S pi a^2 (1 - e^-4.4) (M&amp;W &lt;P/A&gt; = &lt;S&gt;, Eq. 9 kappa, HYP), R = L/(sigma A) (no skin effect: Hively's claim, used as HYP). Current: I = sqrt(P/R) if uniform (ASSUMPTION), or peak I0 = sqrt(2P/R) for I0 cos(kz) (ASSUMPTION, classical half-wave shape). Because R is milliohms, even nanowatts give sub-mA to mA currents.</li>
+<li><strong>S2 surface charge:</strong> I = omega eps0 E A (report Model S2, HYP). Material-independent.</li>
+<li><strong>CLASSICAL-TEM reference (one column):</strong> short-circuited half-wave rod <strong>parallel to E</strong> (i.e. perpendicular to propagation): I0 = E (lambda/pi)/|73.1 + j42.5| (effective length lambda/pi and Z_in, Balanis, <em>Antenna Theory</em> 4e, Sec. 4.6, Eq. 4-93a). This is the M&amp;W &quot;no attenuation&quot; orientation, not the SLW one. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+<p>E_rms = sqrt(Z0 S) (HYP map for SLW; identical for a classical plane wave). Scenarios: (a) and (b) are SLW flux at 2.45 GHz (HYP), and <strong>HYP flux only at 433.59 / 1296 MHz</strong> (the oven emits only 2.45 GHz). Hub drive: +2 dBm (TinySA + Zeenko, <code>PHYSICS_LOCK.md:39</code>; the HackRF power figure is still MISSING from the hub), at an assumed 1 m and 3 m.</p>
+<p><strong>Brief table, peak current at rod centre</strong> (brass / W1 where they differ):</p>
+<p class="tem-note">&#9888; Rows/columns in this table that refer to TEM / classical / cage SE: <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>scenario</th>
+<th>freq</th>
+<th>S1 literal</th>
+<th>S1 capped, cos I0</th>
+<th>S2</th>
+<th>CLASSICAL-TEM broadside</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(a) 100 mW @ 30 ft</td>
+<td>2450</td>
+<td>22.6 A / 7.5 A</td>
+<td>1.7 mA / 0.98 mA</td>
+<td>204 nA</td>
+<td>87 uA</td>
+</tr>
+<tr>
+<td>(a) 500 mW @ 30 ft</td>
+<td>2450</td>
+<td>50.6 A / 16.8 A</td>
+<td>3.8 mA / 2.2 mA</td>
+<td>457 nA</td>
+<td>195 uA</td>
+</tr>
+<tr>
+<td>(b) FDA 5 mW/cm^2</td>
+<td>2450</td>
+<td>16 kA / 5.4 kA</td>
+<td>1.24 A / 0.71 A</td>
+<td>148 uA</td>
+<td>63 mA</td>
+</tr>
+<tr>
+<td>(a) 100 mW, HYP flux</td>
+<td>433.59</td>
+<td>22.6 A / 7.5 A</td>
+<td>0.72 mA / 0.41 mA</td>
+<td>36 nA</td>
+<td>493 uA</td>
+</tr>
+<tr>
+<td>(b) FDA, HYP flux</td>
+<td>433.59</td>
+<td>16 kA / 5.4 kA</td>
+<td>519 mA / 299 mA</td>
+<td>26 uA</td>
+<td>357 mA</td>
+</tr>
+<tr>
+<td>hub +2 dBm @ 1 m</td>
+<td>433.59</td>
+<td>26 A / 8.6 A</td>
+<td>825 uA / 475 uA</td>
+<td>42 nA</td>
+<td>567 uA</td>
+</tr>
+<tr>
+<td>hub +2 dBm @ 1 m</td>
+<td>1296</td>
+<td>26 A / 8.6 A</td>
+<td>1.43 mA / 0.82 mA</td>
+<td>124 nA</td>
+<td>190 uA</td>
+</tr>
+<tr>
+<td>hub +2 dBm @ 3 m</td>
+<td>433.59</td>
+<td>8.7 A / 2.9 A</td>
+<td>275 uA / 158 uA</td>
+<td>14 nA</td>
+<td>189 uA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The spread across the SLW models is about 4-8 orders of magnitude (S2 nA to S1 capped mA), so the models do not predict the current. S1 capped: brass/W1 current = sqrt(3.02) = 1.74 at the same absorbed power.</p>
+<h3>Fluke verdict (FACT, Fluke specs)</h3>
+<ul>
+<li><strong>Fluke 87V</strong> (Fluke 83V/87V detailed spec sheet): AC current <strong>45 Hz to 2 kHz</strong>; 600.0 uA range, 0.1 uA resolution; burden <strong>100 uV/uA</strong> (about 100 ohm in series); mA ranges 1.8 mV/mA; AC readings valid from 3 % of range (about 18 uA minimum on 600 uA); volts input <strong>10 Mohm || &lt; 100 pF</strong>; &quot;in an RF field of 3 V/m total accuracy = specified accuracy&quot; (EMC line).</li>
+<li><strong>Fluke 117</strong> (fluke.com spec page, 114-117 datasheet): AC amps <strong>45 Hz to 500 Hz</strong>, 6.000 A range, 1 mA resolution; burden 2 mV/A; volts AC &gt; 5 Mohm &lt; 100 pF.</li>
+<li>433.59 MHz is about 2e5 times above the 87V's top current frequency, and 2.45 GHz about 1e6 times. <strong>A DMM cannot read RF current at these frequencies regardless of amplitude</strong> (FACT from the spec). Any reading it shows is unspecified: rectification, pickup, or offset.</li>
+<li>Wiring the meter across both ends <strong>closes a loop</strong> (rod + two leads + shunt). The structure is no longer a floating half-wave rod; it becomes a loop/folded antenna with different resonances and current distribution (FACT, classical).</li>
+</ul>
+<h2>2. Contact loading (lumped numbers are illustrative only)</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>freq</th>
+<th>lambda</th>
+<th>1 m lead / lambda</th>
+<th>Xc of 100 pF</th>
+<th>XL of 1 m lead (1.51 uH)</th>
+<th>Xc of 0.8 pF (TAP2500)</th>
+<th>rod end impedance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>433.59 MHz</td>
+<td>0.691 m</td>
+<td>1.45</td>
+<td>3.7 ohm</td>
+<td>4.1 kohm</td>
+<td>459 ohm</td>
+<td>2-5 kohm (HYP range)</td>
+</tr>
+<tr>
+<td>1296 MHz</td>
+<td>0.231 m</td>
+<td>4.3</td>
+<td>1.2 ohm</td>
+<td>12 kohm</td>
+<td>154 ohm</td>
+<td>2-5 kohm</td>
+</tr>
+<tr>
+<td>2450 MHz</td>
+<td>0.122 m</td>
+<td>8.2</td>
+<td>0.65 ohm</td>
+<td>23 kohm</td>
+<td>81 ohm</td>
+<td>2-5 kohm</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Lead inductance: Rosa/Grover straight-wire formula L = (mu0 l/2pi)[ln(2l/r) - 3/4] (classical; Grover, <em>Inductance Calculations</em>), giving 1.51 uH for 1 m of 0.5 mm-radius wire: matches the ~1 uH/m rule of thumb.</li>
+<li>Rod end impedance: classical half-wave end-feed values of about <strong>2-5 kohm</strong> (AA5TB, &quot;The End Fed Half Wave Antenna&quot;, practitioner source; depends on wire thickness). Treated here as a <strong>HYP range</strong> for our fat rods; no textbook value found for this geometry.</li>
+<li><strong>Reading:</strong> the Fluke's &lt; 100 pF input is <strong>0.65-3.7 ohm</strong> against a kilohm end impedance, i.e. effectively a <strong>short</strong> at the rod end. The 1 m leads are <strong>1.5-8 wavelengths long</strong>, so the lumped picture fails (lumped elements need dimensions &lt;&lt; lambda; Pozar, <em>Microwave Engineering</em>, Ch. 2). The leads become resonant antennas themselves. In current mode the 87V adds about 100 ohm (uA range) in series: larger than the rod's classical R_rad of 73 ohm (Balanis Eq. 4-93).</li>
+</ul>
+<p><strong>Least-perturbing contact options:</strong></p>
+<ul>
+<li>(i) <strong>High-Z active probe</strong>: the Tektronix TAP2500 (FACT, Tek datasheet: &gt;= 2.5 GHz, <strong>&lt;= 0.8 pF, 40 kohm</strong>, TekVPI; needs a TekVPI scope such as DPO4000/7000). 0.8 pF is still 81-459 ohm, about 0.02-0.2 of the end impedance: heavy loading and detuning. It also needs a ground reference (a second conductor) and a multi-GHz scope. Price: not verified.</li>
+<li>(ii) <strong>Clamp-on RF current probe</strong>: the Tek CT6 does not fit (0.8 mm wire max, &lt;= 2 GHz typical). <strong>Fischer F-65</strong> (FACT, fischercc.com / Avalon listing): <strong>10 kHz-1 GHz, 32 mm aperture</strong> (fits a 1/8 in rod), transfer impedance 1 ohm (1 MHz-1 GHz). <strong>433.59 MHz only</strong>; no verified clamp probe covers 1296 or 2450 MHz with a 1/8 in window. Sensitivity at the TinySA floor: I_min ~ 0.56 uA (computed, ASSUMPTION floor). Caveat (HYP): a 71 mm OD ferrite/metal ring around the centre of a 346 mm resonant rod is itself a sizeable perturbation, even though Fischer describes &quot;virtually no loading of the circuit&quot;.</li>
+<li>(iii) <strong>Split rod + series sense resistor</strong> at the centre (e.g. 1 ohm &lt;&lt; 73 ohm R_rad, classical), read by a zero-bias Schottky detector with resistive (high-R) leads or a fiber-coupled readout. Power in 1 ohm: -90 dBm at 1 uA, -50 dBm at 100 uA, -30 dBm at 1 mA (computed). A diode detector needs roughly -50 dBm or more (ASSUMPTION, typical class, not verified): it would see S1-capped mA currents, but not S2 nA. <strong>Splitting the rod makes it a dipole with a feed gap, exactly what M&amp;W's passive rods are not</strong> (HL2019 Appendix D, p. 124, describes M&amp;W's array as &quot;half-wavelength, linear, electric-dipole antennas&quot;; M&amp;W treat them as continuous wires, p. 516).</li>
+<li>(iv) <strong>RF thermocouple / thermal converter</strong> in series: needs a split rod too, and a heater drawing typically mA to tens of mA for a usable reading (ASSUMPTION, class, no product verified). It cannot see uA to nA.</li>
+<li><strong>Least perturbing:</strong> for real galvanic contact, <strong>(iii)</strong> with a small resistor and fiber readout; at 433.59 MHz the <strong>F-65 clamp (ii)</strong> perturbs less and needs no cut. Overall, the <strong>non-contact near-field probe (Sec. 5)</strong> is least perturbing of all.</li>
+</ul>
+<h2>3. Comparison with the bifilar coil into 50 ohm</h2>
+<ul>
+<li>The coil into the TinySA is a <strong>defined matched load</strong>: I = sqrt(P/50) (FACT identity). -40 dBm is 44.7 uA, -60 dBm 4.5 uA, -80 dBm 0.45 uA, -100 dBm 45 nA. <strong>Dan's actual coil readings (dBm) are not in the hub</strong>, so the coil current itself is unknown to us.</li>
+<li>A floating rod has <strong>no load</strong>; its current is set by the absorption model. Under the SLW models (HYP) the rod current ranges from nA (S2) to mA (S1 capped) for the same flux, so it could be anywhere from well below to well above a typical coil reading. <strong>Without an SLW coupling formula for either the coil or the rod, the comparison is undefined.</strong> It becomes defined only if Dan supplies the coil's dBm and we pick a rod model.</li>
+<li>CLASSICAL-TEM one line: at the FDA-limit door flux, a matched lambda/2 dipole delivers &lt;= 98 mW (I ~ 37 mA into 73 ohm; A_e = 1.64 lambda^2/4pi, Balanis Sec. 2.15), while a shorted floating rod parallel to E carries I0 ~ 63 mA: <strong>the same ballpark classically</strong>. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+<h2>4. Recommendation</h2>
+<p><strong>Non-contact.</strong> A DMM is out on bandwidth alone (FACT). Contact methods all rebuild the object (loop, dipole-with-gap, or kilohm-end loading). Contact is worth doing only as a separate, labelled &quot;modified-rod&quot; experiment. The least-perturbing contact option is (iii) a split rod with a 1 ohm resistor and fiber/resistive-lead detector, or, at 433.59 MHz only, the F-65 clamp. Keep the unmodified rods for the M&amp;W angle test.</p>
+<h2>5. Non-contact E5 / H10 near a rod (inside its own cage)</h2>
+<p><strong>Cage rule:</strong> the cage strips TEM noise (FACT, classical). That SLW passes the wall is HYP (patent col. 2 ll. 65-67). No cable crosses a wall; battery TinySA inside. Per Hively, a TEM-type probe does not pick up the SLW itself (&quot;TEM antennas detect only waves that produce a circulating current&quot;, HL2019 p. 116), so inside the cage the E5/H10 should see only the rod's own local field (HYP inference from a FACT quote). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<p><strong>Classical near-field relations (CLASSICAL, quasi-static, valid for d &lt;&lt; lambda/2pi):</strong></p>
+<ul>
+<li>H beside the centre: H = I0/(2 pi rho), with rho = a + gap (Ampere; Jackson 3e Sec. 5.3).</li>
+<li>E off the end: end line-charge density |q| = I0/c for I0 cos(kz) (continuity). Field on axis at distance d from a semi-infinite uniform line charge: E = q/(4 pi eps0 d) = Z0 I0/(4 pi d) ~ 30 I0/d. This is an elementary Coulomb integral derived here, with an <strong>approximation</strong> (charge density taken as uniform near the end); not a formula quoted from a source.</li>
+<li><strong>Probe factors:</strong> Tekbox TBPS01 manual V2.2 (E5: dBm at 1 V/m; H10: dBm at 1 uT), digitized in the hub (<code>physics-constants-fx1.json</code>, FACT/DIGITIZED), log-f interpolated. E5: -58.4 / -49.0 / -44.7 dBm at 433.59 / 1296 / 2450 MHz; H10: -7.1 / -4.5 / -9.8 dBm. <strong>If Dan's E5/H10 are not Tekbox TBPS01: unknown, must be calibrated.</strong> The factors are from uniform-field calibration; near a rod the field varies across the probe (ASSUMPTION, several dB error). Peak vs rms is not stated by Tekbox (ASSUMPTION, +/-3 dB).</li>
+<li><strong>TinySA Ultra floor:</strong> -102 dBm at 30 kHz RBW (at 30 MHz, FACT spec). Scaled to 3 kHz RBW: -112 dBm (ASSUMPTION, thermal scaling). Sensitivity is about 10 dB lower above 2.5 GHz (FACT, tinysa.org Ultra-mode page), applied conservatively at 2.45 GHz: -102 dBm. FACT, same page: in ULTRA mode above ~750 MHz the LO leaks from the RF input &quot;up to -10 dBm&quot;, which supports the two-TinySA coupling alternative (b) in the cage-coil section.</li>
+</ul>
+<p><strong>5 mm gap, detectability (full table in <code>contact_tables.md</code>):</strong></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>scenario</th>
+<th>freq</th>
+<th>model</th>
+<th>E at end</th>
+<th>P_E5</th>
+<th>B at centre</th>
+<th>P_H10</th>
+<th>floor</th>
+<th>detect?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(a) 100 mW</td>
+<td>2450</td>
+<td>S1 capped (brass)</td>
+<td>10 V/m</td>
+<td>-24 dBm</td>
+<td>0.052 uT</td>
+<td>-35 dBm</td>
+<td>-102</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>(a) 100 mW</td>
+<td>2450</td>
+<td>S2</td>
+<td>1.2 mV/m</td>
+<td>-103 dBm</td>
+<td>6e-6 uT</td>
+<td>-114</td>
+<td>-102</td>
+<td><strong>no</strong></td>
+</tr>
+<tr>
+<td>(a) 500 mW</td>
+<td>2450</td>
+<td>S2</td>
+<td>2.7 mV/m</td>
+<td>-96 dBm</td>
+<td>1.4e-5 uT</td>
+<td>-107</td>
+<td>-102</td>
+<td>E5 marginal YES, H10 no</td>
+</tr>
+<tr>
+<td>(a) 100 mW</td>
+<td>2450</td>
+<td>CLASSICAL broadside</td>
+<td>0.52 V/m</td>
+<td>-50 dBm</td>
+<td>0.0027 uT</td>
+<td>-61 dBm</td>
+<td>-102</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub +2 dBm @ 1 m</td>
+<td>433.59</td>
+<td>S1 capped (brass)</td>
+<td>5.0 V/m</td>
+<td>-45 dBm</td>
+<td>0.025 uT</td>
+<td>-39 dBm</td>
+<td>-112</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub +2 dBm @ 1 m</td>
+<td>433.59</td>
+<td>S2</td>
+<td>0.25 mV/m</td>
+<td>-130 dBm</td>
+<td>1.3e-6 uT</td>
+<td>-125</td>
+<td>-112</td>
+<td><strong>no</strong></td>
+</tr>
+<tr>
+<td>hub +2 dBm @ 1 m</td>
+<td>1296</td>
+<td>S2</td>
+<td>0.75 mV/m</td>
+<td>-112 dBm</td>
+<td>3.8e-6 uT</td>
+<td>-113</td>
+<td>-112</td>
+<td><strong>no</strong> (at floor)</td>
+</tr>
+<tr>
+<td>(b) FDA door</td>
+<td>2450</td>
+<td>S1 capped / classical</td>
+<td>kV/m</td>
+<td>+33 / +7 dBm</td>
+<td>37 / 1.9 uT</td>
+<td>+22 / -4 dBm</td>
+<td>-</td>
+<td>overload: exceeds TinySA absolute max +6 dBm (FACT spec); the model is outside its valid range</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>Verdict:</strong> in the cage, if S1 capped (or the classical reference) holds, the rod's local field is <strong>easily detectable</strong> (-50 to -20 dBm) in every leakage and hub-drive case. If S2 holds, it is <strong>not detectable</strong> except at the FDA-limit flux (-75 to -46 dBm). Near an open oven door (no cage) the E5 would read the oven's own field directly (137 V/m is about -2 dBm on an E5 at 2.45 GHz, computed), so the rod's contribution must be separated by the angle sweep, not by level.</li>
+<li><strong>Key discriminator (angle):</strong> SLW/M&amp;W predicts maximum rod response at <strong>phi = 0/180</strong> (rod along propagation) and cos^2 phi. The CLASSICAL-TEM rod response peaks when the rod is <strong>parallel to E</strong> (for horizontal polarization, phi = 90/270 relative to propagation). Both are 180-degree periodic but <strong>offset by 90 degrees</strong>, so the phase of the E5/H10-vs-phi curve tells which mechanism is at work (HYP on SLW, FACT classical). Log both on the sheet. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+<h2>6. Log sheet</h2>
+<p><code>/workspace/sim-lab/rod-thermal/logsheet/Rod_Logsheet_v1.pdf</code> (Letter portrait), source <code>logsheet/make_logsheet.py</code>, preview <code>logsheet/Rod_Logsheet_v1.png</code>. <strong>HELD: not printed, published or sent.</strong></p>
+<h2>Blockers / owed</h2>
+<ul>
+<li>WL compare OWED (Python only). No SLW current formula exists in the sources; all currents are model-derived with labelled assumptions.</li>
+<li>Dan's coil dBm readings not available; the coil-vs-rod comparison stays undefined until he supplies them.</li>
+<li>The probe kit brand is unconfirmed (Tekbox assumed per hub); TinySA floor at UHF is extrapolated.</li>
+<li>TAP2500 / F-65 prices not verified. Diode-detector and thermal-converter sensitivities are class-level ASSUMPTIONs.</li>
+<li>HackRF power figure is still missing from the hub.</li>
+</ul>
+<h2 id="appendix-1">Appendix: full tables (contact_tables.md)</h2>
+<h3>Induced current per rod (phi=0 for SLW models; classical column is rod PARALLEL to E / perpendicular to propagation)</h3>
+<p class="tem-note">&#9888; Rows/columns in this table that refer to TEM / classical / cage SE: <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>scenario</th>
+<th>freq</th>
+<th>mat</th>
+<th>E_rms V/m</th>
+<th>S1 literal sigma<em>E</em>A</th>
+<th>S1-capped uniform</th>
+<th>S1-capped cos peak I0</th>
+<th>S2 surface-charge</th>
+<th>CLASSICAL-TEM broadside I0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a_100mW_30ft</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>0.189</td>
+<td>22.6 A</td>
+<td>507 uA</td>
+<td>717 uA</td>
+<td>36.2 nA</td>
+<td>493 uA</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>0.189</td>
+<td>7.5 A</td>
+<td>292 uA</td>
+<td>413 uA</td>
+<td>36.2 nA</td>
+<td>493 uA</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>0.189</td>
+<td>22.6 A</td>
+<td>877 uA</td>
+<td>1.24 mA</td>
+<td>108 nA</td>
+<td>165 uA</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>0.189</td>
+<td>7.5 A</td>
+<td>505 uA</td>
+<td>714 uA</td>
+<td>108 nA</td>
+<td>165 uA</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>0.189</td>
+<td>22.6 A</td>
+<td>1.21 mA</td>
+<td>1.7 mA</td>
+<td>204 nA</td>
+<td>87.2 uA</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>0.189</td>
+<td>7.5 A</td>
+<td>694 uA</td>
+<td>981 uA</td>
+<td>204 nA</td>
+<td>87.2 uA</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>0.328</td>
+<td>39.2 A</td>
+<td>878 uA</td>
+<td>1.24 mA</td>
+<td>62.6 nA</td>
+<td>854 uA</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>0.328</td>
+<td>13 A</td>
+<td>505 uA</td>
+<td>715 uA</td>
+<td>62.6 nA</td>
+<td>854 uA</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>0.328</td>
+<td>39.2 A</td>
+<td>1.52 mA</td>
+<td>2.15 mA</td>
+<td>187 nA</td>
+<td>286 uA</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>0.328</td>
+<td>13 A</td>
+<td>874 uA</td>
+<td>1.24 mA</td>
+<td>187 nA</td>
+<td>286 uA</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>0.328</td>
+<td>39.2 A</td>
+<td>2.09 mA</td>
+<td>2.95 mA</td>
+<td>354 nA</td>
+<td>151 uA</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>0.328</td>
+<td>13 A</td>
+<td>1.2 mA</td>
+<td>1.7 mA</td>
+<td>354 nA</td>
+<td>151 uA</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>0.423</td>
+<td>50.6 A</td>
+<td>1.13 mA</td>
+<td>1.6 mA</td>
+<td>80.9 nA</td>
+<td>1.1 mA</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>0.423</td>
+<td>16.8 A</td>
+<td>653 uA</td>
+<td>923 uA</td>
+<td>80.9 nA</td>
+<td>1.1 mA</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>0.423</td>
+<td>50.6 A</td>
+<td>1.96 mA</td>
+<td>2.77 mA</td>
+<td>242 nA</td>
+<td>369 uA</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>0.423</td>
+<td>16.8 A</td>
+<td>1.13 mA</td>
+<td>1.6 mA</td>
+<td>242 nA</td>
+<td>369 uA</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>0.423</td>
+<td>50.6 A</td>
+<td>2.69 mA</td>
+<td>3.81 mA</td>
+<td>457 nA</td>
+<td>195 uA</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>0.423</td>
+<td>16.8 A</td>
+<td>1.55 mA</td>
+<td>2.19 mA</td>
+<td>457 nA</td>
+<td>195 uA</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>137</td>
+<td>1.64e+04 A</td>
+<td>367 mA</td>
+<td>519 mA</td>
+<td>26.2 uA</td>
+<td>357 mA</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>137</td>
+<td>5.43e+03 A</td>
+<td>212 mA</td>
+<td>299 mA</td>
+<td>26.2 uA</td>
+<td>357 mA</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>137</td>
+<td>1.64e+04 A</td>
+<td>635 mA</td>
+<td>898 mA</td>
+<td>78.3 uA</td>
+<td>120 mA</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>137</td>
+<td>5.43e+03 A</td>
+<td>366 mA</td>
+<td>517 mA</td>
+<td>78.3 uA</td>
+<td>120 mA</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>137</td>
+<td>1.64e+04 A</td>
+<td>874 mA</td>
+<td>1.24 A</td>
+<td>148 uA</td>
+<td>63.2 mA</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>137</td>
+<td>5.43e+03 A</td>
+<td>503 mA</td>
+<td>711 mA</td>
+<td>148 uA</td>
+<td>63.2 mA</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>0.218</td>
+<td>26 A</td>
+<td>583 uA</td>
+<td>825 uA</td>
+<td>41.6 nA</td>
+<td>567 uA</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>0.218</td>
+<td>8.63 A</td>
+<td>336 uA</td>
+<td>475 uA</td>
+<td>41.6 nA</td>
+<td>567 uA</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>0.218</td>
+<td>26 A</td>
+<td>1.01 mA</td>
+<td>1.43 mA</td>
+<td>124 nA</td>
+<td>190 uA</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>0.218</td>
+<td>8.63 A</td>
+<td>581 uA</td>
+<td>822 uA</td>
+<td>124 nA</td>
+<td>190 uA</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>0.218</td>
+<td>26 A</td>
+<td>1.39 mA</td>
+<td>1.96 mA</td>
+<td>235 nA</td>
+<td>100 uA</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>0.218</td>
+<td>8.63 A</td>
+<td>799 uA</td>
+<td>1.13 mA</td>
+<td>235 nA</td>
+<td>100 uA</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>0.0727</td>
+<td>8.68 A</td>
+<td>194 uA</td>
+<td>275 uA</td>
+<td>13.9 nA</td>
+<td>189 uA</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>0.0727</td>
+<td>2.88 A</td>
+<td>112 uA</td>
+<td>158 uA</td>
+<td>13.9 nA</td>
+<td>189 uA</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>0.0727</td>
+<td>8.68 A</td>
+<td>336 uA</td>
+<td>476 uA</td>
+<td>41.5 nA</td>
+<td>63.3 uA</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>0.0727</td>
+<td>2.88 A</td>
+<td>194 uA</td>
+<td>274 uA</td>
+<td>41.5 nA</td>
+<td>63.3 uA</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>0.0727</td>
+<td>8.68 A</td>
+<td>462 uA</td>
+<td>654 uA</td>
+<td>78.4 nA</td>
+<td>33.5 uA</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>0.0727</td>
+<td>2.88 A</td>
+<td>266 uA</td>
+<td>377 uA</td>
+<td>78.4 nA</td>
+<td>33.5 uA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Near-field probe power into TinySA (5 mm gap; E5 off rod end, H10 beside rod centre) vs floor (3 kHz RBW, ASSUMPTION)</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>scenario</th>
+<th>freq</th>
+<th>mat</th>
+<th>model</th>
+<th>E_end V/m</th>
+<th>P_E5 dBm</th>
+<th>B_ctr uT</th>
+<th>P_H10 dBm</th>
+<th>floor dBm</th>
+<th>E5 det</th>
+<th>H10 det</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a_100mW_30ft</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>4.3</td>
+<td>-45.7</td>
+<td>0.0218</td>
+<td>-40.4</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.000217</td>
+<td>-131.7</td>
+<td>1.1e-06</td>
+<td>-126.3</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>2.96</td>
+<td>-49.0</td>
+<td>0.015</td>
+<td>-43.6</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>2.47</td>
+<td>-50.5</td>
+<td>0.0125</td>
+<td>-45.2</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.000217</td>
+<td>-131.7</td>
+<td>1.1e-06</td>
+<td>-126.3</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>2.96</td>
+<td>-49.0</td>
+<td>0.015</td>
+<td>-43.6</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>7.43</td>
+<td>-31.6</td>
+<td>0.0376</td>
+<td>-33.0</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.000648</td>
+<td>-112.8</td>
+<td>3.28e-06</td>
+<td>-114.2</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>0.989</td>
+<td>-49.1</td>
+<td>0.00501</td>
+<td>-50.5</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>4.28</td>
+<td>-36.4</td>
+<td>0.0217</td>
+<td>-37.8</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.000648</td>
+<td>-112.8</td>
+<td>3.28e-06</td>
+<td>-114.2</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>0.989</td>
+<td>-49.1</td>
+<td>0.00501</td>
+<td>-50.5</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>10.2</td>
+<td>-24.5</td>
+<td>0.0517</td>
+<td>-35.5</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.00123</td>
+<td>-102.9</td>
+<td>6.2e-06</td>
+<td>-114.0</td>
+<td>-102</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>0.523</td>
+<td>-50.3</td>
+<td>0.00265</td>
+<td>-61.4</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>5.88</td>
+<td>-29.3</td>
+<td>0.0298</td>
+<td>-40.3</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.00123</td>
+<td>-102.9</td>
+<td>6.2e-06</td>
+<td>-114.0</td>
+<td>-102</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_100mW_30ft</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>0.523</td>
+<td>-50.3</td>
+<td>0.00265</td>
+<td>-61.4</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>7.44</td>
+<td>-41.0</td>
+<td>0.0377</td>
+<td>-35.6</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.000376</td>
+<td>-126.9</td>
+<td>1.9e-06</td>
+<td>-121.5</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>5.12</td>
+<td>-44.2</td>
+<td>0.0259</td>
+<td>-38.8</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>4.29</td>
+<td>-45.8</td>
+<td>0.0217</td>
+<td>-40.4</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.000376</td>
+<td>-126.9</td>
+<td>1.9e-06</td>
+<td>-121.5</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>5.12</td>
+<td>-44.2</td>
+<td>0.0259</td>
+<td>-38.8</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>12.9</td>
+<td>-26.8</td>
+<td>0.0652</td>
+<td>-28.2</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.00112</td>
+<td>-108.0</td>
+<td>5.68e-06</td>
+<td>-109.4</td>
+<td>-112</td>
+<td>YES</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>1.71</td>
+<td>-44.4</td>
+<td>0.00867</td>
+<td>-45.7</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>7.41</td>
+<td>-31.6</td>
+<td>0.0375</td>
+<td>-33.0</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.00112</td>
+<td>-108.0</td>
+<td>5.68e-06</td>
+<td>-109.4</td>
+<td>-112</td>
+<td>YES</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>1.71</td>
+<td>-44.4</td>
+<td>0.00867</td>
+<td>-45.7</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>17.7</td>
+<td>-19.7</td>
+<td>0.0896</td>
+<td>-30.8</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.00212</td>
+<td>-98.1</td>
+<td>1.07e-05</td>
+<td>-109.2</td>
+<td>-102</td>
+<td>YES</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>0.906</td>
+<td>-45.5</td>
+<td>0.00459</td>
+<td>-56.6</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>10.2</td>
+<td>-24.5</td>
+<td>0.0516</td>
+<td>-35.6</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.00212</td>
+<td>-98.1</td>
+<td>1.07e-05</td>
+<td>-109.2</td>
+<td>-102</td>
+<td>YES</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_300mW_30ft</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>0.906</td>
+<td>-45.5</td>
+<td>0.00459</td>
+<td>-56.6</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>9.61</td>
+<td>-38.7</td>
+<td>0.0487</td>
+<td>-33.4</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.000485</td>
+<td>-124.7</td>
+<td>2.46e-06</td>
+<td>-119.3</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>6.61</td>
+<td>-42.0</td>
+<td>0.0335</td>
+<td>-36.6</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>5.53</td>
+<td>-43.5</td>
+<td>0.028</td>
+<td>-38.2</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.000485</td>
+<td>-124.7</td>
+<td>2.46e-06</td>
+<td>-119.3</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>6.61</td>
+<td>-42.0</td>
+<td>0.0335</td>
+<td>-36.6</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>16.6</td>
+<td>-24.6</td>
+<td>0.0842</td>
+<td>-26.0</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.00145</td>
+<td>-105.8</td>
+<td>7.34e-06</td>
+<td>-107.2</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>2.21</td>
+<td>-42.1</td>
+<td>0.0112</td>
+<td>-43.5</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>9.57</td>
+<td>-29.4</td>
+<td>0.0485</td>
+<td>-30.8</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.00145</td>
+<td>-105.8</td>
+<td>7.34e-06</td>
+<td>-107.2</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>2.21</td>
+<td>-42.1</td>
+<td>0.0112</td>
+<td>-43.5</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>22.9</td>
+<td>-17.5</td>
+<td>0.116</td>
+<td>-28.6</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.00274</td>
+<td>-95.9</td>
+<td>1.39e-05</td>
+<td>-107.0</td>
+<td>-102</td>
+<td>YES</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>1.17</td>
+<td>-43.3</td>
+<td>0.00592</td>
+<td>-54.4</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>13.2</td>
+<td>-22.3</td>
+<td>0.0666</td>
+<td>-33.3</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.00274</td>
+<td>-95.9</td>
+<td>1.39e-05</td>
+<td>-107.0</td>
+<td>-102</td>
+<td>YES</td>
+<td>no</td>
+</tr>
+<tr>
+<td>a_500mW_30ft</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>1.17</td>
+<td>-43.3</td>
+<td>0.00592</td>
+<td>-54.4</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>3.11e+03</td>
+<td>11.5</td>
+<td>15.8</td>
+<td>16.8</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.157</td>
+<td>-74.5</td>
+<td>0.000796</td>
+<td>-69.1</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>2.14e+03</td>
+<td>8.2</td>
+<td>10.8</td>
+<td>13.6</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>1.79e+03</td>
+<td>6.7</td>
+<td>9.08</td>
+<td>12.0</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.157</td>
+<td>-74.5</td>
+<td>0.000796</td>
+<td>-69.1</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>2.14e+03</td>
+<td>8.2</td>
+<td>10.8</td>
+<td>13.6</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>5.39e+03</td>
+<td>25.6</td>
+<td>27.3</td>
+<td>24.2</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.47</td>
+<td>-55.6</td>
+<td>0.00238</td>
+<td>-57.0</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>717</td>
+<td>8.1</td>
+<td>3.63</td>
+<td>6.7</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>3.1e+03</td>
+<td>20.8</td>
+<td>15.7</td>
+<td>19.4</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.47</td>
+<td>-55.6</td>
+<td>0.00238</td>
+<td>-57.0</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>717</td>
+<td>8.1</td>
+<td>3.63</td>
+<td>6.7</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>7.41e+03</td>
+<td>32.7</td>
+<td>37.5</td>
+<td>21.7</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.888</td>
+<td>-45.7</td>
+<td>0.0045</td>
+<td>-56.8</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>379</td>
+<td>6.9</td>
+<td>1.92</td>
+<td>-4.2</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>4.27e+03</td>
+<td>27.9</td>
+<td>21.6</td>
+<td>16.9</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.888</td>
+<td>-45.7</td>
+<td>0.0045</td>
+<td>-56.8</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>b_FDA_5mWcm2_5cm</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>379</td>
+<td>6.9</td>
+<td>1.92</td>
+<td>-4.2</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>4.95</td>
+<td>-44.5</td>
+<td>0.025</td>
+<td>-39.1</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.00025</td>
+<td>-130.4</td>
+<td>1.26e-06</td>
+<td>-125.1</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>3.4</td>
+<td>-47.8</td>
+<td>0.0172</td>
+<td>-42.4</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>2.85</td>
+<td>-49.3</td>
+<td>0.0144</td>
+<td>-43.9</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.00025</td>
+<td>-130.4</td>
+<td>1.26e-06</td>
+<td>-125.1</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>3.4</td>
+<td>-47.8</td>
+<td>0.0172</td>
+<td>-42.4</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>8.56</td>
+<td>-30.4</td>
+<td>0.0433</td>
+<td>-31.7</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.000746</td>
+<td>-111.6</td>
+<td>3.78e-06</td>
+<td>-112.9</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>1.14</td>
+<td>-47.9</td>
+<td>0.00576</td>
+<td>-49.3</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>4.93</td>
+<td>-35.2</td>
+<td>0.0249</td>
+<td>-36.5</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.000746</td>
+<td>-111.6</td>
+<td>3.78e-06</td>
+<td>-112.9</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>1.14</td>
+<td>-47.9</td>
+<td>0.00576</td>
+<td>-49.3</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>11.8</td>
+<td>-23.3</td>
+<td>0.0596</td>
+<td>-34.3</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.00141</td>
+<td>-101.7</td>
+<td>7.14e-06</td>
+<td>-112.7</td>
+<td>-102</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>0.602</td>
+<td>-49.1</td>
+<td>0.00305</td>
+<td>-60.1</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>6.77</td>
+<td>-28.1</td>
+<td>0.0343</td>
+<td>-39.1</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.00141</td>
+<td>-101.7</td>
+<td>7.14e-06</td>
+<td>-112.7</td>
+<td>-102</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>hub_+2dBm_1m</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>0.602</td>
+<td>-49.1</td>
+<td>0.00305</td>
+<td>-60.1</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>1.65</td>
+<td>-54.1</td>
+<td>0.00835</td>
+<td>-48.7</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>8.32e-05</td>
+<td>-140.0</td>
+<td>4.21e-07</td>
+<td>-134.6</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>433.59MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>1.13</td>
+<td>-57.3</td>
+<td>0.00574</td>
+<td>-51.9</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>0.949</td>
+<td>-58.8</td>
+<td>0.00481</td>
+<td>-53.5</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>8.32e-05</td>
+<td>-140.0</td>
+<td>4.21e-07</td>
+<td>-134.6</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>433.59MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>1.13</td>
+<td>-57.3</td>
+<td>0.00574</td>
+<td>-51.9</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>2.85</td>
+<td>-39.9</td>
+<td>0.0144</td>
+<td>-41.3</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.000249</td>
+<td>-121.1</td>
+<td>1.26e-06</td>
+<td>-122.5</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>1296MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>0.379</td>
+<td>-57.4</td>
+<td>0.00192</td>
+<td>-58.8</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>1.64</td>
+<td>-44.7</td>
+<td>0.00832</td>
+<td>-46.1</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.000249</td>
+<td>-121.1</td>
+<td>1.26e-06</td>
+<td>-122.5</td>
+<td>-112</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>1296MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>0.379</td>
+<td>-57.4</td>
+<td>0.00192</td>
+<td>-58.8</td>
+<td>-112</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>S1cap_cos_peak</td>
+<td>3.92</td>
+<td>-32.8</td>
+<td>0.0199</td>
+<td>-43.9</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>S2_surface</td>
+<td>0.00047</td>
+<td>-111.2</td>
+<td>2.38e-06</td>
+<td>-122.3</td>
+<td>-102</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>2450MHz</td>
+<td>brass</td>
+<td>classical_TEM_broadside</td>
+<td>0.201</td>
+<td>-58.6</td>
+<td>0.00102</td>
+<td>-69.7</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>S1cap_cos_peak</td>
+<td>2.26</td>
+<td>-37.6</td>
+<td>0.0114</td>
+<td>-48.7</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>S2_surface</td>
+<td>0.00047</td>
+<td>-111.2</td>
+<td>2.38e-06</td>
+<td>-122.3</td>
+<td>-102</td>
+<td>no</td>
+<td>no</td>
+</tr>
+<tr>
+<td>hub_+2dBm_3m</td>
+<td>2450MHz</td>
+<td>W1</td>
+<td>classical_TEM_broadside</td>
+<td>0.201</td>
+<td>-58.6</td>
+<td>0.00102</td>
+<td>-69.7</td>
+<td>-102</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Contact loading (lumped numbers; INVALID as lumped when lead length ~ lambda)</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>freq</th>
+<th>lambda (m)</th>
+<th>1 m lead / lambda</th>
+<th>Xc Fluke 100 pF (ohm)</th>
+<th>XL 1 m lead (ohm)</th>
+<th>Xc TAP2500 0.8 pF (ohm)</th>
+<th>Z_end range (ohm, HYP)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>433.59MHz</td>
+<td>0.6914</td>
+<td>1.45</td>
+<td>3.67</td>
+<td>4110</td>
+<td>459</td>
+<td>2000-5000</td>
+</tr>
+<tr>
+<td>1296MHz</td>
+<td>0.2313</td>
+<td>4.32</td>
+<td>1.23</td>
+<td>12286</td>
+<td>154</td>
+<td>2000-5000</td>
+</tr>
+<tr>
+<td>2450MHz</td>
+<td>0.1224</td>
+<td>8.17</td>
+<td>0.65</td>
+<td>23226</td>
+<td>81</td>
+<td>2000-5000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Lead inductance (Rosa/Grover, 1 m, 0.5 mm radius): 1.51 uH.</p>
+<h3>Coil into 50 ohm: current for a TinySA reading (I = sqrt(P/50))</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>TinySA dBm</th>
+<th>current</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-30</td>
+<td>141 uA</td>
+</tr>
+<tr>
+<td>-40</td>
+<td>44.7 uA</td>
+</tr>
+<tr>
+<td>-50</td>
+<td>14.1 uA</td>
+</tr>
+<tr>
+<td>-60</td>
+<td>4.47 uA</td>
+</tr>
+<tr>
+<td>-70</td>
+<td>1.41 uA</td>
+</tr>
+<tr>
+<td>-80</td>
+<td>447 nA</td>
+</tr>
+<tr>
+<td>-90</td>
+<td>141 nA</td>
+</tr>
+<tr>
+<td>-100</td>
+<td>44.7 nA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Classical matched lambda/2 dipole at the door (CLASSICAL-TEM): P_avail 97.7 mW, I 36.6 mA. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<h3>Split rod, 1 ohm sense resistor: power in R_s</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>I</th>
+<th>P (dBm)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1e-06A</td>
+<td>-90</td>
+</tr>
+<tr>
+<td>1e-05A</td>
+<td>-70</td>
+</tr>
+<tr>
+<td>0.0001A</td>
+<td>-50</td>
+</tr>
+<tr>
+<td>0.001A</td>
+<td>-30</td>
+</tr>
+<tr>
+<td>0.01A</td>
+<td>-10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Fischer F-65 (Zt 1 ohm) minimum current at TinySA floor, 433.59 MHz: 562 nA.</p>
+
+  </article>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub · <a href="../../sim-lab/">Simulation Lab catalogue</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
+</body>
+</html>

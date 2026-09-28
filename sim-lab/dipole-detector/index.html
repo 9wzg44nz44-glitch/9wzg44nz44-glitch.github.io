@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dipole Detector (DD-433 / DD-1296 / DD-2450): build sheet, parts list and cage estimate · SLW Hub</title>
+<meta name="description" content="Simulation Lab (2026-09-27): Dipole Detector DD-433/DD-1296/DD-2450 build sheet, parts list and Faraday cage estimate with PDFs. Grok Bot initial design, verify before cutting. FACT/CLASSICAL/HYP labelled.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../sim-lab/sim-lab.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../../index.html">Home</a>
+      <a href="../../learn.html">Learn</a>
+      <a href="../../compare.html">Compare</a>
+      <a href="../../fields.html">Fields</a>
+      <a href="../../monstein.html">Monstein</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../lab.html">Lab</a>
+      <a href="../../kit.html">Kit</a>
+      <a href="../../library.html">Library</a>
+      <a href="../../ranging/">Ranging</a>
+      <a href="../../sim-lab/" aria-current="page">Sim Lab</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Simulation Lab report · dipole detector / cage · faithful HTML conversion</p>
+  <h1>Dipole Detector (DD-433 / DD-1296 / DD-2450): build sheet, parts list and cage estimate</h1>
+  <p class="lede">The Dipole Detector instrument in three variants, with its 11x17 build sheet, parts list, and the shielded-box (Faraday cage) estimate and plain-English cage sheet. Cut lengths are CLASSICAL (RSGB λ/2 × K); openEMS used only as a classical cut-length check.</p>
+  <p><span class="badge mixed">MIXED</span> <a href="../">← Simulation Lab catalogue</a></p>
+  <div class="provenance">
+    <h2>Provenance</h2>
+    <ul>
+      <li><code>/workspace/sim-lab/rod-thermal/dipole-detector/PARTS_LIST.md</code> (last modified 2026-09-27 19:39 EDT)</li><li><code>/workspace/sim-lab/rod-thermal/dipole-detector/CAGE_ESTIMATE.md</code> (last modified 2026-09-27 19:37 EDT)</li>
+      <li>Converted to HTML 2026-09-28 (EDT) as a faithful conversion: text, numbers, equations and labels are the source's own. No new equations were added; only the TEM tags described below and the edits listed here were made.</li>
+      <li>File names inside the text (Dipole_Detector_Build_Sheet.pdf, Cage_For_Steve.pdf, dipole_numbers.json) are available in the Downloads list on this page.</li>
+      <li>Status lines inside the source (for example "nothing published", "HELD", "draft") describe the state when it was written. This page is its GitHub Pages twin, published 2026-09-28.</li>
+      <li>No Wolfram Cloud twin planned (analysis/report page, not one of Experiments A–G). Numbers are Python-computed; WL compare OWED where the source says so.</li>
+    </ul>
+  </div>
+  <div class="rules"><strong>Framing rules on this page (Dan).</strong> Under the SLW hypothesis no skin-depth, permeability, ferromagnetic or cage shielding-effectiveness argument is used to rank or dismiss SLW/SW. The Faraday cage strips TEM noise (<span class="badge fact">FACT</span>); an SLW passing the cage wall is <span class="badge hyp">HYP</span>. Every passage that uses transverse-EM (TEM / classical / cage-SE) reasoning is tagged <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>. FACT / HYP / ASSUMPTION labels are kept exactly as in the source.</div>
+  <h2>Downloads</h2><ul class="dl-list"><li><a href="Dipole_Detector_Build_Sheet.pdf">Build sheet PDF (11x17)</a></li><li><a href="Cage_For_Steve.pdf">Cage sheet PDF (Letter)</a></li><li><a href="dipole_numbers.json">dipole_numbers.json</a></li><li><a href="cage_numbers.json">cage_numbers.json</a></li></ul>
+  <div class="figs"><figure><a href="Dipole_Detector_Build_Sheet.png"><img src="Dipole_Detector_Build_Sheet.png" alt="Dipole Detector build sheet (Rev A, 11x17, 1 page). Click for full size." loading="lazy"></a><figcaption>Dipole Detector build sheet (Rev A, 11x17, 1 page). Click for full size.</figcaption></figure><figure><a href="Cage_For_Steve.png"><img src="Cage_For_Steve.png" alt="Shielded box for the Dipole Detector: plain-English cage sheet (Letter, 1 page)." loading="lazy"></a><figcaption>Shielded box for the Dipole Detector: plain-English cage sheet (Letter, 1 page).</figcaption></figure></div>
+  <article class="doc">
+<p><em>Grok Bot initial design for Dan Britton, builder Steve Morris. Verify before buying or cutting.</em></p>
+<p>The Dipole Detector is an <strong>instrument</strong> with three variants:</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Frequency</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DD-433</strong></td>
+<td>433.59 MHz</td>
+<td>Experiment B, the Monstein &amp; Wesley replication</td>
+</tr>
+<tr>
+<td><strong>DD-1296</strong></td>
+<td>1296 MHz</td>
+<td>Experiment A</td>
+</tr>
+<tr>
+<td><strong>DD-2450</strong></td>
+<td>2450 MHz</td>
+<td>the 2.45 GHz microwave-oven test</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Lengths are in <code>Dipole_Detector_Build_Sheet.pdf</code> and <code>dipole_numbers.json</code>. The cage is covered separately in <code>CAGE_ESTIMATE.md</code>.</p>
+<p><strong>Status words:</strong></p>
+<ul>
+<li><strong>verified</strong>: part number or price seen on the vendor or distributor page on 2026-09-27.</li>
+<li><strong>generic</strong>: any equivalent will do; no part number checked.</li>
+<li><strong>unverified</strong>: not checked.</li>
+</ul>
+<h2>Per dipole</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Part</th>
+<th>DD-433</th>
+<th>DD-1296</th>
+<th>DD-2450</th>
+<th>Notes</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Brass rod, 1/8 in (3.175 mm) diameter, cut LONG</td>
+<td>2 halves × 172.1 mm (6.78 in)</td>
+<td>2 × 57.1 mm (2.25 in)</td>
+<td>2 × 29.8 mm (1.17 in)</td>
+<td>Halves at a 1.5 mm gap. Trim to about 165.4 / 54.1 / 27.9 mm per half.</td>
+<td>generic</td>
+</tr>
+<tr>
+<td>2</td>
+<td>SMA edge-mount (end-launch) jack, Amphenol RF <strong>132322</strong> (Digi-Key ACX1652-ND), 50 Ω, brass gold, for 0.062 in PCB</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>Check the pin and tab geometry on the datasheet drawing before soldering.</td>
+<td>part verified on distributor listings; tab geometry <strong>not</strong> checked</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SMA male coax pigtail, about 300 mm (12 in)</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td><strong>RG-174 assumed.</strong> Check what Dan's existing SMA assemblies use; the hub uses RG-405 elsewhere. You can reuse existing assemblies.</td>
+<td>generic</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Balun sleeve: thin-wall copper or brass tube that slides over the coax jacket (or copper foil tape over 2 layers of insulating tape)</td>
+<td>172.9 mm (6.81 in)</td>
+<td>57.8 mm (2.28 in)</td>
+<td>30.6 mm (1.20 in)</td>
+<td>Lengths are at VF 1.00; if tape lowers VF, trim toward 164.2 / 54.9 / 29.1 mm. RG-174 jacket about 2.5–2.8 mm (ASSUMPTION, measure it). Example: 5/32 in OD thin-wall tube, about 3.2 mm ID (verify).</td>
+<td>generic</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Heat-shrink tube to cover the sleeve's soldered end</td>
+<td>about 30 mm</td>
+<td>about 30 mm</td>
+<td>about 30 mm</td>
+<td></td>
+<td>generic</td>
+</tr>
+<tr>
+<td>6</td>
+<td>HDPE or acrylic mounting plate</td>
+<td>about 400 × 100 mm</td>
+<td>about 180 × 80 mm</td>
+<td>about 120 × 80 mm</td>
+<td>Sits on the Lazy Susan.</td>
+<td>generic</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Nylon cable clamps or plastic tape</td>
+<td>2–4</td>
+<td>2</td>
+<td>2</td>
+<td><strong>No metal screws near the rod.</strong> Use nylon screws if needed.</td>
+<td>generic</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>Totals for all three</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Total</th>
+<th>Buy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Brass rod, 1/8 in</td>
+<td>522.6 mm (20.6 in) cut, plus saw and file waste</td>
+<td><strong>2 × 36 in</strong> or <strong>5 × 12 in</strong> lengths. Two 12 in pieces cover DD-433's halves; one 12 in piece covers DD-1296 and DD-2450. The rest are spares. (generic)</td>
+</tr>
+<tr>
+<td>SMA edge-mount jack, Amphenol 132322</td>
+<td>3</td>
+<td><strong>5</strong> (2 spares). Seen at about $6.66–7.73 each (Mouser $6.83–7.06, octopart about $6.66, chipsfind $7.73) — verified listings</td>
+</tr>
+<tr>
+<td>SMA pigtail, about 300 mm</td>
+<td>3</td>
+<td>3, or existing assemblies</td>
+</tr>
+<tr>
+<td>Sleeve tube or copper tape</td>
+<td>261.3 mm total tube</td>
+<td>one 300 mm (12 in) length of tube plus spare, or one roll of copper foil tape</td>
+</tr>
+<tr>
+<td>Heat shrink, nylon clamps, HDPE plate, electrical tape</td>
+<td>small</td>
+<td>generic</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>Tools</h2>
+<ul>
+<li>Soldering iron (40–60 W for the rod; a bigger tip helps on brass), rosin-core solder, flux</li>
+<li>Fine-tooth saw or rotary tool with cut-off disc, and a flat file</li>
+<li>Steel rule or calipers</li>
+<li>A straight edge or V-block to keep the two halves in line while soldering</li>
+<li><strong>For trimming to resonance:</strong> a VNA (battery type is best, since it can work inside the closed cage), or TinySA plus a generator plus a return-loss bridge</li>
+</ul>
+<h2>Not in this list</h2>
+<ul>
+<li>The Faraday cage: see <code>CAGE_ESTIMATE.md</code> and <code>Cage_For_Steve.pdf</code>.</li>
+<li>The TinySA Ultra and the Tekbox E5/H10 probe: existing equipment.</li>
+</ul>
+<h2 id="appendix-1">Cage estimate (CAGE_ESTIMATE.md)</h2>
+<p class="footnote">Source heading: <em>Dipole Detector (DD-433 / DD-1296 / DD-2450): Faraday Cage Estimate (Rev A, 2026-09-27)</em></p><p><em>Grok Bot initial estimate for Dan Britton. Please verify before buying or cutting. Numbers come from <code>cage/cage_estimate.py</code> → <code>cage/cage_numbers.json</code>. Units are mm, with inches in parentheses.</em></p>
+<p><strong>Labels:</strong> FACT (cited) · CLASSICAL-TEM (textbook Maxwell/TEM result, kept separate from SLW) · RULE OF THUMB · ASSUMPTION · HYP (SLW hypothesis). Nothing here uses TEM attenuation to rank or dismiss SLW. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<h3>0. What goes in the cage, and the one hard rule</h3>
+<ul>
+<li>The Dipole Detector is an <strong>instrument</strong>, not an experiment. It gets <strong>its own sealed cage</strong>, separate from the bifilar-coil cage, the Experiment B (433.59 MHz M&amp;W) polarizer array and the oven.</li>
+<li><strong>Inside the cage:</strong>
+<ul>
+<li>one Dipole Detector variant on its HDPE plate: DD-433 (433.59 MHz, Experiment B), DD-1296 (1296 MHz, Experiment A) or DD-2450 (2.45 GHz oven test)</li>
+<li>the SMA jack and about 300 mm (12 in) of coax with the sleeve balun</li>
+<li>TinySA Ultra on its internal battery (about 100×60×30 mm, 4×2.4×1.2 in)</li>
+<li>the Tekbox E5/H10 near-field probe</li>
+</ul>
+</li>
+<li><strong>Dan's standing rule: no cable crosses the cage wall.</strong> That means no feed-through, no bulkhead connector and no penetration of any kind. Data leaves in one of two ways:
+<ul>
+<li>saved on the TinySA (e.g. to its microSD card, if your unit has one; ASSUMPTION, check) and read after opening, or</li>
+<li>an optical link through a waveguide-below-cutoff (WBC) tube (§6).</li>
+</ul>
+</li>
+<li><strong>ASSUMPTION: the dipole sits in the middle of the cage.</strong> Clearances below are measured from the cut-long length of 0.47λ, which is the longest rod you would put in.</li>
+</ul>
+<h3>1. Why the walls must stay back from the dipole</h3>
+<ul>
+<li><strong>RULE OF THUMB (labelled):</strong> a conducting wall closer than about λ/2 to 1λ noticeably detunes and loads a dipole. It shifts the resonant frequency and changes the feed resistance.</li>
+<li><strong>CLASSICAL-TEM background:</strong> Balanis, <em>Antenna Theory</em> (linear wire antennas, &quot;ground effects&quot; section), treats a horizontal dipole a height h above a conducting plane with image theory. Its input impedance swings around the free-space value and settles toward it as h grows past roughly λ/2. The specific λ/2–1λ threshold above is the rule of thumb, not a quoted figure. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>CLASSICAL-TEM: a closed box is also a cavity.</strong> Its resonances are at f = (c/2)·√((m/a)² + (n/b)² + (p/d)²) (Harrington 1961 §6-9 / Balanis AEE §10.4, as cited in the hub). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>
+<ul>
+<li>When the cage is many wavelengths across it is &quot;overmoded&quot;: the field inside depends on position.</li>
+<li>So <strong>every dipole reading is calibrated in its own cage, at a fixed position.</strong> A cage-loaded resonance is acceptable as long as it is measured and recorded.</li>
+</ul>
+</li>
+</ul>
+<h3>2. Option 1: cage for DD-2450 and DD-1296</h3>
+<p>Variants: DD-2450 is 57.5 mm (2.26 in) with λ = 122.4 mm; DD-1296 is 108.7 mm (4.28 in) with λ = 231.3 mm (0.47λ cut-long lengths used for clearance).</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Cube inside size</th>
+<th>2450: tip gap</th>
+<th>2450: side gap</th>
+<th>1296: tip gap</th>
+<th>1296: side gap</th>
+<th>Lowest cavity mode</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>300 mm (11.8 in)</td>
+<td>121 mm = 0.99λ</td>
+<td>150 mm = 1.23λ</td>
+<td>96 mm = <strong>0.41λ</strong></td>
+<td>150 mm = <strong>0.65λ</strong></td>
+<td>707 MHz</td>
+<td>2450 only, marginal. <strong>Not for 1296.</strong></td>
+</tr>
+<tr>
+<td>450 mm (17.7 in)</td>
+<td>196 mm = 1.60λ</td>
+<td>225 mm = 1.84λ</td>
+<td>171 mm = 0.74λ</td>
+<td>225 mm = 0.97λ</td>
+<td>471 MHz</td>
+<td>Good for 2450; borderline for 1296.</td>
+</tr>
+<tr>
+<td><strong>600 mm (23.6 in)</strong></td>
+<td>271 mm = 2.22λ</td>
+<td>300 mm = 2.45λ</td>
+<td>246 mm = 1.06λ</td>
+<td>300 mm = 1.30λ</td>
+<td>353 MHz</td>
+<td><strong>Recommended.</strong> At least 1λ from every wall at both bands.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>Tip gap</strong> is (cube − dipole)/2, i.e. from each rod tip to the end wall. <strong>Side gap</strong> is cube/2, from the rod to the side walls.</li>
+<li><strong>CLASSICAL-TEM, cavity modes:</strong> <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>
+<ul>
+<li>The 600 mm cube has 578 modes below 2450 MHz, with 27 of them within ±1% of 2450 MHz.</li>
+<li>It has 95 modes below 1296 MHz, including one at 1298.1 MHz (+0.17%).</li>
+<li>I searched 450–650 mm boxes: at these frequencies mode spacing is about 1% or less, so <strong>mode avoidance is not practical</strong>. Calibrate in-cage instead.</li>
+</ul>
+</li>
+<li><strong>Optional:</strong> a few pieces of RF absorber foam in the corners lower the cavity Q and make readings depend less on position. This is CLASSICAL-TEM practice; price unverified. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+<h3>3. Option 2: cage for DD-433 (433.59 MHz)</h3>
+<p>DD-433 is about 325–346 mm (12.8–13.6 in) long, λ = 691.4 mm (27.2 in); clearances use 325 mm (0.47λ).</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Inside size (long axis along the rod)</th>
+<th>Tip gap</th>
+<th>Side gap</th>
+<th>Nearest cavity mode to 433.59 MHz</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>400×200×150 mm</td>
+<td>38 mm = <strong>0.05λ</strong></td>
+<td>75 mm = <strong>0.11λ</strong></td>
+<td>none below 838 MHz</td>
+<td><strong>Too small.</strong> The rod would be heavily detuned (walls &lt; 0.1λ away).</td>
+</tr>
+<tr>
+<td>900×450×450 mm</td>
+<td>288 mm = 0.42λ</td>
+<td>225 mm = 0.33λ</td>
+<td>471.1 MHz (+8.7%)</td>
+<td>Workable only with in-cage calibration.</td>
+</tr>
+<tr>
+<td><strong>1000×600×600 mm (39.4×23.6×23.6 in)</strong></td>
+<td>338 mm = 0.49λ</td>
+<td>300 mm = 0.43λ</td>
+<td>463.4 MHz (+6.9%)</td>
+<td><strong>Recommended.</strong> About λ/2 clearance, no mode near 433.59.</td>
+</tr>
+<tr>
+<td>1200×600×600 mm</td>
+<td>438 mm = 0.63λ</td>
+<td>300 mm = 0.43λ</td>
+<td><strong>432.7 MHz (−0.2%)</strong></td>
+<td><strong>Avoid.</strong> A cavity mode sits right on 433.59.</td>
+</tr>
+<tr>
+<td>1200×700×700 mm</td>
+<td>438 mm = 0.63λ</td>
+<td>350 mm = 0.51λ</td>
+<td><strong>431.6 MHz (−0.5%)</strong></td>
+<td>Avoid, for the same reason.</td>
+</tr>
+<tr>
+<td>1300×650×650 mm</td>
+<td>488 mm = 0.70λ</td>
+<td>325 mm = 0.47λ</td>
+<td>415.7 MHz (−4.1%)</td>
+<td>Good, just bigger.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>Recommendation:</strong> use a 1000×600×600 mm box.
+<ul>
+<li>Even there the side walls sit at about 0.43λ, inside the λ/2–1λ rule-of-thumb zone. So DD-433 <strong>must be characterized in-cage</strong>: measure its resonance and SWR inside the closed cage.</li>
+<li>Use a battery VNA inside, or TinySA plus a generator plus a return-loss bridge, or HackRF. Record the data, then open the cage.</li>
+<li><strong>Cut the rod to resonate in-cage, or accept and record the cage-loaded resonance.</strong></li>
+</ul>
+</li>
+<li><strong>Bonus:</strong> the same 1000×600×600 box also serves DD-1296 and DD-2450 with large clearance (all figures from <code>cage_numbers.json</code>):
+<ul>
+<li>1296 MHz: 1.93λ at the tips, 1.30λ at the sides.</li>
+<li>2450 MHz: 3.85λ at the tips, 2.45λ at the sides.</li>
+<li><strong>One cage could therefore cover all three variants.</strong></li>
+</ul>
+</li>
+</ul>
+<h3>4. Materials (pros and cons)</h3>
+<p><strong>Opening-size rule (RULE OF THUMB, common EMC guideline):</strong> every hole or gap should be much smaller than λ, typically ≤ λ/20:</p>
+<ul>
+<li>2450 MHz: 6.1 mm</li>
+<li>1296 MHz: 11.6 mm</li>
+<li>433.59 MHz: 34.6 mm</li>
+</ul>
+<p>All the meshes below have openings of about 1.3 mm or less, so the mesh itself is fine. In practice <strong>seams and the door leak first</strong>, not the mesh.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Material</th>
+<th>Openings</th>
+<th>Pros</th>
+<th>Cons</th>
+<th>Price (see §8)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aluminium window screen (Phifer 18×16, 0.010 in wire)</td>
+<td>≈1.2–1.4 mm (derived from mesh count and wire)</td>
+<td>Cheap, easy to get, one 1220 mm × 7.6 m (48 in × 25 ft) roll covers either option</td>
+<td><strong>Can't be soldered.</strong> Wire crossings oxidize and contact is uncertain, so seams need clamped overlaps and conductive tape. Floppy.</td>
+<td>$41.55 per roll (Home Depot, verified)</td>
+</tr>
+<tr>
+<td>Copper mesh, 16 mesh (TWP, 0.011 in wire)</td>
+<td>1.30 mm (TWP datasheet)</td>
+<td><strong>Solderable seams</strong>, good conductivity, stiffer than screen</td>
+<td>Costs more; sharp edges; tarnishes (only cosmetic if the seams are soldered)</td>
+<td>TWP &quot;from $10.00&quot;; per-foot price for 36 in width not shown (<strong>unverified</strong>)</td>
+</tr>
+<tr>
+<td>Copper filter mesh 100×100 (McMaster 9224T395/396/397/398, 36 in wide)</td>
+<td>0.15 mm</td>
+<td>Very fine, solderable</td>
+<td>Harder to work, pricier; overkill for these frequencies</td>
+<td>McMaster price not shown online (<strong>unverified</strong>)</td>
+</tr>
+<tr>
+<td>Solid aluminium sheet (e.g. 24×36 in)</td>
+<td>none</td>
+<td>Best mesh-free wall; rigid</td>
+<td>Not solderable; seams need rivets or screws every few cm plus tape; heavy; can't see inside</td>
+<td>about $19.99 per 24×36 in sheet (search listing, <strong>unverified</strong>)</td>
+</tr>
+<tr>
+<td>Ni-Cu ripstop fabric (Less EMF #11213, 42.5 in wide)</td>
+<td>woven fabric</td>
+<td>Light and fast: sew or tape it into a bag or tent; fold-over closure</td>
+<td>Can't be soldered; seams by conductive tape or folding; crease wear</td>
+<td>from $14.95 per linear ft (Less EMF); $17.00 per ft (FilterEMF)</td>
+</tr>
+<tr>
+<td>Ni-Cu fabric (Faraday Defense CYBER NC-RS, 54 in wide)</td>
+<td>woven fabric</td>
+<td>Same as above, wider</td>
+<td>Same as above</td>
+<td>$24.99 per ft</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Shielding-effectiveness figures, vendor datasheet numbers only:</strong></p>
+<ul>
+<li>Less EMF Ni-Cu Ripstop: 80 dB average from 10 kHz to 40 GHz; 80–94 dB at 700 MHz–2.7 GHz; 38–92 dB at 2.4–40 GHz; tested to IEEE 299-2006; 0.03 Ω/sq.</li>
+<li>LBA/Faraday Cyber NC-Berry: 75 dB average from 100 MHz to 18 GHz.</li>
+<li>Faraday Defense NC-RS: &gt;55 dB from 10 MHz to 3 GHz.</li>
+<li>These are flat-sheet material numbers. A built cage is usually limited by its seams and door.</li>
+<li>No vendor SE figure was found for the window screen or the copper meshes, so none is quoted. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+<p><strong>Frame:</strong> wood (1×2 or 2×2 in) or PVC pipe. A non-metal frame is fine near the dipole. Put the frame outside the mesh, or at least keep metal hardware at the corners, away from the rod.</p>
+<p><strong>Recommendation:</strong> 16-mesh copper with soldered seams for the best result. Ni-Cu fabric is the fastest build. Aluminium screen is the cheapest but has the weakest seams.</p>
+<h3>5. Seams, door and hardware</h3>
+<ul>
+<li><strong>Wall seams:</strong>
+<ul>
+<li>Overlap adjacent panels by 20–50 mm (0.8–2 in).</li>
+<li>On copper mesh, <strong>solder</strong> along the whole seam, or run copper foil tape over it and solder the tape edges.</li>
+<li>Where you can't solder (aluminium, fabric), use <strong>conductive-adhesive copper foil tape</strong> on both sides of the seam and press it hard.</li>
+<li>Vetco VUPN2321 copper tape, 2 in × 33 ft, conductive acrylic adhesive, $20.95 (verified).</li>
+<li>Do <strong>not</strong> rely on Less EMF aluminium tape for seams: its adhesive is synthetic rubber, so it is not a conductive joint.</li>
+</ul>
+</li>
+<li><strong>Door (lid):</strong>
+<ul>
+<li>Make one face a separate lid with a 50 mm (2 in) lip that folds down over the walls.</li>
+<li>Contact must be <strong>continuous</strong>, not spot clamps: gaps between contact points act as slots. At 2450 MHz, λ/20 is only 6 mm.</li>
+<li>Choices:
+<ul>
+<li>(a) EMI finger stock (beryllium-copper) around the opening, or</li>
+<li>(b) a conductive fabric-over-foam gasket, or</li>
+<li>(c) the lip pressed flat along its full length by a wooden batten on each side, clamped at both ends.</li>
+</ul>
+</li>
+<li>Part numbers and prices for finger stock and gaskets were not verified.</li>
+</ul>
+</li>
+<li><strong>Fabric version:</strong> make it a bag with a <strong>roll-down closure (fold at least 3 times) clamped flat</strong>, like a dry bag. That is the simplest door.</li>
+<li><strong>Other hardware:</strong>
+<ul>
+<li>plastic spring clamps</li>
+<li>60–100 W soldering iron and rosin-core solder (for the mesh)</li>
+<li>tin snips</li>
+<li>staple gun, or nylon zip ties to hold mesh to the frame (keep staples at the frame corners, away from the dipole)</li>
+<li>an HDPE shelf or Lazy Susan for the dipole plate</li>
+</ul>
+</li>
+</ul>
+<h3>6. Grounding</h3>
+<ul>
+<li><strong>CLASSICAL-TEM:</strong> a closed conducting shell with <strong>no penetrations shields the inside whether or not it is connected to earth.</strong> An earth wire adds nothing to the shielding here. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>Earthing is <strong>optional</strong>, for static or safety only.</li>
+<li>An earth wire must not enter the cage. If you add one, bond it to the <strong>outside</strong> skin only.</li>
+</ul>
+<h3>7. IR-thermometer hole (waveguide-below-cutoff tube)</h3>
+<ul>
+<li><strong>Source flag:</strong> the hub repo (<code>/workspace/hub-efield-repo</code>) has <strong>no</strong> WBC-tube guidance. The only related hub item is the TM01 stovepipe, λ_cut ≈ 23.23 cm.</li>
+<li>The formula below is the one already used in sim-lab (<code>/workspace/sim-lab/expt-d/rxchain/REPORT.md</code> §2), which cites H. W. Ott, <em>Electromagnetic Compatibility Engineering</em>, Wiley 2009:
+<ul>
+<li><strong>FACT (Ott):</strong> a circular tube of inner diameter d has TE11 cutoff f_c = 1.841·c/(π·d), about 176/d GHz with d in mm.</li>
+<li>Well below cutoff it attenuates about <strong>32 dB per tube diameter of length</strong>.</li>
+</ul>
+</li>
+</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Tube</th>
+<th>Inner diameter</th>
+<th>Length</th>
+<th>f_c</th>
+<th>f/f_c at 2450</th>
+<th>Attenuation (32 dB × L/d)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>3/4 in Type L copper water tube</strong> (OD 0.875 in, ID 0.785 in, copper.org Table 14.2b)</td>
+<td>19.94 mm</td>
+<td><strong>80 mm (3.15 in)</strong></td>
+<td>8.81 GHz</td>
+<td>0.28</td>
+<td><strong>≈128 dB</strong></td>
+</tr>
+<tr>
+<td>same tube</td>
+<td>19.94 mm</td>
+<td>60 mm (2.36 in)</td>
+<td>8.81 GHz</td>
+<td>0.28</td>
+<td>≈96 dB</td>
+</tr>
+<tr>
+<td>1/2 in Type L copper (ID 0.545 in)</td>
+<td>13.84 mm</td>
+<td>56 mm (2.2 in)</td>
+<td>12.7 GHz</td>
+<td>0.19</td>
+<td>≈129 dB</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>Recommendation:</strong> a 3/4 in Type L copper tube 80 mm long, soldered <strong>all the way round (360°)</strong> into a copper plate (about 100×100 mm), which is soldered or taped into the wall. Add a 3/4 in copper end cap to close it.
+<ul>
+<li>At 1296 MHz f/f_c = 0.15, and 433 MHz is further still below cutoff; the same length applies.</li>
+</ul>
+</li>
+<li><strong>IR note:</strong>
+<ul>
+<li>Infrared passes straight through an <strong>open</strong> tube. It does <strong>not</strong> pass reliably through mesh or fabric, so don't aim the thermometer through the wall.</li>
+<li>The tube narrows the gun's view. Use a high distance-to-spot gun, or put the gun right against the tube mouth.</li>
+<li>Or use a battery temperature logger inside and read it after opening (no cable crosses the wall).</li>
+</ul>
+</li>
+<li><strong>HYP:</strong> &quot;SLW passes the cage wall&quot; is the SLW hypothesis, not established. <strong>The hole is also a test:</strong> take readings with the tube open and with it capped.
+<ul>
+<li>CLASSICAL-TEM: at about 128 dB the tube adds essentially no ordinary-RF leakage, so a classical expectation is no difference between open and capped. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>A difference would need explaining: first a leak or seam check, then an anomaly log.</li>
+</ul>
+</li>
+</ul>
+<h3>8. Area, quantity and cost</h3>
+<p><strong>Area</strong> includes all 6 faces, a 50 mm (or 20 mm) overlap strip on each of the 12 edges, a 50 mm lid lip, and a 20% waste factor. <strong>Copper tape</strong> covers every seam on both sides plus the lid landing strip, with 20% waste.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Cage</th>
+<th>Faces only</th>
+<th>With 50 mm seams + lip + 20%</th>
+<th>With 20 mm seams + lip + 20%</th>
+<th>Copper tape (both sides)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>300 mm cube</td>
+<td>0.54 m²</td>
+<td>0.94 m² = 10.1 ft²</td>
+<td>0.81 m² = 8.7 ft²</td>
+<td>10.1 m = 33 ft</td>
+</tr>
+<tr>
+<td>450 mm cube</td>
+<td>1.22 m²</td>
+<td>1.89 m² = 20.3 ft²</td>
+<td>1.70 m² = 18.3 ft²</td>
+<td>15.1 m = 50 ft</td>
+</tr>
+<tr>
+<td><strong>600 mm cube (Option 1)</strong></td>
+<td>2.16 m²</td>
+<td><strong>3.17 m² = 34.1 ft²</strong></td>
+<td>2.91 m² = 31.3 ft²</td>
+<td>20.2 m = 66 ft</td>
+</tr>
+<tr>
+<td><strong>1000×600×600 mm (Option 2 / all-band)</strong></td>
+<td>3.12 m²</td>
+<td><strong>4.46 m² = 48.1 ft²</strong></td>
+<td>4.15 m² = 44.6 ft²</td>
+<td>25.0 m = 82 ft</td>
+</tr>
+<tr>
+<td>1300×650×650 mm</td>
+<td>4.23 m²</td>
+<td>5.93 m² = 63.8 ft²</td>
+<td>5.55 m² = 59.8 ft²</td>
+<td>29.6 m = 97 ft</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Cost (USD).</strong> &quot;Verified&quot; means the price was seen on the vendor page or listing on 2026-09-27. Everything else is an estimate.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Option 1: 600 mm cube</th>
+<th>Option 2: 1000×600×600</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aluminium screen, Phifer 48 in × 25 ft (100 ft²)</td>
+<td>1 roll, $41.55</td>
+<td>1 roll, $41.55</td>
+<td>verified (Home Depot)</td>
+</tr>
+<tr>
+<td><strong>or</strong> 16-mesh copper, TWP, 36 in wide</td>
+<td>~12 linear ft</td>
+<td>~16–18 linear ft</td>
+<td>per-foot price <strong>unverified</strong> (&quot;from $10&quot;)</td>
+</tr>
+<tr>
+<td><strong>or</strong> Ni-Cu ripstop, Less EMF, 42.5 in</td>
+<td>~10 ft ≈ $150</td>
+<td>~14 ft ≈ $209</td>
+<td>&quot;from $14.95/ft&quot;, verified listing</td>
+</tr>
+<tr>
+<td>Copper foil tape, conductive adhesive, 2 in × 33 ft (Vetco)</td>
+<td>2 rolls = $41.90</td>
+<td>3 rolls = $62.85</td>
+<td>verified</td>
+</tr>
+<tr>
+<td>Frame: wood 1×2 or PVC plus corners</td>
+<td>~$25–40</td>
+<td>~$35–55</td>
+<td><strong>unverified</strong></td>
+</tr>
+<tr>
+<td>Door gasket or finger stock (or battens + clamps)</td>
+<td>~$15–40</td>
+<td>~$20–50</td>
+<td><strong>unverified</strong></td>
+</tr>
+<tr>
+<td>WBC tube: 3/4 in Type L copper (short length) + end cap + copper plate</td>
+<td>~$15–25</td>
+<td>~$15–25</td>
+<td><strong>unverified</strong></td>
+</tr>
+<tr>
+<td>Solder, zip ties, clamps</td>
+<td>~$15</td>
+<td>~$15</td>
+<td><strong>unverified</strong></td>
+</tr>
+<tr>
+<td><strong>Total, aluminium screen</strong></td>
+<td><strong>≈ $155–200</strong></td>
+<td><strong>≈ $190–250</strong></td>
+<td>mixed</td>
+</tr>
+<tr>
+<td><strong>Total, Ni-Cu fabric</strong></td>
+<td><strong>≈ $260–310</strong></td>
+<td><strong>≈ $360–420</strong></td>
+<td>mixed</td>
+</tr>
+<tr>
+<td><strong>Total, copper mesh</strong></td>
+<td>mesh price + ≈ $110–160</td>
+<td>mesh price + ≈ $150–210</td>
+<td>mesh price unverified</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>9. Build time for Steve (estimate)</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Option 1 (600 mm cube)</th>
+<th>Option 2 (1000×600×600)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Build frame</td>
+<td>1.5–2 h</td>
+<td>2–3 h</td>
+</tr>
+<tr>
+<td>Cut and fit mesh panels</td>
+<td>2–3 h</td>
+<td>3–4 h</td>
+</tr>
+<tr>
+<td>Seams (solder or tape, both sides)</td>
+<td>2–3 h</td>
+<td>3–4 h</td>
+</tr>
+<tr>
+<td>Lid with lip and gasket or battens</td>
+<td>1.5–2 h</td>
+<td>2–3 h</td>
+</tr>
+<tr>
+<td>WBC tube and plate</td>
+<td>1 h</td>
+<td>1 h</td>
+</tr>
+<tr>
+<td>Leak check (below)</td>
+<td>1 h</td>
+<td>1 h</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>≈ 9–12 h</strong></td>
+<td><strong>≈ 12–16 h</strong></td>
+</tr>
+<tr>
+<td>Ni-Cu fabric bag with roll-top instead</td>
+<td>≈ 3–5 h</td>
+<td>≈ 4–6 h</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Leak check (CLASSICAL-TEM, simple):</strong> <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<ol>
+<li>Put the battery TinySA inside with the dipole.</li>
+<li>Record ambient Wi-Fi (2.4 GHz) and cell signals with the lid open.</li>
+<li>Close the lid, record again, then open and compare.</li>
+<li>The drop is a rough shielding figure. It is limited by the TinySA noise floor.</li>
+</ol>
+<h3>10. Cautions</h3>
+<ul>
+<li><strong>TinySA self-signal:</strong> in ULTRA mode (above 800 MHz) the TinySA leaks its local oscillator at up to −10 dBm out of the RF input (FACT, TinySA docs, noted earlier). In a sealed, reflective cage the dipole re-radiates this. Check with a 50 Ω load in place of the dipole, and enable spur suppression.</li>
+<li><strong>Keep metal bodies back:</strong> the TinySA and the E5/H10 probe are metal objects too. Use the 300 mm coax to keep the TinySA in a corner, behind the dipole along the coax direction, not beside the rod.</li>
+<li><strong>Safety:</strong> the cage is for receive only. Detectors, rods and the TinySA <strong>never</strong> go inside a running microwave oven. The hub's lab note (&quot;Do not cook a sealed cage&quot;) applies if anything is ever transmitted inside.</li>
+</ul>
+
+  </article>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub · <a href="../../sim-lab/">Simulation Lab catalogue</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
+</body>
+</html>

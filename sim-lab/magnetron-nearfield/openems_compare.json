@@ -1,0 +1,100 @@
+{
+ "info": {
+  "x_len": 101,
+  "y_len": 1,
+  "z_len": 97,
+  "shape": [
+   3,
+   101,
+   1,
+   97
+  ],
+  "units_hint": 0.2254903450935389
+ },
+ "L_mm": 12.0,
+ "a_mm": 0.5,
+ "note": "coarse mesh, lam/25 far, relative comparison only; dipole L=0.098 lambda (finite, not infinitesimal)",
+ "rows": [
+  {
+   "kr": 1,
+   "r_mm": 19.5,
+   "openEMS_peak_ratio": 2.375393239700869,
+   "openEMS_theta45_ratio": 2.620846156696167,
+   "analytic": 2.82842712474619,
+   "dB_diff_peak": -1.5161895469531346,
+   "dB_diff_45": -0.6620692965338568
+  },
+  {
+   "kr": 1.5,
+   "r_mm": 29.2,
+   "openEMS_peak_ratio": 1.4906559866703963,
+   "openEMS_theta45_ratio": 1.7912889818073852,
+   "analytic": 1.846574142993931,
+   "dB_diff_peak": -1.8597864272948186,
+   "dB_diff_45": -0.26402190810830295
+  },
+  {
+   "kr": 2,
+   "r_mm": 38.9,
+   "openEMS_peak_ratio": 1.0355291424754167,
+   "openEMS_theta45_ratio": 1.3329142429414096,
+   "analytic": 1.2403473458920846,
+   "dB_diff_peak": -1.5676199220835405,
+   "dB_diff_45": 0.6251777397709899
+  },
+  {
+   "kr": 3,
+   "r_mm": 58.4,
+   "openEMS_peak_ratio": 0.646730382101897,
+   "openEMS_theta45_ratio": 0.7502966796879922,
+   "analytic": 0.7402332101976054,
+   "dB_diff_peak": -1.1729060377974758,
+   "dB_diff_45": 0.1172891790667421
+  },
+  {
+   "kr": 4,
+   "r_mm": 77.9,
+   "openEMS_peak_ratio": 0.47420730916681253,
+   "openEMS_theta45_ratio": 0.5244017906151103,
+   "analytic": 0.5311851620184319,
+   "dB_diff_peak": -0.9855538279831487,
+   "dB_diff_45": -0.11163538218333702
+  },
+  {
+   "kr": 5,
+   "r_mm": 97.4,
+   "openEMS_peak_ratio": 0.37874625846879284,
+   "openEMS_theta45_ratio": 0.4045187109676895,
+   "analytic": 0.41598668863894195,
+   "dB_diff_peak": -0.8146216478691259,
+   "dB_diff_45": -0.24281637984969257
+  },
+  {
+   "kr": 7,
+   "r_mm": 136.3,
+   "openEMS_peak_ratio": 0.2660952801537388,
+   "openEMS_theta45_ratio": 0.2783664810533655,
+   "analytic": 0.2915439504656608,
+   "dB_diff_peak": -0.7933372578402248,
+   "dB_diff_45": -0.40174189728433574
+  },
+  {
+   "kr": 10,
+   "r_mm": 194.7,
+   "openEMS_peak_ratio": 0.18643303286615487,
+   "openEMS_theta45_ratio": 0.1968426676131725,
+   "analytic": 0.2019998990000757,
+   "dB_diff_peak": -0.6965657525317968,
+   "dB_diff_45": -0.22463820671579401
+  },
+  {
+   "kr": 12,
+   "r_mm": 233.7,
+   "openEMS_peak_ratio": 0.21009114496623718,
+   "openEMS_theta45_ratio": 0.16198370379468682,
+   "analytic": 0.16782404597210973,
+   "dB_diff_peak": 1.9510712176410574,
+   "dB_diff_45": -0.30765724094143404
+  }
+ ]
+}

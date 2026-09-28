@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scalar-wave (SLW/SW) radar: research &amp; design brief · SLW Hub</title>
+<meta name="description" content="Simulation Lab design brief (2026-09-27): scalar-wave (SLW/SW) radar feasibility, architecture, controls, parts, safety and phased plan. TEM Skolnik numbers only; no SLW echo law exists. FACT/HYP labelled. Educational.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../sim-lab/sim-lab.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../../index.html">Home</a>
+      <a href="../../learn.html">Learn</a>
+      <a href="../../compare.html">Compare</a>
+      <a href="../../fields.html">Fields</a>
+      <a href="../../monstein.html">Monstein</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../lab.html">Lab</a>
+      <a href="../../kit.html">Kit</a>
+      <a href="../../library.html">Library</a>
+      <a href="../../ranging/">Ranging</a>
+      <a href="../../sim-lab/" aria-current="page">Sim Lab</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Simulation Lab report · radar / RCS · faithful HTML conversion</p>
+  <h1>Scalar-wave (SLW/SW) radar: research &amp; design brief</h1>
+  <p class="lede">Feasibility, architecture, control plan, parts map, safety, phased plan and open questions for a bench SLW/SW radar. TEM-only Skolnik radar numbers are computed; no SLW echo can be computed because no source gives an SLW reflection law.</p>
+  <p><span class="badge mixed">MIXED</span> <a href="../">← Simulation Lab catalogue</a></p>
+  <div class="provenance">
+    <h2>Provenance</h2>
+    <ul>
+      <li><code>/workspace/sim-lab/scalar-wave-radar-design-brief.md</code> (last modified 2026-09-27 19:59 EDT)</li>
+      <li>Converted to HTML 2026-09-28 (EDT) as a faithful conversion: text, numbers, equations and labels are the source's own. No new equations were added; only the TEM tags described below and the edits listed here were made.</li>
+      
+      <li>Status lines inside the source (for example "nothing published", "HELD", "draft") describe the state when it was written. This page is its GitHub Pages twin, published 2026-09-28.</li>
+      <li>No Wolfram Cloud twin planned (analysis/report page, not one of Experiments A–G). Numbers are Python-computed; WL compare OWED where the source says so.</li>
+    </ul>
+  </div>
+  <div class="rules"><strong>Framing rules on this page (Dan).</strong> Under the SLW hypothesis no skin-depth, permeability, ferromagnetic or cage shielding-effectiveness argument is used to rank or dismiss SLW/SW. The Faraday cage strips TEM noise (<span class="badge fact">FACT</span>); an SLW passing the cage wall is <span class="badge hyp">HYP</span>. Every passage that uses transverse-EM (TEM / classical / cage-SE) reasoning is tagged <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>. FACT / HYP / ASSUMPTION labels are kept exactly as in the source.</div>
+  <h2>Downloads</h2><ul class="dl-list"><li><a href="radar_numbers.json">radar_numbers.json (Python output)</a></li><li><a href="radar_numbers.py">radar_numbers.py (script)</a></li></ul>
+  
+  <article class="doc">
+<p><em>Simulation Lab · prepared by Grok Bot for Dan Britton · Sunday 2026-09-27, about 20:00 EDT · status: <strong>DRAFT, HELD</strong> (a markdown brief only; nothing published, sent, bought or built).</em></p>
+<p><strong>Labels used on every claim:</strong></p>
+<ul>
+<li><span class="badge fact">FACT</span>: cited textbook, datasheet, regulation, or peer-reviewed mainstream result.</li>
+<li><span class="badge hyp">HYP</span>: the scalar-longitudinal-wave (SLW) / scalar-wave (SW) hypothesis as printed by Hively, Monstein &amp; Wesley, Keyport, Zimmerman et al. Not independently replicated.</li>
+<li><span class="badge asm">ASSUMPTION</span>: a choice or estimate made in this brief.</li>
+<li><strong>TEM FACT</strong>: an established transverse-EM (ordinary radio) result. It is <strong>not established for SLW</strong>. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>Where ordinary radio physics is used to reason about something, it is flagged: <em>&quot;transverse-EM reasoning, NOT applicable under the SLW hypothesis&quot;</em>.</li>
+</ul>
+<p><strong>House rules applied throughout:</strong></p>
+<ul>
+<li>No new equations. Every equation has a source and equation number.</li>
+<li>Under the SLW hypothesis, material enters <strong>only through σ</strong>, via J = σE: Hively's Joule term J·E (Hively &amp; Loebl 2019, Eq. 44), or α = 0 under the 2022 Erratum. No skin-depth, permeability or ferromagnetic arguments are used for SLW.</li>
+<li>TEM attenuation (cage shielding effectiveness, seawater, hull) is <strong>never</strong> used to rank or dismiss SLW/SW. The Faraday cage is there to strip TEM noise. <strong>SLW passing the cage wall is HYP.</strong> <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>No cable ever crosses a cage wall.</strong> Electronics inside run on battery; data leaves by optical fibre through a waveguide-below-cutoff tube, or is read after opening.</li>
+</ul>
+<hr />
+<h2>0. The short version (read this first)</h2>
+<ol>
+<li><strong>An ordinary 2.45 GHz radar is doable with Dan's kit</strong> (TEM FACT). HackRF as a low-power continuous-wave (CW) or FM-CW transmitter, a TinySA or second SDR as receiver, and the brass DD-2450 dipoles or a simple can antenna would see a person walking at a few metres by Doppler. Skolnik's equations put the ideal reach at tens of metres (§2.6). This is the <strong>bench baseline</strong>, and it works whether or not SLW exists. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>A true SLW radar cannot yet be specified.</strong>
+<ul>
+<li>The existence of SLW propagation is HYP.</li>
+<li>Worse for &quot;radar&quot;: <strong>no source (Hively, Monstein &amp; Wesley, Keyport, Zimmerman) gives an SLW reflection or scattering law.</strong> There is no SLW &quot;radar cross-section&quot;, so nobody can predict what an SLW echo from a target would be (§1.3).</li>
+</ul>
+</li>
+<li><strong>What <em>can</em> be built is an SLW radar <em>experiment</em>.</strong> It uses a bistatic, through-the-cage link with a moving or rotating target in the path. It is judged by a control plan that separates any SLW claim from ordinary TEM leakage (§2.5). Think of it as &quot;does a moving object modulate what reaches the sealed-cage receiver?&quot; rather than &quot;echo ranging&quot;. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>The microwave-oven magnetron is a poor radar source.</strong> Its spectrum is noisy and swept, it restarts 60 times a second, and at about 2460 MHz it runs above the 13 cm amateur band edge. Radiating it in free space is <strong>not legal and not safe</strong>.
+<ul>
+<li>Keep it only as an optional high-power source <strong>inside a sealed, interlocked test cavity</strong> (the oven itself), e.g. as the &quot;monopole into a closed cavity&quot; SLW source already listed in sim-lab <code>sub-sources/REDO_SLW.md</code>.</li>
+</ul>
+</li>
+<li><strong>Safety dominates the oven parts.</strong>
+<ul>
+<li>The transformer and HV capacitor are lethal: nearly 4000 V exists in the circuit, and the capacitor holds its charge after unplugging.</li>
+<li>The magnetron must never radiate outside a shielded cavity.</li>
+<li>The magnetron ceramics may be beryllium oxide: never break or grind them.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>1. Feasibility</h2>
+<h3>1.1 What any radar needs (TEM FACT, Skolnik) <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></h3>
+<p>A radar sends a known signal, catches the part that comes back from a target, and measures delay (range), frequency shift (Doppler / speed) and angle. The classical requirements, from Skolnik, <em>Introduction to Radar Systems</em>, 2nd ed., McGraw-Hill 1980:</p>
+<ul>
+<li><strong>Detection range</strong> comes from the radar equation, <strong>Eq. (1.7)</strong> (TEM FACT, not established for SLW):
+R_max = [P_t · G · A_e · σ / ((4π)² · S_min)]^(1/4)
+where P_t is transmit power, G the transmit gain, A_e the receive effective area, σ the target's radar cross-section, and S_min the minimum detectable signal. Gain and aperture are linked by <strong>Eq. (1.8)</strong>, G = 4πA_e/λ². <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>
+<ul>
+<li>The 1/4 power is the famous R⁻⁴ (two-way spreading). It is a TEM result. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>Hively claims SLW power falls as 1/r² one way</strong> (Hively &amp; Loebl 2019, Table I item 11: &quot;The SLW free-space attenuation goes like 1/r²&quot;; HYP). A two-way SLW path would then also be 1/r⁴ <strong>only if</strong> SLW scattered like TEM. Nothing in the sources says so (§1.3). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+</li>
+<li><strong>Speed</strong> comes from the Doppler shift, <strong>Eq. (3.2a)</strong>: f_d = 2v_r/λ (TEM FACT). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>Range</strong> with a CW system comes from frequency modulation (FM-CW). For triangular modulation at rate f_m over deviation Δf, the beat frequency is <strong>Eq. (3.11)</strong>: f_b = 4R·f_m·Δf/c (TEM FACT). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>Coherence.</strong> Doppler and FM-CW both need a clean, stable transmit signal and a copy of it (a reference) at the receiver (Skolnik §3.1 and §3.2; TEM FACT). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+<h3>1.2 What the kit and the oven parts provide</h3>
+<p class="tem-note">&#9888; Rows/columns in this table that refer to TEM / classical / cage SE: <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>What Dan has</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clean, stable, low-power coherent transmitter</td>
+<td><strong>HackRF One</strong>: typical max TX power 13–15 dBm at 2170–2740 MHz (Great Scott Gadgets, hackrf.readthedocs.io &quot;HackRF One&quot;; FACT). It is <strong>half-duplex</strong>: it transmits or receives, not both at once (same docs; FACT). TinySA Ultra generator: hub FACT max −19 dBm (<code>physics-constants.json</code>); whether it reaches 2.45 GHz depends on firmware (check the wiki; ASSUMPTION).</td>
+<td><strong>Good</strong> for a TEM baseline. Needs a separate receiver, because HackRF is half-duplex.</td>
+</tr>
+<tr>
+<td>Receiver</td>
+<td>TinySA Ultra: floor −102 dBm at 30 kHz RBW (measured at 30 MHz), about 10 dB worse above 2.5 GHz, and ULTRA mode above 800 MHz leaks LO at up to −10 dBm from its RF input (TinySA wiki; FACT, from rod-thermal notes). RTL-SDR (R820T) stops near 1.7 GHz (sim-lab <code>sub-sources/VERIFY.md</code>; unverified spec), so it can't see 2.45 GHz but covers 433.59 and 1296 MHz.</td>
+<td><strong>Adequate</strong> for Doppler of a person at a few metres (TEM). TinySA zero-span gives amplitude only, not phase; phase-coherent Doppler needs an SDR receiver (HackRF #2 or similar) or an external mixer.</td>
+</tr>
+<tr>
+<td>Antennas</td>
+<td>Brass dipoles <strong>DD-433 / DD-1296 / DD-2450</strong> (<code>/workspace/sim-lab/rod-thermal/dipole-detector/</code>), KB-1820 and KB-2016 spheres, sleeve-balun monopoles (hub), bifilar coil.</td>
+<td><strong>Good</strong> for TEM (a dipole is 2.15 dBi). For the SLW experiment, use the hub's claimed SLW transmit geometry (skirt/sleeve-balun monopole, Hively; Keyport) and the caged receivers.</td>
+</tr>
+<tr>
+<td>High power</td>
+<td>Oven magnetron: LG 2M246-class, 2460 MHz with a matched load, 1150 W average into a matched load, 1000 W in a typical oven, 4.40 kV peak anode, half-wave doubler supply (LG/Pactra 2M246 datasheet, local <code>sim-lab/home-motors/src/2M246.pdf</code>; FACT).</td>
+<td><strong>Poor for radar</strong> (noisy, swept, restarts every mains cycle; §2.1). <strong>Dangerous and not legal to radiate</strong> (§4). Use only inside a sealed cavity.</td>
+</tr>
+<tr>
+<td>Waveguide, cavity</td>
+<td>The oven's own waveguide launcher and cavity (with the 21 CFR 1030.10 interlocks).</td>
+<td>Useful <strong>only as a closed test cavity</strong> for the magnetron. Not a radar antenna.</td>
+</tr>
+<tr>
+<td>HV transformer, capacitor, diode</td>
+<td>Microwave-oven transformer (MOT), HV capacitor, HV diode (the half-wave doubler).</td>
+<td><strong>Not needed for any low-power radar.</strong> They are a lethal hazard (§4). Leave them in the oven or retire them.</td>
+</tr>
+<tr>
+<td>TEM-rejecting receiver (the SLW discriminator)</td>
+<td>Dipole Detector cage estimate (<code>dipole-detector/CAGE_ESTIMATE.md</code>: 60 cm cube, or 100×60×60 cm for all bands); FX-1 driven Faraday sphere; RadioScreen tents (hub Experiment A); battery TinySA inside.</td>
+<td><strong>Good.</strong> This is the part of Dan's program that makes an SLW test possible at all.</td>
+</tr>
+<tr>
+<td>Signal processing</td>
+<td>Laptop + HackRF I/Q; TinySA SD logs; Python (numpy) in sim-lab.</td>
+<td><strong>Good</strong> (standard FFT Doppler and FM-CW beat analysis).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>1.3 The honest physics limits</h3>
+<ol>
+<li><strong>SLW existence is HYP.</strong>
+<ul>
+<li>Hively's 8 GHz copper-shield tests (Hively &amp; Loebl 2019, pp. 120–121, Fig. 4) and Monstein &amp; Wesley's 433 MHz rod-polarizer measurements (EPL 59(4), 514, 2002) are single-lab and not independently replicated.</li>
+<li>Zimmerman's longitudinal-A work (Nikolova &amp; Zimmerman 2007; Zimmerman QEX 2011, MPLB 2011, JAP 2013) and the Works &amp; Works 2012 QEX confirmation are related claims. Works &amp; Works also discuss a conventional EM interpretation (hub <code>library.html</code>).</li>
+<li>All HYP.</li>
+</ul>
+</li>
+<li><strong>No SLW scattering law = no SLW radar equation.</strong>
+<ul>
+<li>Hively &amp; Loebl 2019 give interface continuity (Eq. 26, normal ∇C/μ). They do <strong>not</strong> give a transmission or reflection coefficient (sim-lab <code>sub-sources/REDO_SLW.md</code> §5, open item 5).</li>
+<li>Hively's patent and papers discuss SLW <strong>sources</strong> and <strong>receivers</strong>, never an SLW echo from a passive target.</li>
+<li>So a monostatic &quot;SLW echo&quot; cannot be predicted from any source. <strong>HYP gap, not an engineering gap.</strong></li>
+</ul>
+</li>
+<li><strong>The source-coupling constant is unknown.</strong>
+<ul>
+<li>Hively's radiated power, US 9,306,527 EQN. 15, P = (I²/4π)√(μ/ε), and Hively &amp; Loebl 2019 Eq. (B5), assume an ideal irrotational driver.</li>
+<li>Sim-lab Experiment D writes the unknown fraction as η (<code>expt-d/REPORT.md</code> §1).</li>
+<li>At UHF, Experiment D found Dan-class receivers <strong>not detectable for any η ≤ 1</strong> at ≥ 10 km (<code>expt-d/REPORT.md</code> line 144).</li>
+<li>At bench range the hub's own HYP model is more hopeful: SleeveBalunSNR, −19 dBm drive, gives E∥ = 2.13 mV/m at 10 m and 0.17 V/m at one wavelength at 2.45 GHz (<code>hub-efield-repo/img/efield/efield_summary.json</code>; HYP).</li>
+<li>Those are <strong>one-way</strong> numbers. A radar echo would multiply in an unknown reflection factor.</li>
+</ul>
+</li>
+<li><strong>SLW range law gives no radar advantage.</strong> Hively &amp; Loebl 2019 (Table I item 11; §VI) claim 1/r² one way, the same as TEM far-field power. The claimed advantages are only that SLW is unconstrained by the skin effect and passes conductive barriers (HYP). A through-wall or through-cage &quot;radar&quot; is therefore the only kind that would show something TEM can't. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>Material dependence under SLW is via σ only.</strong>
+<ul>
+<li>Joule term J·E with J = σE (Hively &amp; Loebl 2019 Eq. 44), or no loss at all (Erratum 2022, α = 0; Hively &amp; Land IARD 2020 slides 59–60, &quot;No SLW Attenuation in Conductive Media&quot;).</li>
+<li>Sim-lab's per-metre Joule attenuation α_J = σ_H|Z|/2 is <strong>our construction, not Hively's</strong>, and it is convention-sensitive (<code>REDO_SLW.md</code> §1.2). It must not carry weight in a radar design.</li>
+</ul>
+</li>
+<li><strong>Conventional 2.45 GHz radar is TEM FACT.</strong> <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>
+<ul>
+<li>It is an ordinary Hertzian/transverse system.</li>
+<li>Seeing an echo with it proves nothing about SLW. A 2.45 GHz echo that appears <strong>only</strong> when the cage is open is TEM. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>That is exactly why the TEM baseline is Phase 1: it calibrates the gear and defines what &quot;ordinary leakage&quot; looks like. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+</li>
+</ol>
+<p><strong>Feasibility verdict:</strong></p>
+<ul>
+<li><strong>TEM radar: YES</strong> (bench, metres to tens of metres; FACT). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>SLW radar in the strict sense (echo ranging): NOT SPECIFIABLE</strong> with current theory. The scattering law is missing, the source coupling η is unknown, and SLW itself is HYP.</li>
+<li><strong>SLW <em>radar-style experiment</em>: YES, as a controlled test.</strong> A bistatic, caged-receiver, moving-target modulation test with a strong TEM-rejection control plan. A positive result would be a significant anomaly needing replication. A null result bounds η, the product of source coupling and wall transmission. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+<hr />
+<h2>2. Architecture</h2>
+<p>Everything below is a <strong>bench</strong> design (1–10 m, indoors or in a garage). Two chains share one layout.</p>
+<ul>
+<li><strong>Chain T (TEM baseline):</strong> ordinary radar, to calibrate and to define leakage. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>Chain S (SLW attempt):</strong> same transmitter family; the receiver sealed in a Faraday cage; discriminating controls.</li>
+</ul>
+<pre><code>  Chain T (TEM FACT)                                    Chain S (SLW = HYP)
+  HackRF TX ──BPF──&gt; DD-2450 / can antenna               HackRF or TinySA TX ──&gt; Hively sleeve/skirt-balun monopole
+        (coded CW or FM-CW, 2400-2450 MHz)                         (same code; also a closed-loop &quot;C=0&quot; control antenna)
+                  │  target (person, fan, plate)                    │  moving/rotating target, M&amp;W rod polarizer
+                  ▼                                                  ▼
+  RX antenna ──&gt; HackRF #2 / TinySA (open air)           ┌──────── sealed Faraday cage (no cable crosses) ────────┐
+                                                         │ DD dipole / KB sphere / E5 probe → TinySA on battery    │
+                                                         │ data: SD card (read after) or fibre via WBC tube        │
+                                                         └─────────────────────────────────────────────────────────┘
+                                                          + outside TEM monitor antenna (to reject leakage)
+</code></pre>
+<h3>2.1 Transmitter</h3>
+<ul>
+<li><strong>Primary: HackRF One</strong> in the 2400–2450 MHz part of the 13 cm amateur band, under Dan's license.
+<ul>
+<li>Output is 13–15 dBm typical (GSC docs; FACT).</li>
+<li><strong>Add a 2.4 GHz band-pass filter</strong> at the output. HackRF output is not band-limited, and §97.307(c) requires spurious emissions to be &quot;reduced to the greatest extent practicable&quot; (FACT, 47 CFR 97.307(c)). Filter part number not chosen (to source).</li>
+<li><strong>Waveform: coded CW.</strong> On-off keying with a pseudo-random sequence, or a slow FM-CW ramp. A coded transmission lets the receiver <strong>correlate</strong> against a known pattern, so a claimed signal must carry the code. This is a strong defence against noise and interference (ASSUMPTION; standard coherent-radar practice, Skolnik ch. 3 and 11).</li>
+<li>FM-CW example: triangular modulation at f_m = 100 Hz over Δf = 50 MHz (the whole 2400–2450 MHz segment) gives beats of 67 / 200 / 667 Hz for targets at 1 / 3 / 10 m (Skolnik Eq. 3.11; <code>slw-radar/radar_numbers.json</code>; TEM FACT, not established for SLW). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+</li>
+<li><strong>Lower bands.</strong> 1296 MHz (Experiment A) and 433.59 MHz (Experiment B) reuse Dan's existing antennas and hub models. TinySA + Zeenko gives about +2 dBm (hub <code>PHYSICS_LOCK.md:39</code>). Doppler shifts at 1 m/s are 8.65 Hz (1296) and 2.89 Hz (433.59), against 16.34 Hz at 2450 (Eq. 3.2a).</li>
+<li><strong>Optional high power: magnetron, only inside the closed oven cavity.</strong> Why it's a poor radar source (FACT):
+<ul>
+<li>Oven magnetrons are driven by a half-wave doubler. The anode voltage is roughly a 4 kV square wave on one half of each mains cycle, and the anode current is swept from zero to about 1 A and back every cycle. This produces sideband noise and low-frequency noise (UNM Microwave Memo 23, <em>Particle-in-Cell Modeling of Oven Magnetron: A Review</em>, quoting the rectified-drive explanation).</li>
+<li>Near start-oscillation current the spectrum is &quot;extremely noisy&quot;, and ovens repeat that start-up phase 60 times per second (Neculaes, Gilgenbach, Lau et al., Appl. Phys. Lett. 2003, doi:10.1063/1.1609040; journal details from the DOI, page not checked).</li>
+<li>Oven emission sweeps about 50 MHz and is gated to one half-cycle of 60 Hz (IEEE 802.11-98/240, as cited in <code>REDO_SLW.md</code>).</li>
+<li>Consequence: no stable reference, so there is no Doppler or FM-CW coherence (TEM FACT). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>As an <strong>SLW source experiment</strong> (not a radar), the magnetron's output probe is an open-ended conductor into a closed cavity, which is Hively's monopole geometry (HYP; <code>REDO_SLW.md</code> §3.1). Its 60 Hz on/off gating gives a natural fingerprint for a caged receiver outside the oven (§2.5 control C8).</li>
+</ul>
+</li>
+</ul>
+<h3>2.2 Receiver</h3>
+<ul>
+<li><strong>Chain T:</strong> HackRF #2 (I/Q, phase-coherent Doppler) or TinySA zero-span (amplitude envelope, enough for on/off and slow Doppler beats). RTL-SDR only for the 433.59 and 1296 MHz variants.
+<ul>
+<li>Coherence between two separate SDRs needs a shared 10 MHz reference; HackRF has clock in/out (GSC docs; verify). <strong>Chain T is in open air, so a reference cable is fine there.</strong></li>
+</ul>
+</li>
+<li><strong>Chain S (the SLW discriminator):</strong>
+<ul>
+<li>Receiver <strong>inside a sealed Faraday cage</strong>. TinySA Ultra on its own battery with a DD dipole, a KB-1820/KB-2016 sphere, or the E5/H10 probe.</li>
+<li>Data saved to SD and read after opening, or sent out over all-dielectric fibre through a waveguide-below-cutoff tube soldered 360° to the wall. TE11 cutoff f_c = 1.841c/(πd), about 32 dB per diameter of length (Ott, <em>Electromagnetic Compatibility Engineering</em>, Wiley 2009, as used in <code>expt-d/rxchain/REPORT.md</code>; FACT).</li>
+<li><strong>No reference cable can enter the cage.</strong> Coherent processing across the wall therefore needs either an independent disciplined clock on each side (GPS-disciplined oscillator; to source) or a reference sent in on fibre through the WBC tube (question for Dan, §5).</li>
+<li>Watch the TinySA's own LO leakage in ULTRA mode: it radiates inside a sealed reflective cage. Check with a 50 Ω load in place of the antenna (§2.5 control C5).</li>
+</ul>
+</li>
+<li><strong>Outside TEM monitor (mandatory):</strong> a second receiver with an ordinary antenna just outside the cage, logging at the same time. A &quot;signal&quot; that tracks the outside monitor is TEM leakage (ASSUMPTION of method; same idea as the reference channel in <code>expt-d/rxchain/SHOPPING_LIST.md</code> §c). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+<h3>2.3 Antenna and coupling: how the scalar/longitudinal aspect is attempted (all HYP)</h3>
+<ol>
+<li><strong>Hively's charge-accumulation source.</strong>
+<ul>
+<li>The SLW is produced by an irrotational (gradient-driven) current with non-zero divergence, i.e. charge piling up where current must stop (Hively &amp; Loebl 2019 App. B p. 123; Hively &amp; Reed 2020 pp. 10–11; US 9,306,527; HYP).</li>
+<li>The monopole with a skirt or sleeve balun is the claimed transmitter (US 9,306,527; Paulus &amp; Gentile, NUWC Keyport, US 12,525,711 B1, &quot;Antennas with baluns for transmitting and receiving scalar longitudinal waves&quot;). Keyport claim 30 adds a &quot;resonant spark system&quot; feed.</li>
+<li>Dan's hub sleeve-balun builds (<code>sleeve-balun.html</code>) already implement this.</li>
+<li><strong>Closed-loop control:</strong> Hively &amp; Loebl App. C say closed return currents give C = 0 (no SLW; HYP). A small loop driven at the <strong>same TEM power</strong> is the matching &quot;no-SLW&quot; transmitter. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+</li>
+<li><strong>Monostatic vs bistatic.</strong> Because no SLW echo law exists (§1.3), Chain S is <strong>bistatic</strong>: transmitter outside, receiver in the sealed cage. The &quot;target&quot; is placed <strong>in the path</strong> and moved, rotated or swapped. This measures modulation of the received SLW (if any), not an echo.</li>
+<li><strong>Monstein &amp; Wesley polarizer test</strong> (EPL 59(4) 514, 2002; hub <code>monstein.html</code>; HYP).
+<ul>
+<li>A rod array between transmitter and receiver: δP = −σ A E₀² cos²φ δL (M&amp;W <strong>Eq. 7</strong>) and transmission T = exp[−κ cos²φ] (M&amp;W <strong>Eq. 9</strong>), κ_fit = 4.4 for brass λ/2 rods.</li>
+<li>Rotating the rods through 360° should give two dips per turn (<strong>180° periodicity</strong>).</li>
+<li>Material enters only through σ (brass about 3× tungsten W1 by σ; <code>rod-thermal/README.md</code>).</li>
+</ul>
+</li>
+<li><strong>Receivers already in Dan's program</strong> (HYP as SLW receivers): KB-1820 / KB-2016 spheres (Experiments A and B), the FX-1 driven Faraday sphere, DD-433/1296/2450 dipoles, and the bifilar coil cage.
+<ul>
+<li>No SW receiver exists: the hub says one would need a loop / E-probe / bifilar triad (<code>expt-d/REPORT.md</code> line 147). <strong>SW is not testable with the current kit.</strong></li>
+</ul>
+</li>
+</ol>
+<h3>2.4 Signal processing (TEM FACT methods; applied to both chains) <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></h3>
+<ul>
+<li><strong>Doppler:</strong> FFT of the received envelope or I/Q. Expected shifts at 2450 MHz are 1.63 / 8.17 / 16.34 / 81.72 Hz for 0.1 / 0.5 / 1 / 5 m/s (Eq. 3.2a). A slow ceiling fan or a person walking is easy to see in Chain T.</li>
+<li><strong>FM-CW range:</strong> mix the received signal with the transmit reference, FFT the beat (Eq. 3.11). Chain T only, because it needs the reference.</li>
+<li><strong>Coded-CW correlation (Chain S):</strong> record receiver power in time bins synchronised to the known on/off code, then correlate. A true detection must (a) correlate with the code, (b) survive every control in §2.5, and (c) not appear on the outside TEM monitor. Detection statistics come from repeated, blinded runs (ASSUMPTION of method). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>Rotation analysis (M&amp;W):</strong> fit received power vs rod angle φ to M&amp;W Eq. 9 and test for 180° periodicity. See the confound note in §2.5.</li>
+</ul>
+<h3>2.5 Control plan: separating an SLW claim from ordinary TEM leakage <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></h3>
+<p>Every run is logged with timestamp, band, drive level, RBW, cage state and antenna. A claimed SLW signal must pass <strong>all</strong> of these.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Control</th>
+<th>What it checks</th>
+<th>Reading</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C1</td>
+<td><strong>Source-off baseline</strong> (TX powered but RF off, then TX unplugged)</td>
+<td>Receiver self-noise, ambient, TinySA spurs</td>
+<td>Establishes the floor. Required before and after every session.</td>
+</tr>
+<tr>
+<td>C2</td>
+<td><strong>Cage closed vs open</strong></td>
+<td>Leakage through the wall</td>
+<td>TEM rises with the lid open by the cage SE (TEM FACT; SE only strips TEM noise). SLW passing the wall is HYP. <strong>A signal that appears only with the lid open is TEM.</strong> A signal equal in both states and absent on the outside monitor is the candidate. Cage SE is never used to rank SLW.</td>
+</tr>
+<tr>
+<td>C3</td>
+<td><strong>Outside TEM monitor</strong> (simultaneous)</td>
+<td>Is the &quot;signal&quot; just ordinary radio?</td>
+<td>If the outside monitor tracks it, it is TEM.</td>
+</tr>
+<tr>
+<td>C4</td>
+<td><strong>50 Ω dummy load at the transmitter</strong> (antenna replaced by a shielded load, same drive)</td>
+<td>Leakage from the TX box, cables and power leads</td>
+<td>Anything still received is leakage, not antenna radiation.</td>
+</tr>
+<tr>
+<td>C5</td>
+<td><strong>50 Ω load at the receiver</strong> (antenna replaced, inside the sealed cage)</td>
+<td>Receiver self-noise, TinySA LO re-radiation in ULTRA mode</td>
+<td>Anything still seen is internal.</td>
+</tr>
+<tr>
+<td>C6</td>
+<td><strong>Antenna swap: sleeve/skirt-balun monopole vs closed loop at equal TEM power</strong></td>
+<td>Hively's C = 0 prediction for closed currents (App. C; HYP)</td>
+<td>HYP predicts a difference; TEM predicts only the ordinary pattern and gain difference, which Chain T measures.</td>
+</tr>
+<tr>
+<td>C7</td>
+<td><strong>M&amp;W rod rotation, 0–360° in 15° steps, repeated</strong></td>
+<td>T = exp[−κ cos²φ] (M&amp;W Eq. 9); 180° periodicity</td>
+<td>Required but <strong>not sufficient</strong>. <em>Confound (transverse-EM reasoning, NOT applicable under the SLW hypothesis):</em> an array of parallel conducting rods is also an ordinary wire-grid polarizer for TEM, which gives two dips per turn too. The rotation test only discriminates <strong>with the receiver sealed (C2) and the outside monitor quiet (C3)</strong>.</td>
+</tr>
+<tr>
+<td>C8</td>
+<td><strong>Fingerprint match</strong></td>
+<td>Is it really from our source?</td>
+<td>The received signal must carry the TX code (coded CW), or, for the magnetron-in-cavity source, its 60 Hz half-cycle gating (16.7 ms repeat, about 50 % duty; IEEE 802.11-98/240).</td>
+</tr>
+<tr>
+<td>C9</td>
+<td><strong>Blind and randomised order</strong></td>
+<td>Experimenter bias</td>
+<td>A helper sets TX on/off, cage state and rod angle from a random list. The analyst sees only file IDs.</td>
+</tr>
+<tr>
+<td>C10</td>
+<td><strong>Distance scan</strong></td>
+<td>Near-field vs far-field behaviour</td>
+<td>Hively claims 1/r² for SLW one way (HL2019 Table I item 11). TEM far-field power is also 1/r², so this alone does <strong>not</strong> discriminate. Log it anyway to compare with the hub's SleeveBalunSNR HYP curve.</td>
+</tr>
+<tr>
+<td>C11</td>
+<td><strong>Target in/out and moving/still</strong> (the radar part)</td>
+<td>Does a target in the path modulate the caged signal?</td>
+<td>Chain T gives the TEM expectation. A Chain S modulation present with the lid closed, correlated with target motion and the TX code, and absent on the outside monitor, is the SLW-radar candidate.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>2.6 What the TEM baseline should achieve (TEM FACT numbers, Skolnik) <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></h3>
+<p>From Skolnik Eqs. (1.7) and (1.8) at 2450 MHz (<code>slw-radar/radar_numbers.json</code>, computed in Python; WL compare owed):</p>
+<ul>
+<li>Assumptions: P_t = 13 dBm (HackRF), σ = 1 m² (ASSUMPTION), TinySA floor as S_min (SNR 0 dB, no losses).</li>
+<li><strong>Half-wave dipole (2.15 dBi):</strong> ideal R_max ≈ 50 m at 30 kHz RBW, 118 m at 1 kHz, 210 m at 100 Hz.</li>
+<li><strong>15 dBi can or horn (ASSUMPTION):</strong> ≈ 221 / 517 / 920 m.</li>
+<li><strong>These are ideal upper bounds.</strong>
+<ul>
+<li>The TinySA floor is quoted at 30 MHz and is about 10 dB worse near 2.5 GHz, which cuts range to about 0.56×.</li>
+<li>With two half-duplex boxes, direct TX-to-RX leakage usually limits a bistatic CW radar long before the noise floor does (ASSUMPTION).</li>
+<li><strong>Expect metres to a few tens of metres in practice.</strong></li>
+</ul>
+</li>
+<li><strong>None of this is established for SLW.</strong></li>
+</ul>
+<hr />
+<h2>3. Parts list</h2>
+<p>The hobby kit contents are <strong>unknown</strong> (question for Dan). The table lists Dan's known gear from sim-lab and hub files, the oven parts, and what is missing. Prices are not checked here unless stated.</p>
+<h3>3.1 Dan's known gear</h3>
+<p class="tem-note">&#9888; Rows/columns in this table that refer to TEM / classical / cage SE: <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Role here</th>
+<th>Source in sim-lab / hub</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TinySA Ultra</strong> (at least 1; FX-1 mentions up to 3)</td>
+<td>Caged receiver on battery (Chain S); zero-span envelope receiver (Chain T); low-power generator (−19 dBm max, hub FACT)</td>
+<td>hub <code>physics-constants.json</code>; <code>INVENTORY.md</code> §6</td>
+</tr>
+<tr>
+<td><strong>HackRF One</strong></td>
+<td>Primary TX (13–15 dBm at 2.17–2.74 GHz); I/Q receiver when not transmitting (half-duplex)</td>
+<td><code>sub-sources/VERIFY.md</code>; GSC docs</td>
+</tr>
+<tr>
+<td><strong>RTL-SDR</strong></td>
+<td>433.59 / 1296 MHz receiver or outside monitor (not 2.45 GHz)</td>
+<td><code>sub-sources/VERIFY.md</code></td>
+</tr>
+<tr>
+<td><strong>Zeenko ZK06-UM amp</strong></td>
+<td>+21 dB to reach about +2 dBm from the TinySA (433/1296)</td>
+<td><code>expt-d/rxchain/SHOPPING_LIST.md</code>; hub <code>PHYSICS_LOCK.md:39</code></td>
+</tr>
+<tr>
+<td><strong>Spheres KB-1820 (0.75 in) and KB-2016 (2.5 in)</strong>, 3003 Al</td>
+<td>Experiment A/B antennas; caged receivers (HYP)</td>
+<td>hub <code>index.html</code> (Experiments A and B); <code>fx1/wolfram/PHYSICS_LOCK.md</code></td>
+</tr>
+<tr>
+<td><strong>Bifilar coil cage</strong></td>
+<td>Existing caged coil receiver (HYP)</td>
+<td>rod-thermal README (cage-coil observation)</td>
+</tr>
+<tr>
+<td><strong>Brass dipoles DD-433 / DD-1296 / DD-2450</strong></td>
+<td>TEM antennas; caged receivers (HYP)</td>
+<td><code>/workspace/sim-lab/rod-thermal/dipole-detector/</code></td>
+</tr>
+<tr>
+<td><strong>Tekbox E5 / H10 near-field probes</strong></td>
+<td>Near-field probing inside the cage; leak hunting on seams</td>
+<td>hub probe factors (rod-thermal notes)</td>
+</tr>
+<tr>
+<td><strong>IR thermometer</strong></td>
+<td>Temperature logging (rods, magnetron cavity load), through a WBC tube</td>
+<td><code>dipole-detector/CAGE_ESTIMATE.md</code> §7</td>
+</tr>
+<tr>
+<td><strong>NanoRFE VNA6000-A</strong></td>
+<td>Antenna SWR, cage-seam S21, filter checks</td>
+<td><code>expt-d/rxchain/SHOPPING_LIST.md</code> §c (&quot;Dan already owns one&quot;)</td>
+</tr>
+<tr>
+<td>Sleeve-balun monopoles, RG-405, SMA parts</td>
+<td>Hively/Keyport-style SLW transmitter (HYP)</td>
+<td>hub <code>sleeve-balun.html</code>, <code>tools.html</code></td>
+</tr>
+<tr>
+<td>Brass λ/2 polarizer rods (Experiment B)</td>
+<td>M&amp;W rotation test (C7)</td>
+<td>hub <code>monstein.html</code>; <code>rod-fixtures/README.md</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>3.2 Oven parts, mapped</h3>
+<p class="tem-note">&#9888; Rows/columns in this table that refer to TEM / classical / cage SE: <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Oven part</th>
+<th>Use in this project</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Magnetron</strong> (e.g. LG 2M246-class, 2460 MHz, 1 kW class)</td>
+<td>Optional SLW <strong>source</strong> experiment inside the closed oven cavity only (C8 fingerprint). <strong>Not</strong> a radar transmitter.</td>
+<td>Keep it in the intact, interlocked oven. Never run it out of a cavity. Never break its ceramics.</td>
+</tr>
+<tr>
+<td><strong>Waveguide launcher</strong></td>
+<td>Part of the oven's closed microwave path</td>
+<td>Leave installed. Not an antenna.</td>
+</tr>
+<tr>
+<td><strong>Cavity (with door and interlocks)</strong></td>
+<td>The sealed test cavity for any magnetron run</td>
+<td>Use as-is, only if interlocks and door seals are intact (21 CFR 1030.10(c)(2)). Put a water load inside for any run (service manuals require one).</td>
+</tr>
+<tr>
+<td><strong>HV transformer (MOT)</strong></td>
+<td>None</td>
+<td><strong>Do not use.</strong> Lethal. Leave in the oven or retire it.</td>
+</tr>
+<tr>
+<td><strong>HV capacitor</strong></td>
+<td>None</td>
+<td><strong>Do not use.</strong> Holds a lethal charge after unplugging (§4).</td>
+</tr>
+<tr>
+<td><strong>HV diode</strong></td>
+<td>None</td>
+<td>Part of the lethal doubler; leave in place.</td>
+</tr>
+<tr>
+<td>Door choke, mesh window</td>
+<td>Instructive example of a working TEM choke (TEM FACT)</td>
+<td>Leave in the door.</td>
+</tr>
+<tr>
+<td>Turntable motor, fan, lamp</td>
+<td>Handy slow-motion target (turntable) for Chain T Doppler</td>
+<td>Low-voltage/mains parts only, used separately.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>3.3 Missing or to be sourced (nothing bought)</h3>
+<ul>
+<li>2.4 GHz band-pass filter for the HackRF output (Part 97 spurious; §2.1). Part number not chosen.</li>
+<li>Second coherent SDR receiver (e.g. a second HackRF) or an external mixer and splitter for phase-coherent Doppler / FM-CW (Chain T).</li>
+<li>10 MHz reference distribution (Chain T), or GPS-disciplined oscillators for the cross-wall timing question (Chain S).</li>
+<li>Sealed Faraday cage for the receiver: per <code>dipole-detector/CAGE_ESTIMATE.md</code>, about $155–420 in materials and 9–16 h to build. Includes a WBC tube (3/4 in Type L copper, 80 mm, about 128 dB by the Ott rule) and optional fibre-optic data link parts.</li>
+<li>50 Ω SMA terminations: several, for C4/C5.</li>
+<li>A small closed-loop transmit antenna for C6 (easy to make from coax).</li>
+<li>Rotation stage with angle marks for C7 (the existing Lazy Susan plus a printed protractor).</li>
+<li>Calibrated microwave leakage survey meter, needed before <strong>any</strong> magnetron run. Service manuals list one (LG LSMC3089BD service manual lists a &quot;Microwave survey meter – Holaday HI-1500&quot;). Model and price to source.</li>
+<li>HV discharge probe: an insulated probe with a 10 kΩ series resistor to ground, as the LG service manual specifies. Only if the oven is ever opened.</li>
+</ul>
+<hr />
+<h2>4. SAFETY (read before touching the oven)</h2>
+<blockquote>
+<p><strong>Bottom line: for the radar work you do not need to open the microwave oven at all.</strong> Everything in Phases 1–3 runs on the HackRF/TinySA at milliwatt levels. The oven parts are optional, and the only acceptable use of the magnetron is <strong>inside its own sealed, interlocked cavity</strong>.</p>
+</blockquote>
+<h3>4.1 Lethal high voltage: transformer, capacitor, diode</h3>
+<ul>
+<li><strong>FACT:</strong> &quot;SINCE NEARLY 4000 VOLTS EXISTS IN SOME CIRCUITS OF THIS UNIT REPAIRS SHOULD BE CARRIED OUT WITH GREAT CARE&quot; (LG microwave oven service manual LSMC3089BD, Important Notes).</li>
+<li><strong>FACT:</strong> the magnetron in this class runs at <strong>4.40 kV peak anode</strong>, with the filament at about −4 kV (LG/Pactra 2M246 datasheet).</li>
+<li>The transformer secondary is commonly about 2 kV AC, doubled by the capacitor and diode (ASSUMPTION, typical; read your MOT nameplate).</li>
+<li><strong>The HV capacitor keeps its charge after unplugging.</strong> The LG manual: wait at least one minute after disconnecting, then discharge the capacitor &quot;BY USING INSULATED WIRE - I.E. TEST PROBE CONNECTED TO 10K-OHM RESISTOR IN SERIES TO GROUND&quot; (FACT, LG LSMC3089BD).</li>
+<li><strong>Rules (ASSUMPTION: standard HV practice, consistent with the manual):</strong>
+<ul>
+<li>Unplug first.</li>
+<li>Discharge with a proper bleeder probe (10 kΩ, insulated, grounded lead).</li>
+<li>Discharge again. Assume it is charged until you have measured zero.</li>
+<li>Work <strong>one hand only</strong>, with the other hand away from the chassis.</li>
+<li><strong>Never work on it live.</strong> No &quot;quick tests&quot; with the cover off.</li>
+<li>Don't work alone.</li>
+</ul>
+</li>
+<li>Home MOT experiments (arcs, &quot;MOT stacks&quot;) are widely reported as a cause of fatal shocks (ASSUMPTION: not sourced here). They are <strong>not part of this plan</strong>.</li>
+</ul>
+<h3>4.2 Microwave exposure</h3>
+<ul>
+<li><strong>FACT, 21 CFR 1030.10(c)(1):</strong> oven leakage &quot;shall not exceed 1 milliwatt per square centimeter at any point 5 centimeters or more from the external surface of the oven, measured prior to acquisition by a purchaser, and, thereafter, 5 milliwatts per square centimeter at any such point.&quot; (The brief quoted &quot;5 mW/cm² at 5 cm&quot;; confirmed as the in-service limit, with 1 mW/cm² for new ovens.)</li>
+<li><strong>FACT, 21 CFR 1030.10(c)(2):</strong> at least two safety interlocks, one concealed. Plus monitoring that disables the oven if an interlock fails.</li>
+<li><strong>FACT, 47 CFR 1.1310 Table 1:</strong> the general-population MPE at 1,500–100,000 MHz is <strong>1.0 mW/cm²</strong> averaged over 30 min (occupational/controlled: 5 mW/cm², 6 min).</li>
+<li>A 1 kW magnetron radiating out of a waveguide exceeds these limits by orders of magnitude close to the opening (ASSUMPTION, order-of-magnitude; not computed). The harm is RF heating: burns, and damage to eyes and deep tissue (ASSUMPTION: general safety knowledge, not sourced here).</li>
+<li>The hub's own lab page: &quot;never look into an open waveguide&quot; and &quot;Do not cook a sealed cage&quot; (<code>hub-efield-repo/lab.html:240</code>).</li>
+<li><strong>Rule:</strong> the magnetron <strong>never</strong> radiates outside a shielded cavity.
+<ul>
+<li>Only run it in an intact oven with a water load.</li>
+<li>Check leakage with a calibrated survey meter before trusting any setup.</li>
+<li>Never defeat an interlock.</li>
+</ul>
+</li>
+<li>HackRF at 13–15 dBm is milliwatts. Normal RF-exposure evaluation still applies to any amplified station (47 CFR 1.1310). A 2.45 GHz amplifier is <strong>not</strong> in this plan.</li>
+</ul>
+<h3>4.3 Beryllium oxide in magnetron ceramics</h3>
+<ul>
+<li>Some magnetron insulators are beryllium oxide (BeO) ceramic. It is inert when intact, but the dust is dangerous.
+<ul>
+<li>FACT: a BeO ceramic SDS classifies it &quot;Fatal if inhaled&quot; (H330), &quot;May cause cancer by inhalation&quot; (H350i), and damaging to the respiratory system through repeated exposure (H372) (Materion, <em>Beryllium Oxide Ceramic Product</em> SDS).</li>
+<li>Whether a particular oven magnetron contains BeO usually can't be told by eye (ASSUMPTION), so <strong>treat every magnetron as if it does</strong>.</li>
+</ul>
+</li>
+<li><strong>Rules:</strong>
+<ul>
+<li>Never break, drill, grind or sand the magnetron or its ceramic parts.</li>
+<li>If one cracks: stop, don't vacuum, wet-wipe fragments into a sealed bag, and take it to hazardous-waste disposal (ASSUMPTION: standard beryllium practice; check your county's rules).</li>
+</ul>
+</li>
+</ul>
+<h3>4.4 FCC rules (legality of radiating)</h3>
+<ul>
+<li><strong>FACT, 47 CFR 18.107(c) and (g):</strong> microwave ovens are consumer ISM equipment. ISM means equipment that generates and uses RF energy <strong>locally</strong> for heating etc., &quot;excluding applications in the field of telecommunication&quot;.</li>
+<li><strong>FACT, 47 CFR 18.301:</strong> the ISM frequency is 2450 MHz ± 50 MHz.</li>
+<li><strong>Reading (ASSUMPTION, not legal advice):</strong> radiating a magnetron into free space as a radar or signal source is not an ISM heating application, so Part 18 does not authorize it. It would need authority under another rule part.</li>
+<li><strong>Part 97 (amateur):</strong>
+<ul>
+<li>FACT, 47 CFR 97.301(a): Technician and higher licensees may transmit in the 13 cm band, 2300–2310 and 2390–2450 MHz.</li>
+<li>FACT, 97.303(e): amateurs receiving at 2400–2450 MHz must accept interference from ISM equipment.</li>
+<li>FACT, 97.307(a)–(c): emissions must use no more bandwidth than necessary, be &quot;confined to the band&quot;, and spurious emissions must be &quot;reduced to the greatest extent practicable&quot;. (97.307's numeric spurious limits cover only transmitters below 225 MHz.)</li>
+<li><strong>An oven magnetron can't meet this:</strong>
+<ul>
+<li>Its matched-load centre frequency is <strong>2460 MHz</strong>, above the 2450 MHz band edge (LG/Pactra 2M246 datasheet).</li>
+<li>It sweeps about 50 MHz and is gated at 60 Hz (IEEE 802.11-98/240).</li>
+<li>Its sidebands are broad (UNM Memo 23; Neculaes et al. 2003).</li>
+</ul>
+</li>
+<li><strong>Verdict:</strong> not usable as an amateur transmitter (FACT for the frequency; ASSUMPTION for the overall compliance judgement; verify with ARRL Regulatory Information if Dan ever wants to go further).</li>
+</ul>
+</li>
+<li><strong>HackRF at 2400–2450 MHz under Dan's amateur license:</strong> legal in principle, with a band-pass filter and good practice (97.307(c)). Keep the FM-CW sweep inside 2400–2450 MHz.</li>
+<li><strong>Experimental route:</strong> non-amateur high-power experiments normally go through an FCC Part 5 experimental license (ASSUMPTION; not researched here).</li>
+</ul>
+<p><strong>Recommendation: the magnetron stays inside a sealed test cavity only.</strong> For a radar, use the HackRF.</p>
+<hr />
+<h2>5. Phased plan, milestones, open questions</h2>
+<h3>Phase 0: Safety and paperwork (1 evening)</h3>
+<ul>
+<li>Decide whether the oven is opened at all. Default: <strong>no</strong>.</li>
+<li>Survey-meter plan for any magnetron run.</li>
+<li>Choose HackRF filter and frequencies (2400–2450 MHz; 1296 MHz; 433.59 MHz).</li>
+<li><strong>Milestone M0:</strong> written run sheet with every §2.5 control, and a safety checklist signed off by Dan.</li>
+</ul>
+<h3>Phase 1: Bench TEM baseline (Chain T; TEM FACT) (1–3 weekends) <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></h3>
+<ol>
+<li>HackRF TX (coded CW, then FM-CW) → DD-2450 or can antenna; TinySA / SDR receiver in open air.</li>
+<li>Targets: turntable, ceiling fan, a person walking, a metal plate.</li>
+<li>Measure Doppler (Eq. 3.2a), FM-CW beats (Eq. 3.11) and received level vs range. Compare with Eq. 1.7.</li>
+<li>Build the Dipole Detector cage (CAGE_ESTIMATE.md). Measure its TEM leakage at 2.45 GHz with the lid open and closed, known source outside. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ol>
+<ul>
+<li><strong>M1a:</strong> Doppler of a walking person detected at ≥ 3 m.</li>
+<li><strong>M1b:</strong> measured TEM cage leakage (lid open vs closed) at 433.59 / 1296 / 2450 MHz. <strong>Defines &quot;ordinary leakage&quot; for Phase 2</strong> (used only to strip TEM, never to rank SLW). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>M1c:</strong> C1, C4 and C5 floors recorded.</li>
+</ul>
+<h3>Phase 2: Caged-receiver SLW tests (Chain S; HYP) (2–6 weekends)</h3>
+<ol>
+<li>Transmitter outside: sleeve/skirt-balun monopole (Hively/Keyport), then a closed loop at equal TEM power (C6). Receiver sealed inside on battery. Outside TEM monitor running. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>Run C1–C9 in blinded, randomised order at 1296 and 433.59 MHz (existing hub models), then 2450 MHz.</li>
+<li>M&amp;W rod rotation (C7) between TX and the cage.</li>
+<li>Optional: magnetron in the intact oven with a water load as the source, caged receiver outside, looking for the 60 Hz fingerprint (C8) with the cage closed. Only after a survey-meter check.</li>
+</ol>
+<ul>
+<li><strong>M2 (null or candidate):</strong> either an upper bound on η·(wall transmission) (a null result, still useful), or a candidate signal that passes all of C1–C9 and is reproduced on at least 3 separate days.</li>
+<li><strong>A candidate is not a discovery.</strong> It triggers replication with a second cage and a second receiver, and an invitation to an outside ham to repeat it. Dan decides who; contact no one before then.</li>
+</ul>
+<h3>Phase 3: Range and Doppler, the &quot;radar&quot; step (Chain S + targets; HYP) (only if M2 gives a candidate)</h3>
+<ol>
+<li>Keep the bistatic geometry. Move a target (metal plate, then a person) <strong>in the path</strong> between the transmitter and the sealed cage.</li>
+<li>Look for coded-CW modulation correlated with target motion (C11). Compare against Chain T's TEM expectation for the same motion. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>Distance scan (C10) and FM-CW attempt, <strong>if</strong> a cross-wall timing reference is solved (question Q4).</li>
+</ol>
+<ul>
+<li><strong>M3:</strong> target-motion modulation seen with the cage closed, the outside monitor quiet, and every control passed. Only then is an &quot;SLW radar&quot; claim even worth writing up.</li>
+</ul>
+<h3>Open questions for Dan</h3>
+<ol>
+<li><strong>Hobby kit contents:</strong> what exactly is in it (mixers, filters, amplifiers, Arduino/ADC, a second HackRF, GPSDO)?</li>
+<li><strong>Oven parts:</strong> which oven and magnetron model? Is the oven intact with working interlocks, or already stripped? (If stripped, the magnetron has <strong>no</strong> safe cavity and should not be powered at all.)</li>
+<li><strong>Goal:</strong> is the aim a real ranging/Doppler SLW radar, or an SLW <strong>detection</strong> test with radar-style signal processing? This brief recommends the second, because no SLW echo law exists.</li>
+<li><strong>Cross-wall timing:</strong> may a timing reference enter the cage on <strong>fibre through a WBC tube</strong> (dielectric, no metal crossing)? Or must the cage side be fully free-running with its own clock?</li>
+<li><strong>Band priority:</strong> start at 2450 MHz (the oven's band, best HackRF power) or at 1296 / 433.59 MHz (existing Experiment A/B hardware and hub models)?</li>
+<li><strong>Magnetron as an SLW source:</strong> do you want the &quot;magnetron in its own cavity, caged receiver outside&quot; fingerprint test (C8) in Phase 2, or should it wait?</li>
+<li><strong>Joule default:</strong> for any SLW path modelling in this project, keep the hub's Joule default or use the Erratum α = 0? (<code>REDO_SLW.md</code> §1.2 shows the Joule conversion is ours and convention-sensitive.)</li>
+<li><strong>Replication partner:</strong> is there a ham you'd want to repeat a Phase 2 candidate? (No contact until you say so.)</li>
+<li><strong>Licensing:</strong> is your license class confirmed for 13 cm (Technician or higher suffices per 97.301(a)), and do you want to explore a Part 5 experimental license for anything beyond amateur rules?</li>
+</ol>
+<hr />
+<h2>6. Citations</h2>
+<p><strong>SLW/SW hypothesis sources (HYP):</strong></p>
+<ul>
+<li>L. M. Hively, <em>Systems, apparatuses, and methods for generating and/or utilizing scalar-longitudinal waves</em>, <strong>US 9,306,527 B1</strong> (2016). EQN. 15 P = (I²/4π)√(μ/ε); EQNs. 8, 9, 12; cols. 5–8. Local: <code>hub-efield-repo/papers/</code>, <code>ohmic-slw-search/Hively-US9306527.txt</code>.</li>
+<li>L. M. Hively &amp; A. S. Loebl, <em>Classical and extended electrodynamics</em>, <strong>Physics Essays 32(1), 112–126 (2019)</strong>. Eqs. 21, 22, 26, 37, 38, <strong>44</strong> (energy balance with Joule term J·E), B5; Table I items 11 etc.; App. B p. 123; App. C; pp. 115–117, 120–121.</li>
+<li>Hively &amp; Loebl, <strong>Erratum, Physics Essays 35, 320 (2022)</strong>, doi:10.4006/0836-1398-35.3.320: the SLW is not subject to resistive loss (α = 0 reading).</li>
+<li>L. M. Hively &amp; G. C. Reed, <em>Symmetry</em> 12, 2110 (2020), pp. 1, 9–11, 13.</li>
+<li>Hively &amp; Land, IARD 2020 slides 59–60; J. Phys.: Conf. Ser. 1956, 012011 (2021).</li>
+<li>C. Monstein &amp; J. P. Wesley, <em>Observation of scalar longitudinal electrodynamic waves</em>, <strong>Europhysics Letters 59(4), 514 (2002)</strong>. Eq. 7 (δP = −σAE₀²cos²φ δL) and <strong>Eq. 9</strong> (T = exp[−κcos²φ]), as transcribed on hub <code>monstein.html</code>.</li>
+<li>Paulus &amp; Gentile (NUWC Keyport), <em>Antennas with baluns for transmitting and receiving scalar longitudinal waves, and methods of use</em>, <strong>US 12,525,711 B1</strong>, claim 30 (&quot;resonant spark system&quot;). Local: <code>sim-lab/home-motors/src/lit/US12525711B1.txt</code>.</li>
+<li>N. K. Nikolova &amp; R. K. Zimmerman, <em>Detection of the Time-dependent Electromagnetic Potential at 1.3 GHz</em>, CEM-R-46, McMaster (2007).</li>
+<li>R. K. Zimmerman, <em>Transmission and Reception of Longitudinally-Polarized Momentum Waves</em>, QEX Jul/Aug 2011; <em>Macroscopic Aharonov–Bohm Effect at L-band Microwave Frequencies</em>, Mod. Phys. Lett. B 25(9), 649 (2011); <em>Reception of longitudinal vector potential radiation with a plasma antenna</em>, J. Appl. Phys. 114, 044907 (2013).</li>
+<li>G. Works &amp; S. Works, <em>Confirmation Measurements of Vector Potential Waves</em>, QEX Jul/Aug 2012.</li>
+<li>(All local PDFs are in <code>hub-efield-repo/papers/</code> per <code>library.html</code>.)</li>
+</ul>
+<p><strong>Radar and RF engineering (TEM FACT):</strong> <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<ul>
+<li>M. I. Skolnik, <em>Introduction to Radar Systems</em>, 2nd ed., McGraw-Hill (1980): <strong>Eq. 1.7</strong> (radar equation), <strong>Eq. 1.8</strong> (G = 4πA_e/λ²), <strong>Eq. 3.2a</strong> (f_d = 2v_r/λ), <strong>Eq. 3.11</strong> (FM-CW beat), §§3.1–3.2. Equation numbers checked against a scanned copy.</li>
+<li>M. I. Skolnik (ed.), <em>Radar Handbook</em>, 3rd ed., McGraw-Hill (2008). General reference; no equations taken from it here.</li>
+<li>ARRL, <em>The ARRL Handbook for Radio Communications</em> (current ed.). General amateur microwave practice and RF safety; no equations taken from it here.</li>
+<li>H. W. Ott, <em>Electromagnetic Compatibility Engineering</em>, Wiley (2009): WBC tube cutoff and about 32 dB per diameter (as used in <code>expt-d/rxchain/REPORT.md</code>).</li>
+<li>Great Scott Gadgets, <em>HackRF One</em> documentation (hackrf.readthedocs.io): TX power by band; half-duplex.</li>
+<li>TinySA Ultra wiki specification (tinysa.org): floor, LNA, ULTRA-mode LO leakage (via sim-lab notes).</li>
+</ul>
+<p><strong>Magnetron behaviour (FACT):</strong></p>
+<ul>
+<li>LG / Pactra, <strong>2M246 magnetron datasheet</strong> (local <code>sim-lab/home-motors/src/2M246.pdf</code>): 2460 MHz matched load, 1150 W / 1000 W, 4.40 kVp anode, −4 kV filament potential, half-wave doubler supply.</li>
+<li>UNM Microwave Memo 23, <em>Particle-in-Cell Modeling of Oven Magnetron: A Review</em> (summa.unm.edu/notes/MicrowaveMemos/MicroMemo23.pdf): rectified half-wave doubler drive; anode current swept 0 → ~1 A each cycle; sideband and low-frequency noise.</li>
+<li>V. B. Neculaes, R. M. Gilgenbach, Y. Y. Lau et al., <em>Low-noise microwave magnetrons by azimuthally varying axial magnetic field</em>, Appl. Phys. Lett. (2003), doi:10.1063/1.1609040: &quot;extremely noisy microwave spectrum&quot; near start-oscillation; ovens repeat start-up at 60 Hz. Journal details from the DOI; page not checked.</li>
+<li>IEEE 802.11-98/240 (Zyren &amp; Harris 1998): oven 60 Hz half-cycle gating, about 50 MHz sweep (as cited in <code>sub-sources/REDO_SLW.md</code>).</li>
+</ul>
+<p><strong>Safety and regulation (FACT):</strong></p>
+<ul>
+<li><strong>21 CFR 1030.10</strong> (FDA microwave oven performance standard), (c)(1) leakage 1 / 5 mW/cm² at 5 cm; (c)(2) interlocks. eCFR, read 2026-09-27.</li>
+<li><strong>47 CFR 1.1310</strong> Table 1 (MPE: 1.0 mW/cm² general population, 5 mW/cm² occupational, 1.5–100 GHz). LII, read 2026-09-27.</li>
+<li><strong>47 CFR 18.107</strong> (ISM definitions, &quot;excluding applications in the field of telecommunication&quot;; consumer ISM includes domestic microwave ovens) and <strong>18.301</strong> (2450 ± 50 MHz). eCFR, read 2026-09-27.</li>
+<li><strong>47 CFR 97.301(a)</strong> (13 cm band), <strong>97.303(e)</strong> (accept ISM interference at 2400–2450 MHz), <strong>97.307(a)–(c)</strong> (bandwidth, in-band, spurious). eCFR/LII, read 2026-09-27.</li>
+<li>LG, <em>Microwave Oven Service Manual</em> LSMC3089BD (&quot;nearly 4000 volts&quot;; discharge with an insulated probe through 10 kΩ to ground; survey meter Holaday HI-1500 listed). research.encompass.com/ZEN/sm/LSMC3089BD.pdf.</li>
+<li>Materion, <em>Beryllium Oxide Ceramic Product</em> SDS (H330, H350i, H372).</li>
+</ul>
+<p><strong>Sim-lab and hub material reused:</strong></p>
+<ul>
+<li><code>sim-lab/sub-sources/REDO_SLW.md</code>: SLW-only propagation readings; Joule-construction audit; magnetron as an SLW source.</li>
+<li><code>sim-lab/expt-d/REPORT.md</code> and <code>expt-d/rxchain/REPORT.md</code> / <code>SHOPPING_LIST.md</code>: η framework, detectability, receiver chain, cage and fibre rules.</li>
+<li><code>sim-lab/rod-thermal/dipole-detector/</code>: DD-433/1296/2450 build sheet; <code>CAGE_ESTIMATE.md</code>.</li>
+<li><code>sim-lab/INVENTORY.md</code> (FX-1 sphere, TinySA/Zeenko drive); <code>hub-efield-repo/img/efield/efield_summary.json</code> (SleeveBalunSNR HYP fields); hub <code>index.html</code>, <code>monstein.html</code>, <code>library.html</code>, <code>lab.html</code>.</li>
+<li>New for this brief: <code>sim-lab/slw-radar/radar_numbers.py</code> → <code>radar_numbers.json</code> (TEM Skolnik numbers only; <strong>WL compare owed</strong>). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+
+  </article>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub · <a href="../../sim-lab/">Simulation Lab catalogue</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
+</body>
+</html>
