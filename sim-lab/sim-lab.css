@@ -343,3 +343,4 @@ td.num { font-variant-numeric: tabular-nums; }
 .topic-nav a { font-size: .82rem; padding: 4px 10px; border: 1px solid var(--rule-bright); border-radius: 999px; text-decoration: none; color: var(--ink-muted); }
 .topic-nav a:hover { color: var(--gold); border-color: var(--copper); }
 @media (max-width: 520px) { .doc pre { font-size: .78rem; } .cat-grid { grid-template-columns: 1fr; } }
+.cat-card.parallel { border-top: 3px solid var(--copper); }
