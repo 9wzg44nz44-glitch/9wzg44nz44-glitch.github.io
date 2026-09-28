@@ -1,0 +1,607 @@
+{
+ "_meta": {
+  "c_m_per_s": 299792458.0,
+  "date": "2026-09-28",
+  "rod_D_mm": 3.175,
+  "rod_D_in": 0.125,
+  "note": "lambda = c/f only; no skin-depth, permeability or ferromagnetic argument used (Dan's rule). Rod material enters M&W eq.(7) only via sigma."
+ },
+ "ExpB_433MHz": {
+  "name": "Experiment B - M&W 433.59 MHz replication",
+  "short": "Exp B",
+  "label": "FACT (M&W frequency and geometry)",
+  "f_MHz": 433.59,
+  "f_src": "FACT: Monstein & Wesley 2002 abstract/p.515 (433.59 MHz); hub monstein.html/setup.html; DD-433",
+  "lambda_mm": 691.42,
+  "half_wave_mm": 345.71,
+  "quarter_wave_mm": 172.85,
+  "rod_L_mm": 346.0,
+  "rod_L_in": 13.622,
+  "rod_L_tol_mm": 1.0,
+  "rod_L_src": "FACT: M&W p.516 'wires of length lambda/2 (34.6 cm)'; hub shop-drawing Sheet B-rods 346 mm +/-1",
+  "pitch_mm": 172.85,
+  "pitch_in": 6.8053,
+  "pitch_over_lambda": 0.25,
+  "array_span_mm": 345.71,
+  "cube_check_span_vs_L": "345.71 mm span vs 346.00 mm rod -> lambda/2 cube (HYP reading of 'cubic')",
+  "rod_D_mm": 3.175,
+  "rod_D_in": 0.125,
+  "L_over_D": 109.0,
+  "D_over_pitch": 0.0184,
+  "plate_mm": 381.0,
+  "plate_in": 15.0,
+  "t_mm": 12.7,
+  "t_in": 0.5,
+  "t_over_L": 0.037,
+  "edge_margin_mm": 17.65,
+  "edge_margin_in": 0.6947,
+  "edge_margin_over_D": 5.6,
+  "hole_pos_tol_mm": 0.25,
+  "hole_pos_tol_in": 0.0098,
+  "protrusion_each_side_mm": 166.65,
+  "protrusion_each_side_in": 6.561,
+  "leg_h_in": 7.625,
+  "leg_h_mm": 193.7,
+  "steel_keepout_lambda_over_2pi_mm": 110.0,
+  "holes": [
+   {
+    "id": "H1",
+    "x_corner": 17.65,
+    "y_corner": 17.65,
+    "x_center": -172.85,
+    "y_center": -172.85,
+    "x_corner_in": 0.6947,
+    "y_corner_in": 0.6947,
+    "x_center_in": -6.8053,
+    "y_center_in": -6.8053
+   },
+   {
+    "id": "H2",
+    "x_corner": 190.5,
+    "y_corner": 17.65,
+    "x_center": 0.0,
+    "y_center": -172.85,
+    "x_corner_in": 7.5,
+    "y_corner_in": 0.6947,
+    "x_center_in": 0.0,
+    "y_center_in": -6.8053
+   },
+   {
+    "id": "H3",
+    "x_corner": 363.35,
+    "y_corner": 17.65,
+    "x_center": 172.85,
+    "y_center": -172.85,
+    "x_corner_in": 14.3053,
+    "y_corner_in": 0.6947,
+    "x_center_in": 6.8053,
+    "y_center_in": -6.8053
+   },
+   {
+    "id": "H4",
+    "x_corner": 17.65,
+    "y_corner": 190.5,
+    "x_center": -172.85,
+    "y_center": 0.0,
+    "x_corner_in": 0.6947,
+    "y_corner_in": 7.5,
+    "x_center_in": -6.8053,
+    "y_center_in": 0.0
+   },
+   {
+    "id": "H5",
+    "x_corner": 190.5,
+    "y_corner": 190.5,
+    "x_center": 0.0,
+    "y_center": 0.0,
+    "x_corner_in": 7.5,
+    "y_corner_in": 7.5,
+    "x_center_in": 0.0,
+    "y_center_in": 0.0
+   },
+   {
+    "id": "H6",
+    "x_corner": 363.35,
+    "y_corner": 190.5,
+    "x_center": 172.85,
+    "y_center": 0.0,
+    "x_corner_in": 14.3053,
+    "y_corner_in": 7.5,
+    "x_center_in": 6.8053,
+    "y_center_in": 0.0
+   },
+   {
+    "id": "H7",
+    "x_corner": 17.65,
+    "y_corner": 363.35,
+    "x_center": -172.85,
+    "y_center": 172.85,
+    "x_corner_in": 0.6947,
+    "y_corner_in": 14.3053,
+    "x_center_in": -6.8053,
+    "y_center_in": 6.8053
+   },
+   {
+    "id": "H8",
+    "x_corner": 190.5,
+    "y_corner": 363.35,
+    "x_center": 0.0,
+    "y_center": 172.85,
+    "x_corner_in": 7.5,
+    "y_corner_in": 14.3053,
+    "x_center_in": 0.0,
+    "y_center_in": 6.8053
+   },
+   {
+    "id": "H9",
+    "x_corner": 363.35,
+    "y_corner": 363.35,
+    "x_center": 172.85,
+    "y_center": 172.85,
+    "x_corner_in": 14.3053,
+    "y_corner_in": 14.3053,
+    "x_center_in": 6.8053,
+    "y_center_in": 6.8053
+   }
+  ],
+  "parts": [
+   {
+    "part": "Rod plate (drilled, 9 holes) - one for H array, one for V array",
+    "qty": 2,
+    "w_in": 15.0,
+    "h_in": 15.0
+   },
+   {
+    "part": "H-array base (dado for rod plate, not drilled for rods)",
+    "qty": 1,
+    "w_in": 15.0,
+    "h_in": 15.0
+   },
+   {
+    "part": "V-array legs (cemented to two opposite plate edges)",
+    "qty": 2,
+    "w_in": 15.0,
+    "h_in": 7.625
+   },
+   {
+    "part": "Fit-test coupon (drill/ream 3 trial holes before the real plates)",
+    "qty": 1,
+    "w_in": 3.0,
+    "h_in": 3.0
+   }
+  ],
+  "area_in2": 912.75,
+  "area_in2_with_margin": 1095.3,
+  "area_m2": 0.5889,
+  "volume_in3": 456.38,
+  "volume_cm3": 7478.6,
+  "acrylic_mass_kg": 8.9,
+  "rod_sag_brass_mm": 0.1276,
+  "rod_sag_W1_mm": 0.0575,
+  "drawing_scale": "1:4"
+ },
+ "ExpA_1296MHz": {
+  "name": "Experiment A - 1296 MHz (Dan's extension)",
+  "short": "Exp A",
+  "label": "HYP (scaled; Dan's extension)",
+  "f_MHz": 1296.0,
+  "f_src": "Hub setup.html/shop-drawing.html '1296.000 MHz'; hively-1.3ghz protocol; DD-1296; rod-fixtures ExpA_1296MHz",
+  "lambda_mm": 231.32,
+  "half_wave_mm": 115.66,
+  "quarter_wave_mm": 57.83,
+  "rod_L_mm": 115.66,
+  "rod_L_in": 4.554,
+  "rod_L_tol_mm": 0.3,
+  "rod_L_src": "HYP: M&W lambda/2 rule scaled to 1296 MHz",
+  "pitch_mm": 57.83,
+  "pitch_in": 2.2768,
+  "pitch_over_lambda": 0.25,
+  "array_span_mm": 115.66,
+  "cube_check_span_vs_L": "115.66 mm span vs 115.66 mm rod -> lambda/2 cube (HYP reading of 'cubic')",
+  "rod_D_mm": 3.175,
+  "rod_D_in": 0.125,
+  "L_over_D": 36.4,
+  "D_over_pitch": 0.0549,
+  "plate_mm": 152.4,
+  "plate_in": 6.0,
+  "t_mm": 12.7,
+  "t_in": 0.5,
+  "t_over_L": 0.11,
+  "edge_margin_mm": 18.37,
+  "edge_margin_in": 0.7232,
+  "edge_margin_over_D": 5.8,
+  "hole_pos_tol_mm": 0.13,
+  "hole_pos_tol_in": 0.0051,
+  "protrusion_each_side_mm": 51.48,
+  "protrusion_each_side_in": 2.027,
+  "leg_h_in": 3.125,
+  "leg_h_mm": 79.4,
+  "steel_keepout_lambda_over_2pi_mm": 36.8,
+  "holes": [
+   {
+    "id": "H1",
+    "x_corner": 18.37,
+    "y_corner": 18.37,
+    "x_center": -57.83,
+    "y_center": -57.83,
+    "x_corner_in": 0.7232,
+    "y_corner_in": 0.7232,
+    "x_center_in": -2.2768,
+    "y_center_in": -2.2768
+   },
+   {
+    "id": "H2",
+    "x_corner": 76.2,
+    "y_corner": 18.37,
+    "x_center": 0.0,
+    "y_center": -57.83,
+    "x_corner_in": 3.0,
+    "y_corner_in": 0.7232,
+    "x_center_in": 0.0,
+    "y_center_in": -2.2768
+   },
+   {
+    "id": "H3",
+    "x_corner": 134.03,
+    "y_corner": 18.37,
+    "x_center": 57.83,
+    "y_center": -57.83,
+    "x_corner_in": 5.2768,
+    "y_corner_in": 0.7232,
+    "x_center_in": 2.2768,
+    "y_center_in": -2.2768
+   },
+   {
+    "id": "H4",
+    "x_corner": 18.37,
+    "y_corner": 76.2,
+    "x_center": -57.83,
+    "y_center": 0.0,
+    "x_corner_in": 0.7232,
+    "y_corner_in": 3.0,
+    "x_center_in": -2.2768,
+    "y_center_in": 0.0
+   },
+   {
+    "id": "H5",
+    "x_corner": 76.2,
+    "y_corner": 76.2,
+    "x_center": 0.0,
+    "y_center": 0.0,
+    "x_corner_in": 3.0,
+    "y_corner_in": 3.0,
+    "x_center_in": 0.0,
+    "y_center_in": 0.0
+   },
+   {
+    "id": "H6",
+    "x_corner": 134.03,
+    "y_corner": 76.2,
+    "x_center": 57.83,
+    "y_center": 0.0,
+    "x_corner_in": 5.2768,
+    "y_corner_in": 3.0,
+    "x_center_in": 2.2768,
+    "y_center_in": 0.0
+   },
+   {
+    "id": "H7",
+    "x_corner": 18.37,
+    "y_corner": 134.03,
+    "x_center": -57.83,
+    "y_center": 57.83,
+    "x_corner_in": 0.7232,
+    "y_corner_in": 5.2768,
+    "x_center_in": -2.2768,
+    "y_center_in": 2.2768
+   },
+   {
+    "id": "H8",
+    "x_corner": 76.2,
+    "y_corner": 134.03,
+    "x_center": 0.0,
+    "y_center": 57.83,
+    "x_corner_in": 3.0,
+    "y_corner_in": 5.2768,
+    "x_center_in": 0.0,
+    "y_center_in": 2.2768
+   },
+   {
+    "id": "H9",
+    "x_corner": 134.03,
+    "y_corner": 134.03,
+    "x_center": 57.83,
+    "y_center": 57.83,
+    "x_corner_in": 5.2768,
+    "y_corner_in": 5.2768,
+    "x_center_in": 2.2768,
+    "y_center_in": 2.2768
+   }
+  ],
+  "parts": [
+   {
+    "part": "Rod plate (drilled, 9 holes) - one for H array, one for V array",
+    "qty": 2,
+    "w_in": 6.0,
+    "h_in": 6.0
+   },
+   {
+    "part": "H-array base (dado for rod plate, not drilled for rods)",
+    "qty": 1,
+    "w_in": 6.0,
+    "h_in": 6.0
+   },
+   {
+    "part": "V-array legs (cemented to two opposite plate edges)",
+    "qty": 2,
+    "w_in": 6.0,
+    "h_in": 3.125
+   },
+   {
+    "part": "Fit-test coupon (drill/ream 3 trial holes before the real plates)",
+    "qty": 1,
+    "w_in": 3.0,
+    "h_in": 3.0
+   }
+  ],
+  "area_in2": 154.5,
+  "area_in2_with_margin": 185.4,
+  "area_m2": 0.0997,
+  "volume_in3": 77.25,
+  "volume_cm3": 1265.9,
+  "acrylic_mass_kg": 1.51,
+  "rod_sag_brass_mm": 0.0012,
+  "rod_sag_W1_mm": 0.0005,
+  "drawing_scale": "1:1"
+ },
+ "Future_2450MHz": {
+  "name": "2.45 GHz oven band (Dan's extension)",
+  "short": "2.45 GHz",
+  "label": "HYP (scaled; Dan's extension)",
+  "f_MHz": 2450.0,
+  "f_src": "DD-2450 build sheet (2450.0 MHz); rod-fixtures Future_2450MHz; oven magnetron nominal 2.45 GHz",
+  "lambda_mm": 122.36,
+  "half_wave_mm": 61.18,
+  "quarter_wave_mm": 30.59,
+  "rod_L_mm": 61.18,
+  "rod_L_in": 2.409,
+  "rod_L_tol_mm": 0.2,
+  "rod_L_src": "HYP: M&W lambda/2 rule scaled to 2450 MHz",
+  "pitch_mm": 30.59,
+  "pitch_in": 1.2044,
+  "pitch_over_lambda": 0.25,
+  "array_span_mm": 61.18,
+  "cube_check_span_vs_L": "61.18 mm span vs 61.18 mm rod -> lambda/2 cube (HYP reading of 'cubic')",
+  "rod_D_mm": 3.175,
+  "rod_D_in": 0.125,
+  "L_over_D": 19.3,
+  "D_over_pitch": 0.1038,
+  "plate_mm": 101.6,
+  "plate_in": 4.0,
+  "t_mm": 6.35,
+  "t_in": 0.25,
+  "t_over_L": 0.104,
+  "edge_margin_mm": 20.21,
+  "edge_margin_in": 0.7956,
+  "edge_margin_over_D": 6.4,
+  "hole_pos_tol_mm": 0.13,
+  "hole_pos_tol_in": 0.0051,
+  "protrusion_each_side_mm": 27.41,
+  "protrusion_each_side_in": 1.079,
+  "leg_h_in": 2.125,
+  "leg_h_mm": 54.0,
+  "steel_keepout_lambda_over_2pi_mm": 19.5,
+  "holes": [
+   {
+    "id": "H1",
+    "x_corner": 20.21,
+    "y_corner": 20.21,
+    "x_center": -30.59,
+    "y_center": -30.59,
+    "x_corner_in": 0.7956,
+    "y_corner_in": 0.7956,
+    "x_center_in": -1.2044,
+    "y_center_in": -1.2044
+   },
+   {
+    "id": "H2",
+    "x_corner": 50.8,
+    "y_corner": 20.21,
+    "x_center": 0.0,
+    "y_center": -30.59,
+    "x_corner_in": 2.0,
+    "y_corner_in": 0.7956,
+    "x_center_in": 0.0,
+    "y_center_in": -1.2044
+   },
+   {
+    "id": "H3",
+    "x_corner": 81.39,
+    "y_corner": 20.21,
+    "x_center": 30.59,
+    "y_center": -30.59,
+    "x_corner_in": 3.2044,
+    "y_corner_in": 0.7956,
+    "x_center_in": 1.2044,
+    "y_center_in": -1.2044
+   },
+   {
+    "id": "H4",
+    "x_corner": 20.21,
+    "y_corner": 50.8,
+    "x_center": -30.59,
+    "y_center": 0.0,
+    "x_corner_in": 0.7956,
+    "y_corner_in": 2.0,
+    "x_center_in": -1.2044,
+    "y_center_in": 0.0
+   },
+   {
+    "id": "H5",
+    "x_corner": 50.8,
+    "y_corner": 50.8,
+    "x_center": 0.0,
+    "y_center": 0.0,
+    "x_corner_in": 2.0,
+    "y_corner_in": 2.0,
+    "x_center_in": 0.0,
+    "y_center_in": 0.0
+   },
+   {
+    "id": "H6",
+    "x_corner": 81.39,
+    "y_corner": 50.8,
+    "x_center": 30.59,
+    "y_center": 0.0,
+    "x_corner_in": 3.2044,
+    "y_corner_in": 2.0,
+    "x_center_in": 1.2044,
+    "y_center_in": 0.0
+   },
+   {
+    "id": "H7",
+    "x_corner": 20.21,
+    "y_corner": 81.39,
+    "x_center": -30.59,
+    "y_center": 30.59,
+    "x_corner_in": 0.7956,
+    "y_corner_in": 3.2044,
+    "x_center_in": -1.2044,
+    "y_center_in": 1.2044
+   },
+   {
+    "id": "H8",
+    "x_corner": 50.8,
+    "y_corner": 81.39,
+    "x_center": 0.0,
+    "y_center": 30.59,
+    "x_corner_in": 2.0,
+    "y_corner_in": 3.2044,
+    "x_center_in": 0.0,
+    "y_center_in": 1.2044
+   },
+   {
+    "id": "H9",
+    "x_corner": 81.39,
+    "y_corner": 81.39,
+    "x_center": 30.59,
+    "y_center": 30.59,
+    "x_corner_in": 3.2044,
+    "y_corner_in": 3.2044,
+    "x_center_in": 1.2044,
+    "y_center_in": 1.2044
+   }
+  ],
+  "parts": [
+   {
+    "part": "Rod plate (drilled, 9 holes) - one for H array, one for V array",
+    "qty": 2,
+    "w_in": 4.0,
+    "h_in": 4.0
+   },
+   {
+    "part": "H-array base (dado for rod plate, not drilled for rods)",
+    "qty": 1,
+    "w_in": 4.0,
+    "h_in": 4.0
+   },
+   {
+    "part": "V-array legs (cemented to two opposite plate edges)",
+    "qty": 2,
+    "w_in": 4.0,
+    "h_in": 2.125
+   },
+   {
+    "part": "Fit-test coupon (drill/ream 3 trial holes before the real plates)",
+    "qty": 1,
+    "w_in": 3.0,
+    "h_in": 3.0
+   }
+  ],
+  "area_in2": 74.0,
+  "area_in2_with_margin": 88.8,
+  "area_m2": 0.0477,
+  "volume_in3": 18.5,
+  "volume_cm3": 303.2,
+  "acrylic_mass_kg": 0.36,
+  "rod_sag_brass_mm": 0.0001,
+  "rod_sag_W1_mm": 0.0,
+  "drawing_scale": "1:1"
+ },
+ "hole_fit": {
+  "requested 0.05 mm under": {
+   "interference_mm": 0.05,
+   "hoop_strain_pct": 1.575,
+   "hoop_stress_MPa": 35.6,
+   "hoop_stress_psi": 5168,
+   "vs_750psi_continuous": 6.89,
+   "vs_10000psi_tensile": 0.52
+  },
+  "requested 0.10 mm under": {
+   "interference_mm": 0.1,
+   "hoop_strain_pct": 3.15,
+   "hoop_stress_MPa": 71.3,
+   "hoop_stress_psi": 10337,
+   "vs_750psi_continuous": 13.78,
+   "vs_10000psi_tensile": 1.03
+  },
+  "HDPE fixture #31 (0.120 in) 0.127 mm under": {
+   "interference_mm": 0.127,
+   "hoop_strain_pct": 4.0,
+   "hoop_stress_MPa": 90.5,
+   "hoop_stress_psi": 13128,
+   "vs_750psi_continuous": 17.5,
+   "vs_10000psi_tensile": 1.31
+  },
+  "light press 0.013 mm (0.0005 in)": {
+   "interference_mm": 0.0127,
+   "hoop_strain_pct": 0.4,
+   "hoop_stress_MPa": 9.1,
+   "hoop_stress_psi": 1313,
+   "vs_750psi_continuous": 1.75,
+   "vs_10000psi_tensile": 0.13
+  },
+  "0.0075 mm (0.0003 in)": {
+   "interference_mm": 0.00762,
+   "hoop_strain_pct": 0.24,
+   "hoop_stress_MPa": 5.4,
+   "hoop_stress_psi": 788,
+   "vs_750psi_continuous": 1.05,
+   "vs_10000psi_tensile": 0.08
+  },
+  "_interference_at_750psi_mm": 0.0073,
+  "_spec": {
+   "default": "SNUG / TRANSITION fit: ream to MEASURED rod diameter; nominal 0.1250 in (3.175 mm), tol +0.0005/-0.0000 in (+0.013/-0.000 mm); rods retained by silicone O-rings (AS568-005) on both faces",
+   "alternate": "LIGHT PRESS (only if Dan insists; scrap test first): ream to measured rod dia minus 0.0005 in (0.013 mm), tol +0.0002/-0.0000 in; ~1350 psi hoop stress (> 750 psi continuous guideline) - cast acrylic only, anneal after machining",
+   "not_recommended": "0.05-0.10 mm undersize: ~5,200-10,300 psi hoop stress = 7-14x the 750 psi continuous guideline and 52-103 % of the ~10,000 psi tensile strength -> crack/craze risk; the #31 (0.127 mm under) used on the HDPE fixtures must NOT be carried over to acrylic",
+   "depth": "THRU (full plate thickness)",
+   "chamfer": "0.4 mm x 45 deg both faces",
+   "drill": "pilot 3.0 mm (or #32, 0.116 in), then ream; sharp 0-deg-rake (dubbed) bit, water mist, sacrificial backer, peck"
+  }
+ },
+ "nesting": {
+  "1/2 in (Exp B + Exp A together)": {
+   "24x48": "does not fit",
+   "48x96": "fits (1 sheet)",
+   "net_area_in2": 1067.25,
+   "area_with_20pct_margin_in2": 1280.7
+  },
+  "1/2 in (Exp B only)": {
+   "24x48": "fits (1 sheet)",
+   "net_area_in2": 912.75,
+   "area_with_20pct_margin_in2": 1095.3
+  },
+  "1/2 in (Exp A only)": {
+   "12x12": "does not fit",
+   "12x24": "fits (1 sheet)",
+   "net_area_in2": 154.5,
+   "area_with_20pct_margin_in2": 185.4
+  },
+  "1/4 in (2.45 GHz)": {
+   "12x12": "fits (1 sheet)",
+   "12x24": "fits (1 sheet)",
+   "net_area_in2": 74.0,
+   "area_with_20pct_margin_in2": 88.8
+  }
+ }
+}
