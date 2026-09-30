@@ -256,7 +256,7 @@
     const PrxTem = P * GTX * AeffTem / (4 * Math.PI * r * r) * mP;
     const snrTem = dbmFromWatts(PrxTem * Math.pow(10, lnaGain / 10)) - noise;
 
-    // Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum (Phys. Essays 32(3) 417): S = I^2 Z0 / [2 (4 pi r)^2] (FACT); I = peak (ASSUMPTION). Was I^2 Z0/(4 pi) (patent Eq. 15) before 2026-09-29.
+    // Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum (Phys. Essays 32(3) 417): S = I^2 Z0 / [2 (4 pi r)^2] (FACT); I = peak (ASSUMPTION). Was I^2 Z0/(4 pi) before 2026-09-29.
     const Prad = (Ipk * Ipk / (8 * Math.PI)) * Z0;
     const Sgeom = Prad / (4 * Math.PI * r * r);
 
@@ -364,7 +364,7 @@
     const dbJ = s.sw ? 0 : 4.343 * s.ohmJ.alphaEff, dbT = s.sw ? 0 : 4.343 * s.ohmT.alphaEff;
     const Etxt = s.Surv > 0 ? fmt(s.Epar, 3) : "10^" + s.EparLog10.toFixed(0);
     $("slwOut").innerHTML =
-      "P<sub>rad</sub> (Eq.38/B5 erratum)=" + fmt(s.Prad, 3) + " W · S<sub>geom</sub>=" + fmt(s.Sgeom, 3) + " W/m²<br>" +
+      "P<sub>OUT</sub>=S<sub>geom</sub>=" + fmt(s.Sgeom, 3) + " W/m² (Eq.38/B5 erratum) · P<sub>total</sub>=4πr²P<sub>OUT</sub>=" + fmt(s.Prad, 3) + " W (derived, ASSUMPTION)<br>" +
       "Ohmic [" + ohmLabel + "] survival=" + fmtN(100 * s.Surv, 2) + "% (" + fmtN(s.ohmDb, 2) + " dB) · S=" + fmt(s.S, 3) + " W/m²<br>" +
       "Loss on this path: <strong>Joule (default) " + fmtN(dbJ, 1) + " dB</strong> · TEM-equal " + fmtN(dbT, 1) + " dB · Erratum toggle 0 dB<br>" +
       "E∥≈√(S·Z<sub>0</sub>)=<strong>" + Etxt + " V/m</strong> <em>(illustrative cartoon)</em><br>" +

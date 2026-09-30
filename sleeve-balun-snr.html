@@ -5,7 +5,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sleeve-balun dual-sphere SNR · Keyport TX/RX · SLW Hub</title>
-<meta name="description" content="Interactive v0 SNR for dual Keyport-style sleeve-balun + LAB Al spheres (KB-1820 / KB-2016): Hively Eq.15, NZ Am, Zimmerman Az, RadioScreen mesh. v0.3 default: Hively Joule-loss term (Joule-literal) with TEM-equal comparison; Erratum α=0 as a labelled toggle. TinySA Ultra ≤ −19 dBm. Educational — not a measurement.">
+<meta name="description" content="Interactive v0 SNR for dual Keyport-style sleeve-balun + LAB Al spheres (KB-1820 / KB-2016): Hively Eq.38/B5 (erratum), NZ Am, Zimmerman Az, RadioScreen mesh. v0.3 default: Hively Joule-loss term (Joule-literal) with TEM-equal comparison; Erratum α=0 as a labelled toggle. TinySA Ultra ≤ −19 dBm. Educational — not a measurement.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,6 +58,8 @@ table.res td.n{font-family:"IBM Plex Mono",monospace;white-space:nowrap}
 #seaTable td.n{white-space:normal}
 .pending-mini{display:inline-block;font-size:.8rem;border:1px dashed #c9a13a;color:#d4b483;border-radius:6px;padding:.05rem .45rem}
 </style>
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<script src="/assets/site-search.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -320,8 +322,8 @@ mP = 10^(−2·Att_dB/10)   # two tents
 SNR_TEM,dB = P_rx,dBm − (−174 + 10 log10(B) + NF)
 Near-field flags when r &lt; 2 D²/λ with D ≈ λ/4.</pre>
   <h3>Hively SLW (Hively &amp; Loebl 2019 Eq. 38/B5 as corrected by the Erratum — fields.js)</h3>
-  <pre class="eq">S_geom = I_peak² Z_0 / [2 (4π r)²]     # FACT (erratum, Phys. Essays 32(3) 417); Z_0 = √(μ/ε) = η ≈ 376.73 Ω; I = peak → ASSUMPTION
-P_rad = ∮ S_geom dA = I_peak² Z_0 / (8π)   # total-watts readout
+  <pre class="eq">P_OUT(r) = S_geom = I_peak² Z_0 / [2 (4π r)²]  W/m²   # FACT (erratum, Phys. Essays 32(3) 417); Z_0 = √(μ/ε) = η ≈ 376.73 Ω; I = peak → ASSUMPTION
+P_total = 4π r² · P_OUT = I_peak² Z_0 / (8π)  W   # DERIVED / ASSUMPTION (spherical integral), total-watts readout
 S = S_geom * exp(−α_ohm L_eff)   # α_ohm = power coefficient; Erratum toggle / SW → α=0
 # v0.3 DEFAULT Joule-literal (ASSUMPTION, Experiment G): seawater α_ohm = 2·α_J
 #   α_J = σ_H |Z| / 2,  σ_H = ε0 ε″ ω,  |Z| = η0 / (√ε′ · |1 − j tan δ|)   (Hively &amp; Loebl 2019 Eqs 37, 44)
@@ -352,10 +354,11 @@ seawater_exit = 91.44 m (300 ft)
     <li>E∥ 2D maps: <a href="sleeve-balun-efield.html">sleeve-balun-efield.html</a></li>
     <li>Machine-readable: <a href="physics-constants.json">physics-constants.json</a></li>
   </ul>
-  <p class="footnote" id="author-confirmed-relaxation"><b>Author-confirmed, 2026-09-30 (FACT, author-confirmed).</b> The charge-relaxation transient printed in Hively &amp; Loebl 2019 Eq. (A5) and US 9,306,527 col. 5 has ε and σ swapped; Dr. Hively confirmed in a private email to Dan (2026-09-30) that E = E0 exp(−σt/ε), τ = ε/σ is correct. This page does not compute that transient; its Ohmic factor is the spatial exp(−α L). Loss term here: Joule σE∥² (v0.3 default) or none (Erratum toggle). See the <a href="sim-lab/corrections/">Corrections log</a> (on the hub once published).</p>
-  <p class="footnote"><b>Formula history (2026-09-29).</b> Through v0.3 as first written this page used P_rad = I_peak² Z_0/(4π) (patent US 9,306,527 Eq. 15), i.e. S = I_peak² Z_0/(4π r)², which is Eq. 38/B5 as first printed in 2019 without the ½. The erratum adds the ½: S, P_rad, P_load, SNR<sub>Hively</sub> and E∥ (as power) are 3.01 dB lower at every distance preset (E∥ amplitude × 0.7071). N–Z A<sub>m</sub> and Zimmerman A<sub>z</sub> are unchanged. <b>FACT</b> for the ½; <b>ASSUMPTION</b> I is peak; the SLW chain applied to the TinySA output is <b>HYP</b>. Loss term: Hively’s Joule term σE∥² (Eq. 44) or none (erratum α = 0) only.</p>
-  <p class="footnote"><span class="pending-mini">Cloud twin pending sync (sleeve-balun-snr-v0.3)</span> The Wolfram Cloud twin still shows v0.2 with the Errata α=0 default: <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunSNR">wolframcloud.com/obj/danbritton5/SleeveBalunSNR</a>. The v0.3 WL source is updated but not yet run or published.</p>
-  <p class="footnote">v0.3 · 25 Sep 2026 · Dan Britton SLW Hub. Joule-loss default (Erratum α=0 as toggle). v0.2 · 24 Sep 2026: live E∥ map + distance_presets. Educational, contested, illustrative.</p>
+  <p class="footnote" id="author-confirmed-relaxation"><b>Author-confirmed, 2026-09-30 (FACT, author-confirmed).</b> The charge-relaxation transient printed in Hively &amp; Loebl 2019 Eq. (A5) and US 9,306,527 col. 5 has ε and σ swapped; Dr. Hively confirmed in a private email to Dan (2026-09-30) that E = E0 exp(−σt/ε), τ = ε/σ is correct. This page does not compute that transient; its Ohmic factor is the spatial exp(−αL). Loss term here: Joule σE∥² (v0.3 default) or none (Erratum toggle). See the <a href="/sim-lab/corrections/">Corrections log</a>.</p>
+<p class="footnote"><b>Formula history (2026-09-29).</b> v0.2 used P_rad = I_peak² Z_0/(4π) (patent US 9,306,527 Eq. 15), i.e. S = I_peak² Z_0/(4π r)², which is Eq. 38/B5 as first printed in 2019 without the ½. The erratum adds the ½: S, P_rad, P_load, SNR<sub>Hively</sub> and E∥ (as power) are 3.01 dB lower at every distance preset (E∥ amplitude × 0.7071). N–Z A<sub>m</sub> and Zimmerman A<sub>z</sub> are unchanged. <b>FACT</b> for the ½; <b>ASSUMPTION</b> I is peak; the SLW chain applied to the TinySA output is <b>HYP</b>. Loss term: Hively’s Joule term σE∥² (Eq. 44) or none (erratum α = 0) only. See <a href="sim-lab/pout-erratum-audit/">P_OUT erratum audit</a>.</p>
+  <p class="footnote"><span class="pending-mini">Cloud twin pending sync (sleeve-balun-snr-v0.3)</span> The Wolfram Cloud twin still shows <code>snr-dual-sim-params-v0.2</code> with the Errata α=0 default (this page is <code>snr-dual-sim-params-v0.2.1</code>, page v0.3; JS-vs-WL compare owed): <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunSNR">wolframcloud.com/obj/danbritton5/SleeveBalunSNR</a>. The v0.3 WL source is updated but not yet run or published.</p>
+  <p class="footnote"><b>Units (2026-09-30, label change only; no number changed).</b> The paper's P_OUT is a power <em>density</em> in W/m² at range r; the total-watts quantity formerly labelled P_rad is now P_total = 4π r² · P_OUT (DERIVED / ASSUMPTION: spherical integral). I = peak is an <b>ASSUMPTION</b> (confirmed by Dan Britton 2026-09-30). Cross-reference (documented difference): patent US 9,306,527 Eq. 15, total I² Z₀/(4π) W, is twice the erratum-integrated total I² Z₀/(8π); the erratum does not correct the patent.</p>
+  <p class="footnote">v0.3 · 30 Sep 2026 (Joule-literal SLW-loss default; Erratum α=0 as toggle; physics v0.2.1, P_OUT per erratum; v0.2 24 Sep 2026: live E∥ map + distance_presets) · Dan Britton SLW Hub. Educational, contested, illustrative.</p>
 </main>
 <footer class="site">
   <div class="wrap">

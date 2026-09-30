@@ -1,6 +1,6 @@
-/*! fields.js — TEM vs SLW 1296 MHz · PhysicsVersion tem-slw-1296-v0.1.1 (twin: SLW-TEM-fields-1296MHz.wl / Wolfram Cloud SLW-TEM-fields-1296MHz) */
+/*! fields.js — TEM vs SLW 1296 MHz · PhysicsVersion tem-slw-1296-v0.1.2 (twin: SLW-TEM-fields-1296MHz.wl / Wolfram Cloud SLW-TEM-fields-1296MHz) */
 (function () {
-  const PHYSICS_VERSION = "tem-slw-1296-v0.1.1";
+  const PHYSICS_VERSION = "tem-slw-1296-v0.1.2";
   const F = 1.296e9;
   const C = 299792458;
   const MU0 = 4 * Math.PI * 1e-7;
@@ -39,7 +39,8 @@
     const AeffTem = 3 * LAMBDA * LAMBDA / (8 * Math.PI);
     const PrxTem = P * Gtx * AeffTem / (4 * Math.PI * r * r) * mP;
     const snrTem = dbmFromWatts(PrxTem * Math.pow(10, lnaGain / 10)) - noise;
-    const Prad = (Ipk * Ipk / (4 * Math.PI)) * Z0;
+    // Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum (Phys. Essays 32(3) 417): S = I^2 Z0 / [2 (4 pi r)^2]  (FACT); I = peak amplitude (ASSUMPTION)
+    const Prad = (Ipk * Ipk / (8 * Math.PI)) * Z0;
     const S = Prad / (4 * Math.PI * r * r);
     const Pload = S * A_EFF * ETA * mP * Math.pow(10, lnaGain / 10);
     const snrH = dbmFromWatts(Pload) - noise;
@@ -56,7 +57,7 @@
     $("rOut").textContent = fmtN(s.r, 2) + " m";
     const nearNote = s.near ? " <em>r</em> is inside ~" + fmtN(s.far, 3) + " m far-field estimate \u2014 Friis is a caveat, not a measurement." : "";
     $("temOut").innerHTML = "I<sub>rms</sub> = " + fmt(s.Irms, 3) + " A \u00b7 P<sub>rx</sub> (mesh) = " + fmtN(dbmFromWatts(s.PrxTem), 1) + " dBm<br>SNR<sub>TEM</sub> \u2248 <strong>" + fmtN(s.snrTem, 1) + " dB</strong> (B=100 kHz, NF=" + s.nf + " dB" + (s.lnaGain ? ", LNA +20 dB" : "") + ")." + nearNote;
-    $("slwOut").innerHTML = "P<sub>rad</sub> (Eq. 15) = " + fmt(s.Prad, 3) + " W \u00b7 S = " + fmt(s.S, 3) + " W/m\u00b2<br>A<sub>m</sub>(r) = " + fmt(s.Am, 3) + " Wb/m \u00b7 A<sub>z</sub>(r) = " + fmt(s.Az, 3) + " Wb/m<br>SNR<sub>Hively</sub> \u2248 <strong>" + fmtN(s.snrH, 1) + " dB</strong> \u00b7 P<sub>sig,NZ</sub> " + fmtN(dbmFromWatts(s.Pnz), 1) + " dBm \u00b7 P<sub>sig,Z</sub> " + fmtN(dbmFromWatts(s.Pz), 1) + " dBm<br>Two tents \u00d7 " + s.att + " dB \u2192 power \u00d7 " + fmt(s.mP, 2) + ".";
+    $("slwOut").innerHTML = "P<sub>OUT</sub>(r) = S = " + fmt(s.S, 3) + " W/m\u00b2 (Eq. 38/B5 erratum) \u00b7 P<sub>total</sub> = 4\u03c0r\u00b2P<sub>OUT</sub> = " + fmt(s.Prad, 3) + " W (derived, ASSUMPTION)<br>A<sub>m</sub>(r) = " + fmt(s.Am, 3) + " Wb/m \u00b7 A<sub>z</sub>(r) = " + fmt(s.Az, 3) + " Wb/m<br>SNR<sub>Hively</sub> \u2248 <strong>" + fmtN(s.snrH, 1) + " dB</strong> \u00b7 P<sub>sig,NZ</sub> " + fmtN(dbmFromWatts(s.Pnz), 1) + " dBm \u00b7 P<sub>sig,Z</sub> " + fmtN(dbmFromWatts(s.Pz), 1) + " dBm<br>Two tents \u00d7 " + s.att + " dB \u2192 power \u00d7 " + fmt(s.mP, 2) + ".";
   }
 
   const canvas = $("vizCanvas");

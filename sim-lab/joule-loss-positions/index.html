@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joule-loss positions: Monstein &amp; Wesley (2002) vs Hively (2016–2022) · SLW Hub</title>
+<meta name="description" content="Simulation Lab research (2026-09-26): Joule-loss positions of Monstein &amp; Wesley 2002 vs Hively 2016-2022 (patent, Phys. Essays 2019, IARD 2020, Erratum 2022), quoted verbatim. FACT/HYP labelled.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../sim-lab/sim-lab.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<script src="/assets/site-search.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../../index.html">Home</a>
+      <a href="../../learn.html">Learn</a>
+      <a href="../../compare.html">Compare</a>
+      <a href="../../fields.html">Fields</a>
+      <a href="../../monstein.html">Monstein</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../lab.html">Lab</a>
+      <a href="../../kit.html">Kit</a>
+      <a href="../../library.html">Library</a>
+      <a href="../../ranging/">Ranging</a>
+      <a href="../../sim-lab/" aria-current="page">Sim Lab</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Simulation Lab report · Joule loss / conductive media · faithful HTML conversion</p>
+  <h1>Joule-loss positions: Monstein &amp; Wesley (2002) vs Hively (2016–2022)</h1>
+  <p class="lede">What Monstein &amp; Wesley (2002) and Hively (2016–2022) actually say about Joule (Ohmic) loss of scalar-longitudinal waves, quoted from rendered page images with page/eq/slide citations, and where the positions agree or differ.</p>
+  <p><span class="badge mixed">MIXED</span> <a href="../">← Simulation Lab catalogue</a></p>
+  <div class="provenance">
+    <h2>Provenance</h2>
+    <ul>
+      <li><code>/workspace/sim-lab/sub-sources/JOULE_LOSS_POSITIONS.md</code> (last modified 2026-09-26 16:05 EDT)</li>
+      <li>Updated 2026-09-30: author-confirmed note and TYPO labels on the printed exponent (no other change).</li>
+      <li>Converted to HTML 2026-09-28 (EDT) as a faithful conversion: text, numbers, equations and labels are the source's own. No new equations were added; only the TEM tags described below and the edits listed here were made.</li>
+      <li>Three local-file references were neutralised: a path inside a private draft folder, and the file name of an internal comparison note (not published; its file name misspelled Joule). No physics text changed.</li>
+      <li>Status lines inside the source (for example "nothing published", "HELD", "draft") describe the state when it was written. This page is its GitHub Pages twin, published 2026-09-28.</li>
+      <li>No Wolfram Cloud twin planned (analysis/report page, not one of Experiments A–G). Numbers are Python-computed; WL compare OWED where the source says so.</li>
+    </ul>
+  </div>
+  <div class="rules"><strong>Framing rules on this page (Dan).</strong> Under the SLW hypothesis no skin-depth, permeability, ferromagnetic or cage shielding-effectiveness argument is used to rank or dismiss SLW/SW. The Faraday cage strips TEM noise (<span class="badge fact">FACT</span>); an SLW passing the cage wall is <span class="badge hyp">HYP</span>. Every passage that uses transverse-EM (TEM / classical / cage-SE) reasoning is tagged <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>. FACT / HYP / ASSUMPTION labels are kept exactly as in the source.</div>
+  
+  
+  <div class="rules" id="author-confirmed-relaxation"><p><span class="badge fact">FACT, author-confirmed</span> <strong>Author-confirmed, 2026-09-30.</strong> In a private email from Dr. Hively to Dan (2026-09-30), Dr. Lee Hively confirmed the charge-relaxation exponent: &quot;The form, E = E0 e^(-sigma t/epsilon), is the correct one.&quot; So Eq. (A5), p. 122 of Hively &amp; Loebl 2019, and the exponent before EQN. 12 in US 9,306,527 B1 (col. 5), which print e^(−εt/σ), have ε and σ swapped (typos as printed). The correct form is E = E<sub>0</sub> exp(−σt/ε) with relaxation time τ = ε/σ, and IARD 2020 slide 60 is correct. See the <a href="../corrections/">Corrections log</a>. Where this page quotes the printed form below, the quote is kept as printed and labelled <span class="badge hyp">TYPO as printed</span>.</p></div>
+  <article class="doc">
+<p>Read-only research for Dan, 2026-09-26 (~16:30 ET). No hub page, SYNC_LEDGER or draft file was edited. Nobody was contacted and nothing was bought.</p>
+<p><strong>Labels</strong></p>
+<ul>
+<li><strong>FACT:</strong> taken directly from a source, with page/eq/slide and the words quoted.</li>
+<li><strong>HYP:</strong> our inference or our algebra.</li>
+<li><strong>&quot;Not stated in source&quot;</strong> means exactly that.</li>
+</ul>
+<p><strong>Method.</strong> Every equation below was read from a <strong>rendered page image</strong> (pdftoppm, 170–300 dpi), not from extracted text, which garbles σ, ε and □.</p>
+<ul>
+<li>□ = d'Alembertian. The IARD slide font drops it; the patent prints only &quot;²&quot;.</li>
+<li>&quot;∈&quot; is the patent's glyph for ε.</li>
+</ul>
+<p><strong>Sources used (all local)</strong></p>
+<ul>
+<li><strong>M&amp;W:</strong> C. Monstein &amp; J. P. Wesley, &quot;Observation of scalar longitudinal electrodynamic waves&quot;, <em>Europhys. Lett.</em> <strong>59</strong>(4), 514–520 (2002).
+<ul>
+<li>Hub copy: <code>/workspace/hub-efield-repo/papers/Monstein-Wesley-2002-EPL-Scalar-Longitudinal-Waves.pdf</code>. 7 pages; the <strong>full text was readable</strong>.</li>
+<li>Provenance of the hub copy (PDF &quot;Creator: Preview&quot;, 2016) is not stated. I did not check whether EPL offers it open-access.</li>
+</ul>
+</li>
+<li><strong>HL2019:</strong> L. M. Hively &amp; A. S. Loebl, &quot;Classical and extended electrodynamics&quot;, <em>Phys. Essays</em> <strong>32</strong>, 112–126 (2019). Hub copy <code>papers/Hively-Loebl-2019-…pdf</code>.</li>
+<li><strong>IARD 2020:</strong> Hively &amp; Land, &quot;Extended Electrodynamics and SHP Theory&quot;, IARD 2020 slides. Hub copy <code>papers/Hively-Land-IARD-2020-EED-and-SHP-slides.pdf</code> (72 slides).</li>
+<li><strong>Erratum 2022:</strong> Hively &amp; Loebl, Erratum, <em>Phys. Essays</em> <strong>35</strong>, 320 (2022). One page; local PDF copy.</li>
+<li><strong>Patent:</strong> L. M. Hively, US 9,306,527 B1 (Apr. 5, 2016). Hub copy <code>papers/Hively-US9306527B1-…pdf</code>.</li>
+<li><strong>Not read:</strong> Erratum <em>Phys. Essays</em> <strong>32</strong>(3), 417 (Sept 2019). It is paywalled; see Blockers.</li>
+<li><strong>Update 2026-09-29:</strong> the 2019 erratum has since been read. It corrects Eq. (38)/(B5) to P_OUT = I² r̂ / [2 (4πr)²] · √(μ/ε) and Eq. (44) to energy density B²/2μ + C²/2μ + εE²/2 (FACT). It does not touch the Joule term J·E. See <a href="../pout-erratum-audit/">P_OUT erratum audit</a>.</li>
+</ul>
+<hr />
+<h2>1. Monstein &amp; Wesley 2002: loss or attenuation of the longitudinal E field</h2>
+<h3>1.1 Their field theory has no loss term</h3>
+<ul>
+<li><strong>FACT, p. 514, Eq. (1):</strong> &quot;∇²Φ − ∂²Φ²/∂t²c² = −4πρ, (1)&quot; (printed exactly so, including the &quot;Φ²&quot;).</li>
+<li><strong>FACT, p. 514, Eq. (2):</strong> &quot;S⃗ = −∇Φ ∂Φ/∂t,  D = (∇Φ)²/2 + (∂Φ/∂tc)²/2. (2)&quot;</li>
+<li><strong>FACT, p. 515, Eq. (5):</strong> &quot;E⃗ = ∇Φ = [k q cos(kr − ωt)/r − q sin(kr − ωt)/r²]e⃗_r, (5)&quot;</li>
+<li><strong>FACT, p. 515, Eq. (6):</strong> &quot;⟨S⃗⟩_t = k ω q/(2r²)e⃗_r, (6)&quot;</li>
+<li><strong>FACT:</strong> Eqs. (1)–(6) contain no conductivity σ, no Ohm's law and no damping term. The only source term is −4πρ.</li>
+<li><strong>HYP:</strong> the −4πρ and &quot;∂Φ/∂tc&quot; forms suggest Gaussian units. Not stated in source.</li>
+</ul>
+<h3>1.2 Joule (Ohmic) loss that they DO derive: the wire polarizer (pp. 516–517)</h3>
+<ul>
+<li><strong>FACT, p. 516:</strong> &quot;…only the E⃗ field component E₀ cos(φ) in the direction of a wire produces Ohmic losses. The Ohmic loss δP per unit time in an element δL of the wire is then equal to δP = −(δV)²/δR, where δV = E₀ cos(φ)δL is the potential across the element δL and where δR = δL/σA is the resistance of the wire element of length δL, and A is the cross-sectional area and σ the conductivity of the brass wires; thus,&quot;
+<ul>
+<li><strong>Eq. (7), p. 516:</strong> &quot;δP = −[σAE₀² cos²(φ)] δL. (7)&quot;</li>
+</ul>
+</li>
+<li><strong>FACT, pp. 516–517:</strong> &quot;It may be readily shown from the first of eqs. (2) that the time average energy flux in the wire equals the time average electric field E₀ squared times c, ⟨P/A⟩_t = ⟨S⟩_t = cE₀². Thus, from eq. (7) for the rate of energy flow loss δ⟨S⟩_t in the wire per unit length δL is given by&quot;
+<ul>
+<li><strong>Eq. (8), p. 517:</strong> &quot;δ⟨S⟩_t = −(σ/c) cos²(φ)⟨S⟩_t δL. (8)&quot;</li>
+</ul>
+</li>
+<li><strong>FACT, p. 517:</strong> &quot;Integrating eq. (8), the fractional energy transmitted through the wire of length L is&quot;
+<ul>
+<li><strong>Eq. (9), p. 517:</strong> &quot;T = exp[−κ cos²(φ)], (9)&quot;</li>
+<li>The text continues: &quot;where κ is a constant proportional to the length L of the wire. … the theoretical result eq. (9) can be chosen to fit the observations when κ = 4.4, as shown in fig. 3.&quot;</li>
+<li>Fig. 3 caption, p. 516: &quot;The solid curve presents the theory, eq. (9), T = exp[−4.4 cos²(φ)] for the best-fit value of κ.&quot;</li>
+</ul>
+</li>
+<li><strong>Derived or assumed?</strong>
+<ul>
+<li><strong>FACT:</strong> they <strong>derive</strong> Eq. (7) from Ohm's law (δR = δL/σA) and Eqs. (8)–(9) from it.</li>
+<li><strong>FACT:</strong> κ is <strong>fitted</strong> (4.4), not computed from σ. No numerical σ for brass is given (not stated in source).</li>
+</ul>
+</li>
+<li><strong>Type of attenuation. FACT:</strong> it is <strong>in distance</strong>: per unit wire length δL, exponential in L. It concerns energy flux (power), and it is a Joule term: δP ∝ σE∥²·(A δL), with E∥ = E₀cos φ.</li>
+<li><strong>Medium and frequency. FACT:</strong> a 3×3 array of &quot;9 wires of length λ/2 (34.6 cm)&quot; (p. 516), brass, at 433.59 MHz (Fig. 3 caption).</li>
+<li><strong>HYP:</strong> Eq. (8) taken literally, with a metallic σ, would give a far larger κ than 4.4 for 34.6 cm wires. The fitted κ is therefore not a quantitative check of Eq. (8). This depends on the unit system (see 1.1) and is not computed in the source.</li>
+</ul>
+<h3>1.3 The excess loss over distance above ground (p. 520): measured, attributed, no equation</h3>
+<ul>
+<li><strong>FACT, p. 520:</strong> &quot;Exponential loss of the signal with distance. – It is apparent from fig. 5 that the observed signal beyond 100 m decreases more rapidly with distance than the inverse square of the distance. This loss corresponds to an additional exponential loss with distance corresponding to 1/eth decrease in the signal for a distance of 145 m. This loss is probably due to the Ohmic losses produced by the currents induced in the Earth by the longitudinal E⃗ field, which is parallel to the Earth's surface. No such loss would be expected for transverse wave, where the electric E⃗ field is normal to the Earth's surface. This exponential decay of the signal with distance, thus, further indicates the fact that longitudinal electrodynamic waves are involved.&quot;</li>
+<li><strong>FACT:</strong> there is <strong>no equation number, no formula and no conductivity value</strong> attached to this loss. It is an <strong>empirical</strong> extra exponential in distance, read off Fig. 5. It is attributed (&quot;probably&quot;) to Ohmic loss in the Earth, not derived.</li>
+<li><strong>FACT, p. 517:</strong> &quot;The signal observed equals the time average energy flux S⃗, as given by the first of eqs. (2).&quot; So &quot;signal&quot; means power flux.
+<ul>
+<li><strong>HYP (our arithmetic):</strong> 1/e in power at 145 m gives α_P ≈ 1/145 ≈ 6.9×10⁻³ m⁻¹ ≈ 0.030 dB/m. The field coefficient would be ≈ 3.4×10⁻³ m⁻¹. Neither number is in the source.</li>
+</ul>
+</li>
+<li><strong>FACT, p. 517 (the only Earth-conductivity number):</strong> &quot;Since the conductivity of the Earth is only about 10⁻³ ℧/m [4], the effective reflecting surface of the Earth is a little below the actual surface. To agree with observations, the effective surface is chosen as half wavelength, λ/2 = 34.6 cm, below the actual surface.&quot;
+<ul>
+<li>This σ is used for the image/reflection geometry, <strong>not</strong> for the loss (not stated in source).</li>
+</ul>
+</li>
+<li><strong>Medium, frequency, geometry and other numbers</strong>
+<ul>
+<li><strong>FACT:</strong> propagation in air above ground on the bank of the river Rhein near Sennwald, Switzerland (p. 518), at 433.59 MHz (Abstract).</li>
+<li><strong>FACT:</strong> source 4.0 m and receiver 4.4 m above ground (Abstract); effective heights &quot;y = 4.346 m and y′ = 4.746 m. (12)&quot; (p. 517).</li>
+<li><strong>FACT:</strong> Fig. 5 spans 10–1000 m; acknowledgments mention &quot;distance of 1 kilometer&quot;.</li>
+<li><strong>FACT:</strong> agreement with Eq. (14) is &quot;quite satisfactory for x &lt; 100 m&quot; (p. 519).</li>
+<li><strong>FACT:</strong> minima observed at 39 m and 23 m (Table I, p. 518; p. 519). Earth reflection coefficient &quot;ℜ = B²/A² = 0.482. (24)&quot; (p. 519). Asymptotic fit &quot;⟨S_x⟩_t = (1/x²)[1 + 0.945 cos k(R′ − R)], (23)&quot; (p. 519).</li>
+</ul>
+</li>
+</ul>
+<h3>1.4 Answer to Q1 in one line</h3>
+<ul>
+<li><strong>FACT:</strong> M&amp;W give <strong>one derived Joule loss law</strong>, Eqs. (7)–(9): Ohmic loss σE∥² in brass wires, exponential in wire length, fitted with κ = 4.4.</li>
+<li><strong>FACT:</strong> for the <strong>ground</strong> loss over distance they give <strong>no equation</strong>. They give a measured extra 1/e per 145 m (power) beyond 100 m at 433.59 MHz over ground, which they say is &quot;probably&quot; Earth Ohmic loss.</li>
+<li><strong>FACT:</strong> their scalar field equations (1)–(6) contain no conductivity. Both losses are added from Ohm's law or from the data, outside the field theory.</li>
+</ul>
+<hr />
+<h2>2. Hively's position on a Joule loss term for the SLW E field</h2>
+<h3>2(a). Hively &amp; Loebl, <em>Phys. Essays</em> 32, 112 (2019)</h3>
+<ul>
+<li><strong>FACT, p. 114, Eqs. (21)–(22):</strong>
+<ul>
+<li>&quot;∇ × B − (1/c²) ∂E/∂t − ∇C = μJ; (21)&quot;</li>
+<li>&quot;∇•E + ∂C/∂t = ρ/ε. (22)&quot;</li>
+</ul>
+</li>
+<li><strong>FACT, p. 116 (the no-skin-effect argument):</strong> &quot;The resultant electric field is Eᴸ = Jᴸ/σ = ∇κ/σ for media with a linear conductivity, σ. Eᴸ and Jᴸ for the SLW are curl-free. Faraday's law becomes ∇ × Eᴸ = −Ḃ = ∇ × ∇κ/σ = 0. … Thus, no eddy currents occur, so the SLW is unimpeded by the skin effect for propagation through linearly conductive media. See also Graham et al.⁵³ and Appendix A.&quot;
+<ul>
+<li>Then: &quot;C, Eᴸ, and Jᴸ are all related by Eq. (32b) with⁵⁴ σ = ε_o ε″ ω and ε = ε_o(ε′ − jε″) for a SLW impedance, Z,&quot;</li>
+</ul>
+</li>
+<li><strong>FACT, p. 116, Eq. (37):</strong> &quot;Z = |E_r|/|C/μ_oμ′| = √(μ_o/ε_o) √(μ′/ε′) (1 − 1/(jkr))/(1 − j tan(δ_ε)). (37)&quot;
+<ul>
+<li>Text: &quot;Equation (37) assumes spherical waves in linear conductive media: Eᴸ = E_r r̂ exp[j(kr − ωt)]/r, together with C = C_o exp[j(kr − ωt)]/r.&quot;</li>
+</ul>
+</li>
+<li><strong>FACT, p. 117, Eq. (44) as printed:</strong>
+<ul>
+<li>&quot;∂/∂t (B²/2μ + C²/2μ + εE²) + ∇•(E × B/μ + CE/μ) + J•E = ρC/(εμ). (44)&quot;</li>
+<li>How it is built (p. 117): &quot;EED predicts a revised energy balance, Eq. (44), from the sum of: (C/μ) times Eq. (22); (B/μ)• applied to Faraday's law; and application of −(E/μ)• applied to Eq. (21).&quot;</li>
+<li>After it: &quot;Equation (44) has new energy density terms: scalar field energy (C²/2μ), SLW energy (CE/μ), and a power source (ρC/εμ).&quot;</li>
+<li>Note: Eq. 44 prints &quot;εE²&quot; without /2, while the patent's EQN. 14 prints &quot;εE²/2&quot; (see 2(d)).</li>
+</ul>
+</li>
+<li><strong>FACT, p. 117:</strong> &quot;Revised energy balance, Eq. (44), shows that the scalar-wave energy is C²/2μ ∼ 1/r². Thus, the total scalar-wave energy, 4πr²(C²/2μ), is constant through a spherical boundary around a source and C(r → ∞) → 0, as expected.&quot;</li>
+<li><strong>FACT: HL2019 does not call J·E in Eq. 44 a loss or a gain for the SLW, and gives no attenuation constant.</strong> Not stated in source.</li>
+<li><strong>FACT, p. 122, Appendix A, Eqs. (A4)–(A7):</strong>
+<ul>
+<li>&quot;(A4) □²(Ė + J/ε) = □²(Ė + σE/ε).&quot;</li>
+<li>&quot;One solution to Eq. (A4) sets the terms inside the parentheses to zero, as a transient solution⁴ that typically decays in ∼10⁻¹⁹ s&quot;</li>
+<li>&quot;E = E_o e^(−εt/σ). (A5)&quot; <span class="badge hyp">TYPO as printed</span> (ε and σ swapped; author-confirmed 2026-09-30, correct form E = E_o e^(−σt/ε))</li>
+<li>(A6) &quot;E = E_o(r)e^(−jωt)&quot;; then (A7) □²E = 0.</li>
+<li>&quot;The lack of a source term on the RHS of Eq. (A7) means that the SLW propagates without loss in isotropic, homogeneous conductive media (σ = constant). That is, the SLW is unconstrained by the skin effect.&quot;</li>
+<li>This is a <strong>time</strong> transient, not a distance attenuation. The units issue (τ = ε/σ favours e^(−σt/ε)) is in the internal Joule-term comparison note (not published). Resolved 2026-09-30: author-confirmed, see the note at the top of this page.</li>
+</ul>
+</li>
+<li><strong>FACT, pp. 119–120:</strong> &quot;…resonance-cavity effects that are not included in the present theory. SLW attenuation in conductive media is the subject of future work. The combined solid-copper thickness (2 × 1.02 mm) is 2914 skin depths in the result of Fig. 4, which should produce a classical attenuation of ∼10⁻¹²⁶⁵ in TEM waves. The test measurement yielded an attenuation between −115 dB at r = 2 cm separation and −137 dB at r = 30 cm. Extrapolating the straight-line fit to a separation of 2 mm (where the enclosed antennas are barely separated) gives −79 dB and −86 dB, for an attenuation of ∼10⁻⁴.&quot; <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>FACT, p. 121:</strong> &quot;Wave penetration of the two 1-mm thick Faraday enclosures (2-mm total) demonstrates the <strong>low-loss</strong> nature of the SLW in conductive media. A more accurate and compelling result clearly requires a much better experimental design, which is the subject of future work.&quot;</li>
+<li><strong>Summary, 2019.</strong>
+<ul>
+<li><strong>FACT:</strong> &quot;without loss&quot; in (A7) text, but &quot;low-loss&quot; on p. 121, and attenuation in conductive media is &quot;future work&quot; on p. 120.</li>
+<li><strong>HYP:</strong> the 2019 position is no skin effect plus no loss in linear media in theory, while the measured loss is not claimed to be zero.</li>
+</ul>
+</li>
+</ul>
+<h3>2(b). IARD 2020 slides (Hively &amp; Land)</h3>
+<ul>
+<li><strong>FACT, slide 10 &quot;2. What is EED? (5)&quot;:</strong> item &quot;7. No skin-effect dissipation in linear, conductive media&quot;.</li>
+<li><strong>FACT, slide 23:</strong> &quot;•No constraint by skin effect in linearly conductive media&quot;.</li>
+<li><strong>FACT, slide 60 &quot;SLW Attenuation in Conductive Media&quot;:</strong>
+<ul>
+<li>&quot;J = σE ⇒ □²(Ė + J/ε) = □²(Ė + σE/ε) = 0&quot;</li>
+<li>&quot;Ė + σE/ε = 0 ⇒ E = E_o e^(−σt/ε)&quot;</li>
+<li>&quot;E = E_o(r)e^(−jωt) ⇒ □²E = 0 ⇒ lossless propagation in <em>linear</em> conductive media&quot;</li>
+</ul>
+</li>
+<li><strong>FACT, slide 61 &quot;No SLW Attenuation in Conductive Media&quot;:</strong>
+<ul>
+<li>&quot;□²(Ė + σE/ε) = 0, with σ=σ(E) ≡ σ(|E|) ⇒ □²(−jω + σ/ε)E + (E/ε)(∂σ/∂E)□²E = 0&quot;</li>
+<li>&quot;One solution for: □²E = 0, as before (E=E_r)&quot;</li>
+<li>&quot;Second solution for: −jωε + σ + E ∂(−jωε+σ)/∂E = 0:&quot;</li>
+<li>&quot;… E₂/E₁ = −jε₁′(1 + jε₁″/ε₁′)/[−jε₂′(1 + jε₂″/ε₂′)] = (ε₁′/ε₂′)(1+jtanδ₁)/(1+jtanδ₂); tanδ = ε″/ε′ ⇒ loss in media with σ = σ(|E|)&quot;</li>
+</ul>
+</li>
+<li><strong>HYP:</strong>
+<ul>
+<li>Despite its title, slide 61 states a loss mechanism, but <strong>only for field-dependent (nonlinear) σ</strong>. It is expressed as an amplitude ratio between two media states, not as a per-metre exponential or a Joule σE² term.</li>
+<li>For linear σ the slides say &quot;lossless&quot;. Slide 60's e^(−σt/ε) is a time transient.</li>
+</ul>
+</li>
+</ul>
+<h3>2(c). Erratum, <em>Phys. Essays</em> 35, 320 (2022): single page, p. 320, render-checked</h3>
+<ul>
+<li><strong>FACT:</strong> &quot;This Erratum corrects errors in Appendix A of our paper for derivation of the no-skin-effect constraint. The scalar longitudinal wave (SLW) has only irrotational fields and no magnetic field from Eq. (27), B = 0, yielding from Eq. (23)&quot;</li>
+<li>(A1) &quot;□²B = μ∇ × Jᴸ = 0 ⇒ ∇ × ∇ × Jᴸ = 0 ⇒ ∇(∇ · Jᴸ) − ∇²Jᴸ = 0 ⇒ ∇(∇ · Jᴸ) = ∇²Jᴸ&quot;</li>
+<li>(A2) &quot;□²C = −μ(ρ̇ + ∇·Jᴸ) ⇒ ∇□²C/ε = −μ[∇ρ̇/ε + ∇(∇·Jᴸ)/ε] ⇒ ∇□²C/ε = −μ[∇ρ̇/ε + ∇²Jᴸ/ε] ⇒ ∇ρ̇/ε = −□²∇C/(εμ) − ∇²Jᴸ/ε&quot;</li>
+<li>(A3) &quot;□²Eᴸ = ∇ρ/ε + μJ̇ᴸ ⇒ □²Ėᴸ = ∇ρ̇/ε + μJ̈ᴸ ⇒ □²Ėᴸ = −□²∇C/(εμ) − ∇²Jᴸ/ε + μJ̈ᴸ ⇒ □²Ėᴸ = −□²∇C/(εμ) − □²Jᴸ/ε&quot;</li>
+<li>&quot;Moving all the terms to the left-hand side gives: □²Ėᴸ + □²∇C/(εμ) + □²Jᴸ/ε = 0 ⇒ (□²/εμ)(εμĖᴸ + ∇C + μJᴸ) = 0 (A4)&quot;</li>
+<li>&quot;The expression inside the right-most parentheses of Eq. (A4) is Eq. (21) with only the irrotational terms on the left-hand side and ∇ × B = 0, because B = 0 for the irrotational fields from Eq. (27)&quot;</li>
+<li>&quot;εμĖᴸ + ∇C + μJᴸ = 0. (A5)&quot;</li>
+<li>&quot;Substituting the expressions for E and C from Eqs. (18) and (20) into Eq. (A.5) gives the <em>longitudinal</em> component of the A-wave equation: □²Aᴸ = μJᴸ. (A6)&quot;</li>
+<li><strong>Closing, verbatim:</strong> &quot;Physically, Eq. (A6) means that the SLW is not subject to resistive loss in conductive media. The same no-loss result occurs from the energy balance equation, Eq. (44), by substituting for (ρ/ε) from Eq. (22) and by substituting for Jᴸ from Eq. (21) with B = 0, then cancelling terms. Consequently, the SLW is unconstrained by the skin effect and power loss in resistive media.&quot;</li>
+<li><strong>FACT: not in the Erratum:</strong>
+<ul>
+<li>no σ, no Ohm's law J = σE, no exponential and no transient;</li>
+<li>no displayed algebra for the Eq. (44) cancellation (it is described in words only);</li>
+<li>no statement that J·E = 0;</li>
+<li>no mention of heating.</li>
+</ul>
+</li>
+</ul>
+<h3>2(d). US 9,306,527 B1 (2016)</h3>
+<ul>
+<li><strong>FACT, col. 5 ~l. 46–56 (the transient):</strong> &quot;…Linear electrical conductivity (σ), J=σE, then may give ²(Ė+σE/∈)=0. A very rapidly decaying, transient solution may arise by setting the terms inside the parentheses to zero, giving E=E_o exp(−∈t/σ). <span class="badge hyp">TYPO as printed</span> (∈ and σ swapped; author-confirmed 2026-09-30, correct form E=E_o exp(−σt/∈)) … A second solution may use the non-transient form, E=E_o(r) exp(−jωt), which yields: □²E=0. (12)&quot;</li>
+<li><strong>FACT, col. 6 ll. 1–13:</strong> &quot;…Third, these equations may have zero on the RHS for propagation in conductive media. This last result may arise from B=0 for the SLW, implying no back-electromagnetic field from Ḃ in Faraday's law that in turn may give no (circulating) eddy currents. Consequently, the SLW may not be subject to the skin effect in media with linear electrical conductivity.&quot;</li>
+<li><strong>FACT, col. 6 ll. 13–15:</strong> &quot;C, E, and J may interact via EQN. 6, which can be rewritten using J=σE, and identifying the electrical conductivity with the imaginary part of the complex permittivity ∈″= σ/∈_oω:&quot; followed by EQN. (13) &quot;C/E_r = (ε′/c)((1 + jα)/(1 + j/kr)) (13)&quot;.</li>
+<li><strong>FACT, col. 6 ~l. 35–43, EQN. 14 and the key sentence:</strong>
+<ul>
+<li>&quot;∂/∂t(B²/2μ + C²/2μ + εE²/2) + ∇·(E×B/μ + CE/μ) + J·E − ρC/(εμ) = 0. (14)&quot;</li>
+<li>&quot;Use of the spherical wave forms for E and C in EQN. 14 with B=0 and the ratio of (C/E_r) from EQN. 13 may yield an identity, 0=0; the same result may arise for plane waves, thus explicitly verifying the no-skin-effect prediction.&quot;</li>
+</ul>
+</li>
+<li><strong>FACT, col. 6 Table 1:</strong> &quot;3) SLW propagates in conductive media without the skin effect. EQNS. 8-12&quot;; &quot;6) C, E, and J exchange energy in conductive media. EQNS. 11-17&quot;.</li>
+<li><strong>FACT, col. 9 ll. ~5–25 (FIG. 3):</strong> &quot;The thickness of the two spherical caps corresponds to 2885 skin depths, which should produce a classical attenuation of −25,064 db (down by a factor of 10⁻¹²⁵³). The test measurement yielded an attenuation between −115 db at r=2 cm separation to −137 db at r=30 cm. … gives −79 db and −86 db (down by a factor of 10⁻⁴). The difference … corresponds to &gt;1249 orders of magnitude between attenuation for classical waves and the measured attenuation for the SLW.&quot;</li>
+<li><strong>FACT, claim 1 (col. 19):</strong> &quot;…wherein scalar-longitudinal waves transmitted by the first conductor propagate through a conductive medium with substantially lower attenuation relative to a classical skin-depth attenuation.&quot; Claim 9 (coil) and the system claim use the same wording.</li>
+<li><strong>HYP:</strong> the patent claims <strong>reduced</strong> attenuation (&quot;substantially lower&quot;), not zero. It also frames J·E as energy <strong>exchange</strong> among C, E and J (Table 1, item 6), not dissipation. Its &quot;0=0&quot; sentence is the same cancellation the Erratum later invokes.</li>
+</ul>
+<h3>2(e). What the Erratum's conclusion means for a Joule term σE∥²</h3>
+<ul>
+<li><strong>FACT:</strong> J·E appears explicitly in Eq. (44) (HL2019 p. 117) and in EQN. 14 (patent). With J = σE it would be σE² (HYP: the substitution J = σE is the patent's col. 6 wording, not Eq. 44's).</li>
+<li><strong>FACT:</strong> Hively does <strong>not</strong> say J·E = 0, and does <strong>not</strong> say σE² disappears. He says the &quot;no-loss result occurs from … Eq. (44), by substituting for (ρ/ε) from Eq. (22) and … Jᴸ from Eq. (21) with B = 0, then cancelling terms&quot; (Erratum, p. 320). The patent says &quot;may yield an identity, 0=0&quot; (col. 6).</li>
+<li><strong>FACT:</strong> Eq. (44) itself was built from Eqs. (21), (22) and Faraday's law (p. 117 quote above).</li>
+<li><strong>So how far does the source show the cancellation?</strong> Only in words: &quot;substituting … then cancelling terms&quot;. <strong>No algebra is shown</strong> in the Erratum or the patent.</li>
+</ul>
+<p><strong>HYP (our algebra, not in any source).</strong> This carries out exactly the substitution the Erratum names, using only printed equations.</p>
+<ul>
+<li>Assumptions:
+<ul>
+<li>B = 0.</li>
+<li>μ is constant.</li>
+<li>1/c² = εμ. This is implied by the Erratum calling &quot;εμĖᴸ + ∇C + μJᴸ = 0&quot; &quot;Eq. (21) … with ∇ × B = 0&quot;.</li>
+</ul>
+</li>
+<li>Eq. (21) with B = 0 gives μJ = −εμĖ − ∇C, so J·E = −(ε/2)∂(E²)/∂t − E·∇C/μ.</li>
+<li>Eq. (22) gives ρC/(εμ) = C(∇·E + ∂C/∂t)/μ.</li>
+<li>Also, ∇·(CE/μ) = (E·∇C + C∇·E)/μ.</li>
+<li>Inserting these into Eq. (44):
+<ul>
+<li>With the energy density written <strong>εE²/2</strong> (as in patent EQN. 14 and HL2019 p. 116 text &quot;4πr²(εE²/2)&quot;), every term cancels and Eq. (44) reduces to <strong>0 = 0</strong>. This matches the patent's &quot;identity, 0=0&quot;.</li>
+<li>With Eq. (44) <strong>exactly as printed (εE²)</strong>, a residual (ε/2)∂(E²)/∂t = 0 is left over. This is one more sign the printed &quot;εE²&quot; is a typo (also flagged in REDO_SLW.md as ASSUMPTION).</li>
+</ul>
+</li>
+<li><strong>Interpretation (HYP).</strong> The Joule term is not shown to vanish. It is <strong>re-expressed</strong> through Eq. (21) as field-energy change −∂(εE²/2)/∂t plus a C-coupling term −E·∇C/μ, which then cancel against the other terms. That is Hively's &quot;C, E, and J exchange energy&quot; picture: conduction work is traded with the E and C fields rather than lost.</li>
+<li><strong>Caveat (HYP).</strong> Eq. (44) was built from Eqs. (21)–(22). Substituting them back must give an identity for <strong>any</strong> fields that satisfy them. The same happens with the classical Poynting theorem, yet classical TEM waves in conductors do attenuate. So the cancellation alone does <strong>not</strong> show that σE² heating is absent or replenished. It shows the balance is self-consistent. Where the replenishing energy comes from (the ρC/(εμ) &quot;power source&quot;, or the C field) is <strong>not quantified in any Hively source</strong>. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>HYP (side note, relevant to the σ/ε typo).</strong> Putting Ohm's law Jᴸ = σEᴸ into the Erratum's (A5) gives εμĖ + μσE = −∇C. Its homogeneous part decays as e^(−σt/ε), the slide-60 form. The Erratum itself does not make this substitution.</li>
+</ul>
+<p><strong>Our α_J is not Hively's.</strong></p>
+<ul>
+<li><strong>FACT (REDO_SLW.md §1.2, lines 22, 61–77, 112):</strong> &quot;Our per-metre Joule attenuation α_J = σ_H|Z|/2 is <strong>not in any Hively text</strong>. It is our construction …&quot; It needs a magnitude-only impedance substitution, a choice of E∥ and σ, and &quot;<strong>deletion of the ρC/(εμ) source term</strong>. That source term is the one Hively's Erratum uses to cancel J·E.&quot;</li>
+<li><strong>HYP:</strong> α_J is therefore a reading Hively explicitly rejects. It is sensitive to our conventions (186 km ↔ 1.06 cm at 60 Hz under one convention change, REDO_SLW §1.2d).</li>
+</ul>
+<hr />
+<h2>3. Reconciling Monstein &amp; Wesley with Hively</h2>
+<p class="tem-note">&#9888; Rows/columns in this table that refer to TEM / classical / cage SE: <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Point</th>
+<th>Label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>M&amp;W attribute a <strong>measured</strong> extra exponential loss (1/e in power per 145 m, beyond 100 m, 433.59 MHz) to &quot;Ohmic losses produced by the currents induced in the Earth by the longitudinal E⃗ field&quot; (p. 520). Hively says the SLW &quot;is not subject to resistive loss in conductive media&quot; (Erratum p. 320) and gives &quot;lossless propagation in <em>linear</em> conductive media&quot; (IARD slide 60).</td>
+<td>FACT (both quotes)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Taken at face value these conflict, <strong>if</strong> M&amp;W's wave is Hively's SLW <strong>and</strong> the Earth is a linear conductive medium in Hively's sense.</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>The clearest direct conflict is the wire polarizer.</strong> M&amp;W derive and use a Joule term δP = −[σAE₀²cos²(φ)]δL (Eq. 7) as real dissipation, fitted as T = exp[−4.4cos²φ]. Hively's framework says J·E cancels in the energy balance.</td>
+<td>FACT (equations); HYP (that the two are in conflict)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Hively's own account of the same polarizer result (HL2019 App. D, p. 124): &quot;The signal was strongly attenuated for the dipole-array parallel to the transmitter-receiver direction. No attenuation occurred for an array orientation perpendicular…&quot;. He does not say whether he accepts M&amp;W's Ohmic mechanism.</td>
+<td>FACT; mechanism not stated in source</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Different geometry.</strong> M&amp;W's wave travels <strong>through air above</strong> the ground (antennas 4.0/4.4 m high). The loss is attributed to currents induced <strong>in</strong> the Earth, a grazing/near-surface mechanism. Hively's claims concern propagation <strong>through</strong> conductors (copper Faraday enclosures, 2914 skin depths).</td>
+<td>FACT (setups); HYP (that they are different mechanisms)</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Different theories.</strong> M&amp;W: a pure scalar-potential Φ wave, E = ∇Φ, energy flux S = −∇Φ ∂Φ/∂t (Eqs. 1–2), with &quot;∇ · J⃗ = 0&quot; inside the ball (p. 515) and no C field. Hively: EED with a dynamical C, B = 0, a gradient-driven Jᴸ = ∇κ (HL2019 p. 116) and SLW energy flux CE/μ (Eq. 44).</td>
+<td>FACT</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Because of point 6, M&amp;W's &quot;scalar wave&quot; and Hively's &quot;SLW&quot; may not be the same object. M&amp;W's divergenceless source current contrasts with Hively's gradient-driven current. So a loss claim for one does not automatically transfer to the other.</td>
+<td>HYP</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Measured vs derived.</strong> M&amp;W's ground loss is <strong>empirical</strong> and &quot;probably&quot; Ohmic, with no formula and no σ used. Hively's &quot;no loss&quot; is <strong>derived</strong> (A6 plus the Eq. 44 cancellation), while his own measurements say &quot;low-loss&quot; (p. 121) and &quot;substantially lower attenuation&quot; (patent claim 1), and call conductive-media attenuation &quot;future work&quot; (p. 120).</td>
+<td>FACT</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Neither source gives a validated per-metre SLW Joule attenuation formula. M&amp;W's Eq. (8) rate σ/c is for wires and was not used quantitatively (κ was fitted). Hively gives none.</td>
+<td>FACT (absence); HYP (that Eq. 8 was not a quantitative check)</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Hively's critique of the M&amp;W setup (HL2019 App. D, p. 124): &quot;The outer conductor of the coaxial cable was grounded, inducing unquantified electrical ground currents. … These tests were poorly controlled, and not reproducible.&quot; Also: &quot;TMW and the Butterworth omitted the image current, leading to poor agreement between the test results and the models.&quot;</td>
+<td>FACT</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Classical return or ground currents (point 10) and TEM ground-wave loss could explain some or all of M&amp;W's excess loss beyond 100 m without any SLW Joule loss. Hively does not make this argument explicitly.</td>
+<td>HYP; not stated in source</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Hively's only stated loss mechanism is <strong>nonlinear</strong> σ = σ(|E|) (IARD slide 61). M&amp;W do not discuss nonlinear σ. Whether moist ground at 433 MHz is &quot;nonlinear&quot; in Hively's sense is not addressed by either.</td>
+<td>FACT (slide 61; M&amp;W silence); HYP (relevance)</td>
+</tr>
+<tr>
+<td>13</td>
+<td>For our modelling: M&amp;W's 1/e-per-145 m is an <strong>over-ground, 433.59 MHz, single-site</strong> empirical number, not a σE∥² law. It cannot be transferred to seawater, hull steel or other frequencies without an assumed mechanism. Converting it to α_P ≈ 6.9×10⁻³ m⁻¹ (≈ 0.030 dB/m) is our arithmetic.</td>
+<td>HYP</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2>Blockers and what would clear them</h2>
+<ol>
+<li><strong>Erratum <em>Phys. Essays</em> 32(3), 417 (30 Sep 2019)</strong> (DOI 10.4006/0836-1398-32.3.417; the one the hub library links) is <strong>unread</strong>. It is paywalled at Ingenta ($25) and may bear on the 2019 Appendix A and the (A5) transient. To clear it: Dan buys or obtains the PDF (not done here, per the no-buy rule) or asks Dr. Hively.</li>
+<li><strong>M&amp;W provenance:</strong> the hub-hosted copy's source and licence are not stated. The full text was readable, but it was not cross-checked against the publisher's version. To clear it: compare with the EPL/IOP landing page, or the authors' own posting.</li>
+<li><strong>M&amp;W references [2], [3] (Wesley 2001) and [4] (Romig, ref. data)</strong> were not read. They might contain Wesley's fuller scalar theory, including any loss term. To clear it: library or ILL access.</li>
+<li><strong>No Hively source displays the Eq. (44) cancellation algebra.</strong> Our HYP algebra (§2e) should be checked by a second reader. The printed &quot;εE²&quot; in Eq. (44) versus &quot;εE²/2&quot; in patent EQN. 14 affects whether it closes exactly.</li>
+<li>Patent EQN. 13's α definition is partly unreadable in the scan and is quoted only as far as legible.</li>
+</ol>
+
+  </article>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub · <a href="../../sim-lab/">Simulation Lab catalogue</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
+</body>
+</html>

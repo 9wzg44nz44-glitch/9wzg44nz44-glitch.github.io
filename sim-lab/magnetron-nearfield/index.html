@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test Plan: Longitudinal fields near a 2.45 GHz microwave-oven magnetron, and where to put the SLW/SW detectors · SLW Hub</title>
+<meta name="description" content="Simulation Lab test plan (2026-09-27): magnetron near-field longitudinal test. Door R1/R2 boundaries, Hertzian dipole E_r/E_theta ratios, TE10 WR-340, placement &gt;= 10-12 m, openEMS relative check. FACT/HYP labelled. Educational.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../sim-lab/sim-lab.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<script src="/assets/site-search.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../../index.html">Home</a>
+      <a href="../../learn.html">Learn</a>
+      <a href="../../compare.html">Compare</a>
+      <a href="../../fields.html">Fields</a>
+      <a href="../../monstein.html">Monstein</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../lab.html">Lab</a>
+      <a href="../../kit.html">Kit</a>
+      <a href="../../library.html">Library</a>
+      <a href="../../ranging/">Ranging</a>
+      <a href="../../sim-lab/" aria-current="page">Sim Lab</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Simulation Lab report · magnetron near-field · faithful HTML conversion</p>
+  <h1>Test Plan: Longitudinal fields near a 2.45 GHz microwave-oven magnetron, and where to put the SLW/SW detectors</h1>
+  <p class="lede">Test plan for looking for a longitudinal near-field component from a microwave-oven magnetron: near/far-field boundaries, Hertzian-dipole |E_r|/|E_θ| ratios, TE10 waveguide numbers, placement, and a coarse openEMS relative check. Plan only; no SLW source strength is known.</p>
+  <p><span class="badge mixed">MIXED</span> <a href="../">← Simulation Lab catalogue</a></p>
+  <div class="provenance">
+    <h2>Provenance</h2>
+    <ul>
+      <li><code>/workspace/sim-lab/magnetron-nearfield/TEST_PLAN.md</code> (last modified 2026-09-27 20:24 EDT)</li>
+      <li>Converted to HTML 2026-09-28 (EDT) as a faithful conversion: text, numbers, equations and labels are the source's own. No new equations were added; only the TEM tags described below and the edits listed here were made.</li>
+      
+      <li>Status lines inside the source (for example "nothing published", "HELD", "draft") describe the state when it was written. This page is its GitHub Pages twin, published 2026-09-28.</li>
+      <li>No Wolfram Cloud twin planned (analysis/report page, not one of Experiments A–G). Numbers are Python-computed; WL compare OWED where the source says so.</li>
+    </ul>
+  </div>
+  <div class="rules"><strong>Framing rules on this page (Dan).</strong> Under the SLW hypothesis no skin-depth, permeability, ferromagnetic or cage shielding-effectiveness argument is used to rank or dismiss SLW/SW. The Faraday cage strips TEM noise (<span class="badge fact">FACT</span>); an SLW passing the cage wall is <span class="badge hyp">HYP</span>. Every passage that uses transverse-EM (TEM / classical / cage-SE) reasoning is tagged <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>. FACT / HYP / ASSUMPTION labels are kept exactly as in the source.</div>
+  <h2>Downloads</h2><ul class="dl-list"><li><a href="nearfield_numbers.json">nearfield_numbers.json</a></li><li><a href="openems_compare.json">openems_compare.json</a></li></ul>
+  
+  <article class="doc">
+<p><strong>Workstream:</strong> Simulation Lab (Dan Britton) · <strong>Written:</strong> 2026-09-27 (ET) · <strong>Status:</strong> PLAN ONLY. No web page has been built, no Cloud twin exists, and nothing has been published or sent.
+<strong>Numbers:</strong> all come from <code>nearfield_numbers.py</code> → <code>nearfield_numbers.json</code> and <code>openems_dipole_ratio.py</code> → <code>openems_compare.json</code>, in this folder. They were computed in Python only; the Wolfram Language (WL) compare is <strong>OWED</strong>.</p>
+<h3>How to read the labels</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="badge fact">FACT</span></td>
+<td>Established result with a citation. Textbook electromagnetics is <strong>FACT for transverse (TEM) and classical fields only</strong>; it is <em>not</em> established for SLW/SW.</td>
+</tr>
+<tr>
+<td><span class="badge hyp">HYP</span></td>
+<td>A hypothesis being tested (Hively's SLW/SW framework, Dan's HYP).</td>
+</tr>
+<tr>
+<td><span class="badge asm">ASSUMPTION</span></td>
+<td>A value we chose or guessed, which Dan should check on the real oven.</td>
+</tr>
+<tr>
+<td><em>transverse-EM reasoning, NOT applicable under the SLW hypothesis</em></td>
+<td>This tag marks classical reasoning wherever it touches on SLW behaviour.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h2>0. The question, and where it came from</h2>
+<ul>
+<li><strong>Source (verbal only):</strong> Hively, personal communication to D. Britton, verbal, reported by Dan, 2026-09. There is no written record.
+<ul>
+<li>What was reported: the near field of any TEM source inherently contains longitudinal components, so SLW/SW detectors must sit well outside the near field. Otherwise a near-field longitudinal component could be mistaken for a distant SLW/SW. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+</li>
+<li><strong>HYP (Dan):</strong> anything that generates a transverse wave also generates an SLW, and possibly an SW.</li>
+<li><strong>The two questions this plan answers:</strong>
+<ol>
+<li>Does the near field of a 2.45 GHz oven magnetron (and of the oven's leakage points) contain a measurable <em>longitudinal</em> E alongside the transverse E?</li>
+<li>How far away must the SLW/SW detectors be so they can't confuse that ordinary near-field longitudinal E with a distant SLW/SW?</li>
+</ol>
+</li>
+</ul>
+<p><strong>Short answers</strong></p>
+<ol>
+<li><strong>FACT (classical):</strong> yes, very close to any source. Inside the oven it is everywhere. Outside it, the longitudinal share dies off quickly with distance.</li>
+<li><strong>Recommendation:</strong> put the receiver at least <strong>3 × 2D²/λ ≈ 10–12 m (≈ 100 λ)</strong> from the oven door, sealed inside Dan's Faraday cage. The <strong>absolute minimum</strong> is <strong>≈ 4 m</strong> (1 × 2D²/λ for a 0.5 m door, ≈ 32 λ).</li>
+</ol>
+<hr />
+<h2>1. (a) Near-field boundaries at 2.45 GHz</h2>
+<h3>1.1 Basic numbers</h3>
+<ul>
+<li><strong>FACT:</strong> λ = c/f = 0.1224 m (12.24 cm) at 2.45 GHz.
+<ul>
+<li>The LG 2M246 magnetron datasheet gives 2460 MHz into a matched load. That makes a &lt; 0.5 % difference, so it's ignored here.</li>
+</ul>
+</li>
+<li><strong>FACT (Balanis, <em>Antenna Theory</em>, 3rd ed., §4.2; Wheeler's &quot;radian sphere&quot;):</strong> for an electrically small source, the reactive near field is dominant inside <strong>r ≈ λ/2π = 1.95 cm</strong> (kr = 1).</li>
+<li><strong>FACT (Balanis 3e §2.2.4; IEEE Std 145-2013, definitions of field regions):</strong> for a radiator of largest dimension D, where D is comparable to or larger than λ:
+<ul>
+<li>the reactive near field extends to <strong>R1 = 0.62 √(D³/λ)</strong>;</li>
+<li>the radiating near field (Fresnel region) runs from R1 to <strong>R2 = 2D²/λ</strong>;</li>
+<li>beyond R2 is the far field (Fraunhofer region).</li>
+</ul>
+</li>
+<li><strong>FACT (Balanis §2.2.4):</strong> for D ≪ λ, these D-based formulas give distances shorter than λ, and so they don't apply. The far field then requires r ≫ λ (in practice several λ).</li>
+</ul>
+<h3>1.2 Boundary table</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>D (m)</th>
+<th>Label on D</th>
+<th>λ/2π</th>
+<th>R1 = 0.62√(D³/λ)</th>
+<th>R2 = 2D²/λ</th>
+<th>What governs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(i) Magnetron antenna cap, inside the waveguide launcher</td>
+<td>0.02</td>
+<td>ASSUMPTION (cap ≈ 1.5–2 cm)</td>
+<td>1.95 cm</td>
+<td>(0.5 cm)</td>
+<td>(0.65 cm)</td>
+<td>Electrically small (0.16 λ): λ/2π. <strong>But it sits inside a metal waveguide, so free-space regions do not apply at all (FACT).</strong></td>
+</tr>
+<tr>
+<td>(ii) Oven cavity</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td><strong>FACT:</strong> a closed metal resonant cavity is entirely a standing-wave / &quot;near-field&quot; region. No far field exists inside it (Pozar 4e §6.3; Harrington 1961 §6-9, cavity modes).</td>
+</tr>
+<tr>
+<td>(iii-a) Door seam / choke gap, D = door diagonal</td>
+<td>0.40</td>
+<td>ASSUMPTION</td>
+<td>—</td>
+<td>0.45 m</td>
+<td>2.62 m</td>
+<td>Balanis §2.2.4 (D = 3.3 λ)</td>
+</tr>
+<tr>
+<td>(iii-a) Door seam / choke gap</td>
+<td>0.45</td>
+<td>ASSUMPTION</td>
+<td>—</td>
+<td>0.54 m</td>
+<td>3.31 m</td>
+<td>Balanis §2.2.4</td>
+</tr>
+<tr>
+<td>(iii-a) Door seam / choke gap</td>
+<td>0.50</td>
+<td>ASSUMPTION</td>
+<td>—</td>
+<td>0.63 m</td>
+<td>4.09 m</td>
+<td>Balanis §2.2.4</td>
+</tr>
+<tr>
+<td>(iii-b) Vent / mesh patch</td>
+<td>0.05</td>
+<td>ASSUMPTION</td>
+<td>1.95 cm</td>
+<td>2.0 cm</td>
+<td>4.1 cm</td>
+<td>Electrically small: λ/2π; far field needs r ≫ λ</td>
+</tr>
+<tr>
+<td>(iii-b) Vent / mesh patch</td>
+<td>0.10</td>
+<td>ASSUMPTION</td>
+<td>1.95 cm</td>
+<td>5.6 cm</td>
+<td>16.3 cm</td>
+<td>Borderline (0.8 λ); treat the far field as r ≳ several λ</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>ASSUMPTION:</strong> treating the whole door diagonal as &quot;the antenna&quot; is the conservative worst case. Leakage comes from along the seam, so the largest possible D is the full seam extent.</li>
+<li><strong>Action:</strong> Dan should measure his oven's door diagonal and re-run <code>nearfield_numbers.py</code> with the real value.</li>
+<li><strong>ASSUMPTION:</strong> the vent is a perforated patch. Its holes are far below cutoff, so any leakage acts like a small source.</li>
+</ul>
+<h3>1.3 Classical longitudinal fields that exist for sure (FACT, and distinct from SLW)</h3>
+<p>These are ordinary, textbook longitudinal (along-the-propagation-direction) field components. <strong>They are not Hively's SLW.</strong> The SLW is a HYP. The point of this plan is to keep the two from being confused.</p>
+<ol>
+<li><strong>TE10 launcher waveguide (FACT, Pozar 4e §3.3):</strong> the TE10 mode has transverse E_y only. It has <strong>no longitudinal E</strong>, but it does have a <strong>longitudinal magnetic field H_z</strong>, alongside H_x.
+<ul>
+<li>Computed for WR-340 (ASSUMPTION: oven launchers are close to, but not always exactly, WR-340, a = 86.36 mm):
+<ul>
+<li>TE10 cutoff = 1.736 GHz;</li>
+<li>guide wavelength λg = 17.3 cm;</li>
+<li>peak |H_z| / |H_x| = 1.004 (≈ 0 dB). The longitudinal H is as large as the transverse H.</li>
+</ul>
+</li>
+<li><strong>FACT (Pozar 4e §4.7, probe excitation):</strong> longitudinal E appears only in the evanescent higher-order modes right around the magnetron's antenna probe. These decay within a fraction of a guide width.</li>
+</ul>
+</li>
+<li><strong>Cavity (FACT, Pozar 4e §6.3; Harrington 1961 §6-9):</strong> TM modes have a nonzero E_z, and TE modes have a nonzero H_z. A multimode oven cavity has field components along every axis. &quot;Longitudinal&quot; has no single meaning inside it.</li>
+<li><strong>Small radiators, i.e. leaks near seams, slots and vents (FACT, Balanis 3e Eqs. 4-10a, 4-10b; Jackson 3e §9.2):</strong> the Hertzian (infinitesimal) dipole has a <strong>radial (longitudinal) E_r</strong>, which contains only the 1/r² and 1/r³ terms. The transverse E_θ also has a 1/r term, and that term is the one that radiates.
+<ul>
+<li>So far from the source, E_r / E_θ → 0 (it falls as 2/kr, from the ratio of Eqs. 4-10a/4-10b). Close in, E_r dominates.</li>
+</ul>
+</li>
+</ol>
+<h3>1.4 How big is the classical longitudinal E vs distance? (Balanis Eqs. 4-10a/b, computed)</h3>
+<p>The ratio shown is the peak-to-peak magnitude ratio, |E_r| on the axis (θ = 0) divided by |E_θ| broadside (θ = 90°). The same ratio holds at θ = 45°.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>kr</th>
+<th>r</th>
+<th>r/λ</th>
+<th>|E_r|/|E_θ|</th>
+<th>dB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.1</td>
+<td>0.19 cm</td>
+<td>0.016</td>
+<td>2.02</td>
+<td>+6.1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1.95 cm</td>
+<td>0.16</td>
+<td>2.83</td>
+<td>+9.0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3.9 cm</td>
+<td>0.32</td>
+<td>1.24</td>
+<td>+1.9</td>
+</tr>
+<tr>
+<td>3</td>
+<td>5.8 cm</td>
+<td>0.48</td>
+<td>0.74</td>
+<td>−2.6</td>
+</tr>
+<tr>
+<td>5</td>
+<td>9.7 cm</td>
+<td>0.80</td>
+<td>0.42</td>
+<td>−7.6</td>
+</tr>
+<tr>
+<td>10</td>
+<td>19.5 cm</td>
+<td>1.6</td>
+<td>0.20</td>
+<td>−13.9</td>
+</tr>
+<tr>
+<td>20</td>
+<td>39 cm</td>
+<td>3.2</td>
+<td>0.100</td>
+<td>−20.0</td>
+</tr>
+<tr>
+<td>50</td>
+<td>97 cm</td>
+<td>8.0</td>
+<td>0.040</td>
+<td>−28.0</td>
+</tr>
+<tr>
+<td>100</td>
+<td>1.95 m</td>
+<td>15.9</td>
+<td>0.020</td>
+<td>−34.0</td>
+</tr>
+<tr>
+<td>300</td>
+<td>5.84 m</td>
+<td>47.7</td>
+<td>0.0067</td>
+<td>−43.5</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>19.5 m</td>
+<td>159</td>
+<td>0.0020</td>
+<td>−54.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>FACT (computed from the cited equations):</strong> the classical longitudinal share is
+<ul>
+<li><strong>−20 dB at 0.39 m (3.2 λ)</strong>,</li>
+<li><strong>−30 dB at 1.23 m (10 λ)</strong>,</li>
+<li><strong>−40 dB at 3.9 m (32 λ)</strong>,</li>
+<li>about −50 dB at ≈ 12 m.</li>
+</ul>
+</li>
+<li><strong>Caveat (ASSUMPTION):</strong> a door seam 3–4 λ long is not a Hertzian dipole. For it, the Balanis §2.2.4 region distances (1.2) are the governing limits. The dipole table describes each small local leak point.</li>
+</ul>
+<p><strong>Answer to question 1:</strong></p>
+<ul>
+<li><strong>FACT (classical):</strong> yes. A measurable longitudinal E exists within a few centimetres of any leak point (E_r ≥ E_θ for r ≲ 4 cm), and inside the launcher and cavity.</li>
+<li>Whether it is <em>measurable outside the oven</em> depends on the leak level. A legal oven leaks ≤ 5 mW/cm² at 5 cm (21 CFR 1030.10(c)(1)), and usually far less. That is easily detectable with a small probe at 5–20 cm (see Phase 1).</li>
+</ul>
+<hr />
+<h2>2. (b) Simulation approach (Wolfram Mathematica / Wolfram Cloud)</h2>
+<p><strong>Status:</strong> SPEC ONLY. Cloud publishing is <strong>BLOCKED</strong> (WOLFRAM_SAK unset; Dan's Mac is in storage; there is no wolframscript on the shared computer). The WL notebook is to be written and run when Mathematica is available.</p>
+<h3>2.1 WL-1: analytic Hertzian-dipole decomposition (textbook closed form)</h3>
+<ul>
+<li><strong>Inputs:</strong> f = 2.45 GHz and kr from 0.1 to 1000 (log-spaced).</li>
+<li><strong>Fields:</strong> use Balanis 3e Eq. 4-10a (E_r) and Eq. 4-10b (E_θ) exactly as printed. Drop the common factor ηI₀l/(4π), which cancels in the ratio.</li>
+<li><strong>Plot 1:</strong> 20·log10(|E_r(θ=0)| / |E_θ(θ=90°)|) vs r (log axis, in cm and in λ). Mark vertical lines at λ/2π, λ, R1 and R2 for D = 0.40/0.45/0.50 m, 3 × R2, and the −20/−30/−40 dB crossings.</li>
+<li><strong>Plot 2:</strong> the same ratio at θ = 45° (it is identical, as a check).</li>
+<li><strong>Pass criterion for the WL vs Python compare:</strong> every row of the table in §1.4 agrees to ≤ 0.01 dB, and the boundary table in §1.2 agrees to ≤ 1 mm.</li>
+</ul>
+<h3>2.2 WL-2: NDSolve / NDEigensystem FEM options (classical checks)</h3>
+<ol>
+<li><strong>Cavity eigenmodes:</strong>
+<ul>
+<li>Use a rectangular box. ASSUMPTION: typical interior ≈ 0.33 × 0.33 × 0.22 m; Dan should measure his.</li>
+<li>Solve the scalar Helmholtz problem for TM modes (E_z with Dirichlet walls) with <code>NDEigensystem</code> on a 2D cross-section.</li>
+<li>Compare the eigenfrequencies with the closed-form rectangular-cavity resonances (Pozar 4e §6.3). Plot |E_z| for the modes nearest 2.45 GHz.</li>
+<li>This shows (FACT) that the cavity field is a standing wave with a longitudinal E.</li>
+</ul>
+</li>
+<li><strong>TE10 launcher (WR-340 cross-section):</strong>
+<ul>
+<li>Plot the analytic TE10 field components from Pozar §3.3: E_y, H_x, H_z.</li>
+<li>Optionally, use <code>NDEigensystem</code> on the 2D cross-section to confirm the cut-off of 1.736 GHz.</li>
+<li>Readout: peak |H_z|/|H_x| = 1.004 (0.03 dB) at 2.45 GHz.</li>
+</ul>
+</li>
+<li><strong>Optional (only if a full-wave solver is available in WL, heavy):</strong>
+<ul>
+<li>Model a slot in a conducting plane at 2.45 GHz and extract E along a line normal to the slot.</li>
+<li>Otherwise, use openEMS (§4). It already covers this job on the shared computer.</li>
+</ul>
+</li>
+</ol>
+<p><strong>What to plot, overall:</strong> the longitudinal-to-transverse ratio in dB vs distance, with the region boundaries overlaid. Each plot carries a FACT (classical TEM) label. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<h3>2.3 GitHub Pages JS twin: specification only (do NOT build or publish now)</h3>
+<ul>
+<li><strong>Title:</strong> &quot;Magnetron near-field: longitudinal vs transverse (classical) — test-plan companion&quot;.</li>
+<li><strong>Controls:</strong>
+<ul>
+<li>distance slider r, 0.5 cm → 30 m (log);</li>
+<li>source-size slider D, 1 cm → 0.6 m, defaulting to 0.45 m;</li>
+<li>frequency fixed at 2.45 GHz (with an optional 2.46 GHz toggle).</li>
+</ul>
+</li>
+<li><strong>Readouts:</strong>
+<ul>
+<li>λ, λ/2π, R1, R2 and 3 × R2 for the chosen D;</li>
+<li>which region r is in (reactive near / radiating near / far; &quot;inside a waveguide or cavity: not applicable&quot; for the cap and cavity presets);</li>
+<li>the Hertzian ratio |E_r|/|E_θ|, as a number and in dB;</li>
+<li>r in units of λ and of R2.</li>
+</ul>
+</li>
+<li><strong>Plot:</strong> the ratio (dB) vs r with the boundary lines, plus a marker at the current slider value and the recommended detector zone shaded.</li>
+<li><strong>Labels:</strong> every readout is tagged FACT (classical TEM; Balanis Eqs. 4-10a/b, §2.2.4), ASSUMPTION (D presets) or HYP. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>Banner:</strong> &quot;Cloud twin pending sync. Wolfram Cloud publishing is blocked; numbers are from Python (<code>nearfield_numbers.json</code>) and are not yet cross-checked against WL.&quot;</li>
+<li><strong>HYP toggle:</strong> &quot;Show SLW component (Hively framework)&quot;. When it is switched on, it shows this exact text and draws no curve:
+<blockquote>
+<p><strong>HYP — not computed.</strong> Hively's framework (Hively &amp; Loebl 2019; US 9,306,527) predicts a scalar longitudinal wave, but no cited source gives a near-field SLW source strength (or near-field SLW field law) for a magnetron, an oven cavity or a door seam. Therefore this page computes no SLW value. The curves shown are classical TEM near-field components only; they are not SLW. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+</blockquote>
+</li>
+<li><strong>Compares owed once it is built:</strong> JS vs WL and JS vs Python (same pass criteria as §2.1).</li>
+</ul>
+<hr />
+<h2>3. (c) Test procedure and detector placement</h2>
+<h3>3.0 Safety (all phases)</h3>
+<ul>
+<li><strong>FACT:</strong> 21 CFR 1030.10(c)(1) limits oven leakage to ≤ 1 mW/cm² at ≥ 5 cm before purchase and ≤ 5 mW/cm² thereafter. §1030.10(c)(2) requires at least two operational interlocks.</li>
+<li><strong>FACT:</strong> 47 CFR 1.1310 Table 1 sets MPE limits for 1.5–100 GHz of 1.0 mW/cm² (general population) and 5 mW/cm² (occupational).</li>
+<li><strong>Rules:</strong>
+<ul>
+<li><strong>The magnetron stays inside the intact, interlocked, unmodified oven.</strong> Never remove it, never run it outside the oven, never defeat an interlock, and never open the case.
+<ul>
+<li>FACT (LG service manual LSMC3089BD): the high-voltage circuit is &quot;nearly 4000 volts&quot;. The LG 2M246 anode runs at 4.40 kVp.</li>
+</ul>
+</li>
+<li><strong>Always run with a water load</strong> (e.g. 1 L of water in a microwave-safe container). Running empty damages the magnetron. Keep each run short (≤ 2 min) and change the water when it gets hot.</li>
+<li>Check the oven with a leakage meter before Phase 1. <strong>If it reads above 1 mW/cm² at 5 cm, stop</strong> and don't use that oven.</li>
+<li>People stay ≥ 1 m from the oven during runs, except when placing the Phase 1 probe with the oven OFF.</li>
+</ul>
+</li>
+</ul>
+<h3>3.1 Phase 1 (classical, outside the cage): show the near-field longitudinal E exists, and map how fast it dies</h3>
+<ul>
+<li><strong>Purpose:</strong> to measure the ordinary, classical longitudinal component that Hively warned about. This gives the &quot;confusion zone&quot; a real, measured size.</li>
+<li><strong>Probe:</strong> a short electric probe or small dipole (e.g. Tekbox E-field probe, or a DD-2450 cut short) feeding a TinySA on battery. This phase is outside the cage, so a coax is allowed.</li>
+<li><strong>Pointing (at each distance):</strong>
+<ul>
+<li>(A) <strong>radial:</strong> probe axis pointing at the leak point, which senses the longitudinal E;</li>
+<li>(B) <strong>transverse</strong>, horizontal;</li>
+<li>(C) <strong>transverse</strong>, vertical.</li>
+</ul>
+</li>
+<li><strong>Distances from the hottest seam point (found with the leakage meter):</strong> 5, 7, 10, 14, 20, 28, 40, 56, 80 cm and 1.1 m (steps of √2). Stop wherever the signal hits the TinySA floor.</li>
+<li><strong>Expected (FACT, classical, Balanis Eqs. 4-10a/b, for a small leak):</strong> A/(B or C) ≈ 0 dB near 5 cm, falling to about −14 dB by 20 cm and −20 dB by 40 cm.
+<ul>
+<li>The total level should drop about 12–18 dB per doubling inside ~λ, i.e. 1/r²–1/r³ behaviour, and about 6 dB per doubling beyond a few λ (1/r).</li>
+<li><strong>ASSUMPTION:</strong> a real seam isn't a point dipole, so expect scatter. The trend is what matters.</li>
+</ul>
+</li>
+</ul>
+<h3>3.2 Phase 2 (SLW/SW search): the receiver inside the sealed cage, far away</h3>
+<p><strong>Where the receiver goes</strong></p>
+<ul>
+<li>
+<p><strong>Main position:</strong> <strong>≥ 3 × 2D²/λ</strong> from the door face.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Door diagonal D</th>
+<th>3 × 2D²/λ</th>
+<th>In wavelengths</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.40 m</td>
+<td>7.9 m</td>
+<td>64 λ</td>
+</tr>
+<tr>
+<td>0.45 m</td>
+<td>9.9 m</td>
+<td>81 λ</td>
+</tr>
+<tr>
+<td><strong>0.50 m</strong> (use as the default)</td>
+<td><strong>12.3 m</strong></td>
+<td><strong>100 λ</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Recommendation: <strong>10–12 m (≈ 100 λ)</strong>. Here the classical longitudinal ratio of a small leak is ≈ −50 dB (FACT, from Eqs. 4-10a/b), and the door is 3 × deep into its far field (FACT, Balanis §2.2.4).</li>
+</ul>
+</li>
+<li>
+<p><strong>Minimum</strong> (if space doesn't allow the main position): <strong>≥ 4.1 m</strong> (1 × 2D²/λ for D = 0.5 m; ≈ 33 λ; classical ratio ≈ −40 dB). Report any result taken there as &quot;minimum-distance&quot;.</p>
+</li>
+<li>
+<p><strong>Oven orientation:</strong> the door faces the cage, because the door is the dominant external leak source. The cavity walls are solid metal, so leakage escapes mainly at the door seam and vents (ASSUMPTION: typical construction; Phase 1 leakage-meter survey confirms it for Dan's oven). Do a second set with the oven rotated 90° (see the controls).</p>
+</li>
+</ul>
+<p><strong>Detector and cage</strong></p>
+<ul>
+<li>The receiver is a DD-2450 Dipole Detector plus a battery-powered receiver/logger (e.g. TinySA on battery), sealed inside Dan's Faraday cage.
+<ul>
+<li><strong>FACT (classical):</strong> the cage strips TEM. <strong>HYP:</strong> whether SLW passes the cage wall. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>Do not use cage shielding numbers to predict or rank SLW/SW. Under the SLW hypothesis, the only material interaction is the Hively Joule term, J = σE (Hively &amp; Loebl 2019, Eq. 44). <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+</li>
+<li><strong>No cable crosses the cage wall.</strong> Power is a battery inside. Data comes out optically through a waveguide-below-cutoff tube, or is read after opening the cage.</li>
+<li><strong>Detector orientation:</strong> measure three orientations:
+<ul>
+<li><strong>L:</strong> dipole axis along the line to the oven, i.e. longitudinal. HYP: this is where an SLW would couple, per Hively's longitudinal-E picture.</li>
+<li><strong>T1</strong> and <strong>T2:</strong> transverse.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Measurement</strong></p>
+<ul>
+<li>Frequency: 2.40–2.50 GHz; watch 2.45–2.46 GHz.</li>
+<li><strong>ASSUMPTION:</strong> a transformer-type oven with a half-wave voltage doubler fires the magnetron in bursts at the mains rate (60 Hz). That on/off pattern is a signature the logger can look for. Inverter ovens differ; Dan should check which type his is.</li>
+</ul>
+<h3>3.3 Controls (each run is logged on a sheet)</h3>
+<p class="tem-note">&#9888; Rows/columns in this table that refer to TEM / classical / cage SE: <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Control</th>
+<th>What it rules out</th>
+<th>Pass (for a candidate SLW/SW signal)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C1</td>
+<td><strong>Oven OFF</strong> (plugged in, door shut)</td>
+<td>Background, receiver spurs, local Wi-Fi/Bluetooth at 2.4 GHz</td>
+<td>No 2.45 GHz signal. Record the floor.</td>
+</tr>
+<tr>
+<td>C2</td>
+<td><strong>Oven ON with a water load</strong></td>
+<td>— (this is the test condition)</td>
+<td>Signal above the C1 floor, time-locked to oven on/off (and to the mains-rate burst pattern, if present)</td>
+</tr>
+<tr>
+<td>C3</td>
+<td><strong>Rotate the detector</strong> L → T1 → T2</td>
+<td>Leaked TEM, which is transverse and polarization-dependent</td>
+<td>Record all three. HYP: an SLW favours L. A TEM leak favours T1/T2.</td>
+</tr>
+<tr>
+<td>C4</td>
+<td><strong>Distance sweep</strong>: e.g. 4.1, 5.8, 8.2, 11.6 m (steps of √2), cage moved each time</td>
+<td>Near-field contamination</td>
+<td>Fit the level vs r. <strong>1/r (≈ 6 dB per doubling) = radiating; 1/r² (12 dB) or 1/r³ (18 dB) = near-field contamination</strong> → move farther.</td>
+</tr>
+<tr>
+<td>C5</td>
+<td><strong>Outside leakage monitor quiet</strong>: a second probe/receiver just outside the cage wall, plus a check at the oven</td>
+<td>Cage leaks; an oven fault</td>
+<td>The outside monitor near the cage stays at its floor, or its level is recorded. The oven stays ≤ 1 mW/cm² at 5 cm.</td>
+</tr>
+<tr>
+<td>C6</td>
+<td><strong>Dummy detector</strong>: DD-2450 replaced by a 50 Ω termination, cage sealed</td>
+<td>Pickup in the receiver itself, not the antenna</td>
+<td>No signal</td>
+</tr>
+<tr>
+<td>C7</td>
+<td><strong>Cage-open positive control</strong> (classical): cage door opened, oven ON</td>
+<td>Proves the receiver can see 2.45 GHz TEM at this distance</td>
+<td>Clear TEM signal (this calibrates the chain)</td>
+</tr>
+<tr>
+<td>C8</td>
+<td><strong>Oven rotated 90° / 180°</strong></td>
+<td>Door-pattern (TEM) effects</td>
+<td>Record. HYP interpretation only.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Important logic</strong></p>
+<ul>
+<li><strong>FACT (classical, Balanis Eqs. 4-10a/b):</strong> a <em>radiating</em> field falls as 1/r in amplitude.</li>
+<li><strong>HYP (Hively &amp; Loebl 2019, Table I item 11):</strong> the SLW is also claimed to fall as 1/r² in power, i.e. 1/r in field amplitude.</li>
+<li>So <strong>the distance sweep (C4) separates near-field from radiating. It does NOT separate SLW from TEM.</strong> That separation rests on the sealed cage (C5, C7), the controls (C1, C6) and orientation (C3). Even then, any &quot;SLW&quot; interpretation stays <span class="badge hyp">HYP</span>. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><em>Why the cage is expected to block TEM:</em> that expectation is transverse-EM reasoning, NOT applicable under the SLW hypothesis. It is used only to remove TEM, never to predict SLW.</li>
+</ul>
+<hr />
+<h2>4. (d) openEMS cross-check (classical)</h2>
+<ul>
+<li><strong>Setup (FACT, run on the shared computer, 2026-09-27 ≈ 20:22 ET):</strong> see <code>openems_dipole_ratio.py</code> for the full script.
+<ul>
+<li>Short centre-fed dipole: L = 12 mm (0.098 λ), wire radius 0.5 mm, 1 mm gap, 50 Ω lumped port.</li>
+<li>Domain ±245 mm, PML_8, mesh ≈ λ/25 far from the dipole, 1.25 M cells, 3 threads.</li>
+<li>Run time: <strong>20 s</strong>, reaching −40 dB energy at 3330 timesteps. The frequency-domain E was dumped on the xz plane.</li>
+</ul>
+</li>
+<li><strong>Method:</strong> take E_r and E_θ at the same kr on the axis and on the broadside (the &quot;peak&quot; ratio), and at θ = 45°. Compare with the analytic ratio from Balanis Eqs. 4-10a/b.</li>
+</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>kr</th>
+<th>r (mm)</th>
+<th>openEMS peak ratio</th>
+<th>openEMS θ=45°</th>
+<th>analytic</th>
+<th>Δ peak (dB)</th>
+<th>Δ 45° (dB)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>19.5</td>
+<td>2.375</td>
+<td>2.621</td>
+<td>2.828</td>
+<td>−1.52</td>
+<td>−0.66</td>
+</tr>
+<tr>
+<td>1.5</td>
+<td>29.2</td>
+<td>1.491</td>
+<td>1.791</td>
+<td>1.847</td>
+<td>−1.86</td>
+<td>−0.26</td>
+</tr>
+<tr>
+<td>2</td>
+<td>38.9</td>
+<td>1.036</td>
+<td>1.333</td>
+<td>1.240</td>
+<td>−1.57</td>
+<td>+0.63</td>
+</tr>
+<tr>
+<td>3</td>
+<td>58.4</td>
+<td>0.647</td>
+<td>0.750</td>
+<td>0.740</td>
+<td>−1.17</td>
+<td>+0.12</td>
+</tr>
+<tr>
+<td>4</td>
+<td>77.9</td>
+<td>0.474</td>
+<td>0.524</td>
+<td>0.531</td>
+<td>−0.99</td>
+<td>−0.11</td>
+</tr>
+<tr>
+<td>5</td>
+<td>97.4</td>
+<td>0.379</td>
+<td>0.405</td>
+<td>0.416</td>
+<td>−0.81</td>
+<td>−0.24</td>
+</tr>
+<tr>
+<td>7</td>
+<td>136.3</td>
+<td>0.266</td>
+<td>0.278</td>
+<td>0.292</td>
+<td>−0.79</td>
+<td>−0.40</td>
+</tr>
+<tr>
+<td>10</td>
+<td>194.7</td>
+<td>0.186</td>
+<td>0.197</td>
+<td>0.202</td>
+<td>−0.70</td>
+<td>−0.22</td>
+</tr>
+<tr>
+<td>12</td>
+<td>233.7</td>
+<td>0.210</td>
+<td>0.162</td>
+<td>0.168</td>
+<td>(+1.95)</td>
+<td>−0.31</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>Result (honest, relative):</strong>
+<ul>
+<li>At θ = 45°, openEMS matches the textbook ratio within <strong>±0.7 dB for kr = 1–12</strong>.</li>
+<li>The axis/broadside &quot;peak&quot; ratio reads <strong>0.7–1.9 dB low</strong> for kr = 1–10. That is consistent with:
+<ul>
+<li>a finite 12 mm dipole, rather than an infinitesimal one;</li>
+<li>grid-snapping of the sample points;</li>
+<li>our known systematic 7–9 % short offset on dipole length.</li>
+</ul>
+</li>
+<li><strong>The kr = 12 peak row is excluded:</strong> its broadside point (233.7 mm) sits inside or next to the PML (domain edge 245 mm).</li>
+<li>The trend (ratio falling as ≈ 2/kr) is reproduced. Treat this as a relative check only; the coarse mesh is not converged.</li>
+</ul>
+</li>
+<li><strong>Owed:</strong>
+<ul>
+<li>a medium-mesh convergence run, and a slot-in-plane (seam-like) version. Keep to the same caps (timeout, nice, ≤ 3 threads) so the box doesn't hang, as it did on an earlier medium run;</li>
+<li>the WL comparison.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>5. What this plan does NOT claim</h2>
+<ul>
+<li>It computes <strong>no SLW or SW field.</strong> No cited source gives a near-field SLW source strength for a magnetron (HYP toggle, §2.3).</li>
+<li>It does not use skin depth, permeability or cage shielding effectiveness to rank or dismiss SLW/SW.</li>
+<li>Classical results are FACT for TEM/classical fields only. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+<h2>6. References</h2>
+<ul>
+<li>Balanis, C. A., <em>Antenna Theory: Analysis and Design</em>, 3rd ed., Wiley 2005: §2.2.4 (field regions), §4.2 (infinitesimal dipole; Eqs. 4-10a, 4-10b; radian distance λ/2π).</li>
+<li>IEEE Std 145-2013, <em>IEEE Standard for Definitions of Terms for Antennas</em> (reactive near-field, radiating near-field, far-field regions).</li>
+<li>Pozar, D. M., <em>Microwave Engineering</em>, 4th ed., Wiley 2012: §3.3 (rectangular waveguide TE10 fields, cut-off), §4.7 (waveguide excitation by probe currents), §6.3 (rectangular cavity resonators).</li>
+<li>Harrington, R. F., <em>Time-Harmonic Electromagnetic Fields</em>, McGraw-Hill 1961, §6-9 (cavity modes; TM modes have E_z).</li>
+<li>Jackson, J. D., <em>Classical Electrodynamics</em>, 3rd ed., Wiley 1999, §9.2 (dipole fields in near, intermediate and far zones).</li>
+<li>Hively, L. M. &amp; Loebl, A. S., 2019 (Table I item 11; Eq. 44 Joule term, α = 0 per Erratum). Hively US 9,306,527.</li>
+<li>Hively, personal communication to D. Britton, verbal, reported by Dan, 2026-09 (no written record).</li>
+<li>21 CFR 1030.10 (microwave oven performance standard); 47 CFR 1.1310 (RF exposure limits); both read live 2026-09-27.</li>
+<li>LG 2M246 magnetron data (2460 MHz, 4.40 kVp); LG service manual LSMC3089BD (HV &quot;nearly 4000 volts&quot;).</li>
+</ul>
+
+  </article>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub · <a href="../../sim-lab/">Simulation Lab catalogue</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
+</body>
+</html>

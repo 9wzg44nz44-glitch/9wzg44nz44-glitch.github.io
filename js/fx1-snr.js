@@ -1,4 +1,4 @@
-/*! fx1-snr.js — PHYSICS_VERSION fx1-snr-v0.2 (GitHub ahead · Cloud twin pending sync)
+/*! fx1-snr.js — PHYSICS_VERSION fx1-snr-v0.2.1 (GitHub ahead · Cloud twin pending sync)
  * FX-1 driven Faraday sphere: standard-physics (FACT forms + labelled ASSUMPTIONS) vs EED/SLW (HYP) predictions,
  * Tekbox TBPS01 probe (E5/H10/H20/H5) → TinySA Ultra dBm → SNR at chosen RBW.
  * v0.2: openEMS FDTD tables (engine.openems) are the default exterior model (page geometry) and the interior seam options.
@@ -11,7 +11,7 @@
 
   /* BEGIN FX1 CONSTANTS (generated — do not edit by hand) */
   const K = {
-   "PHYSICS_VERSION": "fx1-snr-v0.2",
+   "PHYSICS_VERSION": "fx1-snr-v0.2.1",
    "C0": 299792458,
    "MU0": 0.0000012566370614359173,
    "EPS0": 8.854187817e-12,
@@ -1615,7 +1615,8 @@
         : "analytic only — openEMS shows the analytic model reads high at 433 MHz (2.3–5×)" };
     const st = stack(p, f);
     const Ipk = dr.Ipk;
-    const Prad = Ipk * Ipk * K.Z0 / (4 * PI);
+    // Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum (Phys. Essays 32(3) 417): S = I^2 Z0/[2(4 pi r)^2] (FACT); I = peak (ASSUMPTION). Was /(4 PI) before 2026-09-29.
+    const Prad = Ipk * Ipk * K.Z0 / (8 * PI);
     const Shyp = Prad / (4 * PI * rc * rc) * st.surv;
     const Epar = Math.sqrt(Shyp * K.Z0);
     const floor = floorDbm(p.rbw, p.lna);

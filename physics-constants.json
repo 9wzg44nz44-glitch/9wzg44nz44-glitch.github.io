@@ -22,7 +22,7 @@
    "from": "snr-dual-sim-params-v0.2",
    "to": "snr-dual-sim-params-v0.2.1",
    "date": "2026-09-29",
-   "summary": "P_OUT per Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum (Phys. Essays 32(3) 417, FACT): S = I^2 Z0 / [2 (4 pi r)^2], so P_rad = I_peak^2 Z0/(8 pi) (was I_peak^2 Z0/(4 pi), patent Eq. 15 = the 2019 form as first printed without the 1/2). I = peak is an ASSUMPTION (erratum does not say). S, P_load, SNR_Hively, E_par(power) are -3.0103 dB; E_par amplitude x0.70711; N-Z Am and Zimmerman Az unchanged. Lock numbers: P_rad(-19 dBm) 1.5097e-5 -> 7.5483e-6 W; E_par(10 m) 2.127e-3 -> 1.504e-3 V/m; E_par(lambda) 3.077e-2/9.197e-2/1.739e-1 -> 2.176e-2/6.503e-2/1.229e-1 V/m. Cloud twin pending sync (JS-vs-WL compare owed)."
+   "summary": "P_OUT per Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum (Phys. Essays 32(3) 417, FACT): S = I^2 Z0 / [2 (4 pi r)^2], so the derived total watts P_total (code name P_rad) = 4 pi r^2 P_OUT = I_peak^2 Z0/(8 pi) (was I_peak^2 Z0/(4 pi), patent Eq. 15 = the 2019 form as first printed without the 1/2). I = peak is an ASSUMPTION (erratum does not say). S, P_load, SNR_Hively, E_par(power) are -3.0103 dB; E_par amplitude x0.70711; N-Z Am and Zimmerman Az unchanged. Lock numbers: P_rad(-19 dBm) 1.5097e-5 -> 7.5483e-6 W; E_par(10 m) 2.127e-3 -> 1.504e-3 V/m; E_par(lambda) 3.077e-2/9.197e-2/1.739e-1 -> 2.176e-2/6.503e-2/1.229e-1 V/m. Units note 2026-09-30 (labels only, no number changed): the paper P_OUT is a power density in W/m^2 at range r; total watts are a DERIVED quantity; I = peak confirmed by Dan Britton 2026-09-30. Cloud twin pending sync (JS-vs-WL compare owed)."
   },
   {
    "from": "snr-dual-sim-params-v0.2",
@@ -386,8 +386,8 @@
     "AeffTem": "A_eff,TEM = 3*lambda^2 / (8*pi)",
     "PrxTem": "P_rx,TEM = P * Gtx * A_eff,TEM / (4*pi*r^2) * mP",
     "snrTem": "SNR_TEM_dB = P_rx_dBm - (N0 + 10*log10(B_HZ) + NF)",
-    "hively_Prad_Eq15": "P_rad = I_peak^2 * Z0 / (8*pi)   # = integral of S over 4 pi r^2, S = I_peak^2 Z0 / [2 (4 pi r)^2]: Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum (Phys. Essays 32(3) 417) FACT; I peak = ASSUMPTION. Was I_peak^2 Z0/(4 pi) (US 9,306,527 Eq. 15 = 2019 as first printed, no 1/2) until 2026-09-29",
-    "S": "S(r) = P_rad / (4*pi*r^2)",
+    "hively_Prad_Eq15": "P_total(W) = 4 pi r^2 * P_OUT = I_peak^2 * Z0 / (8*pi)   # DERIVED / ASSUMPTION (spherical integral, code name P_rad); P_OUT(r) = S = I_peak^2 Z0 / [2 (4 pi r)^2] W/m^2 = Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum (Phys. Essays 32(3) 417) FACT (paper units: power density); I peak = ASSUMPTION (confirmed by Dan Britton 2026-09-30). Patent Eq. 15 total I^2 Z0/(4 pi) is twice the erratum-integrated total (documented difference). Was I_peak^2 Z0/(4 pi) (US 9,306,527 Eq. 15 = 2019 as first printed, no 1/2) until 2026-09-29",
+    "S": "S(r) = P_OUT(r) = P_total / (4*pi*r^2)   # W/m^2 (code name P_rad = P_total)",
     "Pload": "P_load = S * A_EFF * ETA * mP * 10^(lnaGain/10)",
     "snrHively": "SNR_Hively_dB = P_load_dBm - (N0 + 10*log10(B_HZ) + NF)",
     "NZ_Am": "A_m(r) = MU0 * I_peak / (2*pi*k0*r)   # Wb/m peak; k0=2*pi*f/c",
@@ -454,7 +454,7 @@
       "name": "isotropic_1_over_r_E_parallel_cartoon",
       "E_parallel": "sqrt(S * Z0)",
       "S": "P_rad / (4 * pi * r^2)",
-      "P_rad": "I_peak^2 * Z0 / (8 * pi)   # Hively-Loebl 2019 Eq.38/B5 as corrected by the Erratum (was /(4 pi), US 9,306,527 Eq.15, until 2026-09-29)",
+      "P_rad": "I_peak^2 * Z0 / (8 * pi)   # DERIVED total watts = 4 pi r^2 * P_OUT (ASSUMPTION; label P_total); S = P_OUT is the paper quantity (W/m^2). Hively-Loebl 2019 Eq.38/B5 as corrected by the Erratum (was /(4 pi), US 9,306,527 Eq.15, until 2026-09-29)",
       "implies": "E_parallel(r) \u221d 1/r outside conductors",
       "NOT": "full vector Maxwell near-field; no angular pattern; no measured E\u2225"
     },

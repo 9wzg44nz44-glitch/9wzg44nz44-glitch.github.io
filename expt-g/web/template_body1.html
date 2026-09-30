@@ -1,0 +1,136 @@
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/mark.svg" alt=""> SLW Hub</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="experiment-c.html">Expt C</a>
+      <a href="https://9wzg44nz44-glitch.github.io/Experiment-D-Hypersonic-Plasma-Shear-SLW/">Expt D</a>
+      <a href="https://9wzg44nz44-glitch.github.io/Experiment-F-Hydrogen-Scalar-Wave/">Expt F</a>
+      <a href="experiment-g.html" aria-current="page">Expt G</a>
+      <a href="fx1-snr.html">FX-1 SNR</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<nav class="expt-strip" aria-label="Related experiments">
+  <a href="experiment-c.html"><span class="expt-k">C</span> atomic 1S–2S (detector bank)</a>
+  <span class="sep">·</span>
+  <a href="https://9wzg44nz44-glitch.github.io/Experiment-F-Hydrogen-Scalar-Wave/"><span class="expt-k">F</span> hydrogen SW</a>
+  <span class="sep">·</span>
+  <a href="https://9wzg44nz44-glitch.github.io/Experiment-D-Hypersonic-Plasma-Shear-SLW/slw-detectability.html"><span class="expt-k">D</span> 2S idea started here</a>
+  <span class="sep">·</span>
+  <a href="experiment-g.html" aria-current="page"><span class="expt-k">G</span> this page</a>
+</nav>
+
+<main id="main" class="wrap">
+  <p class="kicker"><span class="mono" id="verOut">expt-g-v0.1</span> · gate G0 (desk model) · illustrative, not a measurement · <span class="pending-mini">Cloud twin pending sync (expt-g-v0.1)</span></p>
+  <h1>Experiment G — Undersea SLW link via hydrogen 2S tickled relaxation</h1>
+  <p class="lede">Dan controls both ends of an undersea link. A transmitter sends a radio-frequency field at about 1057.8&nbsp;MHz through seawater, a steel hull and a metal box. Inside the box, hydrogen atoms parked in a long-lived state (called <strong>2S</strong>) are nudged by that field into a short-lived state (<strong>2P</strong>). Each nudged atom then gives off one ultraviolet photon (<strong>Lyman-α</strong>, 121.567&nbsp;nm), which a detector counts. Switching the transmitter on and off switches the photon count up and down, and that carries the data. The transmitted wave is assumed to be a <strong>scalar-longitudinal wave (SLW)</strong>, the hypothetical wave in Hively's extended electrodynamics. That is a <span class="hyp">HYP</span>othesis, not established physics.</p>
+
+  <section class="answer" id="key" aria-labelledby="keyH">
+    <h2 id="keyH">The key question, answered first</h2>
+    <p class="big">Using Hively's own Joule-loss term, how far does a ~1&nbsp;GHz SLW get through seawater?</p>
+    <p class="big" id="headlineKey"><strong>With the Joule-loss term, a ~1&nbsp;GHz SLW falls by a factor e every {{dJ}} of seawater ({{aJdB}} at 1057.8&nbsp;MHz, 15&nbsp;°C, salinity 35), so the range is centimetres.</strong> Ordinary radio (TEM), the classical comparison, falls by e every {{dT}} ({{aTdB}}).</p>
+    <p><strong>Default on this page (hub rule, 25&nbsp;Sep&nbsp;2026): Hively's Joule-loss term is included for SLW in conductive media.</strong> This matches <a href="experiment-c.html#dict">Experiment C's field dictionary</a>, which lists SLW as “Eddy / skin: <strong>no</strong>; Ohmic (Joule): <strong>yes</strong> (J=σE∥)” and SW as “no” for both, and says: “Do not say ‘SLW has no losses.’ Say: no eddy / no classical skin barrier; SLW still has linear Ohmic loss; SW has neither.” <a href="experiment-c.html#ohmic">Experiment C's Ohmic section</a> adds that longitudinal E “still drives J=σE and local Joule density <strong>σE∥²</strong>. Pure SW (E=0) has no σE² term.” So on this page <strong>SLW has no eddy-current or skin-effect loss, but it does have Joule loss σE∥². SW has neither.</strong></p>
+    <div class="tbl-wrap"><table class="res" id="keyTable">
+      <tr><th>Longest range (1&nbsp;s, SNR&nbsp;5)</th><th>SLW with Joule loss <span class="lab A">default</span></th><th>TEM-equal (classical comparison)</th><th>Erratum α = 0 <span class="lab H">toggle, not default</span></th></tr>
+      <tr><td>Best lab receiver today, 1&nbsp;W</td><td class="n"><strong>{{rmax_lab_joule_1}}</strong></td><td class="n">{{rmax_lab_tem_1}}</td><td class="n">{{rmax_lab_errata0_1}}</td></tr>
+      <tr><td>Best lab receiver today, 1&nbsp;kW</td><td class="n"><strong>{{rmax_lab_joule_1000}}</strong></td><td class="n">{{rmax_lab_tem_1000}}</td><td class="n">{{rmax_lab_errata0_1000}}</td></tr>
+      <tr><td>Best possible receiver, 1&nbsp;W</td><td class="n"><strong>{{rmax_opt_joule_1}}</strong></td><td class="n">{{rmax_opt_tem_1}}</td><td class="n">{{rmax_opt_errata0_1}}</td></tr>
+      <tr><td>Best possible receiver, 1&nbsp;kW</td><td class="n"><strong>{{rmax_opt_joule_1000}}</strong></td><td class="n">{{rmax_opt_tem_1000}}</td><td class="n">{{rmax_opt_errata0_1000}}</td></tr>
+    </table></div>
+    <ol>
+      <li><span class="hy">Default: Hively's Joule term J·E counted as a real loss (ASSUMPTION for the algebra, hub rule for the choice).</span> The Joule term is <code>J·E</code> in the energy balance, Eq.&nbsp;(44) of Hively &amp; Loebl 2019, with Ohm's law <code>J = σE</code>. We charge the Joule heat <code>σE∥²</code> against the SLW power flow <code>CE/μ</code> from Eq.&nbsp;(44), using Hively's SLW impedance, Eq.&nbsp;(37), and his definition σ = ε<sub>0</sub>ε″ω. The field then falls by e every <strong>{{dJ}}</strong> ({{aJdB}}). Even 1&nbsp;kW reaches only {{rmax_lab_joule_1000}} with today's best lab receiver and {{rmax_opt_joule_1000}} with the best possible one.</li>
+      <li><span class="hy">TEM-equal (classical comparison).</span> If the SLW loses energy exactly like ordinary radio ({{dT}}), 1&nbsp;W reaches {{rmax_lab_tem_1}} and 1&nbsp;kW reaches {{rmax_lab_tem_1000}}.</li>
+      <li><span class="hy">Erratum α = 0: a non-default toggle (HYP).</span> Hively &amp; Loebl's 2022 Erratum argues that the Joule term cancels. What it says, in context (Phys. Essays 35, 320, 2022, <a href="https://doi.org/10.4006/0836-1398-35.3.320">doi:10.4006/0836-1398-35.3.320</a>):
+        <blockquote>“This Erratum corrects errors in Appendix A of our paper for derivation of the no-skin-effect constraint. The scalar longitudinal wave (SLW) has only irrotational fields and no magnetic field from Eq. (27), B = 0 … Substituting the expressions for E and C from Eqs. (18) and (20) into Eq. (A.5) gives the longitudinal component of the A-wave equation: … (A6). Physically, Eq. (A6) means that the SLW is not subject to resistive loss in conductive media. The same no-loss result occurs from the energy balance equation, Eq. (44), by substituting for (ρ/ε) from Eq. (22) and by substituting for J<sup>L</sup> from Eq. (21) with B = 0; then cancelling terms. Consequently, the SLW is unconstrained by the skin effect and power loss in resistive media.”</blockquote>
+        With that toggle on, seawater absorbs nothing, and only spreading and the receiver limit range: 1&nbsp;W reaches {{rmax_lab_errata0_1}} (lab) or {{rmax_opt_errata0_1}} (best possible). Choose it with control&nbsp;3 below or in “All controls”.</li>
+    </ol>
+    <div class="conflict" role="note"><strong>⚠ Open conflict, flagged and not resolved here.</strong> The Erratum's “not subject to resistive loss” contradicts Experiment C's dictionary and Ohmic section (“SLW still has linear Ohmic loss”, “Do not say ‘SLW has no losses’”). This page follows the hub rule and uses Joule loss by default. It keeps the Erratum only as a labelled toggle. <a href="experiment-c.html">experiment-c.html</a> is left unchanged. Only the G2 pool mockup (control e: vary salinity and range) can settle it.</div>
+    <p><strong>The unknown parameter</strong> is α<sub>SLW</sub>, the SLW field attenuation in seawater in nepers per metre. It is not an extra constant in Hively's formulas; it encodes which reading is right. Presets: Joule-loss value (default), TEM value, 0 (Erratum toggle), or a custom slider.</p>
+    <p class="small">Distances here are for a 1&nbsp;s count with a signal-to-noise ratio (SNR) of 5, a lossless hull and cage (T<sub>hull</sub> = T<sub>cage</sub> = 1), and SLW coupling η = 1. Distances under about one wavelength in water ({{lamw}}) are near-field, where our far-field formula is only indicative. Details: <a href="#" data-goto="hively">Hively term</a> · <a href="#" data-goto="link">link budget</a>.</p>
+  </section>
+
+  <div class="frame"><strong>How the receiver is shielded (FACT for ordinary radio, HYP for SLW).</strong> The detector sits in <strong>its own Faraday cage</strong>, a closed metal box that strips out ordinary radio (TEM) waves. The steel hull is <em>not</em> that cage, because crew Wi-Fi and other radios live inside the hull. The SLW is <em>assumed</em> (<span class="hyp">HYP</span>) to pass through the cage wall. <strong>No cable crosses the cage wall</strong>: a battery sits inside, and data leave by optical fibre. So any count change that follows the transmitter must come through the wall, and control (a) below tests whether ordinary radio can explain it.</div>
+
+  <h2 id="gates-top">Gate sequence (do not skip)</h2>
+  <div class="gates" role="list">
+    <div class="now" role="listitem"><b>G0 · desk model</b>This page: chain model, link budget, detector comparison, Mathematica twin. Paper result only. <em>Status: in progress.</em></div>
+    <div role="listitem"><b>G1 · TEM bench baseline</b>Reproduce standard RF quenching of 2S at 1058&nbsp;MHz with an ordinary antenna. This proves the receiver works before any SLW claim.</div>
+    <div class="req" role="listitem"><b>G2 · POOL MOCKUP</b>Detector in its own cage, inside a steel hull mockup, in water of known salinity, with the transmitter outside. Controls (a)–(e) are all required. <a href="#" data-goto="gates">details</a></div>
+    <div role="listitem"><b>G3 · comms demo</b>Only if G2 is positive: bit error rate against range.</div>
+  </div>
+
+  <h2>Try it</h2>
+  <p class="small">Four controls. Everything else sits in the tabs further down. Coloured labels: <span class="lab F">FACT</span> textbook or measured physics · <span class="lab H">HYP</span> Hively hypothesis, untested · <span class="lab A">ASSUMPTION</span> a modelling choice we made.</p>
+  <section class="front-controls" aria-label="Main controls">
+    <div class="ctl">
+      <span class="q">1 · Seawater path length (range)</span>
+      <input type="range" id="fR" min="-2" max="3" step="0.05" value="-1.3" aria-label="range, log scale">
+      <p class="hint">Range = <output id="oR">5 cm</output> (default: inside the Joule-loss range). The slider goes from 1&nbsp;cm to 1&nbsp;km.</p>
+    </div>
+    <div class="ctl">
+      <span class="q">2 · Transmitter power</span>
+      <input type="range" id="fP" min="-3" max="4" step="0.1" value="0" aria-label="transmit power, log scale">
+      <p class="hint">P<sub>TX</sub> = <output id="oP">1 W</output> (1&nbsp;mW to 10&nbsp;kW). Assumes the antenna sends power equally in all directions.</p>
+    </div>
+    <div class="ctl">
+      <span class="q">3 · How much does seawater absorb the SLW?</span>
+      <div class="seg" data-seg="slw_mode">
+        <button type="button" data-v="joule" aria-pressed="true">Joule loss (default)</button>
+        <button type="button" data-v="tem" aria-pressed="false">Same as radio (TEM)</button>
+        <button type="button" data-v="errata0" aria-pressed="false">Erratum: none (toggle)</button>
+      </div>
+      <p class="hint">This is α<sub>SLW</sub>, the make-or-break unknown (<span class="hyp">HYP</span>). The default includes Hively's Joule loss σE∥². The Erratum button is Hively's 2022 no-loss claim, kept for comparison only.</p>
+    </div>
+    <div class="ctl">
+      <span class="q">4 · Which 2S receiver?</span>
+      <div class="seg" data-seg="det">
+        <button type="button" data-v="lab" aria-pressed="true">Best lab today</button>
+        <button type="button" data-v="opt" aria-pressed="false">Best possible</button>
+      </div>
+      <p class="hint" id="detHint"></p>
+    </div>
+  </section>
+
+  <section class="hero" aria-live="polite">
+    <p class="hl" id="headline">Loading…</p>
+    <div class="pair">
+      <div class="hyp"><span class="small">SLW field at the atoms (HYP)</span><b id="oEslw">—</b><span class="tagline" id="oEslwN"></span></div>
+      <div class="std"><span class="small">Ordinary radio (TEM) at the atoms (FACT)</span><b id="oEtem">—</b><span class="tagline">after seawater, water-to-air step and an 80&nbsp;dB cage</span></div>
+      <div><span class="small">Photon counts per second</span><b id="oCounts">—</b><span class="tagline" id="oCountsN"></span></div>
+      <div><span class="small">Signal-to-noise in 1&nbsp;s</span><b id="oSNR">—</b><span class="tagline">5 or more counts as a detection here</span></div>
+    </div>
+  </section>
+  <div id="flags" role="status"></div>
+
+  <article class="plot-card">
+    <h3>Field reaching the atoms vs seawater range</h3>
+    <div id="plotFront" role="img" aria-label="field at the atoms against range for the three SLW assumptions and ordinary radio"></div>
+    <p>Lines show SLW field for each absorption assumption at your power (red: Joule loss, the default; purple: TEM-equal, the classical comparison; orange dashed: Erratum α = 0 toggle) and ordinary radio through an 80&nbsp;dB cage (teal). The thick line is the one currently selected. Dashed line: the field this receiver needs (SNR 5 in 1&nbsp;s). Where a line is above the dashed line, the link works. Grey band: under one wavelength in water, where the formula is only indicative.</p>
+  </article>
+
+  <details class="more" open>
+    <summary>Words and symbols used on this page (plain English)</summary>
+    <dl class="gloss">
+      <dt>SLW, scalar-longitudinal wave</dt><dd>A wave predicted by Hively's “extended electrodynamics” (EED). It has an electric field pointing along its direction of travel and no magnetic field. It has never been independently confirmed. <span class="lab H">HYP</span> On this hub (<a href="experiment-c.html#dict">Experiment C dictionary</a>): no eddy-current or skin loss, but Joule loss σE∥² in conducting water.</dd>
+      <dt>SW, scalar wave</dt><dd>The E&nbsp;=&nbsp;0 special case (only the scalar field C). Per the same dictionary it has neither skin loss nor Joule loss. <span class="lab H">HYP</span></dd>
+      <dt>TEM, ordinary radio</dt><dd>The normal radio wave of textbook physics (Maxwell). A closed metal box blocks it, and seawater absorbs it within centimetres at 1&nbsp;GHz. <span class="lab F">FACT</span></dd>
+      <dt>2S and 2P</dt><dd>Two excited states of hydrogen. 2S lives {{tau2S}} on its own, so it is “metastable”. 2P lives only {{tau2P}} before emitting a Lyman-α photon.</dd>
+      <dt>Lamb shift, L</dt><dd>The tiny energy gap between 2S and 2P. As a radio frequency it is {{L}} (NIST ASD). A field at this frequency “tickles” 2S into 2P.</dd>
+      <dt>Lyman-α</dt><dd>The ultraviolet photon (121.567&nbsp;nm) emitted when 2P falls to the ground state 1S.</dd>
+      <dt>2E1 background</dt><dd>A lone 2S atom eventually decays by giving off <em>two</em> photons that share 10.2&nbsp;eV. Their energies are spread over a broad range, and a few land inside the Lyman-α filter.</dd>
+      <dt>Stray-field quench</dt><dd>Small leftover electric fields in the apparatus also knock 2S atoms down, giving real Lyman-α photons that look exactly like signal. With today's best field control this is the largest background.</dd>
+      <dt>E (V/m)</dt><dd>Electric field strength in volts per metre. We quote the <em>peak</em> value. The rms value is 0.707 × peak.</dd>
+      <dt>α (Np/m, dB/m)</dt><dd>Attenuation: how fast a field dies away in water. The field falls by a factor e (2.718) every 1/α metres. 1&nbsp;Np/m = 8.686&nbsp;dB/m.</dd>
+      <dt>N<sub>2S</sub></dt><dd>Number of hydrogen atoms held in 2S at the receiver.</dd>
+      <dt>ε<sub>det</sub></dt><dd>Overall detection efficiency: the fraction of emitted Lyman-α photons that are actually counted.</dd>
+      <dt>SE<sub>cage</sub> (dB)</dt><dd>Shielding effectiveness of the detector's cage against ordinary radio. 80&nbsp;dB means the field inside is 10,000 times weaker than outside.</dd>
+      <dt>T<sub>hull</sub>, T<sub>cage</sub></dt><dd>The fraction of SLW <em>field</em> that gets through the hull and through the cage. Both are unknown (<span class="lab H">HYP</span>) and are swept from 10<sup>−12</sup> to 1 and 10<sup>−6</sup> to 1.</dd>
+      <dt>η</dt><dd>How strongly an SLW field tickles 2S compared with an ordinary field of the same size. η = 1 means “the same”. Unknown (<span class="lab H">HYP</span>), swept from 10<sup>−12</sup> to 1.</dd>
+      <dt>SNR</dt><dd>Signal-to-noise ratio: how far the transmitter-on count rises above the random scatter of the background counts.</dd>
+    </dl>
+  </details>

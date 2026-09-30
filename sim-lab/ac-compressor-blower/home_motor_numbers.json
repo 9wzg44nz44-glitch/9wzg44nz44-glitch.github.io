@@ -1,0 +1,34 @@
+{
+ "sinusoid_peak_slope_A_per_s": {
+  "ZP57K5E-PFV 5-ton scroll, 208-230V 1ph: LRA (A rms)": 94899.9795590627,
+  "ZP57K5E-PFV RLA (A rms, nameplate)": 16847.412101496524,
+  "ZP57K5E-PFV rated current at AHRI (A rms)": 13595.221790764599,
+  "Beckett 1/7 hp PSC starting (A)": 3732.021668053027,
+  "Beckett 1/7 hp PSC running (A)": 799.7189288685059
+ },
+ "EQN15_W_if_whole_current_counted": {
+  "ZP57K5E-PFV 5-ton scroll, 208-230V 1ph: LRA (A rms)": 949861.6335858162,
+  "ZP57K5E-PFV RLA (A rms, nameplate)": 29936.05077747294,
+  "ZP57K5E-PFV rated current at AHRI (A rms)": 19493.98836129204,
+  "Beckett 1/7 hp PSC starting (A)": 1468.9818219197384,
+  "Beckett 1/7 hp PSC running (A)": 67.45324692488595
+ },
+ "NEMA_12.36_half_cycle_peak_A": [
+  320.40000000000003,
+  498.4
+ ],
+ "NEMA_12.36_half_cycle_peak_slope_upper_A_per_s (ASSUMPTION: sinusoid at that peak)": [
+  120787.95434522037,
+  187892.37342589832
+ ],
+ "ZP57K5E-PFV electrical input at AHRI (W)": 5460,
+ "LRA/RLA": 5.632911392405063,
+ "LRA/rated": 6.980392156862745,
+ "PSC start/run (Beckett)": 4.666666666666667,
+ "magnetron_2M246_EQN15_W": {
+  "avg anode 0.330 A": 3.2647371511644803,
+  "peak anode max 1.5 A": 67.45324692488595
+ },
+ "PWM_dvdt_V_per_s (Zhu 2022 'up to 10kV/us')": 10000000000.0,
+ "PWM_edge_WBG_example (Scelba 2022: 400 V, 25 ns rise) V_per_s": 16000000000.0
+}
