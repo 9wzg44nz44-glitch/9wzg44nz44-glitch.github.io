@@ -57,7 +57,7 @@
     $("rOut").textContent = fmtN(s.r, 2) + " m";
     const nearNote = s.near ? " <em>r</em> is inside ~" + fmtN(s.far, 3) + " m far-field estimate \u2014 Friis is a caveat, not a measurement." : "";
     $("temOut").innerHTML = "I<sub>rms</sub> = " + fmt(s.Irms, 3) + " A \u00b7 P<sub>rx</sub> (mesh) = " + fmtN(dbmFromWatts(s.PrxTem), 1) + " dBm<br>SNR<sub>TEM</sub> \u2248 <strong>" + fmtN(s.snrTem, 1) + " dB</strong> (B=100 kHz, NF=" + s.nf + " dB" + (s.lnaGain ? ", LNA +20 dB" : "") + ")." + nearNote;
-    $("slwOut").innerHTML = "P<sub>rad</sub> (Eq. 38/B5 erratum) = " + fmt(s.Prad, 3) + " W \u00b7 S = " + fmt(s.S, 3) + " W/m\u00b2<br>A<sub>m</sub>(r) = " + fmt(s.Am, 3) + " Wb/m \u00b7 A<sub>z</sub>(r) = " + fmt(s.Az, 3) + " Wb/m<br>SNR<sub>Hively</sub> \u2248 <strong>" + fmtN(s.snrH, 1) + " dB</strong> \u00b7 P<sub>sig,NZ</sub> " + fmtN(dbmFromWatts(s.Pnz), 1) + " dBm \u00b7 P<sub>sig,Z</sub> " + fmtN(dbmFromWatts(s.Pz), 1) + " dBm<br>Two tents \u00d7 " + s.att + " dB \u2192 power \u00d7 " + fmt(s.mP, 2) + ".";
+    $("slwOut").innerHTML = "P<sub>OUT</sub>(r) = S = " + fmt(s.S, 3) + " W/m\u00b2 (Eq. 38/B5 erratum) \u00b7 P<sub>total</sub> = 4\u03c0r\u00b2P<sub>OUT</sub> = " + fmt(s.Prad, 3) + " W (derived, ASSUMPTION)<br>A<sub>m</sub>(r) = " + fmt(s.Am, 3) + " Wb/m \u00b7 A<sub>z</sub>(r) = " + fmt(s.Az, 3) + " Wb/m<br>SNR<sub>Hively</sub> \u2248 <strong>" + fmtN(s.snrH, 1) + " dB</strong> \u00b7 P<sub>sig,NZ</sub> " + fmtN(dbmFromWatts(s.Pnz), 1) + " dBm \u00b7 P<sub>sig,Z</sub> " + fmtN(dbmFromWatts(s.Pz), 1) + " dBm<br>Two tents \u00d7 " + s.att + " dB \u2192 power \u00d7 " + fmt(s.mP, 2) + ".";
   }
 
   const canvas = $("vizCanvas");
