@@ -47,6 +47,7 @@
     <h2>Provenance</h2>
     <ul>
       <li><code>/workspace/sim-lab/sub-sources/JOULE_LOSS_POSITIONS.md</code> (last modified 2026-09-26 16:05 EDT)</li>
+      <li>Updated 2026-09-30: author-confirmed note and TYPO labels on the printed exponent (no other change).</li>
       <li>Converted to HTML 2026-09-28 (EDT) as a faithful conversion: text, numbers, equations and labels are the source's own. No new equations were added; only the TEM tags described below and the edits listed here were made.</li>
       <li>Three local-file references were neutralised: a path inside a private draft folder, and the file name of an internal comparison note (not published; its file name misspelled Joule). No physics text changed.</li>
       <li>Status lines inside the source (for example "nothing published", "HELD", "draft") describe the state when it was written. This page is its GitHub Pages twin, published 2026-09-28.</li>
@@ -56,6 +57,7 @@
   <div class="rules"><strong>Framing rules on this page (Dan).</strong> Under the SLW hypothesis no skin-depth, permeability, ferromagnetic or cage shielding-effectiveness argument is used to rank or dismiss SLW/SW. The Faraday cage strips TEM noise (<span class="badge fact">FACT</span>); an SLW passing the cage wall is <span class="badge hyp">HYP</span>. Every passage that uses transverse-EM (TEM / classical / cage-SE) reasoning is tagged <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>. FACT / HYP / ASSUMPTION labels are kept exactly as in the source.</div>
   
   
+  <div class="rules" id="author-confirmed-relaxation"><p><span class="badge fact">FACT, author-confirmed</span> <strong>Author-confirmed, 2026-09-30.</strong> In a private email from Dr. Hively to Dan (2026-09-30), Dr. Lee Hively confirmed the charge-relaxation exponent: &quot;The form, E = E0 e^(-sigma t/epsilon), is the correct one.&quot; So Eq. (A5), p. 122 of Hively &amp; Loebl 2019, and the exponent before EQN. 12 in US 9,306,527 B1 (col. 5), which print e^(−εt/σ), have ε and σ swapped (typos as printed). The correct form is E = E<sub>0</sub> exp(−σt/ε) with relaxation time τ = ε/σ, and IARD 2020 slide 60 is correct. See the <a href="../corrections/">Corrections log</a>. Where this page quotes the printed form below, the quote is kept as printed and labelled <span class="badge hyp">TYPO as printed</span>.</p></div>
   <article class="doc">
 <p>Read-only research for Dan, 2026-09-26 (~16:30 ET). No hub page, SYNC_LEDGER or draft file was edited. Nobody was contacted and nothing was bought.</p>
 <p><strong>Labels</strong></p>
@@ -188,10 +190,10 @@
 <ul>
 <li>&quot;(A4) □²(Ė + J/ε) = □²(Ė + σE/ε).&quot;</li>
 <li>&quot;One solution to Eq. (A4) sets the terms inside the parentheses to zero, as a transient solution⁴ that typically decays in ∼10⁻¹⁹ s&quot;</li>
-<li>&quot;E = E_o e^(−εt/σ). (A5)&quot;</li>
+<li>&quot;E = E_o e^(−εt/σ). (A5)&quot; <span class="badge hyp">TYPO as printed</span> (ε and σ swapped; author-confirmed 2026-09-30, correct form E = E_o e^(−σt/ε))</li>
 <li>(A6) &quot;E = E_o(r)e^(−jωt)&quot;; then (A7) □²E = 0.</li>
 <li>&quot;The lack of a source term on the RHS of Eq. (A7) means that the SLW propagates without loss in isotropic, homogeneous conductive media (σ = constant). That is, the SLW is unconstrained by the skin effect.&quot;</li>
-<li>This is a <strong>time</strong> transient, not a distance attenuation. The units issue (τ = ε/σ favours e^(−σt/ε)) is in the internal Joule-term comparison note (not published).</li>
+<li>This is a <strong>time</strong> transient, not a distance attenuation. The units issue (τ = ε/σ favours e^(−σt/ε)) is in the internal Joule-term comparison note (not published). Resolved 2026-09-30: author-confirmed, see the note at the top of this page.</li>
 </ul>
 </li>
 <li><strong>FACT, pp. 119–120:</strong> &quot;…resonance-cavity effects that are not included in the present theory. SLW attenuation in conductive media is the subject of future work. The combined solid-copper thickness (2 × 1.02 mm) is 2914 skin depths in the result of Fig. 4, which should produce a classical attenuation of ∼10⁻¹²⁶⁵ in TEM waves. The test measurement yielded an attenuation between −115 dB at r = 2 cm separation and −137 dB at r = 30 cm. Extrapolating the straight-line fit to a separation of 2 mm (where the enclosed antennas are barely separated) gives −79 dB and −86 dB, for an attenuation of ∼10⁻⁴.&quot; <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
@@ -251,7 +253,7 @@
 </ul>
 <h3>2(d). US 9,306,527 B1 (2016)</h3>
 <ul>
-<li><strong>FACT, col. 5 ~l. 46–56 (the transient):</strong> &quot;…Linear electrical conductivity (σ), J=σE, then may give ²(Ė+σE/∈)=0. A very rapidly decaying, transient solution may arise by setting the terms inside the parentheses to zero, giving E=E_o exp(−∈t/σ). … A second solution may use the non-transient form, E=E_o(r) exp(−jωt), which yields: □²E=0. (12)&quot;</li>
+<li><strong>FACT, col. 5 ~l. 46–56 (the transient):</strong> &quot;…Linear electrical conductivity (σ), J=σE, then may give ²(Ė+σE/∈)=0. A very rapidly decaying, transient solution may arise by setting the terms inside the parentheses to zero, giving E=E_o exp(−∈t/σ). <span class="badge hyp">TYPO as printed</span> (∈ and σ swapped; author-confirmed 2026-09-30, correct form E=E_o exp(−σt/∈)) … A second solution may use the non-transient form, E=E_o(r) exp(−jωt), which yields: □²E=0. (12)&quot;</li>
 <li><strong>FACT, col. 6 ll. 1–13:</strong> &quot;…Third, these equations may have zero on the RHS for propagation in conductive media. This last result may arise from B=0 for the SLW, implying no back-electromagnetic field from Ḃ in Faraday's law that in turn may give no (circulating) eddy currents. Consequently, the SLW may not be subject to the skin effect in media with linear electrical conductivity.&quot;</li>
 <li><strong>FACT, col. 6 ll. 13–15:</strong> &quot;C, E, and J may interact via EQN. 6, which can be rewritten using J=σE, and identifying the electrical conductivity with the imaginary part of the complex permittivity ∈″= σ/∈_oω:&quot; followed by EQN. (13) &quot;C/E_r = (ε′/c)((1 + jα)/(1 + j/kr)) (13)&quot;.</li>
 <li><strong>FACT, col. 6 ~l. 35–43, EQN. 14 and the key sentence:</strong>

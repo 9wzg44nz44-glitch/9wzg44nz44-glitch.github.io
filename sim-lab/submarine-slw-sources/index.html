@@ -47,6 +47,7 @@
     <h2>Provenance</h2>
     <ul>
       <li><code>/workspace/sim-lab/sub-sources/REDO_SLW.md</code> (last modified 2026-09-26 07:24 EDT)</li><li><code>/workspace/sim-lab/sub-sources/redo_slw_numbers.md</code> (last modified 2026-09-26 07:22 EDT)</li>
+      <li>Updated 2026-09-30: author-confirmed note, and the two open items on the exponent marked resolved (no other change).</li>
       <li>Converted to HTML 2026-09-28 (EDT) as a faithful conversion: text, numbers, equations and labels are the source's own. No new equations were added; only the TEM tags described below and the edits listed here were made.</li>
       <li>Appendix table A: the vertical bars in the header cells |Z| and |η| were escaped so the Markdown table renders; no values changed.</li><li>§8: one internal process bullet about an unsent internal summary draft was omitted (outbound/internal drafts are excluded from Pages). Batch-1 files (SOURCES.md, SUMMARY.md, VERIFY.md) are superseded and are not published.</li>
       <li>Status lines inside the source (for example "nothing published", "HELD", "draft") describe the state when it was written. This page is its GitHub Pages twin, published 2026-09-28.</li>
@@ -54,6 +55,7 @@
     </ul>
   </div>
   <div class="rules"><strong>Framing rules on this page (Dan).</strong> Under the SLW hypothesis no skin-depth, permeability, ferromagnetic or cage shielding-effectiveness argument is used to rank or dismiss SLW/SW. The Faraday cage strips TEM noise (<span class="badge fact">FACT</span>); an SLW passing the cage wall is <span class="badge hyp">HYP</span>. Every passage that uses transverse-EM (TEM / classical / cage-SE) reasoning is tagged <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>. FACT / HYP / ASSUMPTION labels are kept exactly as in the source.</div>
+  <div class="rules" id="author-confirmed-relaxation"><p><span class="badge fact">FACT, author-confirmed</span> <strong>Author-confirmed, 2026-09-30.</strong> In a private email from Dr. Hively to Dan (2026-09-30), Dr. Lee Hively confirmed the charge-relaxation exponent: &quot;The form, E = E0 e^(-sigma t/epsilon), is the correct one.&quot; So Eq. (A5), p. 122 of Hively &amp; Loebl 2019, and the exponent before EQN. 12 in US 9,306,527 B1 (col. 5), which print e^(−εt/σ), have ε and σ swapped (typos as printed). The correct form is E = E<sub>0</sub> exp(−σt/ε) with relaxation time τ = ε/σ, and IARD 2020 slide 60 is correct. See the <a href="../corrections/">Corrections log</a>. The two open items below that flag the hub&#x27;s exponent as a typo are now resolved: the hub page was fixed in PR #58 (2026-09-26), and the author confirmed the form.</p></div>
   <h2>Downloads</h2><ul class="dl-list"><li><a href="redo_slw_numbers.json">redo_slw_numbers.json</a></li></ul>
   
   <article class="doc">
@@ -131,7 +133,7 @@
 <li><strong>Hively &amp; Reed, Symmetry 12, 2110 (2020)</strong> (HYP): SLW and SW <em>&quot;are unconstrained by the skin effect, because neither wave has a magnetic field that generates&quot;</em> eddy currents (p. 1, abstract; p. 9 text; Table item 7, p. 10).</li>
 <li><strong>Hub, experiment-c.html #ohmic</strong> (hub rule, not a Hively quote): <em>&quot;SLW still has linear Ohmic loss ... p_Joule = J·E = σE∥²&quot;</em> and <em>&quot;exp(−α_ohm L) ... with α tied to σ / loss-tangent story&quot;</em>. The hub gives no formula for α_ohm.
 <ul>
-<li>Open item: the hub quotes the patent transient as &quot;E ∝ exp(−ε t/σ)&quot;. Hively's IARD slide has e^(−σt/ε). The hub form is dimensionally inconsistent and is probably a typo (ASSUMPTION). Not changed.</li>
+<li>Open item (RESOLVED 2026-09-30): the hub quoted the patent transient as &quot;E ∝ exp(−ε t/σ)&quot; <span class="badge hyp">TYPO as printed in the patent</span>. Hively's IARD slide has e^(−σt/ε). The inverted form was dimensionally inconsistent; hub experiment-c.html was fixed in PR #58, and the author confirmed e^(−σt/ε) on 2026-09-30 (note at the top of this page).</li>
 </ul>
 </li>
 </ul>
@@ -675,7 +677,7 @@
 <li><strong>Charge conservation:</strong> Hively's own □²C = 0 (patent EQN. 9) and Rentzber 2026 imply zero scalar sourcing by charge-conserving devices. Unresolved within EED.</li>
 <li><strong>Interfaces (Eq. 26):</strong> no transmission coefficient is given for water→steel→air. Hull and cage transmission under (b)/(c) is assumed ≈ 1 (HYP), not derived.</li>
 <li><strong>Background:</strong> under (c), every oven, drive and grid on Earth, plus lightning, is SLW background. No estimate exists.</li>
-<li><strong>Hub typo:</strong> experiment-c.html writes &quot;E ∝ exp(−ε t/σ)&quot; where Hively's slide has e^(−σt/ε). Flagged, not changed.</li>
+<li><strong>Hub typo (RESOLVED):</strong> experiment-c.html wrote &quot;E ∝ exp(−ε t/σ)&quot; where Hively's slide has e^(−σt/ε). Fixed in PR #58 (2026-09-26); author-confirmed 2026-09-30.</li>
 </ol>
 <hr />
 <h2>7. Sources (all local copies or open URLs; page numbers as cited)</h2>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corrections log: charge-relaxation exponent (author-confirmed) · SLW Hub</title>
+<meta name="description" content="Corrections log (2026-09-30): the printed exponent E = E0 e^(-epsilon t/sigma) in Hively &amp; Loebl 2019 Eq. A5 and US 9,306,527 col. 5 has epsilon and sigma swapped; the author confirmed E = E0 e^(-sigma t/epsilon), tau = epsilon/sigma. FACT, author-confirmed.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../sim-lab/sim-lab.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<script src="/assets/site-search.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../../index.html">Home</a>
+      <a href="../../learn.html">Learn</a>
+      <a href="../../compare.html">Compare</a>
+      <a href="../../fields.html">Fields</a>
+      <a href="../../monstein.html">Monstein</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../lab.html">Lab</a>
+      <a href="../../kit.html">Kit</a>
+      <a href="../../library.html">Library</a>
+      <a href="../../ranging/">Ranging</a>
+      <a href="../../sim-lab/" aria-current="page">Sim Lab</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Simulation Lab · corrections log · 2026-09-30</p>
+  <h1>Corrections log: charge-relaxation exponent (author-confirmed)</h1>
+  <p class="lede">The transient in Hively &amp; Loebl 2019 and in US 9,306,527 is printed with ε and σ swapped. The author confirmed the correct form on 2026-09-30. This page records the correction and where the hub uses it.</p>
+  <p><span class="badge fact">FACT, author-confirmed</span> <a href="../">← Simulation Lab catalogue</a></p>
+  <article class="doc">
+<div class="rules" id="author-confirmed-relaxation"><strong>Author-confirmed, 2026-09-30.</strong> In a private email from Dr. Hively to Dan (2026-09-30), Dr. Lee Hively confirmed the form of the charge-relaxation transient:
+<blockquote>&quot;The form, E = E0 e^(-sigma t/epsilon), is the correct one.&quot;</blockquote></div>
+<h2>What is corrected</h2>
+<ul>
+<li><span class="badge hyp">TYPO as printed</span> Hively &amp; Loebl, <em>Phys. Essays</em> 32, 112 (2019), Eq. (A5), p. 122, prints E = E<sub>0</sub> e^(−εt/σ).</li>
+<li><span class="badge hyp">TYPO as printed</span> US 9,306,527 B1, col. 5, the exponent before EQN. 12, prints E = E<sub>0</sub> exp(−εt/σ). In the patent the permittivity glyph is ∈.</li>
+<li><span class="badge fact">FACT, author-confirmed</span> Correct form: <strong>E = E<sub>0</sub> exp(−σ t / ε)</strong>, with relaxation time <strong>τ = ε / σ</strong>. ε and σ are swapped in the two printings above.</li>
+<li><span class="badge fact">FACT, author-confirmed</span> Hively &amp; Land, IARD 2020, slide 60, prints E = E<sub>o</sub> e^(−σt/ε). That slide is correct.</li>
+</ul>
+<h2>Units check</h2>
+<ul>
+<li><span class="badge fact">FACT</span> σ is in S/m and ε in F/m, so ε/σ is in seconds and σt/ε is dimensionless. The swapped form εt/σ would have units of s² and cannot sit in an exponent.</li>
+<li><span class="badge fact">FACT</span> Arithmetic, τ = ε/σ: seawater with ε<sub>r</sub> = 80 and σ = 4 S/m gives 80 × 8.854×10⁻¹² / 4 = 1.8×10⁻¹⁰ s. The hub&#x27;s submarine survey gets 1.51×10⁻¹⁰ s with its seawater model at 60 Hz (σ = 4.29 S/m). Copper, ε<sub>0</sub>/σ with σ = 5.8×10⁷ S/m, gives 1.5×10⁻¹⁹ s, matching the ∼10⁻¹⁹ s the 2019 paper states beside Eq. (A5).</li>
+<li><span class="badge fact">FACT</span> This is a transient in time (charge relaxation). It is not a path loss over distance, and it does not by itself give an SLW attenuation constant. Under the SLW hypothesis the only loss term the hub uses is the Joule term σE∥² (or none, under the 2022 Erratum toggle).</li>
+</ul>
+<h2>Where the hub uses or quotes it</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Page</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><a href="../../experiment-c.html#ohmic">experiment-c.html</a> (#ohmic)</td><td>Correct form E = E<sub>0</sub> exp(−σt/ε), τ = ε/σ since hub PR #58 (2026-09-26). Author-confirmed note added 2026-09-30.</td></tr>
+<tr><td><a href="../joule-loss-positions/">Joule-loss positions</a></td><td>Quotes the printed (A5) and patent forms verbatim; both are now labelled as typos. Author-confirmed note added.</td></tr>
+<tr><td><a href="../submarine-slw-sources/">Submarine SLW/SW source survey</a></td><td>Quotes slide 60 (correct). Two open items about the hub exponent marked resolved. Author-confirmed note added.</td></tr>
+<tr><td><a href="../../experiment-c-snr.html">experiment-c-snr.html</a>, <a href="../../sleeve-balun-snr.html">sleeve-balun-snr.html</a></td><td>No relaxation transient is computed on these pages (the Ohmic path factor is exp(−α L), a spatial factor). Short pointer to this log added.</td></tr>
+</tbody></table></div>
+<p class="footnote">Only the single sentence above is quoted from the email. Nothing else from the email is reproduced here. Paper and patent references: <a href="../../library.html">library</a>.</p>
+  </article>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub · <a href="../../sim-lab/">Simulation Lab catalogue</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
+</body>
+</html>
