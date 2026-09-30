@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mounting ideas — stub antenna inside the A and B spheres · SLW Hub</title>
+<meta name="description" content="Grok Bot initial ideas, subject to better ideas from anyone: ways to mount an RG-405 stub antenna so its tip sits at the geometric center of the Experiment A KB-1820 (0.750 in) and Experiment B KB-2016 (2.50 in) aluminum spheres, with the sleeve balun outside.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .mi-banner { margin: 1rem 0 1.25rem; padding: .9rem 1.1rem; border: 2px solid var(--hively); border-radius: var(--radius); background: rgba(212,146,58,.12); }
+  .mi-banner .big { display: block; font-family: var(--font-display); font-size: 1.25rem; letter-spacing: .02em; color: var(--hively); }
+  .mi-fig { margin: 1rem 0; padding: .75rem; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--bg-elev); }
+  .mi-fig svg { display: block; width: 100%; height: auto; max-width: 640px; margin: 0 auto; }
+  .mi-fig figcaption { font-size: .85rem; color: var(--ink-muted); margin-top: .4rem; }
+  details.archive-block > summary strong { color: var(--ink); }
+  .pc { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+  .pc > div { padding: .5rem .75rem; border: 1px solid var(--rule); border-radius: 10px; }
+  .pc h4 { margin: 0 0 .3rem; font-size: .95rem; }
+  @media (max-width: 640px) { .pc { grid-template-columns: 1fr; } }
+</style>
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<script src="/assets/site-search.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="c-nuclei.html">C×nuclei</a>
+      <a href="fields.html">Fields</a>
+      <a href="monstein.html">Monstein</a>
+      <a href="sphere.html">Sphere</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="setup.html">Setup</a>
+      <a href="kit.html">Kit</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Experiments A &amp; B · stub antenna inside the sphere · mounting concepts</p>
+  <h1>Mounting ideas: putting the stub tip at the center of the A and B spheres</h1>
+
+  <div class="mi-banner" role="note">
+    <span class="big">GROK BOT INITIAL IDEAS — SUBJECT TO BETTER IDEAS FROM ANYONE</span>
+    These are starting points, not final designs. Nothing here has been built or tested. Steve Morris and anyone else with shop or RF experience: please improve, replace or reject any of them. Better ideas win.
+  </div>
+
+  <p class="lede">Dan wants a short <strong>stub antenna</strong> (the bare center wire at the end of a coax cable) to poke into each hollow aluminum sphere so that the <strong>tip sits exactly at the sphere’s geometric center</strong>, with the connector and the <strong>sleeve balun</strong> kept outside. This page lists ways to hold the stub there, for the tiny Experiment&nbsp;A ball and the roomier Experiment&nbsp;B ball.</p>
+
+  <section class="card">
+    <h2 id="summary">The short version</h2>
+    <ul>
+      <li><strong>Experiment A (¾″ ball, 1296&nbsp;MHz):</strong> the ball has no hole yet, and there is almost no room inside. The simplest ideas hold the coax from <em>outside</em>: a small hole just big enough for the coax, plus a small external collar or a potted plastic tube that fixes the depth and angle. Nothing can be built <em>inside</em> this ball.</li>
+      <li><strong>Experiment B (2.50″ ball, 433.59&nbsp;MHz):</strong> the ball already has a ¼″ hole. A plastic “top-hat” bushing in that hole can center the coax with no metalwork on the ball. A plastic guide rod that spans the inside of the ball can put the tip at the center automatically.</li>
+      <li><strong>Both:</strong> the tip depth, measured from the outside surface at the hole, is the sphere radius: <strong>9.525&nbsp;mm for A</strong> and <strong>31.75&nbsp;mm for B</strong>. The wall thickness decides how much bare wire is inside. The radius, not λ/10, sets the stub length inside the ball.</li>
+      <li><strong>Materials:</strong> non-ferrous only. Nylon, PTFE (Teflon) or Delrin (acetal) plastics; brass or nylon screws; no steel in the RF path.</li>
+    </ul>
+  </section>
+
+  <details class="archive-block" open>
+    <summary><strong>Words used on this page</strong> (tap to hide)</summary>
+    <ul>
+      <li><strong>Stub:</strong> the short length of bare center conductor left when the outer conductor and dielectric of a coax cable are stripped back. It is the antenna. On this hub it is cut from RG-405/U semi-rigid coax (<a href="tools.html">tools.html</a>, <a href="sleeve-balun.html">sleeve-balun.html</a>).</li>
+      <li><strong>Sleeve balun</strong> (also called a bazooka choke): a close-fitting metal tube over the coax, soldered to the coax outer conductor at one end (the “cold” end) and open at the other end, which faces the stub tip. It is about λ/4 long and reduces current on the outside of the coax. How-to: <a href="setup.html#sleeve">setup.html#sleeve</a>.</li>
+      <li><strong>λ (lambda):</strong> free-space wavelength, c/f, where c is the speed of light and f the frequency.</li>
+      <li><strong>Bulkhead:</strong> a connector made to mount through a hole in a panel or wall, held by a nut or thread. The hub’s is the Amphenol <code>901-9875</code> SMA-female bulkhead.</li>
+      <li><strong>Standoff:</strong> a non-conductive spacer that holds a part at a fixed distance or position.</li>
+      <li><strong>R, t:</strong> sphere outer radius (half the outside diameter) and wall thickness.</li>
+      <li><strong>Geometric center:</strong> the point inside the ball that is R from every point on its outside surface.</li>
+      <li><strong>Labels:</strong> <span class="tag ok">FACT</span> from a datasheet, the patent or another hub page (linked). <span class="tag hively">IDEA</span> an untested suggestion. <span class="tag meyl">ASSUMPTION</span> something we assume and still need to check. <span class="tag warn">CONFLICT</span> two hub sources disagree.</li>
+    </ul>
+  </details>
+
+  <h2 id="numbers">Key numbers</h2>
+  <div class="table-wrap">
+  <table class="log-table">
+    <thead><tr><th>Item</th><th>Experiment A</th><th>Experiment B</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Sphere</td><td>K-Mac <code>KB-1820</code>, 3003 Al hollow, 0.750″ (19.05&nbsp;mm) OD</td><td>K-Mac <code>KB-2016</code>, 3003 Al hollow, 2.50″ (63.5&nbsp;mm) OD</td><td><span class="tag ok">FACT</span> <a href="shop-drawing.html#sheet-a">Sheet A</a>, <a href="shop-drawing.html#sheet-b">Sheet B</a></td></tr>
+      <tr><td>Radius R (tip depth from outside surface)</td><td><strong>9.525&nbsp;mm</strong></td><td><strong>31.75&nbsp;mm</strong></td><td><span class="tag ok">FACT</span> half the OD</td></tr>
+      <tr><td>Wall thickness t</td><td><strong>Not stated on the hub. Must be measured</strong> (method below)</td><td>≈ 0.132″ (3.35&nbsp;mm)</td><td><span class="tag ok">FACT</span> <a href="sphere.html">sphere.html</a>, Sheet B</td></tr>
+      <tr><td>Bare wire inside, if the dielectric stops at the inner wall (R − t)</td><td>9.525&nbsp;mm − t (less than 9.5&nbsp;mm)</td><td>31.75 − 3.35 ≈ 28.4&nbsp;mm</td><td><span class="tag ok">FACT</span> geometry</td></tr>
+      <tr><td>Hole as received</td><td><strong>None</strong>; one must be drilled</td><td><strong>¼″ (0.250″)</strong>, stock</td><td><span class="tag ok">FACT</span> <a href="shop-drawing.html">shop-drawing.html</a></td></tr>
+      <tr><td>Frequency · λ</td><td>1296&nbsp;MHz · 231.3&nbsp;mm</td><td>433.59&nbsp;MHz · 691.4&nbsp;mm</td><td><span class="tag ok">FACT</span> <a href="sleeve-balun.html">sleeve-balun.html</a></td></tr>
+      <tr><td>λ/4 sleeve (air)</td><td>57.8&nbsp;mm</td><td>172.9&nbsp;mm</td><td><span class="tag ok">FACT</span> sleeve-balun.html</td></tr>
+      <tr><td>λ/10 “first-article” stub</td><td>23.1&nbsp;mm (does <em>not</em> fit: longer than R)</td><td>69.1&nbsp;mm (does <em>not</em> fit: longer than R)</td><td><span class="tag ok">FACT</span> sleeve-balun.html, <a href="setup.html#sleeve">setup#sleeve</a></td></tr>
+      <tr><td>RG-405/U coax</td><td colspan="2">outer OD 0.086″ (≈2.2&nbsp;mm); PTFE dielectric OD ≈ 0.066″ (1.68&nbsp;mm); center conductor 0.020″ (0.51&nbsp;mm), silver-plated copper-clad steel</td><td><span class="tag ok">FACT</span> <a href="tools.html">tools.html</a>, sleeve-balun.html</td></tr>
+      <tr><td>SMA bulkhead</td><td colspan="2">Amphenol <code>901-9875</code>, 1/4-36 UNEF thread (major ≈ 0.250″ / 6.35&nbsp;mm); hub’s preferred clearance hole 6.5&nbsp;mm; do not tap thin ball walls</td><td><span class="tag ok">FACT</span> <a href="setup.html#sphere-a">setup#sphere-a</a>, <a href="sphere.html#sma-install">sphere#sma-install</a></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="footnote"><span class="tag ok">FACT</span> The hub’s RG-405 center conductor is copper-clad steel. That comes with the cable. The “no steel” rule on this page is about screws, clamps and fixtures you add.</p>
+
+  <h2 id="minimum-hole">How small can the hole be?</h2>
+  <ul>
+    <li><span class="tag ok">FACT</span> Only the PTFE dielectric and center wire go through the wall (the outer conductor stops at the outside surface): the hole must clear 1.68&nbsp;mm. A #50 drill (0.070″, 1.78&nbsp;mm) is the next common size up.</li>
+    <li><span class="tag ok">FACT</span> The whole RG-405 goes through (outer conductor inside the wall): the hole must clear ≈2.2&nbsp;mm. A #43 drill (0.089″, 2.26&nbsp;mm) is the next common size up.</li>
+    <li><span class="tag ok">FACT</span> The 901-9875 bulkhead goes through the wall: 6.5&nbsp;mm clearance (hub). On the ¾″ ball that hole is about one-third of the ball’s diameter.</li>
+    <li><span class="tag hively">IDEA</span> Smaller holes keep the shell closer to a closed sphere and leave more metal around the hole. Try the drill on a spare ball first; the <code>KB-1820</code> comes in a 10-pack (<a href="setup.html#sphere-a">setup#sphere-a</a>).</li>
+  </ul>
+
+  <h2 id="measure">Before any design: measure the wall and plan the depth</h2>
+  <ol class="steps">
+    <li><span class="tag hively">IDEA</span> With the hole drilled (A) or using the stock hole (B), and nothing installed, put a caliper depth rod through the hole until it touches the far inside wall. Call the reading <em>d</em>.</li>
+    <li><span class="tag ok">FACT</span> (geometry) <em>d</em> = OD − t for the far wall. If the wall is uniform, t ≈ OD − <em>d</em>. Repeat at a few angles and on a spare ball.</li>
+    <li><span class="tag ok">FACT</span> (geometry) The tip belongs at depth R from the outside surface at the hole: 9.525&nbsp;mm (A) or 31.75&nbsp;mm (B). That holds whatever the wall thickness.</li>
+    <li><span class="tag hively">IDEA</span> Put a fixed depth stop on the coax (a collar, a PTFE sleeve cut to length, or a paint mark read under magnification) so the insertion is repeatable.</li>
+    <li><span class="tag hively">IDEA</span> A flat caliper base rests on the hole rim, which is slightly below the top of the curve. From the sphere geometry that error is about 0.04&nbsp;mm for a 1.8&nbsp;mm hole in A, 0.16&nbsp;mm for B’s ¼″ hole, but 0.57&nbsp;mm for a 6.5&nbsp;mm hole in A. For big holes, measure from a thin straightedge laid across the rim.</li>
+  </ol>
+
+  <h2 id="expt-a">Experiment A — ¾″ <code>KB-1820</code> at 1296&nbsp;MHz</h2>
+  <p><span class="tag ok">FACT</span> No hole yet. The inside diameter is less than 19&nbsp;mm, and the hub already says an interior locknut will not fit (“¾″ ID is too tight”, <a href="shop-drawing.html#sheet-a">Sheet&nbsp;A</a>). <span class="tag hively">IDEA</span> So every Experiment A concept holds the stub from the outside. Internal standoffs, internal 3D-printed cradles and internal nuts are judged not practical here: there is no way to get them in through a 2–6.5&nbsp;mm hole, or to adjust them once they are inside.</p>
+
+  <details class="archive-block" open>
+    <summary><strong>A1 · Pin-hole feed</strong>: the smallest hole, with the coax outer conductor ending at the outside surface</summary>
+    <p><span class="tag hively">IDEA</span> Drill about 1.8&nbsp;mm (#50). Strip the RG-405 outer conductor so that only the PTFE dielectric and center wire pass through the wall. The outer conductor’s cut end sits against the outside of the ball. Trim the bare wire so the tip is R = 9.525&nbsp;mm below the outside surface. Then choose one of two options and log which: (a) bond the outer conductor to the shell all round with conductive epoxy or aluminum solder and aluminum flux, or (b) insulate it with a thin PTFE washer. The hub’s existing sphere feed bonds the outer conductor to the shell (“outer as shield”, <a href="setup.html#sphere-a">setup#sphere-a</a>).</p>
+    <div class="pc"><div><h4>Pros</h4>Smallest possible hole; shell stays almost closed; no connector or extra hardware on the ball.</div><div><h4>Cons</h4>The one small joint carries all the mechanical load; depth is hard to adjust after bonding; ordinary tin-lead solder does not wet aluminum (<span class="tag ok">FACT</span> needs aluminum flux or conductive epoxy).</div></div>
+    <p><strong>Tip at center:</strong> a depth stop on the coax set to R; check on a sacrificial ball cut in half. <strong>Sleeve:</strong> outside the ball, open end toward the ball, cold end λ/4 = 57.8&nbsp;mm back. Pair it with A5 for strain relief.</p>
+  </details>
+
+  <details class="archive-block" open>
+    <summary><strong>A2 · External collar with a set screw</strong>: an adjustable depth, following the hub’s exterior-flange approach</summary>
+    <p><span class="tag hively">IDEA</span> A small brass or aluminum collar (about 6–8&nbsp;mm OD, a few mm long, with a saddle face that matches the ball’s curve) is bonded over a #43 (2.26&nbsp;mm) hole. Its bore is a slip fit on the 0.086″ RG-405. A tiny <strong>brass or nylon</strong> set screw in the side of the collar clamps the coax once the tip depth is right. This is the same idea as the hub’s exterior flange/boss for the SMA (<a href="shop-drawing.html#sheet-a">Sheet&nbsp;A</a>, flange Ø ≈ 0.50″, 3–4&nbsp;mm thick) scaled down to the coax.</p>
+    <div class="pc"><div><h4>Pros</h4>Depth can be adjusted and re-checked; the collar adds grip length that the thin wall lacks; with a metal collar the coax outer conductor is bonded to the shell.</div><div><h4>Cons</h4>The collar must be bonded to aluminum (braze, aluminum solder or conductive epoxy); it adds a small metal lump outside the ball; a set screw can dent semi-rigid coax (use a nylon tip or a brass pad).</div></div>
+    <figure class="mi-fig">
+      <svg viewBox="0 0 640 275" role="img" aria-label="Concept sketch A2: small sphere cross-section, external collar with set screw holding RG-405, stub tip at geometric center, sleeve balun outside">
+        <text x="320" y="18" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#d4923a">NOT TO SCALE — CONCEPT ONLY (A2)</text>
+        <circle cx="470" cy="140" r="95" fill="none" stroke="#b7ab95" stroke-width="5"/>
+        <circle cx="470" cy="140" r="3.5" fill="#6aaa6a"/>
+        <text x="470" y="126" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#6aaa6a">geometric center</text>
+        <rect x="345" y="126" width="32" height="28" fill="#c47a3a" opacity=".85"/>
+        <rect x="356" y="106" width="10" height="20" fill="#4a9b88"/>
+        <line x1="352" y1="96" x2="359" y2="106" stroke="#4a9b88" stroke-width="1"/>
+        <text x="350" y="92" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" fill="#4a9b88">brass/nylon set screw</text>
+        <text x="361" y="194" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#c47a3a">collar</text>
+        <line x1="361" y1="184" x2="361" y2="156" stroke="#c47a3a" stroke-width="1"/>
+        <line x1="120" y1="140" x2="375" y2="140" stroke="#f3ead8" stroke-width="7"/>
+        <line x1="375" y1="140" x2="470" y2="140" stroke="#f3ead8" stroke-width="2"/>
+        <text x="425" y="158" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#f3ead8">bare stub</text>
+        <rect x="150" y="130" width="150" height="20" fill="none" stroke="#d4b483" stroke-width="2"/>
+        <line x1="150" y1="130" x2="150" y2="150" stroke="#d4b483" stroke-width="5"/>
+        <text x="225" y="120" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#d4b483">λ/4 sleeve 57.8 mm (shortened in sketch)</text>
+        <text x="150" y="168" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#d4b483">cold end (soldered)</text>
+        <text x="290" y="168" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#d4b483">open end → ball</text>
+        <text x="60" y="144" font-family="IBM Plex Mono, monospace" font-size="10" fill="#f3ead8">RG-405 →</text>
+        <line x1="375" y1="205" x2="470" y2="205" stroke="#6aaa6a" stroke-width="1"/>
+        <line x1="375" y1="199" x2="375" y2="211" stroke="#6aaa6a"/><line x1="470" y1="199" x2="470" y2="211" stroke="#6aaa6a"/>
+        <text x="368" y="214" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" fill="#6aaa6a">R = 9.525 mm</text>
+        <text x="368" y="228" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" fill="#6aaa6a">from outside surface</text>
+        <text x="470" y="262" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#b7ab95">KB-1820 · Ø19.05 mm · wall t = measure</text>
+      </svg>
+      <figcaption>A2 sketch, not to scale, concept only. The coax enters from the left; the collar sits outside the ball; the bare stub ends at the center; the sleeve stays outside with its open end toward the ball.</figcaption>
+    </figure>
+  </details>
+
+  <details class="archive-block">
+    <summary><strong>A3 · The hub’s SMA bulkhead path plus an internal extension wire</strong></summary>
+    <p><span class="tag ok">FACT</span> The hub already has a shop plan for the ¾″ ball: an exterior flange or boss, a 6.5&nbsp;mm clearance hole, and the <code>901-9875</code> body bonded to the shell (<a href="shop-drawing.html#sheet-a">Sheet&nbsp;A</a>). <span class="tag hively">IDEA</span> For a stub at the center, solder a short straight wire to the bulkhead’s center contact so its tip ends R = 9.525&nbsp;mm below the outside surface. The sleeve goes on the external cable.</p>
+    <div class="pc"><div><h4>Pros</h4>Matches the existing Sheet&nbsp;A; the ball can be unplugged; the thread is held by the flange, not the thin wall.</div><div><h4>Cons</h4>The 6.5&nbsp;mm hole is large for a 19&nbsp;mm ball; the bulkhead’s rear body may take up much of the space inside (<span class="tag meyl">ASSUMPTION</span>: check the 901-9875 drawing); the extension adds a solder joint inside that you cannot see.</div></div>
+    <p><strong>Tip at center:</strong> measure from the flange face and subtract the flange thickness. <strong>Sleeve:</strong> on the feed cable, open end toward the connector.</p>
+  </details>
+
+  <details class="archive-block">
+    <summary><strong>A4 · Potted plastic guide tube</strong></summary>
+    <p><span class="tag hively">IDEA</span> Push a short Delrin or nylon tube (OD a slip fit in a #43 or slightly larger hole, bore a slip fit on the RG-405 or on its 1.68&nbsp;mm dielectric) a millimetre or so through the wall. Hold it square in a jig and pot it from the <em>outside</em> with a small epoxy fillet. The coax then slides in to its depth stop and gets a drop of adhesive or a nylon set screw.</p>
+    <div class="pc"><div><h4>Pros</h4>Sets the angle as well as the depth; spreads the load; no metal bonding to aluminum.</div><div><h4>Cons</h4>Permanent; epoxy and plastic sit right at the feed; <span class="tag ok">FACT</span> PTFE is hard to glue unless etched, so Delrin or nylon is easier here.</div></div>
+  </details>
+
+  <details class="archive-block">
+    <summary><strong>A5 · External non-metallic saddle</strong> (combine with A1, A2 or A4)</summary>
+    <p><span class="tag hively">IDEA</span> A 3D-printed (PETG or nylon) or machined Delrin saddle clamps the ball on one side and the coax (or sleeve) on the other, on one straight axis, and screws to the non-metallic TX sled with nylon screws. The small joint at the ball then carries no load when the cable is handled.</p>
+    <div class="pc"><div><h4>Pros</h4>Protects the tiny joint; keeps the coax on the radial axis so the tip stays on the center; easy to print.</div><div><h4>Cons</h4>More parts; plastic near the ball (keep it thin and away from the hole if possible).</div></div>
+  </details>
+
+  <h2 id="expt-b">Experiment B — 2.50″ <code>KB-2016</code> at 433.59&nbsp;MHz</h2>
+  <p><span class="tag ok">FACT</span> The ball has a stock ¼″ (0.250″) hole, the wall is ≈3.35&nbsp;mm, and the hub says not to tap that hole: 0.250″ is the thread’s major diameter, not a tap drill (<a href="sphere.html#sma-install">sphere#sma-install</a>). <span class="tag hively">IDEA</span> There is room inside, but anything that goes inside must pass through a hole about 6.35&nbsp;mm wide.</p>
+
+  <details class="archive-block" open>
+    <summary><strong>B1 · Top-hat plastic bushing in the stock ¼″ hole</strong>: no metalwork on the ball</summary>
+    <p><span class="tag hively">IDEA</span> Turn a PTFE, Delrin or nylon bushing with a shank that is a snug fit in the 0.250″ hole (≈ wall length, 3.35&nbsp;mm) and a flange outside. The center bore is a slip fit on the RG-405 (≈2.2&nbsp;mm) or on its dielectric (1.68&nbsp;mm). Hold it with a thin nylon nut or a split ring on the inside if you can reach it, or a small epoxy bead outside. A nylon set screw in the flange locks the coax at depth R = 31.75&nbsp;mm.</p>
+    <div class="pc"><div><h4>Pros</h4>Uses the hole as is; reversible; centers the coax on the hole axis; cheap.</div><div><h4>Cons</h4>The coax outer conductor is insulated from the shell unless you add a bond, which differs from the hub’s “outer as shield” default; PTFE creeps under set-screw pressure (Delrin is stiffer); the stock hole must point at the center (<span class="tag meyl">ASSUMPTION</span>: check that the hole is radial).</div></div>
+    <figure class="mi-fig">
+      <svg viewBox="0 0 640 280" role="img" aria-label="Concept sketch B1: 2.5 inch sphere cross-section, top-hat plastic bushing in stock quarter-inch hole, coax to stub tip at geometric center">
+        <text x="320" y="18" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#d4923a">NOT TO SCALE — CONCEPT ONLY (B1)</text>
+        <circle cx="440" cy="140" r="100" fill="none" stroke="#b7ab95" stroke-width="10"/>
+        <circle cx="440" cy="140" r="4" fill="#6aaa6a"/>
+        <text x="440" y="126" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#6aaa6a">geometric center</text>
+        <rect x="330" y="128" width="16" height="24" fill="#4a9b88"/>
+        <rect x="322" y="118" width="8" height="44" fill="#4a9b88"/>
+        <line x1="316" y1="97" x2="325" y2="116" stroke="#4a9b88" stroke-width="1"/>
+        <text x="314" y="93" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" fill="#4a9b88">PTFE/Delrin top-hat bushing</text>
+        <line x1="140" y1="140" x2="346" y2="140" stroke="#f3ead8" stroke-width="7"/>
+        <line x1="346" y1="140" x2="440" y2="140" stroke="#f3ead8" stroke-width="2"/>
+        <text x="356" y="160" font-family="IBM Plex Mono, monospace" font-size="10" fill="#f3ead8">bare stub ≈ 28.4 mm</text>
+        <rect x="165" y="130" width="120" height="20" fill="none" stroke="#d4b483" stroke-width="2"/>
+        <line x1="165" y1="130" x2="165" y2="150" stroke="#d4b483" stroke-width="5"/>
+        <text x="225" y="120" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#d4b483">λ/4 sleeve 172.9 mm (shortened)</text>
+        <text x="60" y="144" font-family="IBM Plex Mono, monospace" font-size="10" fill="#f3ead8">RG-405 →</text>
+        <line x1="340" y1="205" x2="440" y2="205" stroke="#6aaa6a" stroke-width="1"/>
+        <line x1="340" y1="199" x2="340" y2="211" stroke="#6aaa6a"/><line x1="440" y1="199" x2="440" y2="211" stroke="#6aaa6a"/>
+        <text x="332" y="214" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" fill="#6aaa6a">R = 31.75 mm</text>
+        <text x="332" y="228" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" fill="#6aaa6a">from outside surface</text>
+        <text x="440" y="268" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#b7ab95">KB-2016 · Ø63.5 mm · wall ≈3.35 mm · stock ¼″ hole</text>
+      </svg>
+      <figcaption>B1 sketch, not to scale, concept only. The bushing fills the stock hole and centers the coax; the sleeve stays outside.</figcaption>
+    </figure>
+  </details>
+
+  <details class="archive-block" open>
+    <summary><strong>B2 · Full-diameter plastic guide rod</strong>: the tip lands on the center by construction</summary>
+    <p><span class="tag hively">IDEA</span> Measure the inside diameter through the hole (method above: ID ≈ 63.5 − 2 × 3.35 ≈ 56.8&nbsp;mm if the wall is uniform). Make a Delrin or PTFE rod just under 6.3&nbsp;mm OD, as long as the measured ID, with a 0.55&nbsp;mm blind bore drilled along its axis from one end to exactly half its length. Slide it in until it touches the far wall. The bare stub then goes into the bore, and the tip bottoms out at the midpoint of the rod, which is the geometric center. Hold the rod’s outer end with B1’s bushing.</p>
+    <div class="pc"><div><h4>Pros</h4>Self-locating and easy to check: if the rod touches the far wall, the tip is at the center; the stub is supported along its length and cannot bend.</div><div><h4>Cons</h4>Puts a plastic rod across the whole diameter, so the stub is embedded in dielectric (<span class="tag hively">IDEA</span>: compare S<sub>11</sub> with and without it on the <a href="kit.html#vna6000">VNA6000</a>); a long 0.55&nbsp;mm bore is hard to drill straight; the rod is hard to remove.</div></div>
+    <figure class="mi-fig">
+      <svg viewBox="0 0 640 262" role="img" aria-label="Concept sketch B2: guide rod spanning the inner diameter with a blind bore to the center; stub tip bottoms at the center">
+        <text x="320" y="18" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#d4923a">NOT TO SCALE — CONCEPT ONLY (B2)</text>
+        <circle cx="400" cy="130" r="100" fill="none" stroke="#b7ab95" stroke-width="10"/>
+        <rect x="305" y="121" width="190" height="18" fill="#4a9b88" opacity=".55"/>
+        <line x1="305" y1="130" x2="400" y2="130" stroke="#f3ead8" stroke-width="2"/>
+        <circle cx="400" cy="130" r="4" fill="#6aaa6a"/>
+        <text x="400" y="110" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#6aaa6a">bore bottom = center</text>
+        <text x="400" y="160" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#4a9b88">rod length = measured ID</text>
+        <text x="514" y="134" font-family="IBM Plex Mono, monospace" font-size="10" fill="#b7ab95">← touches far wall</text>
+        <line x1="120" y1="130" x2="305" y2="130" stroke="#f3ead8" stroke-width="7"/>
+        <text x="60" y="134" font-family="IBM Plex Mono, monospace" font-size="10" fill="#f3ead8">RG-405 →</text>
+        <text x="400" y="254" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#b7ab95">KB-2016 · stock ¼″ hole · sleeve outside (not drawn)</text>
+      </svg>
+      <figcaption>B2 sketch, not to scale, concept only.</figcaption>
+    </figure>
+  </details>
+
+  <details class="archive-block">
+    <summary><strong>B3 · The hub’s SMA bulkhead path plus an internal extension wire</strong></summary>
+    <p><span class="tag ok">FACT</span> Hub plan for B: keep or ream the stock hole to 6.5&nbsp;mm clearance and clamp the <code>901-9875</code> with a locknut and washer through the wall. Do not tap (<a href="shop-drawing.html#sheet-b">Sheet&nbsp;B</a>). There is room for the inside nut on this ball. <span class="tag hively">IDEA</span> Solder a straight wire to the bulkhead’s center contact so its tip ends 31.75&nbsp;mm below the outside surface.</p>
+    <div class="pc"><div><h4>Pros</h4>Matches Sheet&nbsp;B; the ball can be unplugged; the thread is held by a nut, not the wall.</div><div><h4>Cons</h4>Reaming changes the stock hole; the extension joint is hidden inside; a long bare extension can sag unless supported (combine with B2’s rod).</div></div>
+  </details>
+
+  <details class="archive-block">
+    <summary><strong>B4 · External clamp collar</strong> (B-sized version of A2)</summary>
+    <p><span class="tag hively">IDEA</span> A brass collar with a curved saddle face is bonded over the stock hole, with a bore for the RG-405 and a brass or nylon set screw. Alternatively, a split brass clamp ring around a PTFE sleeve on the coax, screwed to an external saddle.</p>
+    <div class="pc"><div><h4>Pros</h4>Adjustable depth; bonds the outer conductor to the shell if you want that; no work inside the ball.</div><div><h4>Cons</h4>Bonding brass to aluminum (use conductive epoxy or a mechanical clamp); the collar must be square to the hole axis.</div></div>
+  </details>
+
+  <details class="archive-block">
+    <summary><strong>B5 · Potted Delrin tube</strong> and <strong>B6 · machined boss</strong> (heavier options)</summary>
+    <p><span class="tag hively">IDEA</span> B5: as in A4, a Delrin or nylon tube in the ¼″ hole, potted from outside. B6: a machined aluminum boss bonded over the hole, thick enough for ≥2–3 full thread pitches (<span class="tag ok">FACT</span> hub rule; 1/4-36 pitch = 1/36″ ≈ 0.71&nbsp;mm, so ≥1.4–2.1&nbsp;mm of boss), then tapped 1/4-36 UNEF 2B <em>in the boss only</em>. <span class="tag ok">FACT</span> Monstein &amp; Wesley’s Fig.&nbsp;1 ball used a machined 18&nbsp;mm shaft and 34&nbsp;mm base at the feed (<a href="sphere.html">sphere.html</a>). A boss is the catalog-ball version of that.</p>
+    <div class="pc"><div><h4>Pros</h4>Strong and permanent; a boss gives a real thread.</div><div><h4>Cons</h4>Needs a machine shop; permanent; more metal at the feed.</div></div>
+  </details>
+
+  <p><span class="tag hively">IDEA</span> <strong>Internal 3D-printed cradle for B:</strong> a full cradle cannot pass through the ¼″ hole, so it would mean cutting and re-joining the ball. Not recommended; B2’s rod is the “internal support” that fits through the hole.</p>
+
+  <h2 id="verify">Checking that the tip really is at the center</h2>
+  <ul>
+    <li><span class="tag hively">IDEA</span> <strong>Depth stop plus measurement:</strong> the stop is set to R from the tip (9.525&nbsp;mm A, 31.75&nbsp;mm B), measured under magnification with calipers before assembly.</li>
+    <li><span class="tag hively">IDEA</span> <strong>Sacrificial ball (A):</strong> the <code>KB-1820</code> is sold in a 10-pack. Drill one exactly like the real ones, then saw it in half to see where the tip ends up. It also serves as a drilling practice piece.</li>
+    <li><span class="tag hively">IDEA</span> <strong>Printed see-through mockup (B):</strong> print a clear 63.5&nbsp;mm half-shell with a ¼″ hole in the same place, and set the depth stop against it before touching the real ball (only two <code>KB-2016</code> were bought, <a href="sphere.html">sphere.html</a>).</li>
+    <li><span class="tag hively">IDEA</span> <strong>X-ray:</strong> a dental or industrial X-ray shows the copper-clad wire against the thin aluminum shell; a quick way to confirm on the finished part.</li>
+    <li><span class="tag hively">IDEA</span> <strong>Borescope or phone light (B only, before the coax goes in):</strong> a small inspection camera through the ¼″ hole can check for swarf and burrs inside. It is not precise enough to locate the tip.</li>
+    <li><span class="tag hively">IDEA</span> <strong>S<sub>11</sub> repeatability:</strong> log S<sub>11</sub> for each assembly on the <a href="kit.html#vna6000">VNA6000-A</a>. It does not tell you where the tip is, but a TX/RX pair that differs a lot suggests the two builds are not the same.</li>
+  </ul>
+
+  <h2 id="build">Practical build notes</h2>
+  <ul>
+    <li><span class="tag hively">IDEA</span> <strong>Holding a 19&nbsp;mm ball for drilling:</strong> a V-block or soft (aluminum or wood) vise jaws with a matching cup, so the drill axis passes through the center and the thin wall is not crushed. Line up the drill with the V-block centerline.</li>
+    <li><span class="tag hively">IDEA</span> <strong>Starting the hole:</strong> a light spot with a sharp center drill or a very light center punch (a heavy punch can dent a thin stamped wall). Then a small pilot, then the final size or a step drill. Low speed and light feed.</li>
+    <li><span class="tag hively">IDEA</span> <strong>Deburr inside and out;</strong> <strong>no swarf left inside.</strong> Blow out, rinse with isopropyl alcohol, shake and listen: a rattle means a chip is still inside. Drilling with the hole facing down helps chips fall out.</li>
+    <li><span class="tag ok">FACT</span> <strong>Thread engagement:</strong> the hub says do not tap a thin ball wall; tap 1/4-36 only in a boss at least 2–3 pitches (≈1.4–2.1&nbsp;mm) thick (<a href="setup.html#sphere-a">setup#sphere-a</a>, <a href="shop-drawing.html">shop drawing</a>). <span class="tag meyl">ASSUMPTION</span> The <code>KB-1820</code> wall is probably thinner than that; measure it. If it is, use a nut (only B has room), a boss (A2, A3, B6) or epoxy (A4, B5).</li>
+    <li><span class="tag ok">FACT</span> <strong>Connector and sleeve stay outside the ball</strong> in every concept here, as Dan asked.</li>
+    <li><span class="tag ok">FACT</span> <strong>Non-ferrous only:</strong> 3003 aluminum, brass, copper, PTFE, Delrin and nylon are all non-ferrous. No steel screws, washers or clamps in the RF path.</li>
+  </ul>
+
+  <h2 id="sleeve-fit">How each concept fits the sleeve balun</h2>
+  <p><span class="tag ok">FACT</span> Hub sleeve rule (Keyport-style): a close-fitting tube over the RG-405 jacket, soldered to the outer conductor at the cold end (away from the tip), open end toward the stub tip; λ/4 in air = 57.8&nbsp;mm (A) or 172.9&nbsp;mm (B); trim shorter if the gap has tape or PTFE (<a href="sleeve-balun.html">sleeve-balun.html</a>, <a href="setup.html#sleeve">setup#sleeve</a>). With the stub inside the ball, the sleeve’s open end faces the ball.</p>
+  <p><span class="tag hively">IDEA</span> Open questions for Dan, Steve or anyone else: How big a gap should there be between the sleeve’s open end and the ball surface? Should the sleeve touch the ball, or be kept off it with a thin PTFE washer? Should the coax outer conductor be bonded to the shell (the hub’s current “outer as shield” default) or insulated from it? These choices change the electrical setup, so pick one, log it, and keep the TX and RX identical.</p>
+
+  <h2 id="references">What the references actually say</h2>
+  <details class="archive-block" open>
+    <summary><strong>US 12,525,711 B1</strong> (Paulus &amp; Gentile, US Navy / NUWC Keyport, issued 13 Jan 2026): <a href="papers/US12525711-Navy-SLW-Antenna.pdf">local PDF</a></summary>
+    <ul>
+      <li><span class="tag ok">FACT</span> Col.&nbsp;6, lines 27–47 (FIGS. 7A–7B): the monopole antenna “may further comprise a spherical transmitter 80 enclosing the antenna portion 21 and the shielded portion 23 of the center conductor 20.” The sphere “may be made of conductive materials such as various metallic elements and alloys that may include copper,” “may be substantially solid, and molded or adapted to connect to the balun 60,” “may comprise an antenna cavity 81,” and “may be connected to a cable jacket 26.” The sphere “may have a radius 80′, and a balun length 60″ equivalent to the radius 80′,” and “the radius 80′ may be equivalent to a fourth of a wavelength.” “The spherical transmitter 80 may comprise the antenna tube 29.”</li>
+      <li><span class="tag ok">FACT</span> Claims 10–17 repeat this: the spherical transmitter encloses the antenna portion and the shielded portion (claim 10), a metallic sphere (11), substantially solid and adapted to connect to the balun (12), an antenna cavity (13), connected to the cable jacket (14), balun length equal to the sphere radius (16), radius equal to λ/4 (17).</li>
+      <li><span class="tag ok">FACT</span> The balun attaches to the shield: “a balun 60 may be connected to the shield 40 at a contact location 61 on the shield 40 … located on an exterior surface 62 of the shield,” with a closed end at the contact and an open end facing the tip (claims 1 and 6).</li>
+      <li><span class="tag ok">FACT</span> In FIG.&nbsp;7A the balun (60), shield (40) and antenna tube (29) are drawn <em>inside</em> the sphere’s cavity (81), and the cable jacket (26) enters through the sphere wall. FIG.&nbsp;7B shows a solid, hatched sphere with the balun embedded in it. The patent says its drawings are “not necessarily to scale.”</li>
+      <li><span class="tag warn">DIFFERENCE</span> Dan’s layout is not the patent’s FIG.&nbsp;7. The patent puts the balun inside a sphere whose radius is λ/4, which would be 57.8&nbsp;mm at 1296&nbsp;MHz or 172.9&nbsp;mm at 433.59&nbsp;MHz. Our balls have radii of 9.525&nbsp;mm and 31.75&nbsp;mm, so the sleeve cannot fit inside and stays outside. <span class="tag hively">IDEA</span> In FIG.&nbsp;7A the radius line 80′ appears to start at the end of the shield, with the antenna tube continuing past it. The patent does not say the tip is at the center; putting the tip at the center is Dan’s choice.</li>
+      <li><span class="tag ok">FACT</span> The patent gives no mounting hardware for the sphere: no fasteners, potting or standoffs. Nothing on this page comes from the patent except the idea that a sphere encloses the antenna and the balun attaches to the shield.</li>
+    </ul>
+  </details>
+  <details class="archive-block">
+    <summary><strong>Tomilin, Lukin &amp; Gulkov 2021</strong> (Russian marine channel, ball and rod): <a href="library.html#tomilin-2021">library card</a> · <a href="kit.html#tomilin-gaps">kit gap list</a></summary>
+    <p><span class="tag ok">FACT</span> (hub library card) A 60&nbsp;mm copper sphere is joined by a metal rod to the center of a Tesla flat spiral at 27.4&nbsp;MHz, and the whole antenna is insulated from seawater by a dielectric layer. The rod meets the sphere from the outside; it is not a stub inside the sphere. It is a useful example of holding a sphere on a rod, not a template for a stub at the center. The physics claims are contested (see the card).</p>
+  </details>
+  <details class="archive-block">
+    <summary><strong>Hub pages this page relies on</strong></summary>
+    <ul>
+      <li><a href="shop-drawing.html#sheet-a">shop-drawing.html Sheet A</a> and <a href="shop-drawing.html#sheet-b">Sheet B</a>: bulkhead mounting, 6.5&nbsp;mm clearance, flange/boss, “do not tap”.</li>
+      <li><a href="setup.html#sphere-a">setup.html#sphere-a</a>, <a href="setup.html#sleeve">#sleeve</a>: A sphere facts; sleeve how-to (λ/10 = 23.1&nbsp;mm stub, 57.8&nbsp;mm sleeve).</li>
+      <li><a href="sleeve-balun.html">sleeve-balun.html</a>: cut table for 1296 and 433.59&nbsp;MHz; RG-405 data. <a href="tools.html">tools.html</a>: RG-405 dielectric OD, live calculator.</li>
+      <li><a href="sphere.html">sphere.html</a>: B sphere facts, wall 0.132″, SMA install; MW Fig.&nbsp;1. <a href="kit.html">kit.html</a>: VNA, cargo.</li>
+    </ul>
+  </details>
+
+  <h2 id="conflicts">Hub conflicts noticed while writing this page</h2>
+  <div class="banner-warn">
+    <ul>
+      <li><span class="tag warn">CONFLICT</span> <strong>Balun on Experiment B.</strong> <a href="index.html#expt-b">index.html#expt-b</a> and <a href="sphere.html">sphere.html</a> say “No balun of any type” on the 433.59&nbsp;MHz ball (“coax into the ball, outer as shield”). <a href="sleeve-balun.html">sleeve-balun.html</a> says the shop order “adds Keyport-style sleeves for A and B” and lists 172.9&nbsp;mm for 433.59&nbsp;MHz. Dan’s brief for this page also puts a sleeve on B. Not resolved here.</li>
+      <li><span class="tag warn">CONFLICT</span> <strong>Sleeve on Experiment A.</strong> index.html and setup.html call the sleeve-stub an archived or optional control, with the ¾″ sphere plus bulkhead as the first article. This page describes a new combination (stub inside the sphere, sleeve outside) that the other pages do not yet mention.</li>
+      <li><span class="tag warn">CONFLICT</span> <strong>Stub length.</strong> The hub’s first-article stub is λ/10 (23.1&nbsp;mm at 1296, 69.1&nbsp;mm at 433.59). A stub whose tip is at the center can only have R − t of bare wire inside the ball (under 9.5&nbsp;mm for A, ≈28.4&nbsp;mm for B). <a href="tools.html">tools.html</a> also defaults to a 0.25λ stub.</li>
+      <li><span class="tag warn">CONFLICT</span> <strong>Sleeve orientation wording.</strong> <a href="tools.html">tools.html</a> describes the sleeve as “shorted at the antenna end, open at the far end”. sleeve-balun.html and setup.html#sleeve say it is soldered at the cold end away from the tip, open end toward the tip. This page follows sleeve-balun.html and setup.html.</li>
+      <li><span class="tag warn">MISSING</span> <strong><code>KB-1820</code> wall thickness</strong> is not stated anywhere on the hub. It must be measured.</li>
+    </ul>
+  </div>
+
+  <p class="footnote">Pages-only planning note, no simulator and no Cloud twin. Grok Bot initial ideas, 26 Sep 2026, subject to better ideas from anyone. No physics equations are introduced here; the numbers are hub facts or simple geometry (radius = half the diameter). This page © 2026 Dan Britton, educational use.</p>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub<br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulation Lab catalogue · SLW Hub</title>
+<meta name="description" content="Catalogue of every Simulation Lab simulation, analysis and report on the SLW Hub, grouped by topic (ranging, RCS, fields, SNR/FX-1, sleeve balun, Experiments A-G, magnetron near-field, rod/polarizer, dipole detector/cage, submarine sources, detectors), with FACT/HYP badges and last-updated dates.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../sim-lab/sim-lab.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<script src="/assets/site-search.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../index.html">Home</a>
+      <a href="../learn.html">Learn</a>
+      <a href="../compare.html">Compare</a>
+      <a href="../fields.html">Fields</a>
+      <a href="../monstein.html">Monstein</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../lab.html">Lab</a>
+      <a href="../kit.html">Kit</a>
+      <a href="../library.html">Library</a>
+      <a href="../ranging/">Ranging</a>
+      <a href="../sim-lab/" aria-current="page">Sim Lab</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Simulation Lab · catalogue of every simulation, analysis and report page</p>
+  <h1>Simulation Lab catalogue</h1>
+  <p class="lede">Every Simulation Lab simulator, analysis and report that has a live page, grouped by topic. Each card links to its page and shows its FACT / HYP / mixed badge and the date it last changed (git log).</p>
+  <div class="legend">
+    <span><span class="badge fact">FACT</span> mostly cited, textbook or measured content</span>
+    <span><span class="badge hyp">HYP</span> mostly hypothesis content</span>
+    <span><span class="badge mixed">MIXED</span> both, with claims labelled on the page</span>
+  </div>
+  <div class="rules"><strong>Publishing rule (from 2026-09-27).</strong> Every new simulation or analysis ships with a live GitHub Pages twin, linked from this catalogue, before the task counts as done. Pages and Wolfram Cloud may go live at different times (relaxed rule, 2026-09-25); a page ahead of its Cloud twin says "Cloud twin pending sync (vX)". Only Experiments A–G get Cloud twins. Outbound drafts and private notes are never published. Under the SLW hypothesis no skin-depth, permeability, ferromagnetic or cage-SE argument is used; TEM passages are tagged <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>.</div>
+  <p>Card colours: <strong>green top</strong> = report page added 2026-09-28; <strong>blue top</strong> = separate repo; <strong>red top</strong> = finished work that is owed a page (held or needs Dan's sign-off); <strong>copper</strong> = in progress in a parallel PR.</p>
+  <nav class="topic-nav" aria-label="Topics"><a href="#hub-and-orientation">Hub and orientation</a><a href="#experiment-a-1296-mhz-sphere">Experiment A: 1296 MHz sphere</a><a href="#experiment-b-433-59-mhz-balls-and-rod-polarizer">Experiment B: 433.59 MHz balls and rod polarizer</a><a href="#experiment-c-atomic-1s-2s-readout">Experiment C: atomic 1S–2S readout</a><a href="#experiment-d-hypersonic-plasma-separate-repo">Experiment D: hypersonic plasma (separate repo)</a><a href="#experiments-e-g">Experiments E–G</a><a href="#fields-and-e-field-maps">Fields and E-field maps</a><a href="#snr-fx-1-and-detectors">SNR, FX-1 and detectors</a><a href="#sleeve-balun">Sleeve balun</a><a href="#ranging-radar-and-rcs">Ranging, radar and RCS</a><a href="#magnetron-near-field">Magnetron near-field</a><a href="#rod--polarizer-and-jigs">Rod / polarizer and jigs</a><a href="#dipole-detector-and-cage">Dipole detector and cage</a><a href="#sources-submarine-home-motors-joule-loss">Sources: submarine, home motors, Joule loss</a><a href="#linked">Other linked project sites</a></nav>
+<h2 id="hub-and-orientation">Hub and orientation</h2>
+<div class="cat-grid">
+<article class="cat-card hub"><h3><a href="../index.html">Home: Experiments A–F hub</a></h3><p>Hub home with the Experiment A–F tabs, deep-page links and analysis cards.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-28</div></article>
+<article class="cat-card hub"><h3><a href="../learn.html">Learn</a></h3><p>Nikolova–Zimmerman vs Hively vs Meyl briefing with citations.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-20</div></article>
+<article class="cat-card hub"><h3><a href="../compare.html">Compare</a></h3><p>Side-by-side SLW comparison table and an illustrative SNR toy (legacy, Pages-only).</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-30</div></article>
+<article class="cat-card hub"><h3><a href="../library.html">Library</a></h3><p>Local PDFs of the source papers and patents (CEM-R-46, Hively, Keyport, M&amp;W 2002, Chiao 2023 …).</p><p><span class="badge fact">FACT</span></p><div class="meta">live · hub · last updated 2026-09-24</div></article>
+<article class="cat-card hub"><h3><a href="../kit.html">Shared field kit</a></h3><p>Planned shared submersible field kit (TX Pelican cube, RX case, TinySA use). Not a claim it is built.</p><p><span class="badge fact">FACT</span></p><div class="meta">live · hub · last updated 2026-09-19</div></article>
+</div>
+<h2 id="experiment-a-1296-mhz-sphere">Experiment A: 1296 MHz sphere</h2>
+<div class="cat-grid">
+<article class="cat-card hub"><h3><a href="../setup.html">Setup (Experiment A bench)</a></h3><p>KB-1820 ¾″ sphere + SMA first article, TinySA Ultra, RadioScreen mesh cages; bifilar/sleeve archived.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-21</div></article>
+<article class="cat-card hub"><h3><a href="../shop-drawing.html">Shop drawings: SMA spheres + Exp B rods</a></h3><p>Machine-shop drawings for the A/B SMA spheres and the Exp B brass/W1 polarizer rods.</p><p><span class="badge fact">FACT</span></p><div class="meta">live · hub · last updated 2026-09-16</div></article>
+<article class="cat-card hub"><h3><a href="../mount-ideas.html">Mounting ideas: stub tip at sphere centre</a></h3><p>Grok Bot initial ideas (A1–A5, B1–B6) for a centred RG-405 stub inside the A and B spheres.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-26</div></article>
+<article class="cat-card hub"><h3><a href="../lab.html">Lab: 1.3 GHz Faraday-cage replication log</a></h3><p>Hively US 9,306,527 replication checklist, HAM-legal box and CSV run log (legacy, Pages-only).</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-17</div></article>
+<article class="cat-card hub"><h3><a href="../tools.html">Tools: bifilar / stub / sleeve calculator</a></h3><p>1.3 GHz bifilar pancake coil, RG-405 stub and sleeve-balun geometry calculator (legacy).</p><p><span class="badge fact">FACT</span></p><div class="meta">live · hub · last updated 2026-09-21</div></article>
+</div>
+<h2 id="experiment-b-433-59-mhz-balls-and-rod-polarizer">Experiment B: 433.59 MHz balls and rod polarizer</h2>
+<div class="cat-grid">
+<article class="cat-card hub"><h3><a href="../monstein.html">Monstein–Wesley 2002 brass-rod polarizer</a></h3><p>Experiment B deep page: M&amp;W rod-polarizer transmission T = exp[−κ cos²φ] vs angle and range.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-19</div></article>
+<article class="cat-card hub"><h3><a href="../sphere.html">Fig. 1 vs catalog spheres: cost/decision sheet</a></h3><p>M&amp;W 2002 Fig. 1 hardware vs catalog substitutes vs dollars (433.59 MHz balls and rods).</p><p><span class="badge fact">FACT</span></p><div class="meta">live · hub · last updated 2026-09-17</div></article>
+</div>
+<h2 id="experiment-c-atomic-1s-2s-readout">Experiment C: atomic 1S–2S readout</h2>
+<div class="cat-grid">
+<article class="cat-card hub"><h3><a href="../experiment-c.html">Experiment C: caged SLW/SW → 1S–2S optical readout</a></h3><p>v1 draft: Faraday-caged launcher, 1S–2S readout, dual PMT at 243/121.6 nm, detector bank, charge-relaxation note.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-30</div></article>
+<article class="cat-card hub"><h3><a href="../experiment-c-snr.html">Experiment C SNR calculator</a></h3><p>Graphical SLW path + Ohmic loss + atom + PMT current + recovered tone (companion calculator).</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-30</div></article>
+<article class="cat-card hub"><h3><a href="../experiment-c-cart.html">Experiment C cart shortlist</a></h3><p>Rough USD shortlist for the PMT, filters, HV/amp and TinySA chain. Not a live cart.</p><p><span class="badge fact">FACT</span></p><div class="meta">live · hub · last updated 2026-09-09</div></article>
+</div>
+<h2 id="experiment-d-hypersonic-plasma-separate-repo">Experiment D: hypersonic plasma (separate repo)</h2>
+<div class="cat-grid">
+<article class="cat-card ext"><h3><a href="https://9wzg44nz44-glitch.github.io/Experiment-D-Hypersonic-Plasma-Shear-SLW/">Experiment D home</a></h3><p>Hypersonic plasma sheath, density cavities and high-shear sheets as SLW/SW sources (hypothesis). Separate repo. P_OUT per the Hively &amp; Loebl erratum applied 2026-09-30 (Expt D PR #7).</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · separate repo · last updated 2026-09-30</div></article>
+<article class="cat-card ext"><h3><a href="https://9wzg44nz44-glitch.github.io/Experiment-D-Hypersonic-Plasma-Shear-SLW/slw-detectability.html">Experiment D: could a receiver hear it?</a></h3><p>Detectability simulator expt-d-detect-v0.3.1 / UI v0.3.1: sheath physics, modulation tab, receiver chain, candidate detectors. P_OUT per the erratum (peak I, W/m²) applied 2026-09-30, Expt D PR #7; smallest η ×1.4142. Cloud twin pending sync.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · separate repo · last updated 2026-09-30</div></article>
+</div>
+<h2 id="experiments-e-g">Experiments E–G</h2>
+<div class="cat-grid">
+<article class="cat-card ext"><h3><a href="https://9wzg44nz44-glitch.github.io/Experiment-E-Exodus-Capacitor-SLW-SW/">Experiment E: Exodus capacitors (separate repo)</a></h3><p>Exodus capacitors vs Hively-style SLW/SW detectors.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · separate repo · last updated 2026-09-19</div></article>
+<article class="cat-card ext"><h3><a href="https://9wzg44nz44-glitch.github.io/Experiment-F-Hydrogen-Scalar-Wave/">Experiment F: Hydrogen Scalar Wave (separate repo)</a></h3><p>Proposed hydrogen SW experiment (forbidden 1S–2S transition).</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · separate repo · last updated 2026-09-17</div></article>
+<article class="cat-card held"><h3>Experiment G: undersea SLW link via H 2S (not published)</h3><p>expt-g-v0.1 is in hub PR #56, held unmerged by Dan&#x27;s publishing decision. Includes the cm-range (Joule-loss) explainer. Owed: webpage after Dan&#x27;s sign-off.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">owed · held · last updated —</div></article>
+</div>
+<h2 id="fields-and-e-field-maps">Fields and E-field maps</h2>
+<div class="cat-grid">
+<article class="cat-card hub"><h3><a href="../fields.html">Fields: 1296 MHz TEM vs SLW</a></h3><p>tem-slw-1296-v0.1.2: P → I → Hively Eq. 38/B5 (erratum form), S, NZ A, mesh, SMA leak, LNA. Cloud twin pending sync.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-30</div></article>
+<article class="cat-card hub"><h3><a href="../sleeve-balun-efield.html">Sleeve-balun E∥ field maps</a></h3><p>HYP/illustrative E∥ ≈ √(S·Z0) maps around Keyport sleeve + KB-2016/KB-1820 spheres (3 bands). Cloud twin pending sync.</p><p><span class="badge hyp">HYP</span></p><div class="meta">live · hub · last updated 2026-09-30</div></article>
+<article class="cat-card hub"><h3><a href="../sw-vs-slw.html">SW vs SLW: detection gap</a></h3><p>Why this bench suits Hively SLW and not SW; Joule loss and Puthoff US 5,845,220 mapping.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-09</div></article>
+</div>
+<h2 id="snr-fx-1-and-detectors">SNR, FX-1 and detectors</h2>
+<div class="cat-grid">
+<article class="cat-card hub"><h3><a href="../fx1-snr.html">FX-1 SNR: what should the probe read?</a></h3><p>fx1-snr-v0.2.1: Tekbox probe reading inside/outside a driven sphere at 433.59 MHz, openEMS (FACT) vs EED (HYP). Cloud twin pending sync.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-30</div></article>
+<article class="cat-card hub"><h3><a href="../future-scalar-ab.html">Future experiments: scalar electric AB (FX-1)</a></h3><p>Chiao et al. 2023 proposal, the Gao Comment/Reply, notes, and an EED reading predicting a longitudinal E inside the cage.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-25</div></article>
+<article class="cat-card new"><h3><a href="snr-1058-atoms-vs-sphere/">SNR at 1058 MHz: H 2S atoms vs Experiment A sphere</a></h3><p>Desk comparison: the atoms are worse by 55–122 dB at every field for every sphere chain with an LNA.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · new 2026-09-28 · last updated 2026-09-28</div></article>
+<article class="cat-card hub"><h3><a href="../c-nuclei.html">C × nuclei: Channel E (EC decay)</a></h3><p>Hively-steered C-modulation of electron-capture/chemical decay rates; garage kit and buy list. Not a claim of measured shifts.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-09</div></article>
+<article class="cat-card hub"><h3><a href="../c-nuclei-archive.html">C × nuclei: other channels (archive)</a></h3><p>Archive of the other C × nuclei channels (A–D, F–I).</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-06</div></article>
+</div>
+<h2 id="sleeve-balun">Sleeve balun</h2>
+<div class="cat-grid">
+<article class="cat-card hub"><h3><a href="../sleeve-balun.html">Sleeve balun manufacturing guide</a></h3><p>Keyport-style sleeve: frequency–wavelength table for 1296 / 433.59 MHz / 8 GHz, RG-405 BOM (legacy calculator).</p><p><span class="badge fact">FACT</span></p><div class="meta">live · hub · last updated 2026-09-24</div></article>
+<article class="cat-card hub"><h3><a href="../sleeve-balun-snr.html">Sleeve-balun dual-sphere SNR</a></h3><p>snr-dual-sim-params-v0.2.1: Hively Eq. 38/B5 (erratum), NZ, mesh, Errata α=0 vs Exp-C Ohmic. Cloud twin pending sync (snr-dual-sim-params-v0.2.1).</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-30</div></article>
+<article class="cat-card held"><h3>Sleeve-balun SNR v0.3 (Joule-loss default), not published</h3><p>Hub PR #57, held unmerged by Dan&#x27;s decision. Owed: publish after sign-off; JS↔WL compare owed.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">owed · held · last updated —</div></article>
+</div>
+<h2 id="ranging-radar-and-rcs">Ranging, radar and RCS</h2>
+<div class="cat-grid">
+<article class="cat-card hub"><h3><a href="../ranging/">Ranging a scalar-longitudinal transmitter</a></h3><p>Ground-image null checkpoints (M&amp;W 2002), two-detector curvature fill-in, HYP SLW + Josephson ratio; interactive.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-27</div></article>
+<article class="cat-card hub"><h3><a href="../slw-rcs/">SLW radar cross-section (/slw-rcs/)</a></h3><p>Sphere Mie + squat-cylinder RCS, SLW reflection findings, hypothesis-level submarine stack (hub PR #62).</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-28</div></article>
+<article class="cat-card new"><h3><a href="scalar-wave-radar/">Scalar-wave (SLW/SW) radar: design brief</a></h3><p>Feasibility, architecture, controls, parts, safety, phased plan. TEM Skolnik numbers only; no SLW echo law exists.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · new 2026-09-28 · last updated 2026-09-30</div></article>
+</div>
+<h2 id="magnetron-near-field">Magnetron near-field</h2>
+<div class="cat-grid">
+<article class="cat-card new"><h3><a href="magnetron-nearfield/">Magnetron near-field longitudinal test plan</a></h3><p>R1/R2 boundaries, Hertzian E_r/E_θ ratios, TE10, placement ≥ 10–12 m, coarse openEMS relative check.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · new 2026-09-28 · last updated 2026-09-28</div></article>
+</div>
+<h2 id="rod--polarizer-and-jigs">Rod / polarizer and jigs</h2>
+<div class="cat-grid">
+<article class="cat-card new"><h3><a href="rod-thermal/">Rod thermal model + cage-coil observation + instrumentation</a></h3><p>S0/S1/S2 heating models, brass vs W1, temperature rise per scenario, near-field fall-off, instruments per band.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · new 2026-09-28 · last updated 2026-09-28</div></article>
+<article class="cat-card new"><h3><a href="rod-contact-current/">Contact current on a polarizing rod</a></h3><p>A Fluke cannot read RF; induced currents S1/S2 + classical reference; loading; non-contact probes.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · new 2026-09-28 · last updated 2026-09-28</div></article>
+<article class="cat-card hub"><h3><a href="../rod-jig/">Acrylic rod-holding jigs (M&amp;W polarizer-analyzer): DRAFT for Dan&#x27;s review</a></h3><p>Drill patterns for 9 × λ/2 rod jigs at 433.59 / 1296 / 2450 MHz (3 PDFs, previews, numbers.json); geometry vs M&amp;W and Butterworth, hole fit in acrylic, cut list. Draft.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · hub · last updated 2026-09-28</div></article>
+<article class="cat-card held"><h3>Rod-polarizer fixtures rev A (not published)</h3><p>Three-fixture drawings exist in sim-lab, but the README contains private purchase/receipt data. Owed: redacted page after Dan&#x27;s OK.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">owed · held · last updated —</div></article>
+</div>
+<h2 id="dipole-detector-and-cage">Dipole detector and cage</h2>
+<div class="cat-grid">
+<article class="cat-card new"><h3><a href="dipole-detector/">Dipole Detector DD-433 / DD-1296 / DD-2450 + cage estimate</a></h3><p>Build sheet (PDF/PNG), parts list, Faraday-cage estimate and plain-English cage sheet.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · new 2026-09-28 · last updated 2026-09-28</div></article>
+</div>
+<h2 id="sources-submarine-home-motors-joule-loss">Sources: submarine, home motors, Joule loss</h2>
+<div class="cat-grid">
+<article class="cat-card new"><h3><a href="submarine-slw-sources/">Submarine SLW/SW source survey (redo, SLW/SW only)</a></h3><p>Joule-conversion audit, three readings, rankings, 2.45 GHz cage verification steps.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · new 2026-09-28 · last updated 2026-09-30</div></article>
+<article class="cat-card new"><h3><a href="joule-loss-positions/">Joule-loss positions: Monstein &amp; Wesley vs Hively</a></h3><p>Verbatim, page-cited positions on Joule (Ohmic) loss of SLW, 2002 vs 2016–2022.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · new 2026-09-28 · last updated 2026-09-30</div></article>
+<article class="cat-card new"><h3><a href="ac-compressor-blower/">Home AC compressor and blower motors as SLW sources?</a></h3><p>Inrush vs running current, Hively&#x27;s charging-current criterion, PWM/arcing sub-events, measurement plan, literature.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · new 2026-09-28 · last updated 2026-09-28</div></article>
+<article class="cat-card new"><h3><a href="pout-erratum-audit/">P_OUT per the Hively &amp; Loebl erratum: simulator audit</a></h3><p>What every hub simulator used for P_OUT, I², the medium impedance and the factors 2 and (4πr)², against the erratum to Eq. 38/44/B5; before/after numbers at the preset distances.</p><p><span class="badge mixed">MIXED</span></p><div class="meta">live · new 2026-09-29 · last updated 2026-09-30</div></article>
+<article class="cat-card new"><h3><a href="corrections/">Corrections log: charge-relaxation exponent (author-confirmed)</a></h3><p>E = E0 e^(−σt/ε), τ = ε/σ confirmed by Dr. Hively (2026-09-30); Eq. A5 (2019) and patent col. 5 print ε and σ swapped.</p><p><span class="badge fact">FACT</span></p><div class="meta">live · new 2026-09-30 · last updated 2026-09-30</div></article>
+</div>
+  <h2 id="linked">Other linked project sites (separate repos)</h2>
+  <p class="footnote">Earlier single-page simulators linked from the hub home page. They live in their own repos and are listed here for completeness; they are not re-audited page by page.</p>
+  <ul class="repo-list"><li><a href="https://9wzg44nz44-glitch.github.io/Combined-SNR-plot-for-both-Hively-and-Nikolova-Zimmerman/">Combined SLW SNR Simulator • Hively + Nikolova–Zimmerman</a> <span class="footnote">(P_OUT per the Hively &amp; Loebl erratum applied 2026-09-30, repo PR #1; output −3.01 dB)</span></li><li><a href="https://9wzg44nz44-glitch.github.io/Cross-Sectional-SLW-SNR-estimator/">SLW Simulator: Layered Media (Air-Steel-Seawater-Space)</a></li><li><a href="https://9wzg44nz44-glitch.github.io/Different-Antenna-Types-for-the-Hively-or-Nikolova-Zimmerman-configurations-mixed-and-matched/">Enhanced SLW / Longitudinal Potential Wave SNR Simulator</a></li><li><a href="https://9wzg44nz44-glitch.github.io/Educational-Briefing-of-Scalar-Longitudinal-Wave-Topic-Nikolova-Zimmerman-and-Hively/">SLW Communications Briefing: Nikolova-Zimmerman vs. Hively</a></li><li><a href="https://9wzg44nz44-glitch.github.io/Hively-SNR-Simulator/">SLW Interactive Simulator • Extended Electrodynamics</a> <span class="footnote">(P_OUT per the Hively &amp; Loebl erratum applied 2026-09-30, repo PR #1; output −3.01 dB)</span></li><li><a href="https://9wzg44nz44-glitch.github.io/Hively-Style-SLW-Bifilar-Pancake-Coil-Calculator/">Hively-Style Bifilar Pancake Coil &amp; RG-405 Transmitter Calculator</a></li><li><a href="https://9wzg44nz44-glitch.github.io/How-the-Nikolova-Zimmerman-Plasma-tube-Detector-Works/">How the Nikolova–Zimmerman Plasma Tube Detector Works</a></li><li><a href="https://9wzg44nz44-glitch.github.io/Interactive-SNR-SLW-Webpage/">Scalar/Longitudinal Wave Comms: Zimmerman vs Hively Comparison</a></li><li><a href="https://9wzg44nz44-glitch.github.io/Linearly-Resistive-Media-submerged-to-outer-space/">SLW Media Propagation Simulator — Hively POUT &amp; ε/μ Effects</a> <span class="footnote">(P_OUT per the Hively &amp; Loebl erratum applied 2026-09-30, repo PR #1; output −3.01 dB)</span></li><li><a href="https://9wzg44nz44-glitch.github.io/Make-a-Balun-skirt-for-the-RG-405U-transmitting-cable-at-the-radiating-end/">Hively-Style RG-405/U Skirt Balun &amp; Stub Transmitter Calculator</a></li><li><a href="https://9wzg44nz44-glitch.github.io/Meryl-Theory-Detailed-then-Compared-with-Nikolova-Zimmerman-and-Hively-/">Meyl from the Ground Up — Potential Vortices, Scalar Waves, SNR Comparison</a></li><li><a href="https://9wzg44nz44-glitch.github.io/Meyl-Hively-Nikolova-Zimmerman/">Meyl, Hively, and Nikolova–Zimmerman — A Comparison for Electrical Engineers</a></li><li><a href="https://9wzg44nz44-glitch.github.io/Nikolova-Zimmerman_SLW_Simulation_2007_Paper/">SLW / EM Potential Detector Simulator • Nikolova &amp; Zimmerman 2007</a></li><li><a href="https://9wzg44nz44-glitch.github.io/No-Skin-effect-3D-plots/">SLW Multi-Path Detector &amp; EW SNR Simulator — NZ &amp; Hively</a></li><li><a href="https://9wzg44nz44-glitch.github.io/Proposed-Experiment---Hively-and-Microwave-Oven/">Hively 8 GHz SLW Experiments → Microwave Oven Faraday-Cage Tests (2.45 GHz)</a></li><li><a href="https://9wzg44nz44-glitch.github.io/Why-does-Hively-bifilar-coil-detector-interact-with-SLW/">How the Hively Bifilar Coil Receiving Antenna Works</a></li></ul>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub · <a href="../sim-lab/">Simulation Lab catalogue</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
+</body>
+</html>

@@ -12,6 +12,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<script src="/assets/site-search.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -45,7 +47,7 @@
     </nav>
   </div>
 </header>
-<nav id="expt-abc" class="expt-abc" aria-label="Jump to Experiments A through F">
+<nav id="expt-abc" class="expt-abc" aria-label="Jump to Experiments A through G">
   <span class="expt-abc-label">Experiments</span>
   <a class="expt-abc-btn" data-expt="a" href="#expt-a"><span class="k">A</span> 1296 MHz</a>
   <a class="expt-abc-btn" data-expt="b" href="#expt-b"><span class="k">B</span> 433 MHz</a>
@@ -56,6 +58,7 @@
   <a class="expt-abc-btn" data-expt="g" href="experiment-g.html"><span class="k">G</span> undersea 2S</a>
   <a class="expt-abc-sub" href="setup.html">A setup</a>
   <a class="expt-abc-sub" href="monstein.html">B monstein</a>
+  <a class="expt-abc-sub" href="mount-ideas.html">Mounting ideas</a>
   <a class="expt-abc-sub" href="experiment-c.html">C protocol</a>
   <a class="expt-abc-sub" href="experiment-c-snr.html">C SNR</a>
   <a class="expt-abc-sub" href="sleeve-balun-snr.html">Sleeve SNR</a>
@@ -116,6 +119,24 @@
     <span class="tag meyl">Meyl</span>
     <h3>Potential vortices</h3>
     <p>Third vocabulary only. Over-unity and superluminal claims are recorded as claims and are <em>not</em> used in any energy budget.</p>
+  </article>
+</div>
+
+<div class="grid-3" style="margin-top:14px">
+  <article class="card copper">
+    <span class="tag">Analysis</span>
+    <h3><a href="ranging/">Ranging a Scalar-Longitudinal Transmitter</a></h3>
+    <p>How far away is the transmitter? Ground-image null checkpoints (Monstein &amp; Wesley 2002), two-detector curvature fill-in, and a hypothesis-level SLW + Josephson ratio. Interactive calculators; every claim labeled FACT / HYPOTHESIS / ASSUMPTION. <a href="ranging/">Open the ranging page →</a></p>
+  </article>
+  <article class="card copper">
+    <span class="tag">Catalogue</span>
+    <h3><a href="sim-lab/">Simulation Lab catalogue</a></h3>
+    <p>Every simulation, analysis and report page in one place, grouped by topic (ranging, RCS, fields, SNR/FX-1, sleeve balun, Experiments A–G, magnetron near-field, rod/polarizer, dipole detector/cage, submarine sources, detectors), with FACT / HYP badges and last-updated dates. <a href="sim-lab/">Open the catalogue →</a></p>
+  </article>
+  <article class="card copper">
+    <span class="tag">Analysis</span>
+    <h3><a href="slw-rcs/">SLW Radar Cross-Section: sphere, squat cylinder, reflection stack</a></h3>
+    <p>Classical RCS at 433.59 MHz: exact Mie series for a 1&nbsp;m PEC sphere (2.73&nbsp;m² vs πa² = 3.14&nbsp;m²) and a squat 1&nbsp;m cylinder (≈ 9.1&nbsp;m² broadside). What Hively &amp; Loebl do and do not give for SLW reflection (no reflection law is cited), plus a hypothesis-level submarine stack with Hively's Joule term. Every claim labeled FACT / HYPOTHESIS / ASSUMPTION. <a href="slw-rcs/">Open the SLW RCS page →</a></p>
   </article>
 </div>
 

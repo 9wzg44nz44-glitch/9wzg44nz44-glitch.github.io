@@ -1,0 +1,746 @@
+{
+ "lambda_mm": {
+  "DD-433": 691.42,
+  "DD-1296": 231.32,
+  "DD-2450": 122.36
+ },
+ "dipole_len_used_mm": {
+  "DD-433": 325.0,
+  "DD-1296": 108.7,
+  "DD-2450": 57.5
+ },
+ "option1": {
+  "300mm_cube": {
+   "DD-2450": {
+    "tip_clear_mm": 121.2,
+    "tip_clear_lam": 0.99,
+    "side_clear_mm": 150.0,
+    "side_clear_lam": 1.23,
+    "cavity": {
+     "lowest_MHz": 706.6,
+     "lowest_idx": [
+      0,
+      1,
+      1
+     ],
+     "nearest_MHz": 2447.8,
+     "nearest_idx": [
+      2,
+      2,
+      4
+     ],
+     "offset_pct": -0.09,
+     "n_modes_within_1pct": 3,
+     "n_modes_below_f": 77
+    }
+   },
+   "DD-1296": {
+    "tip_clear_mm": 95.6,
+    "tip_clear_lam": 0.41,
+    "side_clear_mm": 150.0,
+    "side_clear_lam": 0.65,
+    "cavity": {
+     "lowest_MHz": 706.6,
+     "lowest_idx": [
+      0,
+      1,
+      1
+     ],
+     "nearest_MHz": 1223.9,
+     "nearest_idx": [
+      1,
+      1,
+      2
+     ],
+     "offset_pct": -5.56,
+     "n_modes_within_1pct": 0,
+     "n_modes_below_f": 13
+    }
+   },
+   "area_seam5cm": {
+    "faces_m2": 0.54,
+    "seam_overlap_m2": 0.18,
+    "lid_lip_m2": 0.06,
+    "net_m2": 0.78,
+    "with_waste_m2": 0.936,
+    "with_waste_ft2": 10.1,
+    "edge_length_m": 3.6,
+    "copper_tape_m": 10.1,
+    "copper_tape_ft": 33.0
+   },
+   "area_seam2cm": {
+    "faces_m2": 0.54,
+    "seam_overlap_m2": 0.072,
+    "lid_lip_m2": 0.06,
+    "net_m2": 0.672,
+    "with_waste_m2": 0.806,
+    "with_waste_ft2": 8.7,
+    "edge_length_m": 3.6,
+    "copper_tape_m": 10.1,
+    "copper_tape_ft": 33.0
+   }
+  },
+  "450mm_cube": {
+   "DD-2450": {
+    "tip_clear_mm": 196.2,
+    "tip_clear_lam": 1.6,
+    "side_clear_mm": 225.0,
+    "side_clear_lam": 1.84,
+    "cavity": {
+     "lowest_MHz": 471.1,
+     "lowest_idx": [
+      0,
+      1,
+      1
+     ],
+     "nearest_MHz": 2447.8,
+     "nearest_idx": [
+      2,
+      7,
+      1
+     ],
+     "offset_pct": -0.09,
+     "n_modes_within_1pct": 12,
+     "n_modes_below_f": 268
+    }
+   },
+   "DD-1296": {
+    "tip_clear_mm": 170.6,
+    "tip_clear_lam": 0.74,
+    "side_clear_mm": 225.0,
+    "side_clear_lam": 0.97,
+    "cavity": {
+     "lowest_MHz": 471.1,
+     "lowest_idx": [
+      0,
+      1,
+      1
+     ],
+     "nearest_MHz": 1246.4,
+     "nearest_idx": [
+      1,
+      2,
+      3
+     ],
+     "offset_pct": -3.83,
+     "n_modes_within_1pct": 0,
+     "n_modes_below_f": 41
+    }
+   },
+   "area_seam5cm": {
+    "faces_m2": 1.215,
+    "seam_overlap_m2": 0.27,
+    "lid_lip_m2": 0.09,
+    "net_m2": 1.575,
+    "with_waste_m2": 1.89,
+    "with_waste_ft2": 20.3,
+    "edge_length_m": 5.4,
+    "copper_tape_m": 15.1,
+    "copper_tape_ft": 50.0
+   },
+   "area_seam2cm": {
+    "faces_m2": 1.215,
+    "seam_overlap_m2": 0.108,
+    "lid_lip_m2": 0.09,
+    "net_m2": 1.413,
+    "with_waste_m2": 1.696,
+    "with_waste_ft2": 18.3,
+    "edge_length_m": 5.4,
+    "copper_tape_m": 15.1,
+    "copper_tape_ft": 50.0
+   }
+  },
+  "600mm_cube": {
+   "DD-2450": {
+    "tip_clear_mm": 271.2,
+    "tip_clear_lam": 2.22,
+    "side_clear_mm": 300.0,
+    "side_clear_lam": 2.45,
+    "cavity": {
+     "lowest_MHz": 353.3,
+     "lowest_idx": [
+      0,
+      1,
+      1
+     ],
+     "nearest_MHz": 2447.8,
+     "nearest_idx": [
+      4,
+      4,
+      8
+     ],
+     "offset_pct": -0.09,
+     "n_modes_within_1pct": 27,
+     "n_modes_below_f": 578
+    }
+   },
+   "DD-1296": {
+    "tip_clear_mm": 245.6,
+    "tip_clear_lam": 1.06,
+    "side_clear_mm": 300.0,
+    "side_clear_lam": 1.3,
+    "cavity": {
+     "lowest_MHz": 353.3,
+     "lowest_idx": [
+      0,
+      1,
+      1
+     ],
+     "nearest_MHz": 1298.1,
+     "nearest_idx": [
+      1,
+      1,
+      5
+     ],
+     "offset_pct": 0.17,
+     "n_modes_within_1pct": 4,
+     "n_modes_below_f": 95
+    }
+   },
+   "area_seam5cm": {
+    "faces_m2": 2.16,
+    "seam_overlap_m2": 0.36,
+    "lid_lip_m2": 0.12,
+    "net_m2": 2.64,
+    "with_waste_m2": 3.168,
+    "with_waste_ft2": 34.1,
+    "edge_length_m": 7.2,
+    "copper_tape_m": 20.2,
+    "copper_tape_ft": 66.0
+   },
+   "area_seam2cm": {
+    "faces_m2": 2.16,
+    "seam_overlap_m2": 0.144,
+    "lid_lip_m2": 0.12,
+    "net_m2": 2.424,
+    "with_waste_m2": 2.909,
+    "with_waste_ft2": 31.3,
+    "edge_length_m": 7.2,
+    "copper_tape_m": 20.2,
+    "copper_tape_ft": 66.0
+   }
+  }
+ },
+ "option2": {
+  "400x200x150mm": {
+   "tip_clear_mm": 37.5,
+   "tip_clear_lam": 0.054,
+   "side_clear_mm": 75.0,
+   "side_clear_lam": 0.108,
+   "cavity": {
+    "lowest_MHz": 837.9,
+    "lowest_idx": [
+     1,
+     1,
+     0
+    ],
+    "nearest_MHz": 837.9,
+    "nearest_idx": [
+     1,
+     1,
+     0
+    ],
+    "offset_pct": 93.26,
+    "n_modes_within_1pct": 0,
+    "n_modes_below_f": 0
+   },
+   "area_seam5cm": {
+    "faces_m2": 0.34,
+    "seam_overlap_m2": 0.15,
+    "lid_lip_m2": 0.06,
+    "net_m2": 0.55,
+    "with_waste_m2": 0.66,
+    "with_waste_ft2": 7.1,
+    "edge_length_m": 3.0,
+    "copper_tape_m": 8.6,
+    "copper_tape_ft": 28.0
+   },
+   "area_seam2cm": {
+    "faces_m2": 0.34,
+    "seam_overlap_m2": 0.06,
+    "lid_lip_m2": 0.06,
+    "net_m2": 0.46,
+    "with_waste_m2": 0.552,
+    "with_waste_ft2": 5.9,
+    "edge_length_m": 3.0,
+    "copper_tape_m": 8.6,
+    "copper_tape_ft": 28.0
+   }
+  },
+  "900x450x450mm": {
+   "tip_clear_mm": 287.5,
+   "tip_clear_lam": 0.416,
+   "side_clear_mm": 225.0,
+   "side_clear_lam": 0.325,
+   "cavity": {
+    "lowest_MHz": 372.4,
+    "lowest_idx": [
+     1,
+     0,
+     1
+    ],
+    "nearest_MHz": 471.1,
+    "nearest_idx": [
+     0,
+     1,
+     1
+    ],
+    "offset_pct": 8.65,
+    "n_modes_within_1pct": 0,
+    "n_modes_below_f": 2
+   },
+   "area_seam5cm": {
+    "faces_m2": 2.025,
+    "seam_overlap_m2": 0.36,
+    "lid_lip_m2": 0.135,
+    "net_m2": 2.52,
+    "with_waste_m2": 3.024,
+    "with_waste_ft2": 32.6,
+    "edge_length_m": 7.2,
+    "copper_tape_m": 20.5,
+    "copper_tape_ft": 67.0
+   },
+   "area_seam2cm": {
+    "faces_m2": 2.025,
+    "seam_overlap_m2": 0.144,
+    "lid_lip_m2": 0.135,
+    "net_m2": 2.304,
+    "with_waste_m2": 2.765,
+    "with_waste_ft2": 29.8,
+    "edge_length_m": 7.2,
+    "copper_tape_m": 20.5,
+    "copper_tape_ft": 67.0
+   }
+  },
+  "1000x600x600mm": {
+   "tip_clear_mm": 337.5,
+   "tip_clear_lam": 0.488,
+   "side_clear_mm": 300.0,
+   "side_clear_lam": 0.434,
+   "cavity": {
+    "lowest_MHz": 291.3,
+    "lowest_idx": [
+     1,
+     0,
+     1
+    ],
+    "nearest_MHz": 463.4,
+    "nearest_idx": [
+     2,
+     1,
+     1
+    ],
+    "offset_pct": 6.87,
+    "n_modes_within_1pct": 0,
+    "n_modes_below_f": 6
+   },
+   "area_seam5cm": {
+    "faces_m2": 3.12,
+    "seam_overlap_m2": 0.44,
+    "lid_lip_m2": 0.16,
+    "net_m2": 3.72,
+    "with_waste_m2": 4.464,
+    "with_waste_ft2": 48.1,
+    "edge_length_m": 8.8,
+    "copper_tape_m": 25.0,
+    "copper_tape_ft": 82.0
+   },
+   "area_seam2cm": {
+    "faces_m2": 3.12,
+    "seam_overlap_m2": 0.176,
+    "lid_lip_m2": 0.16,
+    "net_m2": 3.456,
+    "with_waste_m2": 4.147,
+    "with_waste_ft2": 44.6,
+    "edge_length_m": 8.8,
+    "copper_tape_m": 25.0,
+    "copper_tape_ft": 82.0
+   }
+  },
+  "1200x600x600mm": {
+   "tip_clear_mm": 437.5,
+   "tip_clear_lam": 0.633,
+   "side_clear_mm": 300.0,
+   "side_clear_lam": 0.434,
+   "cavity": {
+    "lowest_MHz": 279.3,
+    "lowest_idx": [
+     1,
+     0,
+     1
+    ],
+    "nearest_MHz": 432.7,
+    "nearest_idx": [
+     2,
+     1,
+     1
+    ],
+    "offset_pct": -0.2,
+    "n_modes_within_1pct": 1,
+    "n_modes_below_f": 7
+   },
+   "area_seam5cm": {
+    "faces_m2": 3.6,
+    "seam_overlap_m2": 0.48,
+    "lid_lip_m2": 0.18,
+    "net_m2": 4.26,
+    "with_waste_m2": 5.112,
+    "with_waste_ft2": 55.0,
+    "edge_length_m": 9.6,
+    "copper_tape_m": 27.4,
+    "copper_tape_ft": 90.0
+   },
+   "area_seam2cm": {
+    "faces_m2": 3.6,
+    "seam_overlap_m2": 0.192,
+    "lid_lip_m2": 0.18,
+    "net_m2": 3.972,
+    "with_waste_m2": 4.766,
+    "with_waste_ft2": 51.3,
+    "edge_length_m": 9.6,
+    "copper_tape_m": 27.4,
+    "copper_tape_ft": 90.0
+   }
+  },
+  "1200x700x700mm": {
+   "tip_clear_mm": 437.5,
+   "tip_clear_lam": 0.633,
+   "side_clear_mm": 350.0,
+   "side_clear_lam": 0.506,
+   "cavity": {
+    "lowest_MHz": 247.9,
+    "lowest_idx": [
+     1,
+     0,
+     1
+    ],
+    "nearest_MHz": 431.6,
+    "nearest_idx": [
+     3,
+     0,
+     1
+    ],
+    "offset_pct": -0.46,
+    "n_modes_within_1pct": 2,
+    "n_modes_below_f": 9
+   },
+   "area_seam5cm": {
+    "faces_m2": 4.34,
+    "seam_overlap_m2": 0.52,
+    "lid_lip_m2": 0.19,
+    "net_m2": 5.05,
+    "with_waste_m2": 6.06,
+    "with_waste_ft2": 65.2,
+    "edge_length_m": 10.4,
+    "copper_tape_m": 29.5,
+    "copper_tape_ft": 97.0
+   },
+   "area_seam2cm": {
+    "faces_m2": 4.34,
+    "seam_overlap_m2": 0.208,
+    "lid_lip_m2": 0.19,
+    "net_m2": 4.738,
+    "with_waste_m2": 5.686,
+    "with_waste_ft2": 61.2,
+    "edge_length_m": 10.4,
+    "copper_tape_m": 29.5,
+    "copper_tape_ft": 97.0
+   }
+  },
+  "1200x700x600mm": {
+   "tip_clear_mm": 437.5,
+   "tip_clear_lam": 0.633,
+   "side_clear_mm": 300.0,
+   "side_clear_lam": 0.434,
+   "cavity": {
+    "lowest_MHz": 247.9,
+    "lowest_idx": [
+     1,
+     1,
+     0
+    ],
+    "nearest_MHz": 431.6,
+    "nearest_idx": [
+     3,
+     1,
+     0
+    ],
+    "offset_pct": -0.46,
+    "n_modes_within_1pct": 1,
+    "n_modes_below_f": 8
+   },
+   "area_seam5cm": {
+    "faces_m2": 3.96,
+    "seam_overlap_m2": 0.5,
+    "lid_lip_m2": 0.19,
+    "net_m2": 4.65,
+    "with_waste_m2": 5.58,
+    "with_waste_ft2": 60.1,
+    "edge_length_m": 10.0,
+    "copper_tape_m": 28.6,
+    "copper_tape_ft": 94.0
+   },
+   "area_seam2cm": {
+    "faces_m2": 3.96,
+    "seam_overlap_m2": 0.2,
+    "lid_lip_m2": 0.19,
+    "net_m2": 4.35,
+    "with_waste_m2": 5.22,
+    "with_waste_ft2": 56.2,
+    "edge_length_m": 10.0,
+    "copper_tape_m": 28.6,
+    "copper_tape_ft": 94.0
+   }
+  },
+  "1150x700x650mm": {
+   "tip_clear_mm": 412.5,
+   "tip_clear_lam": 0.597,
+   "side_clear_mm": 325.0,
+   "side_clear_lam": 0.47,
+   "cavity": {
+    "lowest_MHz": 250.7,
+    "lowest_idx": [
+     1,
+     1,
+     0
+    ],
+    "nearest_MHz": 445.8,
+    "nearest_idx": [
+     3,
+     1,
+     0
+    ],
+    "offset_pct": 2.82,
+    "n_modes_within_1pct": 0,
+    "n_modes_below_f": 7
+   },
+   "area_seam5cm": {
+    "faces_m2": 4.015,
+    "seam_overlap_m2": 0.5,
+    "lid_lip_m2": 0.185,
+    "net_m2": 4.7,
+    "with_waste_m2": 5.64,
+    "with_waste_ft2": 60.7,
+    "edge_length_m": 10.0,
+    "copper_tape_m": 28.4,
+    "copper_tape_ft": 93.0
+   },
+   "area_seam2cm": {
+    "faces_m2": 4.015,
+    "seam_overlap_m2": 0.2,
+    "lid_lip_m2": 0.185,
+    "net_m2": 4.4,
+    "with_waste_m2": 5.28,
+    "with_waste_ft2": 56.8,
+    "edge_length_m": 10.0,
+    "copper_tape_m": 28.4,
+    "copper_tape_ft": 93.0
+   }
+  },
+  "1050x600x550mm": {
+   "tip_clear_mm": 362.5,
+   "tip_clear_lam": 0.524,
+   "side_clear_mm": 275.0,
+   "side_clear_lam": 0.398,
+   "cavity": {
+    "lowest_MHz": 287.7,
+    "lowest_idx": [
+     1,
+     1,
+     0
+    ],
+    "nearest_MHz": 467.1,
+    "nearest_idx": [
+     2,
+     1,
+     1
+    ],
+    "offset_pct": 7.74,
+    "n_modes_within_1pct": 0,
+    "n_modes_below_f": 6
+   },
+   "area_seam5cm": {
+    "faces_m2": 3.075,
+    "seam_overlap_m2": 0.44,
+    "lid_lip_m2": 0.165,
+    "net_m2": 3.68,
+    "with_waste_m2": 4.416,
+    "with_waste_ft2": 47.5,
+    "edge_length_m": 8.8,
+    "copper_tape_m": 25.1,
+    "copper_tape_ft": 82.0
+   },
+   "area_seam2cm": {
+    "faces_m2": 3.075,
+    "seam_overlap_m2": 0.176,
+    "lid_lip_m2": 0.165,
+    "net_m2": 3.416,
+    "with_waste_m2": 4.099,
+    "with_waste_ft2": 44.1,
+    "edge_length_m": 8.8,
+    "copper_tape_m": 25.1,
+    "copper_tape_ft": 82.0
+   }
+  },
+  "1300x650x650mm": {
+   "tip_clear_mm": 487.5,
+   "tip_clear_lam": 0.705,
+   "side_clear_mm": 325.0,
+   "side_clear_lam": 0.47,
+   "cavity": {
+    "lowest_MHz": 257.8,
+    "lowest_idx": [
+     1,
+     0,
+     1
+    ],
+    "nearest_MHz": 415.7,
+    "nearest_idx": [
+     3,
+     0,
+     1
+    ],
+    "offset_pct": -4.12,
+    "n_modes_within_1pct": 0,
+    "n_modes_below_f": 9
+   },
+   "area_seam5cm": {
+    "faces_m2": 4.225,
+    "seam_overlap_m2": 0.52,
+    "lid_lip_m2": 0.195,
+    "net_m2": 4.94,
+    "with_waste_m2": 5.928,
+    "with_waste_ft2": 63.8,
+    "edge_length_m": 10.4,
+    "copper_tape_m": 29.6,
+    "copper_tape_ft": 97.0
+   },
+   "area_seam2cm": {
+    "faces_m2": 4.225,
+    "seam_overlap_m2": 0.208,
+    "lid_lip_m2": 0.195,
+    "net_m2": 4.628,
+    "with_waste_m2": 5.554,
+    "with_waste_ft2": 59.8,
+    "edge_length_m": 10.4,
+    "copper_tape_m": 29.6,
+    "copper_tape_ft": 97.0
+   }
+  }
+ },
+ "all_band_1000x600x600": {
+  "DD-433": {
+   "tip_clear_mm": 337.5,
+   "tip_clear_lam": 0.49,
+   "side_clear_mm": 300,
+   "side_clear_lam": 0.43,
+   "cavity": {
+    "lowest_MHz": 291.3,
+    "lowest_idx": [
+     1,
+     0,
+     1
+    ],
+    "nearest_MHz": 463.4,
+    "nearest_idx": [
+     2,
+     1,
+     1
+    ],
+    "offset_pct": 6.87,
+    "n_modes_within_1pct": 0,
+    "n_modes_below_f": 6
+   }
+  },
+  "DD-1296": {
+   "tip_clear_mm": 445.6,
+   "tip_clear_lam": 1.93,
+   "side_clear_mm": 300,
+   "side_clear_lam": 1.3,
+   "cavity": {
+    "lowest_MHz": 291.3,
+    "lowest_idx": [
+     1,
+     0,
+     1
+    ],
+    "nearest_MHz": 1298.1,
+    "nearest_idx": [
+     5,
+     3,
+     3
+    ],
+    "offset_pct": 0.17,
+    "n_modes_within_1pct": 11,
+    "n_modes_below_f": 156
+   }
+  },
+  "DD-2450": {
+   "tip_clear_mm": 471.2,
+   "tip_clear_lam": 3.85,
+   "side_clear_mm": 300,
+   "side_clear_lam": 2.45,
+   "cavity": {
+    "lowest_MHz": 291.3,
+    "lowest_idx": [
+     1,
+     0,
+     1
+    ],
+    "nearest_MHz": 2449.8,
+    "nearest_idx": [
+     16,
+     0,
+     2
+    ],
+    "offset_pct": -0.01,
+    "n_modes_within_1pct": 54,
+    "n_modes_below_f": 957
+   }
+  }
+ },
+ "aperture_lambda_over_20_mm": {
+  "DD-433": 34.6,
+  "DD-1296": 11.6,
+  "DD-2450": 6.1
+ },
+ "mesh_openings_mm": {
+  "Phifer_Al_screen_18x16": "~1.2-1.4 (derived: 25.4/18-0.25; 25.4/16-0.25)",
+  "TWP_16mesh_Cu_0.011in": 1.2954,
+  "McMaster_Cu_100x100": 0.1524
+ },
+ "wbc": {
+  "3/4in_TypeL_Cu_ID19.94": {
+   "d_mm": 19.94,
+   "len_mm": 80,
+   "fc_GHz": 8.81,
+   "f_over_fc_2450": 0.278,
+   "f_over_fc_1296": 0.147,
+   "atten_dB": 128.0
+  },
+  "3/4in_TypeL_Cu_ID19.94_60mm": {
+   "d_mm": 19.94,
+   "len_mm": 60,
+   "fc_GHz": 8.81,
+   "f_over_fc_2450": 0.278,
+   "f_over_fc_1296": 0.147,
+   "atten_dB": 96.0
+  },
+  "1/2in_TypeL_Cu_ID13.84": {
+   "d_mm": 13.84,
+   "len_mm": 56,
+   "fc_GHz": 12.69,
+   "f_over_fc_2450": 0.193,
+   "f_over_fc_1296": 0.102,
+   "atten_dB": 129.0
+  },
+  "12mm": {
+   "d_mm": 12,
+   "len_mm": 48,
+   "fc_GHz": 14.64,
+   "f_over_fc_2450": 0.167,
+   "f_over_fc_1296": 0.089,
+   "atten_dB": 128.0
+  }
+ }
+}

@@ -3,8 +3,8 @@
     "title": "SLW Hub shared physics constants + formula strings",
     "page": "sleeve-balun-snr.html + sleeve-balun-efield.html",
     "repo": "9wzg44nz44-glitch/9wzg44nz44-glitch.github.io",
-    "version": "snr-dual-sim-params-v0.2",
-    "date": "2026-09-24",
+    "version": "snr-dual-sim-params-v0.2.1",
+    "date": "2026-09-29",
     "research": "/workspace/sleeve-balun-snr/RESEARCH.md",
     "disclaimer": "Educational / contested. SLW is not settled physics. Numbers are hub toys for Mathematica bit-for-bit parity with js/fields.js and experiment-c-snr.html \u2014 not lab calibration. No invented equations; HYP/toy/illustrative flagged.",
     "sources": [
@@ -18,6 +18,12 @@
       "US 12,525,711 (Keyport sleeve); US 9,306,527 Eq.15; Hively-Loebl 2019 + 2022 Errata"
     ],
     "changelog": [
+  {
+   "from": "snr-dual-sim-params-v0.2",
+   "to": "snr-dual-sim-params-v0.2.1",
+   "date": "2026-09-29",
+   "summary": "P_OUT per Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum (Phys. Essays 32(3) 417, FACT): S = I^2 Z0 / [2 (4 pi r)^2], so the derived total watts P_total (code name P_rad) = 4 pi r^2 P_OUT = I_peak^2 Z0/(8 pi) (was I_peak^2 Z0/(4 pi), patent Eq. 15 = the 2019 form as first printed without the 1/2). I = peak is an ASSUMPTION (erratum does not say). S, P_load, SNR_Hively, E_par(power) are -3.0103 dB; E_par amplitude x0.70711; N-Z Am and Zimmerman Az unchanged. Lock numbers: P_rad(-19 dBm) 1.5097e-5 -> 7.5483e-6 W; E_par(10 m) 2.127e-3 -> 1.504e-3 V/m; E_par(lambda) 3.077e-2/9.197e-2/1.739e-1 -> 2.176e-2/6.503e-2/1.229e-1 V/m. Units note 2026-09-30 (labels only, no number changed): the paper P_OUT is a power density in W/m^2 at range r; total watts are a DERIVED quantity; I = peak confirmed by Dan Britton 2026-09-30. Cloud twin pending sync (JS-vs-WL compare owed)."
+  },
   {
    "from": "snr-dual-sim-params-v0.2",
    "to": "snr-dual-sim-params-v0.2",
@@ -380,8 +386,8 @@
     "AeffTem": "A_eff,TEM = 3*lambda^2 / (8*pi)",
     "PrxTem": "P_rx,TEM = P * Gtx * A_eff,TEM / (4*pi*r^2) * mP",
     "snrTem": "SNR_TEM_dB = P_rx_dBm - (N0 + 10*log10(B_HZ) + NF)",
-    "hively_Prad_Eq15": "P_rad = I_peak^2 * Z0 / (4*pi)   # US 9,306,527 Eq. 15",
-    "S": "S(r) = P_rad / (4*pi*r^2)",
+    "hively_Prad_Eq15": "P_total(W) = 4 pi r^2 * P_OUT = I_peak^2 * Z0 / (8*pi)   # DERIVED / ASSUMPTION (spherical integral, code name P_rad); P_OUT(r) = S = I_peak^2 Z0 / [2 (4 pi r)^2] W/m^2 = Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum (Phys. Essays 32(3) 417) FACT (paper units: power density); I peak = ASSUMPTION (confirmed by Dan Britton 2026-09-30). Patent Eq. 15 total I^2 Z0/(4 pi) is twice the erratum-integrated total (documented difference). Was I_peak^2 Z0/(4 pi) (US 9,306,527 Eq. 15 = 2019 as first printed, no 1/2) until 2026-09-29",
+    "S": "S(r) = P_OUT(r) = P_total / (4*pi*r^2)   # W/m^2 (code name P_rad = P_total)",
     "Pload": "P_load = S * A_EFF * ETA * mP * 10^(lnaGain/10)",
     "snrHively": "SNR_Hively_dB = P_load_dBm - (N0 + 10*log10(B_HZ) + NF)",
     "NZ_Am": "A_m(r) = MU0 * I_peak / (2*pi*k0*r)   # Wb/m peak; k0=2*pi*f/c",
@@ -393,7 +399,7 @@
     "E_parallel_illustrative": "E_parallel \u2248 sqrt(S * Z0)   # HYP/illustrative; also printed in Hively-SNR-Simulator",
     "near_field_flag": "far \u2248 2*D^2/lambda with D\u2248lambda/4; flag when r < far (Friis caveat)",
     "sleeve_length": "L_sleeve = (C/f)/4 * VF",
-    "E_parallel_radial_cartoon": "E_parallel(r) = sqrt(S(r)*Z0) with S(r)=P_rad/(4*pi*r^2), P_rad = I_peak^2 * Z0 / (4*pi)  # isotropic 1/r magnitude cartoon; NOT Maxwell near-field; metal (sphere+sleeve+coax) masked; open-air only",
+    "E_parallel_radial_cartoon": "E_parallel(r) = sqrt(S(r)*Z0) with S(r)=P_rad/(4*pi*r^2), P_rad = I_peak^2 * Z0 / (8*pi)  # Hively-Loebl 2019 Eq.38/B5 per Erratum; isotropic 1/r magnitude cartoon; NOT Maxwell near-field; metal (sphere+sleeve+coax) masked; open-air only",
     "near_far_markers_efield": "r_reactive=lambda/(2*pi); r_fresnel=lambda; r_fraunhofer=2*D^2/lambda (D=LAB sphere diameter); r_2lam=2*lambda; r_3lam=3*lambda (educational)"
   },
   "scenarios": {
@@ -431,16 +437,16 @@
     "assume_50ohm_I": true
   },
   "efield_maps": {
-    "maps_id": "efield-maps-v0.2-snr-dual-sim-params-v0.2",
+    "maps_id": "efield-maps-v0.2-snr-dual-sim-params-v0.2.1",
     "maps_id_note": "2026-09-25: unified with the ID SleeveBalunEFieldMaps.wl produces (efield-maps-v0.2- <> PhysicsVersion). Was efield-maps-v0 (page text also said snr-dual-sim-params-v0.1.1). Cloud Manipulate + PNGs still carry the 24 Sep v0 label, pending re-export/republish.",
-    "parent_physics_version": "snr-dual-sim-params-v0.2",
+    "parent_physics_version": "snr-dual-sim-params-v0.2.1",
     "page": "sleeve-balun-efield.html",
     "js": "js/sleeve-balun-efield.js",
-    "disclaimer": "HYP / illustrative / not a measurement. Cartoon E\u2225=\u221a(S\u00b7Z0) isotropic 1/r magnitude from Hively Eq.15 P_rad \u2014 NOT a full Maxwell near-field solution. LAB spheres only (not patent \u03bb/4). Keyport sleeve US 12,525,711 (not Hively skirt).",
+    "disclaimer": "HYP / illustrative / not a measurement. Cartoon E\u2225=\u221a(S\u00b7Z0) isotropic 1/r magnitude from Hively & Loebl 2019 Eq.38/B5 as corrected by the Erratum (P_rad = I^2 Z0/(8 pi)) \u2014 NOT a full Maxwell near-field solution. LAB spheres only (not patent \u03bb/4). Keyport sleeve US 12,525,711 (not Hively skirt).",
     "drive_P_dBm": -19,
     "drive_note": "TinySA Ultra gen max \u221219 dBm FACT \u2014 unchanged from v0; I_peak from 50 \u03a9 identity",
     "I_peak_A_at_drive": 0.0007096267784671506,
-    "P_rad_Eq15_W_at_drive": 1.5096653745617386e-05,
+    "P_rad_Eq15_W_at_drive": 7.548326872808692e-06,
     "gap_m_Keyport": 0.001,
     "gap_note": "0.1 cm Keyport gap FACT from hub setup \u2014 sleeve open toward tip",
     "coax_host": "RG-405/U",
@@ -448,7 +454,7 @@
       "name": "isotropic_1_over_r_E_parallel_cartoon",
       "E_parallel": "sqrt(S * Z0)",
       "S": "P_rad / (4 * pi * r^2)",
-      "P_rad": "I_peak^2 * Z0 / (4 * pi)   # US 9,306,527 Eq.15",
+      "P_rad": "I_peak^2 * Z0 / (8 * pi)   # DERIVED total watts = 4 pi r^2 * P_OUT (ASSUMPTION; label P_total); S = P_OUT is the paper quantity (W/m^2). Hively-Loebl 2019 Eq.38/B5 as corrected by the Erratum (was /(4 pi), US 9,306,527 Eq.15, until 2026-09-29)",
       "implies": "E_parallel(r) \u221d 1/r outside conductors",
       "NOT": "full vector Maxwell near-field; no angular pattern; no measured E\u2225"
     },
@@ -479,11 +485,11 @@
           "r_2lam_educational": 1.382838433,
           "r_3lam_educational": 2.0742576489310176
         },
-        "E_parallel_at_lambda_V_per_m": 0.030768707487557136,
-        "E_parallel_at_10m_V_per_m": 0.002127407561792882,
+        "E_parallel_at_lambda_V_per_m": 0.02175676171279695,
+        "E_parallel_at_10m_V_per_m": 0.0015043043132912859,
         "note": "Fraunhofer 2D\u00b2/\u03bb uses LAB sphere diameter; for electrically-small LAB spheres this radius can lie inside the metal sphere \u2014 still tabulated; plot prefers drawing rings only outside metal + always shows 2\u03bb.",
         "I_pk_A_lock": 0.0007096267784671506,
-        "Prad_W_lock": 1.5096653745617386e-05,
+        "Prad_W_lock": 7.548326872808692e-06,
         "png": "img/efield/efield_433MHz_KB2016.png"
       },
       {
@@ -504,11 +510,11 @@
           "r_2lam_educational": 0.462642682,
           "r_3lam_educational": 0.6939640231481482
         },
-        "E_parallel_at_lambda_V_per_m": 0.09196763048934256,
-        "E_parallel_at_10m_V_per_m": 0.002127407561792882,
+        "E_parallel_at_lambda_V_per_m": 0.0650309351686728,
+        "E_parallel_at_10m_V_per_m": 0.0015043043132912859,
         "note": "Fraunhofer 2D\u00b2/\u03bb uses LAB sphere diameter; for electrically-small LAB spheres this radius can lie inside the metal sphere \u2014 still tabulated; plot prefers drawing rings only outside metal + always shows 2\u03bb.",
         "I_pk_A_lock": 0.0007096267784671506,
-        "Prad_W_lock": 1.5096653745617386e-05,
+        "Prad_W_lock": 7.548326872808692e-06,
         "png": "img/efield/efield_1296MHz_KB1820.png"
       },
       {
@@ -529,11 +535,11 @@
           "r_2lam_educational": 0.244728537,
           "r_3lam_educational": 0.3670928057142857
         },
-        "E_parallel_at_lambda_V_per_m": 0.17385856072445163,
-        "E_parallel_at_10m_V_per_m": 0.002127407561792882,
+        "E_parallel_at_lambda_V_per_m": 0.12293656725559289,
+        "E_parallel_at_10m_V_per_m": 0.0015043043132912859,
         "note": "Fraunhofer 2D\u00b2/\u03bb uses LAB sphere diameter; for electrically-small LAB spheres this radius can lie inside the metal sphere \u2014 still tabulated; plot prefers drawing rings only outside metal + always shows 2\u03bb.",
         "I_pk_A_lock": 0.0007096267784671506,
-        "Prad_W_lock": 1.5096653745617386e-05,
+        "Prad_W_lock": 7.548326872808692e-06,
         "png": "img/efield/efield_2450MHz_KB1820.png",
         "sleeve_lambda_over_4_m_cos": 0.030591067142857142
       }
@@ -560,14 +566,14 @@
     "cos_lock_at_m19_dBm": {
       "source": "img/efield/efield_summary.json + CoS SleeveBalunEFieldMaps.wl",
       "I_pk_A": 0.0007096267784671506,
-      "Prad_W": 1.5096653745617386e-05,
-      "E_parallel_at_10m_V_per_m": 0.002127407561792882,
+      "Prad_W": 7.548326872808692e-06,
+      "E_parallel_at_10m_V_per_m": 0.0015043043132912859,
       "E_parallel_at_lambda_V_per_m": {
-        "expB_433": 0.030768707487557136,
-        "expA_1296": 0.09196763048934256,
-        "ism_2450": 0.17385856072445163
+        "expB_433": 0.02175676171279695,
+        "expA_1296": 0.0650309351686728,
+        "ism_2450": 0.12293656725559289
       },
-      "note": "E(10 m)=2.127e-3 V/m all bands; E(\u03bb)=3.077e-2 / 9.197e-2 / 1.739e-1 for 433.59 / 1296 / 2450. From \u221a(S Z0) isotropic cartoon \u2014 HYP."
+      "note": "E(10 m)=1.504e-3 V/m all bands; E(\u03bb)=2.176e-2 / 6.503e-2 / 1.229e-1 for 433.59 / 1296 / 2450 (erratum form; was 2.127e-3 and 3.077e-2 / 9.197e-2 / 1.739e-1 with I^2 Z0/(4 pi) until 2026-09-29). From \u221a(S Z0) isotropic cartoon \u2014 HYP."
     },
     "merged_into_snr": true,
     "snr_page": "sleeve-balun-snr.html",

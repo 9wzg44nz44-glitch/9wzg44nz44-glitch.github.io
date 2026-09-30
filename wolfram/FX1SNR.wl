@@ -1,7 +1,7 @@
 (* ::Package:: *)
 (* ============================================================================
    FX1SNR.wl — FX-1 driven Faraday sphere SNR simulator (Wolfram twin of fx1-snr.html)
-   PhysicsVersion: fx1-snr-v0.2 (Pages live; Cloud twin pending sync)
+   PhysicsVersion: fx1-snr-v0.2.1 (Pages live; Cloud twin pending sync)
    v0.2: openEMS FDTD tables embedded in FX1Const["openems"] (generated from openems/results.json) are the
    default exterior model (page 200 mm geometry) and the interior seam options (FACT, order-of-magnitude).
    Cloud target:  https://www.wolframcloud.com/obj/danbritton5/FX1SNR  (FX1SNR_Publish.wl)
@@ -23,7 +23,7 @@ ClearAll[FX1Const, PhysicsVersion, fx1WFromDbm, fx1Drive, fx1LayerSE, fx1SeamSE,
 
 (* BEGIN FX1 CONSTANTS (generated — do not edit by hand) *)
 FX1Const = <|
-  "PHYSICS_VERSION" -> "fx1-snr-v0.2",
+  "PHYSICS_VERSION" -> "fx1-snr-v0.2.1",
   "C0" -> 299792458.,
   "MU0" -> 1.2566370614359173`*^-6,
   "EPS0" -> 8.854187817`*^-12,
@@ -726,7 +726,7 @@ fx1Compute[p_Association] := Module[
       "analytic only \[LongDash] openEMS shows the analytic model reads high at 433 MHz (2.3\[Dash]5\[Times])"]|>;
   st = fx1Stack[p, f];
   ipk = dr["Ipk"];
-  prad = ipk^2 FX1Const["Z0"]/(4. Pi);
+  prad = ipk^2 FX1Const["Z0"]/(8. Pi);  (* Hively-Loebl 2019 Eq.38/B5 per Erratum: S = Ipk^2 Z0/(2 (4 Pi r)^2); was /(4. Pi) before 2026-09-29 *)
   shyp = prad/(4. Pi rc^2) st["surv"];
   epar = Sqrt[shyp FX1Const["Z0"]];
   floor = fx1Floor[p["rbw"], p["lna"]];

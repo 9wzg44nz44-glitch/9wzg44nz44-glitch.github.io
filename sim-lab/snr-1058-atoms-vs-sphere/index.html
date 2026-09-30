@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>H 2S tickled-relaxation detector vs Experiment-A sphere at 1057.8 MHz: SNR comparison · SLW Hub</title>
+<meta name="description" content="Simulation Lab desk calculation (2026-09-25): H 2S tickled-relaxation detector vs Experiment A sphere at 1057.8 MHz, SNR comparison with openEMS aperture bracket. FACT/HYP/ASSUMPTION labelled. Educational.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../sim-lab/sim-lab.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<script src="/assets/site-search.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../../index.html">Home</a>
+      <a href="../../learn.html">Learn</a>
+      <a href="../../compare.html">Compare</a>
+      <a href="../../fields.html">Fields</a>
+      <a href="../../monstein.html">Monstein</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../lab.html">Lab</a>
+      <a href="../../kit.html">Kit</a>
+      <a href="../../library.html">Library</a>
+      <a href="../../ranging/">Ranging</a>
+      <a href="../../sim-lab/" aria-current="page">Sim Lab</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <p class="kicker">Simulation Lab report · SNR / detectors · faithful HTML conversion</p>
+  <h1>H 2S tickled-relaxation detector vs Experiment-A sphere at 1057.8 MHz: SNR comparison</h1>
+  <p class="lede">Desk comparison at 1057.8 MHz: the hydrogen 2S tickled-relaxation detector vs the Experiment A ¾″ sphere with LNA chains. Verdict: the atoms are worse at every field from 1 nV/m to 1 kV/m for every sphere chain with an LNA (55–122 dB gap).</p>
+  <p><span class="badge mixed">MIXED</span> <a href="../">← Simulation Lab catalogue</a></p>
+  <div class="provenance">
+    <h2>Provenance</h2>
+    <ul>
+      <li><code>/workspace/sim-lab/snr-2s-vs-sphere/NOTE.md</code> (last modified 2026-09-25 20:18 EDT)</li><li><code>/workspace/sim-lab/snr-2s-vs-sphere/results_tables.md</code> (last modified 2026-09-25 20:18 EDT)</li>
+      <li>Converted to HTML 2026-09-28 (EDT) as a faithful conversion: text, numbers, equations and labels are the source's own. No new equations were added; only the TEM tags described below and the edits listed here were made.</li>
+      <li>Appendix, &#x27;SNR at reference fields&#x27; table: the delimiter row was extended from 8 to 10 columns to match the header and rows (the source has an empty column between &#x27;atom case&#x27; and &#x27;sphere case&#x27;); no values changed.</li><li>This side calculation was folded into the (unpublished, held) Experiment G v0.1 model; Experiment G itself is not published here.</li>
+      <li>Status lines inside the source (for example "nothing published", "HELD", "draft") describe the state when it was written. This page is its GitHub Pages twin, published 2026-09-28.</li>
+      <li>No Wolfram Cloud twin planned (analysis/report page, not one of Experiments A–G). Numbers are Python-computed; WL compare OWED where the source says so.</li>
+    </ul>
+  </div>
+  <div class="rules"><strong>Framing rules on this page (Dan).</strong> Under the SLW hypothesis no skin-depth, permeability, ferromagnetic or cage shielding-effectiveness argument is used to rank or dismiss SLW/SW. The Faraday cage strips TEM noise (<span class="badge fact">FACT</span>); an SLW passing the cage wall is <span class="badge hyp">HYP</span>. Every passage that uses transverse-EM (TEM / classical / cage-SE) reasoning is tagged <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>. FACT / HYP / ASSUMPTION labels are kept exactly as in the source.</div>
+  <h2>Downloads</h2><ul class="dl-list"><li><a href="results.json">results.json (compare.py output)</a></li></ul>
+  
+  <article class="doc">
+<p>Written Fri 25 Sep 2026 (ET). This is a desk calculation only: nothing was published, sent, bought or pushed.
+Every number below is recomputed by <code>compare.py</code>, which writes <code>results.json</code> and <code>results_tables.md</code>. The openEMS antenna runs are in <code>openems/</code>.
+Tags: <span class="badge fact">FACT</span> = published and cited. <span class="badge hyp">HYP</span> = the SLW hypothesis. <span class="badge asm">ASSUMPTION</span> = our modelling choice. &quot;Ours&quot; = arithmetic done with a cited formula.</p>
+<h2>Verdict</h2>
+<p><strong>The atoms are worse, by a very large margin, at every field from 1 nV/m to 1 kV/m, for every sphere chain that has an LNA.</strong></p>
+<p>Field needed for SNR = 1 in 1 s:</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>comparison</th>
+<th>atoms</th>
+<th>sphere</th>
+<th>gap (field dB, 20·log)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>realistic</strong>: atom numbers demonstrated in the lab (N_2S 5×10⁷, ε 2×10⁻⁶), 10 nm filter, demonstrated stray-field level <strong>vs</strong> the modelled ¾″ sphere into 50 Ω with a ZX60-P33ULN+ LNA</td>
+<td>49.6 mV/m</td>
+<td>37.2 nV/m</td>
+<td><strong>122 dB</strong></td>
+</tr>
+<tr>
+<td>same atoms <strong>vs</strong> the same sphere on a TinySA Ultra alone (internal LNA on)</td>
+<td>49.6 mV/m</td>
+<td>69.2 nV/m</td>
+<td>117 dB</td>
+</tr>
+<tr>
+<td>best physical: N 10¹², ε 0.039, 10 nm filter <strong>vs</strong> the best sphere (λ²/4π aperture, NF_sys 0.6 dB)</td>
+<td>185 µV/m</td>
+<td>16.5 nV/m</td>
+<td>81 dB</td>
+</tr>
+<tr>
+<td>the brief's optimistic case: N 10¹², ε 0.3, 10 nm filter <strong>vs</strong> the best sphere</td>
+<td>111 µV/m</td>
+<td>16.5 nV/m</td>
+<td>77 dB</td>
+</tr>
+<tr>
+<td>ideal bound: N 10¹², ε 0.3, a filter that passes only the Lyα line, 290 K <strong>vs</strong> the best sphere</td>
+<td>29.2 µV/m</td>
+<td>16.5 nV/m</td>
+<td><strong>65 dB</strong></td>
+</tr>
+<tr>
+<td>the same ideal bound in a 4 K radiation shield with no stray field <strong>vs</strong> the best sphere</td>
+<td>9.77 µV/m</td>
+<td>16.5 nV/m</td>
+<td>55 dB</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>Integration time.</strong> When background dominates, the atoms improve as E_th ∝ t^−¼, while the sphere improves as t^−½. So every factor of 10 in averaging time widens the gap by another 5 dB (table in <code>results_tables.md</code>).</li>
+<li><strong>Crossover.</strong> There is none against any sphere chain that has an LNA, with either SNR convention, anywhere up to 1 kV/m. The only crossovers are against the sphere on a TinySA with its LNA <strong>off</strong> (NF 27.2 dB). They appear only in the σ-convention (defined under &quot;SNR ratio&quot; below), and only for the idealized atom cases A4–A6. Those cases need count rates of 10⁸–10¹² counts/s, which one detector cannot count (15 Mcps ceiling).</li>
+</ul>
+<h2>SNR ratio at fixed field, t = 1 s</h2>
+<p>Two conventions are shown for the sphere:</p>
+<ul>
+<li>&quot;brief&quot;: the brief's definition, P/(kT₀F·B) with B = 1/t.</li>
+<li>&quot;σ&quot;: the matched-filter significance √(2Pt/kT₀F), which is like-for-like with the atoms' S/√(S+B).</li>
+</ul>
+<p>Ratio = 10·log₁₀(SNR_atom/SNR_sphere).</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>pair</th>
+<th>1 µV/m</th>
+<th>1 mV/m</th>
+<th>1 V/m</th>
+<th>dominant atom background</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>realistic A1 vs S3 (brief / σ)</td>
+<td>−122 / −110 dB</td>
+<td>−122 / −80 dB</td>
+<td>−134 / −61 dB</td>
+<td>stray-field Stark quench</td>
+</tr>
+<tr>
+<td>A2 (stray field cut to 10 mV/m) vs S3</td>
+<td>−119 / −106</td>
+<td>−119 / −76</td>
+<td>−134 / −62</td>
+<td>2E1 continuum leaking through the filter</td>
+</tr>
+<tr>
+<td>A3 best physical vs S1</td>
+<td>−81 / −65</td>
+<td>−81 / −35</td>
+<td>−98 / −22</td>
+<td>2E1 in filter (counter saturated*)</td>
+</tr>
+<tr>
+<td>A4 brief-optimistic vs S1</td>
+<td>−77 / −60</td>
+<td>−77 / −30</td>
+<td>−94 / −18</td>
+<td>2E1 in filter (saturated*)</td>
+</tr>
+<tr>
+<td>A5 ideal filter, 290 K vs S1</td>
+<td>−65 / −49</td>
+<td>−65 / −19</td>
+<td>−94 / −18</td>
+<td>290 K blackbody (saturated*)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>* The no-signal count rate is above 15 Mcps.</p>
+<p>The atom signal scales as E², so in the background-limited regime the &quot;brief&quot; ratio stays constant. It gets worse at high field because:</p>
+<ul>
+<li>the signal becomes shot-noise limited (∝ E);</li>
+<li>then it saturates, once the quench rate exceeds the 8.2 s⁻¹ refill rate (from about 0.3 V/m up).</li>
+</ul>
+<p>In the σ-convention the sphere scales ∝ E, so the atoms narrow the gap as the field rises. The smallest gap is −13 to −18 dB for the idealized cases, near 10–140 mV/m, and −58 dB for the realistic case, near 0.27 V/m.</p>
+<h2>Dominant noise terms</h2>
+<p><strong>Atoms.</strong> Per-atom background rates, with the resonant 1057.8 MHz field that would give the same rate:</p>
+<ul>
+<li><strong>Stray-field Stark quench.</strong> ≤ 1.77 s⁻¹ with the best compensation demonstrated (equivalent to 169 mV/m); 1000 s⁻¹ uncompensated.
+<ul>
+<li>FACT: Landhuis et al. saw 2S lifetimes ≤ 1 ms in a non-metallic cell. With copper-film electrodes and optimal compensation they reached up to 100 ms.</li>
+<li>Ours: 1/0.1 s − 8.23 s⁻¹ = 1.77 s⁻¹. This is an upper bound on non-natural one-body loss.</li>
+<li>This term <strong>dominates the realistic case</strong>, and it produces real Lyα photons, which no filter can separate from signal.</li>
+</ul>
+</li>
+<li><strong>2E1 continuum leaking through the Lyα filter.</strong>
+<ul>
+<li>FACT: commercial filters are 122 ± 2.5 nm, FWHM 10 nm max, T ≥ 15 % (Teledyne Acton FN122-XN). Pelham 122-NBX is about 10 nm with T ≥ 5 %; the 20 nm types are FN122-N and 122-NB.</li>
+<li>Ours, from the Nussbaumer &amp; Schmutz spectral shape: 0.044 (Lorentzian filter shape) or 0.021 (Gaussian) photons per decay get through a 10 nm filter. That is 0.37 or 0.17 s⁻¹ (equivalent to 77 or 53 mV/m).</li>
+<li>A 20 nm filter passes 0.110 / 0.064 photons per decay. A hypothetical 1 nm filter would pass 3.9×10⁻⁴ (7 mV/m).</li>
+<li>This term dominates once stray fields are below about 50 mV/m.</li>
+</ul>
+</li>
+<li><strong>290 K blackbody inside the cage</strong>: 8.1×10⁻⁴ s⁻¹ (equivalent to 3.6 mV/m).
+<ul>
+<li>It is 99.4 % the 9.9 GHz 2S→2P3/2 path. The 1.06 GHz path alone is 4.6×10⁻⁶ s⁻¹.</li>
+<li>Ours: we used Lamb's matrix elements with the Planck spectrum. We cross-checked the 2P1/2 part as n̄·A with A(2S→2P1/2) = 8.0×10⁻¹⁰ s⁻¹; the two methods agree exactly.</li>
+<li>At 4 K it drops to 1.0×10⁻⁵ s⁻¹.</li>
+<li>It sets the floor only if the filter were ideal. It is the atoms' counterpart of kT₀.</li>
+</ul>
+</li>
+<li><strong>ADS-B leaking through the cage</strong>: 2.8×10⁻¹¹ s⁻¹ at SE 55 dB (equivalent to 0.67 µV/m), which is negligible. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>
+<ul>
+<li>With SE 0 dB it would be 8.7×10⁻⁶ s⁻¹, still below the blackbody term. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li>It scales as 10^(−SE/10): 40 dB → 3.8 µV/m equivalent; 80 dB → 0.04 µV/m; 120 dB → 0.4 nV/m. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+</li>
+<li><strong>Detector dark counts</strong>: 0.02–1 cps. Negligible whenever N·ε ≳ 10.</li>
+<li><strong>Depletion at high field.</strong> When Γ_q &gt; 8.2 s⁻¹ (above about 0.37 V/m), the signal saturates at the pump rate.</li>
+<li><strong>Counter saturation.</strong> Any case with N·ε ≳ 10⁸ sits above one detector's 15 Mcps ceiling.</li>
+</ul>
+<p><strong>Sphere:</strong></p>
+<ul>
+<li><strong>Thermal noise.</strong> kT₀ from the 290 K cage walls that the antenna sees, times the chain noise factor. F_sys is:
+<ul>
+<li>1.15 (0.60 dB) for ZX60-P33ULN+ → TinySA with its LNA on;</li>
+<li>4.0 (6.0 dB) for the TinySA alone, LNA on;</li>
+<li>525 (27.2 dB) with the TinySA LNA off.</li>
+</ul>
+</li>
+<li><strong>Mismatch loss.</strong> The small sphere wired straight into 50 Ω loses −8.9 dB (openEMS, the sphere-alone model).</li>
+<li><strong>ADS-B</strong> at 1090 MHz is 32 MHz outside a 1 Hz matched filter, so it adds no in-band noise.
+<ul>
+<li>Even unshielded, one aircraft at 10 km (125 W) gives only −62 dBm peak at the input, far below compression.</li>
+<li>At 1 V/m the wanted signal is −17.7 dBm (λ²/4π). That drives the TinySA near compression after the LNA, so an attenuator would be needed. The SNR is still enormous.</li>
+</ul>
+</li>
+</ul>
+<h2>Everything the models rest on</h2>
+<p>Each item is tagged.</p>
+<ul>
+<li><span class="badge hyp">HYP</span>: an SLW couples to ⟨2S|z|2P⟩ and to the sphere exactly as a TEM wave with the same E would. The coupling η is set to 1 for both, which is untested. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>
+<ul>
+<li>The field-threshold gap closes only if η_atom/η_sphere ≥ 10^(gap_dB/10). That is 3×10⁶ for 65 dB and 1.6×10¹² for 122 dB.</li>
+</ul>
+</li>
+<li><span class="badge asm">ASSUMPTION</span>: E is the RMS of a linearly polarized plane wave, with S = E²/η₀. The atom formula uses the peak value, √2·E.</li>
+<li><strong>FACT, quench rate</strong>: Lamb &amp; Retherford, Phys. Rev. 79, 549 (1950), Eqs. 25–27 and 42. The rate was re-derived exactly as in LIT_CHECK, and the checks reproduce:
+<ul>
+<li>3.10×10⁻¹¹ s⁻¹ for 1 µV/m peak;</li>
+<li>6.19×10⁻¹¹ s⁻¹ for 1 µV/m RMS (the full Eq. 25 plus the 2P3/2 path gives 6.194×10⁻¹¹ at 1057.8 MHz);</li>
+<li>τ = 1.26 µs for Lamb &amp; Retherford's worked example (they quote 1.25 µs);</li>
+<li>3.6 µs at 10 V/cm;</li>
+<li>2806 s⁻¹ at 1 V/cm, against Landhuis's quoted 2800·E² (cm²/V²) s⁻¹.</li>
+</ul>
+</li>
+<li><strong>FACT/ours, hyperfine</strong> (ignored in LIT_CHECK, and still ignored in the headline numbers):
+<ul>
+<li>1057.8 MHz is the fine-structure <strong>centroid</strong>. The real components sit at 909.87, 1087.43 and 1146.65 MHz (ours, from the 2S hyperfine interval 177.5568 MHz and the 2P1/2 hyperfine interval 59.22 MHz). Our 909.87 agrees with the published 909.894(20) MHz.</li>
+<li>The trapped atoms of Landhuis et al. are 2S F = 1, m_F = 1 (FACT). For them the rate at 1057.8 MHz is <strong>0.573×</strong> the centroid formula, which makes the atoms another 2.4 dB worse in field.</li>
+<li>For the same atoms, ADS-B at 1090 MHz sits only 2.6 MHz from the F=1→F′=1 line (factor 0.81, against 0.706 for the centroid).</li>
+</ul>
+</li>
+<li><strong>ASSUMPTION, pumped population</strong>: N_2S is held steady by a pump running at N·(loss rate). Landhuis made single-shot clouds, so this is optimistic.</li>
+<li><strong>ASSUMPTION, background subtraction</strong>: B is known exactly, so SNR = S/√(S+B). If B has to be measured in an equal off-time, the noise term becomes √(S+2B).</li>
+<li><strong>N_2S range</strong>: 10⁶–10¹². Landhuis demonstrated ≥ 5×10⁷ (8×10⁷ at 87 µK) as <strong>single-shot trapped clouds</strong>. Larger values have not been demonstrated.</li>
+<li><strong>ε_det range</strong>:
+<ul>
+<li>2×10⁻⁶ is the Landhuis FACT value.</li>
+<li>0.039 is our physical ceiling: 4π collection × 15 % filter transmission × 26 % CsI quantum efficiency at 121.6 nm (FACT, Hamamatsu R13194 datasheet).</li>
+<li>0.3 is the brief's optimistic value, which cannot be reached with the cited filter.</li>
+</ul>
+</li>
+<li><strong>ASSUMPTION, filter shape and blocking</strong>:
+<ul>
+<li>Gaussian or Lorentzian passband, centred at 121.6 nm.</li>
+<li>Out-of-band blocking of 10⁻⁴ between 115 and 200 nm. This comes from Pelham's &quot;visible rejection ~10⁻⁴&quot;; the VUV blocking itself was not verified.</li>
+<li>Above 200 nm, blocking of 10⁻⁴/8500, using the R13194 121.6/300 nm sensitivity ratio.</li>
+<li>&quot;Lyα-only&quot; is a hypothetical ideal, not a product we found.</li>
+</ul>
+</li>
+<li><strong>FACT, dark counts and maximum count rate</strong>:
+<ul>
+<li>Channeltron handbook: typically ≤ 0.05 cps.</li>
+<li>Dr. Sjuts extended-dynamic-range channel electron multipliers (CEMs): &lt; 0.02 cps, with a maximum of 15 Mcps.</li>
+<li>Photonis Miniature Channeltron: 1 cps maximum.</li>
+</ul>
+</li>
+<li><strong>ADS-B field</strong>:
+<ul>
+<li>FACT: Panken et al., MIT Lincoln Laboratory report ATC-390 (2012), measured at the JFK tower with a 0 dBi antenna: short Mode S replies above −74 dBm arrive at up to 1200/s × 64 µs, about 8 % time occupancy.</li>
+<li>ASSUMPTION: the time-averaged power is 0.08 × (−74 dBm), which gives E_avg = 0.45 mV/m outside the cage. This is a lower bound at JFK; we bracket it ×0.1 to ×10.</li>
+<li>FACT: 1090ES transmitters put at least 125 W at the antenna (FAA AC 20-165B; DO-260B classes A0 70 W, A1/A2 125 W, A3 200 W).</li>
+<li>Cage SE was swept 0–120 dB, default 55 dB. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+</li>
+<li><strong>Stray-field bracket</strong>:
+<ul>
+<li>≤ 1.77 s⁻¹ (demonstrated compensation);</li>
+<li>2.8×10⁻⁵ s⁻¹ at 10 mV/m (ASSUMPTION, optimistic);</li>
+<li>7.6×10⁻⁴ s⁻¹ for the 52 mV/m motional field in LIT_CHECK;</li>
+<li>1000 s⁻¹ uncompensated.</li>
+</ul>
+</li>
+<li><strong>Sphere geometry (FACT, hub)</strong>: KB-1820, 19.05 mm outer diameter, 3003 aluminium, SMA bulkhead.</li>
+<li><strong>How the aperture was obtained (ours, openEMS FDTD, PEC)</strong>: from each model's directivity and 50 Ω mismatch, using the reciprocity relation A = D(1−|Γ|²)λ²/4π (Balanis ch. 2). The two finest meshes agree to within 0.35 dB.</li>
+</ul>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>model</th>
+<th>Z_in at 1057.8 MHz</th>
+<th>1−|Γ|²</th>
+<th>D_max</th>
+<th>A vs λ²/4π (6.39×10⁻³ m²)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(a) sphere-alone stand-in: two KB-1820 balls, 10 mm gap, no cable (ASSUMPTION)</td>
+<td>7.7 − j92.6 Ω</td>
+<td>0.130</td>
+<td>1.51</td>
+<td>−7.1 dB best direction; −8.9 dB direction average; +1.8 dB with a lossless conjugate match</td>
+</tr>
+<tr>
+<td>(b) FX-1 convention: one ball on a 10 mm gap over a 0.35 m counterpoise (ASSUMPTION)</td>
+<td>8.3 − j18.2 Ω</td>
+<td>0.443</td>
+<td>2.94</td>
+<td>+1.2 dB best; −3.5 dB average</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>In model (b) the counterpoise radiates, so it is not a small-sphere result.</li>
+<li>The real Experiment A feed is coax into the ball with the shield bonded to the shell. There the cable shield becomes the second arm unless it is choked, so the true aperture probably lies between (a) and the ideal value.</li>
+<li>We therefore bracket the aperture as the ideal λ²/4π (optimistic; the brief's bound) versus (a) (realistic).</li>
+<li>Conductor loss is negligible: 3003 Al has R_s = 13 mΩ/sq, against R_rad ≈ 7.7 Ω.</li>
+<li><strong>LNA and receiver chain</strong>:
+<ul>
+<li>FACT: the Kuhne MKU LNA 132 AH covers only 1246–1346 MHz, so it <strong>cannot</strong> be used at 1058 MHz.</li>
+<li>Best case: ZX60-P33ULN+, with NF 0.401 dB and gain 17.6 dB interpolated between its 900 and 1500 MHz data (ASSUMPTION). Behind it the TinySA runs with its LNA on (NF 6 dB, derived from the 30 MHz spec; ASSUMPTION that this holds at 1.06 GHz). Friis cascade gives NF_sys 0.60 dB.</li>
+</ul>
+</li>
+<li><strong>ASSUMPTION, sphere noise</strong>:
+<ul>
+<li>T_ant = 290 K (the cage walls);</li>
+<li>noise = kT₀F·B, with the NF defined for a 50 Ω source (a reactive source impedance could make the real LNA noise higher; not modelled);</li>
+<li>best orientation and polarization;</li>
+<li>the in-band leaked environmental noise at 1058 MHz is negligible behind SE 55 dB. At 1296 MHz the Experiment D model already found the floor set by the receiver even at NF 0 dB. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+</ul>
+</li>
+</ul>
+<h2>What the atoms offer that the sphere does not (fair statement)</h2>
+<ul>
+<li><strong>An absolute, calibration-free response.</strong> The rate follows from atomic constants (FACT: Lamb &amp; Retherford; NIST), so no antenna factor or S11 calibration is needed. The sphere's reading depends on the aperture, which the bracket above shows is uncertain by about 9 dB.</li>
+<li><strong>A line signature.</strong> The response is a Lorentzian of 99.7 MHz width at 909.9, 1087.4 and 1146.7 MHz. Its output is a single 121.6 nm Lyα photon, not a voltage. Sweeping the transmitter across these lines, including the hyperfine pattern, gives a spectroscopic fingerprint that pickup on a cable, connector or LNA cannot reproduce.</li>
+<li><strong>No metal at the sensing point.</strong> Readout is optical, which fits Dan's no-cable-through-the-wall rule better than any metal antenna does.</li>
+<li><strong>A different physical coupling channel.</strong> If the SLW HYP η differs between a bound electron and a metal sphere, only the atoms test the atomic E1 coupling.</li>
+</ul>
+<p>As a field-sensitivity instrument, though, the atoms are 55–122 dB worse at 1058 MHz. They are also about 100 MHz wide, so without the cage they see the whole aeronautical radionavigation band around 1030/1090 MHz.</p>
+<h2>Not verified / open</h2>
+<ul>
+<li><strong>ε ceiling components:</strong> the 4π collection assumption and filter transmission at exactly 121.567 nm (the spec is centred at 122 ± 2.5 nm).</li>
+<li><strong>Real filter shape:</strong> actual passband wings and VUV out-of-band blocking (we assumed 10⁻⁴).</li>
+<li><strong>Refill model:</strong> steady-state N_2S ≥ 5×10⁷ under continuous 243 nm pumping has not been demonstrated.</li>
+<li><strong>Laser-scatter background:</strong> under continuous pumping this could be large. Landhuis note laser-induced fluorescence that decays over a few ms after each pulse. Not quantified.</li>
+<li><strong>Radiation trapping:</strong> Landhuis report about 30 % loss at their densities. It is treated as part of ε.</li>
+<li><strong>Shielding of a real apparatus:</strong> a real trap sits in a cryostat and a copper-film cell. Those would shield TEM further (which helps against ADS-B) but make the same HYP η demand. <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></li>
+<li><strong>Magnetic trap effects:</strong> Zeeman shifts of the hyperfine components in the trap are not modelled.</li>
+<li><strong>ADS-B at Dan's site:</strong> the average level there is unknown. JFK is only an anchor, bracketed ×0.1 to ×10. 1030 MHz interrogations and DME/TACAN (960–1215 MHz) also fall inside the atoms' Lorentzian; they were not quantified and the band edges were not verified in this pass.</li>
+<li><strong>Receiver noise with a reactive source:</strong> LNA noise parameters for a strongly reactive source are not modelled.</li>
+<li><strong>TinySA noise figure at 1.06 GHz:</strong> not measured.</li>
+<li><strong>Antenna model limits:</strong> the openEMS models omit the cable, tent and table. The PEC result is not validated against a VNA; Dan's VNA6000-A S11 of the real ball would pin case (a) down.</li>
+<li><strong>Citation checks:</strong> some citations were taken from abstracts, search snippets or datasheets, not full papers: Nussbaumer &amp; Schmutz (constants as quoted in secondary sources), the 2023 PRL on the 2S hyperfine interval, and the 1975 PRL on the 2P1/2 hyperfine interval.</li>
+</ul>
+<h2>Sources</h2>
+<ul>
+<li>Lamb &amp; Retherford, Phys. Rev. 79, 549 (1950). Local copy in <code>sim-lab/expt-d/detectors/sources</code>.</li>
+<li>NIST ASD H I (Kramida et al., doi:10.18434/T4W30F).</li>
+<li>Klarsfeld, Phys. Lett. 30A, 382 (1969).</li>
+<li>Nussbaumer &amp; Schmutz, A&amp;A 138, 495 (1984) (A₂q = 8.2249 s⁻¹). Constants as quoted in &quot;Two-Photon Transitions and Continuous Emission from Hydrogenic Species&quot;, ApJ, doi:10.1086/506974, and in Chluba &amp; Sunyaev, arXiv:astro-ph/0508144.
+<ul>
+<li>Our integral of their fit gives 16.45 s⁻¹ = 2 × 8.23 (both photons counted).</li>
+</ul>
+</li>
+<li>Spitzer &amp; Greenstein, ApJ 114, 407 (1951).</li>
+<li>Landhuis et al., arXiv:physics/0210019. Local copy.</li>
+<li>Hydrogen hyperfine data:
+<ul>
+<li>PRL 130, 203001 (2023): 2S1/2 hyperfine interval 177 556 838.87(85) Hz.</li>
+<li>PRL 34, 377 (1975): 2P1/2 hyperfine interval 59.22(14) MHz.</li>
+<li>PRA 98, 012509 (2018): 909.894(20) MHz.</li>
+</ul>
+</li>
+<li>Lyman-α filters: Teledyne Acton VUV narrowband filter table (FN122-XN, FN122-N); Pelham Research Optical narrowband table (122-NBX/NBV/NB); eSource Optics 122FXB/FNB.</li>
+<li>Hamamatsu datasheets: R6835 (CsI, MgF2 window, 115–200 nm) and R13194 (vs R10825).</li>
+<li>Dark counts: Photonis/Burle Channeltron Handbook (≤ 0.05 cps); Dr. Sjuts extended-dynamic-range CEM page (&lt; 0.02 cps, 15 Mcps); Photonis Miniature Channeltron datasheet (1 cps max).</li>
+<li>ADS-B: FAA AC 20-165B; RTCA DO-260B Table 2-3; Panken et al., MIT LL ATC-390 (2012).</li>
+<li>Thermal-radiation-induced transitions (standard physics): Gallagher &amp; Cooke, PRL 42, 835 (1979); Farley &amp; Wing, PRA 23, 2397 (1981).</li>
+<li>Receiver data (Experiment D <code>rxchain/SHOPPING_LIST.md</code> and <code>REPORT.md</code>):
+<ul>
+<li>Mini-Circuits ZX60-P33ULN+ datasheet;</li>
+<li>Kuhne MKU LNA 132 AH;</li>
+<li>tinysa.org TinySA4 specification;</li>
+<li>Friis, Proc. IRE 32, 419 (1944).</li>
+</ul>
+</li>
+<li>Hub sources: FX-1 PHYSICS_LOCK (3003 Al σ, KB-1820 radius); setup.html (Experiment A KB-1820 + Amphenol 901-9875).</li>
+</ul>
+<h2 id="appendix-1">Appendix: result tables (results_tables.md)</h2>
+<h3>Checks</h3>
+<ul>
+<li>rate_1uVpk_resonant: 3.095e-11</li>
+<li>rate_1uVrms_resonant: 6.19e-11</li>
+<li>rate_1uVrms_at_ftick_full: 6.194e-11</li>
+<li>lamb_example_tau_us: 1.261</li>
+<li>static_10Vcm_tau_us: 3.563</li>
+<li>static_1Vcm_rate: 2806</li>
+<li>K_q (1057.8 MHz, full Eq.25 + 2P3/2): 6.194e-11 s^-1 per (uV/m rms)^2</li>
+</ul>
+<h3>Hyperfine</h3>
+<pre><code>{
+ &quot;components_MHz&quot;: {
+  &quot;F0-&gt;F'1&quot;: 909.8745015056451,
+  &quot;F1-&gt;F'0&quot;: 1146.651340375645,
+  &quot;F1-&gt;F'1&quot;: 1087.431340375645
+ },
+ &quot;branching&quot;: {
+  &quot;F0-&gt;F'1&quot;: 1.0,
+  &quot;F1-&gt;F'0&quot;: 0.3333333333333333,
+  &quot;F1-&gt;F'1&quot;: 0.6666666666666666
+ },
+ &quot;check_F0_F1_vs_909.894&quot;: 909.8745015056451,
+ &quot;F1_factor_at_ftick&quot;: 0.5729209245426083,
+ &quot;F0_factor_at_ftick&quot;: 0.10193844792414944,
+ &quot;F1_factor_at_1090&quot;: 0.8103796389957494,
+ &quot;centroid_factor_at_1090&quot;: 0.7062378840070175
+}
+</code></pre>
+<h3>2E1 photons per decay passing filter (relative to Lya transmission)</h3>
+<p>NS84 integral of A(y) over 0..1 = 16.4521 s^-1 (NS84 quote 8.2249); no-filter fraction 115-200 nm = 0.722 photons/decay</p>
+<ul>
+<li>FN122-XN 10nm lorentz: 4.445e-02  -&gt; background rate per atom = 3.657e-01 s^-1 (equiv. resonant field 7.68e+04 uV/m)</li>
+<li>FN122-XN 10nm gauss: 2.105e-02  -&gt; background rate per atom = 1.732e-01 s^-1 (equiv. resonant field 5.29e+04 uV/m)</li>
+<li>122-NB 20nm lorentz: 1.098e-01  -&gt; background rate per atom = 9.032e-01 s^-1 (equiv. resonant field 1.21e+05 uV/m)</li>
+<li>122-NB 20nm gauss: 6.449e-02  -&gt; background rate per atom = 5.306e-01 s^-1 (equiv. resonant field 9.26e+04 uV/m)</li>
+<li>hypothetical 1nm gauss: 3.851e-04  -&gt; background rate per atom = 3.169e-03 s^-1 (equiv. resonant field 7.15e+03 uV/m)</li>
+<li>Lya-only (ideal): 0.000e+00  -&gt; background rate per atom = 0.000e+00 s^-1 (equiv. resonant field 0 uV/m)</li>
+</ul>
+<h3>Blackbody</h3>
+<pre><code>{
+ &quot;rate_290K&quot;: 0.0008073599960152302,
+ &quot;rate_290K_P12_only&quot;: 4.575937688321174e-06,
+ &quot;check_nbarA_P12&quot;: 4.575937688321173e-06,
+ &quot;A_2S_2P12_spont&quot;: 8.011535809386194e-10,
+ &quot;rate_4K&quot;: 1.04988377940608e-05,
+ &quot;E_equiv_290K_uVm&quot;: 3610.2146937774837
+}
+</code></pre>
+<h3>ADS-B</h3>
+<pre><code>{
+ &quot;E_out_avg_default_Vm&quot;: 0.0004464481257874625,
+ &quot;E_peak_one_aircraft_10km_Vm&quot;: 0.0061237243569579455,
+ &quot;detuning_MHz&quot;: 32.15286934185497,
+ &quot;lorentz_factor&quot;: 0.7064152934634207,
+ &quot;rate_SE55_default&quot;: 2.7580571998227375e-11,
+ &quot;E_equiv_resonant_SE55_uVm&quot;: 0.6672691562564608
+}
+{
+ &quot;SE=0&quot;: {
+  &quot;rate&quot;: 8.721742668466001e-06,
+  &quot;E_equiv_uVm&quot;: 375.2330215879043,
+  &quot;rate_x10_field&quot;: 0.0008721742668465998
+ },
+ &quot;SE=40&quot;: {
+  &quot;rate&quot;: 8.721742668466003e-10,
+  &quot;E_equiv_uVm&quot;: 3.7523302158790437,
+  &quot;rate_x10_field&quot;: 8.721742668465999e-08
+ },
+ &quot;SE=55&quot;: {
+  &quot;rate&quot;: 2.7580571998227375e-11,
+  &quot;E_equiv_uVm&quot;: 0.6672691562564608,
+  &quot;rate_x10_field&quot;: 2.758057199822737e-09
+ },
+ &quot;SE=80&quot;: {
+  &quot;rate&quot;: 8.721742668466e-14,
+  &quot;E_equiv_uVm&quot;: 0.037523302158790434,
+  &quot;rate_x10_field&quot;: 8.721742668466e-12
+ },
+ &quot;SE=100&quot;: {
+  &quot;rate&quot;: 8.721742668466002e-16,
+  &quot;E_equiv_uVm&quot;: 0.0037523302158790433,
+  &quot;rate_x10_field&quot;: 8.721742668466e-14
+ },
+ &quot;SE=120&quot;: {
+  &quot;rate&quot;: 8.721742668466e-18,
+  &quot;E_equiv_uVm&quot;: 0.0003752330215879043,
+  &quot;rate_x10_field&quot;: 8.721742668466002e-16
+ }
+}
+</code></pre>
+<h3>Stray Stark</h3>
+<pre><code>{
+ &quot;compensated_upper_bound&quot;: 1.7716999999999992,
+ &quot;uncompensated&quot;: 1000.0,
+ &quot;optimistic_10mVm&quot;: 2.8063068176770123e-05,
+ &quot;motional_52mVm_LIT_CHECK&quot;: 0.000758825363499864,
+ &quot;E_equiv_uVm_compensated_upper_bound&quot;: 169119.82038631642,
+ &quot;E_equiv_uVm_uncompensated&quot;: 4017902.7068214696,
+ &quot;E_equiv_uVm_optimistic_10mVm&quot;: 673.080473860495,
+ &quot;E_equiv_uVm_motional_52mVm_LIT_CHECK&quot;: 3500.018464074574
+}
+</code></pre>
+<h3>Receiver chains (NF_sys dB)</h3>
+<pre><code>{
+ &quot;ZX60-P33ULN+ -&gt; TinySA (LNA on)&quot;: 0.601142463625589,
+ &quot;TinySA Ultra, internal LNA on&quot;: 6.0,
+ &quot;TinySA Ultra, LNA off&quot;: 27.199999999999996
+}
+ZX60 interp 0.401 dB / 17.61 dB
+</code></pre>
+<h3>openEMS</h3>
+<pre><code>{
+ &quot;cp&quot;: {
+  &quot;Zin&quot;: [
+   8.276730583837036,
+   -24.925483484060518
+  ],
+  &quot;S11_dB&quot;: -2.306509523601411,
+  &quot;Dmax&quot;: 2.942903437354934,
+  &quot;mismatch&quot;: 0.41203828549496335,
+  &quot;D_horizon&quot;: 0.6903222502669324,
+  &quot;Prad_over_Pacc&quot;: 0.9960593712266496,
+  &quot;res_mm&quot;: 1.0
+ },
+ &quot;cp_fine&quot;: {
+  &quot;Zin&quot;: [
+   8.25588120223463,
+   -18.168161658872112
+  ],
+  &quot;S11_dB&quot;: -2.544631071449364,
+  &quot;Dmax&quot;: 2.941982245722401,
+  &quot;mismatch&quot;: 0.44340808585789293,
+  &quot;D_horizon&quot;: 0.6908148828679548,
+  &quot;Prad_over_Pacc&quot;: 0.9963076961280253,
+  &quot;res_mm&quot;: 0.5
+ },
+ &quot;dipole&quot;: {
+  &quot;Zin&quot;: [
+   7.714857374892496,
+   -97.75257142849877
+  ],
+  &quot;S11_dB&quot;: -0.5538648979860149,
+  &quot;Dmax&quot;: 1.5123056195145415,
+  &quot;mismatch&quot;: 0.11973484620433206,
+  &quot;D_horizon&quot;: 1.4962557891287425,
+  &quot;Prad_over_Pacc&quot;: 0.9950852079594523,
+  &quot;res_mm&quot;: 1.0
+ },
+ &quot;dipole_fine&quot;: {
+  &quot;Zin&quot;: [
+   7.722585749204677,
+   -92.59519068774668
+  ],
+  &quot;S11_dB&quot;: -0.6034523675169425,
+  &quot;Dmax&quot;: 1.5127300440357017,
+  &quot;mismatch&quot;: 0.1297284961066365,
+  &quot;D_horizon&quot;: 1.498034724043873,
+  &quot;Prad_over_Pacc&quot;: 0.9934651434423701,
+  &quot;res_mm&quot;: 0.5
+ }
+}
+</code></pre>
+<h3>Apertures at 1057.8 MHz (lambda = 283.4 mm; lambda^2/4pi = 6.3912e-03 m^2)</h3>
+<p class="tem-note">&#9888; Rows/columns in this table that refer to TEM / classical / cage SE: <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>aperture</th>
+<th>m^2</th>
+<th>dB vs lambda^2/4pi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ideal isotropic lambda^2/4pi (brief bound)</td>
+<td>6.391e-03</td>
+<td>+0.0</td>
+</tr>
+<tr>
+<td>matched Hertzian dipole 3lambda^2/8pi (hub TEM toy)</td>
+<td>9.587e-03</td>
+<td>+1.8</td>
+</tr>
+<tr>
+<td>hub fields.js A_EFF*eta = pi 0.05^2 x 0.5 (Exp D 'hub')</td>
+<td>3.927e-03</td>
+<td>-2.1</td>
+</tr>
+<tr>
+<td>openEMS KB-1820 over 0.35 m counterpoise, 10 mm gap, 50 ohm direct, best direction</td>
+<td>8.337e-03</td>
+<td>+1.2</td>
+</tr>
+<tr>
+<td>openEMS KB-1820 over 0.35 m counterpoise, 10 mm gap, 50 ohm direct, direction-average</td>
+<td>2.834e-03</td>
+<td>-3.5</td>
+</tr>
+<tr>
+<td>openEMS KB-1820 over 0.35 m counterpoise, 10 mm gap, lossless conjugate match, best direction</td>
+<td>1.880e-02</td>
+<td>+4.7</td>
+</tr>
+<tr>
+<td>openEMS two KB-1820 balls, 10 mm gap (sphere alone), 50 ohm direct, best direction</td>
+<td>1.254e-03</td>
+<td>-7.1</td>
+</tr>
+<tr>
+<td>openEMS two KB-1820 balls, 10 mm gap (sphere alone), 50 ohm direct, direction-average</td>
+<td>8.291e-04</td>
+<td>-8.9</td>
+</tr>
+<tr>
+<td>openEMS two KB-1820 balls, 10 mm gap (sphere alone), lossless conjugate match, best direction</td>
+<td>9.668e-03</td>
+<td>+1.8</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Field for SNR = 1 (atoms: S/sqrt(S+B); sphere: P/(kT0 F B), B = 1/t; '[sigma-SNR]' = sqrt(2 P t / kT0F) = 1)</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>case</th>
+<th>t = 0.01 s</th>
+<th>t = 1 s</th>
+<th>t = 100 s</th>
+<th>t = 10000 s</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s</td>
+<td>195 mV/m</td>
+<td>49.6 mV/m</td>
+<td>15.4 mV/m</td>
+<td>4.86 mV/m</td>
+</tr>
+<tr>
+<td>A2 lab N/eps, 10 nm filter, stray 10 mV/m</td>
+<td>154 mV/m</td>
+<td>32.7 mV/m</td>
+<td>9.93 mV/m</td>
+<td>3.13 mV/m</td>
+</tr>
+<tr>
+<td>A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m</td>
+<td>584 uV/m</td>
+<td>185 uV/m</td>
+<td>58.4 uV/m</td>
+<td>18.5 uV/m</td>
+</tr>
+<tr>
+<td>A3c best physical, one CEM (&lt;=15 Mcps): N capped</td>
+<td>2.7 mV/m</td>
+<td>852 uV/m</td>
+<td>269 uV/m</td>
+<td>85.2 uV/m</td>
+</tr>
+<tr>
+<td>A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m</td>
+<td>351 uV/m</td>
+<td>111 uV/m</td>
+<td>35.1 uV/m</td>
+<td>11.1 uV/m</td>
+</tr>
+<tr>
+<td>A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K</td>
+<td>92.3 uV/m</td>
+<td>29.2 uV/m</td>
+<td>9.23 uV/m</td>
+<td>2.92 uV/m</td>
+</tr>
+<tr>
+<td>A6 ideal bound, Lya-only filter, 4 K shield, no stray</td>
+<td>30.9 uV/m</td>
+<td>9.77 uV/m</td>
+<td>3.09 uV/m</td>
+<td>977 nV/m</td>
+</tr>
+<tr>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>165 nV/m</td>
+<td>16.5 nV/m</td>
+<td>1.65 nV/m</td>
+<td>165 pV/m</td>
+</tr>
+<tr>
+<td>S1 best: lambda^2/4pi, ZX60 chain [sigma-SNR]</td>
+<td>116 nV/m</td>
+<td>11.6 nV/m</td>
+<td>1.16 nV/m</td>
+<td>116 pV/m</td>
+</tr>
+<tr>
+<td>S2 openEMS counterpoise model, 50 ohm, best dir, ZX60</td>
+<td>144 nV/m</td>
+<td>14.4 nV/m</td>
+<td>1.44 nV/m</td>
+<td>144 pV/m</td>
+</tr>
+<tr>
+<td>S2 openEMS counterpoise model, 50 ohm, best dir, ZX60 [sigma-SNR]</td>
+<td>102 nV/m</td>
+<td>10.2 nV/m</td>
+<td>1.02 nV/m</td>
+<td>102 pV/m</td>
+</tr>
+<tr>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60</td>
+<td>372 nV/m</td>
+<td>37.2 nV/m</td>
+<td>3.72 nV/m</td>
+<td>372 pV/m</td>
+</tr>
+<tr>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60 [sigma-SNR]</td>
+<td>263 nV/m</td>
+<td>26.3 nV/m</td>
+<td>2.63 nV/m</td>
+<td>263 pV/m</td>
+</tr>
+<tr>
+<td>S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only</td>
+<td>692 nV/m</td>
+<td>69.2 nV/m</td>
+<td>6.92 nV/m</td>
+<td>692 pV/m</td>
+</tr>
+<tr>
+<td>S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only [sigma-SNR]</td>
+<td>489 nV/m</td>
+<td>48.9 nV/m</td>
+<td>4.89 nV/m</td>
+<td>489 pV/m</td>
+</tr>
+<tr>
+<td>S5 openEMS sphere-alone, 50 ohm, TinySA LNA off</td>
+<td>7.94 uV/m</td>
+<td>794 nV/m</td>
+<td>79.4 nV/m</td>
+<td>7.94 nV/m</td>
+</tr>
+<tr>
+<td>S5 openEMS sphere-alone, 50 ohm, TinySA LNA off [sigma-SNR]</td>
+<td>5.62 uV/m</td>
+<td>562 nV/m</td>
+<td>56.2 nV/m</td>
+<td>5.62 nV/m</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>SNR at reference fields, t = 1 s (ratio_dB = 10log10(SNR_atom/SNR_sphere) with the brief's definitions; sigma column uses sphere sigma-SNR)</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>atom case</th>
+<th></th>
+<th>sphere case</th>
+<th>E</th>
+<th>SNR atom</th>
+<th>SNR sphere</th>
+<th>ratio dB</th>
+<th>ratio dB (sigma)</th>
+<th>atom dominant bg</th>
+<th>counter sat?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s</td>
+<td></td>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60</td>
+<td>1 uV/m</td>
+<td>4.24e-10</td>
+<td>7.24e+02</td>
+<td>-122.3</td>
+<td>-109.5</td>
+<td>stray_Stark</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s</td>
+<td></td>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60</td>
+<td>1 mV/m</td>
+<td>4.24e-04</td>
+<td>7.24e+08</td>
+<td>-122.3</td>
+<td>-79.5</td>
+<td>stray_Stark</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s</td>
+<td></td>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60</td>
+<td>1 V/m</td>
+<td>2.88e+01</td>
+<td>7.24e+14</td>
+<td>-134.0</td>
+<td>-61.2</td>
+<td>stray_Stark</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s</td>
+<td></td>
+<td>S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only</td>
+<td>1 uV/m</td>
+<td>4.24e-10</td>
+<td>2.09e+02</td>
+<td>-116.9</td>
+<td>-106.8</td>
+<td>stray_Stark</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s</td>
+<td></td>
+<td>S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only</td>
+<td>1 mV/m</td>
+<td>4.24e-04</td>
+<td>2.09e+08</td>
+<td>-116.9</td>
+<td>-76.8</td>
+<td>stray_Stark</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s</td>
+<td></td>
+<td>S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only</td>
+<td>1 V/m</td>
+<td>2.88e+01</td>
+<td>2.09e+14</td>
+<td>-128.6</td>
+<td>-58.5</td>
+<td>stray_Stark</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A2 lab N/eps, 10 nm filter, stray 10 mV/m</td>
+<td></td>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60</td>
+<td>1 uV/m</td>
+<td>1.02e-09</td>
+<td>7.24e+02</td>
+<td>-118.5</td>
+<td>-105.7</td>
+<td>2E1_in_filter</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A2 lab N/eps, 10 nm filter, stray 10 mV/m</td>
+<td></td>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60</td>
+<td>1 mV/m</td>
+<td>1.02e-03</td>
+<td>7.24e+08</td>
+<td>-118.5</td>
+<td>-75.7</td>
+<td>2E1_in_filter</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A2 lab N/eps, 10 nm filter, stray 10 mV/m</td>
+<td></td>
+<td>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60</td>
+<td>1 V/m</td>
+<td>2.69e+01</td>
+<td>7.24e+14</td>
+<td>-134.3</td>
+<td>-61.5</td>
+<td>2E1_in_filter</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 uV/m</td>
+<td>2.93e-05</td>
+<td>3.69e+03</td>
+<td>-81.0</td>
+<td>-64.7</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 mV/m</td>
+<td>2.93e+01</td>
+<td>3.69e+09</td>
+<td>-81.0</td>
+<td>-34.7</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 V/m</td>
+<td>5.32e+05</td>
+<td>3.69e+15</td>
+<td>-98.4</td>
+<td>-22.1</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A3c best physical, one CEM (&lt;=15 Mcps): N capped</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 uV/m</td>
+<td>1.38e-06</td>
+<td>3.69e+03</td>
+<td>-94.3</td>
+<td>-77.9</td>
+<td>2E1_in_filter</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A3c best physical, one CEM (&lt;=15 Mcps): N capped</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 mV/m</td>
+<td>1.38e+00</td>
+<td>3.69e+09</td>
+<td>-94.3</td>
+<td>-47.9</td>
+<td>2E1_in_filter</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A3c best physical, one CEM (&lt;=15 Mcps): N capped</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 V/m</td>
+<td>2.50e+04</td>
+<td>3.69e+15</td>
+<td>-111.7</td>
+<td>-35.4</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 uV/m</td>
+<td>8.13e-05</td>
+<td>3.69e+03</td>
+<td>-76.6</td>
+<td>-60.2</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 mV/m</td>
+<td>8.13e+01</td>
+<td>3.69e+09</td>
+<td>-76.6</td>
+<td>-30.2</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 V/m</td>
+<td>1.47e+06</td>
+<td>3.69e+15</td>
+<td>-94.0</td>
+<td>-17.7</td>
+<td>2E1_in_filter</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 uV/m</td>
+<td>1.17e-03</td>
+<td>3.69e+03</td>
+<td>-65.0</td>
+<td>-48.6</td>
+<td>blackbody</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 mV/m</td>
+<td>1.13e+03</td>
+<td>3.69e+09</td>
+<td>-65.1</td>
+<td>-18.8</td>
+<td>blackbody</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 V/m</td>
+<td>1.48e+06</td>
+<td>3.69e+15</td>
+<td>-94.0</td>
+<td>-17.6</td>
+<td>blackbody</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A6 ideal bound, Lya-only filter, 4 K shield, no stray</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 uV/m</td>
+<td>1.05e-02</td>
+<td>3.69e+03</td>
+<td>-55.5</td>
+<td>-39.1</td>
+<td>blackbody</td>
+<td>False</td>
+</tr>
+<tr>
+<td>A6 ideal bound, Lya-only filter, 4 K shield, no stray</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 mV/m</td>
+<td>3.99e+03</td>
+<td>3.69e+09</td>
+<td>-59.7</td>
+<td>-13.3</td>
+<td>blackbody</td>
+<td>True</td>
+</tr>
+<tr>
+<td>A6 ideal bound, Lya-only filter, 4 K shield, no stray</td>
+<td></td>
+<td>S1 best: lambda^2/4pi, ZX60 chain</td>
+<td>1 V/m</td>
+<td>1.48e+06</td>
+<td>3.69e+15</td>
+<td>-94.0</td>
+<td>-17.6</td>
+<td>blackbody</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>Closed-form check (background-limited atoms; sphere E = sqrt(kT0 F eta0 / A t))</h3>
+<ul>
+<li>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s: 48.6 mV/m</li>
+<li>A2 lab N/eps, 10 nm filter, stray 10 mV/m: 31.3 mV/m</li>
+<li>A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m: 185 uV/m</li>
+<li>A3c best physical, one CEM (&lt;=15 Mcps): N capped: 852 uV/m</li>
+<li>A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m: 111 uV/m</li>
+<li>A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K: 29.2 uV/m</li>
+<li>A6 ideal bound, Lya-only filter, 4 K shield, no stray: 9.77 uV/m</li>
+<li>S1 best: lambda^2/4pi, ZX60 chain: 16.5 nV/m</li>
+<li>S2 openEMS counterpoise model, 50 ohm, best dir, ZX60: 14.4 nV/m</li>
+<li>S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60: 37.2 nV/m</li>
+<li>S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only: 69.2 nV/m</li>
+<li>S5 openEMS sphere-alone, 50 ohm, TinySA LNA off: 794 nV/m</li>
+<li>A3c capped N = 2.208e+09</li>
+</ul>
+<h3>Crossovers (fields where SNR_atom = SNR_sphere, 1 nV/m - 1 kV/m, t = 1 s)</h3>
+<ul>
+<li>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60: power-conv none; sigma-conv none; best sigma ratio -58.5 dB at 275 mV/m</li>
+<li>A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s || S4 openEMS sphere-alone, 50 ohm, TinySA LNA on only: power-conv none; sigma-conv none; best sigma ratio -55.8 dB at 275 mV/m</li>
+<li>A2 lab N/eps, 10 nm filter, stray 10 mV/m || S3 openEMS sphere-alone model, 50 ohm, best dir, ZX60: power-conv none; sigma-conv none; best sigma ratio -57.7 dB at 166 mV/m</li>
+<li>A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain: power-conv none; sigma-conv none; best sigma ratio -18.0 dB at 138 mV/m</li>
+<li>A3c best physical, one CEM (&lt;=15 Mcps): N capped || S1 best: lambda^2/4pi, ZX60 chain: power-conv none; sigma-conv none; best sigma ratio -31.3 dB at 138 mV/m</li>
+<li>A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S1 best: lambda^2/4pi, ZX60 chain: power-conv none; sigma-conv none; best sigma ratio -13.6 dB at 138 mV/m</li>
+<li>A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off: power-conv none; sigma-conv ['24.5 mV/m', '813 mV/m']; best sigma ratio +3.3 dB at 138 mV/m</li>
+<li>A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S1 best: lambda^2/4pi, ZX60 chain: power-conv none; sigma-conv none; best sigma ratio -13.0 dB at 36.3 mV/m</li>
+<li>A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off: power-conv none; sigma-conv ['1.7 mV/m', '813 mV/m']; best sigma ratio +3.8 dB at 36.3 mV/m</li>
+<li>A6 ideal bound, Lya-only filter, 4 K shield, no stray || S1 best: lambda^2/4pi, ZX60 chain: power-conv none; sigma-conv none; best sigma ratio -13.0 dB at 12.3 mV/m</li>
+<li>A6 ideal bound, Lya-only filter, 4 K shield, no stray || S5 openEMS sphere-alone, 50 ohm, TinySA LNA off: power-conv none; sigma-conv ['191 uV/m', '813 mV/m']; best sigma ratio +3.8 dB at 12.3 mV/m</li>
+</ul>
+<h3>Atom dominant background vs field (t = 1 s)</h3>
+<pre><code>{
+ &quot;A1 lab-demonstrated (Landhuis N=5e7, eps=2e-6), 10 nm filter, stray&lt;=1.77/s&quot;: {
+  &quot;1e-09&quot;: {
+   &quot;dom_bg&quot;: &quot;stray_Stark&quot;,
+   &quot;S&quot;: 6.194427406309189e-15,
+   &quot;B&quot;: 213.8740687486464,
+   &quot;cps&quot;: 213.8740687486464,
+   &quot;saturated&quot;: false
+  },
+  &quot;1e-06&quot;: {
+   &quot;dom_bg&quot;: &quot;stray_Stark&quot;,
+   &quot;S&quot;: 6.194427406270822e-09,
+   &quot;B&quot;: 213.874068747322,
+   &quot;cps&quot;: 213.87406875351644,
+   &quot;saturated&quot;: false
+  },
+  &quot;0.001&quot;: {
+   &quot;dom_bg&quot;: &quot;stray_Stark&quot;,
+   &quot;S&quot;: 0.006194389038713609,
+   &quot;B&quot;: 213.87274434610566,
+   &quot;cps&quot;: 213.87893873514437,
+   &quot;saturated&quot;: false
+  },
+  &quot;0.03&quot;: {
+   &quot;dom_bg&quot;: &quot;stray_Stark&quot;,
+   &quot;S&quot;: 5.5440790054371085,
+   &quot;B&quot;: 212.68870691961533,
+   &quot;cps&quot;: 218.23278592505244,
+   &quot;saturated&quot;: false
+  },
+  &quot;0.3&quot;: {
+   &quot;dom_bg&quot;: &quot;stray_Stark&quot;,
+   &quot;S&quot;: 357.9551369492658,
+   &quot;B&quot;: 137.34082392491015,
+   &quot;cps&quot;: 495.295960874176,
+   &quot;saturated&quot;: false
+  },
+  &quot;1&quot;: {
+   &quot;dom_bg&quot;: &quot;stray_Stark&quot;,
+   &quot;S&quot;: 861.0633829409346,
+   &quot;B&quot;: 29.772856353660277,
+   &quot;cps&quot;: 890.8362392945949,
+   &quot;saturated&quot;: false
+  }
+ },
+ &quot;A2 lab N/eps, 10 nm filter, stray 10 mV/m&quot;: {
+  &quot;1e-09&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 6.194427406309189e-15,
+   &quot;B&quot;: 36.70687505546418,
+   &quot;cps&quot;: 36.70687505546419,
+   &quot;saturated&quot;: false
+  },
+  &quot;1e-06&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 6.194427406262561e-09,
+   &quot;B&quot;: 36.70687505518825,
+   &quot;cps&quot;: 36.706875061382675,
+   &quot;saturated&quot;: false
+  },
+  &quot;0.001&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 0.006194380778516493,
+   &quot;B&quot;: 36.70659912533232,
+   &quot;cps&quot;: 36.712793506110835,
+   &quot;saturated&quot;: false
+  },
+  &quot;0.03&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 5.537470019415112,
+   &quot;B&quot;: 36.46020716608242,
+   &quot;cps&quot;: 41.99767718549753,
+   &quot;saturated&quot;: false
+  },
+  &quot;0.3&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 332.3450064220225,
+   &quot;B&quot;: 21.902489479874344,
+   &quot;cps&quot;: 354.24749590189685,
+   &quot;saturated&quot;: false
+  },
+  &quot;1&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 726.4116474925704,
+   &quot;B&quot;: 4.348699339643198,
+   &quot;cps&quot;: 730.7603468322136,
+   &quot;saturated&quot;: false
+  }
+ },
+ &quot;A3 best physical (N=1e12, eps=0.039), 10 nm gauss, stray 10 mV/m&quot;: {
+  &quot;1e-09&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 2.415826688460584e-06,
+   &quot;B&quot;: 6786263492.220707,
+   &quot;cps&quot;: 6786263492.22071,
+   &quot;saturated&quot;: true
+  },
+  &quot;1e-06&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 2.4158266884423987,
+   &quot;B&quot;: 6786263492.1696205,
+   &quot;cps&quot;: 6786263494.585447,
+   &quot;saturated&quot;: true
+  },
+  &quot;0.001&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 2415808.5036214315,
+   &quot;B&quot;: 6786212409.454446,
+   &quot;cps&quot;: 6788628217.958067,
+   &quot;saturated&quot;: true
+  },
+  &quot;0.03&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 2159613307.5718937,
+   &quot;B&quot;: 6740598025.923406,
+   &quot;cps&quot;: 8900211333.4953,
+   &quot;saturated&quot;: true
+  },
+  &quot;0.3&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 129614552504.58878,
+   &quot;B&quot;: 4045537197.2466826,
+   &quot;cps&quot;: 133660089701.83546,
+   &quot;saturated&quot;: true
+  },
+  &quot;1&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 283300542522.1025,
+   &quot;B&quot;: 795815419.3220726,
+   &quot;cps&quot;: 284096357941.42456,
+   &quot;saturated&quot;: true
+  }
+ },
+ &quot;A3c best physical, one CEM (&lt;=15 Mcps): N capped&quot;: {
+  &quot;1e-09&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 5.334476464091097e-09,
+   &quot;B&quot;: 14985000.000000002,
+   &quot;cps&quot;: 14985000.000000007,
+   &quot;saturated&quot;: false
+  },
+  &quot;1e-06&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 0.005334476464050942,
+   &quot;B&quot;: 14984999.999887202,
+   &quot;cps&quot;: 14985000.005221678,
+   &quot;saturated&quot;: false
+  },
+  &quot;0.001&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 5334.436309473663,
+   &quot;B&quot;: 14984887.202250212,
+   &quot;cps&quot;: 14990221.638559686,
+   &quot;saturated&quot;: false
+  },
+  &quot;0.03&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 4768722.200068599,
+   &quot;B&quot;: 14884164.391076446,
+   &quot;cps&quot;: 19652886.591145046,
+   &quot;saturated&quot;: true
+  },
+  &quot;0.3&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 286206698.12204933,
+   &quot;B&quot;: 8933100.670925647,
+   &quot;cps&quot;: 295139798.79297495,
+   &quot;saturated&quot;: true
+  },
+  &quot;1&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 625566429.7306862,
+   &quot;B&quot;: 1757269.5477792723,
+   &quot;cps&quot;: 627323699.2784655,
+   &quot;saturated&quot;: true
+  }
+ },
+ &quot;A4 brief optimistic (N=1e12, eps=0.3), 10 nm gauss, stray 10 mV/m&quot;: {
+  &quot;1e-09&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 1.8583282218927567e-05,
+   &quot;B&quot;: 52202026863.10236,
+   &quot;cps&quot;: 52202026863.10238,
+   &quot;saturated&quot;: true
+  },
+  &quot;1e-06&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 18.583282218787684,
+   &quot;B&quot;: 52202026862.709404,
+   &quot;cps&quot;: 52202026881.29269,
+   &quot;saturated&quot;: true
+  },
+  &quot;0.001&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 18583142.335549474,
+   &quot;B&quot;: 52201633918.7465,
+   &quot;cps&quot;: 52220217061.08205,
+   &quot;saturated&quot;: true
+  },
+  &quot;0.03&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 16612410058.245335,
+   &quot;B&quot;: 51850754045.43081,
+   &quot;cps&quot;: 68463164103.67615,
+   &quot;saturated&quot;: true
+  },
+  &quot;0.3&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 997035019266.0675,
+   &quot;B&quot;: 31119516901.763714,
+   &quot;cps&quot;: 1028154536167.8312,
+   &quot;saturated&quot;: true
+  },
+  &quot;1&quot;: {
+   &quot;dom_bg&quot;: &quot;2E1_in_filter&quot;,
+   &quot;S&quot;: 2179234942477.7112,
+   &quot;B&quot;: 6121657071.574406,
+   &quot;cps&quot;: 2185356599549.2856,
+   &quot;saturated&quot;: true
+  }
+ },
+ &quot;A5 ideal bound (N=1e12, eps=0.3), Lya-only filter, 290 K&quot;: {
+  &quot;1e-09&quot;: {
+   &quot;dom_bg&quot;: &quot;blackbody&quot;,
+   &quot;S&quot;: 1.8583282218927567e-05,
+   &quot;B&quot;: 250626927.55177167,
+   &quot;cps&quot;: 250626927.55179027,
+   &quot;saturated&quot;: true
+  },
+  &quot;1e-06&quot;: {
+   &quot;dom_bg&quot;: &quot;blackbody&quot;,
+   &quot;S&quot;: 18.583282218787684,
+   &quot;B&quot;: 250626927.54988506,
+   &quot;cps&quot;: 250626946.1331673,
+   &quot;saturated&quot;: true
+  },
+  &quot;0.001&quot;: {
+   &quot;dom_bg&quot;: &quot;blackbody&quot;,
+   &quot;S&quot;: 18583142.335549474,
+   &quot;B&quot;: 250625040.98830822,
+   &quot;cps&quot;: 269208183.32385767,
+   &quot;saturated&quot;: true
+  },
+  &quot;0.03&quot;: {
+   &quot;dom_bg&quot;: &quot;blackbody&quot;,
+   &quot;S&quot;: 16612410058.245335,
+   &quot;B&quot;: 248940433.13174927,
+   &quot;cps&quot;: 16861350491.377085,
+   &quot;saturated&quot;: true
+  },
+  &quot;0.3&quot;: {
+   &quot;dom_bg&quot;: &quot;blackbody&quot;,
+   &quot;S&quot;: 997035019266.0675,
+   &quot;B&quot;: 149407779.29672477,
+   &quot;cps&quot;: 997184427045.3643,
+   &quot;saturated&quot;: true
+  },
+  &quot;1&quot;: {
+   &quot;dom_bg&quot;: &quot;blackbody&quot;,
+   &quot;S&quot;: 2179234942477.7112,
+   &quot;B&quot;: 29390661.560229532,
+   &quot;cps&quot;: 2179264333139.2715,
+   &quot;saturated&quot;: true
+  }
+ },
+ &quot;A6 ideal bound, Lya-only filter, 4 K shield, no stray&quot;: {
+  &quot;1e-09&quot;: {
+   &quot;dom_bg&quot;: &quot;blackbody&quot;,
+   &quot;S&quot;: 1.8583282218927567e-05,
+   &quot;B&quot;: 3149659.6323898397,
+   &quot;cps&quot;: 3149659.632408423,
+   &quot;saturated&quot;: false
+  },
+  &quot;1e-06&quot;: {
+   &quot;dom_bg&quot;: &quot;blackbody&quot;,
+   &quot;S&quot;: 18.58328221878767,
+   &quot;B&quot;: 3149659.632366128,
+   &quot;cps&quot;: 3149678.2156483466,
+   &quot;saturated&quot;: false
+  },
+  &quot;0.001&quot;: {
+   &quot;dom_bg&quot;: &quot;blackbody&quot;,
+   &quot;S&quot;: 18583142.32152566,
+   &quot;B&quot;: 3149635.921336459,
+   &quot;cps&quot;: 21732778.24286212,
+   &quot;saturated&quot;: true
+  },
+  &quot;0.03&quot;: {
+   &quot;dom_bg&quot;: &quot;blackbody&quot;,
+   &quot;S&quot;: 16612398851.153912,
+   &quot;B&quot;: 3128463.1377859935,
+   &quot;cps&quot;: 16615527314.291698,
+   &quot;saturated&quot;: true
+  },
+  &quot;0.3&quot;: {
+   &quot;dom_bg&quot;: &quot;blackbody&quot;,
+   &quot;S&quot;: 996994651830.2377,
+   &quot;B&quot;: 1877550.050448573,
+   &quot;cps&quot;: 996996529380.2881,
+   &quot;saturated&quot;: true
+  },
+  &quot;1&quot;: {
+   &quot;dom_bg&quot;: &quot;blackbody&quot;,
+   &quot;S&quot;: 2179042102266.7683,
+   &quot;B&quot;: 369323.41628444626,
+   &quot;cps&quot;: 2179042471590.1846,
+   &quot;saturated&quot;: true
+  }
+ }
+}
+</code></pre>
+<p>Sphere input at 1 V/m (lambda^2/4pi): -17.7 dBm; unshielded single-aircraft ADS-B peak at input (1090 MHz lambda^2/4pi): -62.2 dBm; Rs(3003 Al) = 13.18 mohm/sq</p>
+<h3>Field for SNR = 1 in 1 s vs N_2S and eps (10 nm Lorentzian filter, 10 mV/m stray, 290 K, D = 0.05 cps); * = N lab-demonstrated (Landhuis, one shot); ! = no-signal count rate &gt; 15 Mcps (one CEM saturated)</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>N_2S</th>
+<th>eps = 2e-06</th>
+<th>eps = 0.0002</th>
+<th>eps = 0.039</th>
+<th>eps = 0.3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1e+06</td>
+<td>115 mV/m</td>
+<td>27.1 mV/m</td>
+<td>7.05 mV/m</td>
+<td>4.23 mV/m</td>
+</tr>
+<tr>
+<td>1e+07</td>
+<td>51.6 mV/m</td>
+<td>14.9 mV/m</td>
+<td>3.96 mV/m</td>
+<td>2.38 mV/m</td>
+</tr>
+<tr>
+<td>5e+07 *</td>
+<td>32.7 mV/m</td>
+<td>9.93 mV/m</td>
+<td>2.65 mV/m</td>
+<td>1.59 mV/m</td>
+</tr>
+<tr>
+<td>1e+08</td>
+<td>27.1 mV/m</td>
+<td>8.34 mV/m</td>
+<td>2.23 mV/m</td>
+<td>1.34 mV/m</td>
+</tr>
+<tr>
+<td>1e+09</td>
+<td>14.9 mV/m</td>
+<td>4.68 mV/m</td>
+<td>1.25 mV/m</td>
+<td>751 uV/m !</td>
+</tr>
+<tr>
+<td>1e+10</td>
+<td>8.34 mV/m</td>
+<td>2.63 mV/m</td>
+<td>704 uV/m !</td>
+<td>422 uV/m !</td>
+</tr>
+<tr>
+<td>1e+11</td>
+<td>4.68 mV/m</td>
+<td>1.48 mV/m</td>
+<td>396 uV/m !</td>
+<td>238 uV/m !</td>
+</tr>
+<tr>
+<td>1e+12</td>
+<td>2.63 mV/m</td>
+<td>831 uV/m !</td>
+<td>222 uV/m !</td>
+<td>134 uV/m !</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+  </article>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub · <a href="../../sim-lab/">Simulation Lab catalogue</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
+</body>
+</html>
