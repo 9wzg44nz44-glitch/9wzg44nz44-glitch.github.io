@@ -254,7 +254,7 @@
 
     const ohmLabel = s.sw ? "SW α=0" : (s.errataAlpha0 ? "Errata α=0 (EED)" : "Exp-C Ohmic HYP");
     $("slwOut").innerHTML =
-      "P<sub>rad</sub> (Eq.38/B5 erratum)=" + fmt(s.Prad, 3) + " W · S<sub>geom</sub>=" + fmt(s.Sgeom, 3) + " W/m²<br>" +
+      "P<sub>OUT</sub>=S<sub>geom</sub>=" + fmt(s.Sgeom, 3) + " W/m² (Eq.38/B5 erratum) · P<sub>total</sub>=4πr²P<sub>OUT</sub>=" + fmt(s.Prad, 3) + " W (derived, ASSUMPTION)<br>" +
       "Ohmic [" + ohmLabel + "] survival=" + fmtN(100 * s.Surv, 2) + "% (" + fmtN(s.ohmDb, 2) + " dB) · S=" + fmt(s.S, 3) + " W/m²<br>" +
       "E∥≈√(S·Z<sub>0</sub>)=<strong>" + fmt(s.Epar, 3) + " V/m</strong> <em>(illustrative cartoon)</em><br>" +
       "A<sub>m</sub>(NZ)=" + fmt(s.Am, 3) + " Wb/m · A<sub>z</sub>(Z)=" + fmt(s.Az, 3) + " Wb/m<br>" +

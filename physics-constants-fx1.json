@@ -1337,7 +1337,7 @@
    "power limit (default ON): if P_rad(model) > P_drive then E,B scaled by sqrt(P_drive/P_rad)  # ASSUMPTION (energy-conservation bound; the 50-ohm V0 identity over-drives Models B/C)"
   ],
   "exterior_HYP": [
-   "SleeveBalunSNR carry-over (formula per Hively-Loebl 2019 Eq.38/B5 as corrected by the Erratum, Phys. Essays 32(3) 417 = FACT; I peak = ASSUMPTION; was P_rad = I_pk^2 Z0/(4 pi), US 9,306,527 Eq.15, before 2026-09-29): P_rad = I_pk^2 Z0/(8 pi); S = P_rad/(4 pi r_c^2) * exp(-alpha L); E_par = sqrt(S Z0)  # HYP / illustrative cartoon",
+   "SleeveBalunSNR carry-over (formula per Hively-Loebl 2019 Eq.38/B5 as corrected by the Erratum, Phys. Essays 32(3) 417 = FACT; I peak = ASSUMPTION; was P_rad = I_pk^2 Z0/(4 pi), US 9,306,527 Eq.15, before 2026-09-29): P_OUT(r_c) = S = I_pk^2 Z0/[2 (4 pi r_c)^2] * exp(-alpha L) W/m^2 (code name P_rad = I_pk^2 Z0/(8 pi) is the DERIVED total watts 4 pi r^2 P_OUT, ASSUMPTION; I = peak confirmed by Dan Britton 2026-09-30); E_par = sqrt(S Z0)  # HYP / illustrative cartoon",
    "B = 0 for SLW  # HYP"
   ],
   "exterior_openEMS": [

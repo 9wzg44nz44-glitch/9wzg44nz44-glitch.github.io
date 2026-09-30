@@ -143,14 +143,15 @@ SNR_TEM,dB = P_rx,dBm − (−174 + 10 log10(B) + NF)
 B = 100 kHz   NF = 3 dB (5 dB if LNA box checked)
 Near-field flags when r &lt; 2 D²/λ with D ≈ λ/4 stub, or r &lt; λ/(2π).</pre>
   <h3>Hively SLW (Hively &amp; Loebl 2019 Eq. 38/B5 as corrected by the Erratum)</h3>
-  <pre class="eq">S(r) = I_peak² Z_0 / [2 (4π r)²]        (Hively &amp; Loebl 2019, Eq. 38/B5 as corrected by the Erratum, Phys. Essays 32(3) 417; Z_0 = √(μ/ε) = η ≈ 376.73 Ω)  FACT
-P_rad = ∮ S dA = I_peak² Z_0 / (8π)      (isotropic integral of S over 4π r²; the toy total-power readout)
+  <pre class="eq">P_OUT(r) = S(r) = I_peak² Z_0 / [2 (4π r)²]   W/m²   (Hively &amp; Loebl 2019, Eq. 38/B5 as corrected by the Erratum, Phys. Essays 32(3) 417; Z_0 = √(μ/ε) = η ≈ 376.73 Ω)  FACT
+P_total = 4π r² · P_OUT = I_peak² Z_0 / (8π)  W   (DERIVED / ASSUMPTION: spherical integral of P_OUT, isotropic; not the paper's P_OUT; the toy total-power readout)
 A_eff = π (0.05)² = 7.854×10⁻³ m²   (10 cm palm coil, η = 0.50)
 P_load = S A_eff η * 10^(−Att_dB/10) per tent
 SNR_Hively,dB = P_load,dBm − (−174 + 10 log10(B) + NF)</pre>
   <p class="footnote"><b>FACT</b> the ½ and the (4πr)² grouping are from the erratum. <b>ASSUMPTION</b> I is the peak amplitude of the drive current (the erratum does not say peak or rms). <b>HYP</b> applying this to the TinySA output current and to the palm-coil pickup is the hypothesis under test; the isotropic SLW cartoon is unchanged otherwise. Loss term: none (erratum α = 0 toggle) or Hively’s Joule term σE∥² (Eq. 44) only.</p>
-  <p class="footnote"><b>Formula history.</b> Before 2026-09-29 this page used P_rad = I_peak² Z_0 / (4π) (patent US 9,306,527 Eq. 15), i.e. S = I_peak² Z_0 / (4π r)². That is the form of Eq. 38/B5 as first printed in 2019, without the factor ½. The erratum adds the ½, so S, P_rad, P_load and SNR<sub>Hively</sub> are each 3.01 dB lower than before. A<sub>m</sub> and A<sub>z</sub> (NZ / Zimmerman) are unchanged. Details: <a href="sim-lab/pout-erratum-audit/">P_OUT erratum audit</a>.</p>
-  <p class="footnote">Old HTML sliders used I ≈ 5 A (P_rad ≈ 375 W with the erratum; ≈ 749 W with the old form). This page uses TinySA milliwatts, so P_rad is tiny. The <em>shape</em> of S∝1/r² is the toy; do not treat 5 A as a TinySA number.</p>
+  <p class="footnote"><b>Formula history.</b> Before 2026-09-29 this page used the total-watts quantity P_rad = I_peak² Z_0 / (4π) (patent US 9,306,527 Eq. 15), i.e. S = I_peak² Z_0 / (4π r)². That is the form of Eq. 38/B5 as first printed in 2019, without the factor ½. The erratum adds the ½, so S, P_total, P_load and SNR<sub>Hively</sub> are each 3.01 dB lower than before. A<sub>m</sub> and A<sub>z</sub> (NZ / Zimmerman) are unchanged. Details: <a href="sim-lab/pout-erratum-audit/">P_OUT erratum audit</a>.</p>
+  <p class="footnote"><b>Units (2026-09-30, label change only; no number changed).</b> The paper's P_OUT is a power <em>density</em> in W/m² at range r; this page's former “P_rad” in watts is now labelled P_total (DERIVED). I = peak is an <b>ASSUMPTION</b> (confirmed by Dan Britton 2026-09-30). Cross-reference (documented difference): patent US 9,306,527 Eq. 15, total I² Z₀/(4π) W, is twice the erratum-integrated total I² Z₀/(8π); the erratum does not correct the patent.</p>
+  <p class="footnote">Old HTML sliders used I ≈ 5 A (P_total ≈ 375 W with the erratum; ≈ 749 W with the old form). This page uses TinySA milliwatts, so P_total is tiny. The <em>shape</em> of S∝1/r² is the toy; do not treat 5 A as a TinySA number.</p>
   <h3>Nikolova–Zimmerman analytic A(r) (CEM-R-46 2007)</h3>
   <pre class="eq">k_0 = 2π f / c
 A_m(r) = μ_0 I_peak / (2π k_0 r)     Wb/m   (peak)

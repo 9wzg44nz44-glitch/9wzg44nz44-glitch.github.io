@@ -107,7 +107,7 @@ h_c = gap + R;  r_c = R + d
 ```
 ### Exterior, HYP (SleeveBalunSNR carry-over)
 ```
-P_rad = I_pk² Z0/(8π);  S = P_rad/(4π r_c²)·exp(−αL)   [= I_pk² Z0/(2(4π r_c)²)·exp(−αL); Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum, Phys. Essays 32(3) 417 = FACT; I = peak = ASSUMPTION; before 2026-09-29 this was I_pk² Z0/(4π) = patent Eq. 15 = the 2019 form as first printed without the ½];  E∥ = sqrt(S·Z0);  detector power × mP;  B = 0
+P_OUT(r_c) = S = I_pk² Z0/(2(4π r_c)²)·exp(−αL) W/m² [paper units; total watts P_total (code name P_rad) = 4π r_c² P_OUT = I_pk² Z0/(8π) is DERIVED / ASSUMPTION (spherical integral); patent Eq. 15 total I² Z0/(4π) is twice the erratum-integrated total (documented difference); I = peak confirmed by Dan Britton 2026-09-30; Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum, Phys. Essays 32(3) 417 = FACT; I = peak = ASSUMPTION; before 2026-09-29 this was I_pk² Z0/(4π) = patent Eq. 15 = the 2019 form as first printed without the ½];  E∥ = sqrt(S·Z0);  detector power × mP;  B = 0
 ```
 ### Stack
 ```
