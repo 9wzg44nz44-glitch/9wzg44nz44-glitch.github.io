@@ -1,16 +1,16 @@
 {
  "meta": {
   "title": "FX-1 driven Faraday sphere SNR — shared physics constants (Pages fx1-snr.html + Wolfram FX1SNR.wl)",
-  "version": "fx1-snr-v0.2",
+  "version": "fx1-snr-v0.2.1",
   "date": "2026-09-25",
-  "status": "Pages live; Cloud twin pending sync (fx1-snr-v0.2). Relaxed publishing rule 2026-09-25: GitHub may lead Cloud; tracked in /workspace/sim-lab/SYNC_LEDGER.md",
+  "status": "Pages live; Cloud twin pending sync (fx1-snr-v0.2.1). Relaxed publishing rule 2026-09-25: GitHub may lead Cloud; tracked in /workspace/sim-lab/SYNC_LEDGER.md",
   "cloud_url": "https://www.wolframcloud.com/obj/danbritton5/FX1SNR",
   "parent": "snr-dual-sim-params-v0.2 (SleeveBalunSNR) media stack + HYP ohmic rules carried over",
   "setup_source": "future-scalar-ab.html#home-experiment (FX-1, draft, HYP)",
   "disclaimer": "Educational / contested. SLW/EED is not settled physics. Standard-physics columns use textbook formulas with labelled modelling assumptions; HYP columns reproduce the page's EED formula and SleeveBalunSNR carry-over rules only. Not a measurement."
  },
  "engine": {
-  "PHYSICS_VERSION": "fx1-snr-v0.2",
+  "PHYSICS_VERSION": "fx1-snr-v0.2.1",
   "C0": 299792458,
   "MU0": 1.2566370614359173e-06,
   "EPS0": 8.854187817e-12,
@@ -1337,7 +1337,7 @@
    "power limit (default ON): if P_rad(model) > P_drive then E,B scaled by sqrt(P_drive/P_rad)  # ASSUMPTION (energy-conservation bound; the 50-ohm V0 identity over-drives Models B/C)"
   ],
   "exterior_HYP": [
-   "SleeveBalunSNR carry-over: P_rad = I_pk^2 Z0/(4 pi) (US 9,306,527 Eq.15); S = P_rad/(4 pi r_c^2) * exp(-alpha L); E_par = sqrt(S Z0)  # HYP / illustrative cartoon",
+   "SleeveBalunSNR carry-over (formula per Hively-Loebl 2019 Eq.38/B5 as corrected by the Erratum, Phys. Essays 32(3) 417 = FACT; I peak = ASSUMPTION; was P_rad = I_pk^2 Z0/(4 pi), US 9,306,527 Eq.15, before 2026-09-29): P_rad = I_pk^2 Z0/(8 pi); S = P_rad/(4 pi r_c^2) * exp(-alpha L); E_par = sqrt(S Z0)  # HYP / illustrative cartoon",
    "B = 0 for SLW  # HYP"
   ],
   "exterior_openEMS": [

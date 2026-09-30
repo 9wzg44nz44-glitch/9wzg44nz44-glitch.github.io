@@ -39,7 +39,7 @@
     const k0 = (2 * Math.PI * F) / C;
     const Am = (MU0 * I) / (2 * Math.PI * k0 * r);
     const IrmsNZ = NZ_R * (Am / Math.SQRT2);
-    const Prad = ((I * I) / (4 * Math.PI)) * Z0; // US 9,306,527 Eq. 15
+    const Prad = ((I * I) / (8 * Math.PI)) * Z0; // Hively & Loebl 2019 Eq. 38/B5 per Erratum: S = I^2 Z0/[2(4 pi r)^2] (FACT); I = peak (ASSUMPTION). Was /(4 pi) (patent Eq. 15) before 2026-09-29
     const S = Prad / (4 * Math.PI * r * r);
     const Pload = S * A_EFF * ETA;
     const IoutH = Math.sqrt(Math.max(Pload, 0) / RLOAD);

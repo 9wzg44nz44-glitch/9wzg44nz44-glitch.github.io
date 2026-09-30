@@ -120,14 +120,14 @@
 <h2>Paper / patent strip (same I and r)</h2>
 <p>These use the Combined-SNR and Hively-simulator formulas, still educational:</p>
 <p class="eq">N–Z: A<sub>m</sub> = μ₀ I<sub>m</sub> / (2π k₀ r) at 1.3 GHz, R ≈ 264030 m/H, I<sub>RMS</sub> = R A<sub>m</sub>/√2</p>
-<p class="eq">Hively: P<sub>rad</sub> = I² Z₀ / (4π), S = P<sub>rad</sub>/(4π r²), A<sub>eff</sub> = 78.5 cm², η = 50%, I<sub>out</sub> = √(S A<sub>eff</sub> η / 50 Ω)</p>
+<p class="eq">Hively (Eq. 38/B5 as corrected by the Erratum, <b>FACT</b>; I = peak, <b>ASSUMPTION</b>): P<sub>rad</sub> = I² Z₀ / (8π), S = P<sub>rad</sub>/(4π r²) = I² Z₀ / [2 (4π r)²], A<sub>eff</sub> = 78.5 cm², η = 50%, I<sub>out</sub> = √(S A<sub>eff</sub> η / 50 Ω)</p>
 <div class="grid-4">
   <div class="metric"><div class="l">N–Z |A<sub>m</sub>|</div><div class="v" id="paperAm">—</div></div>
   <div class="metric"><div class="l">N–Z I<sub>RMS</sub></div><div class="v" id="paperIrms">—</div></div>
   <div class="metric"><div class="l">Hively P<sub>rad</sub></div><div class="v" id="paperPrad">—</div></div>
   <div class="metric"><div class="l">Hively S(r)</div><div class="v" id="paperS">—</div></div>
 </div>
-<p class="footnote">P<sub>rad</sub> at 5 A is ~749 W with Z₀ ≈ 376.73 Ω — a large current for a stub, which is why the toys look optimistic. Real 23&nbsp;cm amateur power is far lower; see the Lab legal box.</p>
+<p class="footnote">P<sub>rad</sub> at 5 A is ~375 W with Z₀ ≈ 376.73 Ω (it was ~749 W with the pre-erratum I² Z₀/(4π) form used until 2026-09-29; the erratum halves it, −3.01 dB. See <a href="sim-lab/pout-erratum-audit/">P_OUT erratum audit</a>) — a large current for a stub, which is why the toys look optimistic. Real 23&nbsp;cm amateur power is far lower; see the Lab legal box.</p>
 
 <h2>Mix-and-match antennas (from the original page)</h2>
 <p>Purity factor ≈ fraction of power in the irrotational / longitudinal-potential mode. Hively bifilar aims near 1; a conventional dipole is much lower. Plasma detectors primarily sense time-varying A; bifilar coils convert longitudinal E into gradient current. Path loss in that simulator was a generalized 1/r<sup>n</sup> (default n=2) plus optional medium dB/km — again a cartoon.</p>

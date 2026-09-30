@@ -187,10 +187,10 @@ where P_t is transmit power, G the transmit gain, A_e the receive effective area
 </li>
 <li><strong>The source-coupling constant is unknown.</strong>
 <ul>
-<li>Hively's radiated power, US 9,306,527 EQN. 15, P = (I²/4π)√(μ/ε), and Hively &amp; Loebl 2019 Eq. (B5), assume an ideal irrotational driver.</li>
+<li>Hively's radiated power, US 9,306,527 EQN. 15, P = (I²/4π)√(μ/ε), and Hively &amp; Loebl 2019 Eq. (B5), assume an ideal irrotational driver. The erratum (Phys. Essays 32(3) 417) corrects Eq. 38/B5 to P_OUT = I² r̂ / [2 (4πr)²] · √(μ/ε), which is half the patent-Eq.-15 value (FACT; see <a href="../pout-erratum-audit/">P_OUT erratum audit</a>).</li>
 <li>Sim-lab Experiment D writes the unknown fraction as η (<code>expt-d/REPORT.md</code> §1).</li>
 <li>At UHF, Experiment D found Dan-class receivers <strong>not detectable for any η ≤ 1</strong> at ≥ 10 km (<code>expt-d/REPORT.md</code> line 144).</li>
-<li>At bench range the hub's own HYP model is more hopeful: SleeveBalunSNR, −19 dBm drive, gives E∥ = 2.13 mV/m at 10 m and 0.17 V/m at one wavelength at 2.45 GHz (<code>hub-efield-repo/img/efield/efield_summary.json</code>; HYP).</li>
+<li>At bench range the hub's own HYP model is more hopeful: SleeveBalunSNR, −19 dBm drive, gives E∥ = 1.50 mV/m at 10 m and 0.12 V/m at one wavelength at 2.45 GHz with the erratum form of Eq. 38/B5 (<code>img/efield/efield_summary.json</code>; HYP). Before 2026-09-29 the hub used the 2019 as-printed form without the ½, which gave 2.13 mV/m and 0.17 V/m (3.01 dB higher).</li>
 <li>Those are <strong>one-way</strong> numbers. A radar echo would multiply in an unknown reflection factor.</li>
 </ul>
 </li>

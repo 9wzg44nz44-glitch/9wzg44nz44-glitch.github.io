@@ -43,7 +43,7 @@
     433590000: { id: "KB-2016", kind: "LAB", diaIn: 2.5, note: "LAB 2.50″ Al · Exp B — NOT patent λ/4 sphere", od_m: 0.0635 }
   };
 
-  const PHYSICS_VERSION = "snr-dual-sim-params-v0.2";
+  const PHYSICS_VERSION = "snr-dual-sim-params-v0.2.1";
   const FT_TO_M = 0.3048;
   const GAP_M = 0.001;
   const RG405_OD_M = 0.086 * 0.0254;
@@ -173,7 +173,8 @@
     const PrxTem = P * GTX * AeffTem / (4 * Math.PI * r * r) * mP;
     const snrTem = dbmFromWatts(PrxTem * Math.pow(10, lnaGain / 10)) - noise;
 
-    const Prad = (Ipk * Ipk / (4 * Math.PI)) * Z0;
+    // Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum (Phys. Essays 32(3) 417): S = I^2 Z0 / [2 (4 pi r)^2] (FACT); I = peak (ASSUMPTION). Was I^2 Z0/(4 pi) before 2026-09-29.
+    const Prad = (Ipk * Ipk / (8 * Math.PI)) * Z0;
     const Sgeom = Prad / (4 * Math.PI * r * r);
 
     const ohm = readOhmic(sw, errataAlpha0);
@@ -253,7 +254,7 @@
 
     const ohmLabel = s.sw ? "SW α=0" : (s.errataAlpha0 ? "Errata α=0 (EED)" : "Exp-C Ohmic HYP");
     $("slwOut").innerHTML =
-      "P<sub>rad</sub> (Eq.15)=" + fmt(s.Prad, 3) + " W · S<sub>geom</sub>=" + fmt(s.Sgeom, 3) + " W/m²<br>" +
+      "P<sub>rad</sub> (Eq.38/B5 erratum)=" + fmt(s.Prad, 3) + " W · S<sub>geom</sub>=" + fmt(s.Sgeom, 3) + " W/m²<br>" +
       "Ohmic [" + ohmLabel + "] survival=" + fmtN(100 * s.Surv, 2) + "% (" + fmtN(s.ohmDb, 2) + " dB) · S=" + fmt(s.S, 3) + " W/m²<br>" +
       "E∥≈√(S·Z<sub>0</sub>)=<strong>" + fmt(s.Epar, 3) + " V/m</strong> <em>(illustrative cartoon)</em><br>" +
       "A<sub>m</sub>(NZ)=" + fmt(s.Am, 3) + " Wb/m · A<sub>z</sub>(Z)=" + fmt(s.Az, 3) + " Wb/m<br>" +

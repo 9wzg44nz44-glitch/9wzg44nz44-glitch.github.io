@@ -12,7 +12,7 @@ Both twins carry a **generated** copy of `engine`, injected by `gen_constants.mj
 **Publishing rule (relaxed 2026-09-25):** the GitHub Pages twin may go live ahead of Cloud. The gap is tracked in `/workspace/sim-lab/SYNC_LEDGER.md`. Re-sync steps: (1) CloudPublish from this exact `FX1SNR.wl`; (2) run `FX1SNR_RunGrid.wl` → `wl_outputs.json`, then `node compare_outputs.mjs js_outputs.json wl_outputs.json` (rel tol 1e-9); (3) remove the "pending sync" note.
 **Independent cross-check (done, v0.2):** `py_check.py`, a separate Python implementation from the cited formulas, the JSON and (for the openEMS tables) a direct read of `openems/results.json`, matches `js_outputs.json` on the full v0.2 grid: 2304 records (interior 1260, exterior 768, exterior_sweep 192, interior_interp 84): PASS 104132 / FAIL 0 (rel tol 1e-9, worst 1.35e-14). It also confirms that the 22 engine.openems tables equal the independent results.json read.
 
-**No invented equations.** Every formula below is either a textbook form (FACT, cited), the page's HYP formula copied verbatim, a SleeveBalunSNR (snr-dual-sim-params-v0.2) carry-over, or a labelled ASSUMPTION.
+**No invented equations.** Every formula below is either a textbook form (FACT, cited), the page's HYP formula copied verbatim, a SleeveBalunSNR (snr-dual-sim-params-v0.2, exterior P_rad updated to the erratum form in fx1-snr-v0.2.1) carry-over, or a labelled ASSUMPTION.
 
 ---
 
@@ -107,7 +107,7 @@ h_c = gap + R;  r_c = R + d
 ```
 ### Exterior, HYP (SleeveBalunSNR carry-over)
 ```
-P_rad = I_pk² Z0/(4π);  S = P_rad/(4π r_c²)·exp(−αL);  E∥ = sqrt(S·Z0);  detector power × mP;  B = 0
+P_rad = I_pk² Z0/(8π);  S = P_rad/(4π r_c²)·exp(−αL)   [= I_pk² Z0/(2(4π r_c)²)·exp(−αL); Hively & Loebl 2019 Eq. 38/B5 as corrected by the Erratum, Phys. Essays 32(3) 417 = FACT; I = peak = ASSUMPTION; before 2026-09-29 this was I_pk² Z0/(4π) = patent Eq. 15 = the 2019 form as first printed without the ½];  E∥ = sqrt(S·Z0);  detector power × mP;  B = 0
 ```
 ### Stack
 ```
