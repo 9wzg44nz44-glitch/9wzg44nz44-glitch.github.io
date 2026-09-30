@@ -1,0 +1,119 @@
+  <!-- ============ Receiver chain ============ -->
+  <section class="panel" id="tab-rx" role="tabpanel" hidden>
+    <h2>Receiver chain: detector options for gate G1</h2>
+    <p>This compares the parts of a 2S receiver in the style of Experiment D's receiver-chain tab. Prices: <strong>only cited list prices are shown. Everything else is “unknown”</strong>, because no quotes were requested (the brief forbids outside contact).</p>
+    <div class="tbl-wrap"><table class="res">
+      <tr><th>Option</th><th>What it is</th><th>Key numbers (label)</th><th>Main difficulty</th><th>Cost</th></tr>
+      <tr><td>Trapped H (Landhuis-style)</td><td>Magnetically trapped cold H, 2S made by a 243&nbsp;nm pulse, quench photons counted on an MCP</td><td>N<sub>2S</sub> ≥ 5×10⁷, &lt;100&nbsp;µK; ε ≈ 2×10⁻⁶; solid angle 1.1×10⁻² sr; ~30&nbsp;% of photons reabsorbed in the cloud (FACT, Landhuis)</td><td>Very high: a cryogenic H trap plus a 243&nbsp;nm laser. Stray DC fields must be nulled (lifetimes ≤1&nbsp;ms without the copper film).</td><td>unknown</td></tr>
+      <tr><td>Cold beam (Parthey-style)</td><td>5.8&nbsp;K H beam, 243&nbsp;nm standing wave, 10&nbsp;V/cm quench, PMT</td><td>Flux 10¹⁷/s, 13&nbsp;mW at 243&nbsp;nm (FACT, Parthey 2011); 2S in view: not quoted (unknown)</td><td>Very high: frequency-metrology laser system. The nozzle freezes up after 45&nbsp;min (Parthey).</td><td>unknown</td></tr>
+      <tr><td>Room-temperature beam, electron bombardment (Lamb–Retherford)</td><td>H from a 2500&nbsp;K tungsten oven (64&nbsp;% dissociated), 2S made by electron impact, detected by electron ejection from a metal surface or by Lyman-α</td><td>No UV laser needed (FACT, L&amp;R 1950). Motional field at 1&nbsp;G is 0.45&nbsp;V/m (ours), so the magnetic option cannot be used.</td><td>High but historic: a 1947 method. <strong>Probably the cheapest route to G1 (TEM baseline)</strong>, though it does not demonstrate the brief's 243&nbsp;nm pump.</td><td>unknown</td></tr>
+      <tr><td>PMT: Hamamatsu R6835</td><td>CsI photocathode, MgF₂ window, 115–200&nbsp;nm, 23&nbsp;mm</td><td>12&nbsp;mA/W at 122&nbsp;nm, i.e. about 12&nbsp;% QE (ours); dark current 0.03&nbsp;nA typ, gain 10⁵, so ≤1.9×10³ counts/s if all of it were single-electron pulses (ASSUMPTION, upper bound; real counted dark rates not verified)</td><td>Low: off-the-shelf</td><td>unknown (no public price)</td></tr>
+      <tr><td>MCP with CsI</td><td>Photon-counting microchannel plate</td><td>QE &gt;40&nbsp;% at 121.6&nbsp;nm (Siegmund 1987); background 0.25–0.55/cm²/s standard, 0.028–0.085/cm²/s ALD glass (Siegmund 1988, 2011, 2015)</td><td>Medium: needs vacuum and high voltage</td><td>unknown</td></tr>
+      <tr><td>CsI PMT for counting: Hamamatsu R13194</td><td>Solar-blind CsI photocathode</td><td>About 26&nbsp;% QE at 121.6&nbsp;nm; 121.6/300&nbsp;nm sensitivity ratio 8500 typ. (FACT, datasheet, via our desk comparison)</td><td>Low: off-the-shelf</td><td>unknown</td></tr>
+      <tr><td>Channel electron multiplier (CEM)</td><td>Single-channel photon counter behind the filter</td><td>Dark &lt;0.02 counts/s and at most about 15&nbsp;Mcps (Sjuts EDR CEM); ≤0.05&nbsp;cps typical (Photonis Channeltron handbook) (FACT, via desk comparison)</td><td>Medium: vacuum, high voltage. The 15&nbsp;Mcps ceiling caps the best-case atom number at 2.2×10⁹.</td><td>unknown</td></tr>
+      <tr><td>Lyman-α filter, 10&nbsp;nm (model default)</td><td>Teledyne Acton FN122-XN</td><td>122&nbsp;±&nbsp;2.5&nbsp;nm, FWHM ≤10&nbsp;nm, T&nbsp;≥&nbsp;15&nbsp;% (FACT, vendor table via desk comparison). Passes {{F2_10L}}–{{F2_10G}} 2E1 photons per decay (ours).</td><td>Low</td><td>unknown (no public price found)</td></tr>
+      <tr><td>Lyman-α filter (eSource Optics)</td><td>MgF₂ metal-dielectric bandpass</td><td>122FNB: ~20&nbsp;nm FWHM, ≥15&nbsp;% T; 122FXB: ~10&nbsp;nm, ≥5&nbsp;% T (vendor)</td><td>Low</td><td><strong>$1,795–$2,495 (FNB), $2,095–$2,695 (FXB)</strong>, vendor list prices, esourceoptics.com/vuvfilters.html, read 25 Sep 2026</td></tr>
+      <tr><td>Detector Faraday cage</td><td>Closed metal box, battery inside, fibre out</td><td>SE 40–120&nbsp;dB swept; FX-1 seam proxies {{se_ring_slot_1mm}}–{{se_arc_slot_0p1mm_x30mm}}; ~{{SEneed_wifi}} needed against crew Wi-Fi (this page)</td><td>Medium: seams and fibre feedthrough</td><td>unknown</td></tr>
+      <tr><td>Magnetic shielding</td><td>Mu-metal around the atoms</td><td>Direct 1058&nbsp;MHz drive: B<sub>stray</sub> up to 1&nbsp;G is harmless (motional E ≤ 0.16&nbsp;V/m even at 300&nbsp;K; shift of a couple of MHz). Magnetic-tuning option: needs a stable 573.5&nbsp;G with ≪1&nbsp;G ripple.</td><td>Low for direct drive, high for the magnetic option</td><td>unknown</td></tr>
+      <tr><td>1058&nbsp;MHz tickle source</td><td>CW or keyed RF source plus antenna (G1 is TEM)</td><td>Needs {{Ereq_lab}} at the atoms for the lab receiver</td><td>Low</td><td>unknown. The hub kit may already have a suitable source; unverified.</td></tr>
+      <tr><td>Reference field monitor / spectrum survey (G1)</td><td>Small antenna + LNA + TinySA outside and inside the cage</td><td>Mini-Circuits ZX60-P33ULN+ covers 1058&nbsp;MHz. The Kuhne MKU LNA 132 AH on the Experiment D list covers only 1246–1346&nbsp;MHz and <strong>cannot</strong> be used here (FACT, datasheets via desk comparison).</td><td>Low</td><td>unknown</td></tr>
+      <tr><td>Hyperfine choice of drive</td><td>Drive at 1057.8&nbsp;MHz (brief) or at the F=1→F′=1 line</td><td>F&nbsp;=&nbsp;1 atoms: {{hfF1}}× at 1057.8&nbsp;MHz, {{hfF1_1087}}× at {{hfc11}} (ours)</td><td>None (a frequency setting)</td><td>—</td></tr>
+    </table></div>
+    <p><strong>Atoms against an ordinary antenna.</strong> Our desk comparison (snr-2s-vs-sphere, 25 Sep 2026, not yet on the hub) finds that for SNR&nbsp;=&nbsp;1 in 1&nbsp;s the atoms need <strong>55–122&nbsp;dB more field</strong> than the ¾″ sphere antenna with a ZX60-P33ULN+ LNA at 1058&nbsp;MHz. It is 122&nbsp;dB for lab-demonstrated atoms and 55&nbsp;dB for an ideal bound in a 4&nbsp;K shield. The gap widens by 5&nbsp;dB for every factor of 10 in counting time. So the atoms are not a sensitive field detector. Their only value here is as a test of whether an SLW couples to an atomic transition at all (<span class="hyp">HYP</span>).</p>
+    <p><strong>Honest G1 summary.</strong> The hard parts are the 2S source and vacuum, not the RF. The brief's own chain (243&nbsp;nm from a quadrupled 972&nbsp;nm laser) is a frequency-metrology-lab system. No price for one was found, and none may be quoted without contacting vendors. The Lamb–Retherford electron-bombardment beam avoids the laser and is the historical way this exact 1058&nbsp;MHz quench was first seen (1947). Either way, G1 is a university-lab-scale project. Its cost is <strong>unknown</strong>, and the only cited line item on this page is the Lyman-α filter.</p>
+    <div id="rxLive"></div>
+  </section>
+
+  <!-- ============ Gates ============ -->
+  <section class="panel" id="tab-gates" role="tabpanel" hidden>
+    <h2>Gates G0–G3 (in order; do not skip)</h2>
+    <ol>
+      <li><strong>G0 · desk simulation (now).</strong> Full chain model, link budget, detector comparison, on GitHub plus the Mathematica twin. A paper result only. <em>Status: this page (expt-g-v0.1; default SLW loss is the Joule term since 25&nbsp;Sep&nbsp;2026). The Python ↔ JS compare passes. The WL twin is written by hand but not run, so its compare is owed.</em></li>
+      <li><strong>G1 · TEM baseline on the bench.</strong> Reproduce standard RF quenching of 2S at 1058&nbsp;MHz with an ordinary antenna. This proves the receiver works before any SLW claim. It needs hydrogen, the UV laser (or the L&amp;R electron-bombardment alternative), vacuum and Lyman-α hardware. Cost and difficulty: <a href="#" data-goto="rx">Receiver chain</a>. It should also reproduce the Lorentzian ({{fwhm}} wide) and the ±300&nbsp;MHz contrast ({{dF1_p300}} / {{dF1_m300}} for F&nbsp;=&nbsp;1 atoms), and survey 1058&nbsp;MHz ± 100&nbsp;MHz for DME, ADS-B and Wi-Fi products, using an LNA that covers 1058&nbsp;MHz (ZX60-P33ULN+, not the Kuhne 1296&nbsp;MHz LNA).</li>
+      <li><strong>G2 · POOL MOCKUP TEST (required before any comms claim).</strong> The detector goes inside its own cage, inside a steel hull mockup, in water of known salinity. The transmitter sits outside, across a measured seawater path. Required controls:
+        <ol type="a">
+          <li>An ordinary TEM transmitter with the same power and frequency must give <strong>no</strong> tickle signal through the cage and hull. (Expected: {{ctlA_Edet}} at the atoms for 1&nbsp;W over 5&nbsp;cm with an 80&nbsp;dB cage.)</li>
+          <li>Cage open versus closed.</li>
+          <li>Transmitter on versus off, and modulation on versus off.</li>
+          <li>Detuned drive (for example ±300&nbsp;MHz) must lose the signal on the Lyman-α Lorentzian (expected contrast for F&nbsp;=&nbsp;1 atoms {{dF1_p300}} / {{dF1_m300}}).</li>
+          <li>Salinity and range must be varied. With the Joule loss (page default) the signal falls about {{aJdB}} with range in seawater and changes with salinity like TEM. Under the Erratum toggle it follows 1/r only.</li>
+        </ol>
+        Only a signal that survives all of these may be called SLW (<span class="hyp">HYP</span>) evidence.</li>
+      <li><strong>G3 · comms demo.</strong> Proceed only if G2 is positive. Measure bit error rate against range.</li>
+    </ol>
+  </section>
+
+  <!-- ============ All controls ============ -->
+  <section class="panel" id="tab-all" role="tabpanel" hidden>
+    <h2>All controls (every unknown from brief §4)</h2>
+    <p class="small">These override the front-page presets. Sliders are logarithmic where the sweep spans decades.</p>
+    <div class="controls" id="allCtl"></div>
+    <div id="allOut"></div>
+  </section>
+
+  <!-- ============ Claims & sources ============ -->
+  <section class="panel" id="tab-claims" role="tabpanel" hidden>
+    <h2>Claims ledger and sources</h2>
+    <div class="tbl-wrap"><table class="res">
+      <tr><th>#</th><th>Statement</th><th>Label</th><th>Source</th></tr>
+      <tr><td>1</td><td>1S→2S by two 243&nbsp;nm photons from 972&nbsp;nm doubled twice; 13&nbsp;mW UV</td><td>FACT</td><td>Parthey et al. 2011</td></tr>
+      <tr><td>1a</td><td>“Two 972&nbsp;nm photons” is wrong: {{E972}} each against {{E1S2S}} needed</td><td>FACT</td><td>Parthey 2011 (f<sub>1S–2S</sub>); CODATA</td></tr>
+      <tr><td>2</td><td>2S two-photon rate 8.2283&nbsp;s⁻¹, τ = {{tau2S}}; broad continuum</td><td>FACT</td><td>Klarsfeld 1969; Spitzer &amp; Greenstein 1951; Breit &amp; Teller 1940; Nussbaumer &amp; Schmutz 1984</td></tr>
+      <tr><td>3</td><td>RF tickle rate ∝ E², Lorentzian of width {{fwhm}} at L = {{L}}</td><td>FACT</td><td>Lamb &amp; Retherford 1947, 1950 (Eqs 25–27, 42), 1951; Bethe &amp; Salpeter 1957 (textbook background); NIST ASD</td></tr>
+      <tr><td>3h</td><td>An SLW longitudinal E tickles like an ordinary E (η)</td><td>HYP</td><td>Brief; untested</td></tr>
+      <tr><td>4</td><td>A 10&nbsp;nm 121.6&nbsp;nm filter passes {{F2_10L}}–{{F2_10G}} 2E1 photons per decay</td><td>FACT + ASSUMPTION (filter shape, 10⁻⁴ floor)</td><td>Teledyne Acton FN122-XN; Pelham; Hamamatsu R13194; NS84 fit</td></tr>
+      <tr><td>5</td><td>A closed cage strips TEM; the SLW passes the wall</td><td>FACT (TEM); HYP (SLW)</td><td>FX-1 openEMS; Hively &amp; Loebl 2019</td></tr>
+      <tr><td>6</td><td>1&nbsp;µV/m gives {{rate1u}}&nbsp;s⁻¹ per atom; detecting it needs ~{{N1u_lab}} atoms</td><td>FACT (ours)</td><td>L&amp;R Eq.&nbsp;26; this page</td></tr>
+      <tr><td>7</td><td>β–e crossing at {{Bc}}; broadband and v×B caveats; prefer direct drive</td><td>FACT (ours)</td><td>L&amp;R 1950 §16; Expt D check</td></tr>
+      <tr><td>8</td><td>Seawater ε′ = {{ep}}, σ = {{sig}}; TEM 1/e length {{dT}} at 1057.8&nbsp;MHz</td><td>FACT</td><td>Meissner &amp; Wentz 2004</td></tr>
+      <tr><td>8h</td><td>SLW seawater loss: 1/e length {{dJ}} with the Joule loss (page default), or none (Erratum toggle); the two conflict (Experiment C dictionary vs Erratum)</td><td>HYP / ASSUMPTION</td><td>Hively &amp; Loebl 2019 Eqs 37, 44; Erratum 2022</td></tr>
+      <tr><td>9</td><td>Steel-hull SLW transmission T<sub>hull</sub></td><td>HYP (unknown)</td><td>—</td></tr>
+      <tr><td>3f</td><td>1057.8&nbsp;MHz is the centroid; lines at {{hfc01}}, {{hfc11}}, {{hfc10}}; F=1 factor {{hfF1}}</td><td>FACT (ours)</td><td>Bullis et al. 2023; Lundeen et al. 1975; PRA 98, 012509 (2018)</td></tr>
+      <tr><td>10</td><td>Stray quench ≤{{Gstray}}&nbsp;s⁻¹ at best compensation; blackbody {{bbr290}}&nbsp;s⁻¹ at 290&nbsp;K</td><td>FACT (Landhuis) / ours</td><td>Landhuis; Gallagher &amp; Cooke 1979</td></tr>
+      <tr><td>11</td><td>ε<sub>det</sub> ceiling 0.039 with cited parts; one CEM ≤15&nbsp;Mcps</td><td>FACT (parts) / ours</td><td>Teledyne Acton; Hamamatsu R13194; Sjuts</td></tr>
+      <tr><td>A1</td><td>Isotropic far-field source; Poisson on/off counting; pumped steady N<sub>2S</sub> with depletion; Lorentzian/Gaussian filter; 10⁻⁴ blocking floor; 4.15&nbsp;cm² detector; 10⁻³ duty for pulsed emitters</td><td>ASSUMPTION</td><td>this page</td></tr>
+    </table></div>
+    <h3>Sources</h3>
+    <ul class="small">
+      <li>L. M. Hively, US Patent 9,306,527 B1 (2016). <a href="papers/Hively-US9306527B1-Scalar-Longitudinal-Waves.pdf">PDF</a></li>
+      <li>L. M. Hively &amp; A. S. Loebl, Phys. Essays 32, 112 (2019), Eqs 36–38, 44, App. A. <a href="papers/Hively-Loebl-2019-Physics-Essays-Classical-and-extended-electrodynamics.pdf">PDF</a>. Erratum: Phys. Essays 35, 320 (2022), <a href="https://doi.org/10.4006/0836-1398-35.3.320">doi</a> (text checked). The hub library also links an erratum at Phys. Essays 32(3), 417 (<a href="https://doi.org/10.4006/0836-1398-32.3.417">doi</a>); its text was not available here and <em>was not checked</em>.</li>
+      <li>W. E. Lamb &amp; R. C. Retherford, Phys. Rev. 72, 241 (1947); 79, 549 (1950); 81, 222 (1951).</li>
+      <li>H. A. Bethe &amp; E. E. Salpeter, <em>Quantum Mechanics of One- and Two-Electron Atoms</em> (1957).</li>
+      <li>A. Klarsfeld, Phys. Lett. 30A, 382 (1969). H. Nussbaumer &amp; W. Schmutz, A&amp;A 138, 495 (1984); the constants were read from two secondary sources that quote them (arXiv:1608.03132; ApJS doi:10.1086/506974), and the primary was not opened. L. Spitzer &amp; J. L. Greenstein, ApJ 114, 407 (1951).</li>
+      <li>NIST Atomic Spectra Database, H I levels and A(2P→1S).</li>
+      <li>C. G. Parthey et al., PRL 107, 203001 (2011). D. Landhuis, L. Matos, S. C. Moss, J. K. Steinberger, K. Vant, L. Willmann, T. J. Greytak &amp; D. Kleppner, “Inelastic collision rates of trapped metastable hydrogen”, arXiv:physics/0210019 (2002).</li>
+      <li>T. Meissner &amp; F. J. Wentz, IEEE TGRS 42(9), 1836 (2004).</li>
+      <li>A. K. Tomilin, A. F. Lukin &amp; A. N. Gulkov, “An experiment to form a radio communication channel in a marine environment”, Tech. Phys. Lett. 47, 577 (2021), doi:10.1134/S1063785021060146. <a href="papers/Tomilin-Lukin-Gulkov-2021-TechPhysLett-Marine-Radio-Channel.pdf">PDF</a></li>
+      <li>Hamamatsu R6835 datasheet (TPMH1263E). eSource Optics VUV filter catalogue (read 25 Sep 2026). O. Siegmund et al., IEEE TNS 34 (1987) (FAUST CsI QE); IEEE TNS 35 (1988) (MCP background); Proc. SPIE (2011), doi:10.1117/12.894374 (ALD MCPs); AMOS 2015.</li>
+      <li>Hyperfine: R. G. Bullis et al., PRL 130, 203001 (2023) (2S HFS); S. R. Lundeen, P. E. Jessop &amp; F. M. Pipkin, PRL 34, 377 (1975) (2P<sub>1/2</sub> HFS); PRA 98, 012509 (2018) (909.894&nbsp;MHz). T. F. Gallagher &amp; W. E. Cooke, PRL 42, 835 (1979) (blackbody-induced transitions).</li>
+      <li>Teledyne Acton VUV narrowband filter table (FN122-XN, FN122-N); Pelham Research Optical (122-NBX, 122-NB); Hamamatsu R13194 datasheet; Dr. Sjuts EDR CEM page; Photonis Channeltron handbook; Mini-Circuits ZX60-P33ULN+ and Kuhne MKU LNA 132 AH datasheets; FAA AC 20-165B. These were read for our desk comparison (snr-2s-vs-sphere, 25 Sep 2026).</li>
+      <li>IS-GPS-200 (L2C −160&nbsp;dBW). ICAO Annex 10 Vol IV (Mode S power). NRAO EDIR 313 and FAA DME pages (962–1213&nbsp;MHz; interrogations 1025–1150&nbsp;MHz).</li>
+      <li>FX-1 openEMS results: <a href="fx1-openems-reference.json">fx1-openems-reference.json</a>. H. W. Ott, <em>Electromagnetic Compatibility Engineering</em> (2009), ch.&nbsp;6.</li>
+    </ul>
+  </section>
+
+  <!-- ============ Twin & checks ============ -->
+  <section class="panel" id="tab-twin" role="tabpanel" hidden>
+    <h2>Version, twins and checks</h2>
+    <p class="pending"><strong class="warn">Cloud twin pending sync (expt-g-v0.1).</strong> The Wolfram Language twin (<a href="wolfram/ExptG.wl">wolfram/ExptG.wl</a>, <a href="wolfram/ExptG_RunGrid.wl">ExptG_RunGrid.wl</a>) was written <strong>by hand</strong> and has <strong>not been run</strong>, because there is no Wolfram Cloud key on the build machine. The JS ↔ WL compare is <strong>owed</strong>. Nothing has been published to the Wolfram Cloud. Once Cloud access works, Mathematica's built-in AI features may help draft WL. Any AI-drafted code is draft-only, must pass the compares, may add no uncited equation, and will be marked AI-assisted in the sync ledger.</p>
+    <ul>
+      <li><strong>Python ↔ JS:</strong> <code>sim/expt_g_model.py</code> vs <code>js/expt-g-engine.js</code> over the shared grid (<code>wolfram/expt-g-grid.json</code>). 320/320 values agree to relative 10<sup>−9</sup> (worst ~10<sup>−13</sup>).</li>
+      <li><strong>Page numbers:</strong> <code>expt_g_check.py</code> recomputes every number quoted on this page and checks that each formatted string appears.</li>
+      <li><strong>openEMS:</strong> the cage seam proxies come from FX-1 runs at 433.59&nbsp;MHz. A 1058&nbsp;MHz G-cage run is owed.</li>
+      <li><strong>Reused from Expt D:</strong> the H 2S numbers (Lamb shift, 2P width, quench rates, crossing field) match <code>detectors_check.py</code>.</li>
+      <li><strong>Desk comparison (snr-2s-vs-sphere, 25 Sep 2026):</strong> with its conventions (RMS field, SNR&nbsp;=&nbsp;1, known background), our engine reproduces its filter leak, blackbody, hyperfine factors and its lab and best-case field thresholds to within 1&nbsp;%.</li>
+    </ul>
+  </section>
+
+  <p class="footnote">expt-g-v0.1 · Dan Britton SLW Hub · <span class="pending-mini">Cloud twin pending sync (expt-g-v0.1)</span> · Educational, contested, illustrative. See also <a href="experiment-c.html">Experiment C</a> and <a href="https://9wzg44nz44-glitch.github.io/Experiment-F-Hydrogen-Scalar-Wave/">Experiment F (Hydrogen SW)</a>.</p>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div><strong>Dan Britton</strong> · Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.</div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+<script src="js/expt-g-engine.js"></script>
+<script src="js/expt-g.js"></script>
+</body>
+</html>

@@ -32,6 +32,8 @@ SCRIPT_TAG = '<script src="/assets/site-search.js" defer></script>'
 CSS_TAG = '<link rel="stylesheet" href="/assets/site-responsive.css">'
 EXCLUDE_FILES = {"search.html"}
 EXCLUDE_DIRS = {".git", "node_modules", ".github"}
+# Source fragments used to assemble a page (not pages themselves):
+EXCLUDE_PREFIXES = ("expt-g/web/",)
 MAX_TEXT = 40000          # characters of body text kept per page
 TITLE_SUFFIX = re.compile(r"\s*·\s*SLW Hub\s*$")
 SKIP_TAGS = {"script", "style", "noscript", "template", "svg", "nav", "footer",
@@ -126,7 +128,7 @@ def find_pages():
         for f in sorted(files):
             if f.endswith(".html"):
                 rel = os.path.relpath(os.path.join(d, f), ROOT)
-                if rel.replace(os.sep, "/") not in EXCLUDE_FILES:
+                if rel.replace(os.sep, "/") not in EXCLUDE_FILES and not rel.replace(os.sep, "/").startswith(EXCLUDE_PREFIXES):
                     pages.append(rel)
     # home page first, then alphabetical
     pages.sort(key=lambda r: (r != "index.html", r))

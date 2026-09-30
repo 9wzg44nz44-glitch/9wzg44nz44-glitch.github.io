@@ -33,6 +33,7 @@
 
   let active = "";
   if (groupC.has(file) || file === "c-nuclei.html" || file === "c-nuclei-archive.html") active = "c";
+  else if (file === "experiment-g.html") active = "g";
   else if (groupB.has(file)) active = "b";
   else if (groupA.has(file)) active = "a";
   else if (file === "index.html") {
@@ -53,6 +54,7 @@
     '<a class="expt-abc-btn" data-expt="d" href="https://9wzg44nz44-glitch.github.io/Experiment-D-Hypersonic-Plasma-Shear-SLW/"><span class="k">D</span> hypersonic</a>' +
     '<a class="expt-abc-btn" data-expt="e" href="https://9wzg44nz44-glitch.github.io/Experiment-E-Exodus-Capacitor-SLW-SW/"><span class="k">E</span> Exodus</a>' +
     '<a class="expt-abc-btn" data-expt="f" href="https://9wzg44nz44-glitch.github.io/Experiment-F-Hydrogen-Scalar-Wave/"><span class="k">F</span> hydrogen SW</a>' +
+    '<a class="expt-abc-btn" data-expt="g" href="experiment-g.html"><span class="k">G</span> undersea 2S</a>' +
     '<a class="expt-abc-sub" href="setup.html">A setup</a>' +
     '<a class="expt-abc-sub" href="monstein.html">B monstein</a>' +
     '<a class="expt-abc-sub" href="experiment-c-snr.html">C SNR</a>' +
@@ -134,7 +136,7 @@ function downloadText(filename, text, mime) {
   if (!list) return;
   const tabs = [...list.querySelectorAll("[role=tab]")];
   const panels = tabs.map((t) => document.getElementById(t.getAttribute("aria-controls")));
-  const hashes = { "expt-a": 0, "expt-b": 1, "expt-c": 2, "expt-d": 3, "expt-e": 4, "expt-f": 5, kit: 6 };
+  const hashes = { "expt-a": 0, "expt-b": 1, "expt-c": 2, "expt-d": 3, "expt-e": 4, "expt-f": 5, "expt-g": 6, kit: 7 };
 
   function select(i, pushHash) {
     tabs.forEach((t, n) => {
