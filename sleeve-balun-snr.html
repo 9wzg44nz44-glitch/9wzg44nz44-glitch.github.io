@@ -5,7 +5,7 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sleeve-balun dual-sphere SNR · Keyport TX/RX · SLW Hub</title>
-<meta name="description" content="Interactive v0 SNR for dual Keyport-style sleeve-balun + LAB Al spheres (KB-1820 / KB-2016): Hively Eq.15, NZ Am, Zimmerman Az, RadioScreen mesh, Errata α=0 vs Exp-C Ohmic. TinySA Ultra ≤ −19 dBm. Educational — not a measurement.">
+<meta name="description" content="Interactive v0 SNR for dual Keyport-style sleeve-balun + LAB Al spheres (KB-1820 / KB-2016): Hively Eq.38/B5 (erratum), NZ Am, Zimmerman Az, RadioScreen mesh, Errata α=0 vs Exp-C Ohmic. TinySA Ultra ≤ −19 dBm. Educational — not a measurement.">
 <meta name="author" content="Dan Britton">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -280,9 +280,9 @@ P_rx,TEM = P_tx * G_tx * A_eff,TEM / (4 π r²) * mP
 mP = 10^(−2·Att_dB/10)   # two tents
 SNR_TEM,dB = P_rx,dBm − (−174 + 10 log10(B) + NF)
 Near-field flags when r &lt; 2 D²/λ with D ≈ λ/4.</pre>
-  <h3>Hively SLW (US 9,306,527 Eq. 15 — fields.js)</h3>
-  <pre class="eq">P_rad = I_peak² Z_0 / (4π)
-S_geom = P_rad / (4π r²)
+  <h3>Hively SLW (Hively &amp; Loebl 2019 Eq. 38/B5 as corrected by the Erratum — fields.js)</h3>
+  <pre class="eq">S_geom = I_peak² Z_0 / [2 (4π r)²]     # FACT (erratum, Phys. Essays 32(3) 417); Z_0 = √(μ/ε) = η ≈ 376.73 Ω; I = peak → ASSUMPTION
+P_rad = ∮ S_geom dA = I_peak² Z_0 / (8π)   # total-watts readout
 S = S_geom * exp(−α_ohm L_eff)   # Exp-C Ohmic HYP; Errata/SW → α=0
 loss_dB = 4.343 * α_ohm * L_eff
 A_eff = π (0.05)² · η = 0.50
@@ -309,8 +309,9 @@ seawater_exit = 91.44 m (300 ft)
     <li>E∥ 2D maps: <a href="sleeve-balun-efield.html">sleeve-balun-efield.html</a></li>
     <li>Machine-readable: <a href="physics-constants.json">physics-constants.json</a></li>
   </ul>
-  <p class="footnote">Wolfram Cloud twin (in sync, <code>snr-dual-sim-params-v0.2</code>): <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunSNR">wolframcloud.com/obj/danbritton5/SleeveBalunSNR</a></p>
-  <p class="footnote">v0.2 · 24 Sep 2026 · Dan Britton SLW Hub. Live E∥ map + distance_presets. Educational, contested, illustrative.</p>
+  <p class="footnote"><b>Formula history (2026-09-29).</b> v0.2 used P_rad = I_peak² Z_0/(4π) (patent US 9,306,527 Eq. 15), i.e. S = I_peak² Z_0/(4π r)², which is Eq. 38/B5 as first printed in 2019 without the ½. The erratum adds the ½: S, P_rad, P_load, SNR<sub>Hively</sub> and E∥ (as power) are 3.01 dB lower at every distance preset (E∥ amplitude × 0.7071). N–Z A<sub>m</sub> and Zimmerman A<sub>z</sub> are unchanged. <b>FACT</b> for the ½; <b>ASSUMPTION</b> I is peak; the SLW chain applied to the TinySA output is <b>HYP</b>. Loss term: Hively’s Joule term σE∥² (Eq. 44) or none (erratum α = 0) only. See <a href="sim-lab/pout-erratum-audit/">P_OUT erratum audit</a>.</p>
+  <p class="footnote">Wolfram Cloud twin (<b>pending sync</b>: Cloud copy is <code>snr-dual-sim-params-v0.2</code>, this page is <code>snr-dual-sim-params-v0.2.1</code>; JS-vs-WL compare owed): <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunSNR">wolframcloud.com/obj/danbritton5/SleeveBalunSNR</a></p>
+  <p class="footnote">v0.2.1 · 29 Sep 2026 (P_OUT per erratum; v0.2 24 Sep 2026) · Dan Britton SLW Hub. Live E∥ map + distance_presets. Educational, contested, illustrative.</p>
 </main>
 <footer class="site">
   <div class="wrap">

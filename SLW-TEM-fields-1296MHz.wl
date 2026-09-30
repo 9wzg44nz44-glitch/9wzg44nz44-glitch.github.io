@@ -1,11 +1,12 @@
 (* Educational TEM vs SLW cartoon. 1296 MHz TinySA. SLW is not settled physics.
-   PhysicsVersion: tem-slw-1296-v0.1.1 (Wolfram twin of fields.html / js/fields.js)
-   Cloud: https://www.wolframcloud.com/obj/danbritton5/SLW-TEM-fields-1296MHz  (Cloud copy predates v0.1.1: pending sync)
+   PhysicsVersion: tem-slw-1296-v0.1.2 (Wolfram twin of fields.html / js/fields.js)
+   Cloud: https://www.wolframcloud.com/obj/danbritton5/SLW-TEM-fields-1296MHz  (Cloud copy predates v0.1.1 and v0.1.2: pending sync)
    v0.1 (2026-09-25): added the page's detector LNA option (NF 3 -> 5 dB, +20 dB gain) and its SNR/received-power
    readouts (TEM Friis toy, SNR_Hively, P_sig NZ, P_sig Z), transcribed from js/fields.js with no new physics.
    The "SMA-end leak" checkbox is drawing-only on the page (no numeric effect) and is drawing-only here too.
-   v0.1.1 (2026-09-25): default P_tx is -19 dBm, matching the real TinySA Ultra output; slider range remains -30 to +10 dBm. *)
-TEMSLWVersion = "tem-slw-1296-v0.1.1";
+   v0.1.1 (2026-09-25): default P_tx is -19 dBm, matching the real TinySA Ultra output; slider range remains -30 to +10 dBm.
+   v0.1.2 (2026-09-29): P_OUT per Hively-Loebl erratum (Phys. Essays 32(3) 417), Eq.38/B5: Prad = Ipk^2 Z0/(8 Pi) (was /(4 Pi), the 2019 as-printed form without the 1/2). -3.01 dB on S, Pload, SNR_Hively. JS-vs-WL compare owed (no Wolfram kernel available). *)
+TEMSLWVersion = "tem-slw-1296-v0.1.2";
 Z0 = 376.73031346177;
 f = 1.296*^9;
 c = 299792458;
@@ -41,7 +42,7 @@ cloudObj =
     aeffTem = 3 lambda0^2/(8 Pi);
     prxTem = P gtx aeffTem/(4 Pi r^2) meshP;
     snrTem = dbmFromWatts[prxTem gl] - noise;
-    Prad = Ipk^2 Z0/(4 Pi);
+    Prad = Ipk^2 Z0/(8 Pi);  (* Hively-Loebl 2019 Eq.38/B5 as corrected by the Erratum: S = Ipk^2 Z0/(2 (4 Pi r)^2); Ipk peak = ASSUMPTION *)
     S = Prad/(4 Pi r^2);
     pload = S AeffHively etaHively meshP gl;
     snrH = dbmFromWatts[pload] - noise;
@@ -66,7 +67,7 @@ cloudObj =
           Text[Style["SMA leak (visual only)", 9], {0.03, 0, 0.0}]}, {}]
         }, Boxed -> False, Lighting -> "Neutral",
        PlotRange -> {{-0.2, 0.2}, {-0.2, 0.2}, {-0.08, 0.18}}, ImageSize -> 420],
-      Style["P=10^((Pdbm-30)/10) W; Prad=Ipk^2 Z0/(4Pi)  [US 9,306,527 Eq.15]; Am=mu0 Ipk/(2 Pi k0 r)  [N-Z 2007]; two tents: power * 10^(-2 att/10). Near-field Friis caveat at lab r.", 11],
+      Style["P=10^((Pdbm-30)/10) W; Prad=Ipk^2 Z0/(8Pi)  [Hively-Loebl 2019 Eq.38/B5 per Erratum, S=Ipk^2 Z0/(2(4 Pi r)^2)]; Am=mu0 Ipk/(2 Pi k0 r)  [N-Z 2007]; two tents: power * 10^(-2 att/10). Near-field Friis caveat at lab r.", 11],
       Style["SNR = P_dBm - (-174 + 10 log10(B) + NF), B = 100 kHz, NF 3 dB (5 dB + 20 dB gain with LNA); Friis toy Gtx 1.5, Aeff 3 lambda^2/(8 Pi); Hively load Aeff = Pi 0.05^2, eta 0.5 (as js/fields.js).", 10, Gray]
       }]
     ],

@@ -1,8 +1,8 @@
-/*! sleeve-balun-efield.js — efield-maps-v0.2-snr-dual-sim-params-v0.2 (maps ID as produced by SleeveBalunEFieldMaps.wl: "efield-maps-v0.2-" <> PhysicsVersion)
+/*! sleeve-balun-efield.js — efield-maps-v0.2-snr-dual-sim-params-v0.2.1 (maps ID as produced by SleeveBalunEFieldMaps.wl: "efield-maps-v0.2-" <> PhysicsVersion)
  * 2D color-shaded E∥ cartoon around Keyport sleeve + LAB sphere TX.
  * Formulas ONLY from physics-constants.json / js/fields.js / sleeve-balun-snr.js:
- *   P_rad = I_pk² Z0/(4π)  (Hively Eq.15)
- *   S(r)  = P_rad/(4π r²)
+ *   S(r)  = I_pk² Z0 / [2 (4π r)²]  (Hively & Loebl 2019 Eq.38/B5 as corrected by the Erratum, Phys. Essays 32(3) 417 — FACT; I = peak — ASSUMPTION)
+ *   P_rad = ∮S dA = I_pk² Z0/(8π)  (was I_pk² Z0/(4π), the as-printed 2019 form without the ½, before 2026-09-29)
  *   E∥(r) ≈ √(S·Z0)        HYP / illustrative isotropic 1/r magnitude
  * NOT a Maxwell near-field solution. TinySA −19 dBm FACT unchanged.
  */
@@ -12,8 +12,8 @@
   const C = 299792458;
   const Z0 = 376.73031346177;
   const RL = 50;
-  const PHYSICS_VERSION = "snr-dual-sim-params-v0.2";
-  const MAPS_ID = "efield-maps-v0.2-snr-dual-sim-params-v0.2";
+  const PHYSICS_VERSION = "snr-dual-sim-params-v0.2.1";
+  const MAPS_ID = "efield-maps-v0.2-snr-dual-sim-params-v0.2.1";
   const P_DBM = -19; // TinySA Ultra gen max — FACT, unchanged
   const GAP_M = 0.001; // 0.1 cm Keyport
   const RG405_OD_M = 0.086 * 0.0254;
@@ -53,7 +53,7 @@
     const Irms = Math.sqrt(P / RL);
     return Irms * Math.SQRT2;
   }
-  function pradHively(ipk) { return (ipk * ipk * Z0) / (4 * Math.PI); }
+  function pradHively(ipk) { return (ipk * ipk * Z0) / (8 * Math.PI); } // erratum Eq.38/B5 (was /(4π))
   function SHively(prad, r) { return prad / (4 * Math.PI * r * r); }
   function EparFromS(S) { return Math.sqrt(Math.max(S, 0) * Z0); }
   function EparAtR(prad, r) {
