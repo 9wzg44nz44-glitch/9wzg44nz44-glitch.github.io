@@ -319,9 +319,9 @@ P_rx,TEM = P_tx * G_tx * A_eff,TEM / (4 π r²) * mP
 mP = 10^(−2·Att_dB/10)   # two tents
 SNR_TEM,dB = P_rx,dBm − (−174 + 10 log10(B) + NF)
 Near-field flags when r &lt; 2 D²/λ with D ≈ λ/4.</pre>
-  <h3>Hively SLW (US 9,306,527 Eq. 15 — fields.js)</h3>
-  <pre class="eq">P_rad = I_peak² Z_0 / (4π)
-S_geom = P_rad / (4π r²)
+  <h3>Hively SLW (Hively &amp; Loebl 2019 Eq. 38/B5 as corrected by the Erratum — fields.js)</h3>
+  <pre class="eq">S_geom = I_peak² Z_0 / [2 (4π r)²]     # FACT (erratum, Phys. Essays 32(3) 417); Z_0 = √(μ/ε) = η ≈ 376.73 Ω; I = peak → ASSUMPTION
+P_rad = ∮ S_geom dA = I_peak² Z_0 / (8π)   # total-watts readout
 S = S_geom * exp(−α_ohm L_eff)   # α_ohm = power coefficient; Erratum toggle / SW → α=0
 # v0.3 DEFAULT Joule-literal (ASSUMPTION, Experiment G): seawater α_ohm = 2·α_J
 #   α_J = σ_H |Z| / 2,  σ_H = ε0 ε″ ω,  |Z| = η0 / (√ε′ · |1 − j tan δ|)   (Hively &amp; Loebl 2019 Eqs 37, 44)
@@ -352,6 +352,7 @@ seawater_exit = 91.44 m (300 ft)
     <li>E∥ 2D maps: <a href="sleeve-balun-efield.html">sleeve-balun-efield.html</a></li>
     <li>Machine-readable: <a href="physics-constants.json">physics-constants.json</a></li>
   </ul>
+  <p class="footnote"><b>Formula history (2026-09-29).</b> Through v0.3 as first written this page used P_rad = I_peak² Z_0/(4π) (patent US 9,306,527 Eq. 15), i.e. S = I_peak² Z_0/(4π r)², which is Eq. 38/B5 as first printed in 2019 without the ½. The erratum adds the ½: S, P_rad, P_load, SNR<sub>Hively</sub> and E∥ (as power) are 3.01 dB lower at every distance preset (E∥ amplitude × 0.7071). N–Z A<sub>m</sub> and Zimmerman A<sub>z</sub> are unchanged. <b>FACT</b> for the ½; <b>ASSUMPTION</b> I is peak; the SLW chain applied to the TinySA output is <b>HYP</b>. Loss term: Hively’s Joule term σE∥² (Eq. 44) or none (erratum α = 0) only.</p>
   <p class="footnote"><span class="pending-mini">Cloud twin pending sync (sleeve-balun-snr-v0.3)</span> The Wolfram Cloud twin still shows v0.2 with the Errata α=0 default: <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunSNR">wolframcloud.com/obj/danbritton5/SleeveBalunSNR</a>. The v0.3 WL source is updated but not yet run or published.</p>
   <p class="footnote">v0.3 · 25 Sep 2026 · Dan Britton SLW Hub. Joule-loss default (Erratum α=0 as toggle). v0.2 · 24 Sep 2026: live E∥ map + distance_presets. Educational, contested, illustrative.</p>
 </main>

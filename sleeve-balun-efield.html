@@ -93,14 +93,14 @@ details.canvas-opt>summary{cursor:pointer;font-weight:600}
 </nav>
 
 <main id="main" class="wrap">
-  <p class="kicker">HYP / illustrative · efield-maps-v0.2-snr-dual-sim-params-v0.2</p>
+  <p class="kicker">HYP / illustrative · efield-maps-v0.2-snr-dual-sim-params-v0.2.1</p>
   <h1>Sleeve + sphere TX — 2D E∥ color maps</h1>
-  <div class="banner-edu"><strong>Cloud twin pending sync (efield-maps-v0.2-snr-dual-sim-params-v0.2).</strong> The page, JS and physics-constants.json now use maps ID <code>efield-maps-v0.2-snr-dual-sim-params-v0.2</code>, which is the ID the current <code>SleeveBalunEFieldMaps.wl</code> produces. The <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunEFieldMaps">Wolfram Cloud Manipulate</a> and the embedded PNGs were exported on 24 Sep under the older label "snr-dual-sim-params-v0". The E∥ numbers are the same (E∥(λ) = 9.197e-2 V/m, E∥(10 m) = 2.127e-3 V/m at −19 dBm). The Cloud and PNGs will be re-exported and republished at the next Wolfram session.</div>
+  <div class="banner-edu"><strong>Cloud twin pending sync (efield-maps-v0.2-snr-dual-sim-params-v0.2.1).</strong> The page, JS and physics-constants.json now use maps ID <code>efield-maps-v0.2-snr-dual-sim-params-v0.2.1</code>, which is the ID the current <code>SleeveBalunEFieldMaps.wl</code> produces. The <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunEFieldMaps">Wolfram Cloud Manipulate</a> and the embedded PNGs were exported on 24 Sep under the older label "snr-dual-sim-params-v0". The E∥ numbers are the same (E∥(λ) = 9.197e-2 V/m, E∥(10 m) = 2.127e-3 V/m at −19 dBm). The Cloud and PNGs will be re-exported and republished at the next Wolfram session.</div>
   <p class="lede">CoS Mathematica exports (primary) plus an optional hub canvas using the same locked formulas. Assemblies: <strong>Navy Keyport-style λ/4 sleeve</strong> (US&nbsp;12,525,711 — open toward tip) + <span class="labtag">LAB</span> aluminum spheres <code>KB-2016</code> 2.50″ @ 433.59&nbsp;MHz and <code>KB-1820</code> ¾″ @ 1.296&nbsp;/&nbsp;2.45&nbsp;GHz. Drive: TinySA Ultra <strong>−19&nbsp;dBm</strong>. Physics: <a href="physics-constants.json"><code>physics-constants.json</code></a> · SNR sibling: <a href="sleeve-balun-snr.html">sleeve-balun-snr.html</a> · Cloud: <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunEFieldMaps">SleeveBalunEFieldMaps</a>.</p>
 
   <div class="banner-edu" style="margin:1rem 0">
     <strong class="hyp">HYP / toy / illustrative — not a measurement.</strong>
-    Cartoon <em>E</em>∥ ≈ √(<em>S</em>·<em>Z</em><sub>0</sub>) from hub Hively Eq.15 → <em>S</em>(<em>r</em>). <strong>Not</strong> a full Maxwell near-field solution; SLW is not settled physics.
+    Cartoon <em>E</em>∥ ≈ √(<em>S</em>·<em>Z</em><sub>0</sub>) from the Hively &amp; Loebl 2019 Eq.&nbsp;38/B5 as corrected by the Erratum → <em>S</em>(<em>r</em>) (<b>FACT</b> for the ½; I = peak is an <b>ASSUMPTION</b>; the E∥ cartoon itself stays <b>HYP</b>). <strong>Not</strong> a full Maxwell near-field solution; SLW is not settled physics.
     <br><strong>Style nod:</strong> US&nbsp;9,306,527&nbsp;B1 <strong>FIG.&nbsp;2B</strong> / Loebl–Hively 2019 FIG.&nbsp;2 constant |E| vibe —
     but that patent figure is <span class="patenttag">PATENT</span> <em>skirt balun + linear monopole</em> (~8&nbsp;GHz).
     These panels draw <span class="labtag">LAB</span> <em>Keyport sleeve + KB spheres</em> — different mechanical layout. Do not equate.
@@ -108,12 +108,14 @@ details.canvas-opt>summary{cursor:pointer;font-weight:600}
 
   <div class="lockbox" aria-label="Lock numbers at −19 dBm">
     <strong>Lock @ −19 dBm (JS ↔ WL)</strong><br>
-    E∥(10&nbsp;m) = <strong>2.127×10<sup>−3</sup></strong> V/m (all bands)<br>
-    E∥(λ) = <strong>3.077×10<sup>−2</sup></strong> / <strong>9.197×10<sup>−2</sup></strong> / <strong>1.739×10<sup>−1</sup></strong> V/m
+    E∥(10&nbsp;m) = <strong>1.504×10<sup>−3</sup></strong> V/m (all bands)<br>
+    E∥(λ) = <strong>2.176×10<sup>−2</sup></strong> / <strong>6.503×10<sup>−2</sup></strong> / <strong>1.229×10<sup>−1</sup></strong> V/m
     &nbsp;·&nbsp; 433.59&nbsp;MHz / 1.296&nbsp;GHz / 2.45&nbsp;GHz<br>
     Source: <a href="img/efield/efield_summary.json" style="color:#55d6be"><code>img/efield/efield_summary.json</code></a>
     · Cloud <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunEFieldMaps" style="color:#55d6be">Manipulate</a>
   </div>
+
+  <div class="banner-edu" style="margin:1rem 0"><strong>Formula history (2026-09-29).</strong> Before this date the page used P_rad = I_peak² Z0/(4π), so S = I_peak² Z0/(4π r)² (patent Eq. 15; the same as Eq. 38/B5 as first printed in 2019, without the ½). The erratum adds the ½, so every E∥ value is 0.7071× (−3.01 dB) and P_rad is halved: E∥(10 m) was 2.127×10<sup>−3</sup> V/m; E∥(λ) was 3.077×10<sup>−2</sup> / 9.197×10<sup>−2</sup> / 1.739×10<sup>−1</sup> V/m. <b>The three PNG maps below are Mathematica exports made with the old form; their colour scale is 3.01 dB too high until they are re-exported (owed).</b> The live canvas above uses the erratum form. See <a href="sim-lab/pout-erratum-audit/">P_OUT erratum audit</a>.</div>
 
   <h2>CoS Mathematica panels (primary)</h2>
   <p>Exported PNGs from <a href="https://www.wolframcloud.com/obj/danbritton5/SleeveBalunEFieldMaps">Wolfram Cloud · SleeveBalunEFieldMaps</a>. Legend: log V/m. Markers: λ/(2π), λ, 2D²/λ (D = sphere OD), plus educational 2λ / ~3λ.</p>
@@ -121,15 +123,15 @@ details.canvas-opt>summary{cursor:pointer;font-weight:600}
   <div class="efield-gallery">
     <figure>
       <a href="img/efield/efield_433MHz_KB2016.png"><img src="img/efield/efield_433MHz_KB2016.png" alt="E parallel color map Exp B 433.59 MHz KB-2016" width="1100" height="1100" loading="lazy"></a>
-      <figcaption><strong>Exp B · 433.59 MHz · KB-2016 2.50″</strong><br>Sleeve λ/4 ≈ 172.9 mm · E∥(λ)≈3.077×10<sup>−2</sup> V/m</figcaption>
+      <figcaption><strong>Exp B · 433.59 MHz · KB-2016 2.50″</strong><br>Sleeve λ/4 ≈ 172.9 mm · E∥(λ)≈2.176×10<sup>−2</sup> V/m (PNG legend still pre-erratum: 3.077×10<sup>−2</sup>)</figcaption>
     </figure>
     <figure>
       <a href="img/efield/efield_1296MHz_KB1820.png"><img src="img/efield/efield_1296MHz_KB1820.png" alt="E parallel color map Exp A 1.296 GHz KB-1820" width="1100" height="1100" loading="lazy"></a>
-      <figcaption><strong>Exp A · 1.296 GHz · KB-1820 ¾″</strong><br>Sleeve λ/4 ≈ 57.8 mm · E∥(λ)≈9.197×10<sup>−2</sup> V/m</figcaption>
+      <figcaption><strong>Exp A · 1.296 GHz · KB-1820 ¾″</strong><br>Sleeve λ/4 ≈ 57.8 mm · E∥(λ)≈6.503×10<sup>−2</sup> V/m (PNG legend still pre-erratum: 9.197×10<sup>−2</sup>)</figcaption>
     </figure>
     <figure>
       <a href="img/efield/efield_2450MHz_KB1820.png"><img src="img/efield/efield_2450MHz_KB1820.png" alt="E parallel color map 2.45 GHz KB-1820" width="1100" height="1100" loading="lazy"></a>
-      <figcaption><strong>ISM · 2.45 GHz · KB-1820 ¾″</strong><br>Sleeve λ/4 ≈ 30.6 mm · E∥(λ)≈1.739×10<sup>−1</sup> V/m</figcaption>
+      <figcaption><strong>ISM · 2.45 GHz · KB-1820 ¾″</strong><br>Sleeve λ/4 ≈ 30.6 mm · E∥(λ)≈1.229×10<sup>−1</sup> V/m (PNG legend still pre-erratum: 1.739×10<sup>−1</sup>)</figcaption>
     </figure>
   </div>
 
@@ -165,7 +167,7 @@ details.canvas-opt>summary{cursor:pointer;font-weight:600}
           <div><span>λ/4 sleeve (hub VF=1)</span><strong id="outSleeve">—</strong></div>
           <div><span>Sphere</span><strong id="outSphere">—</strong></div>
           <div><span>I<sub>pk</sub> @ −19 dBm (50 Ω)</span><strong id="outIpk">—</strong></div>
-          <div><span>P<sub>rad</sub> (Eq.15)</span><strong id="outPrad">—</strong></div>
+          <div><span>P<sub>rad</sub> (Eq.38/B5 erratum)</span><strong id="outPrad">—</strong></div>
           <div><span>E∥ at r=λ</span><strong id="outELam">—</strong></div>
           <div><span>E∥ at r=10 m</span><strong id="outE10">—</strong></div>
         </div>
@@ -189,8 +191,8 @@ details.canvas-opt>summary{cursor:pointer;font-weight:600}
   <h2>Radial model (lockstep with JSON / CoS WL)</h2>
   <pre class="eq">P = 10^((P_tx_dBm − 30)/10)          # W into 50 Ω; P_tx = −19 dBm (TinySA Ultra max)
 I_rms = √(P / 50);  I_peak = I_rms √2
-P_rad = I_peak² · Z0 / (4π)          # US 9,306,527 Eq. 15
-S(r)  = P_rad / (4π r²)              # isotropic geometric
+S(r)  = I_peak² · Z0 / [2 (4π r)²]   # Hively &amp; Loebl 2019 Eq. 38/B5 as corrected by the Erratum (FACT); I = peak (ASSUMPTION)
+P_rad = ∮ S dA = I_peak² · Z0 / (8π)  # was I_peak² Z0/(4π) (patent Eq. 15 / 2019 as printed) before 2026-09-29
 E∥(r) ≈ √(S(r) · Z0)                 # HYP / illustrative impedance cartoon
 # ⇒ E∥ ∝ 1/r outside conductors
 # Markers: λ/(2π), λ, 2D²/λ (D=LAB sphere dia), 2λ, ~3λ educational
@@ -203,9 +205,9 @@ E∥(r) ≈ √(S(r) · Z0)                 # HYP / illustrative impedance carto
       <tr><th>Band</th><th>f</th><th>Sphere</th><th>λ/4 sleeve</th><th>E∥(λ) lock</th><th>PNG</th></tr>
     </thead>
     <tbody>
-      <tr><td>Exp B</td><td>433.59 MHz</td><td>KB-2016 2.50″</td><td>172.9 mm</td><td>3.077×10<sup>−2</sup> V/m</td><td><a href="img/efield/efield_433MHz_KB2016.png">PNG</a></td></tr>
-      <tr><td>Exp A</td><td>1.296 GHz</td><td>KB-1820 ¾″</td><td>57.8 mm</td><td>9.197×10<sup>−2</sup> V/m</td><td><a href="img/efield/efield_1296MHz_KB1820.png">PNG</a></td></tr>
-      <tr><td>ISM</td><td>2.45 GHz</td><td>KB-1820 ¾″</td><td>30.6 mm</td><td>1.739×10<sup>−1</sup> V/m</td><td><a href="img/efield/efield_2450MHz_KB1820.png">PNG</a></td></tr>
+      <tr><td>Exp B</td><td>433.59 MHz</td><td>KB-2016 2.50″</td><td>172.9 mm</td><td>2.176×10<sup>−2</sup> V/m</td><td><a href="img/efield/efield_433MHz_KB2016.png">PNG</a></td></tr>
+      <tr><td>Exp A</td><td>1.296 GHz</td><td>KB-1820 ¾″</td><td>57.8 mm</td><td>6.503×10<sup>−2</sup> V/m</td><td><a href="img/efield/efield_1296MHz_KB1820.png">PNG</a></td></tr>
+      <tr><td>ISM</td><td>2.45 GHz</td><td>KB-1820 ¾″</td><td>30.6 mm</td><td>1.229×10<sup>−1</sup> V/m</td><td><a href="img/efield/efield_2450MHz_KB1820.png">PNG</a></td></tr>
     </tbody>
   </table>
   </div>
@@ -217,9 +219,9 @@ E∥(r) ≈ √(S(r) · Z0)                 # HYP / illustrative impedance carto
     <li>SNR sibling: <a href="sleeve-balun-snr.html">sleeve-balun-snr.html</a></li>
     <li>Geometry: <a href="sleeve-balun.html">sleeve-balun.html</a> · <a href="setup.html#sleeve">setup#sleeve</a> · Navy US 12,525,711</li>
     <li>Style citation (≠ geometry): US 9,306,527 B1 FIG. 2B · Loebl–Hively 2019 FIG. 2</li>
-    <li>Machine-readable: <a href="physics-constants.json">physics-constants.json</a> → <code>efield_maps</code> · <code>efield-maps-v0.2-snr-dual-sim-params-v0.2</code> (physics <code>snr-dual-sim-params-v0.2</code>)</li>
+    <li>Machine-readable: <a href="physics-constants.json">physics-constants.json</a> → <code>efield_maps</code> · <code>efield-maps-v0.2-snr-dual-sim-params-v0.2.1</code> (physics <code>snr-dual-sim-params-v0.2</code>)</li>
   </ul>
-  <p class="footnote">efield-maps-v0.2-snr-dual-sim-params-v0.2 · 25 Sep 2026 (labels unified; maps exported 24 Sep) · Dan Britton SLW Hub. Educational, contested, illustrative. Mathematica Cloud owned by CoS; this page is the GitHub Pages half with embedded PNG exports.</p>
+  <p class="footnote">efield-maps-v0.2-snr-dual-sim-params-v0.2.1 · 25 Sep 2026 (labels unified; maps exported 24 Sep) · Dan Britton SLW Hub. Educational, contested, illustrative. Mathematica Cloud owned by CoS; this page is the GitHub Pages half with embedded PNG exports.</p>
 </main>
 <footer class="site">
   <div class="wrap">
