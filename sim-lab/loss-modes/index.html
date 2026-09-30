@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three readings of SLW loss: Joule-literal, Erratum α=0, charge relaxation · SLW Hub</title>
+<meta name="description" content="Interactive comparison of three labelled readings of SLW propagation loss (Mode A Joule-literal, Mode B Erratum 2022 alpha=0, Mode C HYP charge relaxation) for seawater, fresh water, ground and air at 433.59, 1296 and 2450 MHz, with Monstein and Wesley Rhine geometry. FACT/HYP/ASSUMPTION labels.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Crect x='6' y='6' width='52' height='52' rx='4' stroke='%23c47a3a' stroke-width='2'/%3E%3Cpath d='M32 32 m-6 0 a6 6 0 1 1 12 0' stroke='%23d4b483' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../sim-lab/sim-lab.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<script src="/assets/site-search.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../../index.html">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="6" y="6" width="52" height="52" rx="4" stroke="#c47a3a" stroke-width="2"/><rect x="12" y="12" width="40" height="40" rx="2" stroke="#efe6d4" stroke-width="1" opacity="0.35"/><path d="M32 32 m-2 0 a2 2 0 1 1 4 0 a2 2 0 1 1 -4 0" fill="#c47a3a"/><path d="M32 32 m-6 0 a6 6 0 1 1 12 0" stroke="#d4b483" stroke-width="1.4"/><path d="M32 32 m-11 0 a11 11 0 1 0 22 0" stroke="#4a9b88" stroke-width="1.4"/><path d="M32 32 m-16 0 a16 16 0 1 1 32 0" stroke="#d4923a" stroke-width="1.4"/><line x1="32" y1="14" x2="32" y2="22" stroke="#efe6d4" stroke-width="1.2"/></svg>
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="../../index.html">Home</a>
+      <a href="../../learn.html">Learn</a>
+      <a href="../../compare.html">Compare</a>
+      <a href="../../fields.html">Fields</a>
+      <a href="../../monstein.html">Monstein</a>
+      <a href="../../tools.html">Tools</a>
+      <a href="../../lab.html">Lab</a>
+      <a href="../../kit.html">Kit</a>
+      <a href="../../library.html">Library</a>
+      <a href="../../ranging/">Ranging</a>
+      <a href="../../sim-lab/" aria-current="page">Sim Lab</a>
+    </nav>
+  </div>
+</header>
+
+
+<main id="main" class="wrap">
+  <p class="kicker">Simulation Lab · loss-mode comparison · loss-modes-v0.1 · 2026-09-30</p>
+  <h1>Three readings of SLW loss: Joule-literal, Erratum α = 0, and charge relaxation</h1>
+  <p class="lede">Dan asked whether the Joule term is being used properly. Some Hively texts say a scalar-longitudinal wave (SLW) has no loss in conducting media. Monstein &amp; Wesley (2002) report an ohmic-like loss with distance. This page puts three clearly labelled readings side by side, using the hub's existing model code, and says what Monstein &amp; Wesley's numbers can and cannot tell apart.</p>
+  <p><span class="badge mixed">MIXED</span> <span class="footnote">FACT = from a paper, patent or erratum (equation and page given). HYP = Hively's SLW hypothesis or our inference. ASSUMPTION = a modelling choice made on this page.</span> <a href="../">← Simulation Lab catalogue</a> · <a href="../equation-map/">Equation source and meaning map</a> · <a href="../joule-loss-positions/">Joule-loss positions</a> · <a href="../corrections/">Corrections log</a></p>
+  <div class="rules"><strong>Framing rules on this page (Dan).</strong> Under the SLW hypothesis there is no skin-depth, permeability or ferromagnetic argument anywhere below. Allowed loss terms: Hively's Joule term σE∥² (Hively &amp; Loebl 2019 Eq. 44 as corrected by the 2019 erratum), or none (the 2022 Erratum's "not subject to resistive loss"). Any classical transverse-EM reasoning is tagged <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>. Nobody has been contacted about any of this. The 2019 erratum PDF is private: its equations are cited, the PDF is not embedded or linked.</div>
+  <article class="doc">
+
+<h2 id="modes">1. The three modes, defined</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Mode</th><th>What it says about the wave</th><th>Where it comes from</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><strong>A: Joule-literal</strong></td><td>The field loses energy through the Joule term σE∥². The field falls as exp(−α<sub>J</sub> r) and the power as exp(−2 α<sub>J</sub> r), on top of the 1/r² spreading. α<sub>J</sub> = σ<sub>H</sub>|Z|/2, with σ<sub>H</sub> = ε₀ε″ω and |Z| the far-field SLW impedance.</td><td>The J·E term is in Hively &amp; Loebl 2019 Eq. 44 (p. 117) and patent EQN. 14. σ = ε₀ε″ω is in the text after Eq. 36 (p. 116) and |Z| is Eq. 37 (p. 116). <strong>The per-metre α<sub>J</sub> is not in any Hively text</strong>: it is the hub's construction, copied unchanged from <code>alphaJ()</code> in the <a href="../../slw-rcs/">/slw-rcs/</a> page (same as Experiment G and sleeve-balun-snr v0.3).</td><td><span class="badge fact">FACT</span> for Eq. 44, Eq. 36 text and Eq. 37 as printed.<br><span class="badge asm">ASSUMPTION (ours)</span> for α<sub>J</sub>: a magnitude-only |Z|, a choice of E∥, and dropping the source term ρC/(εμ) that the Erratum uses to cancel J·E.</td></tr>
+<tr><td><strong>B: Erratum α = 0</strong></td><td>No propagation loss at all: α = 0, so only 1/r² spreading.</td><td>Hively &amp; Loebl, Erratum, <em>Phys. Essays</em> 35(3) 320 (2022), p. 320: "the SLW is not subject to resistive loss in conductive media". The same conclusion is in 2019 App. A (A7), p. 122 ("propagates without loss"), and IARD 2020 slide 60 ("lossless propagation in <em>linear</em> conductive media").</td><td><span class="badge fact">FACT</span> that the sources say this.<br><span class="badge hyp">HYP</span> that it is physically right.</td></tr>
+<tr><td><strong>C: charge relaxation only</strong></td><td>The wave itself is not attenuated (its curve equals Mode B). Free charge in the medium relaxes as E = E₀ exp(−σt/ε), with relaxation time τ = ε/σ.</td><td>Dr. Hively's private confirmation to Dan, 2026-09-30: "The form, E = E0 e^(-sigma t/epsilon), is the correct one." Printed forms in 2019 Eq. (A5), p. 122, and patent US 9,306,527 col. 5 have ε and σ swapped (typo). IARD 2020 slide 60 is correct. See <a href="../corrections/">the corrections log</a>.</td><td><span class="badge fact">FACT</span> for the exponent and τ (author-confirmed).<br><span class="badge hyp">HYP</span> for how it maps onto a received signal: <strong>undetermined</strong> (section 4).</td></tr>
+</tbody></table></div>
+
+<h2 id="calc">2. Predicted signal versus distance under each mode</h2>
+<p>Pick a medium, a frequency and a distance range. Every curve includes the same 1/x² spreading of a spherical wave (power, dB relative to 1 m). <span class="badge asm">ASSUMPTION (ours)</span> The spreading law and the use of one α for the whole path are conventions of the hub's model, not results from a source. The 1/r² fall-off itself is Hively &amp; Loebl 2019 p. 117 (energy 4πr²·C²/2μ constant) and Monstein &amp; Wesley Eq. 6.</p>
+<div class="calc" id="lm-calc">
+<div class="inputs">
+<label>Medium<select id="lm-medium">
+<option value="sea">Seawater (MW2004, 15 °C, S = 35)</option>
+<option value="fresh">Freshwater / river</option>
+<option value="wet">Wet ground</option>
+<option value="dry">Medium-dry ground</option>
+<option value="air">Air (σ ≈ 0)</option>
+<option value="custom">Custom σ and ε′</option>
+</select></label>
+<label>Frequency<select id="lm-freq"><option value="433.59">433.59 MHz</option><option value="1296">1296 MHz</option><option value="2450">2450 MHz</option></select></label>
+<label>σ (S/m)<input type="number" id="lm-sigma" value="4.291353" step="any" min="0"></label>
+<label>ε′ (relative, real part)<input type="number" id="lm-ep" value="73.26" step="any" min="1"></label>
+<label>Plot from (m)<input type="number" id="lm-dmin" value="0.1" step="any" min="0.01"></label>
+<label>Plot to (m)<input type="number" id="lm-dmax" value="2" step="any" min="0.02"></label>
+<label>Table distances (m)<input type="text" id="lm-dlist" value="23, 39, 119, 145, 300"></label>
+</div>
+<div class="legend">
+<span><label><input type="checkbox" id="lm-showA" checked> <strong style="color:#e0783c">Mode A</strong> Joule-literal</label></span>
+<span><label><input type="checkbox" id="lm-showB" checked> <strong style="color:#6fbf73">Mode B</strong> Erratum α = 0</label></span>
+<span><label><input type="checkbox" id="lm-showC" checked> <strong style="color:#4fc3f7">Mode C</strong> (HYP) wave curve = B, dashed</label></span>
+</div>
+<div class="plot-wrap"><canvas class="fplot" id="lm-plot1" aria-label="Signal versus distance for modes A, B and C"></canvas></div>
+<p class="footnote" id="lm-o-off"></p>
+<div class="out" id="lm-o-med"></div>
+<div class="out" id="lm-o-A"></div>
+<div class="out" id="lm-o-B"></div>
+<h3>What each mode predicts at the table distances</h3>
+<div class="table-wrap"><table id="lm-table1">
+<thead><tr><th class="num">distance (m)</th><th class="num">spreading only (dB re 1 m)</th><th class="num">Mode A (dB re 1 m)</th><th class="num">Mode B (dB re 1 m)</th><th class="num">Mode C wave (dB re 1 m)</th><th class="num">crossing time t = d/v (s) <span class="badge asm">ASSUMPTION</span></th><th class="num">t ÷ τ</th></tr></thead>
+<tbody id="lm-tbody1"></tbody></table></div>
+<p class="footnote">Power in dB relative to the value at 1 m, received power ∝ 1/d² × exp(−2α<sub>J</sub>d) for Mode A. The crossing time uses v = c/√ε′, a plane-wave speed in the medium that we assume only to give the last two columns a scale; it is not a prediction of the SLW speed. "t ÷ τ" is the exponent that exp(−σt/ε) would have at that t. It is shown because it follows directly from τ = ε/σ, <strong>not</strong> because Mode C applies it to the wave (section 4). Seawater and fresh-water ε and σ come from the Meissner &amp; Wentz 2004 code the hub already uses; the ground and custom values are editable ASSUMPTIONS (section 6).</p>
+<div class="rules" style="margin-top:8px"><button type="button" id="lm-rhine-preset" style="min-height:44px">Load the Rhine case: air, 433.59 MHz, 10 to 1000 m</button> <span class="footnote">In air all three modes coincide (σ ≈ 0), which is the point of section 5.</span></div>
+</div>
+
+<h2 id="tau">3. What follows directly: τ = ε/σ for each medium</h2>
+<p><span class="badge fact">FACT</span> (author-confirmed exponent) E = E₀ exp(−σt/ε), τ = ε/σ, with ε = ε₀ε<sub>r</sub>. τ/period = τ·f tells you how many relaxation times fit in one wave cycle: if it is much less than 1, free charge relaxes many times per cycle; if it is much greater than 1, charge hardly moves during a cycle. "Distance in τ" is how far the assumed plane-wave speed v = c/√ε′ would carry a signal in one τ (<span class="badge asm">ASSUMPTION</span>). ε<sub>r</sub> here is the static value (MW2004 ε<sub>s</sub> for the water rows), evaluated at 433.59 MHz for seawater and fresh water.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Medium</th><th class="num">σ (S/m)</th><th class="num">ε<sub>r</sub></th><th class="num">τ = ε/σ (s)</th><th class="num">τ ÷ period at 433.59 MHz</th><th class="num">at 1296 MHz</th><th class="num">at 2450 MHz</th><th class="num">v·τ (m)</th></tr></thead>
+<tbody id="lm-tbody3"></tbody></table></div>
+<p class="footnote">The 2019 paper states a copper transient of ∼10⁻¹⁹ s beside Eq. (A5) (p. 122); the copper row agrees in order of magnitude. The water and ground σ and ε<sub>r</sub> are representative values, not from any SLW source (section 6). Brass ε is taken as ε₀ (ASSUMPTION). Air has σ ≈ 0, so τ is unbounded and the transient does nothing.</p>
+
+<h2 id="modeC">4. How Mode C enters a received-signal prediction: it cannot be made without inventing physics</h2>
+<div class="caveat-box">
+<h3>Mode C, stated minimally</h3>
+<ul>
+<li><span class="badge fact">FACT</span> Hively &amp; Loebl 2019 (A4)–(A7), p. 122: the transient solution Ė + σE/ε = 0 decays as exp(−σt/ε) (correct form per the author). The same appendix then sets the transient aside and takes the non-transient solution E = E₀(r) e^(−jωt), □²E = 0, for which "the SLW propagates without loss" (A7). IARD 2020 slide 60 says the same in the same order. The 2022 Erratum drops the transient altogether.</li>
+<li><span class="badge hyp">HYP</span> Mode C keeps that split: the propagating wave is not attenuated (curve identical to Mode B), and the transient describes what free charge does in time.</li>
+<li><span class="badge asm">ASSUMPTION</span> Nothing in any source we have turns the transient into a factor on the <em>received</em> signal. The exponent is in time t after a disturbance of the free charge. A received signal at distance d involves a travel time, not a waiting time after a step, and no source says that t = d/v, or any other t, belongs in that exponent.</li>
+<li><span class="badge fact">FACT (arithmetic)</span> If one did put t = d/v into exp(−σt/ε), the exponent would be the "t ÷ τ" column of the table in section 2. It would be huge in seawater at any distance beyond a few millimetres (v·τ ≈ 5.3 mm in the table) and would equal an attenuation constant σ/(ε₀ c √ε′). That would be a propagation loss, which is what Mode C says is absent, so we do not do it.</li>
+</ul>
+<h3>What is undetermined</h3>
+<ul>
+<li>Which time t, if any, enters the received signal (source-side, travel time, detector integration time).</li>
+<li>Whether the relaxation acts on the amplitude of E, on C, or only on stored free charge.</li>
+<li>Whether the receiver sees the relaxing charge at all (M&amp;W and Hively both use a ball or monopole receiver that responds to induced charge, but no source gives the transfer function).</li>
+<li>Whether "linear" σ (Hively slide 60) still holds in a real medium at these frequencies (slide 61 gives a loss mechanism only for nonlinear σ(|E|)).</li>
+</ul>
+<p>So in this page Mode C's predicted signal is the Mode B curve, and what differs is only the τ table above. This is deliberate. A number that came from a guessed mapping would look like a prediction and would not be one.</p>
+</div>
+
+<h2 id="rhine">5. The Monstein &amp; Wesley Rhine geometry</h2>
+<p>Everything in this section is read from M&amp;W, <em>Europhys. Lett.</em> 59(4) 514 (2002), pp. 517–520, and agrees with the hub <a href="../../ranging/">/ranging/</a> page.</p>
+<ul class="claims">
+<li><span class="badge fact">FACT</span> 433.59 MHz (λ = 0.6914 m). Source ball at 4.0 m, receiver ball at 4.4 m physical height. Effective heights y = 4.346 m and y′ = 4.746 m (Eq. 12; the effective reflecting plane is λ/2 = 34.6 cm below the ground). The path is through <strong>air</strong> along a street on the bank of the Rhine near Sennwald, Switzerland (p. 518). They give the Earth's conductivity as "only about 10⁻³ S/m" and use it only to place that reflecting plane (p. 517).</li>
+<li><span class="badge fact">FACT</span> Signal model Eq. (14) with direct and image amplitudes A and B, R² = (y′−y)² + x², R′² = (y′+y)² + x² (Eq. 11). Nulls at R′ − R = (2n+1)λ/2 (Eq. 17). Table I: predicted minima at 119, 39, 23 and 16 m; <strong>observed at 39 m and 23 m</strong>; the other two "probably exist" but are not definite (noise and ±5 m GPS uncertainty), p. 519.</li>
+<li><span class="badge fact">FACT</span> Fitted: √(ωk/2)·A = 0.825 and √(ωk/2)·B = 0.573 (Eq. 22); ℜ = B²/A² = 0.482 (Eq. 24). Agreement with Eq. (14) is "quite satisfactory for x &lt; 100 m".</li>
+<li><span class="badge fact">FACT</span> p. 520: beyond about 100 m the signal falls faster than 1/x². "This loss corresponds to an additional exponential loss with distance corresponding to 1/eth decrease in the signal for a distance of 145 m. This loss is probably due to the Ohmic losses produced by the currents induced in the Earth by the longitudinal E field, which is parallel to the Earth's surface." No equation and no σ is given for this loss, and the "signal" is the energy flux (p. 517).</li>
+<li><span class="badge fact">FACT</span> Fig. 5 (received power in dB versus distance, 10–1000 m) is a graph: one of six runs (V1) as dots, plus the Eq. (14) line. <strong>No numeric data points from Fig. 5 are recorded in the hub or in our notes, so none are plotted here.</strong></li>
+</ul>
+<div class="calc">
+<h3>Rhine plot: M&amp;W's own model, in air</h3>
+<p class="footnote">Gold: Eq. (14) with the Eq. (22) amplitudes, relative to x = 10 m. <span class="badge asm">ASSUMPTION</span> M&amp;W state that Eqs. 20–21 are relative to the value at x = 10 m; we read the same normalisation for Eq. 14. Salmon: the same with their reported extra 1/e-in-power per 145 m applied beyond 100 m (our arithmetic: −10·log₁₀(e)·(x−100)/145 dB; the onset at exactly 100 m is our reading of "beyond 100 m"). Grey dotted: 1/x² only. Green vertical lines: the two nulls M&amp;W observed (39 m, 23 m). Optional orange dotted: a Mode A ground what-if (HYP, below).</p>
+<div class="inputs">
+<label>Ground σ for the what-if (S/m)<input type="number" id="lm-gsig" value="0.001" step="any" min="0"></label>
+<label>Ground ε′ for the what-if<input type="number" id="lm-gep" value="15" step="any" min="1"></label>
+<label class="check"><input type="checkbox" id="lm-showGround"> show the Mode A ground what-if on the plot</label>
+</div>
+<div class="legend"><span><strong style="color:#e6cf8a">gold</strong> M&amp;W Eq. 14 (Eq. 22 A, B)</span><span><strong style="color:#f0a58f">salmon</strong> Eq. 14 + reported 145 m e-fold beyond 100 m</span><span><strong style="color:#8a7f6a">grey dotted</strong> 1/x² only</span><span><strong style="color:#8fd18f">green</strong> observed nulls 39 m, 23 m</span><span><strong style="color:#e0783c">orange dotted</strong> Mode A ground what-if (optional)</span></div>
+<div class="plot-wrap"><canvas class="fplot" id="lm-plot2" aria-label="Monstein and Wesley Rhine signal versus distance"></canvas></div>
+<h3>What each mode predicts at the Rhine distances (path in air, σ ≈ 0)</h3>
+<div class="table-wrap"><table>
+<thead><tr><th class="num">x (m)</th><th class="num">M&amp;W Eq. 14 (dB re 10 m)</th><th class="num">1/x² only (dB re 10 m)</th><th class="num">image/multipath term (dB)</th><th class="num">M&amp;W reported extra loss (dB)</th><th class="num">Mode A / B / C extra loss in air (dB)</th><th class="num">Mode A ground what-if (dB)</th></tr></thead>
+<tbody id="lm-tbody2"></tbody></table></div>
+<p class="footnote">"Mode A / B / C extra loss in air" is 0 for all three: with σ ≈ 0 the Joule term σE∥² is zero, Mode B has no loss, and Mode C has no relaxation (τ unbounded). The last column applies Mode A's α<sub>J</sub> for the ground values you set above, over the path from 10 m to x, to the <em>wave</em> itself. M&amp;W's wave is in air, so this is not what the Joule-literal reading says about their path; it is shown only to size the mismatch.</p>
+<div class="out" id="lm-g-out"></div>
+<p class="footnote">Eq. 18 nulls recomputed from y and y′ with this page's code (m): <span id="lm-nulls"></span> (M&amp;W Table I: 119, 39, 23, 16).</p>
+</div>
+
+<div class="caveat-box" id="can-mw-tell">
+<h2 style="border:0;padding:0;margin-top:0">Can M&amp;W's data tell these readings apart?</h2>
+<p><strong>Short answer: no.</strong> The numbers say why.</p>
+<ol>
+<li><strong>The Rhine path is through air, where σ ≈ 0.</strong> With σ ≈ 0 the Joule term is zero (Mode A), Mode B has no loss, and Mode C has no relaxation. All three give the same curve at every Rhine distance (0.00 dB apart in the table above). No quality of data could separate them on that path. <span class="badge fact">FACT</span> (path and medium from M&amp;W p. 518) plus arithmetic.</li>
+<li><strong>Do the path length and 1/x² spreading alone reproduce the observed distance dependence?</strong> Not beyond about 100 m, by M&amp;W's own account. Their model (Eq. 14, the image-source term plus spreading) matches "quite satisfactorily" for x &lt; 100 m, including nulls at 39 m and 23 m. Past 100 m they needed an extra factor of 1/e in power per 145 m. With our arithmetic that extra factor is only −0.57 dB at 119 m, but −5.99 dB at 300 m and −26.96 dB at 1000 m. <span class="badge fact">FACT</span> (their statements) <span class="badge hyp">HYP</span> (our dB arithmetic). Butterworth et al. 2013 (<em>J. Sci. Explor.</em> 27(1) 13) describe M&amp;W's data as "a long tail-off that roughly approximates an inverse-square relation until about 200 m which then falls off more rapidly", so even the onset distance is reported as 100 m by one source and 200 m by another.</li>
+<li><strong>Is that extra loss a Mode A Joule loss?</strong> Not determinable. M&amp;W give no σ and no equation for it (they say it is "probably" Ohmic loss from currents induced in the Earth). Taking the hub's Joule-literal construction and our representative ground (σ = 10⁻³ S/m, ε′ = 15, an ASSUMPTION, using M&amp;W's own σ ≈ 10⁻³ S/m) gives a power e-fold length of about 10.28 m, about 14.1 times stronger than the reported 145 m. To get 145 m the construction needs an effective σ of about 7.09×10⁻⁵ S/m. That is a free parameter: one adjustable σ can be made to fit one number, so a fit would not be a test. <span class="badge asm">ASSUMPTION</span> (ground values, and applying α<sub>J</sub> to a ground path at all) and the construction α<sub>J</sub> is ours, not Hively's (section 1).</li>
+<li><strong>Mode C has no received-signal prediction to compare</strong> (section 4).</li>
+<li><strong>Other explanations are open.</strong> Hively &amp; Loebl 2019 App. D, p. 124, say M&amp;W's outer coaxial conductor was grounded ("inducing unquantified electrical ground currents"), that the tests were "poorly controlled, and not reproducible", and that M&amp;W omitted the image current. Whether the excess loss is SLW Joule loss, classical ground loss, or set-up effects cannot be separated from what is recorded.</li>
+</ol>
+<p><strong>What is missing for any real discrimination:</strong> (a) the raw Fig. 5 data points (the paper shows a graph only); (b) an effective ground σ and ε and a path geometry for the current induced in the ground, from any source; (c) a stated mapping from Mode C's relaxation to a received signal; (d) runs in a medium with large σ at a known distance, where Modes A, B and C actually differ (for seawater Mode A predicts about 313 dB/m of power loss at 433.59 MHz; B and C predict none). The wire-polarizer result (M&amp;W Eqs. 7–9, κ = 4.4 fitted) is a separate Joule-type loss in brass and is not used here.</p>
+</div>
+
+<div class="caveat-box" id="not-show">
+<h2 style="border:0;padding:0;margin-top:0">What this page does NOT show</h2>
+<ul>
+<li>It does not show that the SLW exists, that any of the three modes is true, or that Hively's or M&amp;W's claims are right or wrong.</li>
+<li>It does not show what Dr. Hively thinks about Mode A or Mode C. Nobody has been contacted. The only author statement used is the single sentence quoted for the relaxation exponent.</li>
+<li>Mode A's α<sub>J</sub> is the hub's construction, not a formula from any Hively text, and it depends on conventions (magnitude-only |Z|, choice of E∥, the dropped ρC/(εμ) source). The hub's own notes show another reasonable convention changes it by orders of magnitude at low frequency (<a href="../joule-loss-positions/">Joule-loss positions</a>; REDO_SLW §1.2).</li>
+<li>Mode C's curve is Mode B's. The page does not claim charge relaxation has no effect on a received signal, only that no source gives how it would enter.</li>
+<li>No measured Rhine data points are plotted, because none are recorded. The gold and salmon curves are M&amp;W's own model, not their data.</li>
+<li>Ground and fresh-water σ and ε are representative values (section 6), not measurements of the Rhine bank.</li>
+<li>It does not use any skin-depth, permeability or ferromagnetic argument. The reasoning stays inside Hively's own Eq. 37, Eq. 44 and the Erratum.</li>
+<li>Classical transverse-EM numbers are not computed here. If you compare with them elsewhere, label them <span class="tem-label">transverse-EM reasoning, NOT applicable under the SLW hypothesis</span>.</li>
+</ul>
+</div>
+
+<h2 id="sources">6. Sources, values and provenance</h2>
+<ul>
+<li><strong>Mode A code.</strong> <code>alphaJ(ep, epp, f)</code> is copied unchanged from <a href="../../slw-rcs/">/slw-rcs/</a> (and from Experiment G, sleeve-balun-snr v0.3): α<sub>J</sub> = ε₀ε″ω·|Z|/2 with |Z| = η₀/√ε′/√(1+tan²δ). Constants: c = 299 792 458 m/s, ε₀ = 8.8541878128×10⁻¹² F/m, μ₀ = 1.25663706212×10⁻⁶ H/m, η₀ = μ₀c. For the ground and custom media ε″ = σ/(ωε₀) (so σ<sub>H</sub> = σ, dc conduction only); for seawater and fresh water the MW2004 dipolar part is added, as on /slw-rcs/.</li>
+<li><strong>Seawater.</strong> Meissner &amp; Wentz, <em>IEEE TGRS</em> 42(9) 1836 (2004), Eqs. 6–8, 11–17, 15 °C and 35 ppt, the same code the hub already uses. The user's rule of thumb "ε<sub>r</sub> ≈ 80, σ ≈ 4 S/m" is close; the model gives σ = 4.291353 S/m and ε′ = 73.27 at 433.59 MHz.</li>
+<li><strong>Fresh water, wet ground, dry ground.</strong> No hub values existed. Representative values (ASSUMPTION, editable): fresh water σ = 0.003 S/m with the MW2004 pure-water permittivity; wet ground ε′ = 30, σ = 0.01 S/m; medium-dry ground ε′ = 15, σ = 0.001 S/m. These follow the typical-values figure of ITU-R P.527-6 (Fig. 24) and P.527-3, which are given for ground-wave work below 30 MHz and vary at UHF (P.527-3 §2: "approximate range of values"). They are not from an SLW source.</li>
+<li><strong>Brass and copper.</strong> Brass σ = 1.5080260×10⁷ S/m (hub rod-thermal numbers.json, from copper.org), copper 5.8×10⁷ S/m.</li>
+<li><strong>Verification.</strong> Every number on this page was recomputed in independent Python and compared with this page's JavaScript to 6 significant figures (<code>/workspace/sim-lab/loss-modes/xcheck_loss_modes.py</code>; result in the ledger).</li>
+<li><strong>Publication status.</strong> Analysis page, version loss-modes-v0.1. GitHub-only: No Wolfram Cloud twin planned (Wolfram blocked by Dan's decision).</li>
+</ul>
+<p class="footnote">Equation sources, symbol meanings and their status are listed in the <a href="../equation-map/">equation source and meaning map</a>. Paper library: <a href="../../library.html">library</a>.</p>
+  </article>
+</main>
+
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · SLW Hub · <a href="../../sim-lab/">Simulation Lab catalogue</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var btn = document.querySelector(".nav-toggle"), nav = document.querySelector("nav.primary");
+  if (btn && nav) btn.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();
+</script>
+<script>
+// loss-modes-v0.1 : three-reading loss-mode comparison (hub /sim-lab/loss-modes/)
+// Reuses, unchanged, the hub's Expt G / slw-rcs constructions: MW2004 seawater permittivity and alphaJ().
+(function () {
+  "use strict";
+  var C0 = 299792458, EPS0 = 8.8541878128e-12, MU0 = 1.25663706212e-6, ETA0 = MU0 * C0;
+  var FREQS = [433.59e6, 1296e6, 2450e6];
+  var NP2DB = 20 / Math.LN10;                 // power dB per (alpha * metre), alpha = field Np/m
+  var MW = { lambda433: C0 / 433.59e6, y: 4.346, yp: 4.746, a: 0.825, b: 0.573, efoldM: 145, onsetM: 100,
+             nulls_obs: [39, 23], nulls_tab1: [119, 39, 23, 16] };
+  // ---- MW2004 seawater permittivity (code identical to slw-rcs / Experiment G) ----
+  var MW_A = [5.7230e+00, 2.2379e-02, -7.1237e-04, 5.0478e+00, -7.0315e-02, 6.0059e-04, 3.6143e+00, 2.8841e-02, 1.3652e-01, 1.4825e-03, 2.4166e-04];
+  var MW_B = [-3.56417e-03, 4.74868e-06, 1.15574e-05, 2.39357e-03, -3.13530e-05, 2.52477e-07, -6.28908e-03, 1.76032e-04, -9.22144e-05, -1.99723e-02, 1.81176e-04, -2.04265e-03, 1.57883e-04];
+  function cdiv(a, b) { var d = b[0] * b[0] + b[1] * b[1]; return [(a[0] * b[0] + a[1] * b[1]) / d, (a[1] * b[0] - a[0] * b[1]) / d]; }
+  function mw_sigma(T, S) {
+    var s35 = 2.903602 + 8.607e-2 * T + 4.738817e-4 * T * T - 2.991e-6 * T * T * T + 4.3047e-9 * T * T * T * T;
+    var R15 = S * (37.5109 + 5.45216 * S + 1.4409e-2 * S * S) / (1004.75 + 182.283 * S + S * S);
+    var a0 = (6.9431 + 3.2841 * S - 9.9486e-2 * S * S) / (84.850 + 69.024 * S + S * S);
+    var a1 = 49.843 - 0.2276 * S + 0.198e-2 * S * S;
+    return s35 * R15 * (1 + a0 * (T - 15) / (a1 + T));
+  }
+  function mw_eps(fG, T, S) {
+    var a = MW_A, b = MW_B;
+    var es0 = (3.70886e4 - 8.2168e1 * T) / (4.21854e2 + T);
+    var e10 = a[0] + a[1] * T + a[2] * T * T;
+    var n10 = (45 + T) / (a[3] + a[4] * T + a[5] * T * T);
+    var einf0 = a[6] + a[7] * T;
+    var n20 = (45 + T) / (a[8] + a[9] * T + a[10] * T * T);
+    var es = es0 * Math.exp(b[0] * S + b[1] * S * S + b[2] * T * S);
+    var n1 = n10 * (1 + S * (b[3] + b[4] * T + b[5] * T * T));
+    var e1 = e10 * Math.exp(b[6] * S + b[7] * S * S + b[8] * T * S);
+    var n2 = n20 * (1 + S * (b[9] + b[10] * T));
+    var einf = einf0 * (1 + S * (b[11] + b[12] * T));
+    var sig = S > 0 ? mw_sigma(T, S) : 0;
+    var t1 = cdiv([es - e1, 0], [1, fG / n1]), t2 = cdiv([e1 - einf, 0], [1, fG / n2]);
+    return { re: t1[0] + t2[0] + einf, im: t1[1] + t2[1] - sig / (2 * Math.PI * EPS0 * fG * 1e9), sigma: sig, es: es };
+  }
+  // ---- Mode A: Joule-literal attenuation, EXACT copy of slw-rcs / Expt G alphaJ ----
+  // ASSUMPTION (ours, not in any Hively text): alpha_J = sigma_H |Z| / 2, sigma_H = eps0 eps'' omega, |Z| = Eq. 37 far field, mu' = 1.
+  function alphaJ(ep, epp, f) { var w = 2 * Math.PI * f, tand = epp / ep, Z = ETA0 / Math.sqrt(ep) / Math.hypot(1, tand); return EPS0 * epp * w * Z / 2; }
+  // ---- media ----
+  var MEDIA = {
+    sea:   { label: "Seawater (Meissner & Wentz 2004, 15 °C, S = 35)", sigma: null, ep: null, lockSigma: true, lockEp: true },
+    fresh: { label: "Freshwater / river (MW2004 pure-water permittivity + editable σ)", sigma: 0.003, ep: null, lockSigma: false, lockEp: true },
+    wet:   { label: "Wet ground (ASSUMPTION: ε′ 30, σ 0.01 S/m)", sigma: 0.01, ep: 30, lockSigma: false, lockEp: false },
+    dry:   { label: "Medium-dry ground (ASSUMPTION: ε′ 15, σ 0.001 S/m)", sigma: 0.001, ep: 15, lockSigma: false, lockEp: false },
+    air:   { label: "Air (σ ≈ 0, ε′ = 1)", sigma: 0, ep: 1, lockSigma: true, lockEp: true },
+    custom:{ label: "Custom (you set σ and ε′)", sigma: 1, ep: 10, lockSigma: false, lockEp: false }
+  };
+  function medium(key, f, sig, ep) {
+    var m = MEDIA[key], out = { key: key, f: f };
+    if (key === "sea") { var e = mw_eps(f / 1e9, 15, 35); out.ep = e.re; out.epp = -e.im; out.sigma = e.sigma; out.eps_static = e.es; }
+    else if (key === "fresh") { var e0 = mw_eps(f / 1e9, 15, 0); out.sigma = sig; out.ep = e0.re; out.epp = -e0.im + sig / (2 * Math.PI * EPS0 * f); out.eps_static = e0.es; }
+    else if (key === "air") { out.sigma = 0; out.ep = 1; out.epp = 0; out.eps_static = 1; }
+    else { out.sigma = sig; out.ep = ep; out.epp = sig / (2 * Math.PI * EPS0 * f); out.eps_static = ep; }
+    var w = 2 * Math.PI * f;
+    out.tand = out.epp / out.ep;
+    out.Z = ETA0 / Math.sqrt(out.ep) / Math.hypot(1, out.tand);
+    out.sigmaH = EPS0 * out.epp * w;
+    out.alphaJ = alphaJ(out.ep, out.epp, f);                                   // Mode A, field Np/m
+    out.alphaJ_dBm = NP2DB * out.alphaJ;                                        // power dB per m
+    out.efold_power_m = out.alphaJ > 0 ? 1 / (2 * out.alphaJ) : Infinity;
+    // Mode C: nothing is attenuated along the path. Only kinematics + tau are shown (ASSUMPTION v = c / sqrt(eps'))
+    out.tau = out.sigma > 0 ? EPS0 * out.eps_static / out.sigma : Infinity;
+    out.v = C0 / Math.sqrt(out.ep);
+    return out;
+  }
+  function spread(x) { return -20 * Math.log10(x); }                            // 1/x^2 power, dB re 1 m
+  function modes(m, x) {
+    var s = spread(x);
+    var tc = x / m.v;
+    return { spread: s, A: s - NP2DB * m.alphaJ * x, B: s, C: s, lossA: NP2DB * m.alphaJ * x, tcross: tc, tcross_over_tau: tc / m.tau };
+  }
+  // ---- tau table ----
+  var TAU_ROWS = [
+    { key: "sea", name: "Seawater (MW2004, 15 °C, S 35)", note: "σ from MW2004 Eqs. 11–16; ε_r = MW2004 static ε_s" },
+    { key: "fresh", name: "Freshwater / river", note: "ASSUMPTION σ = 0.003 S/m (fixed in this table); ε_r = MW2004 pure-water ε_s at 15 °C" },
+    { key: "wet", name: "Wet ground", note: "ASSUMPTION ε_r 30, σ 0.01 S/m" },
+    { key: "dry", name: "Medium-dry ground", note: "ASSUMPTION ε_r 15, σ 0.001 S/m (M&W p. 517 also quote ~10⁻³ S/m)" },
+    { key: "brass", name: "Brass C36000", sigma: 1.5080260e7, ep: 1, note: "σ from hub rod-thermal numbers.json (copper.org); ε = ε0 (ASSUMPTION)" },
+    { key: "copper", name: "Copper", sigma: 5.8e7, ep: 1, note: "σ = 5.8×10⁷ S/m (as on /sim-lab/corrections/); ε = ε0" },
+    { key: "air", name: "Air", note: "σ ≈ 0, so τ is unbounded" }
+  ];
+  function tauRow(r, over) {
+    var sig, ep;
+    if (r.key === "brass" || r.key === "copper") { sig = r.sigma; ep = r.ep; }
+    else {
+      var d = MEDIA[r.key], o = over && over[r.key] || {};
+      var mm = medium(r.key, 433.59e6, o.sigma !== undefined ? o.sigma : d.sigma, o.ep !== undefined ? o.ep : d.ep);
+      sig = mm.sigma; ep = mm.eps_static;
+    }
+    var tau = sig > 0 ? EPS0 * ep / sig : Infinity;
+    var v = C0 / Math.sqrt(ep);
+    return { key: r.key, name: r.name, note: r.note, sigma: sig, ep: ep, tau: tau, vtau: v * tau,
+             ratio: FREQS.map(function (f) { return tau * f; }) };     // tau / period = tau f
+  }
+  function tauTable(over) { return TAU_ROWS.map(function (r) { return tauRow(r, over); }); }
+  // ---- Monstein & Wesley Rhine geometry (Eqs. 10-14, 17-18, 22) ----
+  function mwGeom(x) { var k = 2 * Math.PI / MW.lambda433; return { k: k, R: Math.hypot(x, MW.yp - MW.y), Rp: Math.hypot(x, MW.yp + MW.y) }; }
+  function mw14(x) {                                                            // Eq. 14 with (omega k / 2) absorbed: a = sqrt(wk/2) A, b = sqrt(wk/2) B (Eq. 22)
+    var g = mwGeom(x), a = MW.a, b = MW.b, R = g.R, Rp = g.Rp;
+    return x / (R * R * R * Rp * Rp * Rp) * (b * b * R * R * R + a * a * Rp * Rp * Rp + a * b * R * Rp * (R + Rp) * Math.cos(g.k * (Rp - R)));
+  }
+  function mw14dB(x) { return 10 * Math.log10(mw14(x) / mw14(10)); }            // re x = 10 m (M&W: Eqs. 20-21 are relative to x = 10 m)
+  function mw23(x) { var g = mwGeom(x); return (1 / (x * x)) * (1 + 0.945 * Math.cos(g.k * (g.Rp - g.R))); }
+  function mwNull(n) {                                                          // Eq. 18
+    var y = MW.y, yp = MW.yp, L = MW.lambda433, q = 2 * n + 1;
+    return Math.sqrt(-y * y - yp * yp + 16 * y * y * yp * yp / (q * q * L * L) + q * q * L * L / 16);
+  }
+  function extra145dB(x) { return x > MW.onsetM ? -10 * Math.log10(Math.E) * (x - MW.onsetM) / MW.efoldM : 0; }
+  function sigmaEffForEfold(ep, f, efold) {                                     // ground-path what-if: sigma giving power e-fold = efold (bisection on alphaJ)
+    var target = 1 / (2 * efold), lo = 1e-12, hi = 10;
+    for (var i = 0; i < 200; i++) { var mid = Math.sqrt(lo * hi), a = alphaJ(ep, mid / (2 * Math.PI * EPS0 * f), f); if (a > target) hi = mid; else lo = mid; }
+    return Math.sqrt(lo * hi);
+  }
+  var RHINE_X = [23, 39, 119, 145, 300];
+
+  // ====================== UI ======================
+  var $ = function (id) { return document.getElementById(id); };
+  var S = window.LOSSMODES_STATE = { version: "loss-modes-v0.1", errors: [] };
+  function fmt(v, d) { if (!isFinite(v)) return "∞"; d = d || 4; var a = Math.abs(v); if (a !== 0 && (a < 1e-3 || a >= 1e6)) return v.toExponential(d - 1); return String(+v.toPrecision(d)); }
+  function sci(v, d) { return isFinite(v) ? v.toExponential((d || 4) - 1) : "∞"; }
+  function dB(v) { return (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(Math.abs(v) >= 1000 ? 0 : 2); }
+  function dBs(v) { return Math.abs(v) >= 1e5 ? v.toExponential(2) : v.toFixed(2); }
+
+  function readInputs() {
+    var key = $("lm-medium").value, f = parseFloat($("lm-freq").value) * 1e6;
+    var sig = parseFloat($("lm-sigma").value), ep = parseFloat($("lm-ep").value);
+    if (!(sig >= 0)) sig = 0; if (!(ep >= 1)) ep = 1;
+    var dmin = Math.max(0.01, parseFloat($("lm-dmin").value) || 1), dmax = Math.max(dmin * 2, parseFloat($("lm-dmax").value) || 1000);
+    return { key: key, f: f, sig: sig, ep: ep, dmin: dmin, dmax: dmax,
+      show: { A: $("lm-showA").checked, B: $("lm-showB").checked, C: $("lm-showC").checked },
+      xs: ($("lm-dlist").value || "").split(/[ ,;]+/).map(parseFloat).filter(function (v) { return v > 0 && isFinite(v); }) };
+  }
+  function onMediumChange() {
+    var key = $("lm-medium").value, d = MEDIA[key];
+    var f = parseFloat($("lm-freq").value) * 1e6;
+    if (key !== "sea" && key !== "air") $("lm-sigma").value = d.sigma;
+    if (!d.lockEp) $("lm-ep").value = d.ep;
+    $("lm-sigma").disabled = d.lockSigma; $("lm-ep").disabled = d.lockEp;
+    if (key === "sea") { var m = medium("sea", f); $("lm-sigma").value = m.sigma.toFixed(6); $("lm-ep").value = m.ep.toFixed(4); }
+    if (key === "air") { $("lm-sigma").value = 0; $("lm-ep").value = 1; }
+    if (key === "fresh") { var m2 = medium("fresh", f, d.sigma); $("lm-ep").value = m2.ep.toFixed(4); }
+    render();
+  }
+  function plotAxes(cv, xmin, xmax, ymin, ymax, xlabel, ylabel) {
+    var dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    var g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
+    var L = 52, R = 10, T = 10, B = 34, pw = w - L - R, ph = h - T - B;
+    var lx0 = Math.log10(xmin), lx1 = Math.log10(xmax);
+    var X = function (x) { return L + (Math.log10(x) - lx0) / (lx1 - lx0) * pw; };
+    var Y = function (y) { return T + (ymax - y) / (ymax - ymin) * ph; };
+    g.font = "11px monospace"; g.fillStyle = "#b9ae98"; g.strokeStyle = "rgba(180,170,150,.22)"; g.lineWidth = 1;
+    for (var e = Math.ceil(lx0); e <= Math.floor(lx1); e++) { var xx = X(Math.pow(10, e)); g.beginPath(); g.moveTo(xx, T); g.lineTo(xx, T + ph); g.stroke(); g.fillText(Math.pow(10, e) < 1 ? String(Math.pow(10, e)) : String(Math.pow(10, e)), xx - 8, T + ph + 14); }
+    var span = ymax - ymin, step = span > 400 ? 100 : span > 200 ? 50 : span > 80 ? 20 : span > 40 ? 10 : 5;
+    for (var yv = Math.ceil(ymin / step) * step; yv <= ymax; yv += step) { var yy = Y(yv); g.beginPath(); g.moveTo(L, yy); g.lineTo(L + pw, yy); g.stroke(); g.fillText(String(yv), 4, yy + 4); }
+    g.strokeStyle = "#8a7f6a"; g.strokeRect(L, T, pw, ph);
+    g.fillStyle = "#b9ae98"; g.fillText(xlabel, L + pw / 2 - 60, h - 4); g.save(); g.translate(12, T + ph / 2 + 40); g.rotate(-Math.PI / 2); g.fillText(ylabel, 0, 0); g.restore();
+    return { g: g, X: X, Y: Y, L: L, T: T, pw: pw, ph: ph, ymin: ymin, ymax: ymax, xmin: xmin, xmax: xmax };
+  }
+  function curve(P, fn, color, dash, width) {
+    var g = P.g, lx0 = Math.log10(P.xmin), lx1 = Math.log10(P.xmax), N = 900, first = true;
+    g.strokeStyle = color; g.lineWidth = width || 2; g.setLineDash(dash || []); g.beginPath();
+    for (var i = 0; i <= N; i++) {
+      var x = Math.pow(10, lx0 + (lx1 - lx0) * i / N), y = fn(x);
+      if (y < P.ymin) { y = P.ymin; }
+      var px = P.X(x), py = P.Y(Math.min(y, P.ymax));
+      if (first) { g.moveTo(px, py); first = false; } else g.lineTo(px, py);
+    }
+    g.stroke(); g.setLineDash([]);
+  }
+  function vline(P, x, color, label, dy) {
+    if (x < P.xmin || x > P.xmax) return;
+    var g = P.g, px = P.X(x); g.strokeStyle = color; g.lineWidth = 1; g.setLineDash([4, 3]); g.beginPath(); g.moveTo(px, P.T); g.lineTo(px, P.T + P.ph); g.stroke(); g.setLineDash([]);
+    g.fillStyle = color; g.font = "11px monospace"; g.fillText(label, px + 3, P.T + 12 + (dy || 0));
+  }
+  var COL = { A: "#e0783c", B: "#6fbf73", C: "#4fc3f7", Cp: "#b39ddb", sp: "#8a7f6a", mw: "#e6cf8a", ex: "#f0a58f" };
+
+  function render() {
+    try {
+      var I = readInputs(), m = medium(I.key, I.f, I.sig, I.ep);
+      // manual overrides keep lockSigma/lockEp behaviour: custom/wet/dry use typed values
+      $("lm-o-med").innerHTML = "ε′ = <span class='v'>" + fmt(m.ep, 4) + "</span>, ε″(total, incl. σ/ωε₀) = <span class='v'>" + fmt(m.epp, 4) + "</span>, tanδ = <span class='v'>" + fmt(m.tand, 4) + "</span><br>" +
+        "σ (dc) = <span class='v'>" + fmt(m.sigma, 6) + "</span> S/m, σ_H = ε₀ε″ω = <span class='v'>" + fmt(m.sigmaH, 6) + "</span> S/m, |Z| (Eq. 37 far field) = <span class='v'>" + fmt(m.Z, 5) + "</span> Ω";
+      $("lm-o-A").innerHTML = "<b>Mode A</b> α<sub>J</sub> = σ<sub>H</sub>|Z|/2 = <span class='v'>" + fmt(m.alphaJ, 6) + "</span> Np/m (field) = <span class='v'>" + fmt(m.alphaJ_dBm, 5) + "</span> dB/m (power); power e-fold length 1/(2α) = <span class='v'>" + (isFinite(m.efold_power_m) ? fmt(m.efold_power_m, 5) + " m" : "∞") + "</span>";
+      $("lm-o-B").innerHTML = "<b>Mode B</b> α = 0: no propagation loss (Erratum 2022). <b>Mode C</b> (HYP): wave α = 0 (same curve as B); τ = ε/σ = <span class='v'>" + (m.sigma > 0 ? sci(EPS0 * m.eps_static / m.sigma, 4) + " s" : "∞ (σ ≈ 0)") + "</span> (ε_r static = " + fmt(m.eps_static, 4) + "), τ/period = <span class='v'>" + (m.sigma > 0 ? fmt(EPS0 * m.eps_static / m.sigma * I.f, 4) : "∞") + "</span> at this frequency.";
+      // plot 1
+      var cv = $("lm-plot1"), xs = [I.dmin, I.dmax];
+      var lowest = I.show.A ? modes(m, I.dmax).A : spread(I.dmax), floorY = spread(I.dmax) - 600;
+      var ymax = Math.ceil((spread(I.dmin) + 2) / 10) * 10, ymin = Math.floor(Math.max(lowest - 10, floorY) / 10) * 10;
+      if (ymax - ymin < 40) ymin = ymax - 40;
+      var P = plotAxes(cv, I.dmin, I.dmax, ymin, ymax, "distance (m, log)", "power re 1 m (dB)");
+      var clipped = false;
+      if (I.show.A) curve(P, function (x) { return modes(m, x).A; }, COL.A, [], 3);
+      if (I.show.B) curve(P, function (x) { return modes(m, x).B; }, COL.B, [], 2);
+      if (I.show.C) curve(P, function (x) { return modes(m, x).C; }, COL.C, [6, 4], 2);
+      RHINE_X.forEach(function (x) { if (x >= I.dmin && x <= I.dmax) vline(P, x, "rgba(230,207,138,.55)", x + " m", (x === 39 ? 14 : x === 145 ? 14 : 0)); });
+      var xoff = I.show.A && modes(m, I.dmax).A < ymin; $("lm-o-off").textContent = xoff ? "Mode A leaves the plot area (below " + ymin + " dB) before " + fmt(I.dmax, 4) + " m; the table below has the exact values." : "";
+      // table 1
+      var xl = I.xs.length ? I.xs : RHINE_X, rows = "";
+      xl.forEach(function (x) { var q = modes(m, x);
+        rows += "<tr><td class='num'>" + fmt(x, 4) + "</td><td class='num'>" + dBs(q.spread) + "</td><td class='num'>" + dBs(q.A) + "</td><td class='num'>" + dBs(q.B) + "</td><td class='num'>" + dBs(q.C) + "</td><td class='num'>" + sci(q.tcross, 3) + "</td><td class='num'>" + (isFinite(q.tcross_over_tau) ? sci(q.tcross_over_tau, 3) : "∞") + "</td></tr>"; });
+      $("lm-tbody1").innerHTML = rows;
+      S.medium = m; S.f = I.f; S.show = I.show; S.table1 = xl.map(function (x) { var q = modes(m, x); return { x: x, spread: q.spread, A: q.A, B: q.B, C: q.C, tcross: q.tcross, tcross_over_tau: q.tcross_over_tau }; });
+      S.alphaJ = m.alphaJ; S.tau = m.sigma > 0 ? EPS0 * m.eps_static / m.sigma : null;
+      renderRhine(I);
+      renderTau();
+      S.ready = true;
+    } catch (e) { S.errors.push(String(e && e.stack || e)); throw e; }
+  }
+  function renderRhine(I) {
+    var gsig = parseFloat($("lm-gsig").value), gep = parseFloat($("lm-gep").value);
+    if (!(gsig >= 0)) gsig = 0; if (!(gep >= 1)) gep = 1;
+    var gm = medium("custom", 433.59e6, gsig, gep);
+    var cv = $("lm-plot2"), ymax = 6, ymin = -60;
+    var P = plotAxes(cv, 10, 1000, ymin, ymax, "transmitter–receiver distance x (m, log)", "power re x = 10 m (dB)");
+    curve(P, function (x) { return spread(x / 10); }, COL.sp, [3, 3], 1.5);
+    curve(P, function (x) { return mw14dB(x) + extra145dB(x); }, COL.ex, [], 2);
+    curve(P, function (x) { return mw14dB(x); }, COL.mw, [], 2.5);
+    if ($("lm-showGround").checked) curve(P, function (x) { return mw14dB(x) - NP2DB * gm.alphaJ * (x - 10); }, COL.A, [2, 3], 2);
+    MW.nulls_obs.forEach(function (x, i) { vline(P, x, "#8fd18f", "obs " + x + " m", i * 14); });
+    var rows = "";
+    var tab = RHINE_X.map(function (x) {
+      var e14 = mw14dB(x), sp = spread(x / 10), ex = extra145dB(x), gl = -NP2DB * gm.alphaJ * (x - 10);
+      rows += "<tr><td class='num'>" + x + "</td><td class='num'>" + e14.toFixed(2) + "</td><td class='num'>" + sp.toFixed(2) + "</td><td class='num'>" + (e14 - sp).toFixed(2) + "</td><td class='num'>" + ex.toFixed(2) + "</td><td class='num'>0.00 / 0.00 / 0.00</td><td class='num'>" + dBs(gl) + "</td></tr>";
+      return { x: x, eq14: e14, spread: sp, image: e14 - sp, extra145: ex, groundA: gl };
+    });
+    $("lm-tbody2").innerHTML = rows;
+    var nulls = [0, 1, 2, 3].map(mwNull);
+    $("lm-nulls").textContent = nulls.map(function (v) { return v.toFixed(1); }).join(", ");
+    var gA = gm.alphaJ, gsEff = sigmaEffForEfold(gep, 433.59e6, MW.efoldM);
+    var apow = 1 / MW.efoldM, afield = apow / 2;
+    $("lm-g-out").innerHTML = "Ground what-if (σ = " + fmt(gsig, 5) + " S/m, ε′ = " + fmt(gep, 4) + "): Mode A α<sub>J</sub> = <span class='v'>" + fmt(gA, 5) + "</span> Np/m, power e-fold <span class='v'>" + fmt(1 / (2 * gA), 4) + " m</span>, i.e. <span class='v'>" + fmt(NP2DB * gA, 4) + " dB/m</span>. M&W reported 1/e in power per 145 m = α<sub>P</sub> <span class='v'>" + sci(apow, 3) + "</span> /m (power) = <span class='v'>" + fmt(10 * Math.log10(Math.E) / MW.efoldM, 4) + " dB/m</span> (field-equivalent <span class='v'>" + sci(afield, 3) + "</span> Np/m). Ratio (Mode A ground what-if ÷ reported) = <span class='v'>" + fmt(gA / afield, 4) + "</span>. σ that would reproduce 145 m through this same construction: <span class='v'>" + sci(gsEff, 3) + " S/m</span>.";
+    var at1000 = extra145dB(1000), at300 = extra145dB(300);
+    S.rhine = { table: tab, nulls: nulls, gm: { alphaJ: gA, sigma: gsig, ep: gep }, sigma_eff_145: gsEff, ratio: gA / afield, extra300: at300, extra1000: at1000, lambda: MW.lambda433 };
+  }
+  function renderTau() {
+    var over = { fresh: { sigma: parseFloat($("lm-sigma").value) } };
+    var tt = tauTable(MEDIA_defaults());
+    var rows = "";
+    tt.forEach(function (r) {
+      rows += "<tr><td>" + r.name + "<div class='footnote'>" + r.note + "</div></td><td class='num'>" + (r.sigma > 0 ? sci(r.sigma, 4) : "≈ 0") + "</td><td class='num'>" + fmt(r.ep, 4) + "</td><td class='num'>" + sci(r.tau, 3) + "</td>" +
+        r.ratio.map(function (v) { return "<td class='num'>" + (isFinite(v) ? sci(v, 3) : "∞") + "</td>"; }).join("") + "<td class='num'>" + (isFinite(r.vtau) ? sci(r.vtau, 3) : "∞") + "</td></tr>";
+    });
+    $("lm-tbody3").innerHTML = rows; S.tauTable = tt;
+  }
+  function MEDIA_defaults() { return {}; }
+  function init() {
+    ["lm-medium", "lm-freq", "lm-sigma", "lm-ep", "lm-dmin", "lm-dmax", "lm-dlist", "lm-showA", "lm-showB", "lm-showC", "lm-gsig", "lm-gep", "lm-showGround"].forEach(function (id) {
+      $(id).addEventListener("input", function () { render(); }); $(id).addEventListener("change", function () { if (id === "lm-medium" || id === "lm-freq") onMediumChange(); else render(); });
+    });
+    window.addEventListener("resize", function () { render(); });
+    onMediumChange();
+  }
+  window.LOSSMODES = { constants: { C0: C0, EPS0: EPS0, MU0: MU0, ETA0: ETA0, FREQS: FREQS, MW: MW }, medium: medium, modes: modes, alphaJ: alphaJ, tauTable: tauTable,
+    mw14: mw14, mw14dB: mw14dB, mw23: mw23, mwNull: mwNull, extra145dB: extra145dB, sigmaEffForEfold: sigmaEffForEfold, MEDIA: MEDIA, spread: spread, RHINE_X: RHINE_X };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+  window.addEventListener("error", function (e) { S.errors.push(String(e.message)); });
+})();
+
+var b=document.getElementById("lm-rhine-preset"); if(b) b.addEventListener("click",function(){var s=function(i,v){document.getElementById(i).value=v;};s("lm-medium","air");s("lm-freq","433.59");s("lm-dmin",10);s("lm-dmax",1000);s("lm-dlist","23, 39, 119, 145, 300");document.getElementById("lm-medium").dispatchEvent(new Event("change"));});
+</script>
+</body>
+</html>
