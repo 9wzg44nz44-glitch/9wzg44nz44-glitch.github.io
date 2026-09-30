@@ -30,7 +30,7 @@ This is vanilla HTML/CSS/JS. No build step.
 | `sphere.html` | Fig. 1 vs catalog spheres; **no balun** |
 | `kit.html` | Shared submersible field kit (planned; not a claim it has been built) |
 | `lab.html` | 1.3 GHz Faraday protocol, HAM legal box, skin-depth table, BOM, controls, CSV log, safety |
-| `library.html` | Six bundled PDFs with genre labels |
+| `library.html` | 24 bundled PDFs linked (incl. the Hively & Loebl erratum) with genre labels |
 | `papers/` | Verbatim PDFs (not rewritten) |
 | `css/style.css`, `js/*.js`, `assets/mark.svg` | Chrome |
 | `assets/site-search.js`, `assets/site-responsive.css`, `search-index.json`, `search.html`, `tools/build_search_index.py` | Site-wide search bar (every page) + responsive layer; rebuild the index with `python3 tools/build_search_index.py` |
