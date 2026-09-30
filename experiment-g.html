@@ -83,6 +83,8 @@ details.more summary{cursor:pointer;font-weight:600;min-height:32px}
 code,.mono{word-break:break-word}
 @media (max-width:600px){.hero .hl{font-size:1.05rem}.answer .big{font-size:1.05rem}}
 </style>
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<script src="/assets/site-search.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -255,7 +257,7 @@ code,.mono{word-break:break-word}
       <tr><td>20 °C, S = 0 (fresh, pool)</td><td class="n">17.22 cm</td><td class="n">17.25 cm</td><td class="n">no loss</td></tr>
     </table></div>
     <p class="small">S is salinity in parts per thousand (35 is typical open ocean). In fresh water the loss comes almost entirely from the water molecules' own relaxation (ε″), so both readings give about the same metre-scale length. <strong>Hub consistency note (open conflict):</strong> <a href="experiment-c.html#dict">Experiment C's field dictionary</a> and <a href="experiment-c.html#ohmic">“SLW Ohmic” section</a> say SLW has no eddy/skin loss but “still has linear Ohmic loss”, with Joule density σE∥², while SW has neither. The 2022 Erratum says SLW is “not subject to resistive loss”. The two disagree. Following the hub rule, this page uses the Joule loss by default and keeps the Erratum as a labelled toggle. Experiment C is not edited. The hub's <code>physics-constants.json</code> keeps both flags.</p>
-<p class="small"><span class="lab F">FACT, author-confirmed</span> <strong>Author-confirmed, 2026-09-30.</strong> In a private email from Dr. Hively to Dan (2026-09-30), Dr. Lee Hively confirmed the charge-relaxation exponent: “The form, E = E0 e^(-sigma t/epsilon), is the correct one.” So Eq.&nbsp;(A5), p.&nbsp;122 of Hively &amp; Loebl 2019, and the exponent before EQN.&nbsp;12 in US&nbsp;9,306,527&nbsp;B1 (col.&nbsp;5) have ε and σ swapped (typos as printed). The correct form is E = E<sub>0</sub> exp(−σt/ε) with τ = ε/σ; IARD&nbsp;2020 slide&nbsp;60 is correct. This page does not compute that transient: its SLW loss is the Joule term σE∥² (default) or none (Erratum toggle). See the <a href="sim-lab/corrections/">Corrections log</a> (on the hub once published).</p>
+<p class="small"><span class="lab F">FACT, author-confirmed</span> <strong>Author-confirmed, 2026-09-30.</strong> In a private email from Dr. Hively to Dan (2026-09-30), Dr. Lee Hively confirmed the charge-relaxation exponent: “The form, E = E0 e^(-sigma t/epsilon), is the correct one.” So Eq.&nbsp;(A5), p.&nbsp;122 of Hively &amp; Loebl 2019, and the exponent before EQN.&nbsp;12 in US&nbsp;9,306,527&nbsp;B1 (col.&nbsp;5) have ε and σ swapped (typos as printed). The correct form is E = E<sub>0</sub> exp(−σt/ε) with τ = ε/σ; IARD&nbsp;2020 slide&nbsp;60 is correct. This page does not compute that transient: its SLW loss is the Joule term σE∥² (default) or none (Erratum toggle). See the <a href="sim-lab/corrections/">Corrections log</a>.</p>
   </section>
   <!-- ============ Seawater, hull, cage ============ -->
   <section class="panel" id="tab-sea" role="tabpanel" hidden>
