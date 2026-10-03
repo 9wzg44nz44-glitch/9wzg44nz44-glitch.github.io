@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to use the VNA in our work · SLW Hub</title>
+<meta name="description" content="Practical NanoRFE VNA6000-A guide for Experiments A, B and the 2.45 GHz tests: SOLT calibration, S11 of stubs and Dipole Detectors, S21 TX-RX ranging, sleeve balun checks, field power and safety.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<script src="/assets/site-search.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="c-nuclei.html">C×nuclei</a>
+      <a href="fields.html">Fields</a>
+      <a href="monstein.html">Monstein</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="setup.html">Setup</a>
+      <a href="kit.html">Kit</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+<p class="kicker">Test gear · NanoRFE VNA6000-A</p>
+<h1>How to use the VNA in our work</h1>
+<p class="lede">Practical bench notes for Experiment A (1296 MHz), Experiment B (433.59 MHz) and the 2.45 GHz Dipole Detector tests. Written by Grok Bot for Dan Britton, 3 Oct 2026. Engineer-to-engineer, not a physics claim: the VNA only tells us what the RF hardware does (match, loss, phase), not whether any scalar or longitudinal wave exists.</p>
+
+<div class="banner-edu"><strong>Status:</strong> v0.1 draft. Written from the NanoRFE VNA6000 user manual (2022/11) and specifications sheet (2022/08), the hub kit page, and public sources. Menu paths are quoted from the manual; check them against the firmware on your unit and tell us where they differ. Inferences are labelled <strong>INFERENCE</strong>.</div>
+
+<h2 id="docs">1. Documents</h2>
+<ul>
+<li><a href="https://nanorfe.com/downloads/vna6000_manual.pdf">VNA6000-A / VNA6000-B user manual (PDF, 30 pages, 2022/11)</a> (the operator manual; the unit is a NanoRFE VNA6000-A)</li>
+<li><a href="https://nanorfe.com/downloads/vna6000_specifications.pdf">VNA6000 specifications (PDF, 2022/08)</a></li>
+<li><a href="https://nanorfe.com/vna6000.html">NanoRFE VNA6000 product page</a></li>
+<li><a href="https://nanorfe.com/nanovna-v2-software.html">VNA View / NanoVNA-QT software downloads</a> (PC control, S-parameter export)</li>
+<li><a href="kit.html#vna6000">Hub kit page, VNA6000-A uses by experiment (A to F)</a></li>
+</ul>
+
+<h2 id="specs">2. What the instrument is, and its limits</h2>
+<div style="overflow-x:auto"><table>
+<tbody>
+<tr><th>Parameter</th><th>VNA6000-A (manual / spec sheet)</th></tr>
+<tr><td>Type</td><td>2-port transmission/reflection (T/R) VNA, 50 &Omega;, SMA female ports. Measures S11 and S21 directly. S22 and S12 only by reversing the DUT.</td></tr>
+<tr><td>Frequency</td><td>50 kHz to 6 GHz (covers 433.59 MHz, 1296 MHz and 2450 MHz)</td></tr>
+<tr><td>Port output power</td><td>about -10 dBm typical (no adjustment)</td></tr>
+<tr><td>Max input</td><td><strong>+10 dBm RF and 5 V DC on either port.</strong> Do not exceed.</td></tr>
+<tr><td>Dynamic range (A)</td><td>about 95 dB transmission at 200 MHz to 5.8 GHz (calibrated, IFBW 0.8 kHz, 10x averaging)</td></tr>
+<tr><td>Max measurable |S|</td><td>0 dB. To measure an amplifier or LNA, put an attenuator at least equal to its gain in the path.</td></tr>
+<tr><td>Power</td><td>USB 4.8 to 5.5 V, or one 18650 cell. Only <strong>flat-top, unprotected</strong> cells fit (button-top or protected cells will not).</td></tr>
+<tr><td>Operating temperature</td><td>0 to 45 &deg;C</td></tr>
+<tr><td>Channels</td><td>CH0 = S11 (reflect), CH1 = S21 (through). Four traces, four markers.</td></tr>
+</tbody></table></div>
+<p>Every calibration is only valid for the frequency range it was made in. The manual says changing the sweep range interpolates the old calibration and may degrade accuracy, so recalibrate after any range change. Plan one saved calibration per band (table in section 4).</p>
+
+<h2 id="zimmerman">3. How Zimmerman used a VNA</h2>
+<p><strong>Supported by sources:</strong></p>
+<ul>
+<li>Robert K. Zimmerman (NP4B) published the 1296 MHz transmit and receive hardware in QEX, July/August 2011, pp. 31 to 35: a 7-inch circular waveguide (about 69 cm) launching TM01, a 3 dB pad on the feed, a choke collar, and a folded fluorescent (plasma) tube receiver with about 200 mA DC bias through a bias-T. See the <a href="https://www.arrl.org/files/file/QEX_Next_Issue/Jul-Aug_2011/QEX_7_11_TofC.pdf">QEX July/August 2011 table of contents</a>. I could not find a VNA measurement inside the QEX article itself.</li>
+<li>Haralick's 2022 slide deck, which reproduces Zimmerman's work, has a slide titled "Technical Conclusions from Vector Network Analyzer" (slide 71 of 110): a folded plasma tube receives Ez as a simple folded monopole and detects Az as a differential Aharonov-Bohm detector, and "Az and Ez can be calculated from amplitude/phase data collected with a vector network analyzer." The preceding slide (70) states that reversing the 200 mA bias polarity (floating supply, DPDT switch) shifts the detected Az by 180 degrees and leaves Ez unchanged. Slide 103 shows a Tektronix VNA. Source: <a href="https://haralick.org/conferences/energy_conference_2022_7_3.pdf">haralick.org energy_conference_2022_7_3.pdf</a>.</li>
+<li>The associated papers are Zimmerman, Macroscopic Aharonov-Bohm Effect at L-Band Microwave Frequencies, Mod. Phys. Lett. B 25(9), 2011, and <a href="https://pubs.aip.org/aip/jap/article-abstract/114/4/044907/373024">Reception of longitudinal vector potential radiation with a plasma antenna, J. Appl. Phys. 114, 044907 (2013)</a>. I only confirmed the abstract page, not the VNA details in the full text.</li>
+</ul>
+<p><strong>In plain terms:</strong> the VNA was used as a phase-coherent source and receiver. By logging S21 magnitude and phase with the bias polarity flipped, the two contributions (an E-like response that does not flip, and an A-like response that flips by 180 degrees) could be separated.</p>
+<p><strong>Caveat from other hams:</strong> a QEX follow-up by George and Shelley Works, as reported in a <a href="https://la3za.blogspot.com/2011/09/communication-with-vector-potential.html">LA3ZA blog comment</a>, explained the bias-reversal asymmetry by cathode-position asymmetry in the tube instead. Treat the separation method as Zimmerman's claim, not settled.</p>
+<p><strong>INFERENCE for us:</strong> the transferable idea is not the plasma tube. It is a repeatable S21 magnitude and phase measurement between a fixed TX and RX, with one controlled change at a time (polarity, orientation, wall, shield) and the difference between "before" and "after" as the result. The VNA6000-A can do that with S21 PHASE and LOGMAG traces, with the cal reference plane at the antenna feed.</p>
+
+<h2 id="before">4. Before every session</h2>
+<ol>
+<li>Wear an ESD strap or touch the chassis first. Discharge cable center pins on the ground shell. Never connect a live transmitter, a bias-T with DC on it, a charged capacitor or a plasma tube bias supply to a VNA port (5 V DC max, +10 dBm max).</li>
+<li>Fit the two SMA connector savers to the VNA ports (they ship in the box) and leave them on. Finger-tight plus a light torque wrench pass (SMA standard is about 5 in-lb); do not overtighten.</li>
+<li>Use the same cables, adapters and connector savers for calibration and for the measurement. Moving or flexing a cable after cal changes phase, and S21 phase is exactly what we want.</li>
+<li>Allow a few minutes of warm-up. Let the unit reach room temperature before calibrating (0 to 45 &deg;C operating range).</li>
+<li>Make one calibration per band, saved in its own slot, and write the slot number on the log sheet:</li>
+</ol>
+<div style="overflow-x:auto"><table>
+<tbody>
+<tr><th>Use</th><th>Center</th><th>Suggested sweep</th><th>Slot</th><th>Free-space wavelength</th></tr>
+<tr><td>Exp B (433.59 MHz balls)</td><td>433.59 MHz</td><td>380 to 490 MHz</td><td>0</td><td>69.1 cm</td></tr>
+<tr><td>Exp A (1296 MHz sphere / mesh)</td><td>1296 MHz</td><td>1100 to 1500 MHz</td><td>1</td><td>23.1 cm</td></tr>
+<tr><td>2.45 GHz tests (DD-2450)</td><td>2450 MHz</td><td>2200 to 2700 MHz</td><td>2</td><td>12.2 cm</td></tr>
+<tr><td>Survey / harmonics</td><td>n/a</td><td>50 MHz to 3 GHz</td><td>3</td><td>n/a</td></tr>
+</tbody></table></div>
+<p>The manual describes slots as 0 to 4 in one place and 0 to 6 in another; use whichever your firmware offers.</p>
+
+<h2 id="cal">5. Calibration (SOL for S11, SOLT for S21)</h2>
+<p>Use the "SOL/SOLT calibration with cable" procedure from the manual, so the reference plane is the end of the cable that mates with the DUT. If the DUT has a different connector, add the adapter before you calibrate.</p>
+<ol>
+<li>Set the range: STIMULUS &rarr; START and STOP (or CENTER and SPAN). Use as many points as the unit offers; more points means better resolution on narrow dips.</li>
+<li>CAL &rarr; RESET, then CALIBRATE.</li>
+<li>Attach the SMA test cable to port 1. For SOLT, also attach a second cable to port 2.</li>
+<li>Attach a LOAD to the port 2 cable end (or port 2 if no cable).</li>
+<li>Connect OPEN to the port 1 cable end. Tap OPEN. Wait for the menu item to highlight.</li>
+<li>Connect SHORT. Tap SHORT. Wait for highlight.</li>
+<li>Connect the second LOAD. Tap LOAD. Wait for highlight.</li>
+<li>For S21 (SOLT): connect the two cable ends together (or via the same adapter used with the DUT) and tap THRU. The manual says to disconnect the port 1 end of the cable afterward.</li>
+<li>Tap DONE, then SAVE n (calibration slot). The screen should show a C-number (for example C1) on the left. CAL &rarr; CORRECTION shows whether correction is on.</li>
+<li>Verify: LOAD should read deeply below -30 dB on S11 (the Smith chart trace should be at the center), OPEN and SHORT near 0 dB, and a THRU should read 0 dB with a flat phase on S21. If the load is worse than about -30 dB, redo it.</li>
+</ol>
+<p>Each standard tap performs its own averaged sweep, so you do not need to wait for the plot to settle. Recall later with CAL &rarr; RECALL &rarr; RECALL n. Settings saved in a slot include range, trace and marker settings, and electrical delay.</p>
+
+<h2 id="s11">6. S11 of the stub antennas and Dipole Detectors (433.59 MHz, 1296 MHz, 2.45 GHz)</h2>
+<ol>
+<li>Recall the cal for the band (section 4). Confirm a C-number is shown.</li>
+<li>Traces: DISPLAY &rarr; TRACE &rarr; TRACE 0, FORMAT &rarr; LOGMAG, CHANNEL &rarr; CH0 REFLECT (S11 return loss). TRACE 1: FORMAT &rarr; SWR (VSWR), CH0. TRACE 2: FORMAT &rarr; SMITH, CH0.</li>
+<li>Connect the DUT at the calibrated plane. Use the stub antenna's own SMA connector, or the bulkhead flange for the sphere feeds.</li>
+<li>Marker 1 on the lowest S11 dip: MARKER &rarr; SELECT MARKER &rarr; MARKER 1, then drag it or hold the arrow keys. Record the frequency and return loss.</li>
+<li>Marker 2 at the target frequency (433.59, 1296 or 2450 MHz). Record return loss, VSWR and the Smith chart R + jX there. That value at the target frequency is the number that matters.</li>
+</ol>
+<div style="overflow-x:auto"><table>
+<tbody>
+<tr><th>Return loss (S11)</th><th>VSWR</th><th>Rough meaning</th></tr>
+<tr><td>-10 dB</td><td>1.92</td><td>Acceptable for a bench check</td></tr>
+<tr><td>-15 dB</td><td>1.43</td><td>Good</td></tr>
+<tr><td>-20 dB</td><td>1.22</td><td>Very good</td></tr>
+<tr><td>-30 dB or lower</td><td>1.07 or lower</td><td>Excellent, or a short/very lossy line: check the Smith chart</td></tr>
+</tbody></table></div>
+<p><strong>INFERENCE:</strong> an electrically short stub will not be matched at all three bands. Do not tune to chase -10 dB. Log the number as the baseline and compare it after any mechanical change (new stub length, sleeve, sphere closed or open).</p>
+<p>Per device: DD-433 sweep 380 to 490 MHz, DD-1296 sweep 1100 to 1500 MHz, DD-2450 sweep 2200 to 2700 MHz. Do the 50 MHz to 3 GHz survey once per device to see where it really resonates, and recalibrate for the zoomed sweeps.</p>
+
+<h2 id="balun">7. Sleeve balun checks</h2>
+<p>A sleeve (bazooka) balun is ordinary RF practice. Cut tables for 1296 and 433.59 MHz are on the hub (<a href="sleeve-balun.html">sleeve-balun.html</a>, <a href="tools.html">tools.html</a>). Use the VNA to test whether it is doing anything.</p>
+<ol>
+<li>Calibrate at the SMA end of the cable run, same as section 5.</li>
+<li>Measure S11 of the antenna with the sleeve fitted. Mark the dip frequency and depth.</li>
+<li>Hold the feed cable with your hand or a clamp-on ferrite about one quarter wavelength behind the sleeve, then slide it along the coax. Quarter wavelengths are about 17 cm at 433.59 MHz, 5.8 cm at 1296 MHz and 3.1 cm at 2450 MHz.</li>
+<li>If S11 moves by more than about 1 to 2 dB or the dip frequency shifts, the cable shield is still carrying common-mode current, so the sleeve is not isolating the antenna. If the trace barely changes, the balun is working (or the antenna is too mismatched to tell, so also check the Smith chart).</li>
+<li>Repeat with the sleeve removed as the control. Save screenshots of both.</li>
+<li>S21 option: put two identical antennas at a fixed spacing, set TRACE 0 to S21 LOGMAG and TRACE 1 to S21 PHASE, and compare with and without the sleeve (INFERENCE: a working sleeve should make S21 less sensitive to cable position).</li>
+</ol>
+
+<h2 id="s21">8. S21 TX to RX transmission and precision ranging</h2>
+<p>Port 1 drives the TX antenna and port 2 listens at the RX antenna. The path loss is real (the ideal free-space figure in the table is a far-field reference only; at these short separations near-field effects dominate, so treat it as a sanity check and not a prediction).</p>
+<div style="overflow-x:auto"><table>
+<tbody>
+<tr><th>Frequency</th><th>Ideal FSPL at 1 m</th><th>Ideal FSPL at 2 m</th><th>Phase change per 1 mm of range</th></tr>
+<tr><td>433.59 MHz</td><td>25.2 dB</td><td>31.2 dB</td><td>0.52 degrees</td></tr>
+<tr><td>1296 MHz</td><td>34.7 dB</td><td>40.7 dB</td><td>1.56 degrees</td></tr>
+<tr><td>2450 MHz</td><td>40.2 dB</td><td>46.2 dB</td><td>2.94 degrees</td></tr>
+</tbody></table></div>
+<p>With about 95 dB of dynamic range at -10 dBm, a clean S21 is available in all of these cases even with a cavity or wall in the path of 30 to 50 dB.</p>
+<ol>
+<li>Do an SOLT calibration at the ends of the two cables (section 5, including THRU). Use rigid or semi-rigid jumpers where you can and tape the cables down; a cable that moves during the run is a phase error.</li>
+<li>Run the traces: TRACE 0 = CH1 THROUGH, LOGMAG. TRACE 1 = CH1 THROUGH, PHASE. Optionally TRACE 2 = CH1 THROUGH, DELAY.</li>
+<li>Single-frequency ranging: STIMULUS &rarr; CW FREQ for zero span. Stand the RX on a rail, move it in fixed steps (for example 5 mm), and log S21 phase and magnitude at each step. Unwrap the phase in the PC. Phase should step roughly linearly with distance by the values in the table above; deviations are the interesting part (reflections off the case, rail, floor).</li>
+<li>Swept ranging: sweep 1100 to 1500 MHz (or another band), read the slope of phase vs frequency, or turn on DISPLAY &rarr; TRANSFORM for time-domain (enter the velocity factor with DISPLAY &rarr; TRANSFORM &rarr; VELOCITY FACTOR, 100 for free-space air). The band-limited resolution is only about c divided by the sweep width, so use CW phase for sub-centimetre work.</li>
+<li>Before-and-after: record the empty-setup S21, then each change (lid on, wall in place, polarizer rods, sphere closed), then the empty-setup S21 again at the end. The drift between the first and last empty runs is your error bar.</li>
+<li>Note: T/R VNA. The measurement is one-way, port 1 to port 2 only. To look at the opposite direction, swap the cable ends and recalibrate (do not just swap the antennas).</li>
+</ol>
+
+<h2 id="sphere">9. Antennas inside the spheres, and shielded boxes</h2>
+<ul>
+<li><strong>Reference plane:</strong> calibrate to the outer SMA bulkhead flange of the sphere (or the connector of the stub assembly before it goes in). Everything inside the sphere, including the interior coax and stub, is then part of the DUT. Hub reference parts: Exp A 3/4-inch sphere with KB-1820 and the 901-9875 bulkhead feed; Exp B 2.50-inch ball with KB-2016. See <a href="sphere.html">sphere.html</a> and <a href="setup.html">setup.html</a>.</li>
+<li><strong>Open vs closed:</strong> measure S11 with the sphere open (or half assembled) and closed. A closed conductive shell is a cavity. Narrow, deep dips that appear only when closed are cavity modes, not antenna match. Log both and say which is which.</li>
+<li><strong>S21 through the wall (leakage / shielding check):</strong> TX stub inside, probe or antenna outside at fixed distance. Compare with the same geometry without the shell. The difference is a shielding number in dB. Use the thru-cal noise floor to know what the smallest believable number is.</li>
+<li><strong>VNA outside, cable through the bulkhead:</strong> do not run a USB cable into a sealed Faraday run; the hub kit page already notes a USB cable is a leak path. For sealed runs, power the VNA from its internal 18650 and do not connect USB.</li>
+<li><strong>Do not put the VNA inside the box with the experiment.</strong> Its -10 dBm swept source is a stray signal source in exactly the band you are trying to listen on with the TinySA. Use the VNA for characterization before and after, then disconnect it for the listening run.</li>
+<li><strong>Microwave oven tests (2.45 GHz):</strong> the oven's leakage can couple into any connected antenna and put real power into the VNA port (limit +10 dBm). Disconnect the VNA, or keep the oven off, when the oven is running. Use the TinySA with 10 dB or more attenuation for oven-on measurements, as your baseline sheet already does.</li>
+<li>H10 and E5 near-field probes (Tekbox TBPS01) are passive pickups meant for the TinySA. Do not connect them to a VNA port while a transmitter is active. They can be swept S21 against a known small loop or monopole if you want, at -10 dBm, but that is a separate calibration.</li>
+</ul>
+
+<h2 id="save">10. Saving data</h2>
+<ul>
+<li><strong>On the unit:</strong> CAL &rarr; SAVE n stores calibration, range, traces and markers. CONFIG &rarr; SAVE stores only touch-screen and colour settings, not calibration.</li>
+<li><strong>Screenshots:</strong> take one of every result with the marker readout visible. A phone photo of the screen is acceptable but include the C-number and the frequency axis.</li>
+<li><strong>Touchstone files:</strong> connect USB to a PC (not near a sealed box), open VNA View (see <a href="https://nanorfe.com/nanovna-v2-software.html">software downloads</a>), choose the serial port under Device, set the sweep range and calibrate (SOL or SOLT T/R), then export .s1p (S11) or .s2p. A T/R VNA only measures S11 and S21; S12 and S22 columns in a .s2p are not real data. The hub kit page also mentions NanoVNA-Saver; I have not verified it with the VNA6000-A.</li>
+<li><strong>File names:</strong> follow the TinySA portal pattern, for example <code>DD-1296-v1-20261004-103000-1296MHz-S11.s1p</code> (experiment ID, version, date, time, center frequency, parameter). Upload to <a href="https://9wzg44nz44-glitch.github.io/tiny-ultra-data-portal/">the data portal</a>. The portal advertises CSV and S2P uploads; if it rejects .s1p, upload a .s2p or a CSV.</li>
+<li>Add to every log line: cal slot, cables and adapters used, battery or USB power, temperature, and whether the sphere was open or closed.</li>
+</ul>
+
+<h2 id="power">11. Field power</h2>
+<ul>
+<li>The VNA6000 runs from an 18650 or from USB 5 V. The 4 red LEDs along the bottom-left edge show battery percentage; the screen does not.</li>
+<li>Use <strong>flat-top, unprotected</strong> cells only. The Battery Junction order BJ-777166 contains four Molicel P30B INR18650 3000 mAh unprotected flat-top cells and an XTAR VC4SL charger, which matches that requirement. Check polarity before inserting.</li>
+<li>A USB power bank also works for open-air runs.</li>
+<li>Carry spares, and keep the cells out of a hot car. The unit is rated 0 to 45 &deg;C.</li>
+<li>Never leave a lithium cell charging unattended. Use the XTAR charger, not the VNA, to charge loose cells if you want to avoid heat in the case.</li>
+</ul>
+
+<h2 id="cheat">12. Cheat sheet by experiment</h2>
+<div style="overflow-x:auto"><table>
+<tbody>
+<tr><th>Experiment</th><th>What to measure</th><th>Plane</th><th>Save</th></tr>
+<tr><td><strong>A</strong> 1296 MHz sphere / mesh</td><td>S11 of KB-1820 + 901-9875 feed, open and closed; S21 of the 23 cm band-pass filter; TX-RX S21 and phase vs spacing; TDR of RG-316 pigtails</td><td>Bulkhead flange or filter SMA</td><td>.s1p / .s2p + screenshot</td></tr>
+<tr><td><strong>B</strong> 433.59 MHz ball + rods</td><td>S11 of each KB-2016 ball feed around 433.59 MHz; TDR and electrical length of jumpers; TX-RX S21 and phase before and after polarizer rod changes</td><td>Ball SMA flange</td><td>.s1p / .s2p + screenshot</td></tr>
+<tr><td><strong>2.45 GHz</strong> DD-2450 and sleeve baluns</td><td>S11 at 2.45 GHz with and without sleeve and cable-hand test; survey 50 MHz to 3 GHz for resonances; S21 shielded-box leakage</td><td>Antenna SMA</td><td>.s1p / .s2p + screenshot</td></tr>
+<tr><td>Baseline (all)</td><td>Empty-setup S21 before and after every run; same cal slot; same cables</td><td>Cable ends</td><td>screenshot with C-number</td></tr>
+</tbody></table></div>
+
+<h2 id="videos">13. Videos (common usage)</h2>
+<p>These use the NanoVNA family. The VNA6000-A shares the touch menu structure (STIMULUS, CAL, DISPLAY, MARKER), so the workflow carries over. The VNA6000-A is a T/R design with fixed -10 dBm output, so skip anything about power settings.</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=x-tbvAbh9jk">w2aew #313: Why a VNA needs to be calibrated | how to calibrate a nanoVNA</a></li>
+<li><a href="https://www.youtube.com/watch?v=xa6dqx9udcg">w2aew #314: How to use the NanoVNA to sweep / measure an antenna system's SWR and optimize its tuning</a></li>
+<li><a href="https://www.youtube.com/watch?v=F17mN5uuzGY">w2aew #315: How to use the NanoVNA to measure a low-pass filter</a> (S21 method)</li>
+<li><a href="https://www.youtube.com/watch?v=9thbTC8-JtA">w2aew #316: Use NanoVNA to measure coax length, bonus transmission lines, Smith charts, SWR</a> (cable length / TDR)</li>
+<li><a href="https://www.youtube.com/watch?v=_pjcEKQY_Tk">Andreas Spiess #359: How to properly use a NanoVNA V2 & Smith Chart</a></li>
+<li><a href="https://www.youtube.com/watch?v=mQLBrq85UXk">TAKEAPART: NanoVNA & LiteVNA Calibration & Antenna Tuning</a> (433 MHz antenna example, 3 min)</li>
+</ul>
+
+<h2 id="honest">14. What this page does not claim</h2>
+<ul>
+<li>No claim that a VNA measurement shows scalar or longitudinal waves. It characterizes match, loss and phase of the hardware. Any such claim still needs the null tests and controls already on the <a href="lab.html">Lab</a> and <a href="kit.html">Kit</a> pages.</li>
+<li>Menu paths are from the 2022/11 manual. Firmware on your unit may differ.</li>
+<li>The ideal path loss and phase-per-millimetre numbers are geometry and far-field formulas, not measurements.</li>
+</ul>
+<p><em>Written by Grok Bot on behalf of Dan Britton, 3 Oct 2026, without prior human review. Corrections welcome.</em></p>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+</body>
+</html>
