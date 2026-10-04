@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Round 1: sphere experiments and microwave oven · SLW Hub</title>
-<meta name="description" content="SLW Hub Round 1: 1.3 GHz, 433.59 MHz and 2.45 GHz sphere experiments with polarising-rod attenuators, a microwave oven experiment, a To-Do list, a range finder and a Joule-loss analysis.">
+<title>Archive · SLW Hub</title>
+<meta name="description" content="Archive of all earlier SLW Hub pages: Experiments A to G overview, background, setup, Simulation Lab, papers and original GitHub Pages.">
 <meta name="author" content="Dan Britton">
-<link rel="canonical" href="https://9wzg44nz44-glitch.github.io/">
+<link rel="canonical" href="https://9wzg44nz44-glitch.github.io/archive.html">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,13 +17,6 @@
 <link rel="stylesheet" href="/assets/round1.css">
 <script src="/assets/site-search.js" defer></script>
 <script src="/assets/share-button.js" defer></script>
-<script>
-/* Old links such as index.html#expt-a now live on the archived overview page. */
-(function () {
-  var h = (location.hash || "").replace(/^#/, "").toLowerCase();
-  if (/^(expt-[a-g]|kit)$/.test(h)) location.replace("experiments-a-g.html#" + h);
-})();
-</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -57,65 +50,10 @@
 </nav>
 <main id="main" class="wrap r1-wrap">
 
-<p class="kicker">Round 1 · SLW Hub · draft v0.1</p>
-<h1>Round 1: three sphere experiments and a microwave oven</h1>
-<p class="lede">Each experiment uses a transmitting sphere, a receiving sphere and a polarising-rod attenuator between them, with brass and W1 tool-steel rods cut to &lambda;/2 for each band. The oven replaces the transmitting sphere at 2.45 GHz. We are testing hypotheses, not reporting detections.</p>
-<div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Mainstream electrodynamics treats free-space radio as transverse (TEM). A longitudinal or scalar component is a hypothesis we are testing, and nothing on these pages claims that scalar or longitudinal waves have been detected. Values marked <span class="r1-badge prop">proposal</span> are our suggestions and are not measured or sourced. Draft v0.1, 4 Oct 2026, written by Grok Bot for Dan Britton.</div>
-<h2 id="round1">The four benches</h2>
-<div class="r1-grid">
-<article class="r1-card">
-<h3><a href="exp-1296.html">1.3 GHz sphere experiment (Experiment A)</a></h3>
-<ul class="specs">
-<li>Frequency: 1296.000 MHz (&lambda; = 231.3 mm)</li><li>3/4 in sphere TX and RX (K-Mac KB-1820)</li><li>Rods: 115.66 mm (&lambda;/2), 1/8 in, brass and W1 tool steel</li><li>Plate: 6.00 x 6.00 x 0.50 in cast acrylic (152.4 x 152.4 x 12.7 mm)</li>
-</ul>
-<p class="links"><a href="exp-1296.html">Open the page</a> · <a href="todo.html#g-a">To-do</a> · <a href="joule-loss.html?f=1296">Joule loss</a> · <a href="range-finder.html?f=1296">Range finder</a></p>
-</article><article class="r1-card">
-<h3><a href="exp-433.html">433.59 MHz sphere experiment (Experiment B)</a></h3>
-<ul class="specs">
-<li>Frequency: 433.59 MHz (&lambda; = 691.4 mm)</li><li>2.50 in ball TX and RX (K-Mac KB-2016), no balun; the Monstein and Wesley replication</li><li>Rods: 346.00 mm (&lambda;/2), 1/8 in, brass and W1 tool steel</li><li>Plate: 15.00 x 15.00 x 0.50 in cast acrylic (381.0 x 381.0 x 12.7 mm)</li>
-</ul>
-<p class="links"><a href="exp-433.html">Open the page</a> · <a href="todo.html#g-b">To-do</a> · <a href="joule-loss.html?f=433.59">Joule loss</a> · <a href="range-finder.html?f=433.59">Range finder</a></p>
-</article><article class="r1-card">
-<h3><a href="exp-2450.html">2.45 GHz sphere experiment (new)</a></h3>
-<ul class="specs">
-<li>Frequency: 2450.0 MHz (&lambda; = 122.4 mm)</li><li>3/4 in sphere TX and RX, same sphere as Experiment A</li><li>Rods: 61.18 mm (&lambda;/2), 1/8 in, brass and W1 tool steel</li><li>Plate: 4.00 x 4.00 x 0.25 in cast acrylic (101.6 x 101.6 x 6.35 mm)</li><li><span class="r1-badge prop">proposal</span> stubs 12.2 / 30.6 mm; nothing built yet</li>
-</ul>
-<p class="links"><a href="exp-2450.html">Open the page</a> · <a href="todo.html#g-c">To-do</a> · <a href="joule-loss.html?f=2450">Joule loss</a> · <a href="range-finder.html?f=2450">Range finder</a></p>
-</article><article class="r1-card hot">
-<h3><a href="oven.html">Microwave oven experiment</a></h3>
-<ul class="specs">
-<li>The oven is its own 2.45 GHz transmitter</li>
-<li>A 3/4 in sphere is the detector</li>
-<li>Same controls as Experiment B, including the rod fixture</li>
-<li>Receive only, from outside; safety rules first</li>
-</ul>
-<p class="links"><a href="oven.html">Open the page</a> · <a href="todo.html#g-oven">To-do</a> · <a href="joule-loss.html#oven">Power balance</a> · <a href="oven.html#safety">Safety</a></p>
-</article>
-</div>
-
-<h2 id="shared">What every bench shares</h2>
-<ol>
-<li><strong>Baselines first</strong>: VNA S11 and S21 with the rods out, then the rods in, using the <a href="vna-howto.html">VNA how-to</a>; spectrum-analyzer noise floor with the transmitter off.</li>
-<li><strong>Rod scan</strong>: turn the rod array through &phi; and fit T = exp(-&kappa; cos&sup2;&phi;) (Monstein and Wesley form), for brass and then W1.</li>
-<li><strong>Range</strong>: tape-measure r, then compare with the <a href="range-finder.html">range finder</a> estimates (a tape is the truth, the estimates are hypotheses).</li>
-<li><strong>Joule loss</strong>: compare &kappa; between materials and bands, and read the limits on the <a href="joule-loss.html">Joule-loss page</a>.</li>
-<li><strong>Log everything</strong>: grounding state of the cage, instrument settings and raw files in every row.</li>
-</ol>
-
-<h2 id="tools">Tools and checklists</h2>
-<div class="r1-grid">
-<article class="r1-card"><h3><a href="todo.html">To-Do list</a></h3><ul class="specs"><li>Checkboxes saved in your browser, grouped by experiment</li><li>Rod delivery from Newport, fixtures, baselines, builds, oven</li></ul></article>
-<article class="r1-card"><h3><a href="range-finder.html">Automatic range finder</a></h3><ul class="specs"><li>Phase slope, time domain, two-frequency, null counting</li><li>Dipole direction finding for each band</li><li>Calculator, CSV paste and plot</li></ul></article>
-<article class="r1-card"><h3><a href="joule-loss.html">Joule loss and power balance</a></h3><ul class="specs"><li>What the rod data can and cannot show</li><li>Brass versus W1, skin depth, dissipated fraction</li></ul></article>
-<article class="r1-card"><h3><a href="vna-howto.html">VNA how-to</a></h3><ul class="specs"><li>VNA6000-A manual, calibration, S11 and S21 steps</li></ul></article>
-<article class="r1-card"><h3><a href="rod-jig/">Rod jigs</a></h3><ul class="specs"><li>Acrylic plates and drilling patterns for the three bands</li></ul></article>
-</div>
-
-<h2 id="archive">Everything else</h2>
-<p>All the earlier pages (Experiments C to G, the briefing, setup and shop pages, the Simulation Lab, papers) are kept exactly where they were. They are folded away so the focus stays on Round 1.</p>
-<details class="r1-archive" id="archive-details">
-<summary><span class="btn-like">Archive: all other pages</span></summary>
-<div class="arch-body">
+<p class="kicker">Archive</p>
+<h1>Archive: every other page</h1>
+<p class="lede">The hub is now focused on <a href="index.html">Round 1</a>. Nothing was deleted or moved: every earlier page still lives at its old address. This page lists them all.</p>
+<div class="r1-note"><strong>Round 1 pages:</strong> <a href="exp-1296.html">1.3 GHz sphere</a> · <a href="exp-433.html">433.59 MHz sphere</a> · <a href="exp-2450.html">2.45 GHz sphere</a> · <a href="oven.html">Microwave oven</a> · <a href="todo.html">To-Do</a> · <a href="range-finder.html">Range finder</a> · <a href="joule-loss.html">Joule loss</a> · <a href="vna-howto.html">VNA how-to</a> · <a href="rod-jig/">Rod jigs</a></div>
 <div class="arch-groups">
 <section><h3>Experiments A to G, the previous overview</h3><ul>
 <li><a href="experiments-a-g.html">Experiments A to G overview (the previous home page, tabs for A to G and the shared kit)</a></li>
@@ -184,12 +122,56 @@
 <section><h3>Search</h3><ul>
 <li><a href="search.html">Search the whole site</a></li>
 </ul></section>
+<section><h3>Original GitHub Pages (separate repositories)</h3><ul>
+<li><a href="https://9wzg44nz44-glitch.github.io/Educational-Briefing-of-Scalar-Longitudinal-Wave-Topic-Nikolova-Zimmerman-and-Hively/">Educational briefing</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/Hively-Style-SLW-Bifilar-Pancake-Coil-Calculator/">Bifilar pancake calculator</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/Interactive-SNR-SLW-Webpage/">Interactive SNR webpage</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/Combined-SNR-plot-for-both-Hively-and-Nikolova-Zimmerman/">Combined SNR plot</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/Cross-Sectional-SLW-SNR-estimator/">Cross-sectional SNR estimator</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/Hively-SNR-Simulator/">Hively SNR simulator</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/Different-Antenna-Types-for-the-Hively-or-Nikolova-Zimmerman-configurations-mixed-and-matched/">Mix-and-match antennas</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/How-the-Nikolova-Zimmerman-Plasma-tube-Detector-Works/">Plasma-tube detector</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/Why-does-Hively-bifilar-coil-detector-interact-with-SLW/">Why the bifilar interacts</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/No-Skin-effect-3D-plots/">No-skin-effect simulator</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/Make-a-Balun-skirt-for-the-RG-405U-transmitting-cable-at-the-radiating-end/">RG-405 skirt balun (historical)</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/Nikolova-Zimmerman_SLW_Simulation_2007_Paper/">CEM-R-46 2007 simulator</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/Meyl-Hively-Nikolova-Zimmerman/">Meyl, Hively, Nikolova, Zimmerman map</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/Meryl-Theory-Detailed-then-Compared-with-Nikolova-Zimmerman-and-Hively-/">Meyl from the ground up</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/Linearly-Resistive-Media-submerged-to-outer-space/">Linearly resistive media</a></li>
+<li><a href="https://9wzg44nz44-glitch.github.io/Proposed-Experiment---Hively-and-Microwave-Oven/">Proposed oven experiment (earlier proposal; see the new oven page for Round 1)</a></li>
+<li><a href="https://github.com/9wzg44nz44-glitch/3D-Field-Patterns-of-SLW-for-Nikolova-Zimmerman-and-Hively">3D field patterns (repository; the Pages site returned 404)</a></li>
+</ul></section>
+<section><h3>Papers (PDF)</h3><ul>
+<li><a href="papers/Avsharov-Toroidal-Currents-EN.pdf">Avsharov Toroidal Currents EN</a></li>
+<li><a href="papers/Avsharov-Toroidal-Currents.pdf">Avsharov Toroidal Currents</a></li>
+<li><a href="papers/Chiao-2007-arxiv-0710.1378-gravity-radio.pdf">Chiao 2007 arxiv 0710.1378 gravity radio</a></li>
+<li><a href="papers/Chiao-2017-Aerospace-Workshop-SSI.pdf">Chiao 2017 Aerospace Workshop SSI</a></li>
+<li><a href="papers/Chiao-arxiv-1301.4270.pdf">Chiao arxiv 1301.4270</a></li>
+<li><a href="papers/Chiao-et-al-2023-PRA-107-042209.pdf">Chiao et al 2023 PRA 107 042209</a></li>
+<li><a href="papers/Dubovik-Cheshkov-1967-JETP-Form-Factors-Multipoles.pdf">Dubovik Cheshkov 1967 JETP Form Factors Multipoles</a></li>
+<li><a href="papers/Hively-2026-09-05-Decay-Rate-Variability-Chemical-Compounds.pdf">Hively 2026 09 05 Decay Rate Variability Chemical Compounds</a></li>
+<li><a href="papers/Hively-Land-2021-JPCS-Extended-electrodynamics-and-SHP.pdf">Hively Land 2021 JPCS Extended electrodynamics and SHP</a></li>
+<li><a href="papers/Hively-Land-IARD-2020-EED-and-SHP-slides.pdf">Hively Land IARD 2020 EED and SHP slides</a></li>
+<li><a href="papers/Hively-Loebl-2019-Physics-Essays-Classical-and-extended-electrodynamics.pdf">Hively Loebl 2019 Physics Essays Classical and extended electrodynamics</a></li>
+<li><a href="papers/Hively-US9306527B1-Scalar-Longitudinal-Waves.pdf">Hively US9306527B1 Scalar Longitudinal Waves</a></li>
+<li><a href="papers/Hubler-2023-AHE-phonon-resonance-JCMNS-38.pdf">Hubler 2023 AHE phonon resonance JCMNS 38</a></li>
+<li><a href="papers/Monstein-Wesley-2002-EPL-Scalar-Longitudinal-Waves.pdf">Monstein Wesley 2002 EPL Scalar Longitudinal Waves</a></li>
+<li><a href="papers/NASA-CR-2005-213749-Alexander-Advanced-Energetics-Vol-II.pdf">NASA CR 2005 213749 Alexander Advanced Energetics Vol II</a></li>
+<li><a href="papers/Nikolova-Zimmerman-2007-CEM-R-46-Detection-EM-Potential-1.3GHz.pdf">Nikolova Zimmerman 2007 CEM R 46 Detection EM Potential 1.3GHz</a></li>
+<li><a href="papers/QED-NE-Newsletter-No4-Winter-2025.pdf">QED NE Newsletter No4 Winter 2025</a></li>
+<li><a href="papers/Tomilin-Lukin-Gulkov-2021-TechPhysLett-Marine-Radio-Channel.pdf">Tomilin Lukin Gulkov 2021 TechPhysLett Marine Radio Channel</a></li>
+<li><a href="papers/US12525711-Navy-SLW-Antenna.pdf">US12525711 Navy SLW Antenna</a></li>
+<li><a href="papers/US12562930-Navy-Sensor-System.pdf">US12562930 Navy Sensor System</a></li>
+<li><a href="papers/Works-Works-2012-QEX-Confirmation-Measurements-Vector-Potential-Waves.pdf">Works Works 2012 QEX Confirmation Measurements Vector Potential Waves</a></li>
+<li><a href="papers/Yue-et-al-2021-Electron-Vortices-Laser-Plasma.pdf">Yue et al 2021 Electron Vortices Laser Plasma</a></li>
+<li><a href="papers/Zhvirblis-1995-The-Bagel-Game-Greenyer-tr.pdf">Zhvirblis 1995 The Bagel Game Greenyer tr</a></li>
+<li><a href="papers/Zimmerman-2011-MPLB-Macroscopic-Aharonov-Bohm-L-band.pdf">Zimmerman 2011 MPLB Macroscopic Aharonov Bohm L band</a></li>
+<li><a href="papers/Zimmerman-2011-QEX-Longitudinally-Polarized-Momentum-Waves.pdf">Zimmerman 2011 QEX Longitudinally Polarized Momentum Waves</a></li>
+<li><a href="papers/Zimmerman-2013-JAP-Plasma-antenna-vector-potential-1.3GHz.pdf">Zimmerman 2013 JAP Plasma antenna vector potential 1.3GHz</a></li>
+</ul></section>
 </div>
 
-<p><a href="archive.html">Open the archive as its own page</a>, which also lists the papers and the original GitHub Pages.</p>
-</div>
-</details>
-<p class="footnote">Existing page addresses have not changed. The previous home page is now <a href="experiments-a-g.html">experiments-a-g.html</a>.</p>
+<p class="footnote">Older pages may describe rods as an Experiment B item only, or list the earlier A to G numbering. The Round 1 plan supersedes that for scheduling; the old pages are kept as written. Some of the "Original GitHub Pages" are separate repositories and may change independently of this hub.</p>
 </main>
 <footer class="site">
   <div class="wrap">

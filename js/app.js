@@ -36,7 +36,7 @@
   else if (file === "experiment-g.html") active = "g";
   else if (groupB.has(file)) active = "b";
   else if (groupA.has(file)) active = "a";
-  else if (file === "index.html") {
+  else if (file === "index.html" || file === "experiments-a-g.html") {
     if (hash === "expt-b") active = "b";
     else if (hash === "expt-c") active = "c";
     else if (hash === "expt-a" || hash === "kit" || !hash) active = hash === "expt-c" ? "c" : hash === "expt-b" ? "b" : hash === "expt-a" ? "a" : "";
@@ -47,9 +47,10 @@
   nav.className = "expt-abc";
   nav.setAttribute("aria-label", "Jump to Experiment A, B, or C");
   nav.innerHTML =
+    '<a class="expt-abc-sub" href="index.html">&larr; Round 1</a>' +
     '<span class="expt-abc-label">Experiments</span>' +
-    '<a class="expt-abc-btn" data-expt="a" href="index.html#expt-a"><span class="k">A</span> 1296 MHz</a>' +
-    '<a class="expt-abc-btn" data-expt="b" href="index.html#expt-b"><span class="k">B</span> 433 MHz</a>' +
+    '<a class="expt-abc-btn" data-expt="a" href="experiments-a-g.html#expt-a"><span class="k">A</span> 1296 MHz</a>' +
+    '<a class="expt-abc-btn" data-expt="b" href="experiments-a-g.html#expt-b"><span class="k">B</span> 433 MHz</a>' +
     '<a class="expt-abc-btn" data-expt="c" href="experiment-c.html"><span class="k">C</span> 1S–2S</a>' +
     '<a class="expt-abc-btn" data-expt="d" href="https://9wzg44nz44-glitch.github.io/Experiment-D-Hypersonic-Plasma-Shear-SLW/"><span class="k">D</span> hypersonic</a>' +
     '<a class="expt-abc-btn" data-expt="e" href="https://9wzg44nz44-glitch.github.io/Experiment-E-Exodus-Capacitor-SLW-SW/"><span class="k">E</span> Exodus</a>' +
@@ -60,7 +61,7 @@
     '<a class="expt-abc-sub" href="experiment-c-snr.html">C SNR</a>' +
     '<a class="expt-abc-sub" href="experiment-c-cart.html">C cart</a>' +
     '<a class="expt-abc-sub" href="kit.html">Kit</a>' +
-    '<a class="expt-abc-sub" href="index.html">Home</a>';
+    '<a class="expt-abc-sub" href="archive.html">Archive</a>';
 
   nav.querySelectorAll("[data-expt]").forEach((a) => {
     if (a.getAttribute("data-expt") === active) {
@@ -78,7 +79,7 @@
   else document.body.insertAdjacentElement("afterbegin", nav);
 
   window.addEventListener("hashchange", () => {
-    if (file !== "index.html") return;
+    if (file !== "index.html" && file !== "experiments-a-g.html") return;
     const h = (location.hash || "").replace(/^#/, "").toLowerCase();
     const map = { "expt-a": "a", "expt-b": "b", "expt-c": "c" };
     const next = map[h] || "";

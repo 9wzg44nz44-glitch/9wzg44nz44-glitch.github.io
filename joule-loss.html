@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joule loss and power balance · SLW Hub</title>
+<meta name="description" content="What can be measured about Joule loss with the polarising-rod attenuator at 433.59, 1296 and 2450 MHz: insertion loss, brass versus W1 tests, power balance limits and calculators.">
+<meta name="author" content="Dan Britton">
+<link rel="canonical" href="https://9wzg44nz44-glitch.github.io/joule-loss.html">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<link rel="stylesheet" href="/assets/round1.css">
+<script src="/assets/site-search.js" defer></script>
+<script src="/assets/share-button.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav" aria-label="Main">
+      <a href="index.html">Round 1</a>
+      <a href="todo.html">To-Do</a>
+      <a href="range-finder.html">Range finder</a>
+      <a href="joule-loss.html">Joule loss</a>
+      <a href="vna-howto.html">VNA how-to</a>
+      <a href="archive.html">Archive</a>
+    </nav>
+  </div>
+</header>
+<nav id="expt-abc" class="expt-abc" aria-label="Round 1 experiments">
+  <span class="expt-abc-label">Round 1</span>
+  <a class="expt-abc-btn" href="exp-1296.html"><span class="k">1.3</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="exp-433.html"><span class="k">433</span> MHz sphere</a>
+  <a class="expt-abc-btn" href="exp-2450.html"><span class="k">2.45</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="oven.html"><span class="k">oven</span> 2.45 GHz</a>
+  <a class="expt-abc-sub" href="todo.html">To-Do</a>
+  <a class="expt-abc-sub" href="range-finder.html">Range finder</a>
+  <a class="expt-abc-sub" href="joule-loss.html" aria-current="page">Joule loss</a>
+</nav>
+<main id="main" class="wrap r1-wrap">
+
+<p class="kicker">Round 1 · analysis · draft v0.1</p>
+<h1>Joule loss and power balance</h1>
+<p class="lede">Can we measure how much of the transmitted wave is lost as Joule heating, using the polarising-rod attenuator at each frequency? Short answer: we can measure the <em>insertion loss</em> and its dependence on rod angle, material and frequency very well. We cannot, with a VNA and a spectrum analyzer alone, separate rod heating from rod scattering. This page says exactly what is and is not measurable, gives a test that can separate the main loss readings, and offers calculators.</p>
+<div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Mainstream electrodynamics treats free-space radio as transverse (TEM). A longitudinal or scalar component is a hypothesis we are testing, and nothing on these pages claims that scalar or longitudinal waves have been detected. Values marked <span class="r1-badge prop">proposal</span> are our suggestions and are not measured or sourced. Draft v0.1, 4 Oct 2026, written by Grok Bot for Dan Britton.</div>
+<div class="r1-note"><strong>Framing rule carried over from the hub.</strong> Under the SLW hypothesis the hub does not use skin-depth, permeability or ferromagnetic arguments to rank or dismiss SLW or SW (see <a href="sim-lab/loss-modes/">loss-modes</a>). Section 5 computes those quantities anyway, but only as the <em>ordinary-physics (TEM) control</em>: the number a transverse-wave explanation predicts, so that data can be compared with it. Those lines are tagged "transverse-EM reasoning, not applicable under the SLW hypothesis".</div>
+<ul class="r1-toc" aria-label="On this page">
+ <li><a href="#meanings">What "Joule loss" can mean</a></li><li><a href="#measurable">What is measurable</a></li><li><a href="#rod">Rod attenuator model</a></li><li><a href="#predictions">Predictions</a></li><li><a href="#tem">TEM control</a></li><li><a href="#balance">Power balance</a></li><li><a href="#calc">Calculators</a></li><li><a href="#oven">Oven</a></li><li><a href="#limits">Limits and falsifiers</a></li><li><a href="#sources">Sources</a></li>
+</ul>
+
+<h2 id="meanings">1. Three things people mean by "Joule loss"</h2>
+<ol>
+<li><strong>Insertion loss of the rod array</strong>: how many dB the received signal drops when the rods are in. <span class="r1-badge fact">measurable</span> directly from S21 or from the spectrum analyzer.</li>
+<li><strong>Power actually turned into heat in the rods</strong>. <span class="r1-badge warn">not directly measurable here</span>. At milliwatt drive the heating is of order micro-kelvin (<a href="sim-lab/rod-thermal/">rod-thermal</a>), far below any thermometer we have. It has to be inferred.</li>
+<li><strong>The Joule term &sigma;E<sub>&#8741;</sub>&sup2; in the theory</strong>. In Monstein and Wesley (2002) it is the whole explanation of the rod curve (Eq. 7 to 9). Hively and Loebl's later papers disagree with each other about whether an SLW has resistive loss at all (<a href="sim-lab/joule-loss-positions/">joule-loss-positions</a>). <span class="r1-badge hyp">model</span></li>
+</ol>
+<p>The experiment can measure (1) and use materials and frequencies to test which version of (3) is consistent. It cannot, on its own, give (2).</p>
+
+<h2 id="measurable">2. What is measurable, and what each number does and does not tell you</h2>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Quantity</th><th scope="col">How</th><th scope="col">Tells you</th><th scope="col">Does not tell you</th></tr></thead>
+<tbody>
+<tr><th scope="row">S21(&phi;) magnitude, rods in, angle &phi;</th><td>VNA, CW at the carrier or a narrow sweep; or TinySA peak hold</td><td>Insertion loss versus rod angle; &kappa; and the aligned-angle loss</td><td>Whether the lost power was absorbed or scattered</td></tr>
+<tr><th scope="row">S21 with rods out, plates only</th><td>Same, same cal</td><td>Reference level T<sub>0</sub>; plate effect</td><td></td></tr>
+<tr><th scope="row">S11 of the TX sphere, rods in versus out</th><td>VNA port 1</td><td>Whether the rods change the TX match (reflection) enough to matter</td><td>Anything about the RX side</td></tr>
+<tr><th scope="row">&kappa; for brass versus W1, same geometry</th><td>Two scans</td><td>Whether loss depends on conductivity</td><td>The mechanism, if it does not</td></tr>
+<tr><th scope="row">&kappa; versus band</th><td>Three benches</td><td>How loss scales with rod length and frequency</td><td>Geometry effects are mixed in: rod diameter is fixed at 1/8 in, so L/D changes by 109, 36 and 19</td></tr>
+<tr><th scope="row">1 - |S11|&sup2; - |S21|&sup2;</th><td>VNA</td><td>Power not returned to either port</td><td>For two antennas in open air it includes all radiation to elsewhere; see section 6</td></tr>
+<tr><th scope="row">Heat in a rod</th><td>Thermocouple or IR camera</td><td>Real absorbed power</td><td>Not feasible at milliwatts; would need watts, and the oven is the only watt-level source (never with rods inside it)</td></tr>
+</tbody></table></div>
+
+<h2 id="rod">3. The rod attenuator model</h2>
+<p><span class="r1-badge fact">fact (as published)</span> Monstein and Wesley, p. 516 to 517: only the E component along a wire, E<sub>0</sub> cos &phi;, produces Ohmic loss. Eq. (7): &delta;P = -&sigma;A E<sub>0</sub>&sup2; cos&sup2;&phi; &delta;L. Eq. (8): &delta;&lang;S&rang; = -(&sigma;/c) cos&sup2;&phi; &lang;S&rang; &delta;L. Eq. (9): <strong>T = exp[-&kappa; cos&sup2;&phi;]</strong>, with &kappa; "a constant proportional to the length L of the wire". Their fit used &kappa; = 4.4 for brass at 433.59 MHz; &kappa; was fitted, not computed from &sigma;.</p>
+<div class="eqn">T(&phi;) = T<sub>0</sub> exp[-&kappa; cos&sup2;(&phi; - &phi;<sub>0</sub>)]  ⇔  level(dB) = L<sub>0</sub> - 4.343 &kappa; cos&sup2;(&phi; - &phi;<sub>0</sub>)</div>
+<p>For &kappa; = 4.4 the loss with the rods aligned (&phi; = &phi;<sub>0</sub>) is 19.1 dB (T = 0.012). The calculator below fits this form by least squares (the angle &phi;<sub>0</sub> is scanned, L<sub>0</sub> and &kappa; are linear) and reports a standard error.</p>
+<p><span class="r1-badge fact">fact</span> A wire array attenuates the field component along its wires for an ordinary transverse wave too (it is a wire-grid polariser). So a good fit to this form does not distinguish an SLW from a TEM wave. What can be compared is how &kappa; behaves.</p>
+
+<h2 id="predictions">4. Predictions that can be tested (and would fail)</h2>
+<p>The hub's <a href="sim-lab/rod-thermal/">rod-thermal</a> page gives three readings of rod loss under the SLW framing; the table adds the ordinary scattering reading as a control. The ratio and scaling columns are what the two brass-versus-W1 scans and the three bands can measure.</p>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Reading</th><th scope="col">&kappa;(W1) / &kappa;(brass)</th><th scope="col">&kappa; versus band (same material, &lambda;/2 rods)</th><th scope="col">Basis</th></tr></thead>
+<tbody>
+<tr><th scope="row">Joule-literal (M&W Eq. 7 to 9, &kappa; &prop; &sigma; L)</th><td>&sigma;<sub>W1</sub>/&sigma;<sub>brass</sub> = 0.36 (annealed), 0.27 (hardened)</td><td>&prop; L &prop; 1/f: 1 : 0.334 : 0.177 for 433.59 : 1296 : 2450 MHz</td><td><span class="r1-badge hyp">hypothesis</span> M&W equations taken literally with &sigma; from the table in section 5</td></tr>
+<tr><th scope="row">Energy-capped Joule (hub S1-capped)</th><td>1.0</td><td>Set by the intercepted area, not predicted here</td><td><span class="r1-badge hyp">hypothesis</span> (rod-thermal)</td></tr>
+<tr><th scope="row">Charge relaxation only (hub S2)</th><td>No prediction for the received signal</td><td>None</td><td><span class="r1-badge hyp">hypothesis</span>; effect on heating negligible (rod-thermal)</td></tr>
+<tr><th scope="row">Ordinary scattering by good conductors (control)</th><td>about 1.0</td><td>About constant if the geometry were scaled exactly; drifts here because rod diameter is fixed</td><td><span class="r1-badge fact">fact</span> for the wire-grid picture; transverse-EM reasoning, not applicable under the SLW hypothesis</td></tr>
+</tbody></table></div>
+<p><strong>The test.</strong> Run the identical scan with brass and then W1 rods (same plates, same positions). If &kappa;(W1)/&kappa;(brass) is near 0.36 or 0.27 with a small error, the literal Joule reading is favoured and scattering is not the whole story. If it is near 1, the literal reading is disfavoured. If it matches neither, something else (fixture repeatability, W1 magnetism, rod length error) is at work. Then check the band scaling with the same material. <span class="r1-badge prop">proposal</span> Decide the acceptance thresholds before taking data.</p>
+
+<h2 id="tem">5. Ordinary-physics control: skin depth and rod resistance</h2>
+<p><span class="r1-badge fact">fact</span> (transverse-EM reasoning, not applicable under the SLW hypothesis) The skin depth is &delta; = 1/&radic;(&pi; f &mu;<sub>0</sub>&mu;<sub>r</sub> &sigma;) and the surface resistance is R<sub>s</sub> = 1/(&sigma;&delta;). Conductivities and sources:</p>
+<ul>
+<li>Brass C36000: 26% IACS, resistivity 6.63 &micro;&Omega;&middot;cm, &sigma; = 1.508 &times; 10<sup>7</sup> S/m (Aviva Metals data sheet; MakeItFrom C36000).</li>
+<li>W1 annealed: resistivity 0.185 &micro;&Omega;&middot;m (EngMats C80W1; a steel-mill datasheet gives 0.20 &Omega;&middot;mm&sup2;/m = 5.0 &times; 10<sup>6</sup> S/m; the hub's rod-thermal page uses 5.0 &times; 10<sup>6</sup> from MetalZenith 0.18 to 0.22 &micro;&Omega;&middot;m), &sigma; = 5.4 &times; 10<sup>6</sup> S/m used here.</li>
+<li>W1 hardened: 7.1% IACS (MakeItFrom, hardened W1), &sigma; = 4.1 &times; 10<sup>6</sup> S/m. The hub's rod-thermal page uses 3.3 &times; 10<sup>6</sup> S/m (MatWeb, 30 &micro;&Omega;&middot;cm). The spread is real; measure your rods' resistance if it matters.</li>
+<li>Copper: 5.8 &times; 10<sup>7</sup> S/m (IACS definition).</li>
+<li>W1 relative permeability: <span class="r1-badge warn">not sourced</span>. W1 is a plain carbon steel and ferromagnetic, but we found no value at GHz. The last row uses &mu;<sub>r</sub> = 100 purely as an <span class="r1-badge prop">assumption</span> to show the sensitivity; the effective permeability of steel at hundreds of MHz is usually far lower than the low-frequency value, and it needs measuring.</li>
+</ul>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Material</th><th scope="col">&sigma; (S/m)</th><th scope="col">&delta; at 433.59 MHz (&micro;m)</th><th scope="col">R<sub>s</sub> at 433.59 MHz (m&Omega;)</th><th scope="col">&delta; at 1296 MHz (&micro;m)</th><th scope="col">R<sub>s</sub> at 1296 MHz (m&Omega;)</th><th scope="col">&delta; at 2450 MHz (&micro;m)</th><th scope="col">R<sub>s</sub> at 2450 MHz (m&Omega;)</th></tr></thead>
+<tbody><tr><th scope="row">Brass C36000</th><td>1.51e+07</td><td>6.22</td><td>10.7</td><td>3.60</td><td>18.4</td><td>2.62</td><td>25.3</td></tr><tr><th scope="row">W1, annealed</th><td>5.4e+06</td><td>10.40</td><td>17.8</td><td>6.02</td><td>30.8</td><td>4.38</td><td>42.3</td></tr><tr><th scope="row">W1, hardened</th><td>4.1e+06</td><td>11.94</td><td>20.4</td><td>6.90</td><td>35.3</td><td>5.02</td><td>48.6</td></tr><tr><th scope="row">Copper (reference)</th><td>5.8e+07</td><td>3.17</td><td>5.4</td><td>1.84</td><td>9.4</td><td>1.34</td><td>12.9</td></tr><tr><th scope="row">W1, annealed, if &mu;<sub>r</sub> = 100 (assumption)</th><td>5.4e+06</td><td>1.04</td><td>178.0</td><td>0.60</td><td>307.8</td><td>0.44</td><td>423.2</td></tr></tbody></table></div>
+<p>All depths are a few micrometres, far below the 1.5875 mm rod radius, so a TEM wave sees every one of these rods as a good conductor and mostly reflects or scatters it. The calculator estimates, for a resonant half-wave rod, the fraction of intercepted power that becomes heat: about 0.1 to 0.5% for brass and W1 with &mu;<sub>r</sub> = 1, up to a few percent if W1 behaved with &mu;<sub>r</sub> = 100. <strong>If the measured insertion loss is 10 to 20 dB while a TEM estimate of heating is well under 1% of intercepted power, nearly all of the TEM loss is scattering.</strong> That is why S21 alone cannot give Joule heating.</p>
+
+<h2 id="balance">6. Power balance, and the limit of what S-parameters can tell you</h2>
+<p>For power incident from the TX port, conservation gives:</p>
+<div class="eqn">P<sub>in</sub> = P<sub>reflected</sub> + P<sub>received</sub> + P<sub>absorbed in rods</sub> + P<sub>scattered elsewhere</sub> + P<sub>other losses</sub></div>
+<p>The VNA gives P<sub>reflected</sub> = |S11|&sup2;P<sub>in</sub> and P<sub>received</sub> = |S21|&sup2;P<sub>in</sub>. Two cases:</p>
+<ul>
+<li><strong>A true two-port fixture</strong> (everything the RX does not get goes into the fixture): dissipated fraction = 1 - |S11|&sup2; - |S21|&sup2;. Valid if nothing radiates away. It does not hold for two antennas in open air.</li>
+<li><strong>Two antennas in air</strong> (our case): use the <em>difference</em> between rods in and rods out with an identical setup. The fraction of received power the rods remove is 1 - T<sub>in</sub>/T<sub>out</sub>. The part of that which shows up as extra input reflection is small unless the rods detune the TX. The rest is absorbed <em>or</em> scattered away from the RX, and S-parameters cannot split those.</li>
+</ul>
+<p><strong>What can split them.</strong></p>
+<ol>
+<li><strong>Material swap</strong> (section 4): scattering by a good conductor is nearly the same for brass and W1, absorption is not (if the absorption model holds). A change in loss between materials is an absorption difference.</li>
+<li><strong>Closed-box power balance</strong> <span class="r1-badge prop">proposal</span>: put the rod array inside a small shielded enclosure fed by two ports through the walls, measure S11 and S21 with and without rods. Then 1 - |S11|&sup2; - |S21|&sup2; is wall plus rod dissipation, and the empty-box value removes the walls. This does not reproduce free-space propagation, so it tests the rods as absorbers, not the free-space claim.</li>
+<li><strong>Anechoic or reverberation chamber</strong>: integrates all scattered power. Not available to us.</li>
+<li><strong>Calorimetry</strong>: needs watts. Only the oven is that strong (see section 8, and never with rods inside).</li>
+</ol>
+
+<h2 id="calc">7. Calculators</h2>
+<p>All run in your browser. Level can be dB or dBm because only differences are used. Rod angle &phi; is the angle between the rotating array's rods and your chosen zero; the fit finds where the loss is greatest.</p>
+<div class="calc" id="calc-frac">
+  <h3>A. Dissipated or unaccounted fraction: 1 - |S11|&sup2; - |S21|&sup2;</h3>
+  <div class="calc-grid"><div><label for="s11">S11 (dB)</label><input type="number" id="s11" value="-10" step="any"></div><div><label for="s21">S21 (dB)</label><input type="number" id="s21" value="-3" step="any"></div></div>
+  <div class="row"><button type="button" class="primary" id="run-frac">Compute</button></div>
+  <div class="out" id="out-frac" aria-live="polite">Enter S-parameters in dB (negative numbers).</div>
+  <p class="footnote">Only meaningful for a closed two-port. For open-air antennas use B.</p>
+</div>
+<div class="calc" id="calc-inout">
+  <h3>B. Rods in versus rods out</h3>
+  <div class="calc-grid">
+   <div><label for="io-s21out">S21 rods out (dB)</label><input type="number" id="io-s21out" value="-60" step="any"></div><div><label for="io-s21in">S21 rods in (dB)</label><input type="number" id="io-s21in" value="-72" step="any"></div>
+   <div><label for="io-s11out">S11 rods out (dB)</label><input type="number" id="io-s11out" value="-8" step="any"></div><div><label for="io-s11in">S11 rods in (dB)</label><input type="number" id="io-s11in" value="-8" step="any"></div>
+  </div>
+  <div class="row"><button type="button" class="primary" id="run-inout">Compute</button></div>
+  <div class="out" id="out-inout" aria-live="polite">Defaults are placeholders, not measurements.</div>
+</div>
+<div class="calc" id="calc-fit">
+  <h3>C. Rod-scan fit and brass versus W1</h3>
+  <p>Paste <code>rod angle in degrees, level in dB</code> from one scan. Fit it, then store it as the brass or the W1 result. When both are stored the comparison appears.</p>
+  <div class="calc-grid">
+    <div><label for="fit-band">Band (for the TEM control and the scaling note)</label><select id="fit-band"><option value="433.59">433.59 MHz</option><option value="1296">1296 MHz</option><option value="2450">2450 MHz</option></select></div>
+    <div><label for="fit-w1">W1 conductivity to compare with</label><select id="fit-w1"><option value="5.4e6">annealed, 5.4e6 S/m</option><option value="4.1e6">hardened, 4.1e6 S/m</option></select></div>
+  </div>
+  <label for="in-fit">Scan data</label><textarea id="in-fit" spellcheck="false" placeholder="# angle_deg, level_dB"></textarea>
+  <div class="row"><button type="button" class="primary" id="run-fit">Fit this scan</button><button type="button" id="store-brass">Store as brass</button><button type="button" id="store-w1">Store as W1</button><button type="button" id="ex-fit">Load synthetic example</button><button type="button" id="clear-fit">Clear stored</button></div>
+  <div class="out" id="out-fit" aria-live="polite">Results appear here.</div>
+  <div class="out" id="out-cmp" aria-live="polite">Store a brass scan and a W1 scan to compare.</div>
+  <canvas id="plot-fit" role="img" aria-label="Plot of level in dB versus rod angle, measured points and fitted curve"></canvas>
+</div>
+<div class="calc" id="calc-skin">
+  <h3>D. Skin depth, surface resistance and rod heating (ordinary-physics control)</h3>
+  <div class="calc-grid">
+   <div><label for="sk-f">Frequency (MHz)</label><input type="number" id="sk-f" value="433.59" step="any"></div>
+   <div><label for="sk-sigma">Conductivity (S/m)</label><input type="number" id="sk-sigma" value="1.508e7" step="any"></div>
+   <div><label for="sk-mur">Relative permeability &mu;<sub>r</sub></label><input type="number" id="sk-mur" value="1" step="any" min="1"></div>
+   <div><label for="sk-L">Rod length (mm)</label><input type="number" id="sk-L" value="346" step="any"></div>
+   <div><label for="sk-d">Rod diameter (mm)</label><input type="number" id="sk-d" value="3.175" step="any"></div>
+  </div>
+  <div class="row"><button type="button" class="primary" id="run-skin">Compute</button></div>
+  <div class="out" id="out-skin" aria-live="polite">Transverse-EM reasoning, not applicable under the SLW hypothesis. A control number only.</div>
+</div>
+
+<h2 id="oven">8. The microwave oven: an equivalent power balance, done safely</h2>
+<div class="r1-note warn"><strong>Safety first.</strong> Never connect the VNA, a TinySA or any probe to the oven's antenna, waveguide or cavity. Never put rods, spheres or any metal inside a running oven. Never run it empty. Receive only, from outside, through an attenuator. The oven page has the full safety list.</div>
+<p>You cannot do the VNA two-port balance on an oven, because it is its own source. The equivalent pieces are:</p>
+<ol>
+<li><strong>What the magnetron delivers</strong>: water calorimetry in the cavity, P = m c &Delta;T / t, with m in kg, c = 4186 J/(kg&middot;K). A 1 kg load heated 10 K in 60 s corresponds to about 700 W (calculator E). Water-load calorimetry is the usual way to estimate oven output; a formal standard procedure exists (IEC 60705), so check its exact method before quoting any figure.</li>
+<li><strong>What leaks to the receiver</strong>: a receive-only 3/4 in sphere into a spectrum analyzer, through a fixed attenuator, at a fixed geometry. Record the level in dBm; convert to mW. Without a calibrated antenna this is a <em>relative</em> number. Use channel power across 2.40 to 2.50 GHz, not a single bin, because the magnetron frequency wanders.</li>
+<li><strong>What the rods do</strong>: the same rod scan as the other bands, now on the leaked signal. Fit &kappa; and compare with the sphere-transmitter &kappa; at 2.45 GHz and with the brass versus W1 ratio.</li>
+</ol>
+<p>Limit: this never gives the leaked fraction of the magnetron output, only changes in a relative level. Oven output varies with power setting (duty cycling), load and line voltage, so run at full power with a fixed load and repeat.</p>
+<div class="calc" id="calc-oven">
+  <h3>E. Calorimetry and dBm conversions</h3>
+  <div class="calc-grid">
+   <div><label for="ov-m">Water mass (kg)</label><input type="number" id="ov-m" value="1" step="any" min="0"></div>
+   <div><label for="ov-dt">Temperature rise (K)</label><input type="number" id="ov-dt" value="10" step="any"></div>
+   <div><label for="ov-t">Time (s)</label><input type="number" id="ov-t" value="60" step="any" min="0"></div>
+   <div><label for="ov-dbm">Analyzer reading (dBm)</label><input type="number" id="ov-dbm" value="-40" step="any"></div>
+   <div><label for="ov-att">Attenuator plus cable loss ahead of the analyzer (dB)</label><input type="number" id="ov-att" value="20" step="any" min="0"></div>
+  </div>
+  <div class="row"><button type="button" class="primary" id="run-oven">Compute</button></div>
+  <div class="out" id="out-oven" aria-live="polite">Defaults are placeholders, not measurements.</div>
+</div>
+
+<h2 id="limits">9. Limits and how this could fail</h2>
+<ul>
+<li>A good fit to T = exp(-&kappa; cos&sup2;&phi;) is expected from ordinary physics. It is not a detection.</li>
+<li>If brass and W1 give the same &kappa; and &kappa; does not scale as 1/f, the literal Joule reading is out. That is a useful result.</li>
+<li>If the TX sphere rotated 90&deg; moves the curve, the loss is tied to the transmitter's polarisation, as for an ordinary wave.</li>
+<li>The VNA phase and amplitude drift with temperature and cable movement; repeat runs and keep raw data.</li>
+<li>Near-field coupling, plate effects and the acrylic's dielectric loss all show up in S21. The plates-only baseline removes some of them.</li>
+<li>Everything labelled "proposal" (closed-box balance, thresholds, stub lengths at 2.45 GHz) is untested.</li>
+</ul>
+
+<h2 id="sources">10. Sources</h2>
+<ul>
+<li>C. Monstein and J. P. Wesley, Europhys. Lett. 59(4), 514 (2002), Eq. 7 to 9, Fig. 3. Summarised in <a href="sim-lab/joule-loss-positions/">joule-loss-positions</a> and <a href="sim-lab/loss-modes/">loss-modes</a>.</li>
+<li>Hub rod loss and thermal model: <a href="sim-lab/rod-thermal/">rod-thermal</a> (S0, S1, S1-capped, S2 readings; microkelvin heating).</li>
+<li>Material constants: Aviva Metals (C36000 data sheet); MakeItFrom (C36000, hardened W1); EngMats (C80W1); the hub's rod-thermal page (MetalZenith, MatWeb, copper.org). Values differ between suppliers, so treat them as uncertain by a few tens of percent.</li>
+<li>Skin effect and dipole loss resistance: C. A. Balanis, <em>Antenna Theory: Analysis and Design</em> (conductor loss of a dipole, R<sub>L</sub> proportional to length / wire circumference &times; R<sub>s</sub>).</li>
+<li>Oven leakage limit 5 mW/cm&sup2; at 5 cm: 21 CFR 1030.10 (as cited on the hub's rod-thermal page). Oven rating by water load: IEC 60705 (not consulted).</li>
+</ul>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Educational use only. These pages describe tests of hypotheses. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+<script src="/assets/r1-joulelib.js"></script>
+<script src="/assets/r1-rangelib.js"></script>
+<script src="/assets/r1-plot.js"></script>
+<script src="/assets/joule-loss.js"></script>
+</body>
+</html>

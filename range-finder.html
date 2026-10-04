@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Range finder and direction-finding dipoles · SLW Hub</title>
+<meta name="description" content="Automatic range finder and dipole direction finder for the Round 1 experiments: phase slope, time domain, two-ray nulls, null spacing, figure-eight fit and triangulation, with a tape-measure calibration table.">
+<meta name="author" content="Dan Britton">
+<link rel="canonical" href="https://9wzg44nz44-glitch.github.io/range-finder.html">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<link rel="stylesheet" href="/assets/round1.css">
+<script src="/assets/site-search.js" defer></script>
+<script src="/assets/share-button.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav" aria-label="Main">
+      <a href="index.html">Round 1</a>
+      <a href="todo.html">To-Do</a>
+      <a href="range-finder.html">Range finder</a>
+      <a href="joule-loss.html">Joule loss</a>
+      <a href="vna-howto.html">VNA how-to</a>
+      <a href="archive.html">Archive</a>
+    </nav>
+  </div>
+</header>
+<nav id="expt-abc" class="expt-abc" aria-label="Round 1 experiments">
+  <span class="expt-abc-label">Round 1</span>
+  <a class="expt-abc-btn" href="exp-1296.html"><span class="k">1.3</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="exp-433.html"><span class="k">433</span> MHz sphere</a>
+  <a class="expt-abc-btn" href="exp-2450.html"><span class="k">2.45</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="oven.html"><span class="k">oven</span> 2.45 GHz</a>
+  <a class="expt-abc-sub" href="todo.html">To-Do</a>
+  <a class="expt-abc-sub" href="range-finder.html" aria-current="page">Range finder</a>
+  <a class="expt-abc-sub" href="joule-loss.html">Joule loss</a>
+</nav>
+<main id="main" class="wrap r1-wrap">
+
+<p class="kicker">Round 1 · tool · draft v0.1</p>
+<h1>Range finder and direction-finding dipoles</h1>
+<p class="lede">How far apart are the transmitter and the receiver, and in which direction is the transmitter? This page defines the notation, says which parts are ordinary validated physics and which are hypotheses, and gives an in-browser calculator that turns VNA sweeps, null positions and dipole rotations into a range with an uncertainty. It works for the three sphere benches and, with limits, for the microwave oven.</p>
+<div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Mainstream electrodynamics treats free-space radio as transverse (TEM). A longitudinal or scalar component is a hypothesis we are testing, and nothing on these pages claims that scalar or longitudinal waves have been detected. Values marked <span class="r1-badge prop">proposal</span> are our suggestions and are not measured or sourced. Draft v0.1, 4 Oct 2026, written by Grok Bot for Dan Britton.</div>
+<ul class="r1-toc" aria-label="On this page">
+ <li><a href="#notation">Notation</a></li><li><a href="#idea">The idea, read honestly</a></li><li><a href="#status">Validated or hypothesis?</a></li><li><a href="#numbers">Numbers</a></li><li><a href="#tool">Calculator</a></li><li><a href="#df">Dipole direction finders</a></li><li><a href="#calibrate">Calibrate and falsify</a></li><li><a href="#sources">Sources</a></li>
+</ul>
+
+<h2 id="notation">1. Notation</h2>
+<ul>
+<li><strong>r</strong>: straight-line distance from the TX sphere centre to the RX sphere centre (the "range"). This is the hub's usual meaning (setup.html "range r is sphere-to-sphere").</li>
+<li><strong>x</strong>: horizontal ground distance between TX and RX, used only in the two-ray (ground-reflection) model, as in Monstein and Wesley (2002). With heights h<sub>1</sub>, h<sub>2</sub>: r = &radic;(x&sup2; + (h<sub>2</sub> - h<sub>1</sub>)&sup2;).</li>
+<li><strong>&lambda;</strong> = c/f in free space, c = 299 792 458 m/s. The S21 phase is simply called "phase" here, in degrees; &phi; is reserved for the rod angle on the Joule-loss page.</li>
+</ul>
+
+<h2 id="idea">2. The idea, read honestly</h2>
+<p>Monstein and Wesley saw signal minima at several distances along a street (39 m and 23 m confirmed, others "probably exist"). Their own model explains them as <strong>two-path interference</strong>: the direct wave plus a wave reflected from the ground. Null positions depend only on &lambda; and the two antenna heights (see the <a href="ranging/">ranging page</a>; for their geometry the model gives 119.2, 39.3, 23.0, 15.8 m). That is ordinary multipath, and it is useful: it means a TX and RX pair over a reflecting surface carries distance information with no extra hardware.</p>
+<p>So Dan's reading, that an "automatic range finder" is built into the Experiment B setup, is reasonable as an engineering idea, with one correction: the nulls are not SLW-specific, so seeing them says nothing about longitudinal waves. What we can test is whether the information can be read out <em>automatically and reliably</em> at 433.59 MHz, 1296 MHz and 2450 MHz, on the sphere benches and at the oven. The same VNA sweep we need anyway for the rod baselines also holds phase slope and ripple, so the readout can be a button.</p>
+<p><strong>Improvements on the first idea.</strong></p>
+<ol>
+<li><strong>Do not walk the receiver; sweep frequency.</strong> The null pattern moves with frequency, so the ripple in |S21| versus f gives the path difference without moving anything.</li>
+<li><strong>Phase slope.</strong> Over a clean single path, S21 phase falls by 360&deg; every c/r in frequency, so r = -(d phase/df) c/360. Two frequencies resolve it coarsely; one frequency refines it to a fraction of &lambda;.</li>
+<li><strong>Time-domain gating.</strong> A Hann-windowed inverse transform of the complex S21 shows the direct path and the ground bounce as separate peaks when they are farther apart than about c/B.</li>
+<li><strong>Self-consistency test for null series.</strong> A real two-ray series has 1/x<sub>n</sub> equally spaced; the calculator reports whether it is.</li>
+<li><strong>Triangulation.</strong> Two dipole bearings give r with no multipath assumption (and work on the oven, which has no coherent reference).</li>
+<li><strong>Tape-measure calibration table</strong> with a plot of estimate versus tape, so the claim "it works" is a number.</li>
+</ol>
+
+<h2 id="status">3. What is validated and what is hypothesis</h2>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Method</th><th scope="col">Status</th><th scope="col">Needs</th><th scope="col">How it fails (falsifier)</th></tr></thead>
+<tbody>
+<tr><th scope="row">Phase slope, S21 phase vs f</th><td><span class="r1-badge fact">validated physics</span> (stepped-frequency ranging; vna-howto.html section 8)</td><td>Clean line of sight, r above a few &lambda;, same cables for cal and run</td><td>Estimate versus tape has slope not equal to 1, or scatter above the quoted error</td></tr>
+<tr><th scope="row">Two-frequency and coarse-fine</th><td><span class="r1-badge fact">validated</span></td><td>Phase stable to a few degrees, no cable movement</td><td>Candidate list never contains the tape value</td></tr>
+<tr><th scope="row">Time-domain peak</th><td><span class="r1-badge fact">validated</span> (VNA time-domain mode)</td><td>Bandwidth B; resolution c/B (1.5 m at 200 MHz)</td><td>Earliest peak disagrees with the tape after a cable-delay correction</td></tr>
+<tr><th scope="row">Two-ray nulls and ripple period</th><td><span class="r1-badge fact">validated</span> for the model; Monstein and Wesley saw 2 of 4 predicted minima</td><td>Heights known to a few cm; open ground</td><td>Ripple period does not change as the model predicts when a height is changed</td></tr>
+<tr><th scope="row">Null spacing &lambda;/2 along a line</th><td><span class="r1-badge fact">validated</span> for a standing wave between two reflecting objects</td><td>Receiver moved in steps well below &lambda;/4</td><td>Spacing is not &lambda;/2 (the nulls come from something else)</td></tr>
+<tr><th scope="row">Dipole figure-eight, bearing</th><td><span class="r1-badge fact">validated</span> for the pattern of a dipole</td><td>Known polarisation, calibration on a known source</td><td>Peak direction wanders with turntable zero or cable position</td></tr>
+<tr><th scope="row">"The peak is end-on, so the wave is longitudinal"</th><td><span class="r1-badge hyp">hypothesis</span></td><td>Several ranges, several wavelengths out, TX rotated 90&deg;</td><td>End-on part dies as the ordinary near-field terms do, or follows the TX orientation</td></tr>
+<tr><th scope="row">"Built-in range finder" works automatically on 1.3 and 2.45 GHz and on the oven</th><td><span class="r1-badge hyp">hypothesis</span> (an engineering claim to be tested)</td><td>Tape-calibrated table of at least 5 ranges per band</td><td>Errors above the thresholds you set before looking at the data</td></tr>
+</tbody></table></div>
+
+<h2 id="numbers">4. Numbers for the three bands</h2>
+<p><span class="r1-badge fact">arithmetic</span> The null spacing in a standing-wave field is &lambda;/2. For the two-ray ground nulls the spacing is not constant; see the table below.</p>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Band</th><th scope="col">&lambda; (mm)</th><th scope="col">&lambda;/2 (mm)</th><th scope="col">&lambda;/(2&pi;) (mm)</th><th scope="col">Phase per mm of range (deg)</th></tr></thead>
+<tbody><tr><th scope="row">433.59 MHz</th><td>691.42</td><td>345.71</td><td>110.0</td><td>0.521</td></tr><tr><th scope="row">1.3 GHz</th><td>231.32</td><td>115.66</td><td>36.8</td><td>1.556</td></tr><tr><th scope="row">2.45 GHz</th><td>122.36</td><td>61.18</td><td>19.5</td><td>2.942</td></tr></tbody></table></div>
+<p>Dan's rule of thumb "34.6 cm, 11.6 cm, 6.1 cm" is &lambda;/2 and is correct (345.7, 115.7 and 61.2 mm).</p>
+<p><strong>Example, 2.45 GHz, both antennas 1.00 m above ground</strong> (effective heights 1.00 m + &lambda;/2, the Monstein and Wesley convention; <span class="r1-badge prop">proposal</span> geometry). Predicted nulls from the closed-form two-ray model:</p>
+<div class="r1-table-wrap"><table style="min-width:320px"><thead><tr><th scope="col">n</th><th scope="col">Path difference (mm)</th><th scope="col">Null at x (m)</th></tr></thead><tbody><tr><td>0</td><td>61.2</td><td>36.78</td></tr><tr><td>1</td><td>183.5</td><td>12.18</td></tr><tr><td>2</td><td>305.9</td><td>7.21</td></tr><tr><td>3</td><td>428.3</td><td>5.04</td></tr><tr><td>4</td><td>550.6</td><td>3.81</td></tr><tr><td>5</td><td>673.0</td><td>3.01</td></tr></tbody></table></div>
+<p class="footnote">These sit at the distances (4 to 33 m) the hub's near-field plan wants for the oven. Indoors, walls and the oven itself will add many more paths and this clean series will not appear.</p>
+
+<h2 id="tool">5. Calculator</h2>
+<p>Everything runs in your browser; nothing is uploaded. Paste numbers separated by commas, spaces or tabs; lines starting with # are ignored. The "Load synthetic example" buttons make clearly labelled fake data so you can see what the output looks like.</p>
+<div class="calc">
+  <div class="calc-grid">
+    <div><label for="carrier">Carrier frequency (MHz)</label><input type="number" id="carrier" value="1296" step="any" min="1"></div>
+    <div><label>Presets</label><div class="row"><button type="button" data-carrier="433.59">433.59</button><button type="button" data-carrier="1296">1296</button><button type="button" data-carrier="2450">2450</button></div></div>
+  </div>
+  <p class="footnote" id="band-info" aria-live="polite"></p>
+</div>
+
+<div role="tablist" class="tabs-r1" aria-label="Range-finder methods">
+  <button type="button" role="tab" id="tab-phase" aria-controls="panel-phase" data-rtab="phase" aria-selected="true">Phase slope</button>
+  <button type="button" role="tab" id="tab-time" aria-controls="panel-time" data-rtab="time" aria-selected="false" tabindex="-1">Time domain</button>
+  <button type="button" role="tab" id="tab-two" aria-controls="panel-two" data-rtab="two" aria-selected="false" tabindex="-1">Two frequencies</button>
+  <button type="button" role="tab" id="tab-nulls" aria-controls="panel-nulls" data-rtab="nulls" aria-selected="false" tabindex="-1">Null spacing</button>
+  <button type="button" role="tab" id="tab-tworay" aria-controls="panel-tworay" data-rtab="tworay" aria-selected="false" tabindex="-1">Two-ray nulls</button>
+  <button type="button" role="tab" id="tab-df" aria-controls="panel-df" data-rtab="df" aria-selected="false" tabindex="-1">Direction finding</button>
+</div>
+
+<section id="panel-phase" role="tabpanel" aria-labelledby="tab-phase" data-rpanel>
+ <div class="calc">
+  <h3>Phase slope</h3>
+  <p>Paste <code>frequency, S21 phase in degrees</code>, one row per VNA point (export from NanoVNA-QT or NanoVNA-Saver). Needs a through calibration with the TX and RX cables in place.</p>
+  <div class="calc-grid">
+    <div><label for="phase-unit">Frequency unit in the paste</label><select id="phase-unit"><option value="1e6" selected>MHz</option><option value="1e9">GHz</option><option value="1">Hz</option></select></div>
+    <div><label for="phase-sign">Phase convention</label><select id="phase-sign"><option value="-">Phase falls with frequency (S21 = -360 f r / c)</option><option value="+">Phase rises with frequency (flipped)</option></select></div>
+    <div><label for="phase-offset">Fixed offset to subtract (m)</label><input type="number" id="phase-offset" value="0" step="any"></div>
+    <div><label for="phase-tape">Tape-measured r (m, optional)</label><input type="number" id="phase-tape" step="any" min="0"></div>
+  </div>
+  <label for="in-phase">Data</label><textarea id="in-phase" spellcheck="false" placeholder="# frequency_MHz, phase_deg&#10;1250.0, 33.1&#10;1251.0, 30.9"></textarea>
+  <div class="row"><button type="button" class="primary" id="run-phase">Estimate range</button><button type="button" id="ex-phase">Load synthetic example</button></div>
+  <div class="out" id="out-phase" aria-live="polite">Results appear here.</div>
+  <canvas id="plot-phase" role="img" aria-label="Plot of unwrapped S21 phase versus frequency with the straight-line fit"></canvas>
+ </div>
+</section>
+
+<section id="panel-time" role="tabpanel" aria-labelledby="tab-time" data-rpanel hidden>
+ <div class="calc">
+  <h3>Time domain from a complex S21 sweep</h3>
+  <p>Paste <code>frequency, S21 magnitude in dB, S21 phase in degrees</code>. The sweep should be evenly spaced; a wider span separates close paths (resolution about c/B).</p>
+  <div class="calc-grid">
+    <div><label for="time-unit">Frequency unit</label><select id="time-unit"><option value="1e6" selected>MHz</option><option value="1e9">GHz</option><option value="1">Hz</option></select></div>
+    <div><label for="time-max">Largest range to scan (m)</label><input type="number" id="time-max" value="30" step="any" min="0.5"></div>
+    <div><label for="time-tape">Tape-measured r (m, optional)</label><input type="number" id="time-tape" step="any" min="0"></div>
+  </div>
+  <label for="in-time">Data</label><textarea id="in-time" spellcheck="false" placeholder="# frequency_MHz, S21_dB, S21_phase_deg"></textarea>
+  <div class="row"><button type="button" class="primary" id="run-time">Find peaks</button><button type="button" id="ex-time">Load synthetic example</button></div>
+  <div class="out" id="out-time" aria-live="polite">Results appear here.</div>
+  <canvas id="plot-time" role="img" aria-label="Plot of impulse response magnitude versus range"></canvas>
+ </div>
+</section>
+
+<section id="panel-two" role="tabpanel" aria-labelledby="tab-two" data-rpanel hidden>
+ <div class="calc">
+  <h3>Two frequencies, then one</h3>
+  <p>Take S21 phase at two close frequencies for a coarse (ambiguous) range, pick the right candidate with a tape or a third frequency, then use one frequency's phase to refine to a fraction of &lambda;.</p>
+  <div class="calc-grid">
+    <div><label for="two-unit">Frequency unit</label><select id="two-unit"><option value="1e6" selected>MHz</option><option value="1e9">GHz</option><option value="1">Hz</option></select></div>
+    <div><label for="two-f1">f1</label><input type="number" id="two-f1" step="any"></div><div><label for="two-p1">Phase at f1 (deg)</label><input type="number" id="two-p1" step="any"></div>
+    <div><label for="two-f2">f2</label><input type="number" id="two-f2" step="any"></div><div><label for="two-p2">Phase at f2 (deg)</label><input type="number" id="two-p2" step="any"></div>
+    <div><label for="two-max">Largest range to list (m)</label><input type="number" id="two-max" value="30" step="any"></div>
+    <div><label for="two-coarse">Coarse range for the fine step (m, optional)</label><input type="number" id="two-coarse" step="any"></div>
+  </div>
+  <div class="row"><button type="button" class="primary" id="run-two">Compute</button></div>
+  <div class="out" id="out-two" aria-live="polite">Results appear here.</div>
+ </div>
+</section>
+
+<section id="panel-nulls" role="tabpanel" aria-labelledby="tab-nulls" data-rpanel hidden>
+ <div class="calc">
+  <h3>Null spacing along a line</h3>
+  <p>Move the receiver along the TX to RX line in small steps and note where the signal dips. Paste one position per line. A spacing near &lambda;/2 shows a standing wave and gives you a length scale to calibrate the rail.</p>
+  <div class="calc-grid"><div><label for="nulls-unit">Position unit</label><select id="nulls-unit"><option value="1" selected>metres</option><option value="0.001">millimetres</option><option value="0.01">centimetres</option></select></div></div>
+  <label for="in-nulls">Null positions</label><textarea id="in-nulls" spellcheck="false" placeholder="# one position per line"></textarea>
+  <div class="row"><button type="button" class="primary" id="run-nulls">Analyse spacing</button></div>
+  <div class="out" id="out-nulls" aria-live="polite">Results appear here.</div>
+ </div>
+</section>
+
+<section id="panel-tworay" role="tabpanel" aria-labelledby="tab-tworay" data-rpanel hidden>
+ <div class="calc">
+  <h3>Two-ray ground nulls</h3>
+  <p>Predicts null distances x for a transmitter and receiver at heights h<sub>1</sub>, h<sub>2</sub> over ground, optionally compares with nulls you measured, and converts a ripple period into a distance.</p>
+  <div class="calc-grid">
+    <div><label for="tr-h1">TX height h1 (m)</label><input type="number" id="tr-h1" value="1.0" step="any" min="0"></div>
+    <div><label for="tr-h2">RX height h2 (m)</label><input type="number" id="tr-h2" value="1.0" step="any" min="0"></div>
+    <div><label for="tr-n">Number of nulls to list</label><input type="number" id="tr-n" value="6" min="1" max="12"></div>
+    <div><label for="tr-mode">Convention</label><select id="tr-mode"><option value="MW">Monstein and Wesley Eq. 17 (odd lambda/2)</option><option value="PEC">Ideal ground, horizontal polarisation (whole lambda)</option></select></div>
+    <div><label for="tr-delta">Extra path R' - R from the ripple (m, optional)</label><input type="number" id="tr-delta" step="any" min="0"></div>
+  </div>
+  <div class="row"><label><input type="checkbox" id="tr-eff" checked> Add &lambda;/2 to both heights (Monstein and Wesley's effective reflecting plane)</label></div>
+  <label for="in-tworay">Measured null positions along the ground (m, optional, one per line; three or more enable the series test)</label>
+  <textarea id="in-tworay" spellcheck="false"></textarea>
+  <div class="row"><button type="button" class="primary" id="run-tworay">Compute nulls</button><button type="button" id="ex-tworay">Load Monstein and Wesley example</button></div>
+  <div class="out" id="out-tworay" aria-live="polite">Results appear here.</div>
+  <canvas id="plot-tworay" role="img" aria-label="Plot of the two-ray multipath factor in dB versus horizontal distance on a log axis, with null positions marked"></canvas>
+ </div>
+</section>
+
+<section id="panel-df" role="tabpanel" aria-labelledby="tab-df" data-rpanel hidden>
+ <div class="calc">
+  <h3>Dipole direction finding: figure-eight fit</h3>
+  <p>Paste <code>turntable angle in degrees, level in dB</code> (or dBm; relative is fine) from a full rotation, 15&deg; steps or finer. The fit is P(&theta;) = a + b cos 2(&theta; - &theta;<sub>0</sub>) in linear power.</p>
+  <div class="calc-grid"><div><label for="df-bearing">Known bearing of the source on the same angle scale (deg, optional)</label><input type="number" id="df-bearing" step="any"></div></div>
+  <label for="in-df">Data</label><textarea id="in-df" spellcheck="false" placeholder="# angle_deg, level_dB"></textarea>
+  <div class="row"><button type="button" class="primary" id="run-df">Fit figure-eight</button><button type="button" id="ex-df">Load synthetic example</button></div>
+  <div class="out" id="out-df" aria-live="polite">Results appear here.</div>
+  <canvas id="plot-df" role="img" aria-label="Plot of received level in dB versus dipole angle, measured points and fitted figure-eight"></canvas>
+ </div>
+ <div class="calc">
+  <h3>Triangulation from two bearings</h3>
+  <p>Station positions in metres (x right, y forward) and bearings in degrees clockwise from +Y. The range is read from station 1.</p>
+  <div class="calc-grid">
+   <div><label for="tri-x1">Station 1 x</label><input type="number" id="tri-x1" value="0" step="any"></div><div><label for="tri-y1">Station 1 y</label><input type="number" id="tri-y1" value="0" step="any"></div><div><label for="tri-b1">Bearing 1 (deg)</label><input type="number" id="tri-b1" step="any"></div>
+   <div><label for="tri-x2">Station 2 x</label><input type="number" id="tri-x2" value="4" step="any"></div><div><label for="tri-y2">Station 2 y</label><input type="number" id="tri-y2" value="0" step="any"></div><div><label for="tri-b2">Bearing 2 (deg)</label><input type="number" id="tri-b2" step="any"></div>
+   <div><label for="tri-s">Bearing error to test (deg)</label><input type="number" id="tri-s" value="2" step="any" min="0"></div>
+  </div>
+  <div class="row"><button type="button" class="primary" id="run-tri">Triangulate</button></div>
+  <div class="out" id="out-tri" aria-live="polite">Results appear here.</div>
+ </div>
+</section>
+
+<h3 id="log">Tape-measure calibration table</h3>
+<p>This is how "it works" becomes a number. Each estimate above fills the boxes; add the row, then plot estimate versus tape. Rows are kept in this browser only.</p>
+<div class="calc">
+  <div class="calc-grid">
+    <div><label for="log-method">Method</label><input type="text" id="log-method" placeholder="phase slope"></div>
+    <div><label for="log-est">Estimate (m)</label><input type="number" id="log-est" step="any"></div>
+    <div><label for="log-tape">Tape (m)</label><input type="number" id="log-tape" step="any"></div>
+  </div>
+  <div class="row"><button type="button" class="primary" id="log-add">Add row</button><button type="button" id="log-csv">Download CSV</button><button type="button" id="log-clear">Clear table</button></div>
+  <div class="r1-table-wrap"><table style="min-width:420px"><thead><tr><th scope="col">Band</th><th scope="col">Method</th><th scope="col">Estimate (m)</th><th scope="col">Tape (m)</th><th scope="col">Error (m)</th><th scope="col"><span class="sr-only">Remove</span></th></tr></thead><tbody id="log-body"></tbody></table></div>
+  <p class="out" id="log-summary" aria-live="polite">No rows yet.</p>
+  <canvas id="plot-log" role="img" aria-label="Scatter plot of estimated range versus tape-measured range with a one-to-one line"></canvas>
+</div>
+
+<h2 id="df">6. Dipole direction-finding antennas, one per band</h2>
+<p>The Dipole Detector is a centre-fed brass-rod receiving dipole (1/8 in, 1.5 mm feed gap, SMA edge-mount jack, quarter-wave sleeve balun, non-conductive plate), described on the <a href="sim-lab/dipole-detector/">build sheet page</a>. It is a receiving antenna, not one of the polarising rods; keep it separate from the rod arrays. First-pass lengths (cut long and trim):</p>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Unit</th><th scope="col">Band</th><th scope="col">Design tip to tip (mm)</th><th scope="col">Cut tip to tip (mm)</th><th scope="col">Cut each half (mm)</th><th scope="col">Sleeve length at velocity factor 1.0 (mm)</th></tr></thead>
+<tbody><tr><th scope="row">DD-433</th><td>433.59 MHz</td><td>332.2</td><td>345.7</td><td>172.8</td><td>172.9</td></tr><tr><th scope="row">DD-1296</th><td>1.3 GHz</td><td>109.6</td><td>115.7</td><td>57.9</td><td>57.8</td></tr><tr><th scope="row">DD-2450</th><td>2.45 GHz</td><td>57.2</td><td>61.2</td><td>30.6</td><td>30.6</td></tr></tbody></table></div>
+<p><strong>How it finds direction.</strong> A dipole's received power follows cos&sup2; of the angle between its axis and the E-field direction. Rotate it on a turntable, fit the figure-eight, and the maximum (or the null) gives an axis direction.</p>
+<ul>
+<li><span class="r1-badge fact">fact</span> For a <em>transverse</em> wave with E along the dipole, the maximum is broadside to the source and the null is end-on. A null is sharper than a peak, so it makes the better pointer.</li>
+<li><span class="r1-badge hyp">hypothesis</span> For a wave with an E component <em>along the propagation direction</em> (the SLW claim), the maximum would be end-on instead. So the same rotation is also a polarisation test: compare the fitted peak with the known source bearing.</li>
+<li><span class="r1-badge warn">caution</span> Close to any small antenna (inside roughly &lambda;/(2&pi;) and not far beyond) an ordinary field also has a radial E component, so an end-on peak near the TX proves nothing. The hub's near-field plan advises keeping detectors several wavelengths out. Look at how the end-on part changes with range.</li>
+<li>Bearing has a 180&deg; ambiguity; resolve it by moving the antenna or by a second station. Calibrate on a source at a known bearing first, with the TX feed axis set so the E direction is known.</li>
+<li>Check that the sleeve works (slide test in <a href="vna-howto.html">vna-howto.html</a> section 7). Coax carrying common-mode current bends the pattern and fakes bearings.</li>
+</ul>
+<p><strong>Procedure (proposal).</strong> Dipole horizontal on a turntable with a 1&deg; scale; TX feed axis horizontal and perpendicular to the line; rotate in 15&deg; steps over 360&deg; (the second half is a free symmetry check), log the level at each step with the VNA at one CW frequency or the TinySA in peak hold; fit; repeat at three ranges; rotate the TX sphere 90&deg; and repeat.</p>
+
+<h2 id="calibrate">7. Calibrate against a tape, and how to falsify</h2>
+<ol>
+<li>Before looking at data, write down thresholds (for example a maximum allowed error as a fraction of &lambda; or as centimetres) in the <a href="todo.html#g-range">To-Do list</a>. These are yours to choose; this page does not set them.</li>
+<li>For each band, measure at least five ranges with a tape or laser, centre to centre, and run the estimate each time.</li>
+<li>Fit estimate = slope &times; tape + offset. A constant offset is a phase-centre or cable correction. A slope that is not 1, or scatter above the quoted error, fails the method on that band.</li>
+<li>Repeat with the rods in and out. If the rods move the range estimate, the rods are changing the propagation path, which is itself interesting.</li>
+<li>Repeat on another day and in another place. Two-ray results should move when you change a height; if they do not, the ripple is not from the ground.</li>
+</ol>
+<p><strong>The oven.</strong> The oven gives no coherent reference, so VNA phase methods do not apply (and the VNA must never be connected to the oven antenna or cavity). Use amplitude nulls along a line, the dipole bearings with triangulation, and the tape. The magnetron's frequency drifts, so ripple-in-frequency is not available from the oven alone.</p>
+
+<h2 id="sources">8. Sources</h2>
+<ul>
+<li>C. Monstein and J. P. Wesley, "Observation of scalar longitudinal electrodynamic waves", Europhys. Lett. 59(4), 514 (2002), doi:10.1209/epl/i2002-00136-9: two-ray nulls, Eq. 11 to 17. Hub summaries: <a href="ranging/">ranging page</a>, <a href="monstein.html">monstein.html</a>.</li>
+<li>NanoRFE VNA6000 user manual (2022/11) and the hub's <a href="vna-howto.html">VNA how-to</a>: S21 phase and time-domain use.</li>
+<li>C. A. Balanis, <em>Antenna Theory: Analysis and Design</em>: dipole pattern and field regions. M. I. Skolnik, <em>Introduction to Radar Systems</em>: stepped-frequency ranging.</li>
+<li>Hub near-field plan for the oven: <a href="sim-lab/magnetron-nearfield/">magnetron-nearfield</a>. Dipole numbers: <a href="sim-lab/dipole-detector/">dipole-detector</a>.</li>
+</ul>
+<p class="footnote">The calculator's functions were checked with node against synthetic data (phase slope, two-frequency, coarse-fine, time domain, null spacing, two-ray nulls reproducing 119.2, 39.3, 23.0 and 15.8 m for the 2002 geometry, figure-eight fit, triangulation). Real data will be messier than the examples.</p>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Educational use only. These pages describe tests of hypotheses. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+<script src="/assets/r1-rangelib.js"></script>
+<script src="/assets/r1-plot.js"></script>
+<script src="/assets/range-finder.js"></script>
+</body>
+</html>

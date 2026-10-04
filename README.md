@@ -20,7 +20,14 @@ This is vanilla HTML/CSS/JS. No build step.
 
 | File | Contents |
 |---|---|
-| `index.html` | Master two-experiment page (JS tabs `#expt-a` `#expt-b` `#kit`) |
+| `index.html` | Round 1 landing page: the four benches, tools, and an Archive expander (old `#expt-a` etc. links redirect to `experiments-a-g.html`) |
+| `experiments-a-g.html` | The previous home page (JS tabs `#expt-a` `#expt-b` `#kit`), unchanged apart from an archive banner |
+| `archive.html` | Every other page, grouped |
+| `exp-1296.html`, `exp-433.html`, `exp-2450.html` | Round 1 sphere experiments (1.3 GHz, 433.59 MHz, 2.45 GHz) |
+| `oven.html` | Microwave oven experiment (oven as TX, 3/4 in sphere as RX) |
+| `todo.html` | Round 1 to-do list (checkboxes saved in localStorage) |
+| `range-finder.html` | Range finding and dipole direction finding, with calculator |
+| `joule-loss.html` | Joule loss and power balance, with calculators |
 | `learn.html` | Briefing (N–Z vs Hively vs Meyl), detectors, Zimmerman 1296 MHz TM01 hardware, patents |
 | `compare.html` | Side-by-side table + illustrative SNR toy |
 | `tools.html` | Bifilar pancake + RG-405 length calculator, **default 1.300 GHz**; 1.3 GHz *build* is a sleeve, see `setup.html#sleeve` |

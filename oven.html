@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microwave oven experiment · SLW Hub</title>
+<meta name="description" content="Round 1 microwave oven experiment: a 2.45 GHz oven as transmitter and a 3/4 inch sphere as detector, with the Experiment B polarising-rod controls and safety rules.">
+<meta name="author" content="Dan Britton">
+<link rel="canonical" href="https://9wzg44nz44-glitch.github.io/oven.html">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<link rel="stylesheet" href="/assets/round1.css">
+<script src="/assets/site-search.js" defer></script>
+<script src="/assets/share-button.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav" aria-label="Main">
+      <a href="index.html">Round 1</a>
+      <a href="todo.html">To-Do</a>
+      <a href="range-finder.html">Range finder</a>
+      <a href="joule-loss.html">Joule loss</a>
+      <a href="vna-howto.html">VNA how-to</a>
+      <a href="archive.html">Archive</a>
+    </nav>
+  </div>
+</header>
+<nav id="expt-abc" class="expt-abc" aria-label="Round 1 experiments">
+  <span class="expt-abc-label">Round 1</span>
+  <a class="expt-abc-btn" href="exp-1296.html"><span class="k">1.3</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="exp-433.html"><span class="k">433</span> MHz sphere</a>
+  <a class="expt-abc-btn" href="exp-2450.html"><span class="k">2.45</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="oven.html" aria-current="page"><span class="k">oven</span> 2.45 GHz</a>
+  <a class="expt-abc-sub" href="todo.html">To-Do</a>
+  <a class="expt-abc-sub" href="range-finder.html">Range finder</a>
+  <a class="expt-abc-sub" href="joule-loss.html">Joule loss</a>
+</nav>
+<main id="main" class="wrap r1-wrap">
+
+<p class="kicker">Round 1 · microwave oven experiment · draft v0.1</p>
+<h1>Microwave oven experiment</h1>
+<p class="lede">Use the 3/4 in sphere from Experiment A as a <em>detector</em> next to a 2.45 GHz microwave oven, and subject the oven's leakage to the same controls as Experiment B, including the polarising-rod fixture. The oven is its own transmitter; the sphere only listens.</p>
+<div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Mainstream electrodynamics treats free-space radio as transverse (TEM). A longitudinal or scalar component is a hypothesis we are testing, and nothing on these pages claims that scalar or longitudinal waves have been detected. Values marked <span class="r1-badge prop">proposal</span> are our suggestions and are not measured or sourced. Draft v0.1, 4 Oct 2026, written by Grok Bot for Dan Britton.</div>
+<div class="r1-note warn" id="safety"><strong>Safety rules (read before any bench work).</strong>
+<ul>
+<li>Rods, spheres, probes, TinySA, cables and every other piece of metal stay <strong>outside</strong> the oven. Loose metal in a running oven can arc and damage the magnetron and the oven.</li>
+<li>Never run the oven empty. Use a water load (a microwave-safe container with about 1 kg of water). Do not defeat or bypass the door interlocks and do not open or modify the oven.</li>
+<li><strong>Never connect the VNA, or any instrument input, to the oven antenna, waveguide or cavity.</strong> Receive only, from outside, through an attenuator.</li>
+<li>The federal limit for new ovens is 5 mW/cm&sup2; at 5 cm (21 CFR 1030.10). Do not try to raise leakage. Keep people out of the line between the oven and the receiver and use timed runs. Stay clear of anyone with a pacemaker or similar device.</li>
+<li>Protect the analyzer input: start with at least 20 dB of attenuation and a spectrum-analyzer maximum-input check against its manual. Increase sensitivity only after seeing the level.</li>
+</ul></div>
+<ul class="r1-toc" aria-label="On this page"><li><a href="#why">Why</a></li><li><a href="#plan">Two stages</a></li><li><a href="#geometry">Geometry</a></li><li><a href="#controls">Controls</a></li><li><a href="#states">Measurement states</a></li><li><a href="#power">Power balance</a></li><li><a href="#range">Range finding</a></li><li><a href="#falsify">Falsifiers</a></li><li><a href="#prep">Prep list</a></li></ul>
+
+<h2 id="why">1. Why an oven, and what a detection would mean</h2>
+<p>A household oven is a few hundred watts to over a kilowatt of 2.45 GHz power. Dan's hypothesis is that anything that makes a transverse wave also makes some longitudinal (SLW) component. The oven is the only source we have with enough power for effects that are not microwatts. The honest framing:</p>
+<ul>
+<li><span class="r1-badge fact">fact</span> An oven leaks ordinary transverse 2.45 GHz radiation. A sphere, a dipole or any other antenna will receive it. <strong>Seeing a signal says nothing about SLW.</strong></li>
+<li><span class="r1-badge fact">fact</span> Within about &lambda;/2&pi; = 19.5 mm of a small source, and in the reactive region of a large aperture like a door seam, ordinary fields have a component along the line to the source. That is why the hub's <a href="sim-lab/magnetron-nearfield/">near-field plan</a> says the receiver must be well outside it.</li>
+<li><span class="r1-badge hyp">hypothesis</span> If an SLW component exists, the rod fixture, the TX-sphere rotation and the brass versus W1 swap would respond differently from a TEM wave (see <a href="joule-loss.html#predictions">Joule-loss predictions</a>). The oven experiment asks whether the oven's leakage follows the same T(&phi;) behaviour as the sphere transmitters, and in what way it differs.</li>
+</ul>
+<p>Questions: <strong>Q1</strong> can the 3/4 in sphere launch and detect 2.45 GHz at all (Stage 1, <a href="exp-2450.html">exp-2450</a>)? <strong>Q2</strong> what does the oven's received signal look like with a sphere detector, and how does it vary with state, distance and angle (Stage 2)? <strong>Q3</strong> does the oven, put through the Experiment B controls, behave like the sphere transmitter or differently?</p>
+
+<h2 id="plan">2. Two stages</h2>
+<div class="r1-grid">
+<div class="r1-card"><h3>Stage 1: sphere to sphere at 2.45 GHz</h3>
+<ul class="specs"><li>Page: <a href="exp-2450.html">exp-2450.html</a></li><li>TX: 3/4 in sphere on the VNA, CW at 2450 MHz, about -10 dBm</li><li>RX: second 3/4 in sphere</li><li>Aim: shows the sphere is a working antenna at 2.45 GHz, gives the clean reference for the rod curve</li></ul></div>
+<div class="r1-card hot"><h3>Stage 2: oven as TX, sphere as RX</h3>
+<ul class="specs"><li>This page</li><li>Oven leakage out of the door, receive-only</li><li>Same RX sphere, same cables, same rod fixture, same angle scan</li><li>Aim: Experiment B controls applied to the oven</li></ul></div>
+</div>
+<p><span class="r1-badge prop">proposal</span> Do Stage 1 first. It tells us what a clean 2.45 GHz sphere link looks like, which the oven data are compared against.</p>
+
+<h2 id="geometry">3. Geometry</h2>
+<svg viewBox="0 0 640 250" role="img" aria-labelledby="ovsvg-t ovsvg-d" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;max-width:720px;background:#10161d;border:1px solid #2a3542;border-radius:6px">
+<title id="ovsvg-t">Top view of the proposed oven test geometry</title>
+<desc id="ovsvg-d">A microwave oven on a bench at left with its door facing right. In line with the door, a rod fixture on a non-metallic stand, then a 3/4 inch receiving sphere on a rail, with a spectrum analyzer behind. The range r runs from the door to the sphere.</desc>
+<rect x="30" y="80" width="120" height="90" fill="#1b2430" stroke="#6b7d92"/><text x="90" y="130" fill="#cfd8e3" font-size="14" text-anchor="middle" font-family="sans-serif">Oven</text>
+<line x1="150" y1="90" x2="150" y2="160" stroke="#ffb454" stroke-width="4"/><text x="150" y="72" fill="#ffb454" font-size="12" text-anchor="middle" font-family="sans-serif">door</text>
+<rect x="330" y="95" width="14" height="60" fill="#2c3a4b" stroke="#7fd0ff"/><text x="337" y="85" fill="#7fd0ff" font-size="12" text-anchor="middle" font-family="sans-serif">rod fixture</text>
+<g stroke="#7fd0ff" stroke-width="1.5"><line x1="333" y1="108" x2="341" y2="108"/><line x1="333" y1="125" x2="341" y2="125"/><line x1="333" y1="142" x2="341" y2="142"/></g>
+<circle cx="520" cy="125" r="9" fill="#cfd8e3" stroke="#fff"/><text x="520" y="100" fill="#cfd8e3" font-size="12" text-anchor="middle" font-family="sans-serif">3/4 in sphere (RX)</text>
+<rect x="500" y="170" width="120" height="40" fill="#1b2430" stroke="#6b7d92"/><text x="560" y="195" fill="#cfd8e3" font-size="12" text-anchor="middle" font-family="sans-serif">analyzer + pad</text>
+<line x1="520" y1="134" x2="520" y2="170" stroke="#6b7d92"/>
+<line x1="150" y1="230" x2="520" y2="230" stroke="#9fb0c3"/><line x1="150" y1="222" x2="150" y2="238" stroke="#9fb0c3"/><line x1="520" y1="222" x2="520" y2="238" stroke="#9fb0c3"/>
+<text x="335" y="246" fill="#9fb0c3" font-size="13" text-anchor="middle" font-family="sans-serif">r (door to sphere centre), tape-measured</text>
+<line x1="150" y1="125" x2="510" y2="125" stroke="#4a5a6e" stroke-dasharray="4 4"/>
+</svg>
+<p class="footnote">Schematic, not to scale. The oven door faces the receiver; the rod fixture stands on a non-metallic support between them; r is measured with a tape from the door plane to the sphere centre.</p>
+<ul>
+<li><strong>Notation.</strong> r = oven door to RX sphere centre distance. &lambda; = 122.4 mm at 2450 MHz, &lambda;/2 = 61.18 mm.</li>
+<li><strong>Stage 2a, near survey</strong> <span class="r1-badge prop">proposal</span>: r from about 0.5 to 2 m with at least 20 dB of attenuation, to find where the signal is and how strong. In this zone the ordinary near field of the door seam is still mixed in, so these data are about signal strength and polarisation, not an SLW test.</li>
+<li><strong>Stage 2b, far test</strong> <span class="r1-badge prop">proposal</span> following the hub's near-field plan: at least 4 m (one 2D&sup2;/&lambda; for a 0.5 m door), with 10 to 12 m recommended, receiver inside Dan's Faraday cage. That is a long run in a house, so check the room layout and expect multipath from walls and floor (see <a href="range-finder.html#tool">range-finder</a>).</li>
+<li><strong>Rod fixture.</strong> The 2.45 GHz fixture is the 4 x 4 x 1/4 in plate with a 3 x 3 array of 61.18 mm rods at 30.6 mm pitch (<a href="exp-2450.html">exp-2450</a>). Place it between the oven and the sphere, with its centre on the line, at least &lambda;/2&pi; = 19.5 mm from the sphere and well away from the door seam. It has to sit on a non-metallic stand outside the closed door.</li>
+</ul>
+
+<h2 id="controls">4. The same controls as Experiment B, applied to the oven</h2>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Experiment B control</th><th scope="col">In the sphere experiment</th><th scope="col">At the oven</th></tr></thead>
+<tbody>
+<tr><th scope="row">Rod angle scan, T = exp(-&kappa; cos&sup2;&phi;)</th><td>Rotate the 3 x 3 array, log level</td><td>Same array, same angle zero, same fit (<a href="joule-loss.html#calc">calculator C</a>); level from the analyzer</td></tr>
+<tr><th scope="row">Brass versus W1 rods</th><td>Swap the arrays</td><td>Swap the arrays, oven at the same power and load</td></tr>
+<tr><th scope="row">Rods out, plate only</th><td>Reference level T<sub>0</sub></td><td>Same, repeated each session</td></tr>
+<tr><th scope="row">TX orientation</th><td>Rotate the TX sphere 90&deg;</td><td>Rotate the oven 90&deg; on the bench (or the receiver about the line)</td></tr>
+<tr><th scope="row">Distance and null search</th><td>Move the RX along the rail, S21 amplitude and phase</td><td>Move the RX in steps of &lambda;/4 (30.6 mm) or less, amplitude only (no coherent reference)</td></tr>
+<tr><th scope="row">TEM control</th><td>Wire-grid and stub-length controls</td><td>Same wire-grid control (rods across the line)</td></tr>
+<tr><th scope="row">Faraday cage</th><td>RX inside versus outside</td><td>RX inside versus outside (grounding state recorded on every row)</td></tr>
+<tr><th scope="row">Background</th><td>Rods in, TX off</td><td>Oven off, then oven on with a water load</td></tr>
+</tbody></table></div>
+<p>The hub has a recorded observation about the oven and a cage coil (see <a href="sim-lab/rod-thermal/">rod-thermal</a>); it is unverified and is not used as evidence here. Steve Morris's baseline recipe (TinySA in spectrum-analyzer mode, 1.7 to 3.0 GHz, peak hold, a generator tone at 1.9 GHz, runs outside the cage and then inside with oven off and on) is the template for every state below.</p>
+
+<h2 id="states">5. Measurement states and settings</h2>
+<ol>
+<li><strong>Baseline, oven off</strong>: room noise, Wi-Fi, Bluetooth, the generator reference tone if used. Peak hold for 60 s.</li>
+<li><strong>Oven on, 100% power, water load</strong>: timed runs of 30 s or less, with rests. Peak hold plus <strong>channel power across 2.40 to 2.50 GHz</strong>. The magnetron frequency moves with load and temperature, so a single bin is not reliable.</li>
+<li><strong>Duty cycling</strong> (lower power settings): the magnetron turns on and off over a cycle of seconds, so use a time-domain (zero-span) trace if the analyzer supports it. <span class="r1-badge prop">proposal</span></li>
+<li>For each state record: date and time, oven make and model, power setting, water mass and temperature, r, rod material, angle, cage state (open or closed, grounded or not), attenuator, analyzer settings (RBW, detector, sweep) and the file name. The <a href="lab.html">lab protocol and CSV log</a> has a table format.</li>
+</ol>
+
+<h2 id="power">6. Power balance, safely</h2>
+<p>The full write-up is on the <a href="joule-loss.html#oven">Joule-loss page</a>. In short: the oven's output is estimated by water calorimetry (P = m c &Delta;T / t); the leaked signal is measured only as a <em>relative</em> level through a fixed attenuator; the rod effect is the change in that level with angle and material. The leaked fraction of the magnetron output cannot be derived from these alone because the sphere is not a calibrated antenna.</p>
+
+<h2 id="range">7. Range finding at the oven</h2>
+<p>The oven is not coherent with the instrument, so the VNA-phase methods on the <a href="range-finder.html">range-finder page</a> do not apply. What remains: amplitude nulls versus position from ground and wall reflections (the "Two-ray nulls" tab of the <a href="range-finder.html#tool">calculator</a>), dipole direction finding from two positions (<a href="range-finder.html#df">direction-finding section</a>), and the tape measure. As an <span class="r1-badge prop">assumed</span> example with both antennas 1 m above a flat floor, the two-ray model puts the first nulls at 2.45 GHz near 32.7, 10.8, 6.4 and 4.5 m (Monstein and Wesley convention) or 16.3, 8.0, 5.3 and 3.8 m (ideal ground). The two conventions disagree, indoor floors and walls add more reflections, and so null positions are a cross-check to compare against the tape, not a stand-alone measurement. All range estimates here are <span class="r1-badge hyp">hypotheses to test</span>.</p>
+
+<h2 id="falsify">8. What would count against the idea</h2>
+<ul>
+<li>The oven's received level tracks the ordinary-wave picture: it falls with r roughly as 1/r in the far field, follows the TX orientation (rotating the oven or the TX sphere by 90&deg; changes the curve) and is the same for brass and W1.</li>
+<li>The rod curve is explained fully by the wire-grid control.</li>
+<li>No difference between inside and outside the Faraday cage beyond ordinary shielding.</li>
+<li>Results not repeatable between sessions beyond the quoted uncertainty. Repeat each scan at least twice, with the fixture re-seated.</li>
+</ul>
+<p>A result that differs from these would be interesting, and would then need independent checks (a second oven, a second analyzer, a different room) before being believed.</p>
+
+<h2 id="prep">9. Prep list</h2>
+<p>The checkable list is on the <a href="todo.html#g-oven">To-Do page</a> (oven group), and the range and Joule groups there cover the analysis tools. Items that block the oven work:</p>
+<ul>
+<li>Stage 1 data from <a href="exp-2450.html">exp-2450</a> (sphere link works at 2.45 GHz).</li>
+<li>2.45 GHz rods (brass and W1) and the 4 x 4 in plate, delivered and inspected.</li>
+<li>20 dB attenuators and a suitable stand (non-metallic) for the rod fixture.</li>
+<li>An agreed water-load and timing procedure, and a bystander-free room.</li>
+</ul>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Educational use only. These pages describe tests of hypotheses. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+</body>
+</html>

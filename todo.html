@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>To-Do list for the first round · SLW Hub</title>
+<meta name="description" content="Checklist for the Round 1 experiments: incoming brass and W1 rods, fixtures, VNA and spectrum analyzer baselines, 1.3 GHz, 433.59 MHz, 2.45 GHz sphere tests and the microwave oven test.">
+<meta name="author" content="Dan Britton">
+<link rel="canonical" href="https://9wzg44nz44-glitch.github.io/todo.html">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<link rel="stylesheet" href="/assets/round1.css">
+<script src="/assets/site-search.js" defer></script>
+<script src="/assets/share-button.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav" aria-label="Main">
+      <a href="index.html">Round 1</a>
+      <a href="todo.html">To-Do</a>
+      <a href="range-finder.html">Range finder</a>
+      <a href="joule-loss.html">Joule loss</a>
+      <a href="vna-howto.html">VNA how-to</a>
+      <a href="archive.html">Archive</a>
+    </nav>
+  </div>
+</header>
+<nav id="expt-abc" class="expt-abc" aria-label="Round 1 experiments">
+  <span class="expt-abc-label">Round 1</span>
+  <a class="expt-abc-btn" href="exp-1296.html"><span class="k">1.3</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="exp-433.html"><span class="k">433</span> MHz sphere</a>
+  <a class="expt-abc-btn" href="exp-2450.html"><span class="k">2.45</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="oven.html"><span class="k">oven</span> 2.45 GHz</a>
+  <a class="expt-abc-sub" href="todo.html" aria-current="page">To-Do</a>
+  <a class="expt-abc-sub" href="range-finder.html">Range finder</a>
+  <a class="expt-abc-sub" href="joule-loss.html">Joule loss</a>
+</nav>
+<main id="main" class="wrap r1-wrap">
+
+<p class="kicker">Round 1 · plan</p>
+<h1>To-Do list for the first round</h1>
+<p class="lede">Everything needed to run the three sphere-and-rod experiments (1.3 GHz, 433.59 MHz, 2.45 GHz) and the microwave oven experiment, grouped by experiment. Tick a box, set an owner and a status; your choices are saved in this browser only (localStorage) and are not shared. Use <em>Export CSV</em> to share a snapshot.</p>
+<div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Mainstream electrodynamics treats free-space radio as transverse (TEM). A longitudinal or scalar component is a hypothesis we are testing, and nothing on these pages claims that scalar or longitudinal waves have been detected. Values marked <span class="r1-badge prop">proposal</span> are our suggestions and are not measured or sourced. Draft v0.1, 4 Oct 2026, written by Grok Bot for Dan Britton.</div>
+<div class="r1-note"><strong>Owners and statuses are starting guesses.</strong> Owner defaults (Dan, Steve, Shop, Bot) are proposals; change them freely. Items marked done are pages already published on this site.</div>
+<div class="todo-bar" id="todo-all">
+  <div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Overall progress"><span></span></div>
+  <span class="todo-count" id="todo-total" aria-live="polite">0 of 84 done</span>
+  <button type="button" id="todo-export">Export CSV</button>
+  <button type="button" id="todo-reset">Reset my changes</button>
+</div>
+<ul class="r1-toc" aria-label="Groups"><li><a href="#g-rods">Incoming rods</a></li><li><a href="#g-fix">Fixtures</a></li><li><a href="#g-inst">Instruments</a></li><li><a href="#g-a">1.3 GHz sphere experiment</a></li><li><a href="#g-b">433.59 MHz sphere experiment</a></li><li><a href="#g-c">2.45 GHz sphere experiment</a></li><li><a href="#g-oven">Microwave oven experiment</a></li><li><a href="#g-range">Range finder and direction-finding dipoles</a></li><li><a href="#g-joule">Joule loss and power balance</a></li><li><a href="#g-data">Data logging and safety</a></li><li><a href="#g-site">This website</a></li></ul>
+<section class="todo-group" id="g-rods" data-group="g-rods">
+<h2>Incoming rods: Newport RI machine shop delivery (brass and W1 tool steel, all three bands)</h2>
+<p>Rods are due soon. Inspect before anything is assembled; a mixed-up bag ruins the brass versus W1 comparison.</p>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 8 done</span></div>
+<div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
+<ul class="todo-list">
+<li class="todo-item" data-id="rods-date" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-rods-date" aria-labelledby="t-rods-date">
+  <div class="t" id="t-rods-date"><b>Confirm the delivery date and who receives it</b><span class="d">Keep the shop's packing list and photograph it.</span></div>
+  <label class="sr-only" for="ow-rods-date">Owner</label>
+  <select id="ow-rods-date" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-rods-date">Status</label>
+  <select id="st-rods-date" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="rods-count" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-rods-count" aria-labelledby="t-rods-count">
+  <div class="t" id="t-rods-count"><b>Check the packing list against the order: brass and W1, three lengths</b><span class="d">Proposal: 18 rods per band per material (two 3 x 3 arrays, one rotating and one fixed), so 54 per material and 108 in all, plus spares. Confirm against the real order.</span></div>
+  <label class="sr-only" for="ow-rods-count">Owner</label>
+  <select id="ow-rods-count" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-rods-count">Status</label>
+  <select id="st-rods-count" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="rods-len" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-rods-len" aria-labelledby="t-rods-len">
+  <div class="t" id="t-rods-len"><b>Measure the length of every rod with calipers; reject out-of-tolerance rods</b><span class="d">Targets from the rod-jig page: 346.0 mm &plusmn; 1.0 (433.59 MHz), 115.66 mm &plusmn; 0.3 (1296 MHz), 61.18 mm &plusmn; 0.2 (2450 MHz). Log material, band and length for each rod.</span></div>
+  <label class="sr-only" for="ow-rods-len">Owner</label>
+  <select id="ow-rods-len" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-rods-len">Status</label>
+  <select id="st-rods-len" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="rods-dia" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-rods-dia" aria-labelledby="t-rods-dia">
+  <div class="t" id="t-rods-dia"><b>Measure the diameter at three places on at least three rods per material</b><span class="d">Nominal 1/8 in = 3.175 mm. The reamer size for the acrylic plates depends on the measured diameter; brass stock tolerance is looser than drill rod.</span></div>
+  <label class="sr-only" for="ow-rods-dia">Owner</label>
+  <select id="ow-rods-dia" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-rods-dia">Status</label>
+  <select id="st-rods-dia" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="rods-id" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-rods-id" aria-labelledby="t-rods-id">
+  <div class="t" id="t-rods-id"><b>Material check on every bag: magnet test and mass</b><span class="d">W1 steel is magnetic, brass is not. Expected mass per rod: 23.3 g brass and 21.5 g W1 at 346 mm; 7.8 and 7.2 g at 115.66 mm; 4.1 and 3.8 g at 61.18 mm. Label the bags, not the rods.</span></div>
+  <label class="sr-only" for="ow-rods-id">Owner</label>
+  <select id="ow-rods-id" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-rods-id">Status</label>
+  <select id="st-rods-id" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="rods-state" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-rods-state" aria-labelledby="t-rods-state">
+  <div class="t" id="t-rods-state"><b>Record the W1 condition (annealed or hardened) and the surface finish of both metals</b><span class="d">It sets conductivity and magnetic behaviour. Ask the shop what stock and heat treatment they used. Wipe any oil with isopropyl alcohol and do not change the finish between runs.</span></div>
+  <label class="sr-only" for="ow-rods-state">Owner</label>
+  <select id="ow-rods-state" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-rods-state">Status</label>
+  <select id="st-rods-state" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="rods-straight" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-rods-straight" aria-labelledby="t-rods-straight">
+  <div class="t" id="t-rods-straight"><b>Straightness and ends: roll each rod on flat glass, deburr the ends lightly, set bent rods aside</b></div>
+  <label class="sr-only" for="ow-rods-straight">Owner</label>
+  <select id="ow-rods-straight" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-rods-straight">Status</label>
+  <select id="st-rods-straight" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="rods-photo" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-rods-photo" aria-labelledby="t-rods-photo">
+  <div class="t" id="t-rods-photo"><b>Photograph each labelled bag with the caliper readings</b></div>
+  <label class="sr-only" for="ow-rods-photo">Owner</label>
+  <select id="ow-rods-photo" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-rods-photo">Status</label>
+  <select id="st-rods-photo" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+</ul>
+</section>
+<section class="todo-group" id="g-fix" data-group="g-fix">
+<h2>Fixtures: plates, turntable, rail</h2>
+<p>Mechanical work shared by all three bands. Drafts of the drill patterns are on the <a href="rod-jig/">rod-jig page</a>.</p>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 7 done</span></div>
+<div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
+<ul class="todo-list">
+<li class="todo-item" data-id="rod-jig-draft" data-owner="Bot" data-done="1">
+  <input type="checkbox" id="cb-rod-jig-draft" aria-labelledby="t-rod-jig-draft">
+  <div class="t" id="t-rod-jig-draft"><b>Draft rod-jig drill patterns for 433.59, 1296 and 2450 MHz (three PDFs)</b><span class="d">Published on the rod-jig page. Not yet built or checked by a shop.</span></div>
+  <label class="sr-only" for="ow-rod-jig-draft">Owner</label>
+  <select id="ow-rod-jig-draft" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-rod-jig-draft">Status</label>
+  <select id="st-rod-jig-draft" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="fix-order" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-fix-order" aria-labelledby="t-fix-order">
+  <div class="t" id="t-fix-order"><b>Order and cut the acrylic: 1/2 in cast for 433.59 and 1296 MHz, 1/4 in for 2450 MHz</b><span class="d">Plate sizes: 15 in, 6 in and 4 in square. Order status is not recorded on the hub.</span></div>
+  <label class="sr-only" for="ow-fix-order">Owner</label>
+  <select id="ow-fix-order" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-fix-order">Status</label>
+  <select id="st-fix-order" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="fix-drill" data-owner="Shop" data-done="0">
+  <input type="checkbox" id="cb-fix-drill" aria-labelledby="t-fix-drill">
+  <div class="t" id="t-fix-drill"><b>Machine shop: drill the 3 x 3 patterns (&lambda;/4 pitch) and ream to the measured rod diameter</b><span class="d">Option Dan raised: drill every frequency's holes in every jig if they fit. If so, check that unused holes do not change the response (put rods only in the holes for the band under test). Try the reamer on a coupon first.</span></div>
+  <label class="sr-only" for="ow-fix-drill">Owner</label>
+  <select id="ow-fix-drill" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-fix-drill">Status</label>
+  <select id="st-fix-drill" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="fix-rods" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-fix-rods" aria-labelledby="t-fix-rods">
+  <div class="t" id="t-fix-rods"><b>Fit test: rods held by AS568-005 O-rings, swappable, electrically floating</b><span class="d">No metal fasteners within &lambda;/(2&pi;) of any rod: 110 mm, 37 mm, 20 mm for 433, 1296 and 2450 MHz.</span></div>
+  <label class="sr-only" for="ow-fix-rods">Owner</label>
+  <select id="ow-fix-rods" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-fix-rods">Status</label>
+  <select id="st-fix-rods" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="fix-turn" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-fix-turn" aria-labelledby="t-fix-turn">
+  <div class="t" id="t-fix-turn"><b>Turntable with a 0 to 360&deg; scale (1&deg; resolution) for the rotating array; holder for the fixed array</b><span class="d">Centre rod (H5) on the TX to RX axis. Non-metallic parts only near the rods.</span></div>
+  <label class="sr-only" for="ow-fix-turn">Owner</label>
+  <select id="ow-fix-turn" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-fix-turn">Status</label>
+  <select id="st-fix-turn" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="fix-rail" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-fix-rail" aria-labelledby="t-fix-rail">
+  <div class="t" id="t-fix-rail"><b>Non-metallic rail with a tape or laser scale for r and a &plusmn;1 mm fine adjust</b><span class="d">Mark the sphere-centre positions. The same rail design serves 1296 and 2450 MHz; 433.59 MHz needs 2 m or more.</span></div>
+  <label class="sr-only" for="ow-fix-rail">Owner</label>
+  <select id="ow-fix-rail" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-fix-rail">Status</label>
+  <select id="st-fix-rail" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="fix-plates" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-fix-plates" aria-labelledby="t-fix-plates">
+  <div class="t" id="t-fix-plates"><b>Make a plates-only reference (plates and bases, no rods) for each band</b></div>
+  <label class="sr-only" for="ow-fix-plates">Owner</label>
+  <select id="ow-fix-plates" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-fix-plates">Status</label>
+  <select id="st-fix-plates" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+</ul>
+</section>
+<section class="todo-group" id="g-inst" data-group="g-inst">
+<h2>Instruments: VNA6000-A and TinySA baselines</h2>
+<p>Method details are on the <a href="vna-howto.html">VNA how-to</a> page.</p>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 7 done</span></div>
+<div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
+<ul class="todo-list">
+<li class="todo-item" data-id="vna-page" data-owner="Bot" data-done="1">
+  <input type="checkbox" id="cb-vna-page" aria-labelledby="t-vna-page">
+  <div class="t" id="t-vna-page"><b>Publish the VNA how-to page</b></div>
+  <label class="sr-only" for="ow-vna-page">Owner</label>
+  <select id="ow-vna-page" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-vna-page">Status</label>
+  <select id="st-vna-page" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="vna-cal" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-vna-cal" aria-labelledby="t-vna-cal">
+  <div class="t" id="t-vna-cal"><b>VNA: SOLT calibration per band with the real cables; save slot 0 (433.59 MHz), 1 (1296 MHz) and 2 (2450 MHz)</b><span class="d"><a href="vna-howto.html#cal">vna-howto.html#cal</a>. Check a THRU reads 0 dB.</span></div>
+  <label class="sr-only" for="ow-vna-cal">Owner</label>
+  <select id="ow-vna-cal" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-vna-cal">Status</label>
+  <select id="st-vna-cal" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="vna-noise" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-vna-noise" aria-labelledby="t-vna-noise">
+  <div class="t" id="t-vna-noise"><b>VNA: S21 noise floor with both ports terminated, using the run settings</b><span class="d">Spheres are small antennas, so S21 will be low. Know where the floor is.</span></div>
+  <label class="sr-only" for="ow-vna-noise">Owner</label>
+  <select id="ow-vna-noise" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-vna-noise">Status</label>
+  <select id="st-vna-noise" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sa-base" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sa-base" aria-labelledby="t-sa-base">
+  <div class="t" id="t-sa-base"><b>TinySA baseline per band: Spectrum Analyzer mode, peak hold (Trace &gt; CALC-OFF &gt; MAX-Hold), ambient first, then generator on</b><span class="d">Follows Steve's 2 Oct baseline recipe (outside the cage, then inside). His example used 1.7 to 3.0 GHz and a 1.9 GHz generator tone at -18.5 dB.</span></div>
+  <label class="sr-only" for="ow-sa-base">Owner</label>
+  <select id="ow-sa-base" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sa-base">Status</label>
+  <select id="st-sa-base" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sa-gen" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sa-gen" aria-labelledby="t-sa-gen">
+  <div class="t" id="t-sa-gen"><b>Check the TX source level and frequency (VNA or a second TinySA) before connecting a sphere</b><span class="d">Record harmonics. Keep radiated power at the milliwatt-or-less class.</span></div>
+  <label class="sr-only" for="ow-sa-gen">Owner</label>
+  <select id="ow-sa-gen" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sa-gen">Status</label>
+  <select id="st-sa-gen" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sa-att" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-sa-att" aria-labelledby="t-sa-att">
+  <div class="t" id="t-sa-att"><b>Gather SMA attenuators (10 and 20 dB) and 50 &Omega; loads, one load per receiver</b><span class="d">Needed for the oven work.</span></div>
+  <label class="sr-only" for="ow-sa-att">Owner</label>
+  <select id="ow-sa-att" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sa-att">Status</label>
+  <select id="st-sa-att" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sa-batt" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sa-batt" aria-labelledby="t-sa-batt">
+  <div class="t" id="t-sa-batt"><b>Charge the TinySA units and the VNA cell (flat-top 18650 only); label units TX and RX</b></div>
+  <label class="sr-only" for="ow-sa-batt">Owner</label>
+  <select id="ow-sa-batt" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sa-batt">Status</label>
+  <select id="st-sa-batt" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+</ul>
+</section>
+<section class="todo-group" id="g-a" data-group="g-a">
+<h2>1.3 GHz sphere experiment (Experiment A, 1296 MHz)</h2>
+<p>Page: <a href="exp-1296.html">exp-1296.html</a>.</p>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 9 done</span></div>
+<div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
+<ul class="todo-list">
+<li class="todo-item" data-id="a-sph" data-owner="Shop" data-done="0">
+  <input type="checkbox" id="cb-a-sph" aria-labelledby="t-a-sph">
+  <div class="t" id="t-a-sph"><b>Drill and fit the SMA bulkhead (901-9875) in two KB-1820 spheres (TX and RX)</b><span class="d">Shop notes: <a href="setup.html#sma-shop-a">setup.html#sma-shop-a</a>. Clearance hole and locknut, not tapping the thin wall.</span></div>
+  <label class="sr-only" for="ow-a-sph">Owner</label>
+  <select id="ow-a-sph" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-a-sph">Status</label>
+  <select id="st-a-sph" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="a-stub" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-a-stub" aria-labelledby="t-a-stub">
+  <div class="t" id="t-a-stub"><b>Fit the first-article stub (23.1 mm, &lambda;/10) and the 57.8 mm &lambda;/4 control stub; log S11 of each sphere</b></div>
+  <label class="sr-only" for="ow-a-stub">Owner</label>
+  <select id="ow-a-stub" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-a-stub">Status</label>
+  <select id="st-a-stub" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="a-base" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-a-base" aria-labelledby="t-a-base">
+  <div class="t" id="t-a-base"><b>S21 baseline, no rods and plates only, at a tape-measured reference range</b><span class="d">Aim 1 to 2 &lambda; or more (0.25 to 0.5 m).</span></div>
+  <label class="sr-only" for="ow-a-base">Owner</label>
+  <select id="ow-a-base" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-a-base">Status</label>
+  <select id="st-a-base" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="a-brass" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-a-brass" aria-labelledby="t-a-brass">
+  <div class="t" id="t-a-brass"><b>Brass rods: angle scan 0 to 180&deg; in 10&deg; steps, then 0 to 360&deg;; fit &kappa;</b></div>
+  <label class="sr-only" for="ow-a-brass">Owner</label>
+  <select id="ow-a-brass" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-a-brass">Status</label>
+  <select id="st-a-brass" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="a-w1" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-a-w1" aria-labelledby="t-a-w1">
+  <div class="t" id="t-a-w1"><b>W1 rods: same scan, same positions; fit &kappa; and compare</b></div>
+  <label class="sr-only" for="ow-a-w1">Owner</label>
+  <select id="ow-a-w1" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-a-w1">Status</label>
+  <select id="st-a-w1" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="a-sa" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-a-sa" aria-labelledby="t-a-sa">
+  <div class="t" id="t-a-sa"><b>TinySA cross-check of one brass and one W1 scan</b></div>
+  <label class="sr-only" for="ow-a-sa">Owner</label>
+  <select id="ow-a-sa" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-a-sa">Status</label>
+  <select id="st-a-sa" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="a-ctl" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-a-ctl" aria-labelledby="t-a-ctl">
+  <div class="t" id="t-a-ctl"><b>Controls: TX off, 50 &Omega; on TX, RX terminated, TX sphere rotated 90&deg;, TX and RX swapped, three ranges</b></div>
+  <label class="sr-only" for="ow-a-ctl">Owner</label>
+  <select id="ow-a-ctl" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-a-ctl">Status</label>
+  <select id="st-a-ctl" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="a-dd" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-a-dd" aria-labelledby="t-a-dd">
+  <div class="t" id="t-a-dd"><b>Build the DD-1296 Dipole Detector (109.6 mm design, 115.7 mm cut long, 1.5 mm gap)</b><span class="d"><a href="sim-lab/dipole-detector/">Build sheet</a>. Trim in small steps and re-check on the VNA.</span></div>
+  <label class="sr-only" for="ow-a-dd">Owner</label>
+  <select id="ow-a-dd" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-a-dd">Status</label>
+  <select id="st-a-dd" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="a-reconcile" data-owner="Bot" data-done="0">
+  <input type="checkbox" id="cb-a-reconcile" aria-labelledby="t-a-reconcile">
+  <div class="t" id="t-a-reconcile"><b>Reconcile older hub text that says rods are Experiment B only</b><span class="d">Dan's 4 Oct 2026 plan puts rods on all three bands. The shop-drawing page still carries the old line.</span></div>
+  <label class="sr-only" for="ow-a-reconcile">Owner</label>
+  <select id="ow-a-reconcile" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-a-reconcile">Status</label>
+  <select id="st-a-reconcile" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+</ul>
+</section>
+<section class="todo-group" id="g-b" data-group="g-b">
+<h2>433.59 MHz sphere experiment (Experiment B, Monstein and Wesley)</h2>
+<p>Page: <a href="exp-433.html">exp-433.html</a>.</p>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 9 done</span></div>
+<div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
+<ul class="todo-list">
+<li class="todo-item" data-id="b-sph" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-b-sph" aria-labelledby="t-b-sph">
+  <div class="t" id="t-b-sph"><b>Fit the SMA bulkhead to two KB-2016 balls (stock 1/4 in hole); no balun of any kind</b><span class="d"><a href="monstein.html#bulkhead">monstein.html#bulkhead</a>.</span></div>
+  <label class="sr-only" for="ow-b-sph">Owner</label>
+  <select id="ow-b-sph" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-b-sph">Status</label>
+  <select id="st-b-sph" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="b-rail" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-b-rail" aria-labelledby="t-b-rail">
+  <div class="t" id="t-b-rail"><b>Set up a 2 m or longer non-metallic baseline; rod cube at least 110 mm from either ball</b><span class="d">Baseline 2 to 3 &lambda; or more (1.4 to 2.1 m and up).</span></div>
+  <label class="sr-only" for="ow-b-rail">Owner</label>
+  <select id="ow-b-rail" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-b-rail">Status</label>
+  <select id="st-b-rail" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="b-base" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-b-base" aria-labelledby="t-b-base">
+  <div class="t" id="t-b-base"><b>S11 of each ball, then S21 baseline with no rods and plates only</b></div>
+  <label class="sr-only" for="ow-b-base">Owner</label>
+  <select id="ow-b-base" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-b-base">Status</label>
+  <select id="st-b-base" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="b-brass" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-b-brass" aria-labelledby="t-b-brass">
+  <div class="t" id="t-b-brass"><b>Brass rods: angle scan and fit &kappa;; compare with the published fit &kappa; = 4.4 (T = exp(-&kappa; cos&sup2;&phi;))</b><span class="d">Their ball was 6 cm and the geometry differs, so a different &kappa; is not a failure; record it.</span></div>
+  <label class="sr-only" for="ow-b-brass">Owner</label>
+  <select id="ow-b-brass" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-b-brass">Status</label>
+  <select id="st-b-brass" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="b-w1" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-b-w1" aria-labelledby="t-b-w1">
+  <div class="t" id="t-b-w1"><b>W1 rods: same scan; compare with brass</b></div>
+  <label class="sr-only" for="ow-b-w1">Owner</label>
+  <select id="ow-b-w1" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-b-w1">Status</label>
+  <select id="st-b-w1" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="b-sa" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-b-sa" aria-labelledby="t-b-sa">
+  <div class="t" id="t-b-sa"><b>TinySA cross-check of one brass and one W1 scan</b></div>
+  <label class="sr-only" for="ow-b-sa">Owner</label>
+  <select id="ow-b-sa" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-b-sa">Status</label>
+  <select id="st-b-sa" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="b-ctl" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-b-ctl" aria-labelledby="t-b-ctl">
+  <div class="t" id="t-b-ctl"><b>Controls: TX off, 50 &Omega; on TX, RX terminated, TX ball rotated 90&deg;, TX and RX swapped, three ranges</b></div>
+  <label class="sr-only" for="ow-b-ctl">Owner</label>
+  <select id="ow-b-ctl" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-b-ctl">Status</label>
+  <select id="st-b-ctl" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="b-dd" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-b-dd" aria-labelledby="t-b-dd">
+  <div class="t" id="t-b-dd"><b>Build the DD-433 Dipole Detector (332.2 mm design, 345.7 mm cut long)</b><span class="d">A 433 MHz dipole needs a large cage (about 1 m) if it is caged; outdoors on a rail it does not.</span></div>
+  <label class="sr-only" for="ow-b-dd">Owner</label>
+  <select id="ow-b-dd" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-b-dd">Status</label>
+  <select id="st-b-dd" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="b-license" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-b-license" aria-labelledby="t-b-license">
+  <div class="t" id="t-b-license"><b>70 cm station licence and callsign on the log sheet</b></div>
+  <label class="sr-only" for="ow-b-license">Owner</label>
+  <select id="ow-b-license" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-b-license">Status</label>
+  <select id="st-b-license" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+</ul>
+</section>
+<section class="todo-group" id="g-c" data-group="g-c">
+<h2>2.45 GHz sphere experiment (3/4 in sphere from Experiment A)</h2>
+<p>Page: <a href="exp-2450.html">exp-2450.html</a>.</p>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 10 done</span></div>
+<div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
+<ul class="todo-list">
+<li class="todo-item" data-id="c-page" data-owner="Bot" data-done="1">
+  <input type="checkbox" id="cb-c-page" aria-labelledby="t-c-page">
+  <div class="t" id="t-c-page"><b>Publish the 2.45 GHz sphere experiment page</b></div>
+  <label class="sr-only" for="ow-c-page">Owner</label>
+  <select id="ow-c-page" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-c-page">Status</label>
+  <select id="st-c-page" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="c-pair" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-c-pair" aria-labelledby="t-c-pair">
+  <div class="t" id="t-c-pair"><b>Decide: reuse the two Experiment A spheres, or build a second pair so 1296 and 2450 MHz can run side by side</b></div>
+  <label class="sr-only" for="ow-c-pair">Owner</label>
+  <select id="ow-c-pair" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-c-pair">Status</label>
+  <select id="st-c-pair" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="c-stub" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-c-stub" aria-labelledby="t-c-stub">
+  <div class="t" id="t-c-stub"><b>Make the 2.45 GHz stubs: &lambda;/10 = 12.2 mm and &lambda;/4 = 30.6 mm control (proposals); log S11 of each</b><span class="d">Neither length has been built. Do not tune to chase a number.</span></div>
+  <label class="sr-only" for="ow-c-stub">Owner</label>
+  <select id="ow-c-stub" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-c-stub">Status</label>
+  <select id="st-c-stub" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="c-wifi" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-c-wifi" aria-labelledby="t-c-wifi">
+  <div class="t" id="t-c-wifi"><b>Survey Wi-Fi and Bluetooth occupancy of 2.4 to 2.5 GHz at the bench with the TinySA</b><span class="d">Pick a quiet time and log it; repeat when the home network is off if practical.</span></div>
+  <label class="sr-only" for="ow-c-wifi">Owner</label>
+  <select id="ow-c-wifi" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-c-wifi">Status</label>
+  <select id="st-c-wifi" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="c-launch" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-c-launch" aria-labelledby="t-c-launch">
+  <div class="t" id="t-c-launch"><b>Launch test: TX on versus off, 50 &Omega; on TX, RX terminated; criterion of at least 10 dB above the floor (proposal)</b><span class="d">Detection is the instrument check, not the result.</span></div>
+  <label class="sr-only" for="ow-c-launch">Owner</label>
+  <select id="ow-c-launch" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-c-launch">Status</label>
+  <select id="st-c-launch" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="c-base" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-c-base" aria-labelledby="t-c-base">
+  <div class="t" id="t-c-base"><b>S21 baseline at 2 to 4 &lambda; (0.24 to 0.49 m), no rods and plates only</b></div>
+  <label class="sr-only" for="ow-c-base">Owner</label>
+  <select id="ow-c-base" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-c-base">Status</label>
+  <select id="st-c-base" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="c-brass" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-c-brass" aria-labelledby="t-c-brass">
+  <div class="t" id="t-c-brass"><b>Brass rods: angle scan and fit &kappa;</b></div>
+  <label class="sr-only" for="ow-c-brass">Owner</label>
+  <select id="ow-c-brass" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-c-brass">Status</label>
+  <select id="st-c-brass" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="c-w1" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-c-w1" aria-labelledby="t-c-w1">
+  <div class="t" id="t-c-w1"><b>W1 rods: same scan; compare</b></div>
+  <label class="sr-only" for="ow-c-w1">Owner</label>
+  <select id="ow-c-w1" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-c-w1">Status</label>
+  <select id="st-c-w1" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="c-ctl" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-c-ctl" aria-labelledby="t-c-ctl">
+  <div class="t" id="t-c-ctl"><b>Controls: TX sphere rotated 90&deg;, TX and RX swapped, three ranges</b></div>
+  <label class="sr-only" for="ow-c-ctl">Owner</label>
+  <select id="ow-c-ctl" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-c-ctl">Status</label>
+  <select id="st-c-ctl" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="c-dd" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-c-dd" aria-labelledby="t-c-dd">
+  <div class="t" id="t-c-dd"><b>Build the DD-2450 Dipole Detector (57.2 mm design, 61.2 mm cut long)</b></div>
+  <label class="sr-only" for="ow-c-dd">Owner</label>
+  <select id="ow-c-dd" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-c-dd">Status</label>
+  <select id="st-c-dd" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+</ul>
+</section>
+<section class="todo-group" id="g-oven" data-group="g-oven">
+<h2>Microwave oven experiment (oven as transmitter, 3/4 in sphere as detector)</h2>
+<p>Page: <a href="oven.html">oven.html</a>. Finish the 2.45 GHz sphere experiment first so the detector chain is characterised.</p>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 11 done</span></div>
+<div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
+<ul class="todo-list">
+<li class="todo-item" data-id="o-page" data-owner="Bot" data-done="1">
+  <input type="checkbox" id="cb-o-page" aria-labelledby="t-o-page">
+  <div class="t" id="t-o-page"><b>Publish the oven experiment page</b></div>
+  <label class="sr-only" for="ow-o-page">Owner</label>
+  <select id="ow-o-page" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-o-page">Status</label>
+  <select id="st-o-page" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="o-id" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-o-id" aria-labelledby="t-o-id">
+  <div class="t" id="t-o-id"><b>Identify the oven: make, model, nameplate power and frequency; photograph the label</b></div>
+  <label class="sr-only" for="ow-o-id">Owner</label>
+  <select id="ow-o-id" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-o-id">Status</label>
+  <select id="st-o-id" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="o-site" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-o-site" aria-labelledby="t-o-site">
+  <div class="t" id="t-o-site"><b>Choose a site with a clear path of at least 4 m (10 to 12 m recommended), non-metallic stands, a safe power cord</b><span class="d">The hub's near-field plan puts SLW and SW detectors at 3 x 2D&sup2;/&lambda; or more from the door. An outdoor lawn also gives the ground-bounce nulls.</span></div>
+  <label class="sr-only" for="ow-o-site">Owner</label>
+  <select id="ow-o-site" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-o-site">Status</label>
+  <select id="st-o-site" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="o-safe" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-o-safe" aria-labelledby="t-o-safe">
+  <div class="t" id="t-o-safe"><b>Safety walkthrough: nothing metal inside, door and interlocks untouched, never run empty, bystanders out of the line, timed runs</b><span class="d">See the safety box on the oven page.</span></div>
+  <label class="sr-only" for="ow-o-safe">Owner</label>
+  <select id="ow-o-safe" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-o-safe">Status</label>
+  <select id="st-o-safe" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="o-cal" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-o-cal" aria-labelledby="t-o-cal">
+  <div class="t" id="t-o-cal"><b>Cavity calorimetry: 1 kg of water for a timed run; compute P = m c &Delta;T / t</b><span class="d"><a href="joule-loss.html#oven">joule-loss.html#oven</a>.</span></div>
+  <label class="sr-only" for="ow-o-cal">Owner</label>
+  <select id="ow-o-cal" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-o-cal">Status</label>
+  <select id="st-o-cal" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="o-survey" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-o-survey" aria-labelledby="t-o-survey">
+  <div class="t" id="t-o-survey"><b>Receive-only leakage survey with TinySA, 20 dB attenuator, sphere at 1 m and 2 m, then out to 4 m and beyond</b><span class="d">Peak hold plus a channel-power reading across 2.40 to 2.50 GHz. Check the displayed level against the TinySA input limit before moving closer.</span></div>
+  <label class="sr-only" for="ow-o-survey">Owner</label>
+  <select id="ow-o-survey" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-o-survey">Status</label>
+  <select id="st-o-survey" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="o-base" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-o-base" aria-labelledby="t-o-base">
+  <div class="t" id="t-o-base"><b>Oven off: ambient spectrum and noise floor with the same chain</b></div>
+  <label class="sr-only" for="ow-o-base">Owner</label>
+  <select id="ow-o-base" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-o-base">Status</label>
+  <select id="st-o-base" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="o-brass" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-o-brass" aria-labelledby="t-o-brass">
+  <div class="t" id="t-o-brass"><b>Oven on (100% power, water load): brass rod scan in front of the RX sphere; fit &kappa;</b><span class="d">Same procedure as Experiment B. Rods stay outside the oven.</span></div>
+  <label class="sr-only" for="ow-o-brass">Owner</label>
+  <select id="ow-o-brass" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-o-brass">Status</label>
+  <select id="st-o-brass" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="o-w1" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-o-w1" aria-labelledby="t-o-w1">
+  <div class="t" id="t-o-w1"><b>Oven on: W1 rod scan; compare with brass and with the sphere-transmitter &kappa;</b></div>
+  <label class="sr-only" for="ow-o-w1">Owner</label>
+  <select id="ow-o-w1" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-o-w1">Status</label>
+  <select id="st-o-w1" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="o-ctl" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-o-ctl" aria-labelledby="t-o-ctl">
+  <div class="t" id="t-o-ctl"><b>Controls: oven off, RX behind a metal plate or in a cage (should block ordinary 2.45 GHz), load size changed, RX moved along the line</b></div>
+  <label class="sr-only" for="ow-o-ctl">Owner</label>
+  <select id="ow-o-ctl" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-o-ctl">Status</label>
+  <select id="st-o-ctl" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="o-df" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-o-df" aria-labelledby="t-o-df">
+  <div class="t" id="t-o-df"><b>Direction finding with DD-2450: two stations, fit the figure-eight, triangulate, compare with the tape</b><span class="d"><a href="range-finder.html#df">range-finder.html#df</a>.</span></div>
+  <label class="sr-only" for="ow-o-df">Owner</label>
+  <select id="ow-o-df" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-o-df">Status</label>
+  <select id="st-o-df" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+</ul>
+</section>
+<section class="todo-group" id="g-range" data-group="g-range">
+<h2>Range finder and direction-finding dipoles</h2>
+<p>Page: <a href="range-finder.html">range-finder.html</a>.</p>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 7 done</span></div>
+<div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
+<ul class="todo-list">
+<li class="todo-item" data-id="r-page" data-owner="Bot" data-done="1">
+  <input type="checkbox" id="cb-r-page" aria-labelledby="t-r-page">
+  <div class="t" id="t-r-page"><b>Publish the range-finder page and calculator</b></div>
+  <label class="sr-only" for="ow-r-page">Owner</label>
+  <select id="ow-r-page" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-r-page">Status</label>
+  <select id="st-r-page" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="r-prereg" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-r-prereg" aria-labelledby="t-r-prereg">
+  <div class="t" id="t-r-prereg"><b>Write down pass and fail thresholds for the range finder before looking at data</b></div>
+  <label class="sr-only" for="ow-r-prereg">Owner</label>
+  <select id="ow-r-prereg" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-r-prereg">Status</label>
+  <select id="st-r-prereg" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="r-tape" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-r-tape" aria-labelledby="t-r-tape">
+  <div class="t" id="t-r-tape"><b>Tape-measure calibration: five known ranges per band, sphere centre to sphere centre</b></div>
+  <label class="sr-only" for="ow-r-tape">Owner</label>
+  <select id="ow-r-tape" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-r-tape">Status</label>
+  <select id="st-r-tape" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="r-vna" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-r-vna" aria-labelledby="t-r-vna">
+  <div class="t" id="t-r-vna"><b>VNA S21 sweeps (frequency, dB, phase) at each range, exported as CSV and run through the calculator</b><span class="d">Compare the estimate with the tape; plot estimate versus tape.</span></div>
+  <label class="sr-only" for="ow-r-vna">Owner</label>
+  <select id="ow-r-vna" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-r-vna">Status</label>
+  <select id="st-r-vna" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="r-tworay" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-r-tworay" aria-labelledby="t-r-tworay">
+  <div class="t" id="t-r-tworay"><b>Outdoor two-ray test: measure heights, find the ripple period in |S21| and the null positions along the line</b></div>
+  <label class="sr-only" for="ow-r-tworay">Owner</label>
+  <select id="ow-r-tworay" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-r-tworay">Status</label>
+  <select id="st-r-tworay" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="r-df" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-r-df" aria-labelledby="t-r-df">
+  <div class="t" id="t-r-df"><b>Dipole direction-finder calibration on a known source: fit the figure-eight at three ranges</b><span class="d">Near-field caution: ordinary sources have a radial E component inside a few wavelengths.</span></div>
+  <label class="sr-only" for="ow-r-df">Owner</label>
+  <select id="ow-r-df" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-r-df">Status</label>
+  <select id="st-r-df" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="r-tri" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-r-tri" aria-labelledby="t-r-tri">
+  <div class="t" id="t-r-tri"><b>Triangulation from two stations with a measured baseline</b></div>
+  <label class="sr-only" for="ow-r-tri">Owner</label>
+  <select id="ow-r-tri" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-r-tri">Status</label>
+  <select id="st-r-tri" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+</ul>
+</section>
+<section class="todo-group" id="g-joule" data-group="g-joule">
+<h2>Joule loss and power balance</h2>
+<p>Page: <a href="joule-loss.html">joule-loss.html</a>.</p>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 6 done</span></div>
+<div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
+<ul class="todo-list">
+<li class="todo-item" data-id="j-page" data-owner="Bot" data-done="1">
+  <input type="checkbox" id="cb-j-page" aria-labelledby="t-j-page">
+  <div class="t" id="t-j-page"><b>Publish the Joule-loss page and calculators</b></div>
+  <label class="sr-only" for="ow-j-page">Owner</label>
+  <select id="ow-j-page" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-j-page">Status</label>
+  <select id="st-j-page" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="j-frac" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-j-frac" aria-labelledby="t-j-frac">
+  <div class="t" id="t-j-frac"><b>Record S11 and S21 with and without rods; compute the unaccounted fraction</b><span class="d">Differential, rods in versus rods out, same geometry and calibration.</span></div>
+  <label class="sr-only" for="ow-j-frac">Owner</label>
+  <select id="ow-j-frac" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-j-frac">Status</label>
+  <select id="st-j-frac" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="j-kappa" data-owner="Bot" data-done="0">
+  <input type="checkbox" id="cb-j-kappa" aria-labelledby="t-j-kappa">
+  <div class="t" id="t-j-kappa"><b>Fit &kappa; per band and per material; check &kappa; against &sigma;<sub>W1</sub>/&sigma;<sub>brass</sub></b></div>
+  <label class="sr-only" for="ow-j-kappa">Owner</label>
+  <select id="ow-j-kappa" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-j-kappa">Status</label>
+  <select id="st-j-kappa" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="j-scale" data-owner="Bot" data-done="0">
+  <input type="checkbox" id="cb-j-scale" aria-labelledby="t-j-scale">
+  <div class="t" id="t-j-scale"><b>Check how &kappa; changes with band (literal Joule predicts &kappa; falling with frequency)</b></div>
+  <label class="sr-only" for="ow-j-scale">Owner</label>
+  <select id="ow-j-scale" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-j-scale">Status</label>
+  <select id="st-j-scale" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="j-box" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-j-box" aria-labelledby="t-j-box">
+  <div class="t" id="t-j-box"><b>Decide whether to build the closed-box power balance (proposal on the Joule-loss page)</b></div>
+  <label class="sr-only" for="ow-j-box">Owner</label>
+  <select id="ow-j-box" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-j-box">Status</label>
+  <select id="st-j-box" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="j-note" data-owner="Bot" data-done="0">
+  <input type="checkbox" id="cb-j-note" aria-labelledby="t-j-note">
+  <div class="t" id="t-j-note"><b>Keep a note of which loss reading each result supports</b><span class="d">Joule-literal, energy-capped, charge relaxation, or ordinary scattering.</span></div>
+  <label class="sr-only" for="ow-j-note">Owner</label>
+  <select id="ow-j-note" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-j-note">Status</label>
+  <select id="st-j-note" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+</ul>
+</section>
+<section class="todo-group" id="g-data" data-group="g-data">
+<h2>Data logging and safety (all benches)</h2>
+<p></p>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 6 done</span></div>
+<div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
+<ul class="todo-list">
+<li class="todo-item" data-id="d-csv" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-d-csv" aria-labelledby="t-d-csv">
+  <div class="t" id="t-d-csv"><b>Set up the CSV log and file naming</b><span class="d">Columns: date_time, band_MHz, experiment, role, r_tape_m, material, array_angle_deg, instrument, settings, level_dB, cage_state, control, notes, photo. The <a href="lab.html#log">lab.html log</a> keeps rows in the browser until exported.</span></div>
+  <label class="sr-only" for="ow-d-csv">Owner</label>
+  <select id="ow-d-csv" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-d-csv">Status</label>
+  <select id="st-d-csv" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="d-env" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-d-env" aria-labelledby="t-d-env">
+  <div class="t" id="t-d-env"><b>Log the environment every run: temperature, Wi-Fi and Bluetooth state, oven state, people nearby</b></div>
+  <label class="sr-only" for="ow-d-env">Owner</label>
+  <select id="ow-d-env" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-d-env">Status</label>
+  <select id="st-d-env" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="d-rep" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-d-rep" aria-labelledby="t-d-rep">
+  <div class="t" id="t-d-rep"><b>Repeat each measurement at least three times on different days; keep raw files unedited</b></div>
+  <label class="sr-only" for="ow-d-rep">Owner</label>
+  <select id="ow-d-rep" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-d-rep">Status</label>
+  <select id="st-d-rep" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="d-cage" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-d-cage" aria-labelledby="t-d-cage">
+  <div class="t" id="t-d-cage"><b>Record cage state (grounded or floating) in every row; no cable through a cage wall</b><span class="d">Reports differ on whether grounding matters; record the state and let the data speak.</span></div>
+  <label class="sr-only" for="ow-d-cage">Owner</label>
+  <select id="ow-d-cage" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-d-cage">Status</label>
+  <select id="st-d-cage" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="d-rf" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-d-rf" aria-labelledby="t-d-rf">
+  <div class="t" id="t-d-rf"><b>Keep every transmitter at milliwatt levels; follow the band rules (70 cm and 23 cm amateur, 2450 MHz ISM)</b></div>
+  <label class="sr-only" for="ow-d-rf">Owner</label>
+  <select id="ow-d-rf" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-d-rf">Status</label>
+  <select id="st-d-rf" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="d-vna" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-d-vna" aria-labelledby="t-d-vna">
+  <div class="t" id="t-d-vna"><b>Never exceed +10 dBm or 5 V DC on a VNA port; attenuate anything that sees oven leakage</b></div>
+  <label class="sr-only" for="ow-d-vna">Owner</label>
+  <select id="ow-d-vna" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-d-vna">Status</label>
+  <select id="st-d-vna" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+</ul>
+</section>
+<section class="todo-group" id="g-site" data-group="g-site">
+<h2>This website</h2>
+<p></p>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 4 done</span></div>
+<div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
+<ul class="todo-list">
+<li class="todo-item" data-id="w-r1" data-owner="Bot" data-done="1">
+  <input type="checkbox" id="cb-w-r1" aria-labelledby="t-w-r1">
+  <div class="t" id="t-w-r1"><b>Publish the Round 1 home page, Archive, and the new pages</b></div>
+  <label class="sr-only" for="ow-w-r1">Owner</label>
+  <select id="ow-w-r1" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-w-r1">Status</label>
+  <select id="st-w-r1" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="w-review" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-w-review" aria-labelledby="t-w-review">
+  <div class="t" id="t-w-review"><b>Review the new pages and the Archive layout</b></div>
+  <label class="sr-only" for="ow-w-review">Owner</label>
+  <select id="ow-w-review" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-w-review">Status</label>
+  <select id="st-w-review" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="w-steve" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-w-steve" aria-labelledby="t-w-steve">
+  <div class="t" id="t-w-steve"><b>Tell Steve about the simplified site and the Archive button</b></div>
+  <label class="sr-only" for="ow-w-steve">Owner</label>
+  <select id="ow-w-steve" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-w-steve">Status</label>
+  <select id="st-w-steve" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="w-old" data-owner="Bot" data-done="0">
+  <input type="checkbox" id="cb-w-old" aria-labelledby="t-w-old">
+  <div class="t" id="t-w-old"><b>Update archived pages' wording as results arrive (do not delete pages)</b></div>
+  <label class="sr-only" for="ow-w-old">Owner</label>
+  <select id="ow-w-old" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-w-old">Status</label>
+  <select id="st-w-old" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+</ul>
+</section>
+<p class="footnote">Related: <a href="index.html">Round 1 home</a> · <a href="vna-howto.html">VNA how-to</a> · <a href="rod-jig/">Rod jigs</a> · <a href="archive.html">Archive</a>.</p>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Educational use only. These pages describe tests of hypotheses. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+<script src="/assets/todo.js"></script>
+</body>
+</html>
