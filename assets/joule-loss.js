@@ -96,5 +96,103 @@
     show($("out-oven"), h, bad);
   });
 
-  window.addEventListener("resize", draw); compare(); draw(); runSkin();
+
+  /* ---- F: three-station fixture scan (proposal) ---- */
+  var ST = [{ key: "nearTX", id: "st-in-tx", label: "NEAR TX", color: "#7fd0ff" }, { key: "mid", id: "st-in-mid", label: "MIDWAY", color: "#ffb454" }, { key: "nearRX", id: "st-in-rx", label: "NEAR RX", color: "#9be28a" }];
+  var stStored = { brass: null, w1: null }, stLast = null;
+  function stAnalyse() {
+    var out = $("out-st"), thr = num("st-thr"), res = {}, bad = false;
+    ST.forEach(function (s) {
+      var rows = R.parseTable($(s.id).value).filter(function (r) { return r.length >= 2; });
+      if (rows.length < 5) { res[s.key] = { error: "Paste at least 5 rows of angle_deg, level_dB[, loading_dB]." }; bad = true; }
+      else { res[s.key] = J.analyseStation(rows, thr); if (res[s.key].error) bad = true; res[s.key].rows = rows; }
+    });
+    var h = "<table><thead><tr><th scope=\"col\">Station</th><th scope=\"col\">&kappa; &plusmn; s</th><th scope=\"col\">Max loss (dB)</th><th scope=\"col\">&phi;<sub>0</sub> (deg)</th><th scope=\"col\">L<sub>0</sub> (dB)</th><th scope=\"col\">RMS (dB)</th><th scope=\"col\">Loading p-p (dB)</th><th scope=\"col\">Loading R&sup2; vs cos&sup2;</th><th scope=\"col\">Loading flag</th></tr></thead><tbody>";
+    ST.forEach(function (s) {
+      var r = res[s.key];
+      if (r.error) { h += "<tr><th scope=\"row\">" + s.label + "</th><td colspan=\"8\" class=\"bad\">" + r.error + "</td></tr>"; return; }
+      var fit = r.fit, ld = r.load;
+      h += "<tr><th scope=\"row\">" + s.label + "</th><td>" + f(fit.kappa, 3) + " &plusmn; " + f(fit.sKappa, 3) + "</td><td>" + f(fit.maxLoss_dB, 1) + "</td><td>" + f(fit.phi0_deg, 1) + "</td><td>" + f(fit.L0_dB, 2) + "</td><td>" + f(fit.rms_dB, 2) + "</td>" +
+        (ld ? "<td>" + f(ld.p2p, 3) + "</td><td>" + f(ld.r2, 2) + "</td><td class=\"" + (ld.flag ? "bad" : "good") + "\">" + (ld.flag ? "FLAG: moves with angle" : "stable") + "</td>" : "<td>n/a</td><td>n/a</td><td>no column</td>") + "</tr>";
+    });
+    h += "</tbody></table>";
+    var cmp = bad ? null : J.compareStations(res);
+    if (cmp && !cmp.error) {
+      function rl(name, x) { return "<tr><th scope=\"row\">" + name + "</th><td>" + f(x.ratio, 3) + " &plusmn; " + f(x.sRatio, 3) + "</td><td>" + f(x.z, 1) + "</td><td>" + (x.differs ? "differs" : x.small ? "statistically different but under 20 %, treated as the same" : "same within thresholds") + "</td></tr>"; }
+      h += "<table><thead><tr><th scope=\"col\">&kappa; ratio</th><th scope=\"col\">Value</th><th scope=\"col\">z from 1</th><th scope=\"col\">Reading</th></tr></thead><tbody>" + rl("NEAR TX / MIDWAY", cmp.txMid) + rl("NEAR RX / MIDWAY", cmp.rxMid) + rl("NEAR TX / NEAR RX", cmp.txRx) + "</tbody></table>";
+      h += "<p><strong>" + cmp.verdict + "</strong></p>";
+      if (cmp.notes.length) h += "<ul>" + cmp.notes.map(function (n) { return "<li class=\"bad\">" + n + "</li>"; }).join("") + "</ul>";
+      h += "<p class=\"footnote\">Proposal thresholds: differs means z of at least 2 and at least a 20 % change. Standard errors are the fit's only; fixture repeatability is usually larger. This reads a pattern in the data, not a physical cause: absorption and scattering are not separated (section 6), and reflection nulls can mimic a station effect.</p>";
+    } else if (cmp && cmp.error) h += "<p class=\"bad\">" + cmp.error + "</p>";
+    show(out, h, bad);
+    stLast = bad ? null : res; drawSt(); return stLast;
+  }
+  function drawSt() {
+    var c = $("plot-st"); if (!P) return;
+    var series = [];
+    if (stLast) ST.forEach(function (s) {
+      var r = stLast[s.key]; if (!r || r.error) return;
+      series.push({ x: r.rows.map(function (q) { return q[0]; }), y: r.rows.map(function (q) { return q[1]; }), type: "points", color: s.color, label: s.label });
+      var xs = [], ys = [];
+      for (var p = 0; p <= 180; p += 2) { xs.push(p); ys.push(r.fit.L0_dB - J.LOG10E10 * r.fit.kappa * Math.pow(Math.cos((p - r.fit.phi0_deg) * Math.PI / 180), 2)); }
+      series.push({ x: xs, y: ys, type: "line", color: s.color, label: s.label + " fit" });
+    });
+    P.draw(c, { series: series, xlabel: "rod angle (deg)", ylabel: "level (dB)" });
+  }
+  function stCompare() {
+    var out = $("out-stcmp");
+    if (!stStored.brass || !stStored.w1) { show(out, "Stored: brass " + (stStored.brass ? "yes" : "no") + ", W1 " + (stStored.w1 ? "yes" : "no") + ". Store both to compare station by station."); return; }
+    var sw = parseFloat($("fit-w1").value), sb = J.MATERIALS.brass.sigma, h = "<table><thead><tr><th scope=\"col\">Station</th><th scope=\"col\">&kappa;(brass)</th><th scope=\"col\">&kappa;(W1)</th><th scope=\"col\">W1 / brass</th><th scope=\"col\">Literal Joule (&sigma; ratio)</th><th scope=\"col\">Reading</th></tr></thead><tbody>", ratios = [];
+    ST.forEach(function (s) {
+      var a = stStored.brass[s.key].fit, b = stStored.w1[s.key].fit, c = J.compareMaterials(a, b, sb, sw); ratios.push(c);
+      h += "<tr><th scope=\"row\">" + s.label + "</th><td>" + f(a.kappa, 3) + " &plusmn; " + f(a.sKappa, 3) + "</td><td>" + f(b.kappa, 3) + " &plusmn; " + f(b.sKappa, 3) + "</td><td>" + f(c.ratio, 3) + " &plusmn; " + f(c.sRatio, 3) + "</td><td>" + f(c.predLiteral, 3) + "</td><td>" + c.verdict + "</td></tr>";
+    });
+    h += "</tbody></table>";
+    var lo = Math.min.apply(null, ratios.map(function (c) { return c.ratio; })), hi = Math.max.apply(null, ratios.map(function (c) { return c.ratio; })), sMax = Math.max.apply(null, ratios.map(function (c) { return c.sRatio; }));
+    h += "<p class=\"footnote\">W1 / brass ratio spans " + f(lo, 3) + " to " + f(hi, 3) + " across the three stations" + ((hi - lo) < Math.max(2 * (isFinite(sMax) ? sMax : 0), 0.05) ? ": the same within about 5 % (or 2 standard errors) at every station." : ": it changes with station by more than about 5 % and 2 standard errors, so check fixture repeatability before reading anything into it.") + "</p>";
+    show(out, h);
+  }
+  function storeSt(kind) { var r = stAnalyse(); if (r) { stStored[kind] = r; stCompare(); } }
+  $("run-st").addEventListener("click", stAnalyse);
+  $("store-st-brass").addEventListener("click", function () { storeSt("brass"); });
+  $("store-st-w1").addEventListener("click", function () { storeSt("w1"); });
+  $("clear-st").addEventListener("click", function () { stStored.brass = stStored.w1 = null; stCompare(); });
+  $("fit-w1").addEventListener("change", stCompare);
+  function stExample(art) {
+    var kap = [6.0, 4.4, 4.6], head = "# SYNTHETIC example, not a measurement. angle_deg, level_dB, tx_s11_dB\n";
+    ST.forEach(function (s, i) {
+      var txt = head;
+      for (var p = 0; p <= 180; p += 10) {
+        var c2 = Math.pow(Math.cos((p - 20) * Math.PI / 180), 2);
+        var lvl = -40 - J.LOG10E10 * kap[i] * c2 + 0.3 * rnd();
+        var s11 = -12 + (art && i === 0 ? 1.1 * c2 : 0) + 0.06 * rnd();
+        txt += p + ", " + lvl.toFixed(2) + ", " + s11.toFixed(3) + "\n";
+      }
+      $(s.id).value = txt;
+    });
+    stAnalyse();
+  }
+  $("ex-st").addEventListener("click", function () { stExample(false); });
+  $("ex-st-art").addEventListener("click", function () { stExample(true); });
+
+  /* ---- G: station planner (proposal) ---- */
+  var PLAN = { "433.59": { L: 346.0 }, "1296": { L: 115.66 }, "2450": { L: 61.18 } };
+  function planDefaults() {
+    var b = $("pl-band").value, fm = parseFloat(b) * 1e6;
+    $("pl-L").value = PLAN[b].L; $("pl-r").value = (4 * 299792.458 / parseFloat(b) / 1000).toFixed(3);
+  }
+  function runPlan() {
+    var fm = parseFloat($("pl-band").value) * 1e6, r = num("pl-r"), L = num("pl-L"), k = num("pl-k"), o = num("pl-o");
+    if (!(r > 0)) return show($("out-plan"), "Enter r in metres.", true);
+    var p = J.stationPlan(fm, r, L, k, o);
+    var h = "<table><tbody><tr><th scope=\"row\">&lambda;/(2&pi;) standoff</th><td>" + f(p.standoff_mm, 1) + " mm</td></tr><tr><th scope=\"row\">Envelope radius R = &radic;2 &lambda;/4</th><td>" + f(p.envelopeR_mm, 1) + " mm</td></tr><tr><th scope=\"row\">Smallest pivot (standoff + R)</th><td>" + f(p.minPivot_mm, 1) + " mm</td></tr><tr><th scope=\"row\">NEAR pivot used</th><td>" + f(p.pivot_mm, 1) + " mm (closest rod approach " + f(p.closest_mm, 1) + " mm)</td></tr>" +
+      "<tr><th scope=\"row\">NEAR TX / MIDWAY / NEAR RX pivot from the TX sphere centre</th><td>" + f(p.stations_mm.nearTX, 1) + " / " + f(p.stations_mm.mid, 1) + " / " + f(p.stations_mm.nearRX, 1) + " mm</td></tr></tbody></table>" + warns(p.warnings) + "<p class=\"footnote\">Pivot means the turntable axis, assumed through the array centre. A proposal for placing the fixture, not a measured requirement.</p>";
+    show($("out-plan"), h, p.warnings.length > 0);
+  }
+  $("run-plan").addEventListener("click", runPlan);
+  $("pl-band").addEventListener("change", function () { planDefaults(); runPlan(); });
+  if (qp && PLAN[qp[1]]) { $("pl-band").value = qp[1]; $("st-band").value = qp[1]; }
+  planDefaults(); runPlan();
+
+  window.addEventListener("resize", function () { draw(); drawSt(); }); compare(); stCompare(); draw(); drawSt(); runSkin();
 })();

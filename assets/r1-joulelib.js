@@ -86,12 +86,90 @@
     return { ratio: ratio, sRatio: sRatio, predLiteral: pred.literal, predIndependent: pred.independent, zLiteral: zl, zIndependent: zi, verdict: verdict };
   }
 
+
+  /* ---- Three-station fixture scan (proposal) ----
+   * The same rod-angle scan is run with the rotating fixture at three stations on the TX to RX line:
+   * NEAR TX, MIDWAY, NEAR RX. Each station gives a kappa from fitPolarizer. An optional third column
+   * (TX S11 in dB, or a monitor level for the oven) is a loading indicator: if it moves with the rod angle,
+   * the rods are loading or detuning the source (near-field coupling) and kappa at that station is suspect. */
+  function loadingStats(anglesDeg, loadDB, phi0Deg) {
+    var n = loadDB.length, i, mn = Infinity, mx = -Infinity, x = [], Sx = 0, Sy = 0;
+    for (i = 0; i < n; i++) {
+      if (loadDB[i] < mn) mn = loadDB[i]; if (loadDB[i] > mx) mx = loadDB[i];
+      var c = Math.cos((anglesDeg[i] - phi0Deg) * Math.PI / 180); x.push(c * c); Sx += x[i]; Sy += loadDB[i];
+    }
+    var mx_ = Sx / n, my_ = Sy / n, sxx = 0, sxy = 0, syy = 0;
+    for (i = 0; i < n; i++) { sxx += (x[i] - mx_) * (x[i] - mx_); sxy += (x[i] - mx_) * (loadDB[i] - my_); syy += (loadDB[i] - my_) * (loadDB[i] - my_); }
+    var r2 = sxx > 0 && syy > 0 ? (sxy * sxy) / (sxx * syy) : 0;
+    return { p2p: mx - mn, r2: r2, slope: sxx > 0 ? sxy / sxx : 0, n: n };
+  }
+  /* rows: array of [angle, level] or [angle, level, loading]. thresholdDB: peak-to-peak loading change that raises the flag. */
+  function analyseStation(rows, thresholdDB) {
+    var thr = thresholdDB > 0 ? thresholdDB : 0.5;
+    var good = rows.filter(function (r) { return r.length >= 2; });
+    var a = good.map(function (r) { return r[0]; }), l = good.map(function (r) { return r[1]; });
+    var fit = fitPolarizer(a, l);
+    if (fit.error) return { error: fit.error };
+    var withLoad = good.filter(function (r) { return r.length >= 3; });
+    var load = null;
+    if (withLoad.length >= 5) {
+      load = loadingStats(withLoad.map(function (r) { return r[0]; }), withLoad.map(function (r) { return r[2]; }), fit.phi0_deg);
+      load.threshold = thr; load.flag = load.p2p > thr;
+    }
+    return { fit: fit, load: load };
+  }
+  function ratioInfo(num, den) {
+    var ratio = num.kappa / den.kappa;
+    var s = ratio * Math.sqrt(Math.pow(num.sKappa / num.kappa, 2) + Math.pow(den.sKappa / den.kappa, 2));
+    var z = isFinite(s) && s > 0 ? Math.abs(ratio - 1) / s : Infinity;
+    /* "differs" needs both a statistical difference (z >= 2) and at least a 20 % change (proposal thresholds). */
+    return { ratio: ratio, sRatio: s, z: z, differs: z >= 2 && Math.abs(ratio - 1) >= 0.2, small: z >= 2 && Math.abs(ratio - 1) < 0.2, bigger: ratio > 1 };
+  }
+  /* res: {nearTX, mid, nearRX}, each the result of analyseStation. Returns ratios, loading flags and a plain-language verdict. */
+  function compareStations(res) {
+    var names = ["nearTX", "mid", "nearRX"], i;
+    for (i = 0; i < 3; i++) if (!res[names[i]] || res[names[i]].error) return { error: "All three stations need a good fit (station " + names[i] + " does not)." };
+    var f = { tx: res.nearTX.fit, mid: res.mid.fit, rx: res.nearRX.fit };
+    var rTxMid = ratioInfo(f.tx, f.mid), rRxMid = ratioInfo(f.rx, f.mid), rTxRx = ratioInfo(f.tx, f.rx);
+    var flagTX = !!(res.nearTX.load && res.nearTX.load.flag), flagRX = !!(res.nearRX.load && res.nearRX.load.flag), flagMid = !!(res.mid.load && res.mid.load.flag);
+    var haveLoad = !!(res.nearTX.load || res.mid.load || res.nearRX.load);
+    var code, verdict;
+    var txDeepest = rTxMid.differs && rTxMid.bigger && rTxRx.differs && rTxRx.bigger;
+    var allSame = !rTxMid.differs && !rRxMid.differs && !rTxRx.differs;
+    if (flagTX) { code = "loading-tx"; verdict = "The loading indicator moves with rod angle at NEAR TX by more than the threshold: possible near-field coupling or detuning of the source. Do not read kappa at that station as attenuation until the artefact is understood (move the fixture further out, or re-run with the rods removed and the plates in)."; }
+    else if (txDeepest) { code = "tx-deepest"; verdict = "Kappa is deepest at NEAR TX and the source loading looks stable" + (haveLoad ? "" : " (no loading column was supplied, so that is unchecked)") + ". This is the pattern the early-attenuation idea predicts. It is also what ordinary shadowing gives, because the array subtends a larger angle seen from near the source. Treat it as a pattern to repeat (second day, second r, W1), not as a result."; }
+    else if (allSame) { code = "position-independent"; verdict = "Kappa agrees across the three stations within the thresholds (z below 2 or a change under 20 %). No support for the early-attenuation idea; the loss looks independent of where the fixture sits."; }
+    else { code = "mixed"; verdict = "Kappa differs between stations but not in the NEAR TX deepest pattern. Check the reference level L0 at each station, plates-only baselines, and multipath (move r by a quarter wavelength and repeat): moving the fixture changes which paths cross the array and the standing-wave phase."; }
+    var notes = [];
+    if (flagRX) notes.push("The loading indicator also moves with rod angle at NEAR RX (RX loading or detuning).");
+    if (flagMid) notes.push("The loading indicator moves with rod angle at MIDWAY.");
+    return { txMid: rTxMid, rxMid: rRxMid, txRx: rTxRx, flags: { tx: flagTX, mid: flagMid, rx: flagRX }, code: code, verdict: verdict, notes: notes };
+  }
+  /* Station planner. Assumes the turntable axis passes through the centre of the 3 x 3 array (centre rod mid-length).
+   * Envelope radius about that axis in plan view: R = sqrt(2) * (lambda/4), from a corner rod tip (rod half-length lambda/4,
+   * outer column offset lambda/4). Closest approach of any rod to the nearer sphere centre = pivot - R.
+   * Standoff rule (hub): closest approach >= lambda / (2 pi), measured from the sphere centre. */
+  function stationPlan(fHz, r_m, rodLen_mm, factor, pivotOverride_mm) {
+    var lam = 299792458 / fHz * 1000;                       /* mm */
+    var standoff = lam / (2 * Math.PI), R = Math.SQRT2 * lam / 4;
+    var L = rodLen_mm > 0 ? rodLen_mm : lam / 2;
+    var minPivot = standoff + R;
+    var pivot = pivotOverride_mm > 0 ? pivotOverride_mm : (factor > 0 ? factor : 1.2) * L;
+    var closest = pivot - R, rmm = r_m * 1000, warns = [];
+    if (closest < standoff) warns.push("Closest approach " + closest.toFixed(1) + " mm is inside the " + standoff.toFixed(1) + " mm standoff. Move the near stations out to at least " + minPivot.toFixed(1) + " mm.");
+    if (rmm < 2 * pivot + 2 * R) warns.push("r is too short to fit the near stations and the fixture at both ends. Increase r.");
+    else if (rmm / 2 - pivot < R) warns.push("MIDWAY is closer than one fixture radius to a near station: the three positions overlap. Increase r.");
+    return { lambda_mm: lam, standoff_mm: standoff, envelopeR_mm: R, minPivot_mm: minPivot, rod_mm: L, pivot_mm: pivot, closest_mm: closest,
+      stations_mm: { nearTX: pivot, mid: rmm / 2, nearRX: rmm - pivot }, warnings: warns };
+  }
+
   function calorimetryPower(mass_kg, deltaT_K, time_s, cp) { return mass_kg * (cp || 4186) * deltaT_K / time_s; }
   function dbmToMW(dBm) { return Math.pow(10, dBm / 10); }
   function mwToDbm(mW) { return 10 * Math.log10(mW); }
 
   root.R1Joule = { MATERIALS: MATERIALS, skinDepth_m: skinDepth_m, surfaceResistance: surfaceResistance, rodResistance: rodResistance, rodAbsorbedFractionTEM: rodAbsorbedFractionTEM,
     dissipatedFraction: dissipatedFraction, rodsInOut: rodsInOut, fitPolarizer: fitPolarizer, compareMaterials: compareMaterials,
+    loadingStats: loadingStats, analyseStation: analyseStation, ratioInfo: ratioInfo, compareStations: compareStations, stationPlan: stationPlan,
     calorimetryPower: calorimetryPower, dbmToMW: dbmToMW, mwToDbm: mwToDbm, LOG10E10: LOG10E10 };
   if (typeof module !== "undefined" && module.exports) module.exports = root.R1Joule;
 })(typeof window !== "undefined" ? window : globalThis);

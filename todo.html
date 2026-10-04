@@ -57,11 +57,11 @@
 <div class="r1-note"><strong>Owners and statuses are starting guesses.</strong> Owner defaults (Dan, Steve, Shop, Bot) are proposals; change them freely. Items marked done are pages already published on this site.</div>
 <div class="todo-bar" id="todo-all">
   <div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Overall progress"><span></span></div>
-  <span class="todo-count" id="todo-total" aria-live="polite">0 of 84 done</span>
+  <span class="todo-count" id="todo-total" aria-live="polite">0 of 101 done</span>
   <button type="button" id="todo-export">Export CSV</button>
   <button type="button" id="todo-reset">Reset my changes</button>
 </div>
-<ul class="r1-toc" aria-label="Groups"><li><a href="#g-rods">Incoming rods</a></li><li><a href="#g-fix">Fixtures</a></li><li><a href="#g-inst">Instruments</a></li><li><a href="#g-a">1.3 GHz sphere experiment</a></li><li><a href="#g-b">433.59 MHz sphere experiment</a></li><li><a href="#g-c">2.45 GHz sphere experiment</a></li><li><a href="#g-oven">Microwave oven experiment</a></li><li><a href="#g-range">Range finder and direction-finding dipoles</a></li><li><a href="#g-joule">Joule loss and power balance</a></li><li><a href="#g-data">Data logging and safety</a></li><li><a href="#g-site">This website</a></li></ul>
+<ul class="r1-toc" aria-label="Groups"><li><a href="#g-rods">Incoming rods</a></li><li><a href="#g-fix">Fixtures</a></li><li><a href="#g-inst">Instruments</a></li><li><a href="#g-a">1.3 GHz sphere experiment</a></li><li><a href="#g-b">433.59 MHz sphere experiment</a></li><li><a href="#g-c">2.45 GHz sphere experiment</a></li><li><a href="#g-oven">Microwave oven experiment</a></li><li><a href="#g-range">Range finder and direction-finding dipoles</a></li><li><a href="#g-joule">Joule loss and power balance</a></li><li><a href="#g-stations">Three-position rod fixture scan</a></li><li><a href="#g-data">Data logging and safety</a></li><li><a href="#g-site">This website</a></li></ul>
 <section class="todo-group" id="g-rods" data-group="g-rods">
 <h2>Incoming rods: Newport RI machine shop delivery (brass and W1 tool steel, all three bands)</h2>
 <p>Rods are due soon. Inspect before anything is assembled; a mixed-up bag ruins the brass versus W1 comparison.</p>
@@ -723,6 +723,150 @@
   <select id="ow-j-note" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
   <label class="sr-only" for="st-j-note">Status</label>
   <select id="st-j-note" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+</ul>
+</section>
+<section class="todo-group" id="g-stations" data-group="g-stations">
+<h2>Three-position rod fixture scan (proposal)</h2>
+<p>Dan's hypothesis test: run the same rod-angle scan with the fixture near the transmitter, midway and near the receiver, and compare &kappa; and the TX S11 across stations, for brass and W1. Page: <a href="joule-loss.html#stations">joule-loss.html#stations</a>. Tests of a hypothesis, not results.</p>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 17 done</span></div>
+<div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
+<ul class="todo-list">
+<li class="todo-item" data-id="sts-geom" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sts-geom" aria-labelledby="t-sts-geom">
+  <div class="t" id="t-sts-geom"><b>Measure the fixture envelope: turntable axis to the farthest rod tip, for the H and V arrays</b><span class="d">Expected R = &radic;2 &lambda;/4: 244.5, 81.8 and 43.3 mm at 433.59, 1296 and 2450 MHz. If the axis is not through the array centre, recompute with <a href="joule-loss.html#calc-plan">calculator G</a>.</span></div>
+  <label class="sr-only" for="ow-sts-geom">Owner</label>
+  <select id="ow-sts-geom" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-geom">Status</label>
+  <select id="st-sts-geom" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-marks" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sts-marks" aria-labelledby="t-sts-marks">
+  <div class="t" id="t-sts-marks"><b>Mark the NEAR TX, MIDWAY and NEAR RX pivot positions on the rail for each band</b><span class="d">Proposals at r = 4&lambda;: 415 / 1383 / 2350 mm (433.59), 139 / 463 / 786 mm (1296), 73 / 245 / 416 mm (2450). See <a href="joule-loss.html#stations">joule-loss.html#stations</a>.</span></div>
+  <label class="sr-only" for="ow-sts-marks">Owner</label>
+  <select id="ow-sts-marks" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-marks">Status</label>
+  <select id="st-sts-marks" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-clear" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sts-clear" aria-labelledby="t-sts-clear">
+  <div class="t" id="t-sts-clear"><b>Hand-rotate the fixture through 360&deg; at both near stations and confirm with a tape that no rod comes closer than &lambda;/(2&pi;) to the sphere centre</b><span class="d">110.0, 36.8 and 19.5 mm. The V array gets the same check.</span></div>
+  <label class="sr-only" for="ow-sts-clear">Owner</label>
+  <select id="ow-sts-clear" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-clear">Status</label>
+  <select id="st-sts-clear" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-vna" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-sts-vna" aria-labelledby="t-sts-vna">
+  <div class="t" id="t-sts-vna"><b>Set up TX S11 logging (VNA port 1) and optional RX S11 (port 2 reflection) at the carrier; measure the rods-out repeatability</b><span class="d">The scatter sets a sensible S11 flag threshold; the default is 0.5 dB peak to peak (proposal). <a href="vna-howto.html">VNA how-to</a>.</span></div>
+  <label class="sr-only" for="ow-sts-vna">Owner</label>
+  <select id="ow-sts-vna" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-vna">Status</label>
+  <select id="st-sts-vna" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-template" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-sts-template" aria-labelledby="t-sts-template">
+  <div class="t" id="t-sts-template"><b>Print the station by angle log sheet or copy the CSV template; one file per station, material and day</b><span class="d"><a href="assets/three-station-template.csv" download>three-station-template.csv</a> and the sheet on <a href="joule-loss.html#stations">joule-loss.html#stations</a>.</span></div>
+  <label class="sr-only" for="ow-sts-template">Owner</label>
+  <select id="ow-sts-template" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-template">Status</label>
+  <select id="st-sts-template" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-plates" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sts-plates" aria-labelledby="t-sts-plates">
+  <div class="t" id="t-sts-plates"><b>Rods out, then plates only, at each station for each band</b><span class="d">Shows how much of any station difference is the plate and the stand, and gives the rods-crossed level L<sub>0</sub> per station.</span></div>
+  <label class="sr-only" for="ow-sts-plates">Owner</label>
+  <select id="ow-sts-plates" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-plates">Status</label>
+  <select id="st-sts-plates" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-order" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-sts-order" aria-labelledby="t-sts-order">
+  <div class="t" id="t-sts-order"><b>Run the stations NEAR TX, MIDWAY, NEAR RX and then the reverse, with an ambient baseline (TX off) before and after each station</b><span class="d">Cancels slow drift. Keep r, heights, cables, power and cage state fixed.</span></div>
+  <label class="sr-only" for="ow-sts-order">Owner</label>
+  <select id="ow-sts-order" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-order">Status</label>
+  <select id="st-sts-order" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-433-brass" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sts-433-brass" aria-labelledby="t-sts-433-brass">
+  <div class="t" id="t-sts-433-brass"><b>433.59 MHz, brass: three-station scan, 0 to 180&deg; in 10&deg; steps then once over 0 to 360&deg;</b><span class="d">Log level, TX S11, optional RX S11 and ambient at every angle. Page: <a href="exp-433.html#stations">exp-433.html#stations</a>.</span></div>
+  <label class="sr-only" for="ow-sts-433-brass">Owner</label>
+  <select id="ow-sts-433-brass" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-433-brass">Status</label>
+  <select id="st-sts-433-brass" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-433-w1" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sts-433-w1" aria-labelledby="t-sts-433-w1">
+  <div class="t" id="t-sts-433-w1"><b>433.59 MHz, W1: the same three-station scan in the same holes</b></div>
+  <label class="sr-only" for="ow-sts-433-w1">Owner</label>
+  <select id="ow-sts-433-w1" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-433-w1">Status</label>
+  <select id="st-sts-433-w1" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-1296-brass" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sts-1296-brass" aria-labelledby="t-sts-1296-brass">
+  <div class="t" id="t-sts-1296-brass"><b>1296 MHz, brass: three-station scan</b><span class="d">Page: <a href="exp-1296.html#stations">exp-1296.html#stations</a>.</span></div>
+  <label class="sr-only" for="ow-sts-1296-brass">Owner</label>
+  <select id="ow-sts-1296-brass" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-1296-brass">Status</label>
+  <select id="st-sts-1296-brass" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-1296-w1" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sts-1296-w1" aria-labelledby="t-sts-1296-w1">
+  <div class="t" id="t-sts-1296-w1"><b>1296 MHz, W1: the same three-station scan</b></div>
+  <label class="sr-only" for="ow-sts-1296-w1">Owner</label>
+  <select id="ow-sts-1296-w1" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-1296-w1">Status</label>
+  <select id="st-sts-1296-w1" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-2450-brass" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sts-2450-brass" aria-labelledby="t-sts-2450-brass">
+  <div class="t" id="t-sts-2450-brass"><b>2450 MHz, brass: three-station scan</b><span class="d">Page: <a href="exp-2450.html#stations">exp-2450.html#stations</a>.</span></div>
+  <label class="sr-only" for="ow-sts-2450-brass">Owner</label>
+  <select id="ow-sts-2450-brass" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-2450-brass">Status</label>
+  <select id="st-sts-2450-brass" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-2450-w1" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sts-2450-w1" aria-labelledby="t-sts-2450-w1">
+  <div class="t" id="t-sts-2450-w1"><b>2450 MHz, W1: the same three-station scan</b></div>
+  <label class="sr-only" for="ow-sts-2450-w1">Owner</label>
+  <select id="ow-sts-2450-w1" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-2450-w1">Status</label>
+  <select id="st-sts-2450-w1" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-fit" data-owner="Bot" data-done="0">
+  <input type="checkbox" id="cb-sts-fit" aria-labelledby="t-sts-fit">
+  <div class="t" id="t-sts-fit"><b>Fit &kappa; per station with calculator F; record the verdict code and the S11 flag for each band and material</b><span class="d"><a href="joule-loss.html#calc-stations">joule-loss.html#calc-stations</a>. Thresholds are proposals; keep the raw files.</span></div>
+  <label class="sr-only" for="ow-sts-fit">Owner</label>
+  <select id="ow-sts-fit" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-fit">Status</label>
+  <select id="st-sts-fit" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-repeat" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-sts-repeat" aria-labelledby="t-sts-repeat">
+  <div class="t" id="t-sts-repeat"><b>Repeat the set on a second day and at r + &lambda;/4</b><span class="d">A pattern that does not survive a change of r (reflection nulls) or a second day is not a station effect.</span></div>
+  <label class="sr-only" for="ow-sts-repeat">Owner</label>
+  <select id="ow-sts-repeat" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-repeat">Status</label>
+  <select id="st-sts-repeat" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-oven" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-sts-oven" aria-labelledby="t-sts-oven">
+  <div class="t" id="t-sts-oven"><b>Oven version: NEAR OVEN, MIDWAY, NEAR SPHERE stations at r = 1.0 m with a fixed off-axis monitor; no VNA connected while the oven is on</b><span class="d">Rods stay outside the closed door; water load; timed runs. <a href="oven.html#stations">oven.html#stations</a>.</span></div>
+  <label class="sr-only" for="ow-sts-oven">Owner</label>
+  <select id="ow-sts-oven" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-oven">Status</label>
+  <select id="st-sts-oven" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="sts-cite" data-owner="Bot" data-done="0">
+  <input type="checkbox" id="cb-sts-cite" aria-labelledby="t-sts-cite">
+  <div class="t" id="t-sts-cite"><b>Keep the source gap in the log: Monstein and Wesley do not state the polarizer position ("intervening"); "between Tx and Rx" is Butterworth et al. (2013)</b><span class="d">Fixture position is a variable in this test, not a replication detail.</span></div>
+  <label class="sr-only" for="ow-sts-cite">Owner</label>
+  <select id="ow-sts-cite" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-sts-cite">Status</label>
+  <select id="st-sts-cite" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
 </li>
 </ul>
 </section>
