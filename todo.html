@@ -57,7 +57,7 @@
 <div class="r1-note"><strong>Owners and statuses are starting guesses.</strong> Owner defaults (Dan, Steve, Shop, Bot) are proposals; change them freely. Items marked done are pages already published on this site.</div>
 <div class="todo-bar" id="todo-all">
   <div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Overall progress"><span></span></div>
-  <span class="todo-count" id="todo-total" aria-live="polite">0 of 105 done</span>
+  <span class="todo-count" id="todo-total" aria-live="polite">0 of 106 done</span>
   <button type="button" id="todo-export">Export CSV</button>
   <button type="button" id="todo-reset">Reset my changes</button>
 </div>
@@ -265,12 +265,20 @@
 <section class="todo-group" id="g-a" data-group="g-a">
 <h2>1.3 GHz sphere experiment (Experiment A, 1296 MHz)</h2>
 <p>Page: <a href="exp-1296.html">exp-1296.html</a>.</p>
-<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 9 done</span></div>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 10 done</span></div>
 <div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
 <ul class="todo-list">
+<li class="todo-item" data-id="a-wall" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-a-wall" aria-labelledby="t-a-wall">
+  <div class="t" id="t-a-wall"><b>Measure the KB-1820 wall thickness and confirm the ball material on a spare ball</b><span class="d">Sets whether a 2.5 mm pin hole fits and how to join the pin (aluminium solder and flux, or silver epoxy). <a href="exp-1296.html#feed">exp-1296.html#feed</a>.</span></div>
+  <label class="sr-only" for="ow-a-wall">Owner</label>
+  <select id="ow-a-wall" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-a-wall">Status</label>
+  <select id="st-a-wall" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
 <li class="todo-item" data-id="a-sph" data-owner="Shop" data-done="0">
   <input type="checkbox" id="cb-a-sph" aria-labelledby="t-a-sph">
-  <div class="t" id="t-a-sph"><b>Drill and fit the SMA bulkhead (901-9875) in two KB-1820 spheres (TX and RX)</b><span class="d">Shop notes: <a href="setup.html#sma-shop-a">setup.html#sma-shop-a</a>. Clearance hole and locknut, not tapping the thin wall.</span></div>
+  <div class="t" id="t-a-sph"><b>Drill a #76 (0.020 in) pin hole, 2.5 mm (0.10 in) deep, in two KB-1820 spheres (TX and RX); no bulkhead on the ball</b><span class="d">Corrected 5 Oct 2026: the shield must not touch the sphere. Dimensions: <a href="exp-1296.html#feed">exp-1296.html#feed</a>. Use #75 (0.021 in) if #76 is too tight.</span></div>
   <label class="sr-only" for="ow-a-sph">Owner</label>
   <select id="ow-a-sph" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
   <label class="sr-only" for="st-a-sph">Status</label>
@@ -278,7 +286,7 @@
 </li>
 <li class="todo-item" data-id="a-stub" data-owner="Steve" data-done="0">
   <input type="checkbox" id="cb-a-stub" aria-labelledby="t-a-stub">
-  <div class="t" id="t-a-stub"><b>Fit the first-article stub (23.1 mm, &lambda;/10) and the 57.8 mm &lambda;/4 control stub; log S11 of each sphere</b></div>
+  <div class="t" id="t-a-stub"><b>Build the corrected feed on each sphere: 1.5 mm (0.06 in) PTFE, 4.0 mm (0.16 in) bare wire with 2.5 mm in the hole, shield 3.0 mm (0.12 in) off the ball, 57.8 mm sleeve; log S11 of each sphere</b><span class="d">Corrected 5 Oct 2026; replaces the 23.1 mm stub. <a href="exp-1296.html#feed">exp-1296.html#feed</a>. Proposal, derived.</span></div>
   <label class="sr-only" for="ow-a-stub">Owner</label>
   <select id="ow-a-stub" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
   <label class="sr-only" for="st-a-stub">Status</label>

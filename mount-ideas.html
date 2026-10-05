@@ -65,13 +65,14 @@
   </div>
 
   <p class="lede">Dan wants a short <strong>stub antenna</strong> (the bare center wire at the end of a coax cable) to poke into each hollow aluminum sphere so that the <strong>tip sits exactly at the sphere’s geometric center</strong>, with the connector and the <strong>sleeve balun</strong> kept outside. This page lists ways to hold the stub there, for the tiny Experiment&nbsp;A ball and the roomier Experiment&nbsp;B ball.</p>
+  <div class="banner-warn"><span class="tag warn">CORRECTED 5 Oct 2026</span> <strong>Experiment A:</strong> the centre-tip idea does not work on the ¾″ ball. The RG-405U shield must not touch the sphere, and the centre conductor is soldered into a #76 pin hole so that the sphere is the driven element. See A1 and <a href="exp-1296.html#feed">exp-1296.html#feed</a>. The Experiment B section is unchanged.</div>
 
   <section class="card">
     <h2 id="summary">The short version</h2>
     <ul>
-      <li><strong>Experiment A (¾″ ball, 1296&nbsp;MHz):</strong> the ball has no hole yet, and there is almost no room inside. The simplest ideas hold the coax from <em>outside</em>: a small hole just big enough for the coax, plus a small external collar or a potted plastic tube that fixes the depth and angle. Nothing can be built <em>inside</em> this ball.</li>
+      <li><strong>Experiment A (¾″ ball, 1296&nbsp;MHz):</strong> <span class="tag warn">CORRECTED 5 Oct 2026</span> the centre conductor is soldered into a #76 (0.020″) pin hole 2.5&nbsp;mm deep, with 1.5&nbsp;mm of PTFE exposed and the shield cut end 3.0&nbsp;mm off the ball. The shield never touches the ball (A1, <a href="exp-1296.html#feed">exp-1296.html#feed</a>).</li>
       <li><strong>Experiment B (2.50″ ball, 433.59&nbsp;MHz):</strong> the ball already has a ¼″ hole. A plastic “top-hat” bushing in that hole can center the coax with no metalwork on the ball. A plastic guide rod that spans the inside of the ball can put the tip at the center automatically.</li>
-      <li><strong>Both:</strong> the tip depth, measured from the outside surface at the hole, is the sphere radius: <strong>9.525&nbsp;mm for A</strong> and <strong>31.75&nbsp;mm for B</strong>. The wall thickness decides how much bare wire is inside. The radius, not λ/10, sets the stub length inside the ball.</li>
+      <li><strong>Experiment B</strong> (A no longer uses a centre tip): the tip depth, measured from the outside surface at the hole, is the sphere radius: <strong>31.75&nbsp;mm for B</strong> (9.525&nbsp;mm would be the A value). The wall thickness decides how much bare wire is inside. The radius, not λ/10, sets the stub length inside the ball.</li>
       <li><strong>Materials:</strong> non-ferrous only. Nylon, PTFE (Teflon) or Delrin (acetal) plastics; brass or nylon screws; no steel in the RF path.</li>
     </ul>
   </section>
@@ -98,13 +99,14 @@
       <tr><td>Sphere</td><td>K-Mac <code>KB-1820</code>, 3003 Al hollow, 0.750″ (19.05&nbsp;mm) OD</td><td>K-Mac <code>KB-2016</code>, 3003 Al hollow, 2.50″ (63.5&nbsp;mm) OD</td><td><span class="tag ok">FACT</span> <a href="shop-drawing.html#sheet-a">Sheet A</a>, <a href="shop-drawing.html#sheet-b">Sheet B</a></td></tr>
       <tr><td>Radius R (tip depth from outside surface)</td><td><strong>9.525&nbsp;mm</strong></td><td><strong>31.75&nbsp;mm</strong></td><td><span class="tag ok">FACT</span> half the OD</td></tr>
       <tr><td>Wall thickness t</td><td><strong>Not stated on the hub. Must be measured</strong> (method below)</td><td>≈ 0.132″ (3.35&nbsp;mm)</td><td><span class="tag ok">FACT</span> <a href="sphere.html">sphere.html</a>, Sheet B</td></tr>
-      <tr><td>Bare wire inside, if the dielectric stops at the inner wall (R − t)</td><td>9.525&nbsp;mm − t (less than 9.5&nbsp;mm)</td><td>31.75 − 3.35 ≈ 28.4&nbsp;mm</td><td><span class="tag ok">FACT</span> geometry</td></tr>
+      <tr><td>Bare wire inside, if the dielectric stops at the inner wall (R − t)</td><td>Not used for A after the 5 Oct 2026 correction</td><td>31.75 − 3.35 ≈ 28.4&nbsp;mm</td><td><span class="tag ok">FACT</span> geometry</td></tr>
+      <tr><td>Exp A feed (corrected 5 Oct 2026)</td><td>#76 pin hole 2.5&nbsp;mm (0.10″) deep; PTFE 1.5&nbsp;mm (0.06″); bare wire 4.0&nbsp;mm (0.16″); shield 3.0&nbsp;mm (0.12″) off the ball</td><td>Unchanged</td><td><span class="tag hively">IDEA</span> derived, <a href="exp-1296.html#feed">exp-1296.html#feed</a></td></tr>
       <tr><td>Hole as received</td><td><strong>None</strong>; one must be drilled</td><td><strong>¼″ (0.250″)</strong>, stock</td><td><span class="tag ok">FACT</span> <a href="shop-drawing.html">shop-drawing.html</a></td></tr>
       <tr><td>Frequency · λ</td><td>1296&nbsp;MHz · 231.3&nbsp;mm</td><td>433.59&nbsp;MHz · 691.4&nbsp;mm</td><td><span class="tag ok">FACT</span> <a href="sleeve-balun.html">sleeve-balun.html</a></td></tr>
       <tr><td>λ/4 sleeve (air)</td><td>57.8&nbsp;mm</td><td>172.9&nbsp;mm</td><td><span class="tag ok">FACT</span> sleeve-balun.html</td></tr>
       <tr><td>λ/10 “first-article” stub</td><td>23.1&nbsp;mm (does <em>not</em> fit: longer than R)</td><td>69.1&nbsp;mm (does <em>not</em> fit: longer than R)</td><td><span class="tag ok">FACT</span> sleeve-balun.html, <a href="setup.html#sleeve">setup#sleeve</a></td></tr>
       <tr><td>RG-405/U coax</td><td colspan="2">outer OD 0.086″ (≈2.2&nbsp;mm); PTFE dielectric OD ≈ 0.066″ (1.68&nbsp;mm); center conductor 0.020″ (0.51&nbsp;mm), silver-plated copper-clad steel</td><td><span class="tag ok">FACT</span> <a href="tools.html">tools.html</a>, sleeve-balun.html</td></tr>
-      <tr><td>SMA bulkhead</td><td colspan="2">Amphenol <code>901-9875</code>, 1/4-36 UNEF thread (major ≈ 0.250″ / 6.35&nbsp;mm); hub’s preferred clearance hole 6.5&nbsp;mm; do not tap thin ball walls</td><td><span class="tag ok">FACT</span> <a href="setup.html#sphere-a">setup#sphere-a</a>, <a href="sphere.html#sma-install">sphere#sma-install</a></td></tr>
+      <tr><td>SMA bulkhead</td><td colspan="2">Amphenol <code>901-9875</code>, 1/4-36 UNEF thread (major ≈ 0.250″ / 6.35&nbsp;mm); hub’s preferred clearance hole 6.5&nbsp;mm; do not tap thin ball walls. Not used on the Experiment A ball after the 5 Oct 2026 correction</td><td><span class="tag ok">FACT</span> <a href="setup.html#sphere-a">setup#sphere-a</a>, <a href="sphere.html#sma-install">sphere#sma-install</a></td></tr>
     </tbody>
   </table>
   </div>
@@ -112,6 +114,7 @@
 
   <h2 id="minimum-hole">How small can the hole be?</h2>
   <ul>
+    <li><span class="tag warn">CORRECTED 5 Oct 2026</span> <strong>Experiment A:</strong> only the 0.51&nbsp;mm centre conductor enters the wall, so the hole is a #76 (0.020″) or #75 (0.021″) pin hole. The larger holes below are kept for Experiment B and for reference.</li>
     <li><span class="tag ok">FACT</span> Only the PTFE dielectric and center wire go through the wall (the outer conductor stops at the outside surface): the hole must clear 1.68&nbsp;mm. A #50 drill (0.070″, 1.78&nbsp;mm) is the next common size up.</li>
     <li><span class="tag ok">FACT</span> The whole RG-405 goes through (outer conductor inside the wall): the hole must clear ≈2.2&nbsp;mm. A #43 drill (0.089″, 2.26&nbsp;mm) is the next common size up.</li>
     <li><span class="tag ok">FACT</span> The 901-9875 bulkhead goes through the wall: 6.5&nbsp;mm clearance (hub). On the ¾″ ball that hole is about one-third of the ball’s diameter.</li>
@@ -122,25 +125,35 @@
   <ol class="steps">
     <li><span class="tag hively">IDEA</span> With the hole drilled (A) or using the stock hole (B), and nothing installed, put a caliper depth rod through the hole until it touches the far inside wall. Call the reading <em>d</em>.</li>
     <li><span class="tag ok">FACT</span> (geometry) <em>d</em> = OD − t for the far wall. If the wall is uniform, t ≈ OD − <em>d</em>. Repeat at a few angles and on a spare ball.</li>
-    <li><span class="tag ok">FACT</span> (geometry) The tip belongs at depth R from the outside surface at the hole: 9.525&nbsp;mm (A) or 31.75&nbsp;mm (B). That holds whatever the wall thickness.</li>
+    <li><span class="tag ok">FACT</span> (geometry) The tip belongs at depth R from the outside surface at the hole: 9.525&nbsp;mm (A) or 31.75&nbsp;mm (B). That holds whatever the wall thickness. (For Experiment A after the correction, use the wall reading to check that a 2.5&nbsp;mm deep pin hole fits; see A1.)</li>
     <li><span class="tag hively">IDEA</span> Put a fixed depth stop on the coax (a collar, a PTFE sleeve cut to length, or a paint mark read under magnification) so the insertion is repeatable.</li>
     <li><span class="tag hively">IDEA</span> A flat caliper base rests on the hole rim, which is slightly below the top of the curve. From the sphere geometry that error is about 0.04&nbsp;mm for a 1.8&nbsp;mm hole in A, 0.16&nbsp;mm for B’s ¼″ hole, but 0.57&nbsp;mm for a 6.5&nbsp;mm hole in A. For big holes, measure from a thin straightedge laid across the rim.</li>
   </ol>
 
   <h2 id="expt-a">Experiment A — ¾″ <code>KB-1820</code> at 1296&nbsp;MHz</h2>
-  <p><span class="tag ok">FACT</span> No hole yet. The inside diameter is less than 19&nbsp;mm, and the hub already says an interior locknut will not fit (“¾″ ID is too tight”, <a href="shop-drawing.html#sheet-a">Sheet&nbsp;A</a>). <span class="tag hively">IDEA</span> So every Experiment A concept holds the stub from the outside. Internal standoffs, internal 3D-printed cradles and internal nuts are judged not practical here: there is no way to get them in through a 2–6.5&nbsp;mm hole, or to adjust them once they are inside.</p>
+  <p><span class="tag ok">FACT</span> No hole yet. The inside diameter is less than 19&nbsp;mm, and the hub already says an interior locknut will not fit (“¾″ ID is too tight”, <a href="shop-drawing.html#sheet-a">Sheet&nbsp;A</a>). <span class="tag warn">CORRECTED 5 Oct 2026</span> The Experiment A feed is now A1: shield off the ball, centre conductor soldered into a pin hole. A2 to A4 below are superseded. <span class="tag hively">IDEA</span> Every Experiment A concept holds the coax from the outside. Internal standoffs, internal 3D-printed cradles and internal nuts are judged not practical here: there is no way to get them in through a 2–6.5&nbsp;mm hole, or to adjust them once they are inside.</p>
 
   <details class="archive-block" open>
-    <summary><strong>A1 · Pin-hole feed</strong>: the smallest hole, with the coax outer conductor ending at the outside surface</summary>
-    <p><span class="tag hively">IDEA</span> Drill about 1.8&nbsp;mm (#50). Strip the RG-405 outer conductor so that only the PTFE dielectric and center wire pass through the wall. The outer conductor’s cut end sits against the outside of the ball. Trim the bare wire so the tip is R = 9.525&nbsp;mm below the outside surface. Then choose one of two options and log which: (a) bond the outer conductor to the shell all round with conductive epoxy or aluminum solder and aluminum flux, or (b) insulate it with a thin PTFE washer. The hub’s existing sphere feed bonds the outer conductor to the shell (“outer as shield”, <a href="setup.html#sphere-a">setup#sphere-a</a>).</p>
-    <div class="pc"><div><h4>Pros</h4>Smallest possible hole; shell stays almost closed; no connector or extra hardware on the ball.</div><div><h4>Cons</h4>The one small joint carries all the mechanical load; depth is hard to adjust after bonding; ordinary tin-lead solder does not wet aluminum (<span class="tag ok">FACT</span> needs aluminum flux or conductive epoxy).</div></div>
-    <p><strong>Tip at center:</strong> a depth stop on the coax set to R; check on a sacrificial ball cut in half. <strong>Sleeve:</strong> outside the ball, open end toward the ball, cold end λ/4 = 57.8&nbsp;mm back. Pair it with A5 for strain relief.</p>
+    <summary><strong>A1 · Pin-hole feed (corrected 5 Oct 2026)</strong>: centre conductor soldered into a #76 pin hole; shield kept off the ball</summary>
+    <p><span class="tag warn">CORRECTED 5 Oct 2026</span> The earlier A1 text put the PTFE and wire through a #50 hole with the tip free at the center, and offered bonding the outer conductor to the ball. That was wrong for Experiment A: a shield bonded to the ball makes it a closed shield cap, and a free pin inside only excites a shorted cavity. The sphere is the driven element.</p>
+    <p><span class="tag hively">IDEA</span> Derived for this hub, not from Monstein and Wesley. Build values (full table: <a href="exp-1296.html#feed">exp-1296.html#feed</a>):</p>
+    <ul>
+      <li>Pin hole: #76 drill (0.020″, 0.51&nbsp;mm), or #75 (0.021″, 0.53&nbsp;mm) for a snug fit, 2.5&nbsp;mm (0.10″) deep (2 to 3&nbsp;mm).</li>
+      <li>Centre conductor soldered in the hole: aluminum solder with aluminum flux, or silver conductive epoxy. <span class="tag meyl">ASSUMPTION</span> the ball is 3003 aluminum as listed; confirm on a spare ball.</li>
+      <li>PTFE exposed past the shield cut: 1.5&nbsp;mm (0.06″).</li>
+      <li>Bare centre conductor past the PTFE end: 4.0&nbsp;mm (0.16″), of which 2.5&nbsp;mm (0.10″) is in the hole and 1.5&nbsp;mm (0.06″) in air.</li>
+      <li>Shield cut end to sphere surface: 3.0&nbsp;mm (0.12″). The shield never touches the ball.</li>
+      <li>If the wall is thinner than 2.5&nbsp;mm, the hole goes through: insert the pin by the wall thickness only and log it.</li>
+    </ul>
+    <div class="pc"><div><h4>Pros</h4>Smallest possible hole; shell stays almost closed; no connector or extra hardware on the ball; the feed is about 0.024 λ long.</div><div><h4>Cons</h4>The one small joint carries all the mechanical load; ordinary tin-lead solder does not wet aluminum (<span class="tag ok">FACT</span> needs aluminum flux or conductive epoxy); the wall thickness is still unknown.</div></div>
+    <p><strong>Sleeve:</strong> λ/4 = 57.8&nbsp;mm (2.28″) in air, over the jacket and shield, far end soldered to the shield, open end toward the ball, level with the shield cut and never touching the ball. Pair it with A5 for strain relief.</p>
   </details>
 
   <details class="archive-block" open>
     <summary><strong>A2 · External collar with a set screw</strong>: an adjustable depth, following the hub’s exterior-flange approach</summary>
+    <p><span class="tag warn">CORRECTED 5 Oct 2026</span> <strong>Superseded for Experiment A.</strong> A metal collar bonds the shield to the ball and the tip sits inside it, which shorts the antenna. A nylon or Delrin collar could still serve as a strain relief that holds the shield 3.0&nbsp;mm off the ball. Use A1 and <a href="exp-1296.html#feed">exp-1296.html#feed</a>. Kept for the record.</p>
     <p><span class="tag hively">IDEA</span> A small brass or aluminum collar (about 6–8&nbsp;mm OD, a few mm long, with a saddle face that matches the ball’s curve) is bonded over a #43 (2.26&nbsp;mm) hole. Its bore is a slip fit on the 0.086″ RG-405. A tiny <strong>brass or nylon</strong> set screw in the side of the collar clamps the coax once the tip depth is right. This is the same idea as the hub’s exterior flange/boss for the SMA (<a href="shop-drawing.html#sheet-a">Sheet&nbsp;A</a>, flange Ø ≈ 0.50″, 3–4&nbsp;mm thick) scaled down to the coax.</p>
-    <div class="pc"><div><h4>Pros</h4>Depth can be adjusted and re-checked; the collar adds grip length that the thin wall lacks; with a metal collar the coax outer conductor is bonded to the shell.</div><div><h4>Cons</h4>The collar must be bonded to aluminum (braze, aluminum solder or conductive epoxy); it adds a small metal lump outside the ball; a set screw can dent semi-rigid coax (use a nylon tip or a brass pad).</div></div>
+    <div class="pc"><div><h4>Pros</h4>Depth can be adjusted and re-checked; the collar adds grip length that the thin wall lacks; a non-metallic collar would keep the shield off the shell.</div><div><h4>Cons</h4>The collar must be bonded to aluminum (braze, aluminum solder or conductive epoxy); it adds a small metal lump outside the ball; a set screw can dent semi-rigid coax (use a nylon tip or a brass pad).</div></div>
     <figure class="mi-fig">
       <svg viewBox="0 0 640 275" role="img" aria-label="Concept sketch A2: small sphere cross-section, external collar with set screw holding RG-405, stub tip at geometric center, sleeve balun outside">
         <text x="320" y="18" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#d4923a">NOT TO SCALE — CONCEPT ONLY (A2)</text>
@@ -174,6 +187,7 @@
 
   <details class="archive-block">
     <summary><strong>A3 · The hub’s SMA bulkhead path plus an internal extension wire</strong></summary>
+    <p><span class="tag warn">CORRECTED 5 Oct 2026</span> <strong>Superseded for Experiment A.</strong> The bulkhead body is bonded to the ball, so the shield is on the ball. Use A1 and <a href="exp-1296.html#feed">exp-1296.html#feed</a>. Kept for the record.</p>
     <p><span class="tag ok">FACT</span> The hub already has a shop plan for the ¾″ ball: an exterior flange or boss, a 6.5&nbsp;mm clearance hole, and the <code>901-9875</code> body bonded to the shell (<a href="shop-drawing.html#sheet-a">Sheet&nbsp;A</a>). <span class="tag hively">IDEA</span> For a stub at the center, solder a short straight wire to the bulkhead’s center contact so its tip ends R = 9.525&nbsp;mm below the outside surface. The sleeve goes on the external cable.</p>
     <div class="pc"><div><h4>Pros</h4>Matches the existing Sheet&nbsp;A; the ball can be unplugged; the thread is held by the flange, not the thin wall.</div><div><h4>Cons</h4>The 6.5&nbsp;mm hole is large for a 19&nbsp;mm ball; the bulkhead’s rear body may take up much of the space inside (<span class="tag meyl">ASSUMPTION</span>: check the 901-9875 drawing); the extension adds a solder joint inside that you cannot see.</div></div>
     <p><strong>Tip at center:</strong> measure from the flange face and subtract the flange thickness. <strong>Sleeve:</strong> on the feed cable, open end toward the connector.</p>
@@ -181,6 +195,7 @@
 
   <details class="archive-block">
     <summary><strong>A4 · Potted plastic guide tube</strong></summary>
+    <p><span class="tag warn">CORRECTED 5 Oct 2026</span> <strong>Superseded for Experiment A.</strong> It puts a free tip inside the ball instead of driving the sphere. Use A1 and <a href="exp-1296.html#feed">exp-1296.html#feed</a>. Kept for the record.</p>
     <p><span class="tag hively">IDEA</span> Push a short Delrin or nylon tube (OD a slip fit in a #43 or slightly larger hole, bore a slip fit on the RG-405 or on its 1.68&nbsp;mm dielectric) a millimetre or so through the wall. Hold it square in a jig and pot it from the <em>outside</em> with a small epoxy fillet. The coax then slides in to its depth stop and gets a drop of adhesive or a nylon set screw.</p>
     <div class="pc"><div><h4>Pros</h4>Sets the angle as well as the depth; spreads the load; no metal bonding to aluminum.</div><div><h4>Cons</h4>Permanent; epoxy and plastic sit right at the feed; <span class="tag ok">FACT</span> PTFE is hard to glue unless etched, so Delrin or nylon is easier here.</div></div>
   </details>
@@ -289,7 +304,8 @@
 
   <h2 id="sleeve-fit">How each concept fits the sleeve balun</h2>
   <p><span class="tag ok">FACT</span> Hub sleeve rule (Keyport-style): a close-fitting tube over the RG-405 jacket, soldered to the outer conductor at the cold end (away from the tip), open end toward the stub tip; λ/4 in air = 57.8&nbsp;mm (A) or 172.9&nbsp;mm (B); trim shorter if the gap has tape or PTFE (<a href="sleeve-balun.html">sleeve-balun.html</a>, <a href="setup.html#sleeve">setup#sleeve</a>). With the stub inside the ball, the sleeve’s open end faces the ball.</p>
-  <p><span class="tag hively">IDEA</span> Open questions for Dan, Steve or anyone else: How big a gap should there be between the sleeve’s open end and the ball surface? Should the sleeve touch the ball, or be kept off it with a thin PTFE washer? Should the coax outer conductor be bonded to the shell (the hub’s current “outer as shield” default) or insulated from it? These choices change the electrical setup, so pick one, log it, and keep the TX and RX identical.</p>
+  <p><span class="tag warn">CORRECTED 5 Oct 2026</span> <strong>Experiment A:</strong> the sleeve’s open end is level with the shield cut, about 3.0&nbsp;mm from the ball, and never touches it (<a href="exp-1296.html#feed">exp-1296.html#feed</a>).</p>
+  <p><span class="tag hively">IDEA</span> Open questions for Dan, Steve or anyone else: How big a gap should there be between the sleeve’s open end and the ball surface? Should the sleeve touch the ball, or be kept off it with a thin PTFE washer? For Experiment A it is settled: the coax outer conductor must not touch the ball (A1). For Experiment B, should the outer conductor be bonded to the shell (the hub’s “outer as shield” default, from Monstein and Wesley Fig.&nbsp;1) or insulated from it? These choices change the electrical setup, so pick one, log it, and keep the TX and RX identical.</p>
 
   <h2 id="references">What the references actually say</h2>
   <details class="archive-block" open>

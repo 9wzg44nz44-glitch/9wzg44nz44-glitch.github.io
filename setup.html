@@ -76,10 +76,10 @@
 <h1>How to set up the Hively replication on the bench</h1>
 <p class="footnote vna-pointer"><strong>New:</strong> <a href="sim-lab/vna-guide/#tab-expts">VNA guide for Steve</a>: how to check the KB-1820 sphere feed, cables and the 23&nbsp;cm filter with the VNA6000-A before a run.</p>
 <p class="footnote">Different experiment (not this mesh tent): Monstein–Wesley 2002 brass-rod polarizer — <a href="monstein.html">monstein.html</a>.</p>
-<p class="lede"><a href="fields.html">Interactive 1296 MHz TEM vs SLW fields</a> · First article for this Scalar Longitudinal Wave (SLW) hub. <strong>Primary radiator:</strong> K-Mac <code>KB-1820</code> 0.750″ (¾″) 3003 aluminum hollow sphere + Amphenol <code>901-9875</code> SMA bulkhead (coax into the ball, outer as shield), inside two <a href="https://lessemf.com/product/radioscreen-mesh/">Less EMF RadioScreen</a> mesh tents — TinySA Ultra 406 spectrum analyzer / signal generator in the detector tent, generator in the transmitter tent. Cricket/Cricut sticky-mat + bifilar pancake + sleeve-stub are <strong>archived</strong> (historical / optional control only) — <a href="#archive-bifilar">#archive-bifilar</a>. Numbers for that old path still match the <a href="lab.html">lab protocol</a> and <a href="tools.html">coil calculator</a>.</p>
+<p class="lede"><a href="fields.html">Interactive 1296 MHz TEM vs SLW fields</a> · First article for this Scalar Longitudinal Wave (SLW) hub. <strong>Primary radiator:</strong> K-Mac <code>KB-1820</code> 0.750″ (¾″) 3003 aluminum hollow sphere, fed by RG-405U, centre conductor soldered into a #76 pin hole, shield kept off the ball (corrected 5 Oct 2026, <a href="exp-1296.html#feed">exp-1296.html#feed</a>), inside two <a href="https://lessemf.com/product/radioscreen-mesh/">Less EMF RadioScreen</a> mesh tents — TinySA Ultra 406 spectrum analyzer / signal generator in the detector tent, generator in the transmitter tent. Cricket/Cricut sticky-mat + bifilar pancake + sleeve-stub are <strong>archived</strong> (historical / optional control only) — <a href="#archive-bifilar">#archive-bifilar</a>. Numbers for that old path still match the <a href="lab.html">lab protocol</a> and <a href="tools.html">coil calculator</a>.</p>
 
 <div class="banner-warn">
-  <strong>Antenna shift (first article).</strong> Experiment A’s first-article antenna is the K-Mac <code>KB-1820</code> <strong>0.750″ (¾″)</strong> aluminum hollow sphere + Amphenol <code>901-9875</code> SMA-F (SubMiniature version A, female) bulkhead. Same feed philosophy as Experiment B (coax into the ball, outer conductor as shield), but at <strong>1296.000&nbsp;MHz</strong> / 23&nbsp;cm. Cricket/Cricut sticky-mat + bifilar pancake + sleeve-stub are <strong>archived</strong> — collapsed under <a href="#archive-bifilar">#archive-bifilar</a> (historical / optional control only). Shop notes: <a href="#sphere-a">#sphere-a</a> · <a href="#sma-shop-a">#sma-shop-a</a>. Electrically separate from B.
+  <strong>Antenna shift (first article).</strong> Experiment A’s first-article antenna is the K-Mac <code>KB-1820</code> <strong>0.750″ (¾″)</strong> aluminum hollow sphere, fed by RG-405U, centre conductor soldered into a #76 pin hole, shield kept off the ball (corrected 5 Oct 2026, <a href="exp-1296.html#feed">exp-1296.html#feed</a>). Unlike Experiment B, the shield must not touch this ball. At <strong>1296.000&nbsp;MHz</strong> / 23&nbsp;cm. Cricket/Cricut sticky-mat + bifilar pancake + sleeve-stub are <strong>archived</strong> — collapsed under <a href="#archive-bifilar">#archive-bifilar</a> (historical / optional control only). Shop notes: <a href="#sphere-a">#sphere-a</a> · <a href="#sma-shop-a">#sma-shop-a</a>. Electrically separate from B.
 </div>
 
 <div class="banner-edu">23 cm amateur band, build on <strong>1296.000 MHz</strong>. Licensed amateur radio only. No magnetron.</div>
@@ -103,7 +103,7 @@
 
 
 <h2 id="sphere-a">Experiment A first article — K-Mac <code>KB-1820</code> 0.750″ hollow sphere</h2>
-<p>Shift from bifilar pancake to a small aluminum Faraday ball at <strong>1296.000&nbsp;MHz</strong>. Feed philosophy matches Experiment B: coax into the interior, outer conductor bonded to the shell as shield. Band and mesh tents stay Experiment A; do <em>not</em> share RF feed with the 433.59&nbsp;MHz bench.</p>
+<p>Shift from bifilar pancake to a small aluminum Faraday ball at <strong>1296.000&nbsp;MHz</strong>. <strong>Feed corrected 5 Oct 2026:</strong> the sphere is the driven element. The RG-405U centre conductor is soldered into a #76 pin hole and the shield stops 3.0&nbsp;mm short of the ball, never touching it; a shield bonded to the ball would make it a closed cap and short the antenna. Dimensions: <a href="exp-1296.html#feed">exp-1296.html#feed</a>. The SMA bulkhead notes below are superseded for Experiment A. Band and mesh tents stay Experiment A; do <em>not</em> share RF feed with the 433.59&nbsp;MHz bench.</p>
 
 <div class="table-wrap">
 <table>
@@ -128,6 +128,7 @@
 <p class="footnote">Bifilar-pancake winding, lift-off, and sleeve-stub fixtures are <strong>archived</strong> under <a href="#archive-bifilar">#archive-bifilar</a> (historical / optional control). Keep them labeled in the log if you still run them.</p>
 
 <h2 id="sma-shop-a">Machine-shop / install — SMA bulkhead on the ¾″ ball (copyable work order)</h2>
+<div class="banner-warn"><strong>Superseded 5 Oct 2026.</strong> This bulkhead plan bonds the coax shield to the ball, which shorts the antenna. Do not build it for Experiment A. Use the pin-hole feed: <a href="exp-1296.html#feed">exp-1296.html#feed</a>. Kept for the record.</div>
 <p class="footnote">After install: verify with <strong>VNA6000-A</strong> S<sub>11</sub> at 1296&nbsp;MHz (<a href="kit.html#vna6000">kit.html#vna6000</a>).</p>
 <p><a class="btn primary" href="shop-drawing.html#sheet-a">Printable shop drawing (Exp A)</a>
 <a class="btn" href="shop-drawing.html#sheet-b">Exp B sheet (2.50″)</a></p>
@@ -151,7 +152,9 @@
 
 <div class="card">
   <h3>Copy-paste work order (Experiment A · <code>KB-1820</code>)</h3>
-  <pre style="white-space:pre-wrap;font-family:var(--mono, 'IBM Plex Mono', monospace);font-size:0.9rem;line-height:1.45;margin:0">WORK ORDER — Experiment A SMA bulkhead on K-Mac KB-1820 0.750″ 3003 Al hollow ball
+  <pre style="white-space:pre-wrap;font-family:var(--mono, 'IBM Plex Mono', monospace);font-size:0.9rem;line-height:1.45;margin:0">SUPERSEDED 5 Oct 2026: DO NOT BUILD. The shield must not touch the ball. See exp-1296.html#feed.
+
+WORK ORDER — Experiment A SMA bulkhead on K-Mac KB-1820 0.750″ 3003 Al hollow ball
 
 Part: Amphenol 901-9875 SMA-F bulkhead (1/4-36 UNEF), RG-316 / LMR-100A crimp.
 Goal: coax into interior; outer conductor / bulkhead body bonded to ball shell as shield.
@@ -227,7 +230,7 @@ CONDITIONAL TAP PATH (only if wall or a welded/soldered boss supports ≥2–3 f
 </figure>
 
 <div class="grid-3">
-  <article class="card hively"><h3>Transmitter (TX)</h3><p><strong>First article:</strong> K-Mac <code>KB-1820</code> ¾″ Al hollow sphere + Amphenol <code>901-9875</code> SMA bulkhead (coax into the ball, outer as shield). Generator <em>inside</em> the TX tent. Licensed 23 cm; milliwatts. Archived sleeve-stub control: <a href="#archive-bifilar">#archive-bifilar</a>.</p></article>
+  <article class="card hively"><h3>Transmitter (TX)</h3><p><strong>First article:</strong> K-Mac <code>KB-1820</code> ¾″ Al hollow sphere, fed by RG-405U, centre conductor soldered into a #76 pin hole, shield kept off the ball (corrected 5 Oct 2026, <a href="exp-1296.html#feed">exp-1296.html#feed</a>). Generator <em>inside</em> the TX tent. Licensed 23 cm; milliwatts. Archived sleeve-stub control: <a href="#archive-bifilar">#archive-bifilar</a>.</p></article>
   <article class="card"><h3>Cage</h3><p><a href="https://lessemf.com/product/radioscreen-mesh/">RadioScreen Mesh</a> (Less EMF #1124-0, nickel over copper on polyester, 130 threads per inch (TPI), 4 ft × 54 in). Two tents from one piece.</p></article>
   <article class="card nz"><h3>Receiver (RX)</h3><p><strong>First article:</strong> matching ¾″ <code>KB-1820</code> sphere + SMA bulkhead. TinySA Ultra 406 in spectrum-analyzer (SA) / Ultra mode <em>inside</em> the RX tent. Archived bifilar pancake: <a href="#archive-bifilar">#archive-bifilar</a>.</p></article>
 </div>
@@ -513,7 +516,7 @@ CONDITIONAL TAP PATH (only if wall or a welded/soldered boss supports ≥2–3 f
 
 <h2 id="checklist">Printable checklist</h2>
 <ul class="check-list">
-  <li><strong>First article:</strong> two K-Mac <code>KB-1820</code> ¾″ Al hollow spheres + Amphenol <code>901-9875</code> SMA bulkheads (shop drills — ships with no hole)</li>
+  <li><strong>First article:</strong> two K-Mac <code>KB-1820</code> ¾″ Al hollow spheres, each with a #76 pin hole 2.5&nbsp;mm deep for the RG-405U centre conductor; shield 3.0&nbsp;mm off the ball, never touching (<a href="exp-1296.html#feed">feed dimensions</a>)</li>
   <li>Measure <em>r</em> sphere-to-sphere or bulkhead tip to bulkhead tip on the non-metallic rail</li>
   <li>TinySA Ultra 406: spectrum-analyzer / Ultra mode, attenuation ≥ 10 dB, battery, no USB cable; LNA on and off logged</li>
   <li><strong>NanoRFE VNA6000-A:</strong> SOLT-calibrated S<sub>11</sub> of each ¾″ sphere feed (+ BPF S<sub>21</sub>) before sealed runs — <a href="kit.html#vna6000">kit.html#vna6000</a></li>
