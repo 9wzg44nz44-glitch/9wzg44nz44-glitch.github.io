@@ -23,7 +23,7 @@ This is vanilla HTML/CSS/JS. No build step.
 | `index.html` | Round 1 landing page: the four benches, tools, and an Archive expander (old `#expt-a` etc. links redirect to `experiments-a-g.html`) |
 | `experiments-a-g.html` | The previous home page (JS tabs `#expt-a` `#expt-b` `#kit`), unchanged apart from an archive banner |
 | `archive.html` | Every other page, grouped |
-| `exp-1296.html`, `exp-433.html`, `exp-2450.html` | Round 1 sphere experiments (1.3 GHz, 433.59 MHz, 2.45 GHz), each with a proposed three-position rod fixture scan (`#stations`) |
+| `exp-1296.html`, `exp-433.html`, `exp-2450.html` | Round 1 sphere experiments (1.3 GHz, 433.59 MHz, 2.45 GHz), each with a proposed three-position rod fixture scan (`#stations`). Experiment B (433) runs a full 0 to 360° scan for brass and W1 tool steel (annealed), open bench first, then a planned closed Faraday cage run (`#runs-oct5`, per Dan's Oct 5 email) |
 | `oven.html` | Microwave oven experiment (oven as TX, 3/4 in sphere as RX), including the three-position fixture scan adapted for the oven (`#stations`) |
 | `todo.html` | Round 1 to-do list (checkboxes saved in localStorage), including the three-position rod fixture scan group (`#g-stations`) |
 | `range-finder.html` | Range finding and dipole direction finding, with calculator |

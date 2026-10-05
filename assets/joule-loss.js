@@ -9,6 +9,8 @@
   function show(el, html, bad) { el.innerHTML = html; el.classList.toggle("bad", !!bad); }
   function warns(ws) { return ws && ws.length ? "<ul>" + ws.map(function (w) { return "<li class=\"bad\">" + w + "</li>"; }).join("") + "</ul>" : ""; }
 
+  function rts(a, l) { var i0 = a.indexOf(0), i3 = a.indexOf(360); return (i0 >= 0 && i3 >= 0) ? l[i3] - l[i0] : NaN; }
+  function amax(a) { return Math.max(180, Math.max.apply(null, a)); }
   /* ---- A ---- */
   $("run-frac").addEventListener("click", function () {
     var a = num("s11"), b = num("s21");
@@ -40,7 +42,7 @@
     lastFit = fit; lastData = { a: a, l: l };
     var f0 = bandF(), lam = 299792458 / f0;
     var scale = "";
-    show(out, "<table><tbody><tr><th scope=\"row\">&kappa;</th><td>" + f(fit.kappa, 3) + " &plusmn; " + f(fit.sKappa, 3) + "</td></tr><tr><th scope=\"row\">Loss at aligned angle</th><td>" + f(fit.maxLoss_dB, 1) + " dB (T = " + f(fit.T_aligned, 4) + ")</td></tr><tr><th scope=\"row\">Aligned angle &phi;<sub>0</sub></th><td>" + f(fit.phi0_deg, 1) + "&deg;</td></tr><tr><th scope=\"row\">Reference level L<sub>0</sub> (rods crossed)</th><td>" + f(fit.L0_dB, 2) + " dB</td></tr><tr><th scope=\"row\">RMS residual, R&sup2;, points</th><td>" + f(fit.rms_dB, 2) + " dB, " + f(fit.r2, 3) + ", " + fit.n + "</td></tr></tbody></table><p class=\"footnote\">Band " + f(f0 / 1e6, 2) + " MHz (&lambda;/2 = " + f(lam * 500, 2) + " mm). M&amp;W published &kappa; = 4.4 for brass at 433.59 MHz. If the residual is large compared with the points' scatter, the form is not a good description.</p>");
+    show(out, "<table><tbody><tr><th scope=\"row\">&kappa;</th><td>" + f(fit.kappa, 3) + " &plusmn; " + f(fit.sKappa, 3) + "</td></tr><tr><th scope=\"row\">Loss at aligned angle</th><td>" + f(fit.maxLoss_dB, 1) + " dB (T = " + f(fit.T_aligned, 4) + ")</td></tr><tr><th scope=\"row\">Aligned angle &phi;<sub>0</sub></th><td>" + f(fit.phi0_deg, 1) + "&deg;</td></tr><tr><th scope=\"row\">Reference level L<sub>0</sub> (rods crossed)</th><td>" + f(fit.L0_dB, 2) + " dB</td></tr><tr><th scope=\"row\">RMS residual, R&sup2;, points</th><td>" + f(fit.rms_dB, 2) + " dB, " + f(fit.r2, 3) + ", " + fit.n + "</td></tr>" + (isFinite(rts(a, l)) ? "<tr><th scope=\"row\">Return to start (360&deg; minus 0&deg;)</th><td>" + f(rts(a, l), 2) + " dB</td></tr>" : "") + "</tbody></table><p class=\"footnote\">Band " + f(f0 / 1e6, 2) + " MHz (&lambda;/2 = " + f(lam * 500, 2) + " mm). M&amp;W published &kappa; = 4.4 for brass at 433.59 MHz. If the residual is large compared with the points' scatter, the form is not a good description.</p>");
     draw(); return fit;
   }
   function draw() {
@@ -50,7 +52,7 @@
       series.push({ x: lastData.a, y: lastData.l, type: "points", color: "#7fd0ff", label: "data" });
       if (lastFit) {
         var xs = [], ys = [];
-        for (var p = 0; p <= 180; p += 2) { xs.push(p); ys.push(lastFit.L0_dB - J.LOG10E10 * lastFit.kappa * Math.pow(Math.cos((p - lastFit.phi0_deg) * Math.PI / 180), 2)); }
+        for (var p = 0, pm = amax(lastData.a); p <= pm; p += 2) { xs.push(p); ys.push(lastFit.L0_dB - J.LOG10E10 * lastFit.kappa * Math.pow(Math.cos((p - lastFit.phi0_deg) * Math.PI / 180), 2)); }
         series.push({ x: xs, y: ys, type: "line", color: "#ffb454", label: "fit" });
       }
     }
@@ -107,13 +109,13 @@
       if (rows.length < 5) { res[s.key] = { error: "Paste at least 5 rows of angle_deg, level_dB[, loading_dB]." }; bad = true; }
       else { res[s.key] = J.analyseStation(rows, thr); if (res[s.key].error) bad = true; res[s.key].rows = rows; }
     });
-    var h = "<table><thead><tr><th scope=\"col\">Station</th><th scope=\"col\">&kappa; &plusmn; s</th><th scope=\"col\">Max loss (dB)</th><th scope=\"col\">&phi;<sub>0</sub> (deg)</th><th scope=\"col\">L<sub>0</sub> (dB)</th><th scope=\"col\">RMS (dB)</th><th scope=\"col\">Loading p-p (dB)</th><th scope=\"col\">Loading R&sup2; vs cos&sup2;</th><th scope=\"col\">Loading flag</th></tr></thead><tbody>";
+    var h = "<table><thead><tr><th scope=\"col\">Station</th><th scope=\"col\">&kappa; &plusmn; s</th><th scope=\"col\">Max loss (dB)</th><th scope=\"col\">&phi;<sub>0</sub> (deg)</th><th scope=\"col\">L<sub>0</sub> (dB)</th><th scope=\"col\">RMS (dB)</th><th scope=\"col\">Loading p-p (dB)</th><th scope=\"col\">Loading R&sup2; vs cos&sup2;</th><th scope=\"col\">Loading flag</th><th scope=\"col\">360&deg; minus 0&deg; (dB)</th></tr></thead><tbody>";
     ST.forEach(function (s) {
       var r = res[s.key];
-      if (r.error) { h += "<tr><th scope=\"row\">" + s.label + "</th><td colspan=\"8\" class=\"bad\">" + r.error + "</td></tr>"; return; }
+      if (r.error) { h += "<tr><th scope=\"row\">" + s.label + "</th><td colspan=\"9\" class=\"bad\">" + r.error + "</td></tr>"; return; }
       var fit = r.fit, ld = r.load;
       h += "<tr><th scope=\"row\">" + s.label + "</th><td>" + f(fit.kappa, 3) + " &plusmn; " + f(fit.sKappa, 3) + "</td><td>" + f(fit.maxLoss_dB, 1) + "</td><td>" + f(fit.phi0_deg, 1) + "</td><td>" + f(fit.L0_dB, 2) + "</td><td>" + f(fit.rms_dB, 2) + "</td>" +
-        (ld ? "<td>" + f(ld.p2p, 3) + "</td><td>" + f(ld.r2, 2) + "</td><td class=\"" + (ld.flag ? "bad" : "good") + "\">" + (ld.flag ? "FLAG: moves with angle" : "stable") + "</td>" : "<td>n/a</td><td>n/a</td><td>no column</td>") + "</tr>";
+        (ld ? "<td>" + f(ld.p2p, 3) + "</td><td>" + f(ld.r2, 2) + "</td><td class=\"" + (ld.flag ? "bad" : "good") + "\">" + (ld.flag ? "FLAG: moves with angle" : "stable") + "</td>" : "<td>n/a</td><td>n/a</td><td>no column</td>") + "<td>" + (function () { var d = rts(r.rows.map(function (q) { return q[0]; }), r.rows.map(function (q) { return q[1]; })); return isFinite(d) ? f(d, 2) : "n/a"; })() + "</td></tr>";
     });
     h += "</tbody></table>";
     var cmp = bad ? null : J.compareStations(res);
@@ -134,7 +136,7 @@
       var r = stLast[s.key]; if (!r || r.error) return;
       series.push({ x: r.rows.map(function (q) { return q[0]; }), y: r.rows.map(function (q) { return q[1]; }), type: "points", color: s.color, label: s.label });
       var xs = [], ys = [];
-      for (var p = 0; p <= 180; p += 2) { xs.push(p); ys.push(r.fit.L0_dB - J.LOG10E10 * r.fit.kappa * Math.pow(Math.cos((p - r.fit.phi0_deg) * Math.PI / 180), 2)); }
+      for (var p = 0, pm = amax(r.rows.map(function (q) { return q[0]; })); p <= pm; p += 2) { xs.push(p); ys.push(r.fit.L0_dB - J.LOG10E10 * r.fit.kappa * Math.pow(Math.cos((p - r.fit.phi0_deg) * Math.PI / 180), 2)); }
       series.push({ x: xs, y: ys, type: "line", color: s.color, label: s.label + " fit" });
     });
     P.draw(c, { series: series, xlabel: "rod angle (deg)", ylabel: "level (dB)" });
@@ -159,10 +161,10 @@
   $("clear-st").addEventListener("click", function () { stStored.brass = stStored.w1 = null; stCompare(); });
   $("fit-w1").addEventListener("change", stCompare);
   function stExample(art) {
-    var kap = [6.0, 4.4, 4.6], head = "# SYNTHETIC example, not a measurement. angle_deg, level_dB, tx_s11_dB\n";
+    var kap = [6.0, 4.4, 4.6], head = "# SYNTHETIC example, not a measurement. Full 0 to 360 deg scan. angle_deg, level_dB, tx_s11_dB\n";
     ST.forEach(function (s, i) {
       var txt = head;
-      for (var p = 0; p <= 180; p += 10) {
+      for (var p = 0; p <= 360; p += 10) {
         var c2 = Math.pow(Math.cos((p - 20) * Math.PI / 180), 2);
         var lvl = -40 - J.LOG10E10 * kap[i] * c2 + 0.3 * rnd();
         var s11 = -12 + (art && i === 0 ? 1.1 * c2 : 0) + 0.06 * rnd();

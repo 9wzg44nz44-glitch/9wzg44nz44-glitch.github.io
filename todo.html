@@ -57,7 +57,7 @@
 <div class="r1-note"><strong>Owners and statuses are starting guesses.</strong> Owner defaults (Dan, Steve, Shop, Bot) are proposals; change them freely. Items marked done are pages already published on this site.</div>
 <div class="todo-bar" id="todo-all">
   <div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Overall progress"><span></span></div>
-  <span class="todo-count" id="todo-total" aria-live="polite">0 of 101 done</span>
+  <span class="todo-count" id="todo-total" aria-live="polite">0 of 105 done</span>
   <button type="button" id="todo-export">Export CSV</button>
   <button type="button" id="todo-reset">Reset my changes</button>
 </div>
@@ -345,7 +345,7 @@
 <section class="todo-group" id="g-b" data-group="g-b">
 <h2>433.59 MHz sphere experiment (Experiment B, Monstein and Wesley)</h2>
 <p>Page: <a href="exp-433.html">exp-433.html</a>.</p>
-<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 9 done</span></div>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 13 done</span></div>
 <div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
 <ul class="todo-list">
 <li class="todo-item" data-id="b-sph" data-owner="Steve" data-done="0">
@@ -374,7 +374,7 @@
 </li>
 <li class="todo-item" data-id="b-brass" data-owner="Steve" data-done="0">
   <input type="checkbox" id="cb-b-brass" aria-labelledby="t-b-brass">
-  <div class="t" id="t-b-brass"><b>Brass rods: angle scan and fit &kappa;; compare with the published fit &kappa; = 4.4 (T = exp(-&kappa; cos&sup2;&phi;))</b><span class="d">Their ball was 6 cm and the geometry differs, so a different &kappa; is not a failure; record it.</span></div>
+  <div class="t" id="t-b-brass"><b>Run 1 (open bench, no Faraday cage): brass rods, full 0 to 360&deg; scan in 10&deg; steps (37 readings, 360&deg; = return-to-start check); fit &kappa;</b><span class="d">Compare with the published fit &kappa; = 4.4 (T = exp(-&kappa; cos&sup2;&phi;)). Their ball was 6 cm and the geometry differs, so a different &kappa; is not a failure; record it. <a href="exp-433.html#runs-oct5">exp-433.html#runs-oct5</a>.</span></div>
   <label class="sr-only" for="ow-b-brass">Owner</label>
   <select id="ow-b-brass" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
   <label class="sr-only" for="st-b-brass">Status</label>
@@ -382,11 +382,43 @@
 </li>
 <li class="todo-item" data-id="b-w1" data-owner="Steve" data-done="0">
   <input type="checkbox" id="cb-b-w1" aria-labelledby="t-b-w1">
-  <div class="t" id="t-b-w1"><b>W1 rods: same scan; compare with brass</b></div>
+  <div class="t" id="t-b-w1"><b>Run 1 (open bench): W1 tool steel (annealed) rods, the same full 0 to 360&deg; scan; compare &kappa; with brass</b><span class="d">Dr. Hively's requested change, per Dan's 5 Oct 2026 email to Steve: W1 (annealed) in place of brass and a full 360&deg; turn of the lazy Susan. Dan's email describes the Monstein and Wesley rotation as 90&deg;.</span></div>
   <label class="sr-only" for="ow-b-w1">Owner</label>
   <select id="ow-b-w1" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
   <label class="sr-only" for="st-b-w1">Status</label>
   <select id="st-b-w1" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="b-brass-cage" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-b-brass-cage" aria-labelledby="t-b-brass-cage">
+  <div class="t" id="t-b-brass-cage"><b>Run 2 (planned): brass rods, full 0 to 360&deg; scan with the big spheres inside a closed Faraday cage</b><span class="d">Answers the objection "you drilled a hole in it, thus TEM waves are possible" (Dan's 5 Oct email). Record cage layout, closed state and grounding on every row.</span></div>
+  <label class="sr-only" for="ow-b-brass-cage">Owner</label>
+  <select id="ow-b-brass-cage" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-b-brass-cage">Status</label>
+  <select id="st-b-brass-cage" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="b-w1-cage" data-owner="Steve" data-done="0">
+  <input type="checkbox" id="cb-b-w1-cage" aria-labelledby="t-b-w1-cage">
+  <div class="t" id="t-b-w1-cage"><b>Run 2 (planned): W1 tool steel (annealed) rods, full 0 to 360&deg; scan with the big spheres inside a closed Faraday cage</b></div>
+  <label class="sr-only" for="ow-b-w1-cage">Owner</label>
+  <select id="ow-b-w1-cage" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-b-w1-cage">Status</label>
+  <select id="st-b-w1-cage" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="b-cage-layout" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-b-cage-layout" aria-labelledby="t-b-cage-layout">
+  <div class="t" id="t-b-cage-layout"><b>Decide the Run 2 cage layout: each sphere with its feed in its own closed enclosure, or another arrangement</b><span class="d"><span class="r1-badge prop">proposal</span> Separate enclosures address the drilled-hole objection directly; one cage around both spheres still allows an ordinary TEM path between them inside the cage.</span></div>
+  <label class="sr-only" for="ow-b-cage-layout">Owner</label>
+  <select id="ow-b-cage-layout" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-b-cage-layout">Status</label>
+  <select id="st-b-cage-layout" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="b-flange" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-b-flange" aria-labelledby="t-b-flange">
+  <div class="t" id="t-b-flange"><b>Optional: decide whether to have the machine shop make a sphere with the flange built in as one part, as Monstein and Wesley did (Fig. 1)</b><span class="d">Only if the drilled-hole approach needs modification (Dan's 5 Oct email). <a href="sphere.html">sphere.html</a> compares Fig. 1 with the catalogue ball.</span></div>
+  <label class="sr-only" for="ow-b-flange">Owner</label>
+  <select id="ow-b-flange" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-b-flange">Status</label>
+  <select id="st-b-flange" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
 </li>
 <li class="todo-item" data-id="b-sa" data-owner="Steve" data-done="0">
   <input type="checkbox" id="cb-b-sa" aria-labelledby="t-b-sa">
@@ -790,7 +822,7 @@
 </li>
 <li class="todo-item" data-id="sts-433-brass" data-owner="Steve" data-done="0">
   <input type="checkbox" id="cb-sts-433-brass" aria-labelledby="t-sts-433-brass">
-  <div class="t" id="t-sts-433-brass"><b>433.59 MHz, brass: three-station scan, 0 to 180&deg; in 10&deg; steps then once over 0 to 360&deg;</b><span class="d">Log level, TX S11, optional RX S11 and ambient at every angle. Page: <a href="exp-433.html#stations">exp-433.html#stations</a>.</span></div>
+  <div class="t" id="t-sts-433-brass"><b>433.59 MHz, brass: three-station scan, full 0 to 360&deg; in 10&deg; steps (37 readings), open bench first, then in the closed cage</b><span class="d">Log level, TX S11, optional RX S11 and ambient at every angle. Page: <a href="exp-433.html#stations">exp-433.html#stations</a>.</span></div>
   <label class="sr-only" for="ow-sts-433-brass">Owner</label>
   <select id="ow-sts-433-brass" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
   <label class="sr-only" for="st-sts-433-brass">Status</label>
@@ -798,7 +830,7 @@
 </li>
 <li class="todo-item" data-id="sts-433-w1" data-owner="Steve" data-done="0">
   <input type="checkbox" id="cb-sts-433-w1" aria-labelledby="t-sts-433-w1">
-  <div class="t" id="t-sts-433-w1"><b>433.59 MHz, W1: the same three-station scan in the same holes</b></div>
+  <div class="t" id="t-sts-433-w1"><b>433.59 MHz, W1 tool steel (annealed): the same full 0 to 360&deg; three-station scan in the same holes, open then caged</b></div>
   <label class="sr-only" for="ow-sts-433-w1">Owner</label>
   <select id="ow-sts-433-w1" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
   <label class="sr-only" for="st-sts-433-w1">Status</label>
