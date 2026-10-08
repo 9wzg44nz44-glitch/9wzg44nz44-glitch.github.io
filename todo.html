@@ -57,7 +57,7 @@
 <div class="r1-note"><strong>Owners and statuses are starting guesses.</strong> Owner defaults (Dan, Steve, Shop, Bot) are proposals; change them freely. Items marked done are pages already published on this site.</div>
 <div class="todo-bar" id="todo-all">
   <div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Overall progress"><span></span></div>
-  <span class="todo-count" id="todo-total" aria-live="polite">0 of 106 done</span>
+  <span class="todo-count" id="todo-total" aria-live="polite">0 of 107 done</span>
   <button type="button" id="todo-export">Export CSV</button>
   <button type="button" id="todo-reset">Reset my changes</button>
 </div>
@@ -137,7 +137,7 @@
 <section class="todo-group" id="g-fix" data-group="g-fix">
 <h2>Fixtures: plates, turntable, rail</h2>
 <p>Mechanical work shared by all three bands. Drafts of the drill patterns are on the <a href="rod-jig/">rod-jig page</a>.</p>
-<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 7 done</span></div>
+<div class="todo-bar"><div class="todo-prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress for this group"><span></span></div><span class="todo-count" aria-live="polite">0 of 8 done</span></div>
 <div class="todo-head" aria-hidden="true"><span></span><span>Task</span><span>Owner</span><span>Status</span></div>
 <ul class="todo-list">
 <li class="todo-item" data-id="rod-jig-draft" data-owner="Bot" data-done="1">
@@ -179,6 +179,14 @@
   <select id="ow-fix-turn" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
   <label class="sr-only" for="st-fix-turn">Status</label>
   <select id="st-fix-turn" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
+</li>
+<li class="todo-item" data-id="fix-settle" data-owner="Dan" data-done="0">
+  <input type="checkbox" id="cb-fix-settle" aria-labelledby="t-fix-settle">
+  <div class="t" id="t-fix-settle"><b>Rod settle time: after each 10&deg; step wait about 3 s (or until the trace is flat) before reading, and log <code>settle_s</code></b><span class="d">Each rod rings like two cantilevers after a bump (estimated lowest mode about 51 to 55 Hz for the 346 mm brass rods). Details: <a href="rod-jig/#ringing">rod-jig page, section 7</a>.</span></div>
+  <label class="sr-only" for="ow-fix-settle">Owner</label>
+  <select id="ow-fix-settle" class="ow" aria-label="Owner"><option>Dan</option><option>Steve</option><option>Shop</option><option>Bot</option><option>TBD</option></select>
+  <label class="sr-only" for="st-fix-settle">Status</label>
+  <select id="st-fix-settle" class="st" aria-label="Status"><option value="todo">To do</option><option value="doing">Doing</option><option value="blocked">Blocked</option><option value="done">Done</option></select>
 </li>
 <li class="todo-item" data-id="fix-rail" data-owner="Steve" data-done="0">
   <input type="checkbox" id="cb-fix-rail" aria-labelledby="t-fix-rail">
