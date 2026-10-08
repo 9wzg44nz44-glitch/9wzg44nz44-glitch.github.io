@@ -80,6 +80,7 @@
   <li><a href="#mobius">8 Mobius strip</a></li>
   <li><a href="#config4">9 Config 4 (dropped)</a></li>
   <li><a href="#config5">10 Config 5 toroid</a></li>
+  <li><a href="#config6">10b Config 6 electret</a></li>
   <li><a href="#simlab">11 Simulation results</a></li>
   <li><a href="#swp">12 Standing Wave Project</a></li>
   <li><a href="#range">13 Range and amplifiers</a></li>
@@ -245,6 +246,119 @@
 </figure>
 <p class="footnote credit">Rendered with Bob Greenyer's <a href="https://starfire.tech/O-Animator/Art-n-Science/">O-Animator (starfire.tech)</a>.</p>
 <p class="footnote">The O-Animator renders a fractal set of tori (31 even at the lowest depth), the colours are its own shading, and the background particle cloud could not be turned off. Treat the picture as a qualitative illustration of A without B, not as a field map of a real coil.</p>
+
+<h2 id="config6">10b. Configuration 6: electret element (idea under evaluation, Oct 8 2026)</h2>
+<div class="r1-note"><strong>Status: idea under evaluation. Nothing bought or built.</strong> Configurations 1 to 3 with the 5 PVDF strips stay the baseline. Numbered "10b" so the later section numbers and links stay as they were. The <a href="#config6-questions">open questions for Dan</a> are at the end of this section.</div>
+<p><strong>Idea (Dan Britton):</strong> use an electret as the source and receiver element. An electret is a dielectric that holds a quasi-permanent trapped charge or frozen polarization. The proposed source is that stored charge, moved mechanically (flexed or squeezed) at the drive frequency, with an identical element as the receiver.</p>
+
+<h3>How it relates to the PVDF strip</h3>
+<ul>
+<li><span class="r1-badge fact">fact</span> <strong>Poled PVDF is already electret-like:</strong> poling freezes in its polarization. The TE (Measurement Specialties) piezo film manual gives d31 = 23 pC/N, d33 = -33 pC/N and relative permittivity 12 [18]. The electret adds one of two things: more charge moved per unit strain, or a charge that can be removed or reversed for a control. So PVDF stays the baseline and the electret is an addition, not a replacement.</li>
+<li><span class="r1-badge fact">fact</span> <strong>Ferroelectrets</strong> (charged cellular polypropylene, the EMFi or Emfit film) hold charge on the walls of flat air voids. Published d33 values:
+  <ul>
+  <li>about 250 pC/N quasi-static and 140 pC/N at 600 kHz [20];</li>
+  <li>up to about 1200 pC/N quasi-static after pressure expansion, about 350 pC/N just below the thickness resonance, with the resonance at 150 to 400 kHz [21];</li>
+  <li>about 200 pC/N after corona charging, in an air-coupled ultrasonic receiver [24].</li>
+  </ul>
+  A review puts ferroelectret d33 at up to about 20 times that of the best conventional piezoelectric polymers [19].</li>
+<li><span class="r1-badge fact">fact</span> <strong>Off-the-shelf sensor film is much lower:</strong> the Emfit L-series sheet is specified at 25 pC/N &plusmn;20 % (normal force), 0.4 mm thick, relative permittivity about 1.1, 22 pF/cm&sup2;, operating range -20 to +70 &deg;C [26]. That is about the same as PVDF's |d33|, so any gain depends on which film is bought.</li>
+<li><span class="r1-badge fact">fact</span> <strong>It is a squeeze effect, not a bend effect.</strong> Emfit states that the film responds to thickness change rather than strain, and that flexing gives only low signal levels [26]. For a <em>flexing</em> drive, PVDF (d31 = 23 pC/N) stays the better material. Ferroelectret film needs to be pressed, for example by a piezo stack or by sound pressure.</li>
+<li><span class="r1-badge fact">fact</span> <strong>Stability:</strong>
+  <ul>
+  <li>Cellular PP d33 is roughly independent of humidity near and below room temperature, but heating above about 60 &deg;C reduces it [22]. Annealing at 70 &deg;C and above causes decay [21].</li>
+  <li>One study measured about 600 to 700 pC/N fresh after corona charging, decaying to near 200 pC/N after several months, and about 150 pC/N for samples at 25,000 h. It also measured a film resonance at 97.25 kHz by laser interferometry [23].</li>
+  <li>Same soldering rule as PVDF: leads only, never heat the film.</li>
+  </ul></li>
+</ul>
+
+<h3>Strongest advantage: a clean control</h3>
+<ul>
+<li><strong>Discharged twin:</strong> an identical element with its charge removed has the same outline, capacitance, lead dress and mechanics, but no stored charge. With DIY film (below), the cleanest twin is an uncharged piece cut from the same sheet.</li>
+<li><strong>Flip test:</strong> turn the film over between the same electrodes and leads. The stored polarization then points the other way, so any response that comes <em>through the stored charge</em> should flip sign (180&deg;). Direct electrical pickup on the leads does not flip.</li>
+<li><strong>Bias null (optional, needs HV):</strong> a DC bias equal and opposite to the film's internal voltage makes a cellular PP receiver insensitive. That internal voltage was 473 &plusmn; 16 V for one layer [24].</li>
+<li><strong>Be honest about what these controls separate.</strong> On the <em>TX</em> side, a charged and a discharged element on the same shaker give almost the same sound, so the pair separates charge motion from acoustics. On the <em>RX</em> side, an electret's acoustic sensitivity also comes from its charge. Discharging or flipping the receiver therefore separates charge-coupled pickup from plain electrical pickup, but <strong>not</strong> from sound.</li>
+<li><strong>Reading a sign flip needs phase.</strong> The TinySA reads amplitude only. Use a phase-capable instrument on the open bench (for example a two-channel scope with a reference from the generator).</li>
+</ul>
+
+<h3>Biggest risk: an electret is a microphone</h3>
+<ul>
+<li><span class="r1-badge fact">fact</span> An electret condenser microphone is a charged membrane plus a JFET [27]. Cellular PP films are used as air-coupled ultrasonic transmitters and receivers at 100 to 200 kHz [24], [25]. So the element senses sound and vibration by design, and acoustic and vibration leakage is expected to dominate.</li>
+<li><strong>Isolation at least as strict as for the PVDF strip</strong>: all the controls in <a href="#controls">section 7</a>, and the roughly 133 dB of mechanical isolation estimated in section 11.</li>
+<li><strong>Added controls for this configuration:</strong>
+  <ol>
+  <li><strong>Charged element, no drive:</strong> the RX element in place with TX off, to log the ambient sound and vibration floor.</li>
+  <li><strong>Discharged detector:</strong> swap in the discharged twin at the RX position.</li>
+  <li><strong>Discharged source:</strong> the discharged twin on the same shaker at the TX position.</li>
+  <li><strong>Flipped film</strong> at TX and at RX, one at a time.</li>
+  <li><strong>Acoustic monitor:</strong> the ultrasonic microphone (parts list) beside the RX element, logged in every run.</li>
+  </ol></li>
+</ul>
+
+<h3>Drive</h3>
+<ul>
+<li><strong>A mechanical drive limits this to acoustic and ultrasonic frequencies:</strong> 109 kHz at best, not 39 MHz or 1296 MHz.</li>
+<li><strong>A shaker brings its own fields.</strong> A voice coil makes a B field at the drive frequency; a piezo stack makes an E field from its drive voltage.</li>
+<li><strong>Options:</strong>
+  <ol type="a">
+  <li><strong>Piezo shaker in a shielded box</strong> (die-cast), with the electret outside on a short insulating pushrod. Run the shaker into the discharged twin as a control.</li>
+  <li><strong>Electrical drive:</strong> electret transducers are reciprocal [26], so TinySA #1 plus a step-up transformer can drive the film directly. <span class="r1-badge der">derived</span> With the 1:4 step-up from section 5, about 50 mV EMF becomes about 0.2 V unloaded. Thickness change = d33 x V: about 0.04 nm at 200 pC/N, against about 0.007 nm for PVDF at 33 pC/N. Published ferroelectret ultrasonic transmitters are pulsed at 1.8 kV [25], about 79 dB more voltage. Electrical drive also puts the drive voltage straight onto the element, which is the same E leakage problem as the PVDF strip.</li>
+  <li><strong>Low-frequency crank</strong> (hand or motor flexing a film): a sanity demo only. It sits below the TinySA's 100 kHz bottom end, so read it with a scope or a sound card.</li>
+  </ol></li>
+</ul>
+
+<h3>Cheapest first test: a pair of electret mic capsules</h3>
+<ul>
+<li><span class="r1-badge fact">fact</span> Example part: Same Sky (formerly CUI) CMA-4544PF-W, rated 20 Hz to 20 kHz, -44 &plusmn;2 dB re 1 V/Pa at 1 kHz, 3 V typical (10 V maximum), 2.2 k&ohm; output impedance. It has an internal FET, so it needs DC bias and a blocking capacitor [27].</li>
+<li><strong>Purpose: measure acoustic and vibration leakage through the cage</strong>, not the scalar question.
+  <ul>
+  <li>Source outside the cage: a small speaker, or a capsule.</li>
+  <li>Receiver inside on battery bias: a second capsule, logged by a battery recorder or phone inside the cage.</li>
+  <li>Compare cage open and closed, foam box on and off, and soft mounts on and off.</li>
+  </ul></li>
+<li><strong>Limits:</strong>
+  <ul>
+  <li>Audio band only. The TinySA starts at 100 kHz and cannot read these capsules, and leakage at 109 kHz still needs the ultrasonic microphone.</li>
+  <li>A capsule cannot easily be discharged, so capsules give no clean charge control.</li>
+  </ul></li>
+<li><strong>Order of buying:</strong> capsules first. If audio-band leakage through the closed cage is already large, fix the isolation before buying anything else. Buy ferroelectret film only after that.</li>
+</ul>
+
+<h3>DIY option: corona-charged PTFE or FEP</h3>
+<ul>
+<li><span class="r1-badge fact">fact</span> <strong>Published setups:</strong>
+  <ul>
+  <li>Point-to-plane corona on PTFE: needle at &plusmn;12 kV, 4 cm gap, 5 min. Non-porous PTFE held about 1500 V more initial surface potential than porous PTFE [30].</li>
+  <li>Corona triode on 25 to 125 &micro;m films (PP, PET, PMMA, PC, FEP): 12 kV needle, 2 kV grid [29].</li>
+  <li>A constant-current triode charged FEP foils to surface potentials up to &plusmn;6 kV [28].</li>
+  </ul></li>
+<li><strong>Advantage:</strong> charge one piece and keep an uncharged twin from the same sheet. This gives the cleanest discharged control.</li>
+<li><span class="r1-badge asm">assumption</span> <strong>Safety (general HV practice, not from the sources above):</strong> kV supplies can injure. Use a current-limited supply, a grounded sample plate and a grounding stick. Keep one hand away, and ventilate (corona makes ozone). Keep flammables away. Do this only if Dan has or wants an HV supply.</li>
+</ul>
+
+<h3>Standing Wave Project cross-check</h3>
+<ul>
+<li>Bob Greenyer's <a href="https://starfire.tech/StandingWaveProject/">Standing Wave Project</a> could find the modes and clamp or node points of a <strong>carrier plate</strong>: a metal shim of 0.5 mm or more with the film laminated on (a bender), free or clamped, with the plate at least 20 mm across.</li>
+<li><strong>Limits, honestly:</strong>
+  <ul>
+  <li>Electret films (tens of &micro;m to 0.4 mm) are below its 0.5 mm minimum thickness.</li>
+  <li>It has no PP, PTFE, FEP or PVDF material.</li>
+  <li>A tensioned mic diaphragm is outside what it models.</li>
+  </ul>
+  It cannot check the film itself, only a stiff carrier.</li>
+</ul>
+
+<h3>Expected outcome</h3>
+<p><span class="r1-badge hyp">hyp</span> Conventionally, moving bound charge conserves charge. It gives an ordinary near-field E that falls off fast with distance, plus acoustic and vibration pickup, both calculable. The published Hively papers give no source term or coupling coefficient for an electret, so the framework as published gives no number for this configuration. Anything reproducible that survives the controls would be an unexplained observation, not a confirmed prediction.</p>
+
+<h3 id="config6-questions">Open questions for Dan</h3>
+<ol>
+<li>Which electret: ferroelectret film (Emfit cellular PP), DIY corona-charged PTFE or FEP, or electret mic capsules?</li>
+<li>Mechanical or electrical drive, and what target frequency? (109 kHz is the realistic ceiling for a mechanical drive.)</li>
+<li>Keep the 5 PVDF strips on order? Recommended: yes, they stay the baseline.</li>
+<li>Do you have, or want, a high-voltage supply for corona charging? It is a shock and ozone hazard.</li>
+<li>Should Simulation Lab model electret film modes and charge motion against PVDF?</li>
+<li>What budget for this configuration?</li>
+</ol>
 
 <h2 id="simlab">11. Simulation results (Simulation Lab, 7 Oct 2026)</h2>
 <p>Python model, published sources only. It predicts <strong>no scalar-wave signal size</strong>, because no published source gives one. What it predicts is the ordinary background that a null or positive reading has to beat.</p>
@@ -440,6 +554,12 @@
 <tr><td>Small RF toroid cores and magnet wire</td><td>2 to 3</td><td>Configuration 5 A-source at 39 MHz and above. Run the return lead back along the core; twist the leads.</td></tr>
 <tr><td>RF-over-fibre link, or a battery setup for TinySA #1 inside the cage</td><td>1</td><td>Configuration 5 drive. No coax through the wall.</td></tr>
 <tr><td>Copper foil (slotted shield), 50 ohm non-inductive resistors, copper can</td><td>assorted</td><td>Configuration 5 E shield, dummy load and shielded-toroid control.</td></tr>
+<tr><td>Electret mic capsules, for example <a href="https://www.digikey.com/en/products/detail/same-sky-formerly-cui-devices/CMA-4544PF-W/1869981">Same Sky CMA-4544PF-W</a></td><td>4 (optional)</td><td>Under evaluation (Configuration 6). Cheapest first test of acoustic and vibration leakage through the cage. 20 Hz to 20 kHz; internal FET needs DC bias (3 V typical) [27].</td></tr>
+<tr><td>Battery audio recorder or phone, plus a small speaker</td><td>1 each (optional)</td><td>Under evaluation (Configuration 6). Reads the capsules inside the cage; the TinySA starts at 100 kHz and cannot.</td></tr>
+<tr><td>Ferroelectret film (cellular PP), <a href="https://www.sensors.emfit.com/">Emfit Ltd</a></td><td>1 sheet (optional)</td><td>Under evaluation (Configuration 6). Buy only after the capsule test. Check the quoted d33: the L-series sheet is 25 pC/N [26], lab films 200 pC/N and up [20], [21], [24].</td></tr>
+<tr><td>FEP or PTFE film, 25 to 125 &micro;m, with aluminium electrode</td><td>optional</td><td>Under evaluation (Configuration 6). DIY corona-charged electret plus an uncharged twin from the same sheet [29], [30].</td></tr>
+<tr><td>HV corona supply (needle about 12 kV, grid about 2 kV)</td><td>optional</td><td>Under evaluation (Configuration 6). Open question; shock and ozone hazard [29].</td></tr>
+<tr><td>Small piezo stack actuator in a die-cast box</td><td>optional</td><td>Under evaluation (Configuration 6). Mechanical squeeze drive at up to 109 kHz; its drive E field stays inside the box.</td></tr>
 <tr><td>Laser, photodiode, interferometer optics</td><td>0</td><td>Not needed (they were the Configuration 4 readout, now dropped).</td></tr>
 </tbody></table></div>
 
@@ -462,6 +582,19 @@
 <li>M. Hahn, S. Trolier-McKinstry, R. J. Meyer, J. Appl. Phys. 129, 064504 (2021), <a href="https://doi.org/10.1063/5.0038756">doi:10.1063/5.0038756</a> (BST 70/30 properties, Tc 33 &deg;C)</li>
 <li>W. C. Young, R. G. Budynas, Roark's Formulas for Stress and Strain, 7th ed., Table 10.1 (Saint-Venant torsion constant)</li>
 <li>B. Greenyer et al., Standing Wave Project: <a href="https://starfire.tech/StandingWaveProject/">starfire.tech/StandingWaveProject</a>; O-Animator: <a href="https://starfire.tech/O-Animator/Art-n-Science/">starfire.tech/O-Animator/Art-n-Science</a> (access key required)</li>
+<li>Measurement Specialties (TE), Piezo Film Sensors Technical Manual (PVDF d31 23 pC/N, d33 -33 pC/N, relative permittivity 12): <a href="https://www.sparkfun.com/datasheets/Sensors/Flex/MSI-techman.pdf">sparkfun.com/datasheets/Sensors/Flex/MSI-techman.pdf</a></li>
+<li>S. Bauer, R. Gerhard-Multhaupt, G. M. Sessler, "Ferroelectrets: Soft Electroactive Foams for Transducers," Physics Today 57(2), 37 (2004), <a href="https://doi.org/10.1063/1.1688068">doi:10.1063/1.1688068</a></li>
+<li>G. S. Neugschwandtner et al., "Piezo- and pyroelectricity of a polymer-foam space-charge electret," J. Appl. Phys. 89, 4503 (2001), <a href="https://doi.org/10.1063/1.1355719">doi:10.1063/1.1355719</a></li>
+<li>X. Zhang, J. Hillenbrand, G. M. Sessler, "Piezoelectric d33 coefficient of cellular polypropylene subjected to expansion by pressure treatment," Appl. Phys. Lett. 85, 1226 (2004), <a href="https://doi.org/10.1063/1.1781388">doi:10.1063/1.1781388</a></li>
+<li>A. Mellinger, M. Wegener et al., "Thermal and Temporal Stability of Ferroelectret Films Made from Cellular Polypropylene/Air Composites," Ferroelectrics 331, 189 (2006), <a href="https://doi.org/10.1080/00150190600737933">doi:10.1080/00150190600737933</a></li>
+<li>G. Ortega Bra&ntilde;a et al., "Characterisation and optimisation of the d33 coefficient of cellular PP films," IET Sci. Meas. Technol. 11, 125 (2017), <a href="https://doi.org/10.1049/iet-smt.2016.0292">doi:10.1049/iet-smt.2016.0292</a></li>
+<li>M. Gaal, R. Caldeira, J. Bartusch, M. Kupnik, "Air-Coupled Ultrasonic Ferroelectret Receiver with Additional DC Voltage," Proceedings 1, 362 (2017), <a href="https://doi.org/10.3390/proceedings1040362">doi:10.3390/proceedings1040362</a></li>
+<li>M. Tiitta et al., "Air-coupled ultrasound detection of natural defects in wood using ferroelectret and piezoelectric sensors," Wood Sci. Technol. 54, 1051 (2020), <a href="https://doi.org/10.1007/s00226-020-01189-y">doi:10.1007/s00226-020-01189-y</a></li>
+<li>Emfit Ltd, ferroelectret sensor film: <a href="https://www.sensors.emfit.com/">sensors.emfit.com</a>; L-series specifications as tabulated in V.-E. Toader et al., "Using the EMFIT Sensor in Geophysical Monitoring," Sensors 25, 6746 (2025), <a href="https://doi.org/10.3390/s25216746">doi:10.3390/s25216746</a></li>
+<li>Same Sky (formerly CUI Devices), CMA-4544PF-W electret condenser microphone datasheet: <a href="https://www.sameskydevices.com/product/resource/cma-4544pf-w.pdf">sameskydevices.com/product/resource/cma-4544pf-w.pdf</a></li>
+<li>J. A. Giacometti, J. S. C. Campos, "Constant current corona triode with grid voltage control. Application to polymer foil charging," Rev. Sci. Instrum. 61, 1143 (1990), <a href="https://doi.org/10.1063/1.1141438">doi:10.1063/1.1141438</a></li>
+<li>Y. Zhong et al., "Electrification mechanism of corona charged organic electrets," J. Phys. D: Appl. Phys. 52, 445303 (2019), <a href="https://doi.org/10.1088/1361-6463/ab325f">doi:10.1088/1361-6463/ab325f</a></li>
+<li>G. Chen, H. Xiao, C. Zhu, "Charge dynamic characteristics in corona-charged polytetrafluoroethylene film electrets," J. Zhejiang Univ. Sci. 5, 923 (2004), <a href="https://doi.org/10.1631/jzus.2004.0923">doi:10.1631/jzus.2004.0923</a></li>
 </ol>
 
 <h2 id="assumptions">18. Derived values and assumptions (summary)</h2>
@@ -474,6 +607,7 @@
 <li>Toroid drive: -19 dBm (about 50 mV open-circuit EMF behind 50 ohm) gives at most about 0.5 mA rms; with a 100 or 220 &micro;H kit toroid plus the 50 ohm resistor at 109 kHz, about 0.4 or 0.3 mA rms.</li>
 <li>Sphere material and walls: vendor data gives 3003 aluminium. The KB-2016 wall is 3.35 mm (vendor). The KB-1820 wall is assumed 1 mm (not listed by the vendor). The FEM shell modes are in section 12 (<a href="#swp-spheres">Hollow sphere modes</a>).</li>
 <li>Amplifier gain and noise figure at 39 MHz are interpolated from the datasheet points at 10 and 100 MHz.</li>
+<li>Configuration 6 electrical drive: about 50 mV EMF through a 1:4 step-up gives about 0.2 V unloaded; thickness change = d33 x V with d33 200 pC/N (cellular PP [24]) or 33 pC/N (PVDF [18]), giving about 0.04 nm and 0.007 nm; 1.8 kV / 0.2 V is about 79 dB. Loading by the film capacitance ignored.</li>
 <li>All resonances must be measured; none of the above is a measured value.</li>
 </ul>
 
