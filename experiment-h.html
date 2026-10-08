@@ -293,7 +293,7 @@
 <ul>
 <li><span class="r1-badge der">derived</span> Self capacitance: <strong>1.06 pF</strong> (3/4 in) and <strong>3.53 pF</strong> (2.5 in). Hollow or solid makes no difference; the 1/4 in hole changes it by only 0.0053 %.</li>
 <li><span class="r1-badge der">derived</span> Wired straight to the buffer, the <strong>small sphere is better for a charge-like source</strong> (0.019 vs 0.029 aC/&radic;Hz) and the <strong>big sphere is about 7 dB better for a voltage-like source</strong> (18.1 vs 8.16 nV/&radic;Hz). Which one matters is hypothetical.</li>
-<li><span class="r1-badge der">derived</span> <strong>The 3/4 in shell's breathing mode is about 113 kHz</strong> (assuming a 1 mm brass shell <span class="r1-badge asm">assumption</span>), only about 4 kHz above the 109 kHz beam drive. The 2.5 in shell has low modes at 13 to 33 kHz and a dense set near 100 kHz. <strong>Tap-test each sphere and soft-mount it</strong> before choosing the drive frequency. Wall thickness and material still need measuring.</li>
+<li><span class="r1-badge der">derived</span> <strong>The 3/4 in shell's breathing mode is about 113 kHz</strong> (assuming a 1 mm brass shell <span class="r1-badge asm">assumption</span>), only about 4 kHz above the 109 kHz beam drive. The 2.5 in shell has low modes at 13 to 33 kHz and a dense set near 100 kHz. <strong>Tap-test each sphere and soft-mount it</strong> before choosing the drive frequency. Wall thickness and material still need measuring. Update: vendor data gives both spheres as 3003 aluminium; FEM shell modes from imported meshes, and an aluminium breathing-mode estimate of about 146 kHz for the 3/4 in shell, are in section 12 (<a href="#swp-spheres">Hollow sphere modes</a>).</li>
 </ul>
 <h3>Corrections to earlier estimates</h3>
 <ul>
@@ -332,6 +332,41 @@
 </figure>
 <p class="footnote credit">Computed with Bob Greenyer's <a href="https://starfire.tech/StandingWaveProject/">Standing Wave Project (starfire.tech)</a>.</p>
 
+<h3 id="swp-spheres">Hollow sphere modes (imported STL, FEM)</h3>
+<p>Bob Greenyer's Standing Wave Project imports user meshes (STL, OBJ or GLTF), needs no login, and solves true elastic eigenmodes of the imported geometry with its FEM engine. Both spheres were imported as hollow shells.</p>
+<p><strong>Method.</strong></p>
+<ul>
+<li>STL meshes were built from vendor data:
+  <ul>
+  <li><strong>K-Mac KB-1820</strong>, 3/4 in (19.05 mm) 3003 aluminium hollow ball, closed. Wall <strong>1.0 mm</strong> <span class="r1-badge asm">assumption</span>, because the vendor does not list it. Download: <a href="img/exp-h/kb1820-0.75in-closed-shell-1mm.stl" download>kb1820-0.75in-closed-shell-1mm.stl</a></li>
+  <li><strong>K-Mac KB-2016</strong>, 2.5 in (63.5 mm) 3003 aluminium, wall 0.132 in (3.35 mm), 1/4 in bottom hole. Download: <a href="img/exp-h/kb2016-2.5in-shell-3.35mm-quarter-inch-hole.stl" download>kb2016-2.5in-shell-3.35mm-quarter-inch-hole.stl</a></li>
+  </ul></li>
+<li>The tool rescales every import to a 180 mm bounding box. For a uniformly scaled solid of the same material, frequency scales exactly as 1/size, so real f = tool f x (180 / OD): <strong>x 9.449</strong> for the 3/4 in sphere and <strong>x 2.835</strong> for the 2.5 in sphere.</li>
+<li>Both shells have the same wall-to-diameter ratio (about 5.3 %), so at the 180 mm size they are nearly the same shape. That is why the tool's numbers for the two nearly match.</li>
+<li>FEM resolution 40<sup>3</sup> (the in-browser limit), material Aluminium (rolled).</li>
+</ul>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Sphere</th><th scope="col">Modes</th><th scope="col">SWP tool (180 mm) <span class="r1-badge fact">fact</span></th><th scope="col">Real size <span class="r1-badge der">derived</span></th><th scope="col">Note</th></tr></thead>
+<tbody>
+<tr><td>3/4 in (KB-1820)</td><td>1 to 5</td><td>6.61 to 6.70 kHz</td><td>about 62.5 to 63.3 kHz</td><td>five-fold near-degenerate set, as expected for the n = 2 shell modes</td></tr>
+<tr><td>3/4 in (KB-1820)</td><td>6 and 7</td><td>8.13 and 8.22 kHz</td><td>about 76.8 and 77.7 kHz</td><td>likely the n = 3 set</td></tr>
+<tr><td>2.5 in (KB-2016)</td><td>1 to 5</td><td>6.59 to 6.69 kHz</td><td>about 18.7 to 19.0 kHz</td><td>n = 2 set</td></tr>
+<tr><td>2.5 in (KB-2016)</td><td>6</td><td>8.05 kHz</td><td>about 22.8 kHz</td><td></td></tr>
+</tbody></table></div>
+<p><span class="r1-badge der">derived</span> <strong>Cross-check.</strong> For a free spherical shell, the lowest n = 2 mode is at about &Omega; = &omega;R / c<sub>p</sub> &asymp; 0.7, with c<sub>p</sub> = &radic;(E / (&rho;(1 &minus; &nu;&sup2;))) &asymp; 5.36 km/s for aluminium. That gives about 6.6 kHz at R = 90 mm, matching the tool.</p>
+<p><strong>Caveats.</strong></p>
+<ul>
+<li>The coarse grid puts only about 2 voxels across the wall.</li>
+<li>The 3/4 in wall is assumed, but the n = 2 modes are mostly membrane-like, so they depend only weakly on thickness.</li>
+<li>Only the first 10 modes were computed. Modes near the 109.4 kHz Configuration 2 drive are not covered, so a <strong>tap test or sweep of the actual sphere is still recommended</strong>.</li>
+<li><span class="r1-badge der">derived</span> The breathing (n = 0) mode of a 3/4 in aluminium shell is higher, at <strong>about 146 kHz</strong> (f = &radic;(2E / (&rho;(1 &minus; &nu;))) / (2&pi;R)). The 113 kHz figure in section 11 assumed a brass shell.</li>
+</ul>
+<figure class="figure" style="max-width: 360px; margin-left: auto; margin-right: auto;">
+<img src="img/exp-h/swp-kb2016-imported-mesh.png" width="290" height="304" loading="lazy" alt="Standing Wave Project render of the imported 2.5 inch hollow aluminium sphere mesh, with the quarter inch hole visible.">
+<figcaption>Figure 4. The imported KB-2016 2.5 in shell mesh in the Standing Wave Project, showing the 1/4 in hole. Captured while set to FEM mode 1 (6.59 kHz in the tool, about 18.7 kHz at real size).</figcaption>
+</figure>
+<p class="footnote credit">Computed with Bob Greenyer's <a href="https://starfire.tech/StandingWaveProject/">Standing Wave Project (starfire.tech)</a>.</p>
+
 <h2 id="range">13. Range, the kit amplifiers and a distance test</h2>
 <p><span class="r1-badge hyp">hyp</span> <strong>No absolute range can be predicted,</strong> because the strip's coupling to the scalar field is unknown. What can be stated is how much range each dB buys from wherever a signal is first seen. For a radiating wave with 1/r amplitude (1/r&sup2; power), power falls 20 dB per decade of distance: 6 dB doubles the range, 20 dB gives 10 times and 40 dB gives 100 times.</p>
 <p><strong>Does Hively's P<sub>OUT</sub> formula apply to a strip?</strong> Not directly (our reading). Hively and Loebl 2019, Eq. 38 and Appendix B (as corrected in the erratum [4]), is derived for a thin end-fed wire monopole in the far field, with power set by the irrotational feed current. A strip is a capacitor with equal and opposite charge on faces 28 &micro;m apart, closer to the balanced case of their Appendix C, which gives no SLW output; strain and the piezo effect do not appear in the formula; and at 109 kHz every bench distance is near field (kr &gg; 1 needs r well beyond about 440 m; at 39 MHz, beyond about 1.2 m). A wire monopole or a sphere fed against the coax shield is the case the formula was written for.</p>
@@ -357,9 +392,9 @@
 
 <h2 id="tools">14. Modelling tools</h2>
 <ul>
-<li><strong>Bob Greenyer's Standing Wave Project</strong> (<a href="https://starfire.tech/StandingWaveProject/">starfire.tech/StandingWaveProject</a>): a browser FEM solver for elastic and acoustic modes (plates with free or clamped edges, spheres, Chladni nodal lines; materials include metals, quartz and PZT). No electromagnetics, no login. Used for the cross-check in section 12. Limits:
+<li><strong>Bob Greenyer's Standing Wave Project</strong> (<a href="https://starfire.tech/StandingWaveProject/">starfire.tech/StandingWaveProject</a>): a browser FEM solver for elastic and acoustic modes (plates with free or clamped edges, spheres, imported STL, OBJ or GLTF meshes, Chladni nodal lines; materials include metals, quartz and PZT). No electromagnetics, no login. Used for the beam cross-check and the hollow-sphere modes in section 12. Limits:
   <ul>
-  <li>It cannot model hollow spheres, so it cannot check the shell modes of the spheres; use a tap test.</li>
+  <li>Hollow spheres are not a built-in preset, but it imports user meshes (STL, OBJ or GLTF), needs no login, and solves true elastic eigenmodes of the imported geometry with its FEM engine. Hollow-sphere results for both spheres are in section 12 (<a href="#swp-spheres">Hollow sphere modes</a>).</li>
   <li>No cantilever (one-edge clamped) option, no BST or PVDF material, and a 0.5 mm minimum thickness, so the PVDF film cannot be checked there.</li>
   </ul></li>
 <li><strong>Bob Greenyer's O-Animator</strong> (<a href="https://starfire.tech/O-Animator/Art-n-Science/">starfire.tech/O-Animator/Art-n-Science</a>): a fractal toroidal-moment simulator (ring currents, ion tracers, magnetostatic A computed from J, pulsed E and B plates). Its A solve sets the scalar field C to zero by construction, and it has no RF, no cage and no materials. It can illustrate the toroid geometry of Configuration 5 (section 10) but cannot predict TinySA readings. <strong>It needs a sign-in with an email and an access key.</strong> The default particle count is heavy for a slow browser.</li>
