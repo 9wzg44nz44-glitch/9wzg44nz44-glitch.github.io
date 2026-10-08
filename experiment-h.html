@@ -22,6 +22,7 @@
 .r1-badge.asm { border-color: var(--meyl); color: var(--meyl); }
 .figure img { display: block; width: 100%; height: auto; border-radius: 8px; }
 .archived-banner { padding: 14px 18px; border: 2px solid var(--warn); border-radius: var(--radius); background: rgba(196,92,74,.12); margin: 14px 0 18px; font-size: 1.05rem; }
+.credit { text-align: center; margin: -12px 0 22px; }
 .archived-banner strong { color: var(--gold); }
 </style>
 </head>
@@ -87,6 +88,7 @@
   <li><a href="#parts">16 Parts list</a></li>
   <li><a href="#refs">17 References</a></li>
   <li><a href="#assumptions">18 Derived values</a></li>
+  <li><a href="#ack">Acknowledgements</a></li>
 </ul>
 
 <h2 id="idea">1. Idea in one paragraph</h2>
@@ -240,6 +242,7 @@
 <img src="img/exp-h/oanim-toroid-A-vs-B.jpg" width="1648" height="486" loading="lazy" alt="Two O-Animator renders of the same torus from the same three-quarter view: left, A only, with purple and blue glow extending beyond the torus; right, B only, with the green confined to the tube.">
 <figcaption>O-Animator, same view: A only (left) reaches beyond the torus, B only (right) stays in the tube. An illustration from Bob Greenyer's fractal model, not a calculation.</figcaption>
 </figure>
+<p class="footnote credit">Rendered with Bob Greenyer's <a href="https://starfire.tech/O-Animator/Art-n-Science/">O-Animator (starfire.tech)</a>.</p>
 <p class="footnote">The O-Animator renders a fractal set of tori (31 even at the lowest depth), the colours are its own shading, and the background particle cloud could not be turned off. Treat the picture as a qualitative illustration of A without B, not as a field map of a real coil.</p>
 
 <h2 id="simlab">11. Simulation results (Simulation Lab, 7 Oct 2026)</h2>
@@ -307,8 +310,9 @@
 <tr><td>(1,1) twisting</td><td>16.51 kHz</td><td>14.34 kHz (Saint-Venant torsion)</td><td>+15 %</td><td>tool scaled about 170 kHz; torsion calculation <strong>about 144 kHz</strong> (conservative)</td></tr>
 <tr><td>(3,0) second lengthwise bending</td><td>29.85 kHz</td><td>29.31 kHz (Euler-Bernoulli)</td><td>+1.8 %</td><td>tool x 10.291 = about 307 kHz; beam theory 301.6 kHz</td></tr>
 </tbody></table></div>
+<p><strong>Result:</strong> Bob Greenyer's Standing Wave Project independently confirmed the strip's (BST beam's) bending modes to within 2 % of the beam-theory values, and it located the clamp points: its mode-1 node lines, about 22 % of the length from each end, are where the beam is held and where the leads attach (1.12 mm and 3.88 mm on the real beam).</p>
 <ul>
-<li>The two bending modes agree with beam theory <strong>within 2 %</strong>, and the mode-1 node lines sit at <strong>about 22 % of the length from each end</strong>, matching the 0.224 / 0.776 support points.</li>
+<li>The two bending modes agree with beam theory <strong>within 2 %</strong> (+1.1 % and +1.8 %), and the mode-1 node lines sit at <strong>about 22 % of the length from each end</strong>, matching the 0.224 / 0.776 support points.</li>
 <li>The twist mode differs by about 15 %. Simulation Lab's reading (not confirmed against the tool's code) is that a thin-plate twisting stiffness reads high for a bar only 4 times wider than it is thick. Torsion also scales with shear modulus, which moves the tool-scaled value to about 166 kHz for BST's Poisson ratio. The real value is probably 144 to 166 kHz.</li>
 <li>On the real beam: the drive mode is about 109 to 111 kHz, the twisting mode is 144 to 170 kHz (keep clear), and the next bending mode is about 302 to 307 kHz.</li>
 </ul>
@@ -316,14 +320,17 @@
 <img src="img/exp-h/swp-steel-50x20x5-free-mode1.png" width="1024" height="570" loading="lazy" alt="Standing Wave Project render of a free steel plate in its first lengthwise bending mode, with two dark node bands across the width.">
 <figcaption>Figure 1. Standing Wave Project, steel 50 x 20 x 5 mm free plate, (2,0) first bending mode at 10.75 kHz. Black bands are the node lines, about 22 % from each end. Scaled: about 111 kHz on the BST beam.</figcaption>
 </figure>
+<p class="footnote credit">Computed with Bob Greenyer's <a href="https://starfire.tech/StandingWaveProject/">Standing Wave Project (starfire.tech)</a>.</p>
 <figure class="figure">
 <img src="img/exp-h/swp-steel-50x20x5-free-mode2.png" width="1024" height="570" loading="lazy" alt="Standing Wave Project render of the same plate in its first twisting mode, with crossed node lines.">
 <figcaption>Figure 2. Same plate, (1,1) twisting mode at 16.51 kHz. Scaled: about 170 kHz on the BST beam; an independent torsion calculation gives about 144 kHz. Keep the drive clear of it.</figcaption>
 </figure>
+<p class="footnote credit">Computed with Bob Greenyer's <a href="https://starfire.tech/StandingWaveProject/">Standing Wave Project (starfire.tech)</a>.</p>
 <figure class="figure">
 <img src="img/exp-h/swp-steel-50x20x5-free-mode3.png" width="1024" height="570" loading="lazy" alt="Standing Wave Project render of the same plate in its second lengthwise bending mode, with three node bands.">
 <figcaption>Figure 3. Same plate, (3,0) second bending mode at 29.85 kHz. Scaled: about 307 kHz on the BST beam.</figcaption>
 </figure>
+<p class="footnote credit">Computed with Bob Greenyer's <a href="https://starfire.tech/StandingWaveProject/">Standing Wave Project (starfire.tech)</a>.</p>
 
 <h2 id="range">13. Range, the kit amplifiers and a distance test</h2>
 <p><span class="r1-badge hyp">hyp</span> <strong>No absolute range can be predicted,</strong> because the strip's coupling to the scalar field is unknown. What can be stated is how much range each dB buys from wherever a signal is first seen. For a radiating wave with 1/r amplitude (1/r&sup2; power), power falls 20 dB per decade of distance: 6 dB doubles the range, 20 dB gives 10 times and 40 dB gives 100 times.</p>
@@ -432,6 +439,9 @@
 <li>Amplifier gain and noise figure at 39 MHz are interpolated from the datasheet points at 10 and 100 MHz.</li>
 <li>All resonances must be measured; none of the above is a measured value.</li>
 </ul>
+
+<h2 id="ack">Acknowledgements</h2>
+<p>Thanks to Bob Greenyer for two tools used on this page: the <a href="https://starfire.tech/StandingWaveProject/">Standing Wave Project</a>, which cross-checked the beam modes and support points (section 12), and the <a href="https://starfire.tech/O-Animator/Art-n-Science/">O-Animator</a>, which made the toroid A and B illustration (section 10).</p>
 
 <p><a class="btn" href="archive.html">Back to the archive</a></p>
 </main>
