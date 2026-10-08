@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experiment H (archived): scalar-wave strip transmitter and detector with TinySA Ultras · SLW Hub</title>
+<meta name="description" content="Archived possible future experiment. A speculative strip transmitter and detector (PVDF film or BST beam) driven and read by TinySA Ultras inside a Faraday cage, with a toroid A-source, sphere receivers, Simulation Lab feasibility numbers, Bob Greenyer's Standing Wave Project and O-Animator visuals, the Zeenko amplifiers and a distance test.">
+<meta name="author" content="Dan Britton">
+<link rel="canonical" href="https://9wzg44nz44-glitch.github.io/experiment-h.html">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<link rel="stylesheet" href="/assets/round1.css">
+<script src="/assets/site-search.js" defer></script>
+<script src="/assets/share-button.js" defer></script>
+<style>
+.r1-badge.der { border-color: var(--copper); color: var(--copper); }
+.r1-badge.asm { border-color: var(--meyl); color: var(--meyl); }
+.figure img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.archived-banner { padding: 14px 18px; border: 2px solid var(--warn); border-radius: var(--radius); background: rgba(196,92,74,.12); margin: 14px 0 18px; font-size: 1.05rem; }
+.archived-banner strong { color: var(--gold); }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav" aria-label="Main">
+      <a href="index.html">Round 1</a>
+      <a href="todo.html">To-Do</a>
+      <a href="range-finder.html">Range finder</a>
+      <a href="joule-loss.html">Joule loss</a>
+      <a href="vna-howto.html">VNA how-to</a>
+      <a href="archive.html">Archive</a>
+    </nav>
+  </div>
+</header>
+<nav id="expt-abc" class="expt-abc" aria-label="Round 1 experiments">
+  <span class="expt-abc-label">Round 1</span>
+  <a class="expt-abc-btn" href="exp-1296.html"><span class="k">1.3</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="exp-433.html"><span class="k">433</span> MHz sphere</a>
+  <a class="expt-abc-btn" href="exp-2450.html"><span class="k">2.45</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="oven.html"><span class="k">oven</span> 2.45 GHz</a>
+  <a class="expt-abc-sub" href="todo.html">To-Do</a>
+  <a class="expt-abc-sub" href="range-finder.html">Range finder</a>
+  <a class="expt-abc-sub" href="joule-loss.html">Joule loss</a>
+</nav>
+<main id="main" class="wrap r1-wrap">
+
+<p class="kicker"><a href="archive.html">Archive</a> · Possible future experiment</p>
+<h1>Experiment H: scalar-wave strip transmitter and detector (TinySA Ultra)</h1>
+
+<div class="archived-banner"><strong>Archived: possible future experiment.</strong> Speculative; any scalar coupling of the strip is a hypothesis with no predicted size.</div>
+
+<p class="lede">A thin electroded strip (PVDF film or a BST beam) is driven by one TinySA Ultra and an identical strip inside a closed Faraday cage is read by another. Ordinary electric, magnetic, acoustic and vibration coupling must be measured and ruled out first. The default expectation is a null result. This page is not on the Round 1 schedule.</p>
+
+<div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Nothing here is an established effect. Mainstream electrodynamics has no scalar wave of this kind; the extended electrodynamics papers cited below propose one. No published source gives a coupling size for a strip, a sphere or a toroid, so this page predicts only the ordinary background that a reading would have to beat.</div>
+
+<p>Labels: <span class="r1-badge fact">fact</span> quoted from a cited source or tool output, <span class="r1-badge der">derived</span> our own calculation from stated assumptions, <span class="r1-badge asm">assumption</span> an input value we chose, <span class="r1-badge hyp">hyp</span> a hypothesis we would be testing. Draft prepared by Grok Bot for Dan Britton, 7 Oct 2026. Numbers come from our own estimates and the Simulation Lab feasibility model (Python, published sources only).</p>
+
+<ul class="r1-toc">
+  <li><a href="#idea">1 Idea</a></li>
+  <li><a href="#framework">2 Scalar wave idea</a></li>
+  <li><a href="#tinysa">3 TinySA Ultra specs</a></li>
+  <li><a href="#drive">4 Driving the strip</a></li>
+  <li><a href="#configs">5 Configurations 1 to 3</a></li>
+  <li><a href="#receiver">6 Receiver</a></li>
+  <li><a href="#controls">7 Layout and controls</a></li>
+  <li><a href="#mobius">8 Mobius strip</a></li>
+  <li><a href="#config4">9 Config 4 (dropped)</a></li>
+  <li><a href="#config5">10 Config 5 toroid</a></li>
+  <li><a href="#simlab">11 Simulation results</a></li>
+  <li><a href="#swp">12 Standing Wave Project</a></li>
+  <li><a href="#range">13 Range and amplifiers</a></li>
+  <li><a href="#tools">14 Modelling tools</a></li>
+  <li><a href="#solder">15 Connections and soldering</a></li>
+  <li><a href="#parts">16 Parts list</a></li>
+  <li><a href="#refs">17 References</a></li>
+  <li><a href="#assumptions">18 Derived values</a></li>
+</ul>
+
+<h2 id="idea">1. Idea in one paragraph</h2>
+<p><span class="r1-badge hyp">hyp</span> Use a thin insulating strip with electrodes on both faces as the transmitter. Drive it electrically so it flexes or vibrates; the strain gradient (flexoelectric) or strain (piezoelectric) moves bound charge back and forth inside the insulator. A second, identical strip in a closed Faraday cage is the detector (reciprocity: the element that turns charge motion into strain should also turn the reverse process into a voltage). Ordinary E and B coupling should be blocked by the cage and checked with probes. Any residual signal that survives all controls would be a candidate for a non-classical channel. The default expectation is a null result.</p>
+
+<h2 id="framework">2. The scalar wave idea, from the published papers</h2>
+<p><span class="r1-badge fact">fact</span> In the published extended electrodynamics papers (Hively and Loebl 2019 [4]; Hively and Land 2021 [5]) the Lorenz condition is not imposed. That leaves a dynamical scalar field, written in the 2019 paper as <code>C = div A + (1/c&sup2;) &part;&Phi;/&part;t</code> (A is the vector potential, &Phi; the scalar potential). Its wave equation is driven by the charge-balance term <code>&part;&rho;/&part;t + div J</code> (Hively and Loebl 2019, Eq. 25). The same paper (Section VII) describes a scalar-longitudinal wave (SLW) and a separate scalar wave with E = 0.</p>
+<p>This experiment uses only that generic picture. It does not depend on any equation beyond it, and it does not assume the theory is right.</p>
+<p><span class="r1-badge hyp">hyp</span> <strong>Why a strip:</strong> bending or straining an insulator moves bound charge inside it with no conduction current loop. Our hypothesis, not a claim in the published papers, is that such bound-charge motion could act as a source of C. If it does, a strip is a compact, electrically simple source and, by reciprocity, also a sensor.</p>
+
+<h2 id="tinysa">3. TinySA Ultra: the specs that matter</h2>
+<p><span class="r1-badge fact">fact</span> Quoted from the official tinysa.org wiki: Specification [1], Menu Tree [2], Limitations [3]. The original Ultra is HW V0.4.5.x; the Ultra+ is ZS406 (HW V0.4.6) and ZS407 (HW V0.5.3).</p>
+<h3>Signal generator</h3>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Item</th><th scope="col">Official value</th><th scope="col">Source</th></tr></thead>
+<tbody>
+<tr><td>Clean sine output</td><td>"Sine wave output with harmonics below -40dB of fundamental from 100kHz to 800MHz (900MHz for Ultra+)"</td><td>[1]</td></tr>
+<tr><td>Above 800 MHz</td><td>"Cleanest signal mode: square wave, up to 4.4GHz (6 GHz for ZS407)"; "Highest accuracy mode ... up to 5.4GHz (7.3 GHz for ZS407)"</td><td>[1]</td></tr>
+<tr><td>Output level</td><td>"selectable in 1dB steps between -115dBm and -19dBm"</td><td>[1], [2]</td></tr>
+<tr><td>Level accuracy</td><td>"+/- 2dB up to 800Mhz between -72dBm and -19dBm, less accuracy below -72dBm"</td><td>[1]</td></tr>
+<tr><td>Frequency resolution</td><td>"Output frequency resolution 57.2Hz"</td><td>[1]</td></tr>
+<tr><td>Modulation</td><td>"AM or FM modulation frequencies between 50Hz and 5kHz (AM) or 1kHz (FM)"</td><td>[1], [2]</td></tr>
+<tr><td>AM depth</td><td>"between 10% and 100%"</td><td>[1], [2]</td></tr>
+<tr><td>FM deviation</td><td>"between 1kHz and 300kHz"</td><td>[1], [2]</td></tr>
+<tr><td>Sweep</td><td>frequency sweep "over selectable frequency span"; "output level sweep over maximum the entire output level range"; menu has SPAN, LEVEL CHANGE, SWEEP TIME, SWEEP POINTS</td><td>[1], [2]</td></tr>
+<tr><td>Battery</td><td>"at least 2 hours (3 hours for Ultra+)"</td><td>[1]</td></tr>
+</tbody></table></div>
+<h3>Spectrum analyzer</h3>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Item</th><th scope="col">Official value</th><th scope="col">Source</th></tr></thead>
+<tbody>
+<tr><td>Input range</td><td>"from 100kHz to 800MHz (900 MHz for Ultra+) in normal mode and up to 6GHz (7.3GHz for ZS407) with ULTRA mode"</td><td>[1]</td></tr>
+<tr><td>Below 100 kHz</td><td>"Below 0.1MHz the sensitivity starts to reduce."</td><td>[3]</td></tr>
+<tr><td>RBW</td><td>"Resolution filters with a width of 0.2, 1, 3, 10, 30, 100, 300, 600 and 850 kHz"; "The minimum resolution bandwidth of 200Hz"</td><td>[1], [3]</td></tr>
+<tr><td>Sensitivity</td><td>"Lowest discernible signal with LNA at 30MHz using a resolution bandwidth of 200Hz of -145dBm"</td><td>[1]</td></tr>
+<tr><td>Input</td><td>"Input impedance 50 ohm when input attenuation set to 10dB or more"; "Maximum +/-5V DC input"</td><td>[1]</td></tr>
+<tr><td>Audio</td><td>"Headphone output for listening to the demodulated audio (AM only)"</td><td>[1]</td></tr>
+<tr><td>Zero span</td><td>ZERO SPAN mode exists (span 0 Hz at a set center)</td><td>[2]</td></tr>
+</tbody></table></div>
+<p><strong>What this means (our reading):</strong></p>
+<ul>
+<li>The generator cannot make audio or low kHz directly. Its lowest clean sine is 100 kHz. AM and FM only exist as modulation on a carrier (AM rate 50 Hz to 5 kHz).</li>
+<li><span class="r1-badge der">derived</span> The maximum sine level is -19 dBm: about 25 mV rms into 50 ohm (about 50 mV open-circuit EMF). That is small, so a passive voltage step-up or an amplifier helps (section 13).</li>
+<li>The analyzer does not see audio-rate tones directly. An audio-rate modulation shows up as AM sidebands around the carrier, as a level variation in zero span, or by ear on the headphone output (AM only).</li>
+</ul>
+
+<h2 id="drive">4. Can a TinySA Ultra drive the strip?</h2>
+<p><strong>(a) Directly at a mechanical resonance: yes, if the resonance is at 100 kHz or above.</strong> That rules out the low bending modes of a long film strip (Hz to a few kHz) but allows several useful modes.</p>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Element (example)</th><th scope="col">Mode</th><th scope="col">First guess <span class="r1-badge der">derived</span></th><th scope="col">Assumptions</th></tr></thead>
+<tbody>
+<tr><td>PVDF film 28 &micro;m, 20 x 100 mm</td><td>length extensional</td><td>about 6 kHz (too low)</td><td>bar speed about 1185 m/s (Y 2.5 GPa, density 1780 kg/m&sup3;) <span class="r1-badge asm">assumption</span></td></tr>
+<tr><td>PVDF film cut 5 mm wide</td><td>width extensional</td><td>about 120 kHz</td><td>same</td></tr>
+<tr><td>PVDF film 28 &micro;m</td><td>thickness mode</td><td>about 39 MHz</td><td>thickness sound speed about 2200 m/s <span class="r1-badge asm">assumption</span></td></tr>
+<tr><td>PVDF film 52 &micro;m</td><td>thickness mode</td><td>about 21 MHz</td><td>same</td></tr>
+<tr><td>SrTiO3 or BST beam, 0.5 mm thick, 2 mm free length, clamped</td><td>first bending mode</td><td>about 100 to 145 kHz</td><td>f1 = 0.1615 t v / L&sup2;, v about 5000 to 7200 m/s <span class="r1-badge asm">assumption</span></td></tr>
+</tbody></table></div>
+<p>These are starting points only. The real resonance must be found by sweeping.</p>
+<p><strong>(b) As a GHz carrier AM-modulated at the resonance: not useful by itself.</strong> A strip cannot follow a GHz field mechanically, and a linear dielectric does not demodulate. The strip would only feel the envelope if something nonlinear in the path rectifies it (a diode junction, a contact, electrostriction, heating). That adds a classical demodulation path you would then have to rule out, and the AM rate tops out at 5 kHz, below most useful resonances. Keep it only as a deliberate control.</p>
+<p><strong>Strip capacitance</strong> <span class="r1-badge der">derived</span> (parallel plate, &epsilon;r = 12, C = &epsilon;0 &epsilon;r A / t):</p>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Strip</th><th scope="col">Thickness</th><th scope="col">C</th><th scope="col">X at 120 kHz</th><th scope="col">at 300 kHz</th><th scope="col">at 1 MHz</th><th scope="col">at 39 MHz</th></tr></thead>
+<tbody>
+<tr><td>20 x 100 mm</td><td>28 &micro;m</td><td>7.6 nF</td><td>175 ohm</td><td>70 ohm</td><td>21 ohm</td><td>0.5 ohm</td></tr>
+<tr><td>20 x 100 mm</td><td>52 &micro;m</td><td>4.1 nF</td><td>325 ohm</td><td>130 ohm</td><td>39 ohm</td><td>1.0 ohm</td></tr>
+<tr><td>20 x 5 mm</td><td>28 &micro;m</td><td>0.38 nF</td><td>3.5 kohm</td><td>1.4 kohm</td><td>420 ohm</td><td>11 ohm</td></tr>
+<tr><td>5 x 5 mm electrode</td><td>28 &micro;m</td><td>95 pF</td><td>14 kohm</td><td>5.6 kohm</td><td>1.7 kohm</td><td>43 ohm</td></tr>
+</tbody></table></div>
+<p>A full 20 x 100 mm PVDF strip is not a high-impedance load at a few hundred kHz; it is close to 50 ohm there. It only becomes high impedance at low frequency or when the electrode is small.</p>
+
+<h2 id="configs">5. Configurations 1 to 3</h2>
+<h3>Configuration 1 (start here): PVDF thickness mode, direct 50 ohm drive</h3>
+<ul>
+<li>Strip: metallized PVDF, 28 &micro;m (or 52 &micro;m), with the active electrode trimmed to about 5 x 5 mm. For the leaded TE DT1-028K/L element, see <a href="#dt1">section 11</a>.</li>
+<li>Drive frequency: the measured thickness resonance, first guess about 39 MHz for 28 &micro;m or about 21 MHz for 52 &micro;m <span class="r1-badge der">derived</span>.</li>
+<li>Why: a 5 x 5 mm electrode is about 43 ohm reactive at 39 MHz, so the TinySA can drive it straight from the SMA port. The receiver works where the TinySA is most sensitive (its spec is quoted at 30 MHz). A copper mesh cage shields much better at tens of MHz than at 100 kHz. The thickness mode also has a large strain gradient across the film.</li>
+<li>Caveat: PVDF is piezoelectric, so most of its charge motion is piezo, not flexo. It is not a pure flexo test.</li>
+</ul>
+<h3>Configuration 2 (flexo-focused): stiff beam bending mode, about 110 kHz</h3>
+<ul>
+<li>Strip: a centrosymmetric insulator with a known flexoelectric response: BST (Ma and Cross 2002 [7]) or a SrTiO3 single crystal (Zubko et al. 2007 [8]). <strong>Recommended form (section 11):</strong> a free-free 5 x 2 x 0.5 mm beam at about 109 kHz, held at its bending nodes, electrodes on both faces. Note that commercial 70/30 BST (Tc 33 &deg;C) is ferroelectric, not paraelectric, at room temperature.</li>
+<li>Matching: a BST beam is 0.7 to 1.8 nF, so the 5 x 2 x 0.5 mm beam is about 820 ohm at 109 kHz and needs a 1.19 mH series tuning coil. Only SrTiO3 is down at a few hundred pF. A step-up transformer on a ferrite toroid rated for 100 kHz (1:3 or 1:4 turns) is an optional addition.</li>
+<li>Drive level: the Zeenko amplifiers in the kit give only about 5 dB at 100 kHz (section 13), so they do not help here.</li>
+</ul>
+<p><strong>Finding the resonance:</strong> use the generator SWEEP (SPAN plus SWEEP TIME) across the expected band with the receive strip, or the drive strip's own current through a small sense resistor, on the second TinySA, and pick the peak. Re-check inside the cage, since clamping and temperature move it.</p>
+<h3>Configuration 3 (not recommended)</h3>
+<p>GHz carrier with AM at the strip resonance. Keep only as a control that should show nothing unless a nonlinear element is present.</p>
+
+<h2 id="receiver">6. Receiver</h2>
+<ul>
+<li>Second TinySA Ultra in spectrum analyzer mode, LNA on, on an identical strip (same material, size, clamp).</li>
+<li>Front end: for Configuration 1 a 5 x 5 mm strip is near 50 ohm at resonance, so a direct connection or a low-noise 50 ohm amplifier is fine (a Zeenko ZK06-UM ahead of the TinySA helps here, section 13). For Configuration 2 the strip is kohms, so put a high-impedance buffer at the strip: an ADA4817 FET-input op-amp follower (as modelled), a BF862 or J310 JFET source follower, or a charge amplifier, then a 50 ohm driver. Battery power, inside a small shielded box at the strip.</li>
+<li>Settings: center on the drive frequency, narrow span or zero span, RBW 200 Hz (the minimum), averaging on.</li>
+<li>Keying: switch the generator OUTPUT on and off on a fixed schedule (for example 30 s on, 30 s off, 20 cycles). A real coupling shows as an on/off difference that tracks the schedule. Log traces to SD.</li>
+<li>Averaging: compare the mean on level against the mean off level and its scatter. The rated floor is about -145 dBm with LNA at 30 MHz and 200 Hz RBW [1].</li>
+<li>Optional: slow AM (1 kHz, 100 % depth) on the drive, and look for sidebands at &plusmn;1 kHz. A sideband pair is a second fingerprint that the signal came from the generator.</li>
+</ul>
+
+<h2 id="controls">7. Layout and controls</h2>
+<p><strong>Layout:</strong> RX strip, buffer and RX TinySA on battery inside the closed Faraday cage. TX strip and TX TinySA outside at a fixed distance (or inside their own small shielded box, which is better). Nothing conductive through the cage wall. Read the RX display through the mesh or from the SD log afterward. Strips on separate tables with soft mounts.</p>
+<p><strong>Controls (each run logged):</strong></p>
+<ol>
+<li><strong>H10 magnetic probe</strong> at the RX strip position: must read nothing above floor with TX on.</li>
+<li><strong>E-field probe</strong> at the RX strip position: must read nothing above floor with TX on.</li>
+<li><strong>Dummy strip:</strong> replace the RX strip with a capacitor of the same value and lead layout (no mechanical response). Any signal that remains is electrical pickup.</li>
+<li><strong>Source off and detuned:</strong> TX off; then TX on but well off the mechanical resonance. A strip mechanism should drop sharply off resonance; a leakage path will not.</li>
+<li><strong>Strip swap:</strong> swap TX and RX strips (reciprocity), then swap in a non-active strip (unpoled PVDF, plain PTFE film with the same electrodes, or the uncut Mobius film below). Signal should follow the active material.</li>
+<li><strong>Clamped strip:</strong> same RX strip glued rigidly to a block so it cannot flex.</li>
+<li><strong>Vibration:</strong> run TX into a dummy load on the same table, and tap or shake test with a contact pickup. Separate tables and soft mounts.</li>
+<li><strong>Acoustic:</strong> ultrasound in air at 100 kHz travels centimeters to meters. Test with an acoustic barrier (closed foam box) around TX and an ultrasonic microphone or spare strip as a monitor.</li>
+<li><strong>Thermal:</strong> step the drive level and duty cycle; a thermal path responds slowly (seconds) and follows power, not frequency.</li>
+<li><strong>No cage:</strong> repeat the run on the open bench at the same distance. With the caged run this measures the cage's attenuation. A caged signal only counts if it is far above what that attenuation predicts.</li>
+<li><strong>Cage leakage calibration:</strong> in place of the strips, use a small loop and a small dipole at the same frequency to measure the cage shielding directly.</li>
+</ol>
+<p><span class="r1-badge hyp">hyp</span> <strong>What would count as interesting:</strong> a keyed on/off signal inside the closed cage that is above leakage predictions, disappears with the dummy, clamped and non-active strips, follows the mechanical resonance, survives the vibration, acoustic and thermal checks, and falls off with distance like a radiated wave (section 13).</p>
+
+<h2 id="mobius">8. Mobius strip: honest evaluation</h2>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Idea</th><th scope="col">Physical mechanism?</th><th scope="col">Verdict</th></tr></thead>
+<tbody>
+<tr><td>Mobius-wound loop or Mobius resistor (non-inductive)</td><td>Yes. Currents run in opposite directions in two closely spaced conductors, so the loop area and magnetic response cancel, like a bifilar coil or twisted pair.</td><td>Useful but ordinary. Good for B-rejecting leads or a pickup with very low loop area. A tight twisted pair does the same job.</td></tr>
+<tr><td>Mobius metallized film strip</td><td>The two faces become one continuous surface, so the two electrodes become one. There is no voltage between faces to read.</td><td>Kills the normal flexo or piezo readout. Only useful as a "should read zero" control strip.</td></tr>
+<tr><td>Built-in twist strain gradient</td><td>Partly. A twisted strip has a static strain gradient, which gives a static polarization, not a signal at the drive frequency.</td><td>May slightly bias the material. Does not replace the AC drive.</td></tr>
+</tbody></table></div>
+<p><strong>Bottom line:</strong> the only physically useful Mobius element is non-inductive wiring for B rejection, and that is conventional. An uncut Mobius metallized strip is worth building as a control. Nothing in Mobius topology by itself predicts a scalar wave source.</p>
+
+<h2 id="config4">9. Configuration 4: sphere collector driving the strip (evaluated and dropped)</h2>
+<div class="r1-note warn"><strong>Status: evaluated and dropped (Simulation Lab, 7 Oct 2026).</strong> <span class="r1-badge der">derived</span> The sphere-to-strip path, read optically or acoustically, is <strong>62 to 95 dB worse</strong> than wiring the same sphere straight into a high-impedance buffer and TinySA #2 (62 to 92 dB with the 2.5 in sphere). The reason: the strip's large capacitance soaks up the sphere's charge and leaves a tiny voltage, and the strip's mechanical resonance gives no rejection of leakage at the same frequency (leakage at the drive frequency drives the electrode just as a hypothetical signal would). Use the direct sphere-to-buffer path instead. The idea is kept below for the record.</div>
+<ul>
+<li><strong>Idea:</strong> a metal sphere as the collector and the strip as a mechanical filter, read without wires.</li>
+<li><strong>Collector:</strong> one of the two spheres on hand, inside the closed cage on an insulating stand: (a) the 3/4 in (19.05 mm) sphere with no hole, or (b) the 2.5 in (63.5 mm) hollow sphere with a 1/4 in hole in the bottom.</li>
+<li><span class="r1-badge hyp">hyp</span> <strong>Proposed mechanism:</strong> a scalar wave arriving at the sphere would move charge on it at the wave frequency. No published source gives a sphere charge or current per unit of C, so this step has no number.</li>
+<li><strong>Coupling:</strong> a short lead from the sphere to the active electrode of the receive strip; the strip's other electrode returns to the cage floor or a small counterpoise plate. Charge on the electrode would drive the strip by the converse flexoelectric or piezo effect.</li>
+<li><span class="r1-badge der">derived</span> Self capacitance is about 1.06 pF (3/4 in) and 3.53 pF (2.5 in), much smaller than the strip (95 pF for a 5 x 5 mm PVDF electrode, 0.7 to 1.8 nF for the BST beam). That mismatch is why the chain loses.</li>
+<li><strong>Readout (non-galvanic):</strong> optical lever with a split photodiode (beam mode), fibre or Michelson interferometer (PVDF thickness mode), or an ultrasonic pickup, all battery powered in their own shielded box.</li>
+<li><strong>Baseline it was compared against:</strong> sphere into an ADA4817 or BF862 buffer into TinySA #2, same position, same TX settings. That direct path won by 62 to 95 dB in minimum detectable charge.</li>
+</ul>
+
+<h2 id="config5">10. Configuration 5: toroid A-source, Aharonov-Bohm geometry</h2>
+<p><strong>Idea:</strong> a small toroidal coil gives a vector potential A outside its core with almost no B outside, the geometry of the Aharonov-Bohm experiments [9], [10]. Use it as a known-A test source for the probes.</p>
+<ul>
+<li><strong>Source:</strong> a small toroidal coil inside the closed cage, driven by TinySA #1. TinySA #1 must run <strong>inside the cage on battery, or be fed over an RF-over-fibre link</strong>, because no cable may cross the wall. A 50 ohm series resistor at the coil keeps the load near 50 ohm. <span class="r1-badge der">derived</span> At -19 dBm the coil current is at most about 0.5 mA rms.</li>
+<li><span class="r1-badge der">derived</span> <strong>Consequence:</strong> with source and receiver in the same enclosure, the cage gives <strong>no isolation</strong>. At 10 cm, ordinary pickup is <strong>+3 to +90 dB above the TinySA floor</strong> for the spheres and the bifilar coil (and -17 to +57 dB for the strip), over 0.1 to 800 MHz and all toroids modelled. It falls as the inverse cube of distance in the near field.</li>
+<li><strong>Probes:</strong> either sphere, the bifilar coil and the PVDF strip, each near the toroid but not threading its hole, plus the H10 and E-field probes to map leakage. The 2.5 in sphere picks up about 5 to 7 dB more ordinary leakage than the 3/4 in sphere. Use 10 cm or more.</li>
+<li><span class="r1-badge fact">fact</span> <strong>Conventional EM, important:</strong> outside an ideal toroid B is zero but A is not, and at RF that A changes in time. Conventional theory then gives a real E field outside, E = -&part;A/&part;t, with no B (the Maxwell-Lodge effect [11]). Any loop that threads the hole is simply a transformer secondary. So this is a known-A source, but at RF it is also a known-E source, and that E is a calculable, classical signal.</li>
+<li><strong>Null baseline (leakage):</strong> winding pitch and gaps leak B near the core; a helical winding acts as one extra turn around the major circumference (bring the return lead back along the core, or add a counter-wound layer); winding voltages make a small electric dipole near the hot end (a slotted copper foil shield reduces it).</li>
+<li><strong>Controls:</strong> rotate the toroid about each axis; reverse it (a pure A coupling only changes sign, the hot-end E leakage moves); swap in a non-inductive 50 ohm dummy of the same lead layout; source off, then TinySA #1 into a 50 ohm load; shielded toroid (copper can); change distance (5 to 50 cm) and check the inverse-cube law; a calibration loop threading the core to confirm the drive.</li>
+<li><span class="r1-badge hyp">hyp</span> <strong>Expected outcome:</strong> conventionally, the probes respond only to leakage plus the classical E = -&part;A/&part;t field, both calculable. For a toroid fed with ordinary charge-conserving current, the published Hively papers give no non-zero source term and no coupling coefficient, so the framework as published gives no number for this configuration. Anything reproducible beyond the classical prediction that survives the controls would be an unexplained observation, not a tested prediction.</li>
+</ul>
+<figure class="figure">
+<img src="img/exp-h/oanim-toroid-A-vs-B.jpg" width="1648" height="486" loading="lazy" alt="Two O-Animator renders of the same torus from the same three-quarter view: left, A only, with purple and blue glow extending beyond the torus; right, B only, with the green confined to the tube.">
+<figcaption>O-Animator, same view: A only (left) reaches beyond the torus, B only (right) stays in the tube. An illustration from Bob Greenyer's fractal model, not a calculation.</figcaption>
+</figure>
+<p class="footnote">The O-Animator renders a fractal set of tori (31 even at the lowest depth), the colours are its own shading, and the background particle cloud could not be turned off. Treat the picture as a qualitative illustration of A without B, not as a field map of a real coil.</p>
+
+<h2 id="simlab">11. Simulation results (Simulation Lab, 7 Oct 2026)</h2>
+<p>Python model, published sources only. It predicts <strong>no scalar-wave signal size</strong>, because no published source gives one. What it predicts is the ordinary background that a null or positive reading has to beat.</p>
+<h3>Configuration 1 (PVDF thickness mode)</h3>
+<ul>
+<li><span class="r1-badge der">derived</span> Works only with a <strong>small electrode, about 5 x 5 mm</strong>. Thickness resonance 38.97 MHz (28 &micro;m) or 20.99 MHz (52 &micro;m). The 5 x 5 mm electrode is about 42 ohm there (94.9 pF) and gets about 29.5 mV at -19 dBm straight from the TinySA. The full 20 x 100 mm strip is about 0.5 ohm, effectively a short.</li>
+<li>Optional series match: about 180 nH at 39 MHz.</li>
+</ul>
+<h3 id="dt1">Config 1 with the TE DT1-028K/L leaded element</h3>
+<ul>
+<li><span class="r1-badge fact">fact</span> <strong>The part</strong> (TE data sheet): film 16 x 41 mm, electrode 12 x 30 mm, 28 &micro;m PVDF, about 1.38 nF, d31 23 pC/N, riveted lugs and 300 mm 28 AWG leads, rated 0 to 70 &deg;C.</li>
+<li><span class="r1-badge der">derived</span> <strong>Find the resonance first:</strong> the silver ink and protective coating may pull the thickness resonance down to about 23 to 30 MHz, so sweep 10 to 50 MHz on the VNA before anything else.</li>
+<li><span class="r1-badge der">derived</span> <strong>The full electrode is a near short:</strong> about 2.9 ohm at resonance, so only about 5 % of the TinySA's power gets in (about 2.9 mV across the film).</li>
+<li><span class="r1-badge der">derived</span> <strong>Leads:</strong> the supplied 300 mm leads are 47 to 102 ohm reactive at 39 MHz. Cut them to 2 to 5 cm and twist them.</li>
+<li><strong>RX:</strong> use the element as bought.</li>
+<li><strong>TX, option 1:</strong> trim the electrode to about 5 x 5 mm. Ink removal is untested and there is a risk of shorting the faces, so try it on a sacrificial element first.</li>
+<li><span class="r1-badge der">derived</span> <strong>TX, option 2:</strong> an L-match, about 708 pF shunt and about 35 nH series (the series value includes the lead), gives about 11 mV and 74 % of the power. Tune it on the VNA at the measured resonance.</li>
+<li><strong>Plan for 5 elements:</strong> #1 RX, #2 TX, #3 trim trial, #4 spare, #5 shorted control.</li>
+<li><strong>Dummy:</strong> copper tape electrodes on polyester film plus a C0G capacitor to match the capacitance (no mechanical response).</li>
+<li><span class="r1-badge der">derived</span> <strong>Film modes:</strong> length 12.9 to 18.3 kHz, width 33 to 47 kHz. Both are below the TinySA's 100 kHz bottom end.</li>
+<li><span class="r1-badge der">derived</span> <strong>Untrimmed TX leakage at 0.3 m:</strong> +37 dB above the TinySA floor with no cage, and -23 / -43 / -63 dB relative to the floor at 60 / 80 / 100 dB shielding (before any TX amplifier, section 13).</li>
+</ul>
+<h3>Configuration 2 (BST beam)</h3>
+<ul>
+<li><span class="r1-badge der">derived</span> Best as a <strong>free-free 5 x 2 x 0.5 mm beam at about 109 kHz</strong> (109.4 kHz first bending mode), held at the mode-1 nodes, <strong>0.224 and 0.776 of the length</strong> (1.12 mm and 3.88 mm from one end), on the centreline. Leads attach on the same node lines, on the centreline.</li>
+<li>Series tuning coil <strong>1.19 mH</strong> (wind it after measuring the beam's capacitance on the VNA). That gives about 0.5 V across the beam.</li>
+<li>The original 2 mm cantilever is too stubby (L/t = 4) for beam theory and cannot be checked in the Standing Wave Project.</li>
+<li><span class="r1-badge der">derived</span> <strong>Twist mode:</strong> an independent torsion calculation (Saint-Venant bar, &nu; 0.35) puts the beam's (1,1) twist mode at <strong>about 144 kHz</strong>. Scaling the Standing Wave Project result gives about 170 kHz (section 12). We use 144 kHz as the conservative value; the real value is probably between the two. The 109.4 kHz drive is well clear: the 1.19 mH tuned circuit is <strong>15 dB down at 144 kHz</strong> (19 dB at 170 kHz), and symmetric full-width electrodes cannot drive twist. Twist only couples in through asymmetry (off-centre leads, supports or epoxy dots, misregistered electrodes, a chipped edge). After mounting, <strong>sweep 100 to 200 kHz</strong> once: a strong second peak near 145 to 170 kHz means the mount or a lead is asymmetric.</li>
+</ul>
+<h3>Leakage and risks (Configurations 1 and 2)</h3>
+<ul>
+<li><span class="r1-badge der">derived</span> With the cage at <strong>80 dB shielding or better</strong>, ordinary leakage is below the TinySA floor at 0.3 to 3 m. At only 60 dB, the BST setup at 0.3 m sits right at the floor.</li>
+<li>The main risks are not radio leakage:
+  <ul>
+  <li><strong>110 kHz sound through the mesh</strong> (upper bound +27 dB above the floor at 0.3 m; a solid 0.5 mm steel wall would cut it to -39 dB).</li>
+  <li><strong>Table vibration</strong> (about 133 dB of mechanical isolation needed: separate stands, soft mounts, node supports).</li>
+  <li><strong>Cage seams</strong> and the real shielding number at the test frequency.</li>
+  </ul></li>
+<li><strong>RX fully inside the cage on battery, with no cable through the wall.</strong></li>
+</ul>
+<h3>Configurations 4 and 5</h3>
+<ul>
+<li><strong>Configuration 4:</strong> dropped. 62 to 95 dB worse than the direct sphere-to-buffer path (section 9).</li>
+<li><strong>Configuration 5:</strong> TinySA #1 must be inside on battery or fed by fibre, so the cage gives no isolation. Ordinary pickup at 10 cm is +3 to +90 dB above the floor (section 10).</li>
+</ul>
+<h3>Spheres</h3>
+<ul>
+<li><span class="r1-badge der">derived</span> Self capacitance: <strong>1.06 pF</strong> (3/4 in) and <strong>3.53 pF</strong> (2.5 in). Hollow or solid makes no difference; the 1/4 in hole changes it by only 0.0053 %.</li>
+<li><span class="r1-badge der">derived</span> Wired straight to the buffer, the <strong>small sphere is better for a charge-like source</strong> (0.019 vs 0.029 aC/&radic;Hz) and the <strong>big sphere is about 7 dB better for a voltage-like source</strong> (18.1 vs 8.16 nV/&radic;Hz). Which one matters is hypothetical.</li>
+<li><span class="r1-badge der">derived</span> <strong>The 3/4 in shell's breathing mode is about 113 kHz</strong> (assuming a 1 mm brass shell <span class="r1-badge asm">assumption</span>), only about 4 kHz above the 109 kHz beam drive. The 2.5 in shell has low modes at 13 to 33 kHz and a dense set near 100 kHz. <strong>Tap-test each sphere and soft-mount it</strong> before choosing the drive frequency. Wall thickness and material still need measuring.</li>
+</ul>
+<h3>Corrections to earlier estimates</h3>
+<ul>
+<li>BST beam capacitance is <strong>0.7 to 1.8 nF</strong> (&epsilon;r about 10<sup>4</sup> near Tc), not "a few hundred pF". The smaller figure only holds for SrTiO3.</li>
+<li>Commercial BST (70/30, <strong>Tc 33 &deg;C</strong>) is <strong>ferroelectric at room temperature</strong>, so it can carry a piezo response. Ma and Cross's 67/33 ceramic has Tc 21 &deg;C. Keep the beam above Tc, or note the risk.</li>
+</ul>
+
+<h2 id="swp">12. Standing Wave Project cross-check</h2>
+<p>Input: a free <strong>50 x 20 x 5 mm steel plate</strong> in Bob Greenyer's <a href="https://starfire.tech/StandingWaveProject/">Standing Wave Project</a>. This is the 5 x 2 x 0.5 mm BST beam scaled up x10, because the app's minimum plate size is 20 mm. Steel was chosen because its bar sound speed is close to BST's (5170 vs 5323 m/s).</p>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Mode</th><th scope="col">SWP tool <span class="r1-badge fact">fact</span></th><th scope="col">Simulation Lab <span class="r1-badge der">derived</span></th><th scope="col">Difference</th><th scope="col">Scaled to the BST beam</th></tr></thead>
+<tbody>
+<tr><td>(2,0) first lengthwise bending</td><td>10.75 kHz</td><td>10.63 kHz (Euler-Bernoulli)</td><td>+1.1 %</td><td>tool x 10.291 = about 111 kHz; beam theory 109.4 kHz</td></tr>
+<tr><td>(1,1) twisting</td><td>16.51 kHz</td><td>14.34 kHz (Saint-Venant torsion)</td><td>+15 %</td><td>tool scaled about 170 kHz; torsion calculation <strong>about 144 kHz</strong> (conservative)</td></tr>
+<tr><td>(3,0) second lengthwise bending</td><td>29.85 kHz</td><td>29.31 kHz (Euler-Bernoulli)</td><td>+1.8 %</td><td>tool x 10.291 = about 307 kHz; beam theory 301.6 kHz</td></tr>
+</tbody></table></div>
+<ul>
+<li>The two bending modes agree with beam theory <strong>within 2 %</strong>, and the mode-1 node lines sit at <strong>about 22 % of the length from each end</strong>, matching the 0.224 / 0.776 support points.</li>
+<li>The twist mode differs by about 15 %. Simulation Lab's reading (not confirmed against the tool's code) is that a thin-plate twisting stiffness reads high for a bar only 4 times wider than it is thick. Torsion also scales with shear modulus, which moves the tool-scaled value to about 166 kHz for BST's Poisson ratio. The real value is probably 144 to 166 kHz.</li>
+<li>On the real beam: the drive mode is about 109 to 111 kHz, the twisting mode is 144 to 170 kHz (keep clear), and the next bending mode is about 302 to 307 kHz.</li>
+</ul>
+<figure class="figure">
+<img src="img/exp-h/swp-steel-50x20x5-free-mode1.png" width="1024" height="570" loading="lazy" alt="Standing Wave Project render of a free steel plate in its first lengthwise bending mode, with two dark node bands across the width.">
+<figcaption>Figure 1. Standing Wave Project, steel 50 x 20 x 5 mm free plate, (2,0) first bending mode at 10.75 kHz. Black bands are the node lines, about 22 % from each end. Scaled: about 111 kHz on the BST beam.</figcaption>
+</figure>
+<figure class="figure">
+<img src="img/exp-h/swp-steel-50x20x5-free-mode2.png" width="1024" height="570" loading="lazy" alt="Standing Wave Project render of the same plate in its first twisting mode, with crossed node lines.">
+<figcaption>Figure 2. Same plate, (1,1) twisting mode at 16.51 kHz. Scaled: about 170 kHz on the BST beam; an independent torsion calculation gives about 144 kHz. Keep the drive clear of it.</figcaption>
+</figure>
+<figure class="figure">
+<img src="img/exp-h/swp-steel-50x20x5-free-mode3.png" width="1024" height="570" loading="lazy" alt="Standing Wave Project render of the same plate in its second lengthwise bending mode, with three node bands.">
+<figcaption>Figure 3. Same plate, (3,0) second bending mode at 29.85 kHz. Scaled: about 307 kHz on the BST beam.</figcaption>
+</figure>
+
+<h2 id="range">13. Range, the kit amplifiers and a distance test</h2>
+<p><span class="r1-badge hyp">hyp</span> <strong>No absolute range can be predicted,</strong> because the strip's coupling to the scalar field is unknown. What can be stated is how much range each dB buys from wherever a signal is first seen. For a radiating wave with 1/r amplitude (1/r&sup2; power), power falls 20 dB per decade of distance: 6 dB doubles the range, 20 dB gives 10 times and 40 dB gives 100 times.</p>
+<p><strong>Does Hively's P<sub>OUT</sub> formula apply to a strip?</strong> Not directly (our reading). Hively and Loebl 2019, Eq. 38 and Appendix B (as corrected in the erratum [4]), is derived for a thin end-fed wire monopole in the far field, with power set by the irrotational feed current. A strip is a capacitor with equal and opposite charge on faces 28 &micro;m apart, closer to the balanced case of their Appendix C, which gives no SLW output; strain and the piezo effect do not appear in the formula; and at 109 kHz every bench distance is near field (kr &gg; 1 needs r well beyond about 440 m; at 39 MHz, beyond about 1.2 m). A wire monopole or a sphere fed against the coax shield is the case the formula was written for.</p>
+<h3>Kit: 3 TinySA Ultras and 3 Zeenko ZK06-UM LNAs</h3>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">ZK06-UM item</th><th scope="col">Value</th><th scope="col">Status</th></tr></thead>
+<tbody>
+<tr><td>Frequency range</td><td>10 MHz to 6 GHz</td><td><span class="r1-badge fact">fact</span> <a href="https://storage.eleshop.eu/files/ZeenkoLNAdatasheet.pdf">Zeenko datasheet</a></td></tr>
+<tr><td>Gain</td><td>about 27 dB at 10 MHz, 25.5 dB at 100 MHz, about 5 dB at 100 kHz (below rated range)</td><td><span class="r1-badge fact">fact</span> datasheet</td></tr>
+<tr><td>Noise figure</td><td>2.3 dB at 10 MHz, 0.8 dB at 100 MHz</td><td><span class="r1-badge fact">fact</span> datasheet</td></tr>
+<tr><td>Output P1dB</td><td>16 to 18 dBm</td><td><span class="r1-badge fact">fact</span> datasheet</td></tr>
+<tr><td>Gain at 39 MHz</td><td>about 26 dB</td><td><span class="r1-badge der">derived</span> interpolated</td></tr>
+<tr><td>Noise figure at 39 MHz</td><td>about 1.5 dB</td><td><span class="r1-badge der">derived</span> interpolated</td></tr>
+</tbody></table></div>
+<ul>
+<li><span class="r1-badge der">derived</span> <strong>TX side at 39 MHz (Configuration 1):</strong> one amp takes TinySA #1 from -19 dBm to about <strong>+7 dBm</strong>, roughly 20 times the range under 1/r&sup2;. Two in cascade would saturate near the 16 to 18 dBm compression point.</li>
+<li><span class="r1-badge der">derived</span> <strong>RX side at 39 MHz:</strong> a Zeenko ahead of the TinySA, with the TinySA's internal LNA left on (about 6 dB noise figure), improves the system noise figure by about <strong>4 to 5 dB</strong>, about 1.7 times the range.</li>
+<li><strong>At 109 kHz (Configuration 2):</strong> the Zeenko is not useful (about 5 dB, below its rated range). Use the ADA4817 buffer there.</li>
+<li><span class="r1-badge der">derived</span> <strong>Leakage rises with TX gain:</strong> +26 dB on TX lifts the untrimmed strip's leakage to about 3 dB above the floor at 60 dB of cage shielding, and about 17 dB below it at 80 dB. Get the cage to <strong>80 dB or better</strong> before adding the TX amp.</li>
+</ul>
+<h3>Suggested use: a distance-falloff test</h3>
+<p>One amp on TX, and one ahead of each of two receiver TinySAs placed at distances r and 2r. <span class="r1-badge der">derived</span> A radiated wave falling as 1/r&sup2; drops <strong>6 dB per doubling of distance</strong>. Near-field pickup and leakage fall much faster, about <strong>12 to 18 dB per doubling</strong>. Measuring both receivers at once turns range into a test of its own: a signal that drops 6 dB fits a radiated wave; one that drops 12 to 18 dB is local coupling.</p>
+
+<h2 id="tools">14. Modelling tools</h2>
+<ul>
+<li><strong>Bob Greenyer's Standing Wave Project</strong> (<a href="https://starfire.tech/StandingWaveProject/">starfire.tech/StandingWaveProject</a>): a browser FEM solver for elastic and acoustic modes (plates with free or clamped edges, spheres, Chladni nodal lines; materials include metals, quartz and PZT). No electromagnetics, no login. Used for the cross-check in section 12. Limits:
+  <ul>
+  <li>It cannot model hollow spheres, so it cannot check the shell modes of the spheres; use a tap test.</li>
+  <li>No cantilever (one-edge clamped) option, no BST or PVDF material, and a 0.5 mm minimum thickness, so the PVDF film cannot be checked there.</li>
+  </ul></li>
+<li><strong>Bob Greenyer's O-Animator</strong> (<a href="https://starfire.tech/O-Animator/Art-n-Science/">starfire.tech/O-Animator/Art-n-Science</a>): a fractal toroidal-moment simulator (ring currents, ion tracers, magnetostatic A computed from J, pulsed E and B plates). Its A solve sets the scalar field C to zero by construction, and it has no RF, no cage and no materials. It can illustrate the toroid geometry of Configuration 5 (section 10) but cannot predict TinySA readings. <strong>It needs a sign-in with an email and an access key.</strong> The default particle count is heavy for a slow browser.</li>
+<li><strong>Primary model:</strong> the Simulation Lab Python model (section 11).</li>
+</ul>
+
+<h2 id="solder">15. Connections and soldering</h2>
+<ul>
+<li><strong>PVDF (TE DT1-028K/L):</strong> solder <strong>only to the part's leads, never to the film</strong>. The film is rated 0 to 70 &deg;C, so an iron on it will destroy it.</li>
+<li><strong>SrTiO3 and BST:</strong> no usable metal faces as supplied. Paint <strong>silver paint electrodes</strong> on both faces, then attach fine wire (25 to 50 &micro;m) with a small dot of <strong>silver conductive epoxy</strong> on the mode-1 node lines, on the centreline. Do not solder.</li>
+<li><strong>Copper:</strong> solders normally.</li>
+<li><strong>Aluminium:</strong> ordinary solder will not wet it. Use aluminium solder with its matching flux, or silver epoxy.</li>
+<li><strong>Spheres:</strong> material not confirmed. Brass or copper solder normally; aluminium as above; silver epoxy works on all of them.</li>
+</ul>
+
+<h2 id="parts">16. Parts list</h2>
+<p class="footnote">Availability not verified. Vendor names are for orientation only.</p>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Part</th><th scope="col">Qty</th><th scope="col">Notes</th></tr></thead>
+<tbody>
+<tr><td>tinySA Ultra or Ultra+ (ZS406/ZS407)</td><td>2 to 3</td><td>Generator, analyzer, and a second analyzer for the distance test. In the kit (3). Official sellers on tinysa.org.</td></tr>
+<tr><td>Zeenko ZK06-UM LNA, 10 MHz to 6 GHz</td><td>up to 3</td><td>In the kit (3). One on TX, one ahead of each RX TinySA at 39 MHz (section 13). Not for 109 kHz.</td></tr>
+<tr><td>TE DT1-028K/L leaded PVDF element (TE 1-1002908-0)</td><td>5</td><td>28 &micro;m, riveted leads. See the <a href="#dt1">DT1 subsection</a>. Solder only to the leads.</td></tr>
+<tr><td>Metallized PVDF film, 28 &micro;m and 52 &micro;m</td><td>optional</td><td>TE Connectivity (Measurement Specialties) piezo film sheets; PolyK Technologies also sells poled PVDF film.</td></tr>
+<tr><td>Unpoled PVDF or plain PTFE film</td><td>1</td><td>Control strips; electrode with copper tape or silver paint.</td></tr>
+<tr><td>BST ceramic beam 5 x 2 x 0.5 mm, or SrTiO3 single-crystal substrate (0.5 mm)</td><td>2 to 4</td><td>Configuration 2. BST is usually a custom ceramic; SrTiO3 substrates from MTI Corporation. Add a non-flexo dummy (for example alumina of the same size).</td></tr>
+<tr><td>Silver conductive epoxy and silver paint</td><td>1 each</td><td>Beam electrodes and wire attachment (section 15).</td></tr>
+<tr><td>ADA4817 op-amp or BF862 JFET buffer</td><td>2</td><td>High-impedance receiver buffer, battery powered, inside the cage. One spare.</td></tr>
+<tr><td>Series tuning coil, about 1.19 mH, Q 50 or better at 110 kHz</td><td>1</td><td>Configuration 2. Wind after measuring the beam's capacitance on the VNA.</td></tr>
+<tr><td>L-match parts: C0G capacitors (about 500 to 1000 pF) and a short air-wound inductor (about 35 nH with the lead)</td><td>1 set</td><td>Untrimmed DT1 TX at 39 MHz. Tune on the VNA.</td></tr>
+<tr><td>Inductor, about 180 nH</td><td>1</td><td>Optional series match for a trimmed 5 x 5 mm electrode at 39 MHz.</td></tr>
+<tr><td>Ferrite toroids rated for 100 kHz and magnet wire</td><td>2</td><td>Optional step-up transformer for Configuration 2.</td></tr>
+<tr><td>Small shielded boxes (die-cast aluminium)</td><td>2</td><td>For the buffer and, ideally, the TX.</td></tr>
+<tr><td>SMA cables, attenuators, DC block</td><td>assorted</td><td></td></tr>
+<tr><td>H10 magnetic probe, E-field probe</td><td>1 each</td><td>Already on hand.</td></tr>
+<tr><td>Foam, soft mounts, second table, fine-wire node supports</td><td></td><td>Vibration and acoustic isolation (about 133 dB needed).</td></tr>
+<tr><td>USB battery packs</td><td>2</td><td>Run the RX TinySA and buffer fully inside the cage (and TinySA #1 for Configuration 5).</td></tr>
+<tr><td>Dummy element: copper tape on polyester plus C0G capacitor</td><td>1 to 2</td><td>Same outline, lead dress and capacitance as the strip, no mechanical response.</td></tr>
+<tr><td>Ultrasonic microphone, around 110 kHz</td><td>1</td><td>Acoustic monitor for the sound path through the mesh.</td></tr>
+<tr><td>Spheres: 3/4 in (no hole) and 2.5 in hollow (1/4 in hole)</td><td>1 each</td><td>On hand. Configuration 5 probes and direct sphere-to-buffer receivers. Tap-test and soft-mount.</td></tr>
+<tr><td>Small RF toroid cores and magnet wire</td><td>2 to 3</td><td>Configuration 5 A-source. Run the return lead back along the core; twist the leads.</td></tr>
+<tr><td>RF-over-fibre link, or a battery setup for TinySA #1 inside the cage</td><td>1</td><td>Configuration 5 drive. No coax through the wall.</td></tr>
+<tr><td>Copper foil (slotted shield), 50 ohm non-inductive resistors, copper can</td><td>assorted</td><td>Configuration 5 E shield, dummy load and shielded-toroid control.</td></tr>
+<tr><td>Laser, photodiode, interferometer optics</td><td>0</td><td>Not needed (they were the Configuration 4 readout, now dropped).</td></tr>
+</tbody></table></div>
+
+<h2 id="refs">17. References (published only)</h2>
+<ol>
+<li>tinySA Ultra Specification: <a href="https://tinysa.org/wiki/pmwiki.php?n=TinySA4.Specification">tinysa.org/wiki/pmwiki.php?n=TinySA4.Specification</a></li>
+<li>tinySA Ultra Menu Tree: <a href="https://tinysa.org/wiki/pmwiki.php?n=TinySA4.MenuTree">tinysa.org/wiki/pmwiki.php?n=TinySA4.MenuTree</a></li>
+<li>tinySA Ultra Limitations: <a href="https://tinysa.org/wiki/pmwiki.php?n=TinySA4.Limitations">tinysa.org/wiki/pmwiki.php?n=TinySA4.Limitations</a></li>
+<li>L. M. Hively and A. S. Loebl, "Classical and extended electrodynamics," Physics Essays 32, 112 (2019), <a href="https://doi.org/10.4006/0836-1398-32.1.112">doi:10.4006/0836-1398-32.1.112</a>; erratum Physics Essays 32, 417 (2019), <a href="https://doi.org/10.4006/0836-1398-32.3.417">doi:10.4006/0836-1398-32.3.417</a> (corrects Eqs. 38, 44, B5). <a href="papers/Hively-Loebl-2019-Physics-Essays-Classical-and-extended-electrodynamics.pdf">PDF on this hub</a>.</li>
+<li>L. M. Hively and M. Land, "Extended electrodynamics and SHP theory," J. Phys.: Conf. Ser. 1956, 012011 (2021), <a href="https://doi.org/10.1088/1742-6596/1956/1/012011">doi:10.1088/1742-6596/1956/1/012011</a>. <a href="papers/Hively-Land-2021-JPCS-Extended-electrodynamics-and-SHP.pdf">PDF on this hub</a>.</li>
+<li>P. Zubko, G. Catalan, A. K. Tagantsev, "Flexoelectric Effect in Solids," Annu. Rev. Mater. Res. 43, 387 (2013), <a href="https://doi.org/10.1146/annurev-matsci-071312-121634">doi:10.1146/annurev-matsci-071312-121634</a></li>
+<li>W. Ma and L. E. Cross, "Flexoelectric polarization of barium strontium titanate in the paraelectric state," Appl. Phys. Lett. 81, 3440 (2002), <a href="https://doi.org/10.1063/1.1518559">doi:10.1063/1.1518559</a></li>
+<li>P. Zubko et al., "Strain-Gradient-Induced Polarization in SrTiO3 Single Crystals," Phys. Rev. Lett. 99, 167601 (2007), <a href="https://doi.org/10.1103/PhysRevLett.99.167601">doi:10.1103/PhysRevLett.99.167601</a></li>
+<li>Y. Aharonov and D. Bohm, "Significance of Electromagnetic Potentials in the Quantum Theory," Phys. Rev. 115, 485 (1959), <a href="https://doi.org/10.1103/PhysRev.115.485">doi:10.1103/PhysRev.115.485</a></li>
+<li>A. Tonomura et al., "Evidence for Aharonov-Bohm effect with magnetic field completely excluded," Phys. Rev. Lett. 56, 792 (1986), <a href="https://doi.org/10.1103/PhysRevLett.56.792">doi:10.1103/PhysRevLett.56.792</a></li>
+<li>G. Rousseaux, R. Kofman, O. Minazzoli, "The Maxwell-Lodge effect: significance of electromagnetic potentials in the classical theory," Eur. Phys. J. D 49, 249 (2008), <a href="https://doi.org/10.1140/epjd/e2008-00142-y">doi:10.1140/epjd/e2008-00142-y</a></li>
+<li>L. M. Hively, US Patent 9,306,527 B1 (2016), scalar-longitudinal waves. <a href="papers/Hively-US9306527B1-Scalar-Longitudinal-Waves.pdf">PDF on this hub</a>.</li>
+<li>TE Connectivity / Measurement Specialties, DT Series Elements with Lead Attachment, data sheet (DT1-028K/L w/rivets, 1-1002908-0).</li>
+<li>Zeenko ZK06-UM LNA datasheet: <a href="https://storage.eleshop.eu/files/ZeenkoLNAdatasheet.pdf">storage.eleshop.eu/files/ZeenkoLNAdatasheet.pdf</a></li>
+<li>M. Hahn, S. Trolier-McKinstry, R. J. Meyer, J. Appl. Phys. 129, 064504 (2021), <a href="https://doi.org/10.1063/5.0038756">doi:10.1063/5.0038756</a> (BST 70/30 properties, Tc 33 &deg;C)</li>
+<li>W. C. Young, R. G. Budynas, Roark's Formulas for Stress and Strain, 7th ed., Table 10.1 (Saint-Venant torsion constant)</li>
+<li>B. Greenyer et al., Standing Wave Project: <a href="https://starfire.tech/StandingWaveProject/">starfire.tech/StandingWaveProject</a>; O-Animator: <a href="https://starfire.tech/O-Animator/Art-n-Science/">starfire.tech/O-Animator/Art-n-Science</a> (access key required)</li>
+</ol>
+
+<h2 id="assumptions">18. Derived values and assumptions (summary)</h2>
+<ul>
+<li>PVDF relative permittivity 12. Parallel plate capacitance, edge effects ignored.</li>
+<li>PVDF bar sound speed about 1185 m/s (Young's modulus 2.5 GPa, density 1780 kg/m&sup3;); thickness sound speed about 2200 m/s. Resonance first guesses follow f = v / (2 x dimension).</li>
+<li>Cantilever first bending mode f1 = 0.1615 t v / L&sup2;, with v of 5000 to 7200 m/s for BST and SrTiO3. Free-free beam numbers use Euler-Bernoulli theory; the twist mode uses Saint-Venant torsion with E 161 GPa and &nu; 0.35 for BST.</li>
+<li>-19 dBm into 50 ohm = about 25 mV rms.</li>
+<li>Sphere self capacitance C = 4&pi;&epsilon;0R (outer radius; same for hollow or solid): 3/4 in (R = 9.525 mm) about 1.06 pF; 2.5 in (R = 31.75 mm) about 3.53 pF.</li>
+<li>Toroid drive: -19 dBm (about 50 mV open-circuit EMF behind 50 ohm) gives at most about 0.5 mA rms.</li>
+<li>Sphere shell modes assume a 1 mm brass wall (not measured).</li>
+<li>Amplifier gain and noise figure at 39 MHz are interpolated from the datasheet points at 10 and 100 MHz.</li>
+<li>All resonances must be measured; none of the above is a measured value.</li>
+</ul>
+
+<p><a class="btn" href="archive.html">Back to the archive</a></p>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong><br>
+      Educational use only. These pages describe tests of hypotheses. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+</body>
+</html>
