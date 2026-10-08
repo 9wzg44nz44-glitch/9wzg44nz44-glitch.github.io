@@ -55,7 +55,7 @@
 <p class="lede">The Monstein and Wesley (2002) replication: two aluminium balls, one transmitting and one receiving, with a 3 x 3 array of half-wave brass rods turned through &phi; between them. Their published curve is T = exp(-&kappa; cos&sup2;&phi;) with a fitted &kappa; = 4.4 for brass. No balun of any kind on this bench. Round 1 repeats it with brass and then W1 tool steel (annealed) rods, each turned through a full 360&deg;, first on the open bench with no Faraday cage and then with the big spheres inside a closed Faraday cage. It also adds VNA S21 baselines, an automatic range estimate and a Joule-loss analysis.</p>
 <div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Mainstream electrodynamics treats free-space radio as transverse (TEM). A longitudinal or scalar component is a hypothesis we are testing, and nothing on these pages claims that scalar or longitudinal waves have been detected. Values marked <span class="r1-badge prop">proposal</span> are our suggestions and are not measured or sourced. Draft v0.1, 4 Oct 2026, written by Grok Bot for Dan Britton.</div>
 <ul class="r1-toc" aria-label="On this page">
-  <li><a href="#numbers">Bench numbers</a></li><li><a href="#run">Run order</a></li><li><a href="#controls">Controls</a></li><li><a href="#meaning">What results would mean</a></li><li><a href="#stations">Three-position fixture scan</a></li><li><a href="#tools">Tools</a></li><li><a href="todo.html#g-b">To-Do for this band</a></li>
+  <li><a href="#numbers">Bench numbers</a></li><li><a href="#run">Run order</a></li><li><a href="#controls">Controls</a></li><li><a href="#meaning">What results would mean</a></li><li><a href="#stations">Three-position fixture scan</a></li><li><a href="#rod-jolts">Rod jolts and settle time</a></li><li><a href="#flick-test">Flick test, step by step</a></li><li><a href="#tools">Tools</a></li><li><a href="todo.html#g-b">To-Do for this band</a></li>
 </ul>
 
 <h2 id="numbers">1. Bench numbers</h2>
@@ -98,7 +98,64 @@
 <h3>How to read it</h3>
 <div class="r1-table-wrap"><table><thead><tr><th scope="col">Observation</th><th scope="col">Ordinary reading and caveats</th><th scope="col">Reading under this test</th></tr></thead><tbody><tr><td>&kappa; deepest at NEAR TX and the TX S11 stays stable across the scan</td><td>The array subtends a larger angle seen from near the source, so plain shadowing also predicts this. Absorption and scattering are not separated.</td><td>Supports the early-attenuation idea as a pattern. Needs repeats, W1, and the 90&deg; TX rotation control before it means more.</td></tr><tr><td>TX S11 moves with the rod angle at NEAR TX</td><td>The rods load or detune the source: a near-field coupling artefact.</td><td>Do not read &kappa; at that station as attenuation. Move the fixture out and repeat.</td></tr><tr><td>&kappa; about equal at all three stations</td><td>Loss does not depend on where the fixture sits.</td><td>No support for early attenuation; position-independent.</td></tr><tr><td>&kappa; deepest MIDWAY or NEAR RX, or the rods-crossed level L<sub>0</sub> shifts with station</td><td>Reflection nulls and multipath can mimic any of these: moving the fixture changes which paths cross the array and the standing-wave phase.</td><td>Check the plates-only runs, shift r by &lambda;/4 and repeat before believing a station effect.</td></tr></tbody></table></div>
 
-<h2 id="tools">6. Tools for this band</h2>
+<h2 id="rod-jolts">6. Rod jolts and settle time</h2>
+<p>A bumped rod rings briefly, like a plucked ruler. Each rod is held at mid-length in the acrylic plate, so it behaves as two cantilevers. <span class="r1-badge">estimate</span> The lowest bending mode is about 51 to 55 Hz for the 346 mm brass rods and about 76 to 82 Hz for W1. The shorter rods on the 1.3 and 2.45 GHz benches ring at a few hundred Hz to a few kHz. With an assumed Q of about 100, the long brass rods take about 2 s to settle. Working and assumptions: <a href="rod-jig/#ringing">rod-jig page, section 7</a>.</p>
+<div class="r1-note"><strong>A possible small effect, not a proven problem.</strong> A rod that is still swinging moves slightly in the field, which could wobble the S21 or TinySA reading. Nobody has seen this on this bench yet. The one-minute flick test below tells you whether it matters on yours.</div>
+<p><strong>It is the jolts that matter, not turning versus stopping.</strong> Two methods are fine:</p>
+<ul>
+<li><b>(a) Step and settle</b> (recommended default): turn to each angle, take your hands off, wait about 3 s, then read. Log the wait as <code>settle_s</code>.</li>
+<li><b>(b) Continuous</b>: also fine if the motion is smooth, for example a slow motor drive. A reading or sweep that lasts longer than about 1 s averages out any small leftover ringing.</li>
+</ul>
+<p>Avoid jerky hand turns, or a turntable with detent clicks, while a reading is being taken.</p>
+<p><strong>One-minute check.</strong> Watch the live S21 trace on the VNA (or the TinySA trace), lightly flick one rod, and see whether the trace wobbles. If it does not, rod jiggle is a non-issue and the settle time is just cheap insurance.</p>
+<p><a class="btn primary" href="#flick-test">Step-by-step: run the flick test</a></p>
+
+<h2 id="flick-test">7. Flick test, step by step</h2>
+<p class="footnote"><a href="#rod-jolts">Back to Rod jolts and settle time</a></p>
+<p>Two ways to run it. Use whichever instrument you will use for the scan, or both. The rods, plates, spheres, range r and fixture station stay exactly as they will be for the real scan (MIDWAY is a good first station).</p>
+<p><strong>Flick tool:</strong> a wooden dowel or pencil about 30 cm long, so your hand and body stay out of the TX to RX path. Your body near the path changes S21 by itself, which is why the steps include a no-touch control.</p>
+
+<h3 id="flick-vna">7a. With the VNA6000-A (S21)</h3>
+<p class="footnote">Menu paths below are the ones on the hub's <a href="vna-howto.html">VNA how-to</a>, quoted from the NanoRFE VNA6000 user manual (2022/11). Firmware on your unit may differ.</p>
+<ol class="steps">
+<li><b>Calibrate.</b> Recall the Exp B calibration (slot 0, 380 to 490 MHz): CAL &rarr; RECALL &rarr; RECALL 0. If there is none, do the SOLT calibration with cables, including THRU, as in <a href="vna-howto.html#cal">VNA how-to, section 5</a>. Check that a THRU reads about 0 dB, and that a C-number shows on the left of the screen.</li>
+<li><b>Connect</b> port 1 to the TX ball and port 2 to the RX ball, with the same cables used for calibration. Tape the cables down.</li>
+<li><b>Single frequency.</b> STIMULUS &rarr; CW FREQ, enter 433.59 MHz. This is the manual's zero span: one frequency sent continuously, so the trace shows S21 over time. (If you prefer to stay swept, use STIMULUS &rarr; CENTER 433.59 MHz and a narrow STIMULUS &rarr; SPAN, for example 1 MHz, and watch the marker.) Changing the range interpolates the calibration, which is fine here: this test looks at changes, not absolute values.</li>
+<li><b>Traces.</b> DISPLAY &rarr; TRACE &rarr; TRACE 0, then DISPLAY &rarr; CHANNEL &rarr; CH1 THROUGH and DISPLAY &rarr; FORMAT &rarr; LOGMAG. Then DISPLAY &rarr; TRACE &rarr; TRACE 1, DISPLAY &rarr; CHANNEL &rarr; CH1 THROUGH and DISPLAY &rarr; FORMAT &rarr; PHASE.</li>
+<li><b>Zoom in.</b> Use DISPLAY &rarr; SCALE to make the vertical scale fine (for example about 0.5 dB and about 5 degrees per division), and DISPLAY &rarr; SCALE &rarr; REFERENCE POSITION to bring both traces to mid-screen.</li>
+<li><b>Keep it sweeping.</b> Make sure PAUSE SWEEP is not active, so the trace keeps updating.</li>
+<li><b>Baseline.</b> Hands off and step back for 30 s. Note the normal jitter of the trace, peak to peak, in dB and in degrees. Take a screenshot (or a phone photo with the C-number and axis visible).</li>
+<li><b>Control: no touch.</b> Bring the dowel up to a rod, hold it there for 2 s without touching, then withdraw it. Note any change. That is the stick and body effect alone.</li>
+<li><b>Flick.</b> Lightly flick the free tip of one rod with the dowel (start with the centre rod, H5), withdraw the dowel at once and stand still. Watch both traces.</li>
+<li><b>Read it.</b> Note the wobble peak to peak in dB and degrees, and how many seconds it takes to go flat again. A phone video of the screen makes the timing easy. The VNA probably refreshes too slowly to draw a 50 Hz ring as a clean wave (inference), so look for the trace turning ragged or jumping and then calming.</li>
+<li><b>Repeat</b> three times, then with an outer rod, then with the W1 rods. Finally do one real 10&deg; turntable step and watch the same way, since that is the jolt the scan actually makes.</li>
+</ol>
+
+<h3 id="flick-tinysa">7b. With TinySA Ultra+ ZS406 units (generator and receiver)</h3>
+<p class="footnote">Menu names are from the official <a href="https://tinysa.org/wiki/pmwiki.php?n=TinySA4.MenuTree">tinySA Ultra / Ultra+ menu tree</a> and its linked menu-tree chart. Use two of the three ZS406 units: one as the source, one as the receiver.</p>
+<ol class="steps">
+<li><b>Source (TinySA #1).</b> MODE &rarr; SIGNAL GENERATOR. Set FREQ to 433.59 MHz (sine output works up to 900 MHz on the Ultra+) and LEVEL to -19 dBm. Turn the output on with the LOW OUTPUT button. Connect it to the TX ball.</li>
+<li><b>Receiver (TinySA #2)</b> on the RX ball, in MODE &rarr; SPECTRUM ANALYZER.</li>
+<li><b>Find the carrier.</b> FREQUENCY &rarr; CENTER 433.59 MHz and FREQUENCY &rarr; SPAN 200 kHz. Then MARKER &rarr; SEARCH MARKER &rarr; PEAK SEARCH and note the marker frequency. The two units' clocks differ slightly, so the carrier may sit a little off 433.59 MHz.</li>
+<li><b>Zero span.</b> FREQUENCY &rarr; ZERO SPAN and enter the marker frequency from step 3. The screen now shows level against time at that one frequency.</li>
+<li><b>RBW.</b> FREQUENCY &rarr; RBW &rarr; 30kHz. That is wide enough to tolerate the small clock offset between the two units. Use 10kHz if the carrier is steady and you want a lower noise floor.</li>
+<li><b>Level.</b> MARKER &rarr; MARKER OPS &rarr; -&gt;REF LEVEL puts the carrier near the top. Then LEVEL &rarr; SCALE/DIV 1 dB. Leave LEVEL &rarr; LNA off unless the carrier is within about 10 dB of the noise.</li>
+<li><b>Time axis.</b> DISPLAY &rarr; SWEEP TIME 1 s. With the default 290 points that is about 3.4 ms per point, fine enough to draw a 50 to 80 Hz ring directly on the trace. Make sure TRACE &rarr; CALC is OFF (no averaging, no hold), or the wobble will be smoothed away.</li>
+<li><b>Baseline, control and flick:</b> as VNA steps 7 to 9. Note the normal jitter (dB peak to peak), the no-touch change, then the flick wobble and how long it takes to go flat.</li>
+<li><b>Freeze and save.</b> DISPLAY &rarr; PAUSE SWEEP freezes a trace that shows the wobble. STORAGE &rarr; SAVE CAPTURE saves a screenshot and STORAGE &rarr; SAVE TRACES saves the trace as CSV to the microSD card. Turn PAUSE SWEEP off again to continue.</li>
+<li><b>Repeat</b> as VNA step 11, including one real 10&deg; turntable step.</li>
+</ol>
+
+<h3 id="flick-matters">What counts as "matters"</h3>
+<ul>
+<li><b>Does not matter:</b> the flick wobble is no bigger than the baseline jitter, or no bigger than the no-touch control. Keep the 3 s settle as insurance and move on.</li>
+<li><b>Handled by the settle time:</b> the wobble is visible but has gone flat within 3 s. Keep 3 s (or the decay time you measured plus a margin).</li>
+<li><b>Matters:</b> the wobble is still there after 3 s, or it is larger than the effect you are trying to measure, for example the smallest step-to-step change in the angle scan you care about, or the allowed 0&deg; versus 360&deg; return-to-start difference. Then lengthen the settle time, use a smooth drive, or damp the rods (for example firmer O-rings), and repeat the test.</li>
+</ul>
+<p><strong>What to log</strong> (one row per flick): date_time, instrument (VNA with cal slot, or TinySA with RBW and sweep time), frequency, rod material and which rod, flick method, baseline jitter (dB and degrees, peak to peak), no-touch control change, flick wobble (dB and degrees, peak to peak), decay time to flat (s), the <code>settle_s</code> you chose, and the screenshot, CSV or video file name.</p>
+<p class="footnote"><a href="#rod-jolts">Back to Rod jolts and settle time</a> · <a href="#run">Back to Run order</a></p>
+
+<h2 id="tools">8. Tools for this band</h2>
 <ul>
 <li><a href="range-finder.html?f=433.59">Range finder</a>, preset to 433.59 MHz: phase slope, time-domain peak, null spacing, two-ray nulls, dipole direction finding.</li>
 <li><a href="joule-loss.html?f=433.59">Joule-loss calculator</a>, preset to 433.59 MHz: rod-scan fit, brass versus W1, power-balance bookkeeping.</li>
