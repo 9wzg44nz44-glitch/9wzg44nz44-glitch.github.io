@@ -81,6 +81,7 @@
   <li><a href="#config4">9 Config 4 (dropped)</a></li>
   <li><a href="#config5">10 Config 5 toroid</a></li>
   <li><a href="#config6">10b Config 6 electret</a></li>
+  <li><a href="#config6-compare">10b comparison</a></li>
   <li><a href="#simlab">11 Simulation results</a></li>
   <li><a href="#swp">12 Standing Wave Project</a></li>
   <li><a href="#range">13 Range and amplifiers</a></li>
@@ -248,7 +249,7 @@
 <p class="footnote">The O-Animator renders a fractal set of tori (31 even at the lowest depth), the colours are its own shading, and the background particle cloud could not be turned off. Treat the picture as a qualitative illustration of A without B, not as a field map of a real coil.</p>
 
 <h2 id="config6">10b. Configuration 6: electret element (idea under evaluation, Oct 8 2026)</h2>
-<div class="r1-note"><strong>Status: idea under evaluation. Nothing bought or built.</strong> Configurations 1 to 3 with the 5 PVDF strips stay the baseline. Numbered "10b" so the later section numbers and links stay as they were. The <a href="#config6-questions">open questions for Dan</a> are at the end of this section.</div>
+<div class="r1-note"><strong>Status: compared, Oct 8 2026. Nothing bought yet.</strong> Numbered "10b" so the later section numbers and links stay as they were. The comparison and the shopping list are in <a href="#config6-compare">Electret comparison and recommendation</a>; the <a href="#config6-questions">remaining questions</a> are at the end of this section.</div>
 <p><strong>Idea (Dan Britton):</strong> use an electret as the source and receiver element. An electret is a dielectric that holds a quasi-permanent trapped charge or frozen polarization. The proposed source is that stored charge, moved mechanically (flexed or squeezed) at the drive frequency, with an identical element as the receiver.</p>
 
 <h3>How it relates to the PVDF strip</h3>
@@ -324,6 +325,7 @@
 </ul>
 
 <h3>DIY option: corona-charged PTFE or FEP</h3>
+<p class="r1-note warn"><strong>Excluded (Oct 8 2026):</strong> Dan ruled out high voltage and ozone, so this option is kept for the record only. See the <a href="#config6-compare">comparison</a>.</p>
 <ul>
 <li><span class="r1-badge fact">fact</span> <strong>Published setups:</strong>
   <ul>
@@ -350,15 +352,75 @@
 <h3>Expected outcome</h3>
 <p><span class="r1-badge hyp">hyp</span> Conventionally, moving bound charge conserves charge. It gives an ordinary near-field E that falls off fast with distance, plus acoustic and vibration pickup, both calculable. The published Hively papers give no source term or coupling coefficient for an electret, so the framework as published gives no number for this configuration. Anything reproducible that survives the controls would be an unexplained observation, not a confirmed prediction.</p>
 
-<h3 id="config6-questions">Open questions for Dan</h3>
+<h3 id="config6-compare">Electret comparison and recommendation (Oct 8, 2026)</h3>
+<p><strong>Constraints (Dan, Oct 8 2026):</strong> new parts about $1000 total; <strong>no high voltage and no ozone</strong> (no corona charging, no kV bias, no kV pulses); electric drive preferred over a shaker; the source is the TinySA Ultra+ ZS406 (sine 100 kHz to 800 MHz, 900 MHz on Ultra+, -115 to -19 dBm in 1 dB steps, 50 ohm, AM 50 Hz to 5 kHz, FM [1]). The 5 DT1-028K/L strips are still in the cart, not bought, so PVDF was scored as a candidate like the others. The model script is <a href="tools/exp-h-electret-compare.py">tools/exp-h-electret-compare.py</a>. Every number below is tagged <span class="r1-badge fact">fact</span> (sourced) or <span class="r1-badge der">derived</span>.</p>
+<div class="r1-note"><strong>Recommendation.</strong> PVDF stays the main element: keep the 5x DT1-028K/L and add 3x DT1-052K/L. Emfit ferroelectret film is optional, and only as an acoustic-leakage control (a heat-discharged twin plus a flipped film). A FeelElec FY6900-20M generator covers 109 kHz electric drive, because the TinySA cannot reach a useful voltage there. Electret mic capsules are a receiver-only reference. Home corona charging and the SensComp 7000 (150 VDC bias) are excluded.</div>
+<ul>
+<li><span class="r1-badge fact">fact</span> <strong>Stored charge:</strong> poled PVDF holds about 50 to 80 mC/m&sup2; [31]; Emfit void charge is about 0.23 to 0.63 mC/m&sup2; [23]. <span class="r1-badge der">derived</span> Bound charge moved per unit thickness change is about 0.28 C/m&sup2; for PVDF and about 2.3 to 3.3 x 10<sup>-4</sup> C/m&sup2; for Emfit [32], roughly 1000 times less.</li>
+<li><span class="r1-badge der">derived</span> <strong>Acoustic pickup (1 Pa, 109 kHz):</strong> about 9 &micro;V from the DT1-028K and about 0.8 mV from Emfit film, so Emfit is roughly 39 dB louder. Its charge-to-acoustic ratio is about 160 times worse. At 10 cm in open air, an Emfit pair driven at 7 V rms reads about 75 dB above the noise floor.</li>
+<li><span class="r1-badge der">derived</span> <strong>Drive:</strong> nothing useful from the TinySA alone at 109 kHz (about 50 mV). With a series LC coil of Q 30, PVDF reaches 0.6 to 0.9 V and Emfit about 1.4 V, but Emfit needs a 41 mH coil that is not in the Glarks kit. At 7 V rms Emfit moves about 0.99 nm. <span class="r1-badge fact">fact</span> Published Emfit ultrasonic transmitters are pulsed at 1.8 kV [25], which is out of bounds here. The one place the TinySA works alone is the PVDF thickness mode, about 39 MHz (28 &micro;m) or 21 MHz (52 &micro;m).</li>
+<li><span class="r1-badge fact">fact</span> <strong>Control:</strong> Emfit loses charge above about 60 to 70 &deg;C [22], [25], so a discharged twin is possible without high voltage, and the film can be flipped. A capsule can do neither.</li>
+</ul>
+<p><strong>Can the TinySA drive it?</strong> <span class="r1-badge der">derived</span> At 109 kHz, -19 dBm, about 50 mV EMF behind 50 ohm. The 1 V "useful" line and the coil Q of 30 are assumptions (section 18). Capsules and the MEMS mic have no drive input.</p>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Candidate</th><th scope="col">C, Z at 109 kHz</th><th scope="col">TinySA alone</th><th scope="col">+1:4 step-up</th><th scope="col">+series LC</th><th scope="col">FY6900, 20 Vpp</th></tr></thead>
+<tbody>
+<tr><td>DT1-028K/L</td><td>1380 pF, 1.1 k&ohm;</td><td>50 mV</td><td>160 mV</td><td>0.62 V (1.55 mH, in the kit)</td><td>7.1 V</td></tr>
+<tr><td>DT1-052K/L</td><td>740 pF, 2.0 k&ohm;</td><td>50 mV</td><td>186 mV</td><td>0.86 V (2.9 mH)</td><td>7.1 V</td></tr>
+<tr><td>LDT0-028K</td><td>480 pF</td><td>50 mV</td><td>194 mV</td><td>1.0 V</td><td>7.1 V, no mode there</td></tr>
+<tr><td>Emfit HS film, 12 x 30 mm</td><td>52 pF, 28 k&ohm;</td><td>50 mV</td><td>201 mV</td><td>1.43 V (41 mH, not in the kit)</td><td>7.1 V, 0.99 nm</td></tr>
+<tr><td>Emfit S-series / L-series</td><td>23 / 79 pF</td><td>50 mV</td><td>201 mV</td><td>needs a huge coil</td><td>7.1 V</td></tr>
+<tr><td>Electret capsules, MEMS mic</td><td>n/a</td><td colspan="4">Cannot be driven (JFET or powered sensor in the way; audio band)</td></tr>
+<tr><td>SensComp 7000, DIY corona</td><td colspan="5">Excluded: 150 VDC bias, or high voltage and ozone</td></tr>
+</tbody></table></div>
+<figure class="figure">
+<img src="img/exp-h/c6-drive-voltage.png" width="1040" height="520" loading="lazy" alt="Bar chart of drive voltage at 109 kHz for seven candidates, with four bars each: TinySA alone, TinySA plus a 1:4 step-up, TinySA plus a series LC coil, and an FY6900 generator.">
+<figcaption>Drive voltage across each element at 109 kHz. Only the FY6900 clears the 1 V line for every film; the TinySA alone stays near 50 mV. The SensComp 7000 is plotted for comparison and then excluded, because it needs a 150 V bias.</figcaption>
+</figure>
+<p><strong>Decision matrix</strong> (weights: moved charge 25 %, acoustic rejection 20 %, electric drivability 25 %, control quality 15 %, cost and lead time 15 %; no-HV is pass or fail and a fail scores 0). The scores are <span class="r1-badge asm">assumption</span> judgements on top of the sourced and derived numbers.</p>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Rank</th><th scope="col">Candidate</th><th scope="col">No HV</th><th scope="col">Charge</th><th scope="col">Acoustic</th><th scope="col">E-drive</th><th scope="col">Control</th><th scope="col">Cost</th><th scope="col">Total</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>DT1-052K/L</td><td>pass</td><td>5.0</td><td>5.0</td><td>5</td><td>3</td><td>5</td><td>4.70</td></tr>
+<tr><td>2</td><td>DT1-028K/L</td><td>pass</td><td>5.0</td><td>5.0</td><td>5</td><td>3</td><td>4.5</td><td>4.62</td></tr>
+<tr><td>3</td><td>LDT0-028K</td><td>pass</td><td>3.5</td><td>5.0</td><td>2</td><td>3</td><td>5</td><td>3.58</td></tr>
+<tr><td>4</td><td>Emfit HS film</td><td>pass</td><td>2.4</td><td>0.6</td><td>3</td><td>3.5</td><td>3</td><td>2.43</td></tr>
+<tr><td>5</td><td>Emfit S-series</td><td>pass</td><td>1.8</td><td>0.6</td><td>2.5</td><td>3</td><td>2.5</td><td>2.02</td></tr>
+<tr><td>6</td><td>Emfit L-series</td><td>pass</td><td>1.5</td><td>0.6</td><td>1.5</td><td>2.5</td><td>1</td><td>1.40</td></tr>
+<tr><td>7</td><td>CMA-4544 capsule</td><td>pass</td><td>0</td><td>0.4</td><td>0</td><td>1</td><td>5</td><td>0.98</td></tr>
+<tr><td>8</td><td>Primo EM258</td><td>pass</td><td>0</td><td>0.4</td><td>0</td><td>1</td><td>5</td><td>0.98</td></tr>
+<tr><td>9</td><td>SPU0410 MEMS (not an electret)</td><td>pass</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4.5</td><td>0.67</td></tr>
+<tr><td>10</td><td>SensComp 7000</td><td>fail</td><td colspan="6">Excluded (150 VDC bias)</td></tr>
+<tr><td>11</td><td>DIY corona PTFE/FEP</td><td>fail</td><td colspan="6">Excluded (high voltage and ozone)</td></tr>
+</tbody></table></div>
+<figure class="figure">
+<img src="img/exp-h/c6-decision-matrix.png" width="1105" height="650" loading="lazy" alt="Heat map of the decision matrix scores for eleven candidates across charge motion, acoustic rejection, electric drivability, control quality and cost, with a weighted total.">
+<figcaption>The same scores as the table. PVDF leads; the two high-voltage options score zero because they fail the no-HV rule.</figcaption>
+</figure>
+<figure class="figure">
+<img src="img/exp-h/c6-rx-and-ratio.png" width="1170" height="468" loading="lazy" alt="Two bar charts: left, signal to noise for a 1 pascal sound at 109 kHz for six candidates; right, the ratio of a charge-coupled response to the acoustic response, on a log scale.">
+<figcaption>Left: acoustic pickup at 109 kHz, which is the false-signal risk. Right: charge-coupled response divided by the acoustic response (higher is better). PVDF wins the ratio because it is quiet; Emfit and the capsules are loud.</figcaption>
+</figure>
+<p><strong>Shopping list</strong> (about $185 to $245 plus the Emfit quote, under the $1000 cap). <span class="r1-badge asm">assumption</span> Prices are approximate, as of Oct 8, 2026, and were not re-checked at order time.</p>
+<div class="r1-table-wrap"><table>
+<thead><tr><th scope="col">Item</th><th scope="col">Qty</th><th scope="col">Approx. price</th><th scope="col">Link</th></tr></thead>
+<tbody>
+<tr><td>TE DT1-028K/L (1-1002908-0)</td><td>5</td><td>$10 to $15 each</td><td><a href="https://www.digikey.com/en/products/detail/te-connectivity-measurement-specialties/1-1002908-0/4414983">DigiKey</a></td></tr>
+<tr><td>TE DT1-052K/L (2-1002908-0)</td><td>3</td><td>$7 to $8 each</td><td><a href="https://www.digikey.com/en/products/result?keywords=2-1002908-0">DigiKey search</a> (also Newark, Farnell)</td></tr>
+<tr><td>Emfit ferroelectret film, research sheet (optional)</td><td>1</td><td>quote only</td><td><a href="https://www.sensors.emfit.com/copy-of-printable-emfit-film">Emfit</a></td></tr>
+<tr><td>FeelElec FY6900-20M generator</td><td>1</td><td>$90 to $124</td><td><a href="https://www.amazon.com/dp/B0CL2LPGGW">Amazon</a></td></tr>
+<tr><td>Primo EM258 electret capsule (optional)</td><td>2</td><td>about &pound;6.40 each</td><td><a href="https://micbooster.com/product/primo-em258n-6-mm-omni-electret-capsules-fc033/">micbooster.com</a></td></tr>
+<tr><td>Knowles SPU0410LR5H-QB MEMS mic (optional, reference only)</td><td>2</td><td>$1.01</td><td><a href="https://www.digikey.com/en/products/detail/syntiant/SPU0410LR5H-QB/2420974">DigiKey</a></td></tr>
+<tr><td>Same Sky CMA-4544PF-W capsule (optional)</td><td>4</td><td>about $0.70</td><td><a href="https://www.adafruit.com/product/1064">Adafruit</a></td></tr>
+</tbody></table></div>
+<p class="footnote">Skip the Emfit L-series (25 pC/N, quote only) and the S-series (custom). The FY6900 is the part that makes 109 kHz electric drive real: the TinySA tops out near 0.2 V there even with the step-up.</p>
+<h3 id="config6-questions">Remaining questions for Dan</h3>
+<p><strong>Answered by Dan (Oct 8 2026):</strong> budget about $1000; no high voltage and no ozone; electric drive preferred; the PVDF strips are not yet purchased, so they were scored as a candidate and kept (see the <a href="#config6-compare">comparison</a>).</p>
 <ol>
-<li>Which electret: ferroelectret film (Emfit cellular PP), DIY corona-charged PTFE or FEP, or electret mic capsules?</li>
-<li>Mechanical or electrical drive, and what target frequency? (109 kHz is the realistic ceiling for a mechanical drive.)</li>
-<li>Keep the 5 PVDF strips on order? Recommended: yes, they stay the baseline.</li>
-<li>Do you have, or want, a high-voltage supply for corona charging? It is a shock and ozone hazard.</li>
+<li>Request a quote for one Emfit ferroelectret research sheet, as the optional acoustic-leakage control?</li>
 <li>Should Simulation Lab model electret film modes and charge motion against PVDF?</li>
-<li>What budget for this configuration?</li>
 </ol>
+
 
 <h2 id="simlab">11. Simulation results (Simulation Lab, 7 Oct 2026)</h2>
 <p>Python model, published sources only. It predicts <strong>no scalar-wave signal size</strong>, because no published source gives one. What it predicts is the ordinary background that a null or positive reading has to beat.</p>
@@ -554,12 +616,12 @@
 <tr><td>Small RF toroid cores and magnet wire</td><td>2 to 3</td><td>Configuration 5 A-source at 39 MHz and above. Run the return lead back along the core; twist the leads.</td></tr>
 <tr><td>RF-over-fibre link, or a battery setup for TinySA #1 inside the cage</td><td>1</td><td>Configuration 5 drive. No coax through the wall.</td></tr>
 <tr><td>Copper foil (slotted shield), 50 ohm non-inductive resistors, copper can</td><td>assorted</td><td>Configuration 5 E shield, dummy load and shielded-toroid control.</td></tr>
-<tr><td>Electret mic capsules, for example <a href="https://www.digikey.com/en/products/detail/same-sky-formerly-cui-devices/CMA-4544PF-W/1869981">Same Sky CMA-4544PF-W</a></td><td>4 (optional)</td><td>Under evaluation (Configuration 6). Cheapest first test of acoustic and vibration leakage through the cage. 20 Hz to 20 kHz; internal FET needs DC bias (3 V typical) [27].</td></tr>
-<tr><td>Battery audio recorder or phone, plus a small speaker</td><td>1 each (optional)</td><td>Under evaluation (Configuration 6). Reads the capsules inside the cage; the TinySA starts at 100 kHz and cannot.</td></tr>
-<tr><td>Ferroelectret film (cellular PP), <a href="https://www.sensors.emfit.com/">Emfit Ltd</a></td><td>1 sheet (optional)</td><td>Under evaluation (Configuration 6). Buy only after the capsule test. Check the quoted d33: the L-series sheet is 25 pC/N [26], lab films 200 pC/N and up [20], [21], [24].</td></tr>
-<tr><td>FEP or PTFE film, 25 to 125 &micro;m, with aluminium electrode</td><td>optional</td><td>Under evaluation (Configuration 6). DIY corona-charged electret plus an uncharged twin from the same sheet [29], [30].</td></tr>
-<tr><td>HV corona supply (needle about 12 kV, grid about 2 kV)</td><td>optional</td><td>Under evaluation (Configuration 6). Open question; shock and ozone hazard [29].</td></tr>
-<tr><td>Small piezo stack actuator in a die-cast box</td><td>optional</td><td>Under evaluation (Configuration 6). Mechanical squeeze drive at up to 109 kHz; its drive E field stays inside the box.</td></tr>
+<tr><td>TE DT1-052K/L (2-1002908-0), 52 &micro;m PVDF</td><td>3</td><td>Configuration 6 comparison: add to the 5x DT1-028K/L. 0.74 nF. Direct TinySA drive at its 21 MHz thickness mode. <a href="#config6-compare">Comparison</a>.</td></tr>
+<tr><td>FeelElec FY6900-20M function generator</td><td>1</td><td>Configuration 6: 109 kHz electric drive, up to 20 Vpp, two channels. The TinySA tops out near 0.2 V there. <a href="https://www.amazon.com/dp/B0CL2LPGGW">Amazon</a>.</td></tr>
+<tr><td>Ferroelectret film (cellular PP), <a href="https://www.sensors.emfit.com/copy-of-printable-emfit-film">Emfit research sheet</a></td><td>1 (optional)</td><td>Configuration 6: acoustic-leakage control only, not the main element. Heat above 60 to 70 &deg;C for a discharged twin [22], [25]; flip for the polarity test. Quote only.</td></tr>
+<tr><td>Electret mic capsules: <a href="https://www.digikey.com/en/products/detail/same-sky-formerly-cui-devices/CMA-4544PF-W/1869981">CMA-4544PF-W</a> and <a href="https://micbooster.com/product/primo-em258n-6-mm-omni-electret-capsules-fc033/">Primo EM258</a></td><td>optional</td><td>Configuration 6: receiver-only reference. 20 Hz to 20 kHz [27]; EM258 usable to about 95 kHz. Cannot be driven.</td></tr>
+<tr><td>FEP or PTFE film, DIY corona charged</td><td>0</td><td>Excluded (Configuration 6): high voltage and ozone.</td></tr>
+<tr><td>HV corona supply, and SensComp 7000 transducer</td><td>0</td><td>Excluded (Configuration 6): high voltage. SensComp needs a 150 VDC bias.</td></tr>
 <tr><td>Laser, photodiode, interferometer optics</td><td>0</td><td>Not needed (they were the Configuration 4 readout, now dropped).</td></tr>
 </tbody></table></div>
 
@@ -595,6 +657,8 @@
 <li>J. A. Giacometti, J. S. C. Campos, "Constant current corona triode with grid voltage control. Application to polymer foil charging," Rev. Sci. Instrum. 61, 1143 (1990), <a href="https://doi.org/10.1063/1.1141438">doi:10.1063/1.1141438</a></li>
 <li>Y. Zhong et al., "Electrification mechanism of corona charged organic electrets," J. Phys. D: Appl. Phys. 52, 445303 (2019), <a href="https://doi.org/10.1088/1361-6463/ab325f">doi:10.1088/1361-6463/ab325f</a></li>
 <li>G. Chen, H. Xiao, C. Zhu, "Charge dynamic characteristics in corona-charged polytetrafluoroethylene film electrets," J. Zhejiang Univ. Sci. 5, 923 (2004), <a href="https://doi.org/10.1631/jzus.2004.0923">doi:10.1631/jzus.2004.0923</a></li>
+<li>Y. Huang et al., "Enhanced piezoelectricity from highly polarizable oriented amorphous fractions in biaxially oriented poly(vinylidene fluoride) with pure &beta; crystals," Nature Commun. 12, 675 (2021), <a href="https://doi.org/10.1038/s41467-020-20662-7">doi:10.1038/s41467-020-20662-7</a> (PVDF remanent polarization, 50 to 80 mC/m&sup2; typical)</li>
+<li>Y. Yasuno, H. Kodama, M. Date, E. Fukada, "Electro-acoustic transducers with cellular polymer electrets," Proc. 20th ICA, Sydney (2010), <a href="https://www.acoustics.asn.au/conference_proceedings/ICA2010/cdrom-ICA2010/papers/p438.pdf">acoustics.asn.au</a> (cellular PP e33 231 to 330 &micro;C/m&sup2;, c33 about 1 MPa)</li>
 </ol>
 
 <h2 id="assumptions">18. Derived values and assumptions (summary)</h2>
@@ -608,6 +672,7 @@
 <li>Sphere material and walls: vendor data gives 3003 aluminium. The KB-2016 wall is 3.35 mm (vendor). The KB-1820 wall is assumed 1 mm (not listed by the vendor). The FEM shell modes are in section 12 (<a href="#swp-spheres">Hollow sphere modes</a>).</li>
 <li>Amplifier gain and noise figure at 39 MHz are interpolated from the datasheet points at 10 and 100 MHz.</li>
 <li>Configuration 6 electrical drive: about 50 mV EMF through a 1:4 step-up gives about 0.2 V unloaded; thickness change = d33 x V with d33 200 pC/N (cellular PP [24]) or 33 pC/N (PVDF [18]), giving about 0.04 nm and 0.007 nm; 1.8 kV / 0.2 V is about 79 dB. Loading by the film capacitance ignored.</li>
+<li>Configuration 6 comparison (model script <a href="tools/exp-h-electret-compare.py">tools/exp-h-electret-compare.py</a>): TinySA output taken as 50 ohm; floor at 109 kHz taken as -135 dBm in 200 Hz (the spec gives -145 dBm at 30 MHz); BF862 noise 0.8 nV/rtHz; buffer input 10 pF; coil Q 30; PVDF mechanical Q 10; DT1 free length 30 mm with a 12 &micro;m coating; electrets cut to the same 12 x 30 mm electrode; Emfit d33 taken as 140 pC/N (published range 25 to 700); capsule levels at 109 kHz are assumed (-20 dB for the CMA-4544, -10 dB for the EM258 and the SPU0410). Acoustic model: backed film, baffled piston, 10 cm, open air. The "charge-coupled" stimulus is a defined test stress (stored charge times 1 V/m), not a prediction.</li>
 <li>All resonances must be measured; none of the above is a measured value.</li>
 </ul>
 
