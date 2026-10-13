@@ -49,12 +49,12 @@
   <a class="expt-abc-sub" href="joule-loss.html">Joule loss</a>
 </nav>
 <main id="main" class="wrap r1-wrap">
-<p class="kicker">Planning · draft v0.2 · 13 Oct 2026</p>
+<p class="kicker">Planning · draft v0.3 · 13 Oct 2026</p>
 <h1>Long Distance Transmission Preparations</h1>
 <p class="lede">Dan won the club's Samlex SEC-1235M 13.8 V, 30 A supply. This page plans how to use it behind RF power amplifiers at 433.92 MHz (70 cm), 1296.1 MHz (23 cm) and 2450 MHz (13 cm), what "high current" at a small sphere antenna really costs in power, a seawater null test, how to measure radiated power with the cage open and closed, and how to stay inside FCC rules.</p>
 <div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Standard electrodynamics predicts that received signal depends only on radiated power, antenna gain and path loss. Nothing on this page claims a scalar or longitudinal wave has been detected. Values marked <span class="r1-badge prop">estimate</span> are our own calculations with stated assumptions.</div>
 <ul class="r1-toc" aria-label="On this page">
-<li><a href="#supply">The supply</a></li><li><a href="#freq">Frequencies</a></li><li><a href="#why">Why not switch 30 A at GHz</a></li><li><a href="#approaches">Approaches</a></li><li><a href="#current">Sphere current versus power</a></li><li><a href="#seawater">Seawater null test</a></li><li><a href="#measure">Measuring radiated power</a></li><li><a href="#compliance">Compliance</a></li><li><a href="#checklist">Pre-transmit checklist</a></li><li><a href="#dcsafety">DC safety</a></li><li><a href="#questions">Open questions</a></li><li><a href="#glossary">Glossary</a></li><li><a href="#sources">Sources</a></li>
+<li><a href="#supply">The supply</a></li><li><a href="#freq">Frequencies</a></li><li><a href="#why">Why not switch 30 A at GHz</a></li><li><a href="#approaches">Approaches</a></li><li><a href="#current">Sphere current versus power</a></li><li><a href="#seawater">Seawater null test</a></li><li><a href="#measure">Measuring radiated power</a></li><li><a href="#compliance">Compliance</a></li><li><a href="#rfsafety">RF exposure for workers</a></li><li><a href="#keepback">Keep-back distances</a></li><li><a href="#checklist">Pre-transmit checklist</a></li><li><a href="#dcsafety">DC safety</a></li><li><a href="#questions">Open questions</a></li><li><a href="#glossary">Glossary</a></li><li><a href="#sources">Sources</a></li>
 </ul>
 
 <h2 id="supply">1. The Samlex SEC-1235M</h2>
@@ -164,7 +164,7 @@
 <li><strong>Leak sweep.</strong> With a small probe on the TinySA, sweep around every seam, the door and the feedline entry with the cage closed.</li>
 <li><strong>Match check.</strong> A closed cage detunes the antenna and reflects power back. Watch SWR as the cage closes; if reflected power climbs, reduce power or stop. This protects the PA.</li>
 <li><strong>Logging sheet columns:</strong> date, time, band and frequency, PA supply voltage and current, forward W, reflected W, SWR, cable and attenuator loss, antenna gain, computed ERP, cage open or closed, distance, receive antenna, TinySA RBW and attenuation, received dBm, noise floor dBm, SE dB, weather or notes, operator, ID time.</li>
-<li><strong><a href="#g-mpe">MPE</a> check with the cage open</strong> (worst case), using the table in section 8.</li>
+<li><strong><a href="#g-mpe">MPE</a> check with the cage open</strong> (worst case), using the keep-back table in section 8a.</li>
 <li><strong>Power stepping.</strong> Start at the lowest level (milliwatts from the driver), check SWR and readings, then step up in 3 dB steps.</li>
 </ol>
 
@@ -179,17 +179,81 @@
 <p><strong><a href="#g-pavepaws">PAVE PAWS</a> verdict.</strong> 97.313(f) points to footnote US270 in 47 CFR 2.106: 50 W PEP in 420 to 450 MHz within 160 km of Otis AFB, MA (41&deg;45' N, 70&deg;32' W), the site of the Cape Cod Space Force Station radar. Middletown, RI (about 41.545 N, 71.290 W) is about <strong>67 km</strong> away by great circle distance. Middletown is inside the radius, so 70 cm is limited to 50 W PEP.</p>
 <p><strong>ERP limits.</strong> The only ERP or EIRP caps in 97.313 are for 60 m, 2200 m, 630 m, 4 mm, and satellite earth stations on 435 to 438 MHz (611 W ERP). None limit our terrestrial tests on these bands, but compute ERP anyway for logs and for MPE.</p>
 <p><strong>Always:</strong> minimum power necessary (97.313(a)); station ID at least every 10 minutes and at the end (97.119); test emissions allowed but must be identified; RF exposure compliance (97.13(c) and 1.1307, 1.1310).</p>
-<p><strong><a href="#g-mpe">MPE</a> limits (general population, 47 CFR 1.1310):</strong> 300 to 1500 MHz: f/1500 mW/cm&sup2;; 1500 to 100,000 MHz: 1.0 mW/cm&sup2;.</p>
-<p><span class="r1-badge prop">estimate</span> Distance r = sqrt(P G / (4 &pi; S)), dipole gain 1.64 (2.15 dBi), far field, no ground reflection, 100% duty:</p>
-<table><thead><tr><th>Band</th><th>Planned power</th><th>Limit S</th><th>Minimum distance</th></tr></thead><tbody>
-<tr><td>433.92 MHz</td><td>50 W PEP (cap)</td><td>0.29 mW/cm&sup2;</td><td>1.5 m</td></tr>
-<tr><td>1296.1 MHz</td><td>150 W</td><td>0.86 mW/cm&sup2;</td><td>1.5 m</td></tr>
-<tr><td>1296.1 MHz</td><td>250 W</td><td>0.86 mW/cm&sup2;</td><td>1.9 m</td></tr>
-<tr><td>2450 MHz</td><td>27 W</td><td>1.0 mW/cm&sup2;</td><td>0.6 m</td></tr>
-<tr><td>2450 MHz</td><td>200 W (if a PA is found)</td><td>1.0 mW/cm&sup2;</td><td>1.6 m</td></tr>
-</tbody></table>
-<p>Ground reflection can raise density up to 2.56 times, which multiplies these distances by 1.6; use at least double (3 to 4 m at 1296 MHz and 150 to 250 W) and keep people out of that zone. With a gain antenna, multiply power by the gain first; a 10 dBi antenna at 150 W on 1296 MHz needs about 4.2 m before the reflection factor.</p>
+<p><strong>RF exposure:</strong> see <a href="#rfsafety">section 8a, RF exposure for workers</a>, for limits, keep-back distances and worker rules.</p>
 <p><strong><a href="#g-part15">Part 15</a> notes.</strong> Without the license, unlicensed devices are limited to very low power, so all transmitting here is done under <a href="#g-part97">Part 97</a> as KC1CZU. Anything that radiates at 1.33 GHz or other non-amateur frequencies must stay in a dummy load or sealed cage. The Samlex itself is a Part 15 class B device. An unmodified microwave oven is a Part 18 device.</p>
+
+<h2 id="rfsafety">8a. RF exposure for workers (Dan and Steve)</h2>
+<p>This section is written so the people standing near the antennas can apply it directly.</p>
+<h3>The limits (47 CFR 1.1310 Table 1, checked on eCFR 13 Oct 2026)</h3>
+<table><thead><tr><th>Who</th><th>300 to 1500 MHz</th><th>1500 to 100,000 MHz</th><th>Averaging time</th></tr></thead><tbody>
+<tr><td><strong><a href="#g-controlled">Controlled</a></strong> (occupational): people who are fully aware of the exposure, trained, and able to control it. For a ham station this means the licensee and trained helpers who have read this section (Dan and Steve).</td><td>f/300 mW/cm&sup2; (433.92 MHz: 1.45; 1296.1 MHz: 4.32)</td><td>5 mW/cm&sup2; (2450 MHz)</td><td>6 minutes</td></tr>
+<tr><td><strong><a href="#g-controlled">Uncontrolled</a></strong> (general public): neighbors, visitors, family members who have not been briefed, anyone who cannot control their exposure.</td><td>f/1500 mW/cm&sup2; (433.92 MHz: 0.29; 1296.1 MHz: 0.86)</td><td>1.0 mW/cm&sup2; (2450 MHz)</td><td>30 minutes</td></tr>
+</tbody></table>
+<p>The limits are averages over the averaging time, so short bursts above the limit are allowed if the average stays under it (1.1310(d)(4)). Guidance for amateurs is in <a href="https://www.fcc.gov/general/oet-bulletins-line">FCC OET Bulletin 65 and its Supplement B</a> and the <a href="https://www.arrl.org/rf-exposure">ARRL RF exposure pages and calculator</a>.</p>
+<h3>Station evaluation (required)</h3>
+<p><a href="#g-part97">Part 97</a> section 97.13(c) requires the licensee to make sure the station complies with the FCC RF exposure rules, and 1.1307(b) sets when a formal evaluation is needed. At these powers and frequencies we must evaluate. <strong>Keep a written evaluation</strong> in the station records: this page's tables, the actual antenna, power, duty cycle, and the measured keep-back line, dated and signed.</p>
+<h3>How the distances were computed</h3>
+<p><span class="r1-badge prop">estimate</span> OET 65 far field formula with ground reflection: S = 2.56 x P x duty x G / (4 &pi; r&sup2;), solved for r. The 2.56 factor allows for a reflection from the floor or ground (it multiplies power density by up to 2.56, so distances by 1.6). Antenna gains used: sphere or short monopole and quarter wave whip over a ground plane 5.15 dBi (worst case; a short monopole is about 4.8 dBi), dipole 2.15 dBi, gain antenna 10 dBi. <a href="#g-duty">Duty cycle</a>: FM or CW carrier = 100%; timed 30 s on, 30 s off = 50%. Feedline loss ignored (conservative).</p>
+<table><thead><tr><th>Band</th><th>Power</th><th>Antenna</th><th>Controlled, 100%</th><th>Controlled, 50%</th><th>Public, 100%</th><th>Public, 50%</th><th>At 0.5 m (100%)</th><th>At 1 m</th><th>At 2 m</th></tr></thead><tbody>
+<tr><td>433.92 MHz</td><td>50 W</td><td>Sphere/short monopole</td><td>1.52 m</td><td>1.07 m</td><td>3.40 m</td><td>2.40 m</td><td>over both</td><td>over both</td><td>over public only</td></tr>
+<tr><td>433.92 MHz</td><td>50 W</td><td>Quarter-wave whip</td><td>1.52 m</td><td>1.07 m</td><td>3.40 m</td><td>2.40 m</td><td>over both</td><td>over both</td><td>over public only</td></tr>
+<tr><td>433.92 MHz</td><td>50 W</td><td>Dipole</td><td>1.07 m</td><td>0.76 m</td><td>2.40 m</td><td>1.70 m</td><td>over both</td><td>over both</td><td>over public only</td></tr>
+<tr><td>433.92 MHz</td><td>50 W</td><td>10 dBi gain</td><td>2.65 m</td><td>1.88 m</td><td>5.93 m</td><td>4.20 m</td><td>over both</td><td>over both</td><td>over both</td></tr>
+<tr><td>1296.1 MHz</td><td>150 W</td><td>Sphere/short monopole</td><td>1.52 m</td><td>1.08 m</td><td>3.40 m</td><td>2.41 m</td><td>over both</td><td>over both</td><td>over public only</td></tr>
+<tr><td>1296.1 MHz</td><td>150 W</td><td>Quarter-wave whip</td><td>1.52 m</td><td>1.08 m</td><td>3.40 m</td><td>2.41 m</td><td>over both</td><td>over both</td><td>over public only</td></tr>
+<tr><td>1296.1 MHz</td><td>150 W</td><td>Dipole</td><td>1.08 m</td><td>0.76 m</td><td>2.41 m</td><td>1.70 m</td><td>over both</td><td>over both</td><td>over public only</td></tr>
+<tr><td>1296.1 MHz</td><td>150 W</td><td>10 dBi gain</td><td>2.66 m</td><td>1.88 m</td><td>5.95 m</td><td>4.21 m</td><td>over both</td><td>over both</td><td>over both</td></tr>
+<tr><td>1296.1 MHz</td><td>250 W</td><td>Sphere/short monopole</td><td>1.96 m</td><td>1.39 m</td><td>4.39 m</td><td>3.11 m</td><td>over both</td><td>over both</td><td>over public only</td></tr>
+<tr><td>1296.1 MHz</td><td>250 W</td><td>Quarter-wave whip</td><td>1.96 m</td><td>1.39 m</td><td>4.39 m</td><td>3.11 m</td><td>over both</td><td>over both</td><td>over public only</td></tr>
+<tr><td>1296.1 MHz</td><td>250 W</td><td>Dipole</td><td>1.39 m</td><td>0.98 m</td><td>3.11 m</td><td>2.20 m</td><td>over both</td><td>over both</td><td>over public only</td></tr>
+<tr><td>1296.1 MHz</td><td>250 W</td><td>10 dBi gain</td><td>3.43 m</td><td>2.43 m</td><td>7.68 m</td><td>5.43 m</td><td>over both</td><td>over both</td><td>over both</td></tr>
+<tr><td>2450 MHz</td><td>27 W</td><td>Sphere/short monopole</td><td>0.60 m</td><td>0.42 m</td><td>1.34 m</td><td>0.95 m</td><td>over both</td><td>over public only</td><td>under both</td></tr>
+<tr><td>2450 MHz</td><td>27 W</td><td>Quarter-wave whip</td><td>0.60 m</td><td>0.42 m</td><td>1.34 m</td><td>0.95 m</td><td>over both</td><td>over public only</td><td>under both</td></tr>
+<tr><td>2450 MHz</td><td>27 W</td><td>Dipole</td><td>0.42 m</td><td>0.30 m</td><td>0.95 m</td><td>0.67 m</td><td>over public only</td><td>under both</td><td>under both</td></tr>
+<tr><td>2450 MHz</td><td>27 W</td><td>10 dBi gain</td><td>1.05 m</td><td>0.74 m</td><td>2.35 m</td><td>1.66 m</td><td>over both</td><td>over both</td><td>over public only</td></tr>
+<tr><td>2450 MHz</td><td>200 W</td><td>Sphere/short monopole</td><td>1.63 m</td><td>1.15 m</td><td>3.65 m</td><td>2.58 m</td><td>over both</td><td>over both</td><td>over public only</td></tr>
+<tr><td>2450 MHz</td><td>200 W</td><td>Quarter-wave whip</td><td>1.63 m</td><td>1.15 m</td><td>3.65 m</td><td>2.58 m</td><td>over both</td><td>over both</td><td>over public only</td></tr>
+<tr><td>2450 MHz</td><td>200 W</td><td>Dipole</td><td>1.16 m</td><td>0.82 m</td><td>2.59 m</td><td>1.83 m</td><td>over both</td><td>over both</td><td>over public only</td></tr>
+<tr><td>2450 MHz</td><td>200 W</td><td>10 dBi gain</td><td>2.85 m</td><td>2.02 m</td><td>6.38 m</td><td>4.51 m</td><td>over both</td><td>over both</td><td>over both</td></tr>
+</tbody></table>
+<p>"Over both" means above the controlled limit (so above the public limit too). "Over public only" means Dan and Steve are inside their limit but an untrained visitor would not be.</p>
+<h3>Verdicts in plain words</h3>
+<ul>
+<li><strong>433.92 MHz at 50 W:</strong> at 0.5 m or 1 m from any of our antennas, Dan and Steve would be over their limit on a steady carrier. At 2 m they are inside it, except in front of a 10 dBi antenna. Visitors must be at least 3.5 m away (6 m in front of a gain antenna).</li>
+<li><strong>1296.1 MHz at 150 W:</strong> almost the same distances as 433.92 MHz at 50 W (the limit rises with frequency). Over the limit at 0.5 and 1 m, OK at 2 m except for a gain antenna.</li>
+<li><strong>1296.1 MHz at 250 W:</strong> over the limit at 0.5 and 1 m; 2 m is just inside for a whip or sphere (1.96 m) and over for a gain antenna. Keep back 2.5 m, or 3.5 m for a gain antenna.</li>
+<li><strong>2450 MHz at 27 W:</strong> at 0.5 m a whip or sphere is over the limit; at 1 m and beyond it is fine for Dan and Steve. Over at 1 m in front of a 10 dBi antenna.</li>
+<li><strong>2450 MHz at 200 W:</strong> over the limit at 0.5 and 1 m; OK at 2 m except in front of a gain antenna (needs 3 m).</li>
+<li>Using timed 30 s on, 30 s off reduces distances by about 30%, but only if the timing is actually kept. Plan on the 100% numbers.</li>
+</ul>
+<h3>Close in: the <a href="#g-nearfield">near field</a></h3>
+<ul>
+<li>The formula above is for the far field. Within about a wavelength (69 cm at 433 MHz, 23 cm at 1296 MHz, 12 cm at 2450 MHz) it is unreliable. For simple antennas it usually overestimates the average, but local fields near the element can be far higher.</li>
+<li>A small sphere at high current concentrates strong electric fields right at its surface; that is the point of the experiment and also the danger.</li>
+<li><strong>Never touch or lean over a live antenna.</strong> RF burns happen at contact, are deep, and can be felt late. Key down before touching anything.</li>
+</ul>
+<h3>Why 2.45 GHz needs extra care</h3>
+<p>2.45 GHz is the microwave oven frequency. It is absorbed in the outer few centimeters of tissue and heats it. The eyes (the lens has little blood flow to carry heat away, and cataracts are the known risk at high levels) and the testes are the most sensitive. Do not look into a horn, dish feed or open waveguide, or put your face near the sphere, while transmitting. Heating is felt late, so do not rely on feeling warmth.</p>
+<h3>The cage</h3>
+<p>A closed Faraday cage greatly reduces exposure outside it, but only as well as its worst seam. Before trusting it, do the leak sweep (section 7) around seams, the door and the feedline entry at low power. <strong>The open cage is the worst case</strong>, so the keep-back distances below assume it is open.</p>
+<h3 id="keepback">Keep-back distances (one glance)</h3>
+<p>Rounded up from the 100% duty, ground reflection numbers above, cage open.</p>
+<table><thead><tr><th>Band and power</th><th>Workers (Dan, Steve): whip, sphere or dipole</th><th>Workers: 10 dBi antenna (in front)</th><th>Public line: whip, sphere or dipole</th><th>Public line: 10 dBi antenna</th></tr></thead><tbody>
+<tr><td>433.92 MHz, 50 W</td><td>2 m</td><td>3 m</td><td>3.5 m</td><td>6 m</td></tr>
+<tr><td>1296.1 MHz, 150 W</td><td>2 m</td><td>3 m</td><td>3.5 m</td><td>6 m</td></tr>
+<tr><td>1296.1 MHz, 250 W</td><td>2.5 m</td><td>3.5 m</td><td>4.5 m</td><td>8 m</td></tr>
+<tr><td>2450 MHz, 27 W</td><td>1 m</td><td>1.5 m</td><td>1.5 m</td><td>2.5 m</td></tr>
+<tr><td>2450 MHz, 200 W</td><td>2 m</td><td>3 m</td><td>4 m</td><td>6.5 m</td></tr>
+</tbody></table>
+<div class="r1-note"><strong>Worker rules</strong>
+<ol>
+<li>Mark the floor with tape at the keep-back distance for the band and power in use.</li>
+<li>Transmit only when everyone is behind the line. Keep the public line clear of visitors.</li>
+<li>Use a spotter: one person keys, the other watches the line and calls "stop".</li>
+<li>Key down before adjusting anything, and wait for the PA to unkey.</li>
+<li>Tune into the <a href="#g-dummy">dummy load</a>, not the antenna.</li>
+<li>Log each transmission: time, band, power, antenna, duty, cage open or closed, who was present.</li>
+</ol></div>
 
 <h2 id="checklist">9. Pre-transmit checklist</h2>
 <ol>
@@ -198,7 +262,7 @@
 <li>PEP at or below 1500 W on other bands (our planned 150 to 250 W is well inside), and use the minimum power necessary for the test (97.313(a)).</li>
 <li>PA temperature and Samlex current checked; key in timed bursts at first.</li>
 <li>Compute ERP = PEP (dBW) minus feedline loss minus balun loss plus antenna gain (dBd). Log it.</li>
-<li>MPE distance computed for that power; people outside it.</li>
+<li>Keep-back line taped for this band, power and antenna (section 8a); everyone behind it; spotter ready.</li>
 <li>SWR checked at low power first; PA into a dummy load before the antenna.</li>
 <li>TinySA protected (tap plus attenuator, under -25 dBm).</li>
 <li>DC fused at the load, wires sized, connections made with supply off.</li>
@@ -237,6 +301,9 @@
 <dt id="g-swr">SWR (standing wave ratio)</dt><dd>Measure of how well the load matches the feedline; 1:1 is perfect. High SWR means power reflects back toward the transmitter. <a href="https://www.ncvec.org/">NCVEC Technician pool, subelement T7/T9</a></dd>
 <dt id="g-wattmeter">Directional wattmeter</dt><dd>Inline meter that reads forward and reflected power separately. <a href="https://www.arrl.org/arrl-handbook-reference">ARRL Handbook</a></dd>
 <dt id="g-mpe">MPE (maximum permissible exposure)</dt><dd>The FCC limit on RF power density a person may be exposed to, by frequency. <a href="https://www.arrl.org/rf-exposure">ARRL RF exposure</a>, <a href="https://www.ecfr.gov/current/title-47/part-1/section-1.1310">47 CFR 1.1310</a></dd>
+<dt id="g-controlled">Controlled and uncontrolled exposure</dt><dd>Controlled (occupational) limits apply to people fully aware of the exposure and trained to control it; uncontrolled (general population) limits apply to everyone else and are 5 times lower in power density. <a href="https://www.ecfr.gov/current/title-47/part-1/section-1.1310">47 CFR 1.1310(e)</a></dd>
+<dt id="g-duty">Duty cycle</dt><dd>Fraction of time the transmitter is actually on (and at full power). FM and CW carriers are 100% while keyed. <a href="https://www.arrl.org/rf-exposure">ARRL RF exposure</a></dd>
+<dt id="g-nearfield">Near field</dt><dd>The region close to an antenna (within about a wavelength) where fields do not follow the simple far field formulas. <a href="https://www.fcc.gov/general/oet-bulletins-line">FCC OET Bulletin 65</a></dd>
 <dt id="g-part97">Part 97</dt><dd>The FCC rules for the Amateur Radio Service. <a href="https://www.ecfr.gov/current/title-47/part-97">eCFR Part 97</a></dd>
 <dt id="g-part15">Part 15</dt><dd>FCC rules for unlicensed radio frequency devices and incidental emitters. <a href="https://www.ecfr.gov/current/title-47/part-15">eCFR Part 15</a></dd>
 <dt id="g-ism">ISM</dt><dd>Industrial, scientific and medical bands (such as 902 to 928 MHz and 2400 to 2500 MHz) used by non-communication RF devices like microwave ovens. <a href="https://www.ecfr.gov/current/title-47/part-18">eCFR Part 18</a></dd>
