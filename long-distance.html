@@ -49,7 +49,7 @@
   <a class="expt-abc-sub" href="joule-loss.html">Joule loss</a>
 </nav>
 <main id="main" class="wrap r1-wrap">
-<p class="kicker">Planning · draft v0.3 · 13 Oct 2026</p>
+<p class="kicker">Planning · draft v0.4 · 13 Oct 2026</p>
 <h1>Long Distance Transmission Preparations</h1>
 <p class="lede">Dan won the club's Samlex SEC-1235M 13.8 V, 30 A supply. This page plans how to use it behind RF power amplifiers at 433.92 MHz (70 cm), 1296.1 MHz (23 cm) and 2450 MHz (13 cm), what "high current" at a small sphere antenna really costs in power, a seawater null test, how to measure radiated power with the cage open and closed, and how to stay inside FCC rules.</p>
 <div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Standard electrodynamics predicts that received signal depends only on radiated power, antenna gain and path loss. Nothing on this page claims a scalar or longitudinal wave has been detected. Values marked <span class="r1-badge prop">estimate</span> are our own calculations with stated assumptions.</div>
@@ -237,14 +237,24 @@
 <h3>The cage</h3>
 <p>A closed Faraday cage greatly reduces exposure outside it, but only as well as its worst seam. Before trusting it, do the leak sweep (section 7) around seams, the door and the feedline entry at low power. <strong>The open cage is the worst case</strong>, so the keep-back distances below assume it is open.</p>
 <h3 id="keepback">Keep-back distances (one glance)</h3>
-<p>Rounded up from the 100% duty, ground reflection numbers above, cage open.</p>
-<table><thead><tr><th>Band and power</th><th>Workers (Dan, Steve): whip, sphere or dipole</th><th>Workers: 10 dBi antenna (in front)</th><th>Public line: whip, sphere or dipole</th><th>Public line: 10 dBi antenna</th></tr></thead><tbody>
-<tr><td>433.92 MHz, 50 W</td><td>2 m</td><td>3 m</td><td>3.5 m</td><td>6 m</td></tr>
-<tr><td>1296.1 MHz, 150 W</td><td>2 m</td><td>3 m</td><td>3.5 m</td><td>6 m</td></tr>
-<tr><td>1296.1 MHz, 250 W</td><td>2.5 m</td><td>3.5 m</td><td>4.5 m</td><td>8 m</td></tr>
-<tr><td>2450 MHz, 27 W</td><td>1 m</td><td>1.5 m</td><td>1.5 m</td><td>2.5 m</td></tr>
-<tr><td>2450 MHz, 200 W</td><td>2 m</td><td>3 m</td><td>4 m</td><td>6.5 m</td></tr>
+<p>Open cage columns are rounded up from the 100% duty, ground reflection numbers above. Cage closed columns are <strong>illustrative</strong> for workers, shown as whip, sphere or dipole / 10 dBi antenna.</p>
+<table><thead><tr><th>Band and power</th><th>Workers, cage open: whip, sphere or dipole</th><th>Workers, cage open: 10 dBi (in front)</th><th>Workers, cage closed, S = 20 dB</th><th>Workers, cage closed, S = 40 dB</th><th>Public line, cage open: whip, sphere or dipole</th><th>Public line, cage open: 10 dBi</th></tr></thead><tbody>
+<tr><td>433.92 MHz, 50 W</td><td>2 m</td><td>3 m</td><td>0.5 m floor (calc. 0.15 m) / 0.5 m floor (calc. 0.27 m)</td><td>0.5 m floor (calc. 0.02 m) / 0.5 m floor (calc. 0.03 m)</td><td>3.5 m</td><td>6 m</td></tr>
+<tr><td>1296.1 MHz, 150 W</td><td>2 m</td><td>3 m</td><td>0.5 m floor (calc. 0.15 m) / 0.5 m floor (calc. 0.27 m)</td><td>0.5 m floor (calc. 0.02 m) / 0.5 m floor (calc. 0.03 m)</td><td>3.5 m</td><td>6 m</td></tr>
+<tr><td>1296.1 MHz, 250 W</td><td>2.5 m</td><td>3.5 m</td><td>0.5 m floor (calc. 0.20 m) / 0.5 m floor (calc. 0.34 m)</td><td>0.5 m floor (calc. 0.02 m) / 0.5 m floor (calc. 0.03 m)</td><td>4.5 m</td><td>8 m</td></tr>
+<tr><td>2450 MHz, 27 W</td><td>1 m</td><td>1.5 m</td><td>0.5 m floor (calc. 0.06 m) / 0.5 m floor (calc. 0.11 m)</td><td>0.5 m floor (calc. 0.01 m) / 0.5 m floor (calc. 0.01 m)</td><td>1.5 m</td><td>2.5 m</td></tr>
+<tr><td>2450 MHz, 200 W</td><td>2 m</td><td>3 m</td><td>0.5 m floor (calc. 0.16 m) / 0.5 m floor (calc. 0.29 m)</td><td>0.5 m floor (calc. 0.02 m) / 0.5 m floor (calc. 0.03 m)</td><td>4 m</td><td>6.5 m</td></tr>
 </tbody></table>
+<p><strong>Formula for your own measured S:</strong> d<sub>closed</sub> = d<sub>open</sub> / 10<sup>(S/20)</sup>, and never less than 0.5 m. Example: d<sub>open</sub> = 2 m, measured S = 26 dB: 2 / 10<sup>1.3</sup> = 2 / 20 = 0.1 m, so use the 0.5 m floor. Power density scales with power, so the distance scales as 1/sqrt(power), which is why S dB divides the distance by 10<sup>(S/20)</sup>.</p>
+<div class="r1-note"><strong>Cage closed rules</strong>
+<ul>
+<li>A homemade cage commonly achieves about 20 to 40 dB. The real value is set by the leak at the worst seam, the door, or the feedline entry. A cage whose size is near resonance at the operating band can leak more than expected.</li>
+<li><strong>Use the cage closed numbers only after you have measured that band's shielding</strong> with the leak sweep (section 7): S = open reading minus closed reading in dB, with the TinySA probe swept around the seams and feedline entry. Use the measured S, for that band only. If it has not been measured, use the open cage columns.</li>
+<li>Minimum floor: never closer than <strong>0.5 m to the cage wall</strong> while keyed, whatever S is.</li>
+<li>Treat the feedline outside the cage as an antenna. Fit a <a href="#g-choke">choke</a> where it enters, and include it in the leak sweep.</li>
+<li>A closed cage can raise <a href="#g-swr">SWR</a> and reflect power back into the PA. Watch reflected power as the door closes and reduce power if it rises.</li>
+<li>The inside of a closed cage has <strong>higher fields than open air</strong> (energy bounces around inside). Never reach in or open the door while keyed.</li>
+</ul></div>
 <div class="r1-note"><strong>Worker rules</strong>
 <ol>
 <li>Mark the floor with tape at the keep-back distance for the band and power in use.</li>
