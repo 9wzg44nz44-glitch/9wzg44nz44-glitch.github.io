@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Long Distance Transmission Preparations · SLW Hub</title>
+<meta name="description" content="Preparing high current, long distance tests at 433.92, 1296.1 and 2450 MHz with a Samlex SEC-1235M supply: PA options, sphere current versus power, seawater null test, radiated power measurement, FCC compliance and a glossary.">
+<meta name="author" content="Dan Britton">
+<link rel="canonical" href="https://9wzg44nz44-glitch.github.io/long-distance.html">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<link rel="stylesheet" href="/assets/round1.css">
+<script src="/assets/site-search.js" defer></script>
+<script src="/assets/share-button.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav" aria-label="Main">
+      <a href="index.html">Round 1</a>
+      <a href="todo.html">To-Do</a>
+      <a href="range-finder.html">Range finder</a>
+      <a href="joule-loss.html">Joule loss</a>
+      <a href="vna-howto.html">VNA how-to</a>
+      <a href="archive.html">Archive</a>
+    </nav>
+  </div>
+</header>
+<nav id="expt-abc" class="expt-abc" aria-label="Round 1 experiments">
+  <span class="expt-abc-label">Round 1</span>
+  <a class="expt-abc-btn" href="exp-1296.html"><span class="k">1.3</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="exp-433.html"><span class="k">433</span> MHz sphere</a>
+  <a class="expt-abc-btn" href="exp-2450.html"><span class="k">2.45</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="oven.html"><span class="k">oven</span> 2.45 GHz</a>
+  <a class="expt-abc-sub" href="todo.html">To-Do</a>
+  <a class="expt-abc-sub" href="range-finder.html">Range finder</a>
+  <a class="expt-abc-sub" href="joule-loss.html">Joule loss</a>
+</nav>
+<main id="main" class="wrap r1-wrap">
+<p class="kicker">Planning · draft v0.1 · 13 Oct 2026</p>
+<h1>Long Distance Transmission Preparations</h1>
+<p class="lede">Dan won the club's Samlex SEC-1235M 13.8 V, 30 A supply. This page plans how to use it behind RF power amplifiers at 433.92 MHz (70 cm), 1296.1 MHz (23 cm) and 2450 MHz (13 cm), what "high current" at a small sphere antenna really costs in power, a seawater null test, how to measure radiated power with the cage open and closed, and how to stay inside FCC rules.</p>
+<div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Standard electrodynamics predicts that received signal depends only on radiated power, antenna gain and path loss. Nothing on this page claims a scalar or longitudinal wave has been detected. Values marked <span class="r1-badge prop">estimate</span> are our own calculations with stated assumptions.</div>
+<ul class="r1-toc" aria-label="On this page">
+<li><a href="#supply">The supply</a></li><li><a href="#freq">Frequencies</a></li><li><a href="#why">Why not switch 30 A at GHz</a></li><li><a href="#approaches">Approaches</a></li><li><a href="#current">Sphere current versus power</a></li><li><a href="#seawater">Seawater null test</a></li><li><a href="#measure">Measuring radiated power</a></li><li><a href="#compliance">Compliance</a></li><li><a href="#checklist">Pre-transmit checklist</a></li><li><a href="#dcsafety">DC safety</a></li><li><a href="#questions">Open questions</a></li><li><a href="#glossary">Glossary</a></li><li><a href="#sources">Sources</a></li>
+</ul>
+
+<h2 id="supply">1. The Samlex SEC-1235M</h2>
+<p><strong>From the club auction notice (Joe WA1VEE and Jay N1CFY, Oct 2026):</strong> brand new in the original box, no warranty, 13.8 V, 30 A continuous, 35 A intermittent, 8 x 7 x 2.5 in, 4.5 lb, volt and amp meters, tested by Jay.</p>
+<p><strong>From the Samlex datasheet:</strong></p>
+<ul>
+<li>AC input 100 to 130 VAC 50/60 Hz (factory), or 200 to 260 VAC by internal jumper. 7.5 A input at 120 VAC. Inrush about 30 A for under 5 ms. Input fuse 8 A 250 V slow blow, 5 x 20 mm.</li>
+<li>Output 13.8 V plus or minus 0.1 V, adjustable 11.5 to 15.5 V with an internal pot only.</li>
+<li>30 A continuous, 35 A constant current limit with auto recovery.</li>
+<li>Ripple and noise under 150 mV peak to peak. Efficiency 85%. No load draw 120 mA.</li>
+<li>Protection: overload, short circuit, over temperature, over voltage. Temperature controlled fan.</li>
+<li>No remote sense listed. 1.54 kg (3.4 lb). 185 x 212 x 61 mm. FCC Part 15 class B, UL60950-1.</li>
+</ul>
+<p>Ceiling: 13.8 V x 30 A = 414 W of DC. Anything run from this supply is limited by that.</p>
+
+<h2 id="freq">2. Frequencies</h2>
+<ul>
+<li><strong>1296.1 MHz</strong>, the 23 cm weak signal calling frequency. Works and Works (QEX, 2012) used it; Zimmerman used about 1.3 GHz. We drop 1.33 GHz: it is outside the 23 cm band (1240 to 1300 MHz), so it cannot be transmitted into an antenna. <strong>The sphere stub and the sleeve balun must be retuned from about 1.33 GHz to 1296 MHz</strong> (about 2.6% longer; quarter wave in air about 57.8 mm, before velocity factor).</li>
+<li><strong>2450 MHz</strong>, inside the 13 cm amateur segment 2390 to 2450 MHz (also 2300 to 2310). Technicians have the whole segment. 2450 is the top edge, so keep your signal's full bandwidth below 2450.000 MHz; 2449 MHz is a safer center.</li>
+<li><strong>433.92 MHz</strong>, inside 70 cm (420 to 450 MHz).</li>
+</ul>
+
+<h2 id="why">3. Why we cannot just switch 30 A at GHz</h2>
+<ul>
+<li>One RF cycle is 0.77 ns at 1296 MHz and 0.41 ns at 2450 MHz. Fast <a href="#g-gan">GaN</a> FETs switch tens of amps in roughly a nanosecond, so hard switching (<a href="#g-classd">class D</a>) stops working above tens of MHz at high current. At GHz, <a href="#g-ldmos">LDMOS</a> and GaN run as tuned amplifiers (class AB, <a href="#g-classd">class E</a>, F).</li>
+<li>Inductance: 1 nH (about 1 mm of wire) is 8 ohm at 1296 MHz and 15 ohm at 2450 MHz. Pushing 30 A through it would need about 250 V.</li>
+<li><a href="#g-skin">Skin depth</a> in copper is about 3.1, 1.8 and 1.3 micrometers at the three bands, so RF current uses only a thin surface layer.</li>
+<li>30 A RMS in 50 ohm is 45 kW. 400 W in 50 ohm is only 2.8 A RMS. Large RF current exists only at low impedance points such as a current maximum on an antenna or inside a resonant circuit.</li>
+</ul>
+<p>So the supply feeds the drain of an amplifier through an RF <a href="#g-choke">choke</a>, the TinySA drives the amplifier input, and the supply never carries RF.</p>
+
+<h2 id="approaches">4. Approaches, ranked</h2>
+<h3>4.1 TinySA, driver, 13.8 V PA, Samlex on the drain</h3>
+<p>The TinySA output is low, so a small driver amplifier (Mini-Kits mention a Gali-84 MMIC stage) goes first.</p>
+<ul>
+<li>23 cm: Mini-Kits EME214-23CM, 4 W LDMOS kit, 1240 to 1300 MHz, 7 to 14 V (12 V at 1.1 A), A$37.95. <a href="https://www.minikits.com.au/electronic-kits/rf-amplifiers/rf-high-power/EME214-23CM">minikits.com.au</a></li>
+<li>23 cm high power needs 28 to 50 V, not this supply: VHFDesign 300 W pallet, W6PQL MRF13750, Kuhne MKU PA 23CM-1200W A (50 V, 57 A, EUR 3,490).</li>
+<li>13 cm: Kuhne MKU PA 13CM-20W A2, 2300 to 2450 MHz, 20 W, EUR 649, drain +28 V. SG-LAB 2400 MHz 20 W needs 24 to 28 V. Dan is OK with a 13.8 V to 28 V boost converter, which lets the Samlex run either (about 4 A at 28 V means about 9 A from the Samlex). I found no 13.8 V 2.4 GHz PA above a few watts.</li>
+<li>70 cm: 13.8 V amplifiers are common, but I did not confirm a part and price. 70 cm is capped at 50 W PEP here (see compliance).</li>
+</ul>
+<h3>4.2 Drain modulation at kHz on the GHz carrier</h3>
+<p>A buck converter switching at 200 kHz to 2 MHz between the Samlex and the PA drain swings the drain voltage, and so the RF current, at a chosen rate such as 109 kHz. This is <a href="#g-envelope">envelope modulation</a> (AM). The receiver sees it with the TinySA in <a href="#g-zerospan">zero span</a>.</p>
+<h3>4.3 Separate high current kHz path</h3>
+<p>An H bridge into a low impedance loop or rod gives 10 to 30 A peaks from 13.8 V. For very large pulses, charge a capacitor bank through a resistor and discharge it with a MOSFET or IGBT. It must not radiate on purpose: 2200 m and 630 m need General class or higher.</p>
+<h3>4.4 Bias tee injection</h3>
+<p>A homemade high current <a href="#g-biastee">bias tee</a> puts DC or kHz current onto the GHz fed stub or sphere. Commercial SMA bias tees are usually rated well under 1 A. Always DC block the TinySA.</p>
+<p>Not recommended: hard switching 30 A at GHz; magnetron work (kilovolts).</p>
+
+<h2 id="current">5. Sphere current versus power</h2>
+<p>Dan's goal: using Hively's published P_out expression and the earlier SNR sims (1/r&sup2; spreading only, no ohmic loss), a LEO or GEO "sphere on the satellite" link seemed to need 10 to 20 A at the sphere antenna. Ordinary circuit theory ties current to power through <a href="#g-rrad">radiation resistance</a>:</p>
+<p><strong>P = I&sup2; (R<sub>rad</sub> + R<sub>loss</sub>)</strong></p>
+<p>A quarter wave stub over ground has R<sub>rad</sub> about 36 ohm. At 15 A that is 15&sup2; x 36 = 8.1 kW, far over the 1500 W PEP limit. A 3/4 in sphere (19 mm) is small next to the wavelength (231 mm at 1296 MHz), so its R<sub>rad</sub> is much lower and high current is possible at modest power, but only through a high <a href="#g-q">Q</a> matching network, and every ohm of loss in that network, the stub and the sphere costs I&sup2; R.</p>
+<p><span class="r1-badge prop">estimate</span> Assumptions: sphere on a short stub, total height h = 19 mm above a ground plane, electrically short monopole. R<sub>rad</sub> = 160 &pi;&sup2;(h/&lambda;)&sup2; if the sphere top loads it (uniform current), or 40 &pi;&sup2;(h/&lambda;)&sup2; with no top loading (triangular current). Copper stub loss about 0.03 to 0.06 ohm. Matching network loss not included; real networks add roughly 0.1 to 1 ohm, which dominates at 433 MHz. At 2450 MHz, h is 0.16 &lambda;, so the short antenna formula is rough.</p>
+<table><thead><tr><th>Band</th><th>&lambda;</th><th>R<sub>rad</sub> (triangular to uniform)</th><th>P at 10 A</th><th>P at 20 A</th><th>Quarter wave 36 ohm at 10 / 20 A</th></tr></thead><tbody>
+<tr><td>433.92 MHz</td><td>691 mm</td><td>0.3 to 1.2 ohm</td><td>32 to 122 W</td><td>129 to 487 W</td><td>3.6 / 14.4 kW</td></tr>
+<tr><td>1296.1 MHz</td><td>231 mm</td><td>2.7 to 10.6 ohm</td><td>270 W to 1.07 kW</td><td>1.08 to 4.3 kW</td><td>3.6 / 14.4 kW</td></tr>
+<tr><td>2450 MHz</td><td>122 mm</td><td>9.5 to 38 ohm</td><td>0.96 to 3.8 kW</td><td>3.8 to 15 kW</td><td>3.6 / 14.4 kW</td></tr>
+</tbody></table>
+<p>Reading: 10 to 20 A on a small sphere is only within amateur limits at 433 MHz, and there 70 cm is capped at 50 W PEP locally, which supports about 6 to 13 A at best on the estimated R<sub>rad</sub>, before matching losses. At 1296 MHz, 20 A is over 1 kW. At 2450 MHz it is not practical. The radiated power is still the same I&sup2;R<sub>rad</sub>, so in standard physics high current on a small antenna does not beat the same power on a quarter wave. Under the SLW framing the interest is the longitudinal E field from charge gradients on the sphere, which grows with current; that is the hypothesis a high current test would probe.</p>
+
+<h2 id="seawater">6. Seawater horse trough null test</h2>
+<p>Idea: a truck mobile radio (TX) and a handheld (RX) on a bench; each antenna sealed in a NANUK case and submerged in a seawater horse trough. Ordinary physics says seawater kills the signal. Radio models TBD (Dan will supply).</p>
+<p><span class="r1-badge prop">estimate</span> Seawater 4 S/m, relative permittivity about 72. Including permittivity (it matters above about 1 GHz):</p>
+<table><thead><tr><th>Band</th><th>Skin depth (conductor only)</th><th>Skin depth (with permittivity)</th><th>Loss</th></tr></thead><tbody>
+<tr><td>433.92 MHz</td><td>12.1 mm</td><td>14.9 mm</td><td>5.8 dB/cm</td></tr>
+<tr><td>1296.1 MHz</td><td>7.0 mm</td><td>12.0 mm</td><td>7.3 dB/cm</td></tr>
+<tr><td>2450 MHz</td><td>5.1 mm</td><td>11.5 mm</td><td>7.6 dB/cm</td></tr>
+</tbody></table>
+<p>So 10 cm of seawater is about 60 to 75 dB of loss, more than the 70 dB the TinySA can show in one view.</p>
+<p>Controls:</p>
+<ul>
+<li>Feedline leakage: ferrite <a href="#g-choke">chokes</a> or a <a href="#g-choke">sleeve balun</a> at each case entry; route coax out of the water and away from the other trough.</li>
+<li>Direct pickup: the handheld body itself receives. Test with its antenna replaced by a <a href="#g-dummy">dummy load</a> and put the radio in a shielded box.</li>
+<li>TX into a dummy load first, then check <a href="#g-swr">SWR</a> at low power with the case submerged (water detunes the antenna).</li>
+<li>Use the TinySA as a dB receiver through an attenuator alongside the handheld.</li>
+<li>Sequence: air, empty trough, fresh water, then seawater. Same positions every time.</li>
+<li>The Samlex powers the mobile. Keep the supply, radios and mains connections dry and away from the troughs; use a GFCI outlet.</li>
+</ul>
+
+<h2 id="measure">7. Measuring radiated power, cage open and closed</h2>
+<p>For Dan and Steve.</p>
+<ol>
+<li><strong>Inline meter.</strong> Put a <a href="#g-wattmeter">directional wattmeter</a> or directional coupler between PA and feedline, reading forward and reflected power and, ideally, <a href="#g-pep">PEP</a>. Choose one rated for each band (70 cm, 23 cm, 13 cm). Many common HF/VHF meters stop at 450 MHz or below, so 23 cm and 13 cm need a meter specified there. I have not verified specific models and prices yet.</li>
+<li><strong>Protect the TinySA.</strong> The tinySA Ultra+ ZS406 specs: absolute max +6 dBm with 0 dB internal attenuation, +20 dBm short term peak with 30 dB internal attenuation, suggested max 0 dBm in auto attenuation, best below -25 dBm, max plus or minus 5 V DC. 20 W is +43 dBm, so use a coupler tap (for example -30 dB) plus a fixed power-rated attenuator to bring it below -25 dBm (about 70 dB total from 20 W). Never connect the PA output directly.</li>
+<li><strong><a href="#g-erp">ERP</a> calculation.</strong> ERP (dBW) = PEP (dBW) minus feedline loss minus balun loss plus antenna gain (<a href="#g-dbd">dBd</a>). <a href="#g-eirp">EIRP</a> = ERP + 2.15 dB. The cage reduces what radiates, but the 1500 W and 50 W PEP limits apply to transmitter output no matter what the cage does.</li>
+<li><strong>Field strength.</strong> Put a reference antenna of known gain (the TinySA whip after calibrating it against a dipole, or a known gain dipole) at a fixed distance d in the far field (more than 2D&sup2;/&lambda; and several wavelengths). Friis: P<sub>r</sub> = EIRP + G<sub>r</sub> (dBi) minus 20 log10(4&pi;d/&lambda;) minus cable loss. Solve for EIRP, subtract 2.15 dB for ERP.</li>
+<li><strong>Near field caution.</strong> Closer than about one wavelength, readings do not follow Friis and change wildly with position. A cage is often in the near field of what is inside it.</li>
+<li><strong>Shielding effectiveness.</strong> SE (dB) = open reading minus closed reading, same TX power and positions. First record the noise floor with the TX off; if the closed reading is at the floor, report SE as "at least" that value.</li>
+<li><strong>Leak sweep.</strong> With a small probe on the TinySA, sweep around every seam, the door and the feedline entry with the cage closed.</li>
+<li><strong>Match check.</strong> A closed cage detunes the antenna and reflects power back. Watch SWR as the cage closes; if reflected power climbs, reduce power or stop. This protects the PA.</li>
+<li><strong>Logging sheet columns:</strong> date, time, band and frequency, PA supply voltage and current, forward W, reflected W, SWR, cable and attenuator loss, antenna gain, computed ERP, cage open or closed, distance, receive antenna, TinySA RBW and attenuation, received dBm, noise floor dBm, SE dB, weather or notes, operator, ID time.</li>
+<li><strong><a href="#g-mpe">MPE</a> check with the cage open</strong> (worst case), using the table in section 8.</li>
+<li><strong>Power stepping.</strong> Start at the lowest level (milliwatts from the driver), check SWR and readings, then step up in 3 dB steps.</li>
+</ol>
+
+<h2 id="compliance">8. Compliance (Technician, KC1CZU)</h2>
+<p>Rules checked on eCFR, 13 Oct 2026.</p>
+<table><thead><tr><th>Band</th><th>Technician privilege (97.301(a))</th><th>Power limit</th><th>Other notes</th></tr></thead><tbody>
+<tr><td>70 cm</td><td>420 to 450 MHz</td><td><strong>50 W PEP</strong> at Middletown (97.313(f) via US270); otherwise 1500 W PEP</td><td>Secondary to government radiolocation. 435 to 438 MHz satellite segment.</td></tr>
+<tr><td>33 cm</td><td>902 to 928 MHz</td><td>1500 W PEP (the 50 W limit in 97.313(g) is near White Sands, NM only)</td><td>Shared with <a href="#g-ism">ISM</a> and Part 15 devices. Not used in these tests.</td></tr>
+<tr><td>23 cm</td><td>1240 to 1300 MHz</td><td>1500 W PEP (5 W limit applies only to Novices, 97.313(e))</td><td>Secondary to radiolocation; must not cause interference.</td></tr>
+<tr><td>13 cm</td><td>2300 to 2310 and 2390 to 2450 MHz</td><td>1500 W PEP; 10 W PEP if spread spectrum (97.313(j))</td><td>2400 to 2450 shared with ISM; amateurs must accept ISM interference.</td></tr>
+</tbody></table>
+<p><strong><a href="#g-pavepaws">PAVE PAWS</a> verdict.</strong> 97.313(f) points to footnote US270 in 47 CFR 2.106: 50 W PEP in 420 to 450 MHz within 160 km of Otis AFB, MA (41&deg;45' N, 70&deg;32' W), the site of the Cape Cod Space Force Station radar. Middletown, RI (about 41.545 N, 71.290 W) is about <strong>67 km</strong> away by great circle distance. Middletown is inside the radius, so 70 cm is limited to 50 W PEP.</p>
+<p><strong>ERP limits.</strong> The only ERP or EIRP caps in 97.313 are for 60 m, 2200 m, 630 m, 4 mm, and satellite earth stations on 435 to 438 MHz (611 W ERP). None limit our terrestrial tests on these bands, but compute ERP anyway for logs and for MPE.</p>
+<p><strong>Always:</strong> minimum power necessary (97.313(a)); station ID at least every 10 minutes and at the end (97.119); test emissions allowed but must be identified; RF exposure compliance (97.13(c) and 1.1307, 1.1310).</p>
+<p><strong><a href="#g-mpe">MPE</a> limits (general population, 47 CFR 1.1310):</strong> 300 to 1500 MHz: f/1500 mW/cm&sup2;; 1500 to 100,000 MHz: 1.0 mW/cm&sup2;.</p>
+<p><span class="r1-badge prop">estimate</span> Distance r = sqrt(P G / (4 &pi; S)), dipole gain 1.64 (2.15 dBi), far field, no ground reflection, 100% duty:</p>
+<table><thead><tr><th>Band</th><th>Planned power</th><th>Limit S</th><th>Minimum distance</th></tr></thead><tbody>
+<tr><td>433.92 MHz</td><td>50 W</td><td>0.29 mW/cm&sup2;</td><td>1.5 m</td></tr>
+<tr><td>1296.1 MHz</td><td>4 W</td><td>0.86 mW/cm&sup2;</td><td>0.25 m</td></tr>
+<tr><td>1296.1 MHz</td><td>20 W</td><td>0.86 mW/cm&sup2;</td><td>0.55 m</td></tr>
+<tr><td>2450 MHz</td><td>20 W</td><td>1.0 mW/cm&sup2;</td><td>0.51 m</td></tr>
+</tbody></table>
+<p>Double these distances (a factor of about 2 covers ground reflection, which can raise density up to 2.56 times) and keep people out of that zone.</p>
+<p><strong><a href="#g-part15">Part 15</a> notes.</strong> Without the license, unlicensed devices are limited to very low power, so all transmitting here is done under <a href="#g-part97">Part 97</a> as KC1CZU. Anything that radiates at 1.33 GHz or other non-amateur frequencies must stay in a dummy load or sealed cage. The Samlex itself is a Part 15 class B device. An unmodified microwave oven is a Part 18 device.</p>
+
+<h2 id="checklist">9. Pre-transmit checklist</h2>
+<ol>
+<li>Frequency inside the band with full signal bandwidth (e.g. 2449 not 2450.0).</li>
+<li>70 cm: PEP at or below 50 W (Middletown is inside the US270 radius).</li>
+<li>PEP at or below 1500 W on other bands; use the minimum needed.</li>
+<li>Compute ERP = PEP (dBW) minus feedline loss minus balun loss plus antenna gain (dBd). Log it.</li>
+<li>MPE distance computed for that power; people outside it.</li>
+<li>SWR checked at low power first; PA into a dummy load before the antenna.</li>
+<li>TinySA protected (tap plus attenuator, under -25 dBm).</li>
+<li>DC fused at the load, wires sized, connections made with supply off.</li>
+<li>Callsign ID every 10 minutes and at the end.</li>
+<li>Logging sheet ready.</li>
+</ol>
+
+<h2 id="dcsafety">10. DC safety at 30 A</h2>
+<ul>
+<li>10 AWG minimum for 30 A, 8 AWG for runs over about 1 m. Anderson Powerpole 45 A contacts.</li>
+<li>Fuse each load at its own rating in the positive lead near the supply.</li>
+<li>Remove rings and watches; a short through metal burns.</li>
+<li>Connect PAs with the supply off to avoid inrush sparks.</li>
+<li>Batteries: fuse at the post, isolation diode, never back feed the supply.</li>
+<li>Capacitor banks: bleed resistor, discharge before handling.</li>
+<li>One ground point. Ferrite clamps on DC leads if switching noise shows on the TinySA.</li>
+</ul>
+
+<h2 id="questions">11. Open questions</h2>
+<ol>
+<li>Which mobile and handheld radios for the seawater test?</li>
+<li>Is "high current" meant as more RF power, a kHz envelope on the carrier, or amps in a conductor at kHz?</li>
+<li>Which 70 cm 13.8 V PA (50 W or less), and which inline meters for 23 cm and 13 cm?</li>
+</ol>
+
+<h2 id="glossary">Glossary</h2>
+<dl>
+<dt id="g-pep">PEP (peak envelope power)</dt><dd>Average power over one RF cycle at the highest crest of the modulation envelope. The FCC power limits are in PEP. <a href="https://www.ecfr.gov/current/title-47/part-97/section-97.3">47 CFR 97.3</a></dd>
+<dt id="g-erp">ERP (effective radiated power)</dt><dd>Transmitter power minus line losses times antenna gain relative to a half wave dipole. <a href="https://www.ecfr.gov/current/title-47/part-97/section-97.3">47 CFR 97.3</a></dd>
+<dt id="g-eirp">EIRP</dt><dd>Same as ERP but relative to an isotropic antenna; EIRP = ERP + 2.15 dB. <a href="https://www.ecfr.gov/current/title-47/part-97/section-97.3">47 CFR 97.3</a></dd>
+<dt id="g-dbd">dBd and dBi</dt><dd>Antenna gain in decibels relative to a dipole (dBd) or an isotropic radiator (dBi). 0 dBd = 2.15 dBi. <a href="https://www.arrl.org/arrl-handbook-reference">ARRL Handbook</a></dd>
+<dt id="g-dbm">dBm</dt><dd>Power in decibels relative to 1 milliwatt. 0 dBm = 1 mW, +30 dBm = 1 W, +43 dBm = 20 W. <a href="https://www.ncvec.org/">NCVEC Technician question pool</a></dd>
+<dt id="g-swr">SWR (standing wave ratio)</dt><dd>Measure of how well the load matches the feedline; 1:1 is perfect. High SWR means power reflects back toward the transmitter. <a href="https://www.ncvec.org/">NCVEC Technician pool, subelement T7/T9</a></dd>
+<dt id="g-wattmeter">Directional wattmeter</dt><dd>Inline meter that reads forward and reflected power separately. <a href="https://www.arrl.org/arrl-handbook-reference">ARRL Handbook</a></dd>
+<dt id="g-mpe">MPE (maximum permissible exposure)</dt><dd>The FCC limit on RF power density a person may be exposed to, by frequency. <a href="https://www.arrl.org/rf-exposure">ARRL RF exposure</a>, <a href="https://www.ecfr.gov/current/title-47/part-1/section-1.1310">47 CFR 1.1310</a></dd>
+<dt id="g-part97">Part 97</dt><dd>The FCC rules for the Amateur Radio Service. <a href="https://www.ecfr.gov/current/title-47/part-97">eCFR Part 97</a></dd>
+<dt id="g-part15">Part 15</dt><dd>FCC rules for unlicensed radio frequency devices and incidental emitters. <a href="https://www.ecfr.gov/current/title-47/part-15">eCFR Part 15</a></dd>
+<dt id="g-ism">ISM</dt><dd>Industrial, scientific and medical bands (such as 902 to 928 MHz and 2400 to 2500 MHz) used by non-communication RF devices like microwave ovens. <a href="https://www.ecfr.gov/current/title-47/part-18">eCFR Part 18</a></dd>
+<dt id="g-pavepaws">PAVE PAWS</dt><dd>U.S. military phased array early warning radar on 70 cm; one is at Cape Cod. Amateur power near it is limited. <a href="https://www.arrl.org/us270">ARRL on US270</a></dd>
+<dt id="g-ldmos">LDMOS</dt><dd>Laterally diffused MOS transistor, the common silicon RF power device in modern amateur amplifiers. <a href="https://www.arrl.org/arrl-handbook-reference">ARRL Handbook</a></dd>
+<dt id="g-gan">GaN</dt><dd>Gallium nitride transistor; fast and efficient at high frequency and voltage. <a href="https://www.arrl.org/arrl-handbook-reference">ARRL Handbook</a></dd>
+<dt id="g-biastee">Bias tee</dt><dd>A three port network that adds DC (or low frequency) to a coax line without disturbing the RF. <a href="https://www.arrl.org/arrl-handbook-reference">ARRL Handbook</a></dd>
+<dt id="g-choke">Choke and sleeve balun</dt><dd>A choke blocks RF current while passing DC. A common mode choke or sleeve balun (a quarter wave sleeve over the coax) stops RF flowing on the outside of the coax shield. <a href="https://www.arrl.org/arrl-handbook-reference">ARRL Handbook</a></dd>
+<dt id="g-skin">Skin depth</dt><dd>Depth at which RF current density in a conductor falls to 1/e (37%). Gets smaller at higher frequency and better conductivity. <a href="https://www.arrl.org/arrl-handbook-reference">ARRL Handbook</a></dd>
+<dt id="g-rrad">Radiation resistance</dt><dd>The part of an antenna's feed resistance that represents power radiated; P = I&sup2; R<sub>rad</sub>. <a href="https://www.arrl.org/arrl-antenna-book">ARRL Antenna Book</a></dd>
+<dt id="g-q">Q</dt><dd>Quality factor: stored energy over energy lost per cycle. High Q networks give high current but narrow bandwidth and are sensitive to loss. <a href="https://www.arrl.org/arrl-handbook-reference">ARRL Handbook</a></dd>
+<dt id="g-zerospan">Zero span</dt><dd>Spectrum analyzer mode fixed on one frequency, showing level versus time. <a href="https://tinysa.org/wiki/">tinySA wiki</a></dd>
+<dt id="g-envelope">Envelope modulation</dt><dd>Varying the amplitude (envelope) of an RF carrier, here by varying the PA supply voltage (high level AM, envelope tracking). <a href="https://www.arrl.org/arrl-handbook-reference">ARRL Handbook</a></dd>
+<dt id="g-classd">Class D and class E</dt><dd>Switching amplifier classes; the transistor acts as a switch, giving high efficiency. Class E uses a tuned network so the switch turns on at zero voltage. <a href="https://www.arrl.org/arrl-handbook-reference">ARRL Handbook</a></dd>
+<dt id="g-dummy">Dummy load</dt><dd>A non-radiating 50 ohm resistor that absorbs transmitter power for testing. <a href="https://www.ncvec.org/">NCVEC Technician pool</a></dd>
+</dl>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://www.ecfr.gov/current/title-47/part-97/section-97.301">47 CFR 97.301</a>, <a href="https://www.ecfr.gov/current/title-47/part-97/section-97.313">97.313</a>, <a href="https://www.ecfr.gov/current/title-47/part-97/section-97.119">97.119</a>, <a href="https://www.ecfr.gov/current/title-47/part-97/section-97.13">97.13</a>, <a href="https://www.ecfr.gov/current/title-47/part-97/section-97.3">97.3</a>, <a href="https://www.ecfr.gov/current/title-47/part-1/section-1.1310">1.1310</a>, <a href="https://www.ecfr.gov/current/title-47/part-2/section-2.106">2.106 (US270)</a>, <a href="https://www.arrl.org/us270">ARRL US270</a>.</li>
+<li><a href="https://samlexamerica.com/products/30-amp-switching-power-supply-sec-1235m/">Samlex SEC-1235M</a> and datasheet.</li>
+<li><a href="https://tinysa.org/wiki/pmwiki.php?n=TinySA4.Specification">tinySA Ultra specification</a>.</li>
+<li><a href="https://shop.kuhne-electronic.com/">Kuhne Electronic</a>, <a href="https://www.minikits.com.au/">Mini-Kits</a>, <a href="https://vhfdesign.com/">VHFDesign</a>, <a href="https://www.w6pql.com/">W6PQL</a>.</li>
+<li>Works and Works, QEX (2012); Zimmerman; Hively's published P_out work (as used in the hub SNR sims).</li>
+</ul>
+<p>Dan Britton, KC1CZU</p>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Educational use only. These pages describe tests of hypotheses. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+</body>
+</html>
