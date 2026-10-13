@@ -49,7 +49,7 @@
   <a class="expt-abc-sub" href="joule-loss.html">Joule loss</a>
 </nav>
 <main id="main" class="wrap r1-wrap">
-<p class="kicker">Planning · draft v0.5 · 13 Oct 2026</p>
+<p class="kicker">Planning · draft v0.6 · 13 Oct 2026</p>
 <h1>Long Distance Transmission Preparations</h1>
 <p class="lede">Dan won the club's Samlex SEC-1235M 13.8 V, 30 A supply. This page plans how to use it behind RF power amplifiers at 433.92 MHz (70 cm), 1296.1 MHz (23 cm) and 2450 MHz (13 cm), what "high current" at a small sphere antenna really costs in power, a seawater null test, how to measure radiated power with the cage open and closed, and how to stay inside FCC rules.</p>
 <div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Standard electrodynamics predicts that received signal depends only on radiated power, antenna gain and path loss. Nothing on this page claims a scalar or longitudinal wave has been detected. Values marked <span class="r1-badge prop">estimate</span> are our own calculations with stated assumptions.</div>
@@ -161,7 +161,8 @@
 <li><strong>Field strength.</strong> Put a reference antenna of known gain (the TinySA whip after calibrating it against a dipole, or a known gain dipole) at a fixed distance d in the far field (more than 2D&sup2;/&lambda; and several wavelengths). Friis: P<sub>r</sub> = EIRP + G<sub>r</sub> (dBi) minus 20 log10(4&pi;d/&lambda;) minus cable loss. Solve for EIRP, subtract 2.15 dB for ERP.</li>
 <li><strong>Near field caution.</strong> Closer than about one wavelength, readings do not follow Friis and change wildly with position. A cage is often in the near field of what is inside it.</li>
 <li><strong>Shielding effectiveness.</strong> SE (dB) = open reading minus closed reading, same TX power and positions. First record the noise floor with the TX off; if the closed reading is at the floor, report SE as "at least" that value.</li>
-<li><strong>Leak sweep.</strong> With a small probe on the TinySA, sweep around every seam, the door and the feedline entry with the cage closed.</li>
+<li><strong>Leak sweep.</strong> With a small probe on the TinySA, sweep around every seam and the door with the cage closed. On the <strong>TX cage</strong>, also sweep the feedline entry and the coax outside it; that is the only cage with a feedline through it.</li>
+<li><strong>RX (detector) cage.</strong> The detector is fully self-contained inside its cage with no feedline or other penetration, so its shielding is set by the seams and the door alone. Getting readings out: a self-contained TinySA can log internally and be read after the cage is opened. Any wire, USB cable or optical link brought through the wall would be a new penetration and would need its own leak check.</li>
 <li><strong>Match check.</strong> A closed cage detunes the antenna and reflects power back. Watch SWR as the cage closes; if reflected power climbs, reduce power or stop. This protects the PA.</li>
 <li><strong>Logging sheet columns:</strong> date, time, band and frequency, PA supply voltage and current, forward W, reflected W, SWR, cable and attenuator loss, antenna gain, computed ERP, cage open or closed, distance, receive antenna, TinySA RBW and attenuation, received dBm, noise floor dBm, SE dB, weather or notes, operator, ID time.</li>
 <li><strong><a href="#g-mpe">MPE</a> check with the cage open</strong> (worst case), using the keep-back table in section 8a.</li>
@@ -235,7 +236,7 @@
 <h3>Why 2.45 GHz needs extra care</h3>
 <p>2.45 GHz is the microwave oven frequency. It is absorbed in the outer few centimeters of tissue and heats it. The eyes (the lens has little blood flow to carry heat away, and cataracts are the known risk at high levels) and the testes are the most sensitive. Do not look into a horn, dish feed or open waveguide, or put your face near the sphere, while transmitting. Heating is felt late, so do not rely on feeling warmth.</p>
 <h3>The cage</h3>
-<p>A closed Faraday cage greatly reduces exposure outside it, but only as well as its worst seam. Before trusting it, do the leak sweep (section 7) around seams, the door and the feedline entry at low power. <strong>The open cage is the worst case</strong>, so the keep-back distances below assume it is open.</p>
+<p>A closed Faraday cage greatly reduces exposure outside it, but only as well as its worst seam. Before trusting it, do the leak sweep (section 7) around seams, the door and, on the TX cage, the feedline entry at low power. <strong>The open cage is the worst case</strong>, so the keep-back distances below assume it is open.</p>
 <h3 id="keepback">Keep-back distances (one glance)</h3>
 <p>Open cage columns are rounded up from the 100% duty, ground reflection numbers above. Each cell is whip, sphere or dipole / 10 dBi antenna. Cage closed columns are based on the cage material Dan uses, <a href="https://lessemf.com/product/radioscreen-mesh/">Less EMF RadioScreen Mesh, part 1124-0</a> (listed on the <a href="setup.html">setup page</a>).</p>
 <p><strong>What Less EMF publishes</strong> (product page, read 13 Oct 2026): "Attenuation: 50-60 dB", "Frequency range tested: 10 kHZ to 40 GHz", "60 dB average attenuation from 10 MHz to 1 GHz", and "Even at the highest 5G bands, the mesh maintains over 25 dB attenuation". No dB versus frequency curve or separate datasheet is published on that page, so nothing can be read or interpolated at 1296.1 or 2450 MHz. We use 50 dB at 433.92 MHz (the low end of the 50 to 60 dB spec, inside the 10 MHz to 1 GHz range) and 25 dB at 1296.1 and 2450 MHz (the only published figure above 1 GHz, a lower bound across the tested range, not a value at those frequencies).</p>
@@ -249,18 +250,18 @@
 <p>Numbers in brackets are the calculated distance before the 0.5 m floor is applied.</p>
 <div class="r1-note"><strong>Why derate, and Dan's rolled seam</strong>
 <ul>
-<li>The material rating is for a flat sheet in a test fixture. A real cage loses shielding at seams, the door overlap, the feedline entry and through poor grounding, often by 10 to 30 dB.</li>
+<li>The material rating is for a flat sheet in a test fixture. A real cage loses shielding at seams, the door overlap, the feedline entry (TX cage only) and through poor grounding, often by 10 to 30 dB.</li>
 <li><strong>Dan's seam method is good practice:</strong> the screen edges are rolled together three times into a tight cylindrical roll, then clipped shut. A multi-turn rolled overlap gives a long, low impedance contact path, so RF current flows across the seam instead of leaking out of it. Because of that we use a smaller derating, rated minus 10 dB, instead of 20 dB.</li>
-<li>The feedline entry and the door often remain the weak points even with good seams. Choke the feedline and overlap the door generously.</li>
+<li>On the TX cage, the feedline entry and the door often remain the weak points even with good seams: choke the feedline and overlap the door generously. The RX cage has no penetrations, so its seams and door set the shielding.</li>
 <li>Still measure first: use the cage closed numbers only after the leak sweep gives a measured S for that band.</li>
 </ul></div>
 <p><strong>Formula for your own measured S:</strong> d<sub>closed</sub> = d<sub>open</sub> / 10<sup>(S/20)</sup>, and never less than 0.5 m. Example: d<sub>open</sub> = 2 m, measured S = 26 dB: 2 / 10<sup>1.3</sup> = 2 / 20 = 0.1 m, so use the 0.5 m floor. Power density scales with power, so the distance scales as 1/sqrt(power), which is why S dB divides the distance by 10<sup>(S/20)</sup>.</p>
 <div class="r1-note"><strong>Cage closed rules</strong>
 <ul>
-<li>A homemade cage commonly achieves about 20 to 40 dB, even with good material. The real value is set by the leak at the worst seam, the door, or the feedline entry. A cage whose size is near resonance at the operating band can leak more than expected.</li>
+<li>A homemade cage commonly achieves about 20 to 40 dB, even with good material. The real value is set by the leak at the worst seam, the door, or (TX cage) the feedline entry. A cage whose size is near resonance at the operating band can leak more than expected.</li>
 <li><strong>Use the cage closed numbers only after you have measured that band's shielding</strong> with the leak sweep (section 7): S = open reading minus closed reading in dB, with the TinySA probe swept around the seams and feedline entry. Use the measured S, for that band only. If it has not been measured, use the open cage columns.</li>
 <li>Minimum floor: never closer than <strong>0.5 m to the cage wall</strong> while keyed, whatever S is.</li>
-<li>Treat the feedline outside the cage as an antenna. Fit a <a href="#g-choke">choke</a> where it enters, and include it in the leak sweep.</li>
+<li>TX cage only: treat the feedline outside the cage as an antenna. Fit a <a href="#g-choke">choke</a> where it enters, and include it in the leak sweep.</li>
 <li>A closed cage can raise <a href="#g-swr">SWR</a> and reflect power back into the PA. Watch reflected power as the door closes and reduce power if it rises.</li>
 <li>The inside of a closed cage has <strong>higher fields than open air</strong> (energy bounces around inside). Never reach in or open the door while keyed.</li>
 </ul></div>
