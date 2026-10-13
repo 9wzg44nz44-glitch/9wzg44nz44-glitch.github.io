@@ -49,7 +49,7 @@
   <a class="expt-abc-sub" href="joule-loss.html">Joule loss</a>
 </nav>
 <main id="main" class="wrap r1-wrap">
-<p class="kicker">Planning · draft v0.1 · 13 Oct 2026</p>
+<p class="kicker">Planning · draft v0.2 · 13 Oct 2026</p>
 <h1>Long Distance Transmission Preparations</h1>
 <p class="lede">Dan won the club's Samlex SEC-1235M 13.8 V, 30 A supply. This page plans how to use it behind RF power amplifiers at 433.92 MHz (70 cm), 1296.1 MHz (23 cm) and 2450 MHz (13 cm), what "high current" at a small sphere antenna really costs in power, a seawater null test, how to measure radiated power with the cage open and closed, and how to stay inside FCC rules.</p>
 <div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Standard electrodynamics predicts that received signal depends only on radiated power, antenna gain and path loss. Nothing on this page claims a scalar or longitudinal wave has been detected. Values marked <span class="r1-badge prop">estimate</span> are our own calculations with stated assumptions.</div>
@@ -87,13 +87,25 @@
 <p>So the supply feeds the drain of an amplifier through an RF <a href="#g-choke">choke</a>, the TinySA drives the amplifier input, and the supply never carries RF.</p>
 
 <h2 id="approaches">4. Approaches, ranked</h2>
-<h3>4.1 TinySA, driver, 13.8 V PA, Samlex on the drain</h3>
-<p>The TinySA output is low, so a small driver amplifier (Mini-Kits mention a Gali-84 MMIC stage) goes first.</p>
+<h3>4.1 Full Samlex budget behind a high power PA (the plan)</h3>
+<p>Dan intends to use the whole supply: 13.8 V x 30 A = about 414 W DC continuous (35 A intermittent). At 40 to 60% PA efficiency that is roughly <strong>150 to 250 W RF</strong> straight from 13.8 V. Through a 13.8 to 28 V boost converter at 85 to 90% efficiency, the PA sees about 350 to 375 W DC, so roughly 140 to 225 W RF. The TinySA drives a small driver (Mini-Kits mention a Gali-84 MMIC), which drives the PA.</p>
+<table><thead><tr><th>Band</th><th>Verified PA</th><th>Supply</th><th>Price</th><th>Draw from the Samlex (estimate)</th></tr></thead><tbody>
+<tr><td>23 cm</td><td><a href="https://ant-depot.com/component/virtuemart/details/202/34/uhf-amplifiers/1296-mhz/power-amplifiers/150-mod-1296.html">Antennae Depot 150 MOD 1296</a>: 1240 to 1300 MHz, 150 W out, 8 W drive, 70% drain efficiency</td><td>28 V, 12 A at 150 W</td><td>EUR 404</td><td>about 336 W at 28 V, so about 27 A at 13.8 V through a 90% boost. Right at the limit.</td></tr>
+<tr><td>23 cm</td><td><a href="https://pe1rki.com/amplifiers.html">PE1RKI</a> 2 W in, 140 W P1dB out, 1240 to 1310 MHz</td><td>28 V, 10.5 A</td><td>EUR 175 (CW/SSB), EUR 225 (JT65/CW/SSB/DATV)</td><td>about 294 W, so about 24 A at 13.8 V</td></tr>
+<tr><td>23 cm (driver)</td><td><a href="https://www.minikits.com.au/electronic-kits/rf-amplifiers/rf-high-power/EME214-23CM">Mini-Kits EME214-23CM</a> 4 W LDMOS kit, drives either PA above</td><td>7 to 14 V, 1.1 A</td><td>A$37.95</td><td>about 1 A</td></tr>
+<tr><td>13 cm</td><td><a href="https://shop.kuhne-electronic.com/kuhne/en/shop/leistungsverstaerker/MKU+PA+13CM-20W+A2+LD-MOSFET+Power+Amplifier/?card=2076">Kuhne MKU PA 13CM-20W A2</a>, 2300 to 2450 MHz, 20 W P1dB, 27 W saturated</td><td>28 V, 4 A max</td><td>EUR 649</td><td>about 9 A</td></tr>
+<tr><td>70 cm</td><td><a href="http://q5signal.com/index.php?product_id=95&amp;route=product%2Fproduct">Q5 Signal 432 MHz 50 W linear (7060PA)</a>, 430 to 440 MHz</td><td>13.8 V</td><td>$315 (drive option 100 mW, or 1, 3, 10 W for $15)</td><td>under 10 A (estimate)</td></tr>
+<tr><td>70 cm</td><td><a href="https://www.bridgecomsystems.com/products/henry-radio-uhf-70cm-power-amplifiers">Henry Radio C100D10R</a>, 10 W in, 100 W continuous, FM only</td><td>13.8 V, 25 A</td><td>$950</td><td>must be run at 50 W PEP or less here</td></tr>
+</tbody></table>
+<p><strong>13 cm gap:</strong> I could not find a verified, priced 100 to 200 W amateur PA for 2.4 GHz. W6PQL lists a "120w 13 cm Amplifier" design (<a href="https://www.w6pql.com/">w6pql.com</a>), but I did not confirm a price or availability. Commercial 100 W, 28 V broadband modules exist (for example a 500 to 6000 MHz LDMOS listing at $200, about 42% efficient) but are not amateur products and are unverified for spurious output, so they are not recommended without a filter and testing. For now 13 cm is about 20 to 27 W unless a high power PA is found.</p>
+<p><strong>70 cm rule:</strong> Middletown is inside the US270 radius, so any 70 cm amp, even a 100 W one, must be limited to <strong>50 W PEP</strong> (reduce drive, verify on a PEP reading meter, log it). The full Samlex budget is not usable on 70 cm.</p>
+<p><strong>Do not run two PAs at once</strong> from the Samlex at these levels; the 23 cm 150 W PA alone uses nearly all 30 A.</p>
+<h3>Duty cycle and heat</h3>
 <ul>
-<li>23 cm: Mini-Kits EME214-23CM, 4 W LDMOS kit, 1240 to 1300 MHz, 7 to 14 V (12 V at 1.1 A), A$37.95. <a href="https://www.minikits.com.au/electronic-kits/rf-amplifiers/rf-high-power/EME214-23CM">minikits.com.au</a></li>
-<li>23 cm high power needs 28 to 50 V, not this supply: VHFDesign 300 W pallet, W6PQL MRF13750, Kuhne MKU PA 23CM-1200W A (50 V, 57 A, EUR 3,490).</li>
-<li>13 cm: Kuhne MKU PA 13CM-20W A2, 2300 to 2450 MHz, 20 W, EUR 649, drain +28 V. SG-LAB 2400 MHz 20 W needs 24 to 28 V. Dan is OK with a 13.8 V to 28 V boost converter, which lets the Samlex run either (about 4 A at 28 V means about 9 A from the Samlex). I found no 13.8 V 2.4 GHz PA above a few watts.</li>
-<li>70 cm: 13.8 V amplifiers are common, but I did not confirm a part and price. 70 cm is capped at 50 W PEP here (see compliance).</li>
+<li>A 150 W PA at 50 to 70% efficiency turns 65 to 150 W into heat in the PA. CW and FM carriers are 100% duty. Use the maker's heat sink plus a fan; watch the case temperature (Kuhne rates its case to +55 C).</li>
+<li>Key in timed bursts (for example 30 s on, 30 s off) until temperatures are known. The Henry mobile amps are rated at 50% duty.</li>
+<li>The Samlex is rated 30 A continuous with a temperature controlled fan. At 27 A, give it clear airflow and keep the room under 40 C (its rating).</li>
+<li>The boost converter also loses 10 to 15% (35 to 55 W) as heat; mount it on metal with airflow.</li>
 </ul>
 <h3>4.2 Drain modulation at kHz on the GHz carrier</h3>
 <p>A buck converter switching at 200 kHz to 2 MHz between the Samlex and the PA drain swings the drain voltage, and so the RF current, at a chosen rate such as 109 kHz. This is <a href="#g-envelope">envelope modulation</a> (AM). The receiver sees it with the TinySA in <a href="#g-zerospan">zero span</a>.</p>
@@ -113,7 +125,13 @@
 <tr><td>1296.1 MHz</td><td>231 mm</td><td>2.7 to 10.6 ohm</td><td>270 W to 1.07 kW</td><td>1.08 to 4.3 kW</td><td>3.6 / 14.4 kW</td></tr>
 <tr><td>2450 MHz</td><td>122 mm</td><td>9.5 to 38 ohm</td><td>0.96 to 3.8 kW</td><td>3.8 to 15 kW</td><td>3.6 / 14.4 kW</td></tr>
 </tbody></table>
-<p>Reading: 10 to 20 A on a small sphere is only within amateur limits at 433 MHz, and there 70 cm is capped at 50 W PEP locally, which supports about 6 to 13 A at best on the estimated R<sub>rad</sub>, before matching losses. At 1296 MHz, 20 A is over 1 kW. At 2450 MHz it is not practical. The radiated power is still the same I&sup2;R<sub>rad</sub>, so in standard physics high current on a small antenna does not beat the same power on a quarter wave. Under the SLW framing the interest is the longitudinal E field from charge gradients on the sphere, which grows with current; that is the hypothesis a high current test would probe.</p>
+<p><span class="r1-badge prop">estimate</span> <strong>Sphere current at the full budget</strong>, I = sqrt(P / R<sub>rad</sub>), no matching loss (real currents will be lower):</p>
+<table><thead><tr><th>Band</th><th>Usable RF power</th><th>R<sub>rad</sub></th><th>Sphere current</th></tr></thead><tbody>
+<tr><td>433.92 MHz</td><td>50 W PEP (legal cap)</td><td>0.3 to 1.2 ohm</td><td>6.5 to 12.9 A</td></tr>
+<tr><td>1296.1 MHz</td><td>150 W (verified PA); 250 W (top of budget)</td><td>2.7 to 10.6 ohm</td><td>3.8 to 7.5 A; 4.9 to 9.6 A</td></tr>
+<tr><td>2450 MHz</td><td>20 to 27 W (verified PA); 200 W if a PA is found</td><td>9.5 to 38 ohm</td><td>0.7 to 1.7 A; 2.3 to 4.6 A</td></tr>
+</tbody></table>
+<p>Reading: 10 A on a small sphere is only within reach at 433 MHz, under the 50 W cap and only if matching loss stays well under 1 ohm. At 1296 MHz the full Samlex budget gives roughly 4 to 10 A, short of 10 to 20 A. At 2450 MHz it is a few amps at best. The radiated power is still I&sup2;R<sub>rad</sub>, so in standard physics high current on a small antenna does not beat the same power on a quarter wave. Under the SLW framing the interest is the longitudinal E field from charge gradients on the sphere, which grows with current; that is the hypothesis a high current test would probe.</p>
 
 <h2 id="seawater">6. Seawater horse trough null test</h2>
 <p>Idea: a truck mobile radio (TX) and a handheld (RX) on a bench; each antenna sealed in a NANUK case and submerged in a seawater horse trough. Ordinary physics says seawater kills the signal. Radio models TBD (Dan will supply).</p>
@@ -138,7 +156,7 @@
 <p>For Dan and Steve.</p>
 <ol>
 <li><strong>Inline meter.</strong> Put a <a href="#g-wattmeter">directional wattmeter</a> or directional coupler between PA and feedline, reading forward and reflected power and, ideally, <a href="#g-pep">PEP</a>. Choose one rated for each band (70 cm, 23 cm, 13 cm). Many common HF/VHF meters stop at 450 MHz or below, so 23 cm and 13 cm need a meter specified there. I have not verified specific models and prices yet.</li>
-<li><strong>Protect the TinySA.</strong> The tinySA Ultra+ ZS406 specs: absolute max +6 dBm with 0 dB internal attenuation, +20 dBm short term peak with 30 dB internal attenuation, suggested max 0 dBm in auto attenuation, best below -25 dBm, max plus or minus 5 V DC. 20 W is +43 dBm, so use a coupler tap (for example -30 dB) plus a fixed power-rated attenuator to bring it below -25 dBm (about 70 dB total from 20 W). Never connect the PA output directly.</li>
+<li><strong>Protect the TinySA.</strong> The tinySA Ultra+ ZS406 specs: absolute max +6 dBm with 0 dB internal attenuation, +20 dBm short term peak with 30 dB internal attenuation, suggested max 0 dBm in auto attenuation, best below -25 dBm, max plus or minus 5 V DC. 150 W is +51.8 dBm and 250 W is +54 dBm, so use a coupler tap (for example -40 dB) plus fixed attenuators rated for the tapped power to bring it below -25 dBm (about 80 dB total at 250 W). Never connect the PA output directly.</li>
 <li><strong><a href="#g-erp">ERP</a> calculation.</strong> ERP (dBW) = PEP (dBW) minus feedline loss minus balun loss plus antenna gain (<a href="#g-dbd">dBd</a>). <a href="#g-eirp">EIRP</a> = ERP + 2.15 dB. The cage reduces what radiates, but the 1500 W and 50 W PEP limits apply to transmitter output no matter what the cage does.</li>
 <li><strong>Field strength.</strong> Put a reference antenna of known gain (the TinySA whip after calibrating it against a dipole, or a known gain dipole) at a fixed distance d in the far field (more than 2D&sup2;/&lambda; and several wavelengths). Friis: P<sub>r</sub> = EIRP + G<sub>r</sub> (dBi) minus 20 log10(4&pi;d/&lambda;) minus cable loss. Solve for EIRP, subtract 2.15 dB for ERP.</li>
 <li><strong>Near field caution.</strong> Closer than about one wavelength, readings do not follow Friis and change wildly with position. A cage is often in the near field of what is inside it.</li>
@@ -164,19 +182,21 @@
 <p><strong><a href="#g-mpe">MPE</a> limits (general population, 47 CFR 1.1310):</strong> 300 to 1500 MHz: f/1500 mW/cm&sup2;; 1500 to 100,000 MHz: 1.0 mW/cm&sup2;.</p>
 <p><span class="r1-badge prop">estimate</span> Distance r = sqrt(P G / (4 &pi; S)), dipole gain 1.64 (2.15 dBi), far field, no ground reflection, 100% duty:</p>
 <table><thead><tr><th>Band</th><th>Planned power</th><th>Limit S</th><th>Minimum distance</th></tr></thead><tbody>
-<tr><td>433.92 MHz</td><td>50 W</td><td>0.29 mW/cm&sup2;</td><td>1.5 m</td></tr>
-<tr><td>1296.1 MHz</td><td>4 W</td><td>0.86 mW/cm&sup2;</td><td>0.25 m</td></tr>
-<tr><td>1296.1 MHz</td><td>20 W</td><td>0.86 mW/cm&sup2;</td><td>0.55 m</td></tr>
-<tr><td>2450 MHz</td><td>20 W</td><td>1.0 mW/cm&sup2;</td><td>0.51 m</td></tr>
+<tr><td>433.92 MHz</td><td>50 W PEP (cap)</td><td>0.29 mW/cm&sup2;</td><td>1.5 m</td></tr>
+<tr><td>1296.1 MHz</td><td>150 W</td><td>0.86 mW/cm&sup2;</td><td>1.5 m</td></tr>
+<tr><td>1296.1 MHz</td><td>250 W</td><td>0.86 mW/cm&sup2;</td><td>1.9 m</td></tr>
+<tr><td>2450 MHz</td><td>27 W</td><td>1.0 mW/cm&sup2;</td><td>0.6 m</td></tr>
+<tr><td>2450 MHz</td><td>200 W (if a PA is found)</td><td>1.0 mW/cm&sup2;</td><td>1.6 m</td></tr>
 </tbody></table>
-<p>Double these distances (a factor of about 2 covers ground reflection, which can raise density up to 2.56 times) and keep people out of that zone.</p>
+<p>Ground reflection can raise density up to 2.56 times, which multiplies these distances by 1.6; use at least double (3 to 4 m at 1296 MHz and 150 to 250 W) and keep people out of that zone. With a gain antenna, multiply power by the gain first; a 10 dBi antenna at 150 W on 1296 MHz needs about 4.2 m before the reflection factor.</p>
 <p><strong><a href="#g-part15">Part 15</a> notes.</strong> Without the license, unlicensed devices are limited to very low power, so all transmitting here is done under <a href="#g-part97">Part 97</a> as KC1CZU. Anything that radiates at 1.33 GHz or other non-amateur frequencies must stay in a dummy load or sealed cage. The Samlex itself is a Part 15 class B device. An unmodified microwave oven is a Part 18 device.</p>
 
 <h2 id="checklist">9. Pre-transmit checklist</h2>
 <ol>
 <li>Frequency inside the band with full signal bandwidth (e.g. 2449 not 2450.0).</li>
 <li>70 cm: PEP at or below 50 W (Middletown is inside the US270 radius).</li>
-<li>PEP at or below 1500 W on other bands; use the minimum needed.</li>
+<li>PEP at or below 1500 W on other bands (our planned 150 to 250 W is well inside), and use the minimum power necessary for the test (97.313(a)).</li>
+<li>PA temperature and Samlex current checked; key in timed bursts at first.</li>
 <li>Compute ERP = PEP (dBW) minus feedline loss minus balun loss plus antenna gain (dBd). Log it.</li>
 <li>MPE distance computed for that power; people outside it.</li>
 <li>SWR checked at low power first; PA into a dummy load before the antenna.</li>
@@ -186,22 +206,25 @@
 <li>Logging sheet ready.</li>
 </ol>
 
-<h2 id="dcsafety">10. DC safety at 30 A</h2>
+<h2 id="dcsafety">10. DC wiring and safety at 30 A</h2>
 <ul>
-<li>10 AWG minimum for 30 A, 8 AWG for runs over about 1 m. Anderson Powerpole 45 A contacts.</li>
-<li>Fuse each load at its own rating in the positive lead near the supply.</li>
+<li>30 A continuous means <strong>8 AWG</strong> for anything but very short leads; 10 AWG is acceptable only for short runs (about 1 m or less). Keep supply to PA runs short: 2 m of 10 AWG round trip drops about 0.2 V at 27 A and wastes about 5 W.</li>
+<li>Anderson Powerpole 45 A contacts (or ring lugs on the Samlex binding posts).</li>
+<li>Fuse in the positive lead near the supply: 30 A for the main bus, plus each PA at its own rating (for example 15 A at 28 V on the boost output for a 12 A PA).</li>
 <li>Remove rings and watches; a short through metal burns.</li>
-<li>Connect PAs with the supply off to avoid inrush sparks.</li>
-<li>Batteries: fuse at the post, isolation diode, never back feed the supply.</li>
+<li>Connect PAs with the supply off to avoid inrush sparks. The boost converter input also has a large inrush.</li>
+<li>Batteries: if ever paralleled for pulses, fuse at the post, isolation diode, never back feed the supply.</li>
 <li>Capacitor banks: bleed resistor, discharge before handling.</li>
 <li>One ground point. Ferrite clamps on DC leads if switching noise shows on the TinySA.</li>
+<li>AC side: the Samlex draws 7.5 A at 120 VAC at full load; use a 15 A outlet without other heavy loads.</li>
 </ul>
 
 <h2 id="questions">11. Open questions</h2>
 <ol>
 <li>Which mobile and handheld radios for the seawater test?</li>
 <li>Is "high current" meant as more RF power, a kHz envelope on the carrier, or amps in a conductor at kHz?</li>
-<li>Which 70 cm 13.8 V PA (50 W or less), and which inline meters for 23 cm and 13 cm?</li>
+<li>Which 23 cm PA (150 MOD 1296 or PE1RKI 140 W) plus boost converter, and which inline PEP meters for 23 cm and 13 cm?</li>
+<li>Is 20 to 27 W acceptable on 13 cm for now, or should we keep looking for a 100 W plus amateur PA?</li>
 </ol>
 
 <h2 id="glossary">Glossary</h2>
