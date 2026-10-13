@@ -49,7 +49,7 @@
   <a class="expt-abc-sub" href="joule-loss.html">Joule loss</a>
 </nav>
 <main id="main" class="wrap r1-wrap">
-<p class="kicker">Planning · draft v0.6 · 13 Oct 2026</p>
+<p class="kicker">Planning · draft v0.7 · 13 Oct 2026</p>
 <h1>Long Distance Transmission Preparations</h1>
 <p class="lede">Dan won the club's Samlex SEC-1235M 13.8 V, 30 A supply. This page plans how to use it behind RF power amplifiers at 433.92 MHz (70 cm), 1296.1 MHz (23 cm) and 2450 MHz (13 cm), what "high current" at a small sphere antenna really costs in power, a seawater null test, how to measure radiated power with the cage open and closed, and how to stay inside FCC rules.</p>
 <div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Standard electrodynamics predicts that received signal depends only on radiated power, antenna gain and path loss. Nothing on this page claims a scalar or longitudinal wave has been detected. Values marked <span class="r1-badge prop">estimate</span> are our own calculations with stated assumptions.</div>
@@ -162,7 +162,14 @@
 <li><strong>Near field caution.</strong> Closer than about one wavelength, readings do not follow Friis and change wildly with position. A cage is often in the near field of what is inside it.</li>
 <li><strong>Shielding effectiveness.</strong> SE (dB) = open reading minus closed reading, same TX power and positions. First record the noise floor with the TX off; if the closed reading is at the floor, report SE as "at least" that value.</li>
 <li><strong>Leak sweep.</strong> With a small probe on the TinySA, sweep around every seam and the door with the cage closed. On the <strong>TX cage</strong>, also sweep the feedline entry and the coax outside it; that is the only cage with a feedline through it.</li>
-<li><strong>RX (detector) cage.</strong> The detector is fully self-contained inside its cage with no feedline or other penetration, so its shielding is set by the seams and the door alone. Getting readings out: a self-contained TinySA can log internally and be read after the cage is opened. Any wire, USB cable or optical link brought through the wall would be a new penetration and would need its own leak check.</li>
+<li><strong>RX (detector) cage.</strong> The detector is fully self-contained inside its cage with no feedline or other penetration, so its shielding is set by the seams and the door alone. Readout (Dan's method): the TinySA Ultra display is watched through the see-through mesh while the TinySA records to its internal micro SD card, all inside the closed cage, with no penetrations. Tips:
+<ul>
+<li>Run the TinySA on its internal battery, with no USB cable.</li>
+<li>Confirm the battery lasts the whole run (one seller lists the ZS406 battery at 5000 mAh, up to about 3 hours); charge fully first.</li>
+<li>Set up and start the SD recording before closing the cage.</li>
+<li>Keep the observer's phone and any other transmitters away from both cages, or switched off.</li>
+<li>The observer's body near the cage does not change the cage's shielding, but stand in the same place each run so the room setup stays the same.</li>
+</ul></li>
 <li><strong>Match check.</strong> A closed cage detunes the antenna and reflects power back. Watch SWR as the cage closes; if reflected power climbs, reduce power or stop. This protects the PA.</li>
 <li><strong>Logging sheet columns:</strong> date, time, band and frequency, PA supply voltage and current, forward W, reflected W, SWR, cable and attenuator loss, antenna gain, computed ERP, cage open or closed, distance, receive antenna, TinySA RBW and attenuation, received dBm, noise floor dBm, SE dB, weather or notes, operator, ID time.</li>
 <li><strong><a href="#g-mpe">MPE</a> check with the cage open</strong> (worst case), using the keep-back table in section 8a.</li>
