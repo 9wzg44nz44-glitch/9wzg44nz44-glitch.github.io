@@ -148,6 +148,27 @@
 <li>S21 option: put two identical antennas at a fixed spacing, set TRACE 0 to S21 LOGMAG and TRACE 1 to S21 PHASE, and compare with and without the sleeve (INFERENCE: a working sleeve should make S21 less sensitive to cable position).</li>
 </ol>
 
+<h3 id="s11-sphere-balun">7a. Step by step: S11 of Steve's 3/4 in aluminum sphere, stub and sleeve balun (design about 1.33 GHz)</h3>
+<p>Antenna under test: 3/4 in aluminum sphere covered in copper tape, center conductor stub wrapped in two layers of electrical tape under a quarter wave sleeve balun. The tape dielectric lowers the sleeve's choke frequency below the air value, so this sweep is wide on purpose.</p>
+<ol>
+<li>Clear the bench: no metal, tools, phones or other cables within about 30 cm of the sphere and sleeve. Support the antenna on foam, cardboard or wood.</li>
+<li>Power on the VNA 6000A and let it warm up for about 10 minutes.</li>
+<li>Set the range: STIMULUS &rarr; START 500 MHz, STOP 3.5 GHz. Set the maximum number of points the unit offers.</li>
+<li>Attach the SMA test cable you will actually use to port 1, plus any adapter that will mate with the antenna.</li>
+<li>Calibrate SOL at the cable end where the antenna attaches: CAL &rarr; RESET, CALIBRATE, then connect and tap OPEN, SHORT, LOAD in turn (wait for each to highlight), then DONE and SAVE to a free slot (see <a href="#cal">section 5</a>).</li>
+<li>Check the cal: with the LOAD on, S11 should be below -30 dB; with OPEN or SHORT, near 0 dB. Redo the cal if not.</li>
+<li>Set traces: TRACE 0 LOGMAG (S11), TRACE 1 SWR, TRACE 2 SMITH, all on CH0 REFLECT.</li>
+<li>Connect the antenna with the sleeve fitted. Let go of it and step back so your hands and body are at least 30 cm away.</li>
+<li>Put MARKER 1 on the lowest S11 dip. Record its frequency, return loss (dB) and SWR.</li>
+<li>Put MARKER 2 at 1296 MHz and MARKER 3 at 1330 MHz. Record return loss and SWR at each.</li>
+<li>Save the sweep as a Touchstone .s1p file (SD card or the PC app) and take a screenshot. Name both, for example sleeve-on.s1p and sleeve-on.png.</li>
+<li>Cable wiggle check: hold or move the feed cable about 6 cm behind the sleeve, slide along the coax, and drape it differently. Note whether the dip moves by more than 1 to 2 dB or shifts in frequency. Screenshot the worst case.</li>
+<li>Remove the sleeve without changing anything else. Repeat steps 8 to 12 and save as sleeve-off.s1p and sleeve-off.png.</li>
+<li>Optional: also note the tape thickness and the stub and sleeve diameters and lengths, so the sleeve length can be recalculated for the tape dielectric.</li>
+<li>Send the two .s1p files, the screenshots, and the marker readings (frequency, depth, SWR) for both cases.</li>
+</ol>
+<p>Reading it: a deep dip (below -10 dB, SWR under about 2) shows where the antenna is matched. If the dip moves a lot during the wiggle check, the cable shield is part of the antenna. Comparing sleeve on and off shows what the sleeve is actually doing.</p>
+
 <h2 id="s21">8. S21 TX to RX transmission and precision ranging</h2>
 <p>Port 1 drives the TX antenna and port 2 listens at the RX antenna. The path loss is real (the ideal free-space figure in the table is a far-field reference only; at these short separations near-field effects dominate, so treat it as a sanity check and not a prediction).</p>
 <div style="overflow-x:auto"><table>
