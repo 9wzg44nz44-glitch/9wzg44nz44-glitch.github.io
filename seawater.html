@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seawater Propagation Tests · SLW Hub</title>
+<meta name="description" content="Seawater propagation tests adapted from Tomilin, Lukin and Gulkov (2021): coated spheres in water contact, topside radios, RG-400 wet runs, potting, chokes, pressure tests, buy list and compliance.">
+<meta name="author" content="Dan Britton">
+<link rel="canonical" href="https://9wzg44nz44-glitch.github.io/seawater.html">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<link rel="stylesheet" href="/assets/round1.css">
+<script src="/assets/site-search.js" defer></script>
+<script src="/assets/share-button.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav" aria-label="Main">
+      <a href="index.html">Round 1</a>
+      <a href="todo.html">To-Do</a>
+      <a href="range-finder.html">Range finder</a>
+      <a href="joule-loss.html">Joule loss</a>
+      <a href="vna-howto.html">VNA how-to</a>
+      <a href="archive.html">Archive</a>
+    </nav>
+  </div>
+</header>
+<nav id="expt-abc" class="expt-abc" aria-label="Round 1 experiments">
+  <span class="expt-abc-label">Round 1</span>
+  <a class="expt-abc-btn" href="exp-1296.html"><span class="k">1.3</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="exp-433.html"><span class="k">433</span> MHz sphere</a>
+  <a class="expt-abc-btn" href="exp-2450.html"><span class="k">2.45</span> GHz sphere</a>
+  <a class="expt-abc-btn" href="oven.html"><span class="k">oven</span> 2.45 GHz</a>
+  <a class="expt-abc-sub" href="todo.html">To-Do</a>
+  <a class="expt-abc-sub" href="range-finder.html">Range finder</a>
+  <a class="expt-abc-sub" href="joule-loss.html">Joule loss</a>
+</nav>
+<main id="main" class="wrap r1-wrap">
+<p class="kicker">Planning · draft v1.0 · 14 Oct 2026</p>
+<h1>Seawater Propagation Tests</h1>
+<p class="lede">A plan for sending and receiving through seawater with coated sphere antennas at 146, 433.92, 1296.1 and about 2449 MHz. It is adapted from a published Russian experiment, without their Tesla coil. All radios and the TinySA receiver stay dry on land or in the boat. Only the coated spheres and their cables go in the water.</p>
+<div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Standard physics predicts very heavy loss in seawater at these frequencies. Nothing here claims a scalar or longitudinal wave has been detected. Terms are explained in the <a href="long-distance.html#glossary">glossary</a>.</div>
+<ul class="r1-toc" aria-label="On this page">
+<li><a href="#paper">The 2021 paper</a></li><li><a href="#design">Our adapted design</a></li><li><a href="#spheres">Spheres per band</a></li><li><a href="#cable">Wet cable, potting, chokes</a></li><li><a href="#depth">Depth, pressure, leaks</a></li><li><a href="#corrosion">Corrosion</a></li><li><a href="#sequence">Test sequence</a></li><li><a href="#buy">Buy list</a></li><li><a href="#compliance">Compliance and exposure</a></li><li><a href="#sources">Sources</a></li>
+</ul>
+
+<h2 id="paper">1. The paper: Tomilin, Lukin and Gulkov (2021)</h2>
+<p>A.K. Tomilin, A.F. Lukin and A.N. Gulkov, "An Experiment to Form a Radio Communication Channel in a Marine Environment," <em>Technical Physics Letters</em> 47(8), 577 to 579 (2021). DOI <a href="https://doi.org/10.1134/S1063785021060146">10.1134/S1063785021060146</a>. The authors are from Tomsk Polytechnic University and Far Eastern Federal University.</p>
+<p><strong>Their setup, in our words.</strong> The transmit antenna was a 60 mm copper sphere on a metal rod at the center of a flat spiral (Tesla) coil about 320 mm across. A 27.4 MHz CB radio sent an AM tone near 500 Hz at about 1.17 W. The radio and its batteries sat in a sealed metal box fixed to the antenna. The paper says "all antenna elements are insulated with a dielectric layer from contact with seawater", so the sphere had a thin insulating coat with water right against it, not an air pocket. The receiver was built the same way, with a voice recorder in a sealed box. Both were lowered on nylon ropes with no metal parts.</p>
+<p><strong>Their test.</strong> 27 Oct 2020 in Novik Bay, Vladivostok. Sea depth 13 m, water at +8°C, conductivity 4.77 S/m. The receiver hung at 6 m depth from a moored buoy. The transmitter, at 4 m depth, was towed from 20 m out to about 470 m. They report the tone stayed 5 to 8 dB above noise in a 1 Hz band. They estimate ordinary attenuation at about 195 dB per meter at that frequency. Later work from the same group describes depths of 4 to 10 m.</p>
+
+<h2 id="design">2. Our adapted design</h2>
+<ul>
+<li><strong>No Tesla coil.</strong> Dr. Hively's view is that the coil and rod add nothing important. The key is a sphere driven by an electric field.</li>
+<li><strong>Radios topside.</strong> Unlike Tomilin, every radio and the TinySA receiver stay dry on land or in the boat. A coax wet run goes down to each sphere.</li>
+<li><strong>Coated sphere in water contact.</strong> Like Tomilin, each sphere gets a thin even coat of epoxy with seawater touching the coat. No air pocket, because a sphere in air inside a box acts like an ordinary antenna in a box.</li>
+<li><strong>Potted feed, no tube by default.</strong> The sphere, its feed stub and sleeve, and the end of the coax are cast into one solid block of epoxy. A small Blue Robotics acrylic tube is an optional feed housing only if a potted block proves hard to make watertight.</li>
+<li><strong>No Nanuk cases in the water.</strong> They are rated IP67, only 1 m for 30 minutes.</li>
+</ul>
+
+<h2 id="spheres">3. Spheres per band</h2>
+<table><thead><tr><th>Band</th><th>Sphere</th><th>Dry sleeve length</th></tr></thead><tbody>
+<tr><td>146 MHz</td><td>6 in ball</td><td>513 mm</td></tr>
+<tr><td>433.92 MHz</td><td>K-Mac KB-2016, 2.5 in (63.5 mm, close to Tomilin's 60 mm)</td><td>173 mm</td></tr>
+<tr><td>1296.1 MHz</td><td>K-Mac KB-1820, 3/4 in</td><td>57.8 mm</td></tr>
+<tr><td>about 2449 MHz</td><td>K-Mac KB-1794, 3/8 in brass</td><td>30.6 mm</td></tr>
+</tbody></table>
+<p>Sleeve lengths are for air. Epoxy and seawater against the coat will detune the stub a lot. We have not found a verified dielectric constant for the epoxy at these frequencies, so it must be measured. Retune with the VNA (see the <a href="vna-howto.html">VNA how-to</a>) first in the tank, then again in the sea.</p>
+
+<h2 id="cable">4. Wet cable, potting and chokes</h2>
+<ul>
+<li><strong>Wet run: RG-400.</strong> Solid PTFE dielectric and FEP jacket, 4.95 mm across. Foam cables such as LMR-240UF and LMR-400UF can wick water, so use them only for dry runs in the boat. RG-213 is solid PE but about 10.3 mm across, too big for a WetLink penetrator (maximum 9.5 mm).</li>
+<li><strong>Potting.</strong> MG Chemicals 832WC epoxy. Pot the coax end, connector and stub into one block so water has no path along the jacket.</li>
+<li><strong>Penetrator (optional tube only).</strong> WetLink M10 5.5 mm HC fits 5.0 ± 0.3 mm cable. WetLink's 1000 m rating is for their tested cables, and FEP jacket is not one of them, so pot over the penetrator too.</li>
+<li><strong>Keep wet runs short</strong> at 1296 and 2449 MHz, since coax loss rises fast with frequency.</li>
+<li><strong>Waterline choke.</strong> Stops RF current running back up the outside of the coax to the boat. Clamp-on ferrites at 146 and 433 MHz; a quarter-wave sleeve choke at 1.3 and 2.4 GHz.</li>
+<li><strong>Rope and weights.</strong> Hang each sphere on nylon rope with a weight and no metal in the line, as Tomilin did. Tie the coax to the rope about every meter for strain relief, with a drip loop at the boat.</li>
+</ul>
+
+<h2 id="depth">5. Depth, pressure and leaks</h2>
+<ul>
+<li>Pressure rises about 1 bar for every 10 m of water.</li>
+<li><strong>Target 10 m</strong>, the deepest the Tomilin group reports. <strong>Build for 30 m</strong> (about 4 bar) for margin.</li>
+<li>Maximum time under water is one week. The 3 in acrylic 240 mm tube is rated 150 m for submersions under two weeks, so it is fine if used.</li>
+<li><strong>Proof test</strong> every potted block before it carries RF: at 1.5 times the target pressure in a pressure pot, or lowered empty to 15 m or more on the rope.</li>
+<li><strong>Leak checks.</strong> For a potted block, check insulation from the sphere and coax shield to the water with a meter, and watch for a jump in SWR. If the optional tube is used, fit a Blue Robotics SOS leak sensor inside.</li>
+</ul>
+
+<h2 id="corrosion">6. Corrosion</h2>
+<p>No bare metal touches the water. Keep copper or brass spheres away from aluminum parts. Rinse everything in fresh water after each session and check the coat for chips.</p>
+
+<h2 id="sequence">7. Test sequence: tank first</h2>
+<ol>
+<li><strong>Air.</strong> Tune each sphere on the bench with the VNA and record SWR.</li>
+<li><strong>Fresh water</strong> in the 110 gal tank. Retune and record.</li>
+<li><strong>Seawater</strong> in the tank (Instant Ocean, checked with the EC meter and hydrometer). Retune and record.</li>
+<li><strong>Sea.</strong> Shallow first, then step down toward 10 m. Retune at depth.</li>
+</ol>
+<p>Run the seawater null test on <a href="long-distance.html#seawater">long-distance.html</a> before any sea session.</p>
+
+<h2 id="buy">8. Buy list</h2>
+<table><thead><tr><th>Item</th><th>Source</th><th>Qty</th><th>Price</th></tr></thead><tbody>
+<tr><td>Items carried over from the earlier seawater list (Nanuk cases removed): K-Mac spheres, 6 in ball, bulkheads, RG-316 jumpers</td><td>Earlier verified list</td><td>-</td><td>$928.75</td></tr>
+<tr><td>LMR-240UF 25 ft (dry runs only)</td><td>Earlier verified list</td><td>1</td><td>$54.00</td></tr>
+<tr><td>LMR-400UF 50 ft (dry runs only)</td><td>Earlier verified list</td><td>1</td><td>$189.99</td></tr>
+<tr><td>Adapters</td><td>Earlier verified list</td><td>2</td><td>$15.84</td></tr>
+<tr><td>3M 130C tape, Coax-Seal</td><td>Earlier verified list</td><td>2</td><td>$13.73</td></tr>
+<tr><td>JLOAD-100NM dummy load</td><td>Earlier verified list</td><td>1</td><td>$53.00</td></tr>
+<tr><td>Surecom SW-102, LUNARIS 2G4 meters</td><td>Earlier verified list</td><td>2</td><td>$190.00</td></tr>
+<tr><td>Instant Ocean salt, Tuff Stuff 110 gal tank, Apera EC60, hydrometer</td><td>Earlier verified list</td><td>4</td><td>$233.34</td></tr>
+<tr><td>RG-400/U PTFE coax, 100 ft (two 50 ft wet runs)</td><td><a href="https://www.crossrf.com/double-braid-cables-c-475_477/rg400u-bulk-coaxial-cable-per-foot-p-1395.html">Cross RF</a>, $5.50/ft, 100 ft minimum</td><td>100 ft</td><td>$550.00</td></tr>
+<tr><td>MG Chemicals 832WC-375ML epoxy</td><td><a href="https://www.testequity.com/product/10001480-832WC-375ML">TestEquity</a>, $78.72</td><td>2</td><td>$157.44</td></tr>
+<tr><td><strong>Total</strong></td><td></td><td></td><td><strong>$2,386.09</strong></td></tr>
+</tbody></table>
+<p><strong>Optional feed housing, per sphere, not in the total ($376.28 each):</strong> 3 in acrylic tube 240 mm BR-102649-240, $180 (<a href="https://bluerobotics.com/store/watertight-enclosures/locking-series/wte-locking-tube-r1-vp/">Blue Robotics</a>); 2 O-ring flanges at $57.14 (<a href="https://ca.robotshop.com/products/bluerobotics-3-enclosure-locking-o-ring-flange">RobotShop Canada</a>, <strong>this price may be in Canadian dollars</strong>); 2 end caps 7 x M10 BR-100949-007 at $17 (<a href="https://www.robotshop.com/products/bluerobotics-75-mm-3-inch-end-cap-aluminum-7x-m10-hole-1000m">RobotShop</a>); WetLink M10 5.5 mm HC BR-100870-155, $13 (<a href="https://bluerobotics.com/store/cables-connectors/penetrators/wlp-vp/">Blue Robotics</a>); SOS Leak Sensor, $35 (<a href="https://bluerobotics.com/store/sensors-cameras/leak-sensor/sos-leak-sensor/">Blue Robotics</a>).</p>
+<p>Not priced yet (get quotes): pressure pot, nylon rope, weights, ferrites.</p>
+
+<h2 id="compliance">9. Compliance and exposure</h2>
+<ul>
+<li>All amateur transmissions identify as <strong>KC1CZU</strong>. Power limits, keep-back distances and worker rules are on <a href="long-distance.html#compliance">long-distance.html</a> (see also <a href="long-distance.html#rfsafety">RF exposure for workers</a>).</li>
+<li><strong>Boat crew.</strong> The topside feedline and the waterline choke can carry RF. Keep the crew back from both while transmitting, using the keep-back tables on the long-distance page, and run the coax away from where people sit.</li>
+<li><strong>GMRS radios only unmodified, with their own antennas.</strong> They must never feed the spheres. Sphere tests use amateur radios and the TinySA only.</li>
+</ul>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Tomilin, Lukin, Gulkov, Tech. Phys. Lett. 47(8), 577 to 579 (2021), <a href="https://doi.org/10.1134/S1063785021060146">doi:10.1134/S1063785021060146</a>.</li>
+<li>Blue Robotics enclosure and WetLink datasheets.</li>
+</ul>
+<p>Dan Britton, KC1CZU</p>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Educational use only. These pages describe tests of hypotheses. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+</body>
+</html>
