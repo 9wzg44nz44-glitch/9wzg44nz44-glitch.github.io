@@ -76,9 +76,9 @@
 <tr><td>146 MHz</td><td>6 in ball</td><td>513 mm</td></tr>
 <tr><td>433.92 MHz</td><td>K-Mac KB-2016, 2.5 in (63.5 mm, close to Tomilin's 60 mm)</td><td>173 mm</td></tr>
 <tr><td>1296.1 MHz</td><td>K-Mac KB-1820, 3/4 in</td><td>57.8 mm</td></tr>
-<tr><td>about 2449 MHz</td><td>K-Mac KB-1794, 3/8 in brass</td><td>30.6 mm</td></tr>
+<tr><td>about 2449 MHz</td><td>K-Mac KB-1820, 3/4 in 3003 aluminum (about 0.16 wavelength here, same sphere as the earlier 2.45 GHz and microwave oven work)</td><td>30.6 mm</td></tr>
 </tbody></table>
-<p>Sleeve lengths are for air. Epoxy and seawater against the coat will detune the stub a lot. We have not found a verified dielectric constant for the epoxy at these frequencies, so it must be measured. Retune with the VNA (see the <a href="vna-howto.html">VNA how-to</a>) first in the tank, then again in the sea.</p>
+<p>Sleeve lengths are for air. Epoxy and seawater against the coat will detune the stub a lot. We have not found a verified dielectric constant for the epoxy at these frequencies, so it must be measured. The stub and balun set the tuning, not the sphere size, so the 2449 MHz sphere is larger than 0.08 wavelength on purpose. Aluminum does not solder easily: attach the stub mechanically (a threaded stub, a crimp or a clamp), or use the Experiment A method on <a href="exp-1296.html">exp-1296.html</a> (aluminum solder with aluminum flux, or silver conductive epoxy). Retune with the VNA (see the <a href="vna-howto.html">VNA how-to</a>) first in the tank, then again in the sea.</p>
 
 <h2 id="cable">4. Wet cable, potting and chokes</h2>
 <ul>
@@ -100,7 +100,7 @@
 </ul>
 
 <h2 id="corrosion">6. Corrosion</h2>
-<p>No bare metal touches the water. Keep copper or brass spheres away from aluminum parts. Rinse everything in fresh water after each session and check the coat for chips.</p>
+<p>No bare metal touches the water. All four spheres are now 3003 aluminum, while the SMA bulkhead and coax are brass and copper. Keep that joint fully sealed inside the potting so seawater never bridges the two metals. Rinse everything in fresh water after each session and check the coat for chips.</p>
 
 <h2 id="sequence">7. Test sequence: tank first</h2>
 <ol>
@@ -113,9 +113,8 @@
 
 <h2 id="buy">8. Buy list</h2>
 <table><thead><tr><th>Item</th><th>Source</th><th>Qty</th><th>Price</th></tr></thead><tbody>
-<tr><td>K-Mac KB-1820 3/4 in hollow aluminum ball, pack of 10 (1296 MHz)</td><td><a href="https://kmac-distribution.com/aluminum/aluminum-2017-3003-balls.htm">K-Mac Distribution</a></td><td>1</td><td>$36.40</td></tr>
+<tr><td>K-Mac KB-1820 3/4 in hollow aluminum ball, pack of 10 (covers both 1296 and 2449 MHz spheres)</td><td><a href="https://kmac-distribution.com/aluminum/aluminum-2017-3003-balls.htm">K-Mac Distribution</a></td><td>1</td><td>$36.40</td></tr>
 <tr><td>K-Mac KB-2016 2.5 in hollow aluminum ball (433.92 MHz), TX and RX</td><td><a href="https://www.k-mac-plastics.com/balls/hollow-metal-balls.htm">K-Mac Plastics</a></td><td>2</td><td>$253.92</td></tr>
-<tr><td>K-Mac KB-1794 3/8 in brass ball, pack of 25 (about 2449 MHz)</td><td><a href="https://www.kmac-distribution.com/brass/brass-balls.htm">K-Mac Distribution</a></td><td>1</td><td>$29.27</td></tr>
 <tr><td>Wagner 4172 6 in aluminum hollow ball (146 MHz), TX and RX</td><td><a href="https://shop.wagnercompanies.com/4172-6-inch-aluminum-hollow-ball">Wagner</a></td><td>2</td><td>$229.88</td></tr>
 <tr><td>Amphenol 901-9875 SMA female bulkhead, used as the stub feed inside the potted block</td><td><a href="https://www.rfparts.com/901-9875.html">RF Parts</a></td><td>8</td><td>$95.20</td></tr>
 <tr><td>Amphenol 135101-01-12 RG-316 SMA jumper, 12 in</td><td><a href="https://www.rfparts.com/135101-01-12.html">RF Parts</a></td><td>4</td><td>$67.60</td></tr>
@@ -134,7 +133,7 @@
 <tr><td>Instant Ocean hydrometer</td><td><a href="https://www.liveaquaria.com/products/instant-ocean-hydrometer">LiveAquaria</a></td><td>1</td><td>$9.99</td></tr>
 <tr><td>RG-400/U PTFE coax, 100 ft (two 50 ft wet runs), $5.50/ft, 100 ft minimum</td><td><a href="https://www.crossrf.com/double-braid-cables-c-475_477/rg400u-bulk-coaxial-cable-per-foot-p-1395.html">Cross RF</a></td><td>1</td><td>$550.00</td></tr>
 <tr><td>MG Chemicals 832WC-375ML epoxy</td><td><a href="https://www.testequity.com/product/10001480-832WC-375ML">TestEquity</a></td><td>2</td><td>$157.44</td></tr>
-<tr><td><strong>Total</strong></td><td></td><td></td><td><strong>$2,193.78</strong></td></tr>
+<tr><td><strong>Total</strong></td><td></td><td></td><td><strong>$2,164.51</strong></td></tr>
 </tbody></table>
 <p>Prices were checked on 14 Oct 2026 and can change. Quantities assume one TX and one RX sphere per band.</p>
 <p><strong>Optional feed housing, per sphere, not in the total ($376.28 each):</strong> 3 in acrylic tube 240 mm BR-102649-240, $180 (<a href="https://bluerobotics.com/store/watertight-enclosures/locking-series/wte-locking-tube-r1-vp/">Blue Robotics</a>); 2 O-ring flanges at $57.14 (<a href="https://ca.robotshop.com/products/bluerobotics-3-enclosure-locking-o-ring-flange">RobotShop Canada</a>, <strong>this price may be in Canadian dollars</strong>); 2 end caps 7 x M10 BR-100949-007 at $17 (<a href="https://www.robotshop.com/products/bluerobotics-75-mm-3-inch-end-cap-aluminum-7x-m10-hole-1000m">RobotShop</a>); WetLink M10 5.5 mm HC BR-100870-155, $13 (<a href="https://bluerobotics.com/store/cables-connectors/penetrators/wlp-vp/">Blue Robotics</a>); SOS Leak Sensor, $35 (<a href="https://bluerobotics.com/store/sensors-cameras/leak-sensor/sos-leak-sensor/">Blue Robotics</a>).</p>
