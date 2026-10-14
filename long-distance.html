@@ -49,12 +49,12 @@
   <a class="expt-abc-sub" href="joule-loss.html">Joule loss</a>
 </nav>
 <main id="main" class="wrap r1-wrap">
-<p class="kicker">Planning · draft v0.8 · 13 Oct 2026</p>
+<p class="kicker">Planning · draft v0.9 · 13 Oct 2026</p>
 <h1>Long Distance Transmission Preparations</h1>
 <p class="lede">Dan won the club's Samlex SEC-1235M 13.8 V, 30 A supply. This page plans how to use it behind RF power amplifiers at 433.92 MHz (70 cm), 1296.1 MHz (23 cm) and 2450 MHz (13 cm), what "high current" at a small sphere antenna really costs in power, a seawater null test, how to measure radiated power with the cage open and closed, and how to stay inside FCC rules.</p>
 <div class="banner-edu"><strong>Tests of hypotheses, not results.</strong> Standard electrodynamics predicts that received signal depends only on radiated power, antenna gain and path loss. Nothing on this page claims a scalar or longitudinal wave has been detected. Values marked <span class="r1-badge prop">estimate</span> are our own calculations with stated assumptions.</div>
 <ul class="r1-toc" aria-label="On this page">
-<li><a href="#supply">The supply</a></li><li><a href="#freq">Frequencies</a></li><li><a href="#why">Why not switch 30 A at GHz</a></li><li><a href="#approaches">Approaches</a></li><li><a href="#current">Sphere current versus power</a></li><li><a href="#seawater">Seawater null test</a></li><li><a href="#measure">Measuring radiated power</a></li><li><a href="#compliance">Compliance</a></li><li><a href="#rfsafety">RF exposure for workers</a></li><li><a href="#keepback">Keep-back distances</a></li><li><a href="#checklist">Pre-transmit checklist</a></li><li><a href="#dcsafety">DC safety</a></li><li><a href="#kg805g">GMRS handheld</a></li><li><a href="#questions">Open questions</a></li><li><a href="#glossary">Glossary</a></li><li><a href="#sources">Sources</a></li>
+<li><a href="#supply">The supply</a></li><li><a href="#freq">Frequencies</a></li><li><a href="#why">Why not switch 30 A at GHz</a></li><li><a href="#approaches">Approaches</a></li><li><a href="#current">Sphere current versus power</a></li><li><a href="#seawater">Seawater null test</a></li><li><a href="#measure">Measuring radiated power</a></li><li><a href="#compliance">Compliance</a></li><li><a href="#rfsafety">RF exposure for workers</a></li><li><a href="#keepback">Keep-back distances</a></li><li><a href="#checklist">Pre-transmit checklist</a></li><li><a href="#dcsafety">DC safety</a></li><li><a href="#kg805g">GMRS handheld</a></li><li><a href="#ftm300dr">FTM-300DR</a></li><li><a href="#questions">Open questions</a></li><li><a href="#glossary">Glossary</a></li><li><a href="#sources">Sources</a></li>
 </ul>
 
 <h2 id="supply">1. The Samlex SEC-1235M</h2>
@@ -319,6 +319,25 @@
 <li>462 MHz is not in the 70 cm band, so results are not directly comparable to 433.92 MHz tests, but seawater loss is similar (about 6 dB per cm, estimate).</li>
 <li>RF exposure: at 5 W the keep-back is small (well under the 433.92 MHz, 50 W row), but do not hold the antenna against the body while keyed.</li>
 </ul>
+
+<h2 id="ftm300dr">10b. Yaesu FTM-300DR as the truck mobile TX</h2>
+<p>Dan's <a href="setup.html#ftm300dr">Yaesu FTM-300DR</a> (2 m and 70 cm, 50/25/5 W, FM and C4FM, SO-239, 13.8 V at up to 11 A) is the likely truck mobile transmitter for the <a href="#seawater">seawater trough test</a>, powered on the bench by the Samlex.</p>
+<ul>
+<li><strong>70 cm power:</strong> 50 W high is at the US270 limit of 50 W PEP for Middletown. No amp on 70 cm; check high power on a meter and drop to mid (25 W) if it reads over 50 W.</li>
+<li><strong>2 m:</strong> only the 1500 W PEP general limit applies.</li>
+<li><strong>Submerged-antenna test:</strong> set up into a <a href="#g-dummy">dummy load</a> first, then put an <a href="#g-swr">SWR</a> meter inline and check at low power (5 W) with the antenna in its sealed case in the water. The radio's protection folds back power at high SWR to protect the finals, but still check, and do not key high power into a bad match.</li>
+<li>ID as KC1CZU every 10 minutes and at the end.</li>
+</ul>
+<p><span class="r1-badge prop">estimate</span> <strong>Keep-back distances at 50 W</strong> (same method as section 8a: ground reflection 2.56, 100% duty for FM, 50% for 30 s on and 30 s off). 1.1310 limits at 146 MHz (30 to 300 MHz range): controlled 1.0 mW/cm&sup2;, public 0.2 mW/cm&sup2;. At 433 MHz: controlled 1.45, public 0.29.</p>
+<table><thead><tr><th>Band, 50 W</th><th>Antenna</th><th>Workers, 100%</th><th>Workers, 50%</th><th>Public, 100%</th><th>Public, 50%</th></tr></thead><tbody>
+<tr><td>146 MHz</td><td>Quarter wave whip on ground plane (5.15 dBi)</td><td>1.83 m</td><td>1.29 m</td><td>4.08 m</td><td>2.89 m</td></tr>
+<tr><td>146 MHz</td><td>Dipole (2.15 dBi)</td><td>1.29 m</td><td>0.91 m</td><td>2.89 m</td><td>2.04 m</td></tr>
+<tr><td>146 MHz</td><td>10 dBi gain antenna</td><td>3.19 m</td><td>2.26 m</td><td>7.14 m</td><td>5.05 m</td></tr>
+<tr><td>433 MHz</td><td>Quarter wave whip or sphere (5.15 dBi)</td><td>1.52 m</td><td>1.07 m</td><td>3.40 m</td><td>2.40 m</td></tr>
+<tr><td>433 MHz</td><td>Dipole (2.15 dBi)</td><td>1.07 m</td><td>0.76 m</td><td>2.40 m</td><td>1.70 m</td></tr>
+<tr><td>433 MHz</td><td>10 dBi gain antenna</td><td>2.65 m</td><td>1.88 m</td><td>5.93 m</td><td>4.20 m</td></tr>
+</tbody></table>
+<p>Rounded keep-back lines for the floor tape: 2 m band at 50 W, workers 2 m (3.5 m in front of a gain antenna), public 4.5 m (7.5 m); 70 cm at 50 W, workers 2 m (3 m), public 3.5 m (6 m). A submerged antenna in seawater radiates far less, but the feedline and the case top above water still radiate, so keep the lines anyway. On a truck, the roof shields people inside from a roof mounted whip; people standing next to the truck are the ones to keep back.</p>
 
 <h2 id="questions">11. Open questions</h2>
 <ol>
