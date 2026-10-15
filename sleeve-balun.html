@@ -204,7 +204,7 @@
 <thead><tr><th>Feature</th><th class="num">Length</th><th>Notes</th></tr></thead>
 <tbody>
 <tr><td>Free-space λ</td><td class="num">231.3 mm</td><td>1296.000 MHz</td></tr>
-<tr><td>λ/4 sleeve (air, VF≈1)</td><td class="num">57.8 mm</td><td>Cut long; trim if gap dielectric lowers VF</td></tr>
+<tr><td>λ/4 sleeve (air, VF≈1)</td><td class="num">57.8 mm</td><td>Untaped stub only. Taped as built: 45.5 to 47.3 mm, see <a href="#taped-stub">2c</a></td></tr>
 <tr><td>First-article stub (λ/10)</td><td class="num">23.1 mm</td><td>Exposed center conductor</td></tr>
 <tr><td>TEM-control stub (λ/4)</td><td class="num">57.8 mm</td><td>Optional later article, not first</td></tr>
 <tr><td>RG-405/U outer OD</td><td class="num">0.086″ (2.18 mm)</td><td>Solid copper outer</td></tr>
@@ -213,6 +213,22 @@
 </table>
 </div>
 <p class="footnote">At 1.3&nbsp;GHz the sleeve is ~6× longer than the 8&nbsp;GHz IARD reference hardware below. Length <em>must</em> track 1/f. No 3λ ground disk.</p>
+
+<h2 id="taped-stub">2c. Taped stub correction (as built, Oct 2026)</h2>
+<p><strong>As-built sleeve:</strong> K&amp;S Metals round copper tube, 3/16 in OD x 0.014 in wall (ID about 0.1595 in / 4.05 mm), bought 22 Sep 2026 and shipped to Steve. The older McMaster 8965K22 1/8 in tube is too small for RG-405.</p>
+<p>Steve wrapped the RG-405 (2.18 mm OD) with about 2.5 wraps of electrical tape, giving about 3.07 mm OD inside the 4.05 mm ID, so about 0.49 mm of air gap remains all round. The space between coax shield and sleeve is no longer pure air, so the air quarter wave (57.8 mm) is too long.</p>
+<table class="dim-table">
+<tr><th>Quantity</th><th>Value</th></tr>
+<tr><td>Tape dielectric constant assumed</td><td class="num">2.5 to 3.2</td></tr>
+<tr><td>Effective dielectric constant (tape + air)</td><td class="num">1.50 to 1.61</td></tr>
+<tr><td>Velocity factor</td><td class="num">0.79 to 0.82</td></tr>
+<tr><td>Choke frequency of a 56.4 / 57.8 mm sleeve</td><td class="num">about 1.02 to 1.09 GHz</td></tr>
+<tr><td>Same, with 3.2 mm of copper tape intruding into the open end</td><td class="num">about 1.08 to 1.15 GHz</td></tr>
+<tr><td>Cut length for 1296 MHz</td><td class="num">45.5 to 47.3 mm (48.7 to 50.5 mm with intrusion)</td></tr>
+<tr><td>Cut length for 1330 MHz</td><td class="num">44.4 to 46.1 mm (47.6 to 49.3 mm with intrusion)</td></tr>
+</table>
+<p><strong>Model:</strong> two-layer coaxial dielectric (tape layer plus air gap) between shield and sleeve; the copper tape intrusion is treated as a shortening of the sleeve length. First order only; open-end fringing and tape variation are not modeled.</p>
+<p><strong>Advice:</strong> cut long, then trim in small steps, checking with VNA S11 and a choke check (see <a href="vna-howto.html#s11-sphere-balun">VNA S11 steps</a>). The air-only values on this page still apply to an untaped stub.</p>
 
 <h2 id="bom">3. BOM on hand (Aug 2026 receipts)</h2>
 <p>Parts photographed as received in Lady Lake, FL. Use these SKUs when reordering; confirm tube ID before cutting the sleeve.</p>
@@ -252,7 +268,7 @@
 <h2 id="build">4. Build steps (cold-end solder, open at feed)</h2>
 <ol class="steps">
   <li><strong>Connector end.</strong> Cut RG-405 to overall length. Install SMA (or Type&nbsp;N) on the generator end in the ordinary way — no special balun connection at the connector.</li>
-  <li><strong>Choose sleeve stock.</strong> Use a tube whose ID clears 0.086″ with only a thin gap (or foil). Cut a little longer than 57.8&nbsp;mm so you can trim. Deburr inside and out.</li>
+  <li><strong>Choose sleeve stock.</strong> Use a tube whose ID clears 0.086″ with only a thin gap (or foil). Cut a little longer than 57.8&nbsp;mm (air) or about 48 to 51&nbsp;mm for a taped stub (see <a href="#taped-stub">2c</a>) so you can trim. As built: K&amp;S Metals 3/16 in OD x 0.014 in wall copper tube. Deburr inside and out.</li>
   <li><strong>Insulator in the gap.</strong> Two layers of electrical tape (or thin PTFE) over the jacket where the sleeve will sit. This sets VF &lt; 1 if thick — plan to trim the physical length.</li>
   <li><strong>Strip the tip.</strong> Remove outer conductor and dielectric so <strong>23.1&nbsp;mm</strong> of center conductor remains as the first-article stub (or 57.8&nbsp;mm for the TEM-control stub). Keep the stub straight; photograph against a ruler.</li>
   <li><strong>Slide and locate.</strong> Slide the sleeve on from the stub end until the <em>open</em> end sits at (or a millimetre behind) the dielectric cut-back. The opposite end is the cold end.</li>
