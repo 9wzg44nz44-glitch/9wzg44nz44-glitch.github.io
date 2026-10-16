@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting Ready for Field Experiments: NANUK Case Packing · SLW Hub</title>
+<meta name="description" content="Concept packing plan for the yellow (TX) and orange (RX) NANUK cases: battery layer, TinySA layer, antenna pockets, coax cableways, Faraday mesh, heat and lithium safety.">
+<meta name="author" content="Dan Britton">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/assets/site-responsive.css">
+<script src="/assets/site-search.js" defer></script>
+<script src="/assets/share-button.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/mark.svg" alt="">
+      <span><span class="brand-name">SLW Hub</span>
+      <span class="brand-sub">Britton · educational</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="primary" id="nav">
+      <a href="index.html">Home</a>
+      <a href="learn.html">Learn</a>
+      <a href="compare.html">Compare</a>
+      <a href="c-nuclei.html">C×nuclei</a>
+      <a href="fields.html">Fields</a>
+      <a href="monstein.html">Monstein</a>
+      <a href="tools.html">Tools</a>
+      <a href="lab.html">Lab</a>
+      <a href="setup.html">Setup</a>
+      <a href="kit.html">Kit</a>
+      <a href="library.html">Library</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+<div class="wrap">
+<h1 id="top">Getting Ready for Field Experiments: NANUK Case Packing</h1>
+<p><strong>Concept layouts for discussion.</strong> Steve and other readers: please comment (links at the <a href="#comments">bottom</a>). Nothing here is cut yet.</p>
+
+<h2 id="dims">What is real and what is estimated</h2>
+<ul>
+<li>Real (hub records): three TinySA Ultra+ ZS406 (internal battery listed at 5000 mAh, about 3 hours), three Zeenko ZK06-UM LNAs, K-Mac 3/4 in (0.750 in) and 2.50 in aluminum spheres, Tekbox TBPS01 probe set (H20, H10, H5, E5), Less EMF RadioScreen mesh (130 threads per inch), NanoRFE VNA6000-A.</li>
+<li>Estimated: the yellow and orange NANUK model numbers and interior sizes are not on the hub yet. Drawings assume about 508 x 381 mm (20 x 15 in) floor and 190 mm depth. TinySA body about 157 x 90 x 25 mm, USB-C power banks about 150 x 70 x 25 mm, bifilar white coil about 130 mm across. Measure before cutting.</li>
+</ul>
+
+<h2 id="layers">Layer scheme (both cases)</h2>
+<img src="img/nanuk/side_view.png" alt="Side view of foam layers" style="max-width:100%">
+<ol>
+<li><strong>Bottom:</strong> lithium USB-C packs in snug cutouts, 25 mm or more of foam between packs, spare cables, adapters, attenuators.</li>
+<li><strong>Separator:</strong> closed cell foam plus a fiberglass or silicone fire sheet.</li>
+<li><strong>Top:</strong> TinySA(s), antenna pockets, coax cableways.</li>
+<li><strong>Lid:</strong> convoluted foam to hold everything down.</li>
+</ol>
+<img src="img/nanuk/bottom_battery_layer.png" alt="Battery layer" style="max-width:100%">
+<p>Power cables (red) run in channels along the outer edges, up through a notch at each corner of the separator, to the TinySA USB-C port. Coax (blue) stays in the top layer only. Where a coax and power channel must meet, they cross at 90 degrees, never side by side.</p>
+
+<h2 id="tx">Yellow case: transmitter (closed during tests)</h2>
+<img src="img/nanuk/yellow_tx_top.png" alt="Yellow TX top layer" style="max-width:100%">
+<ul>
+<li>TinySA #1 in SG mode centred, with pockets for the 3/4 in sphere, 2.5 in sphere, bifilar white coil and the chrome telescoping antenna (collapsed slot).</li>
+<li><strong>Coax cableways:</strong> a 6 mm wide channel cut from each antenna pocket to the TinySA, with curves of 25 mm radius or more (RG-405 and RG-316 are fine at that). Each run is labeled at both ends: S34 (3/4 sphere), S250, COIL, TEL, BH (bulkhead).</li>
+<li><strong>The antenna and cage conflict.</strong> If the mesh wraps everything, including the active antenna, the mesh also stops the transmitter's own signal, by roughly 40 to 60 dB at 1296 MHz. The test then measures the cage, not the antenna. Options:
+ <ol>
+ <li><strong>Recommended:</strong> cage the electronics and battery layers, and put the active antenna outside the cage. Feed it through a bonded SMA bulkhead in the mesh and a sealed gland in the case wall, or through the lid on a short mast. Antennas not in use stay stored inside.</li>
+ <li>Keep the antenna inside the case but above the mesh, with the case closed. NANUK polypropylene passes RF with little loss, but it still detunes the antenna slightly, so check S11 with the lid closed.</li>
+ <li>Cage everything only for a deliberate "fully shielded TX" control run, labeled as such.</li>
+ </ol></li>
+</ul>
+
+<h2 id="rx">Orange case: receiver/detector (open on the bench table)</h2>
+<img src="img/nanuk/orange_rx_top.png" alt="Orange RX top layer" style="max-width:100%">
+<ul>
+<li>TinySA #2 in SA mode on the receive antenna, through a ZK06-UM if needed. TinySA #3 in SA mode on the H10 probe. This uses all three TinySAs.</li>
+<li>The coax cableways run from the receive antenna pocket and the H10 probe pocket to their own TinySA, with the same bend radius and labels. The probe lead has its own channel so it does not couple to the receive line.</li>
+<li><strong>Stylus through the mesh:</strong> RadioScreen at 130 threads per inch has openings of about 0.1 to 0.15 mm. A capacitive stylus works on the resistive TinySA screen only by pressure, so lay the mesh flat on the screen and press. Shielding is about 50 to 60 dB at 1 GHz and somewhat lower at 2.4 GHz and above (estimate). Seams matter more than the cloth. Coarser mesh would make tapping easier but shield worse, so keep the 130 TPI cloth.</li>
+</ul>
+
+<h2 id="anim">Assembly animation</h2>
+<video controls loop muted playsinline poster="img/nanuk/yellow_tx_top.png" style="max-width:100%"><source src="img/nanuk/nanuk_packing.mp4" type="video/mp4"><img src="img/nanuk/nanuk_packing.gif" alt="Packing animation"></video>
+<p><a href="img/nanuk/nanuk_packing.gif">GIF version</a></p>
+
+<h2 id="heat">Heat and lithium safety</h2>
+<ul>
+<li>Cut 10 mm vent channels across both foam layers (light blue). The TinySA and packs get warm in sun, so add a white or reflective cover over the closed yellow case outdoors.</li>
+<li>Never charge packs inside a closed case. Charge on the open bench. Run from charged packs only.</li>
+<li>Use packs with built in protection. An inline USB-C fuse or a current meter is a cheap check. Put a stick-on temperature strip next to each pack and stop if it reads above 45 C.</li>
+<li>Keep packs below the separator and away from the TinySAs.</li>
+</ul>
+
+<h2 id="cage">Cage, bulkheads, grounding, labels</h2>
+<ul>
+<li>Overlap mesh seams by 50 mm or more and fold them, or close them with conductive tape. Bond the mesh to the SMA bulkhead flange with a clamp ring.</li>
+<li>Do not tie the cage to earth ground in the field unless that is the experiment. Note "floating" or "grounded" in the log.</li>
+<li>Label every pocket and cable end. Photograph each packed layer before a run.</li>
+</ul>
+
+<h2 id="vna">VNA6000-A: keep it out of the cases</h2>
+<p>Use it at the bench table for pre-run and post-run S11 checks of each antenna, lid open and lid closed, and for cable checks. Inside a case it adds heat and USB cables and does nothing during a run. If space allows, add an optional padded pocket in the orange lid foam so it travels with the receiver.</p>
+
+<h2 id="comments">Comments welcome</h2>
+<p>Steve, or anyone: <a href="https://github.com/9wzg44nz44-glitch/9wzg44nz44-glitch.github.io/issues/new?title=NANUK%20packing%20comment&amp;body=Section%20(e.g.%20%23tx%2C%20%23rx%2C%20%23heat)%3A%0A%0AComment%3A%0A">comment on GitHub (opens a prefilled issue)</a> or <a href="mailto:BrittonSolutions@icloud.com?subject=NANUK%20packing%20comment">email a comment</a>. Quote the section heading so we know where it goes.</p>
+</div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Dan Britton</strong> · <a href="mailto:BrittonSolutions@icloud.com">BrittonSolutions@icloud.com</a><br>
+      Educational use only. Scalar-longitudinal-wave claims are <em>not</em> settled physics.
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+</body>
+</html>
