@@ -66,6 +66,7 @@
 <h2 id="tinysa">The TinySA Ultra+ RF port</h2>
 <figure><img src="img/kit/tinysa-ultra.jpg" alt="TinySA Ultra+ ZS406 with RF and CAL SMA ports" style="max-width:420px;width:100%"><figcaption class="footnote">TinySA Ultra+ ZS406 kit, SeeSii vendor listing image (same photo as the <a href="kit.html">kit page</a>). Product by tinySA (<a href="https://tinysa.org">tinysa.org</a>).</figcaption></figure>
 <p>Each TinySA has one measurement SMA port, labeled RF (the CAL port above it is the calibration output). Antennas therefore share that one RF port, one at a time across runs.</p>
+<p><strong>Default for Steve's sphere assemblies: direct connection.</strong> Where the foam layout allows, the sphere, stub and sleeve balun screw straight onto the TinySA RF port, saving a cable and two connector joints per antenna (see <a href="#sphere-detail">sphere detail</a>). This default is provisional and will be confirmed per assembly from the measured RF noise coupling. The swap pocket below is still used for the bifilar coil, the telescoping antenna and the probe.</p>
 <p><strong>Antenna swap procedure:</strong> every antenna cableway ends at a small swap pocket (coax manifold) next to the TinySA RF port. Connect one antenna lead to the RF port with a short jumper. Cap the parked leads and leave them coiled in the swap pocket. Log which antenna was on RF, then close the mesh. Use a torque wrench or finger tight plus a quarter turn, and do not let the jumper bend at the port.</p>
 
 <h2 id="tx">Yellow case: transmitter (closed during tests)</h2>
@@ -119,7 +120,11 @@
 <ul>
 <li><strong>A. Direct:</strong> the SMA male goes straight into the TinySA RF port. Shortest and simplest, but the TinySA body sits about 9 cm behind the sphere and becomes part of the antenna environment.</li>
 <li><strong>B. Short SMA cable:</strong> a short SMA cable (for example the 30 cm cables that came with the TinySAs) lets the TinySA sit in its own pocket, set back from the sphere, with a bend radius of 25 mm or more. This also fits the swap point scheme. Log which way was used for each run.</li>
+<li><strong>Concerns with direct:</strong> the TinySA body, its screen and digital electronics, its battery and any USB lead all sit close to the sphere, so the TinySA's own RF noise can couple into the antenna, and the case changes the antenna's surroundings and its match.</li>
+<li><strong>How we decide:</strong> compare the noise floor and a known test signal, direct versus cabled, with the transmitter off and then on. Log the results and pick the default per assembly from them.</li>
 </ul>
+<video controls loop muted playsinline poster="img/nanuk/cartoon_frame_split.png" style="max-width:100%"><source src="img/nanuk/sphere_direct_cartoon.mp4" type="video/mp4"><img src="img/nanuk/sphere_direct_cartoon.gif" alt="Cartoon: sphere stub screwing onto the TinySA RF port, then direct versus cabled"></video>
+<p class="footnote">Cartoon based on Steve's October 6 photos. Direct removes one SMA cable and two connector joints per antenna (less loss, fewer loose joints), but the TinySA body sits about 9 cm behind the sphere. Cabled is the comparison run. Log which was used. <a href="img/nanuk/sphere_direct_cartoon.gif">GIF version</a></p>
 
 <h2 id="data-capture">Data capture</h2>
 <p>Two equal methods, chosen by run length. Mode 1 and Mode 2 keep everything inside the mesh. The sealed USB option below is a later, measured exception for live logging to Steve's laptop.</p>
