@@ -113,11 +113,12 @@
 <p>The foam drawings above now show the green link arrow, the stubs pointing along it, an upright sphere cradle, and the coil standing on edge in a slot.</p>
 
 <h2 id="data-capture">Data capture</h2>
-<p>Two equal methods, chosen by run length. In both, nothing crosses the cage during a run.</p>
+<p>Two equal methods, chosen by run length. Mode 1 and Mode 2 keep everything inside the mesh. The sealed USB option below is a later, measured exception for live logging to Steve's laptop.</p>
 <h3 id="mode1">Mode 1: per run SD saves (short runs)</h3>
 <ul>
 <li>A microSD card in each TinySA Ultra+. Everything is done with the stylus through the mesh.</li>
 <li>Storage, then SAVE TRACES (CSV of the trace data) and SAVE CAPTURE (BMP screenshot). Turn on AUTO NAME for date and time file names. On newer firmware, tapping the SD card icon on screen also saves.</li>
+<li><strong>Config metadata caveat (field note from Steve, 16 Oct 2026):</strong> SAVE TRACES keeps the level vs frequency points only. It does not store date and time, power level, RBW/VBW, or start and stop frequencies. Write those in the run log (and use a SAVE CAPTURE screenshot when you need a settings record).</li>
 <li>Per run: a Max Hold trace, plus an optional averaging trace, over a fixed duration. Save at the end.</li>
 <li>Afterward: copy files with the TinySA in USB DISK mode, or pull the card into a card reader.</li>
 </ul>
@@ -133,10 +134,11 @@
 <h3 id="laptop">Getting data to Steve's laptop (detector end)</h3>
 <p>Steve's laptop sits on the detector end portable bench, outside the cage. Two ways to move data:</p>
 <ul>
-<li><strong>Sealed USB, live logging (preferred for long runs):</strong> one USB cable may pass through the detector cage to the laptop for live, timestamped logging, provided it is sealed well and the leakage is measured and logged.
+<li><strong>Sealed USB, live logging (preferred for long runs):</strong> one USB path may pass through the detector cage to the laptop for live, timestamped logging, provided it is sealed well and the leakage is measured and logged.
  <ul>
- <li>Use a short shielded USB cable (the TinySA Ultra+ end is USB-C) with clip ferrites at both ends.</li>
- <li>Where it crosses the mesh, bond the cable shield 360 degrees to the screen (copper tape with conductive adhesive, wrapped and pressed onto bared shield and mesh), or use a USB-C panel mount feedthrough bonded to the screen.</li>
+ <li>Inside the cage: a short shielded USB-C to USB-C cable (about 1 ft) from the TinySA Ultra+ to the feedthrough, with clip ferrites.</li>
+ <li>At the mesh: a USB-C panel mount feedthrough on a small metal plate bonded 360 degrees to the screen (conductive-adhesive copper tape on bared shield and mesh).</li>
+ <li>Outside to the laptop: a shielded cable with ferrites. USB-C laptop: Digirig shielded USB-C to C, about 2 m. USB-A laptop: L-com CAU2CA-1M (C to A, 1 m) or equivalent. Steve's port is still TBD.</li>
  <li>Leakage check every session: record the noise floor and a known test signal with the cable connected and disconnected, and log both. If the connected noise floor is clearly higher, fix the bond before running.</li>
  </ul></li>
 <li><strong>SD hand carry (fallback):</strong> at breaks, open the mesh, pull the TinySA microSD (and the Pi card after long runs), copy it on the laptop with the card reader, put the card back, and reseal the seams.</li>
@@ -149,12 +151,13 @@
 <li>Steve's laptop (on battery) and the card reader a few feet away at the other end, with the run log.</li>
 </ul>
 <h3 id="buy-list">Buy list (sealed USB option)</h3>
-<p>Prices as listed around October 2026. Check before ordering. Nothing has been bought.</p>
+<p>Proposed to Steve on 16 Oct 2026 for edit or approval, then ship to Pensacola. Prices as listed around October 2026. Check before ordering. Nothing has been bought.</p>
 <ul>
-<li><strong>Clip ferrites for USB cables:</strong> Fair-Rite 0431164281 (31 mix, 1 to 300 MHz, fits cables up to 6.6 mm), about $2 to $3 each at <a href="https://www.mouser.com/ProductDetail/Fair-Rite/0431164281">Mouser</a> or DigiKey. For UHF and the 1296 MHz band add Fair-Rite <a href="https://fair-rite.com/product/round-cable-snap-its-461164281/">0461164281</a> (61 mix, 200 MHz to 1 GHz), about $2.85 at Mouser. Ferrites lose effect above about 1 GHz, so the shield bond matters more there.</li>
-<li><strong>Short shielded USB-C cable:</strong> <a href="https://www.amazon.com/Digirig-Shielded-Short-USB-C-Ferrites/dp/B0BJ182J9J">Digirig shielded short USB-A to USB-C with ferrites</a>, 15 in, about $13. Alternative: a 1 ft braided shielded USB-A to USB-C cable (Amazon Basics or StarTech USB2AC1FTBK, about $8 to $10) plus clip ferrites.</li>
-<li><strong>USB-C panel mount feedthrough:</strong> <a href="https://www.redco.com/Redco-USB-C-Panel-Mount-Feedthru.html">Redco USB-C panel mount feedthru</a> (D series hole, metal shell), $12.95, or <a href="https://marvac.com/products/usbc-pnlmt1-usb-3-1-type-c-panel-mount-coupler-usb-c-pass-through-connector-female-to-female-bulkhead-extension-adapter">MarVac USBC-PNLMT1</a>, about $14.95. Mount it on a small metal plate bonded to the mesh.</li>
-<li><strong>Copper tape with conductive adhesive:</strong> 3M 1181 (1/2 in x 54 ft, about $65 at DigiKey), or a budget roll such as <a href="https://www.amazon.com/Bertech-Copper-Conductive-Yards-Thick/dp/B009KB8CRS">Bertech copper foil tape, conductive adhesive, 1 in</a>.</li>
+<li><strong>Inside the cage:</strong> a short shielded USB-C to USB-C cable, about 1 ft, from the TinySA to the feedthrough (plus clip ferrites).</li>
+<li><strong>Feedthrough:</strong> <a href="https://www.redco.com/Redco-USB-C-Panel-Mount-Feedthru.html">Redco USB-C panel mount feedthru</a> (D series hole, metal shell), $12.95, mounted on a small metal plate bonded to the mesh. Alternative: <a href="https://marvac.com/products/usbc-pnlmt1-usb-3-1-type-c-panel-mount-coupler-usb-c-pass-through-connector-female-to-female-bulkhead-extension-adapter">MarVac USBC-PNLMT1</a>, about $14.95.</li>
+<li><strong>Outside to laptop (pick one once Steve's port is known):</strong> USB-C laptop: <a href="https://www.amazon.com/Digirig-Shielded-USB-C-Cable-Ferrites/dp/B0FMC8V8J9">Digirig shielded USB-C to C, 2 m, ferrites on both ends</a>, about $12.97. USB-A laptop: <a href="https://southernele.com/l-com-cau2ca-1m/">L-com CAU2CA-1M</a>, double shielded C to A, 1 m, about $34.99.</li>
+<li><strong>Clip ferrites:</strong> Fair-Rite <a href="https://fair-rite.com/product/round-cable-snap-its-461164281/">0461164281</a> (61 mix, 200 MHz to 1 GHz), about $2.85 each at Mouser, a few spares. Optional lower-band: Fair-Rite <a href="https://www.mouser.com/ProductDetail/Fair-Rite/0431164281">0431164281</a> (31 mix). Ferrites lose effect above about 1 GHz, so the 360 degree shield bond and the per-session leakage check matter most.</li>
+<li><strong>Conductive adhesive copper tape:</strong> 3M 1181 (1/2 in x 54 ft, about $65 at DigiKey), or a budget roll such as <a href="https://www.amazon.com/Bertech-Copper-Conductive-Yards-Thick/dp/B009KB8CRS">Bertech copper foil tape, conductive adhesive, 1 in</a>, unless Steve still has enough from the Lowe's roll.</li>
 </ul>
 <h3 id="runlog">Run log (both modes)</h3>
 <p>Record the file names with the configuration: mode, parts in or out, cage open or closed, distance, which antenna is on RF, and H10 or E5 on the probe TinySA. Steve, this section is open for your input, especially on save intervals and file handling in the field.</p>
