@@ -104,13 +104,22 @@
 <h3 id="orientation">Recommended orientations (both cases flat)</h3>
 <p>Both cases rest flat, the orange lid open, and neither case goes on its side. For a horizontal link between the cases, the hypothesized lobe should point at the other case, so each element axis should be <strong>horizontal along the link line</strong>.</p>
 <ul>
-<li><strong>Spheres:</strong> flat sphere cradle, stub level along the link. The sphere, its RG-405 stub and the copper sleeve balun lie flat in the foam with the stub horizontal on the link line; the cradle only keeps the sphere from rolling. (A detail drawing of the sphere to TinySA run will follow once Steve sends a reference photo.) Run A with the stub facing away from the other case (opposite pole toward it), and run B with the stub facing it. The difference tests the lobe or null idea directly. A vertical stub would point the lobe up out of the open lid and away from the far case, so keep that only as a comparison run.</li>
+<li><strong>Spheres:</strong> flat sphere cradle, stub level along the link. The sphere, its RG-405 stub and the copper sleeve balun lie flat in the foam with the stub horizontal on the link line; the cradle only keeps the sphere from rolling. See the <a href="#sphere-detail">sphere and stub detail</a> below. Run A with the stub facing away from the other case (opposite pole toward it), and run B with the stub facing it. The difference tests the lobe or null idea directly. A vertical stub would point the lobe up out of the open lid and away from the far case, so keep that only as a comparison run.</li>
 <li><strong>Bifilar coil:</strong> stand it on edge in a foam slot so its axis is horizontal along the link (90 degrees to lying flat, as Dan suggested). Lying flat puts the axis vertical and, in this model, the scalar lobe straight up.</li>
 <li><strong>Telescoping antenna:</strong> lie it along the link line, which already fits its storage slot.</li>
 <li><strong>Useful side effect:</strong> with every axis along the link, the conventional TEM patterns put their nulls toward the other case, so TEM leakage across the link is at a minimum just where the SLW/SW hypothesis peaks. A rotated control (axis 90 degrees off the link) should then raise TEM and lower the hypothesized SLW/SW signal.</li>
 <li>Mark the link direction on both cases and log the orientation and stub direction every run.</li>
 </ul>
 <p>The foam drawings above now show the green link arrow, the stubs pointing along it, a flat sphere cradle with the stub level along the link, and the coil standing on edge in a slot.</p>
+
+<h3 id="sphere-detail">Sphere, stub and sleeve balun in the foam</h3>
+<figure><img src="img/nanuk/steve-sphere-stub-composite.jpg" alt="Copper sleeve balun stub with SMA male on a caliper, the 3/4 in sphere on the stub at a TinySA, and the stub plugged into the TinySA RF port" style="max-width:100%"><figcaption class="footnote">Photos: Steve Morris, October 2026 (cropped). Top: stub and copper sleeve balun with SMA male on a caliper. Middle: the 3/4 in sphere on the stub at the TinySA. Bottom: stub plugged straight into the TinySA RF port.</figcaption></figure>
+<img src="img/nanuk/sphere_stub_detail.png" alt="Concept drawing: sphere, stub and sleeve balun lying flat in foam, connected directly to the TinySA RF port or through a short SMA cable" style="max-width:100%">
+<p>Approximate sizes read from Steve's caliper photo: sphere 19 mm, exposed centre conductor about 11 mm, copper sleeve about 56 mm long (3/16 in K&amp;S tube), bare RG-405 about 17 mm, then the SMA male. The whole assembly lies flat in a foam channel with the stub level along the link; the flat cradle only stops the sphere rolling.</p>
+<ul>
+<li><strong>A. Direct:</strong> the SMA male goes straight into the TinySA RF port. Shortest and simplest, but the TinySA body sits about 9 cm behind the sphere and becomes part of the antenna environment.</li>
+<li><strong>B. Short SMA cable:</strong> a short SMA cable (for example the 30 cm cables that came with the TinySAs) lets the TinySA sit in its own pocket, set back from the sphere, with a bend radius of 25 mm or more. This also fits the swap point scheme. Log which way was used for each run.</li>
+</ul>
 
 <h2 id="data-capture">Data capture</h2>
 <p>Two equal methods, chosen by run length. Mode 1 and Mode 2 keep everything inside the mesh. The sealed USB option below is a later, measured exception for live logging to Steve's laptop.</p>
