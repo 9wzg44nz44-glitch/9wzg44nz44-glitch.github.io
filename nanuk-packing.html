@@ -87,6 +87,31 @@
 <h2 id="metal">Excess metal note</h2>
 <p>If the unused spheres or the bifilar coil (excess metal inside the cage) appear to interfere with SLW/SW detection, temporarily remove them from one or both cases as observed. Log the configuration for every run: which antenna is on RF, which probe (H10 or E5), and which parts were left in or taken out.</p>
 
+<h2 id="beam-patterns">Beam patterns and antenna orientation</h2>
+<p><strong>Hypothesis model, not a prediction.</strong> There is no accepted radiation model for SLW/SW. These patterns follow Hively's published EED framing: a longitudinal field driven by the scalar C = div A + (1/c&sup2;) d&Phi;/dt, sourced where charge and current fail to obey continuity locally (feed points, sphere surface charge oscillation, coil ends). The shapes and weights below are our assumptions, chosen to be plausible, not derived from a validated solver. The conventional TEM patterns are standard textbook forms (short dipole or monopole, half wave dipole, small loop). Bob Greenyer's tools do not apply to RF or scalar prediction.</p>
+<ul>
+<li><strong>Spheres with stub:</strong> assumed isotropic C from the sphere centre plus a dipolar term on the stub axis, pattern |1 + k cos&theta;|&sup2; (k = 0.6 for the 3/4 in, 0.9 for the 2.5 in, both assumed). That gives a strong lobe on one pole and a near null on the other, matching Dan's idea. The model cannot say which pole gets the lobe (the sign of k is unknown), so test both. TEM for the same element has its null on the stub axis.</li>
+<li><strong>Bifilar coil:</strong> in the counter wound case the transverse fields cancel, so any residual scalar component is taken along the coil axis (cos&sup2;&theta;). TEM (small loop) has its null on the axis.</li>
+<li><strong>Telescoping antenna:</strong> charge pileup at the feed and tip, along the wire axis (cos&sup2;&theta;). TEM (half wave dipole) has its null on the axis.</li>
+</ul>
+<img src="img/nanuk/beam_sphere34.png" alt="3/4 in sphere beam pattern hypothesis vs TEM" style="max-width:100%">
+<img src="img/nanuk/beam_sphere250.png" alt="2.5 in sphere beam pattern hypothesis vs TEM" style="max-width:100%">
+<img src="img/nanuk/beam_bifilar.png" alt="Bifilar coil beam pattern hypothesis vs TEM" style="max-width:100%">
+<img src="img/nanuk/beam_telescoping.png" alt="Telescoping antenna beam pattern hypothesis vs TEM" style="max-width:100%">
+<p>Tilting each element from axis vertical to axis horizontal along the link (red = SLW/SW hypothesis, blue = TEM):</p>
+<video controls loop muted playsinline poster="img/nanuk/beam_tilt_final.png" style="max-width:100%"><source src="img/nanuk/beam_tilt.mp4" type="video/mp4"><img src="img/nanuk/beam_tilt.gif" alt="Tilt animation"></video>
+<p><a href="img/nanuk/beam_tilt.gif">GIF version</a></p>
+<h3 id="orientation">Recommended orientations (both cases flat)</h3>
+<p>Both cases rest flat, the orange lid open, and neither case goes on its side. For a horizontal link between the cases, the hypothesized lobe should point at the other case, so each element axis should be <strong>horizontal along the link line</strong>.</p>
+<ul>
+<li><strong>Spheres:</strong> stub horizontal, on the link line, in an upright foam cradle. Run A with the stub facing away from the other case (opposite pole toward it), and run B with the stub facing it. The difference tests the lobe or null idea directly. A vertical stub would point the lobe up out of the open lid and away from the far case, so keep that only as a comparison run.</li>
+<li><strong>Bifilar coil:</strong> stand it on edge in a foam slot so its axis is horizontal along the link (90 degrees to lying flat, as Dan suggested). Lying flat puts the axis vertical and, in this model, the scalar lobe straight up.</li>
+<li><strong>Telescoping antenna:</strong> lie it along the link line, which already fits its storage slot.</li>
+<li><strong>Useful side effect:</strong> with every axis along the link, the conventional TEM patterns put their nulls toward the other case, so TEM leakage across the link is at a minimum just where the SLW/SW hypothesis peaks. A rotated control (axis 90 degrees off the link) should then raise TEM and lower the hypothesized SLW/SW signal.</li>
+<li>Mark the link direction on both cases and log the orientation and stub direction every run.</li>
+</ul>
+<p>The foam drawings above now show the green link arrow, the stubs pointing along it, an upright sphere cradle, and the coil standing on edge in a slot.</p>
+
 <h2 id="data-capture">Data capture</h2>
 <p>Two equal methods, chosen by run length. In both, nothing crosses the cage during a run.</p>
 <h3 id="mode1">Mode 1: per run SD saves (short runs)</h3>
