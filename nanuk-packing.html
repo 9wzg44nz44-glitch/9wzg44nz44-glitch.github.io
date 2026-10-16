@@ -131,16 +131,30 @@
 <li>The Pi logger pocket is in the bottom layer of both cases, next to the power channel that rises to the TinySA (see the battery layer drawing).</li>
 </ul>
 <h3 id="laptop">Getting data to Steve's laptop (detector end)</h3>
+<p>Steve's laptop sits on the detector end portable bench, outside the cage. Two ways to move data:</p>
 <ul>
-<li>Steve's laptop sits on the detector end portable bench, outside the cage. The detector cage stays closed during runs.</li>
-<li>Data moves by hand: at breaks, open the mesh, pull the TinySA microSD (and the Pi card after long runs), copy it on the laptop with the card reader, put the card back, and reseal the mesh seams.</li>
-<li>No cables pass through the detector cage until a sealed penetration (a bonded, filtered feedthrough or a fiber link) has been proven by a noise floor comparison against the closed cage.</li>
-<li>Keep the laptop a few feet from the cage and running on battery, not the charger. Check the noise floor with the laptop on and off, and log both.</li>
+<li><strong>Sealed USB, live logging (preferred for long runs):</strong> one USB cable may pass through the detector cage to the laptop for live, timestamped logging, provided it is sealed well and the leakage is measured and logged.
+ <ul>
+ <li>Use a short shielded USB cable (the TinySA Ultra+ end is USB-C) with clip ferrites at both ends.</li>
+ <li>Where it crosses the mesh, bond the cable shield 360 degrees to the screen (copper tape with conductive adhesive, wrapped and pressed onto bared shield and mesh), or use a USB-C panel mount feedthrough bonded to the screen.</li>
+ <li>Leakage check every session: record the noise floor and a known test signal with the cable connected and disconnected, and log both. If the connected noise floor is clearly higher, fix the bond before running.</li>
+ </ul></li>
+<li><strong>SD hand carry (fallback):</strong> at breaks, open the mesh, pull the TinySA microSD (and the Pi card after long runs), copy it on the laptop with the card reader, put the card back, and reseal the seams.</li>
+<li>Keep the laptop a few feet from the cage and on battery, not the charger. Check the noise floor with the laptop on and off, and log both.</li>
+<li>Set each TinySA's clock before a session so AUTO NAME file names and logged timestamps line up with the laptop and run log.</li>
 </ul>
 <h3 id="bench">Detector bench layout</h3>
 <ul>
 <li>Orange case, open, with its contents closed inside the mesh, at one end of the bench.</li>
 <li>Steve's laptop (on battery) and the card reader a few feet away at the other end, with the run log.</li>
+</ul>
+<h3 id="buy-list">Buy list (sealed USB option)</h3>
+<p>Prices as listed around October 2026. Check before ordering. Nothing has been bought.</p>
+<ul>
+<li><strong>Clip ferrites for USB cables:</strong> Fair-Rite 0431164281 (31 mix, 1 to 300 MHz, fits cables up to 6.6 mm), about $2 to $3 each at <a href="https://www.mouser.com/ProductDetail/Fair-Rite/0431164281">Mouser</a> or DigiKey. For UHF and the 1296 MHz band add Fair-Rite <a href="https://fair-rite.com/product/round-cable-snap-its-461164281/">0461164281</a> (61 mix, 200 MHz to 1 GHz), about $2.85 at Mouser. Ferrites lose effect above about 1 GHz, so the shield bond matters more there.</li>
+<li><strong>Short shielded USB-C cable:</strong> <a href="https://www.amazon.com/Digirig-Shielded-Short-USB-C-Ferrites/dp/B0BJ182J9J">Digirig shielded short USB-A to USB-C with ferrites</a>, 15 in, about $13. Alternative: a 1 ft braided shielded USB-A to USB-C cable (Amazon Basics or StarTech USB2AC1FTBK, about $8 to $10) plus clip ferrites.</li>
+<li><strong>USB-C panel mount feedthrough:</strong> <a href="https://www.redco.com/Redco-USB-C-Panel-Mount-Feedthru.html">Redco USB-C panel mount feedthru</a> (D series hole, metal shell), $12.95, or <a href="https://marvac.com/products/usbc-pnlmt1-usb-3-1-type-c-panel-mount-coupler-usb-c-pass-through-connector-female-to-female-bulkhead-extension-adapter">MarVac USBC-PNLMT1</a>, about $14.95. Mount it on a small metal plate bonded to the mesh.</li>
+<li><strong>Copper tape with conductive adhesive:</strong> 3M 1181 (1/2 in x 54 ft, about $65 at DigiKey), or a budget roll such as <a href="https://www.amazon.com/Bertech-Copper-Conductive-Yards-Thick/dp/B009KB8CRS">Bertech copper foil tape, conductive adhesive, 1 in</a>.</li>
 </ul>
 <h3 id="runlog">Run log (both modes)</h3>
 <p>Record the file names with the configuration: mode, parts in or out, cage open or closed, distance, which antenna is on RF, and H10 or E5 on the probe TinySA. Steve, this section is open for your input, especially on save intervals and file handling in the field.</p>
