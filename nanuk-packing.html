@@ -67,13 +67,8 @@
 <img src="img/nanuk/yellow_tx_top.png" alt="Yellow TX top layer" style="max-width:100%">
 <ul>
 <li>TinySA #1 in SG mode centred, with pockets for the 3/4 in sphere, 2.5 in sphere, bifilar white coil and the chrome telescoping antenna (collapsed slot).</li>
-<li><strong>Coax cableways:</strong> a 6 mm wide channel cut from each antenna pocket to the TinySA, with curves of 25 mm radius or more (RG-405 and RG-316 are fine at that). Each run is labeled at both ends: S34 (3/4 sphere), S250, COIL, TEL, BH (bulkhead).</li>
-<li><strong>The antenna and cage conflict.</strong> If the mesh wraps everything, including the active antenna, the mesh also stops the transmitter's own signal, by roughly 40 to 60 dB at 1296 MHz. The test then measures the cage, not the antenna. Options:
- <ol>
- <li><strong>Recommended:</strong> cage the electronics and battery layers, and put the active antenna outside the cage. Feed it through a bonded SMA bulkhead in the mesh and a sealed gland in the case wall, or through the lid on a short mast. Antennas not in use stay stored inside.</li>
- <li>Keep the antenna inside the case but above the mesh, with the case closed. NANUK polypropylene passes RF with little loss, but it still detunes the antenna slightly, so check S11 with the lid closed.</li>
- <li>Cage everything only for a deliberate "fully shielded TX" control run, labeled as such.</li>
- </ol></li>
+<li><strong>Coax cableways:</strong> a 6 mm wide channel cut from each antenna pocket to the TinySA, with curves of 25 mm radius or more (RG-405 and RG-316 are fine at that). Each run is labeled at both ends: S34 (3/4 sphere), S250, COIL, TEL.</li>
+<li><strong>Cage by design:</strong> the RadioScreen mesh wraps every component in the case, antennas included. The experiment targets SLW and SW (scalar longitudinal and scalar waves, per Hively's published EED framing), which are hypothesized to pass through the cage while the conventional RF TEM field is blocked. The only exception is an Experiment B iteration where the cage is deliberately opened for comparison.</li>
 </ul>
 
 <h2 id="rx">Orange case: receiver/detector (open on the bench table)</h2>
@@ -81,7 +76,7 @@
 <ul>
 <li>TinySA #2 in SA mode on the receive antenna, through a ZK06-UM if needed. TinySA #3 in SA mode on the H10 probe. This uses all three TinySAs.</li>
 <li>The coax cableways run from the receive antenna pocket and the H10 probe pocket to their own TinySA, with the same bend radius and labels. The probe lead has its own channel so it does not couple to the receive line.</li>
-<li><strong>Stylus through the mesh:</strong> RadioScreen at 130 threads per inch has openings of about 0.1 to 0.15 mm. A capacitive stylus works on the resistive TinySA screen only by pressure, so lay the mesh flat on the screen and press. Shielding is about 50 to 60 dB at 1 GHz and somewhat lower at 2.4 GHz and above (estimate). Seams matter more than the cloth. Coarser mesh would make tapping easier but shield worse, so keep the 130 TPI cloth.</li>
+<li><strong>Stylus through the mesh:</strong> the TinySA Ultra+ has a 4 in resistive touch screen (tinysa.org specification), which responds to pressure, not to skin or conductivity. The included stylus therefore works through the mesh: lay the cloth flat on the screen and press firmly. RadioScreen at 130 threads per inch has openings of roughly 0.1 to 0.15 mm, fine enough to read the display. The jog switch also works through the cloth.</li>
 </ul>
 
 <h2 id="anim">Assembly animation</h2>
@@ -98,7 +93,8 @@
 
 <h2 id="cage">Cage, bulkheads, grounding, labels</h2>
 <ul>
-<li>Overlap mesh seams by 50 mm or more and fold them, or close them with conductive tape. Bond the mesh to the SMA bulkhead flange with a clamp ring.</li>
+<li>The mesh wraps all contents, foam and antennas included, in both cases. No cable or connector passes through it.</li>
+<li>Note on the noise floor: conventional TEM leakage through the mesh (about 40 to 60 dB at 1296 MHz, with seams mattering more than the cloth) sets the floor the SLW/SW signal must beat. Overlap seams by 50 mm or more, fold them, and tape and bond them with conductive tape.</li>
 <li>Do not tie the cage to earth ground in the field unless that is the experiment. Note "floating" or "grounded" in the log.</li>
 <li>Label every pocket and cable end. Photograph each packed layer before a run.</li>
 </ul>
