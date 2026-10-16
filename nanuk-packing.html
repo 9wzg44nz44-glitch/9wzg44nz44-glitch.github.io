@@ -88,20 +88,32 @@
 <p>If the unused spheres or the bifilar coil (excess metal inside the cage) appear to interfere with SLW/SW detection, temporarily remove them from one or both cases as observed. Log the configuration for every run: which antenna is on RF, which probe (H10 or E5), and which parts were left in or taken out.</p>
 
 <h2 id="data-capture">Data capture</h2>
-<p>Everything below is done with the stylus through the mesh, so nothing crosses the cage during a run.</p>
+<p>Two equal methods, chosen by run length. In both, nothing crosses the cage during a run.</p>
+<h3 id="mode1">Mode 1: per run SD saves (short runs)</h3>
 <ul>
-<li><strong>Storage:</strong> a microSD card in each TinySA Ultra+.</li>
-<li><strong>Saving:</strong> use Storage, then SAVE TRACES (CSV of the trace data) and SAVE CAPTURE (BMP screenshot). Turn on AUTO NAME so files get date and time names. On newer firmware, tapping the SD card icon on screen also saves.</li>
-<li><strong>Per run:</strong> a Max Hold trace, plus an optional averaging trace, over a fixed duration. Save at the end of the run.</li>
-<li><strong>Run log:</strong> record the file name with the configuration: parts in or out, cage open or closed, distance, which antenna is on RF, and H10 or E5 on the probe TinySA.</li>
-<li><strong>Afterward:</strong> copy the files with the TinySA in USB DISK mode, or pull the card and use a card reader.</li>
-<li><strong>Phase 2, continuous logging:</strong> tinySA-App, QtTinySA or a Python script over USB. The logger has to be battery powered and inside the cage (for example a Raspberry Pi on a power bank), because a USB cable out of the cage would compromise it.</li>
+<li>A microSD card in each TinySA Ultra+. Everything is done with the stylus through the mesh.</li>
+<li>Storage, then SAVE TRACES (CSV of the trace data) and SAVE CAPTURE (BMP screenshot). Turn on AUTO NAME for date and time file names. On newer firmware, tapping the SD card icon on screen also saves.</li>
+<li>Per run: a Max Hold trace, plus an optional averaging trace, over a fixed duration. Save at the end.</li>
+<li>Afterward: copy files with the TinySA in USB DISK mode, or pull the card into a card reader.</li>
 </ul>
-<p>Steve, this section is open for your input, especially on save intervals and file handling in the field.</p>
+<h3 id="mode2">Mode 2: continuous collection (long runs)</h3>
+<ul>
+<li>A battery powered logger inside the cage: a Raspberry Pi Zero 2 W, or a Pi 4 or 5, on its own USB power bank. Each TinySA connects to it with a short USB cable.</li>
+<li>A Python script (or QtTinySA) sweeps each TinySA and writes timestamped CSV files to the Pi's card.</li>
+<li>The Pi, its battery and every USB cable stay inside the mesh. A cable out of the cage would compromise it.</li>
+<li>Power budget (estimate): a Pi Zero 2 W draws about 0.6 to 1.5 W, and a Pi 4 or 5 about 3 to 7 W. A 20,000 mAh bank (about 74 Wh, roughly 55 Wh usable) runs a Zero 2 W for 35 hours or more, and a Pi 4 or 5 for about 8 to 15 hours. A connected TinySA may also charge from the Pi's USB port, so add about 2.5 W per TinySA until its battery is full, or budget a bigger bank.</li>
+<li>Logger RF noise: Pis radiate clock and switching noise. Put clip ferrites on each USB lead at both ends, keep the Pi in its own foam pocket away from the antenna cableways, and consider a small metal or foil shield around the Pi. Check the noise floor with the transmitter off and the logger running before each long run, and log it.</li>
+<li>The Pi logger pocket is in the bottom layer of both cases, next to the power channel that rises to the TinySA (see the battery layer drawing).</li>
+</ul>
+<h3 id="runlog">Run log (both modes)</h3>
+<p>Record the file names with the configuration: mode, parts in or out, cage open or closed, distance, which antenna is on RF, and H10 or E5 on the probe TinySA. Steve, this section is open for your input, especially on save intervals and file handling in the field.</p>
 <h3 id="packing-list">Packing list additions</h3>
 <ul>
-<li>microSD cards: one per TinySA (three), plus spares.</li>
-<li>USB microSD card reader.</li>
+<li>microSD cards: one per TinySA (three), plus spares; USB microSD card reader.</li>
+<li>Raspberry Pi logger (Zero 2 W, or Pi 4 or 5) with its own microSD card.</li>
+<li>Short USB cables (TinySA to Pi), one per TinySA, plus a spare.</li>
+<li>Clip ferrites for the USB leads.</li>
+<li>Extra USB power bank for the logger.</li>
 </ul>
 
 <h2 id="anim">Assembly animation</h2>
