@@ -105,11 +105,24 @@
 <li>Logger RF noise: Pis radiate clock and switching noise. Put clip ferrites on each USB lead at both ends, keep the Pi in its own foam pocket away from the antenna cableways, and consider a small metal or foil shield around the Pi. Check the noise floor with the transmitter off and the logger running before each long run, and log it.</li>
 <li>The Pi logger pocket is in the bottom layer of both cases, next to the power channel that rises to the TinySA (see the battery layer drawing).</li>
 </ul>
+<h3 id="laptop">Getting data to Steve's laptop (detector end)</h3>
+<ul>
+<li>Steve's laptop sits on the detector end portable bench, outside the cage. The detector cage stays closed during runs.</li>
+<li>Data moves by hand: at breaks, open the mesh, pull the TinySA microSD (and the Pi card after long runs), copy it on the laptop with the card reader, put the card back, and reseal the mesh seams.</li>
+<li>No cables pass through the detector cage until a sealed penetration (a bonded, filtered feedthrough or a fiber link) has been proven by a noise floor comparison against the closed cage.</li>
+<li>Keep the laptop a few feet from the cage and running on battery, not the charger. Check the noise floor with the laptop on and off, and log both.</li>
+</ul>
+<h3 id="bench">Detector bench layout</h3>
+<ul>
+<li>Orange case, open, with its contents closed inside the mesh, at one end of the bench.</li>
+<li>Steve's laptop (on battery) and the card reader a few feet away at the other end, with the run log.</li>
+</ul>
 <h3 id="runlog">Run log (both modes)</h3>
 <p>Record the file names with the configuration: mode, parts in or out, cage open or closed, distance, which antenna is on RF, and H10 or E5 on the probe TinySA. Steve, this section is open for your input, especially on save intervals and file handling in the field.</p>
 <h3 id="packing-list">Packing list additions</h3>
 <ul>
-<li>microSD cards: one per TinySA (three), plus spares; USB microSD card reader.</li>
+<li>microSD cards: one per TinySA (three), plus spares; USB microSD card reader (for the laptop at the detector bench).</li>
+<li>Steve's laptop, charged, for the detector bench (outside the cage).</li>
 <li>Raspberry Pi logger (Zero 2 W, or Pi 4 or 5) with its own microSD card.</li>
 <li>Short USB cables (TinySA to Pi), one per TinySA, plus a spare.</li>
 <li>Clip ferrites for the USB leads.</li>
