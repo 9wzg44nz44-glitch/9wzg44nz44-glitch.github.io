@@ -208,6 +208,30 @@
 <h2 id="vna">VNA6000-A: keep it out of the cases</h2>
 <p>Use it at the bench table for pre-run and post-run S11 checks of each antenna, lid open and lid closed, and for cable checks. Inside a case it adds heat and USB cables and does nothing during a run. If space allows, add an optional padded pocket in the orange lid foam so it travels with the receiver.</p>
 
+<h2 id="bifilar">Bifilar coil detector update (17 Oct 2026)</h2>
+<p>Dan and Steve have been testing a bifilar-coil detector inside a sealed Faraday cage, with a 2.45 GHz microwave oven as the source and a TinySA Ultra reading the coil. Two coil builds are in play.</p>
+<ul>
+<li><strong>Poor man's version:</strong> two pancake coils, one flipped, joined at the center conductor so their currents oppose. The outer leads go to SMA and into the TinySA. The incoming field reaches the first coil at full strength and the second coil only after passing the first, so the pair has a built-in front-to-back gradient.</li>
+<li><strong>Rich man's version (patent geometry):</strong> one continuous wire doubled back on itself, so both opposing legs are driven at the same time instead of one after the other.</li>
+</ul>
+<h3>What the current wiring can and can't show</h3>
+<ul>
+<li>As wired, the TinySA sees the two coil outputs subtracted, so the first-coil versus second-coil difference can't be measured yet.</li>
+<li>Gradient test: split the center joint, read each coil on its own TinySA at the same time, then swap which coil faces the oven. A difference that follows position rather than the coil itself would be the interesting result.</li>
+<li>The true bifilar rejects ordinary magnetic pickup better than two stacked pancakes. Neither rejects electric-field pickup on the leads, so lead routing matters.</li>
+</ul>
+<h3>Solder versus alligator clip</h3>
+<p>The leading ordinary explanation for a bifilar-only response is the alligator-clip joint: an oxidized clip contact can rectify 2.45 GHz bursts into low-frequency hash on the analyzer. Running the same coil soldered and clipped is the key control, and it should come before any other change.</p>
+<h3>Modeling</h3>
+<p>Full-wave openEMS models of both coil types inside a sealed cage are running at 2.45 GHz and 1.3 GHz. They model ordinary Maxwell leakage only, as the baseline any scalar or longitudinal claim has to beat.</p>
+<h3>Ask for Steve</h3>
+<ul>
+<li>Build the next poor man's bifilar with a <strong>soldered joint at the center connector hole</strong>, not an alligator clip.</li>
+<li>Convert Dan's existing first coil from alligator clip to solder, and run the soldered-versus-clipped comparison before any other changes.</li>
+<li>Keep both coils flat, pancake style, facing the oven.</li>
+</ul>
+<p class="footnote">Educational and exploratory. The longitudinal-wave idea behind the bifilar test is a hypothesis, not settled physics.</p>
+
 <h2 id="comments">Comments welcome</h2>
 <p>Steve, or anyone: <a href="https://github.com/9wzg44nz44-glitch/9wzg44nz44-glitch.github.io/issues/new?title=NANUK%20packing%20comment&amp;body=Section%20(e.g.%20%23tx%2C%20%23rx%2C%20%23heat)%3A%0A%0AComment%3A%0A">comment on GitHub (opens a prefilled issue)</a> or <a href="mailto:BrittonSolutions@icloud.com?subject=NANUK%20packing%20comment">email a comment</a>. Quote the section heading so we know where it goes.</p>
 </div>
