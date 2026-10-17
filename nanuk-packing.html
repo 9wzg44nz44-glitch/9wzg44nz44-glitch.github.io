@@ -214,16 +214,21 @@
 <li><strong>Poor man's version:</strong> two pancake coils, one flipped, joined at the center conductor so their currents oppose. The outer leads go to SMA and into the TinySA. The incoming field reaches the first coil at full strength and the second coil only after passing the first, so the pair has a built-in front-to-back gradient.</li>
 <li><strong>Rich man's version (patent geometry):</strong> one continuous wire doubled back on itself, so both opposing legs are driven at the same time instead of one after the other.</li>
 </ul>
+<figure><img src="img/nanuk/bifilar_rich_mans.png" alt="Cartoon: rich man's bifilar, one continuous wire folded at its midpoint and wound as a flat spiral, neighbouring turns carrying opposite current" style="max-width:100%"><figcaption class="footnote">Cartoon, not to scale. Rich man's (patent-geometry) bifilar: one wire doubled back and wound flat, so both legs carry opposing current at the same time.</figcaption></figure>
 <h3>What the current wiring can and can't show</h3>
 <ul>
 <li>As wired, the TinySA sees the two coil outputs subtracted, so the first-coil versus second-coil difference can't be measured yet.</li>
 <li>Gradient test: split the center joint, read each coil on its own TinySA at the same time, then swap which coil faces the oven. A difference that follows position rather than the coil itself would be the interesting result.</li>
 <li>The true bifilar rejects ordinary magnetic pickup better than two stacked pancakes. Neither rejects electric-field pickup on the leads, so lead routing matters.</li>
 </ul>
+<video controls loop muted playsinline poster="img/nanuk/bifilar_gradient_poster.png" style="max-width:100%"><source src="img/nanuk/bifilar_gradient.mp4" type="video/mp4"><img src="img/nanuk/bifilar_gradient.gif" alt="Animation: oven wave hits coil 1 at full strength and coil 2 weaker; then one TinySA per coil; then the coils are swapped"></video>
+<p class="footnote">Cartoon animation, not to scale; bar heights are illustrative, not measured. Coil 1 sees full strength, coil 2 sees what's left. Split the center joint, read each coil on its own TinySA, then swap the coils: a difference that follows position, not coil, is the interesting result. <a href="img/nanuk/bifilar_gradient.gif">GIF version</a></p>
 <h3>Solder versus alligator clip</h3>
 <p>The leading ordinary explanation for a bifilar-only response is the alligator-clip joint: an oxidized clip contact can rectify 2.45 GHz bursts into low-frequency hash on the analyzer. Running the same coil soldered and clipped is the key control, and it should come before any other change.</p>
+<figure><img src="img/nanuk/bifilar_poor_mans.png" alt="Cartoon: poor man's bifilar, two pancake coils with one flipped, joined at the center, opposing currents, outer leads to SMA and TinySA; insets compare an alligator clip joint with a soldered joint" style="max-width:100%"><figcaption class="footnote">Cartoon, not to scale. Poor man's bifilar: two pancake coils, one flipped, joined at the center so currents oppose; outer leads go to SMA and the TinySA. Insets: alligator clip (an oxidized contact can rectify 2.45 GHz into low-frequency hash) versus a soldered joint at the center connector hole (preferred).</figcaption></figure>
 <h3>Modeling</h3>
 <p>Full-wave openEMS models of both coil types inside a sealed cage are running at 2.45 GHz and 1.3 GHz. They model ordinary Maxwell leakage only, as the baseline any scalar or longitudinal claim has to beat.</p>
+<figure><img src="img/nanuk/bifilar_openems_cage.png" alt="Diagram: sealed mesh Faraday cage holding both coil types, oven source outside, openEMS runs at 2.45 GHz and 1.3 GHz" style="max-width:100%"><figcaption class="footnote">Illustration, not to scale; not the model geometry. openEMS full-wave baseline at 2.45 GHz and 1.3 GHz for both coil types in a sealed cage, ordinary Maxwell leakage only.</figcaption></figure>
 <h3>Ask for Steve</h3>
 <ul>
 <li>Build the next poor man's bifilar with a <strong>soldered joint at the center connector hole</strong>, not an alligator clip.</li>
